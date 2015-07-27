@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FE51B6609A500F28D73 /* AppDelegate.swift */; };
+		E7A62FE91B6609A500F28D73 /* Bahamut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FE71B6609A500F28D73 /* Bahamut.xcdatamodeld */; };
+		E7A62FEB1B6609A500F28D73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FEA1B6609A500F28D73 /* ViewController.swift */; };
+		E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEC1B6609A500F28D73 /* Main.storyboard */; };
+		E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEF1B6609A500F28D73 /* Images.xcassets */; };
+		E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */; };
+		E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E7A62FF91B6609A500F28D73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7A62FD81B6609A500F28D73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7A62FDF1B6609A500F28D73;
+			remoteInfo = Bahamut;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E7A62FE01B6609A500F28D73 /* Bahamut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bahamut.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7A62FE41B6609A500F28D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7A62FE51B6609A500F28D73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E7A62FE81B6609A500F28D73 /* Bahamut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bahamut.xcdatamodel; sourceTree = "<group>"; };
+		E7A62FEA1B6609A500F28D73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E7A62FED1B6609A500F28D73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E7A62FEF1B6609A500F28D73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E7A62FF21B6609A500F28D73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BahamutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7A62FFD1B6609A500F28D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BahamutTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E7A62FDD1B6609A500F28D73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7A62FF51B6609A500F28D73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7A62FD71B6609A500F28D73 = {
+			isa = PBXGroup;
+			children = (
+				E7A62FE21B6609A500F28D73 /* Bahamut */,
+				E7A62FFB1B6609A500F28D73 /* BahamutTests */,
+				E7A62FE11B6609A500F28D73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E7A62FE11B6609A500F28D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7A62FE01B6609A500F28D73 /* Bahamut.app */,
+				E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
+			isa = PBXGroup;
+			children = (
+				E7A62FE51B6609A500F28D73 /* AppDelegate.swift */,
+				E7A62FEA1B6609A500F28D73 /* ViewController.swift */,
+				E7A62FEC1B6609A500F28D73 /* Main.storyboard */,
+				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
+				E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */,
+				E7A62FE71B6609A500F28D73 /* Bahamut.xcdatamodeld */,
+				E7A62FE31B6609A500F28D73 /* Supporting Files */,
+			);
+			path = Bahamut;
+			sourceTree = "<group>";
+		};
+		E7A62FE31B6609A500F28D73 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7A62FE41B6609A500F28D73 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E7A62FFB1B6609A500F28D73 /* BahamutTests */ = {
+			isa = PBXGroup;
+			children = (
+				E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */,
+				E7A62FFC1B6609A500F28D73 /* Supporting Files */,
+			);
+			path = BahamutTests;
+			sourceTree = "<group>";
+		};
+		E7A62FFC1B6609A500F28D73 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7A62FFD1B6609A500F28D73 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E7A62FDF1B6609A500F28D73 /* Bahamut */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A630021B6609A500F28D73 /* Build configuration list for PBXNativeTarget "Bahamut" */;
+			buildPhases = (
+				E7A62FDC1B6609A500F28D73 /* Sources */,
+				E7A62FDD1B6609A500F28D73 /* Frameworks */,
+				E7A62FDE1B6609A500F28D73 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bahamut;
+			productName = Bahamut;
+			productReference = E7A62FE01B6609A500F28D73 /* Bahamut.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E7A62FF71B6609A500F28D73 /* BahamutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A630051B6609A500F28D73 /* Build configuration list for PBXNativeTarget "BahamutTests" */;
+			buildPhases = (
+				E7A62FF41B6609A500F28D73 /* Sources */,
+				E7A62FF51B6609A500F28D73 /* Frameworks */,
+				E7A62FF61B6609A500F28D73 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E7A62FFA1B6609A500F28D73 /* PBXTargetDependency */,
+			);
+			name = BahamutTests;
+			productName = BahamutTests;
+			productReference = E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7A62FD81B6609A500F28D73 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = GStudio;
+				TargetAttributes = {
+					E7A62FDF1B6609A500F28D73 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					E7A62FF71B6609A500F28D73 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = E7A62FDF1B6609A500F28D73;
+					};
+				};
+			};
+			buildConfigurationList = E7A62FDB1B6609A500F28D73 /* Build configuration list for PBXProject "Bahamut" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E7A62FD71B6609A500F28D73;
+			productRefGroup = E7A62FE11B6609A500F28D73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E7A62FDF1B6609A500F28D73 /* Bahamut */,
+				E7A62FF71B6609A500F28D73 /* BahamutTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E7A62FDE1B6609A500F28D73 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
+				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
+				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7A62FF61B6609A500F28D73 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7A62FDC1B6609A500F28D73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A62FEB1B6609A500F28D73 /* ViewController.swift in Sources */,
+				E7A62FE91B6609A500F28D73 /* Bahamut.xcdatamodeld in Sources */,
+				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7A62FF41B6609A500F28D73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E7A62FFA1B6609A500F28D73 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7A62FDF1B6609A500F28D73 /* Bahamut */;
+			targetProxy = E7A62FF91B6609A500F28D73 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E7A62FEC1B6609A500F28D73 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7A62FED1B6609A500F28D73 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7A62FF21B6609A500F28D73 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E7A630001B6609A500F28D73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7A630011B6609A500F28D73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E7A630031B6609A500F28D73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Bahamut/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E7A630041B6609A500F28D73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Bahamut/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E7A630061B6609A500F28D73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BahamutTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bahamut.app/Bahamut";
+			};
+			name = Debug;
+		};
+		E7A630071B6609A500F28D73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BahamutTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bahamut.app/Bahamut";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7A62FDB1B6609A500F28D73 /* Build configuration list for PBXProject "Bahamut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A630001B6609A500F28D73 /* Debug */,
+				E7A630011B6609A500F28D73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7A630021B6609A500F28D73 /* Build configuration list for PBXNativeTarget "Bahamut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A630031B6609A500F28D73 /* Debug */,
+				E7A630041B6609A500F28D73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E7A630051B6609A500F28D73 /* Build configuration list for PBXNativeTarget "BahamutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A630061B6609A500F28D73 /* Debug */,
+				E7A630071B6609A500F28D73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E7A62FE71B6609A500F28D73 /* Bahamut.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E7A62FE81B6609A500F28D73 /* Bahamut.xcdatamodel */,
+			);
+			currentVersion = E7A62FE81B6609A500F28D73 /* Bahamut.xcdatamodel */;
+			path = Bahamut.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E7A62FD81B6609A500F28D73 /* Project object */;
+}
