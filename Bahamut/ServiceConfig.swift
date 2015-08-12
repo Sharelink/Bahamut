@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct ServiceConfig
+{
+    static let Services:[String:ServiceProtocol] =
+    [
+        AccountService.ServiceName:AccountService(),
+        ReplyService.ServiceName:ReplyService(),
+        ShareService.ServiceName:ShareService(),
+        UserService.ServiceName:UserService(),
+        FileService.ServiceName:FileService()
+    ]
+}

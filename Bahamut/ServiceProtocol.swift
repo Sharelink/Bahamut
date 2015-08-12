@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+@objc
+protocol ServiceProtocol
+{
+    static var ServiceName:String {get}
+    func initService()
+}

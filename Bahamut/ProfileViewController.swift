@@ -6,8 +6,53 @@
 //  Copyright (c) 2015年 GStudio. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController
+{
+    
 
+    private struct Constants{
+        static let SegueNextToInformation:String = "Next To Information"
+    }
+    @IBOutlet weak var nickNameTextfield: UITextField!
+    @IBOutlet weak var saveProfileButton: UIButton!
+    @IBOutlet weak var profileVideoView:UIView!{
+        didSet{
+            
+        }
+    }
+    @IBOutlet weak var headIconImage: UIImageView!{
+        didSet{
+            headIconImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "takeHeadIconPhoto:"))
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    private func initProfileVideoPlayer()
+    {
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    @IBAction func saveProfile()
+    {
+    }
+
+    
+    func captureProfileVideo(_:UIGestureRecognizer! = nil)
+    {
+        println("captureProfileVideo()")
+    }
+    
+    func takeHeadIconPhoto(_:UIGestureRecognizer! = nil)
+    {
+        println("takeHeadIconPhoto()")
+    }
 }

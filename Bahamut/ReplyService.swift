@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class ReplyService: ServiceProtocol
+{
+    @objc static var ServiceName:String {return "reply service"}
+    @objc func initService() {
+        
+    }
+    
+    func getShareIdNotReadMessageCount(shareId:String) -> UInt32
+    {
+        return arc4random() % 20
+    }
+}

@@ -21,7 +21,13 @@ class NewShareViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBOutlet weak var shareDescriptionTextArea: UITextView!
+    @IBOutlet weak var shareContentContainer: UIShareContent!
 
+    @IBAction func share()
+    {
+        
+    }
     /*
     // MARK: - Navigation
 

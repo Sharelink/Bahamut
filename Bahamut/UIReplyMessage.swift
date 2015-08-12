@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 GStudio. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
-class ReplyMessage: UITableViewCell {
+class UIReplyMessage: UITableViewCell {
 
 }
