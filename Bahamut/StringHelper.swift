@@ -7,6 +7,20 @@
 //
 
 import Foundation
+
+class StringHelper
+{
+    static func IntToLetter(letterIndex:Int) -> Character
+    {
+        return (Character(UnicodeScalar(letterIndex)))
+    }
+    
+    static func IntToLetterString(letterIndex:Int) -> String
+    {
+        return "\(IntToLetter(letterIndex))"
+    }
+}
+
 class TestStringHelper
 {
     static func isRegularUserName(userName:String!) -> (isRegular: Bool, message: String)
@@ -15,7 +29,7 @@ class TestStringHelper
         if userName == nil || userName!.isEmpty
         {
             return (false,"userName can't be empty")
-        }else if count(userName!) < 4 || count(userName!) > 20
+        }else if userName.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 4 || userName.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 20
         {
             return (false,"userName length must be 4 to 20")
         }

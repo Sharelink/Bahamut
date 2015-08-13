@@ -48,11 +48,11 @@ class ProfileViewController: UIViewController
     
     func captureProfileVideo(_:UIGestureRecognizer! = nil)
     {
-        println("captureProfileVideo()")
+        print("captureProfileVideo()")
     }
     
     func takeHeadIconPhoto(_:UIGestureRecognizer! = nil)
     {
-        println("takeHeadIconPhoto()")
+        print("takeHeadIconPhoto()")
     }
 }

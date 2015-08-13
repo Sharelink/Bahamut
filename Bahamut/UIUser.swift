@@ -15,12 +15,13 @@ class UIUser: UITableViewCell
             update()
         }
     }
+    
     @IBOutlet weak var headIconImageView: UIImageView!
     @IBOutlet weak var userNickTextField: UILabel!
     
     func update()
     {
-        userNickTextField.text = userModel.nickName
+        userNickTextField.text = userModel.noteName ?? userModel.nickName
         ServiceContainer.getService(FileService).getFile(userModel.headIconId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
         })

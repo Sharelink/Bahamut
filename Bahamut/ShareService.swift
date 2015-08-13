@@ -30,7 +30,7 @@ class ShareThingSortObjectList
     
     func sort()
     {
-        list.sort { (a, b) -> Bool in
+        list.sortInPlace { (a, b) -> Bool in
             a.lastActiveDate.timeIntervalSince1970 > b.lastActiveDate.timeIntervalSince1970
         }
     }
@@ -59,7 +59,7 @@ class ShareThingSortObjectList
                 return
             }
         }
-        var obj = ShareThingSortObject()
+        let obj = ShareThingSortObject()
         obj.shareId = item.shareId
         obj.lastActiveDateString = item.lastActiveTime
         list.insert(obj, atIndex: 0)
@@ -166,8 +166,6 @@ class ShareService: ServiceProtocol
         req.page = 1
         req.pageCount = 10
         ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req, callback: { (result, returnStatus) -> Void in
-            var newValues:[ShareThing]! = nil
-            
             if returnStatus.returnCode == ReturnCode.NotModified
             {
                 returnCallback([ShareThing]())
@@ -296,12 +294,12 @@ class ShareService: ServiceProtocol
         var newValues = [ShareThing]()
         for shareId in 1...7
         {
-            var shareThing = ShareThing()
+            let shareThing = ShareThing()
             shareThing.shareId = "\(100 + shareId)"
-            var sinceDate:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
+            let sinceDate:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
             sinceDate.dateByAddingTimeInterval(Double(arc4random() % (3600 * 24 * 14)))
             shareThing.shareTime = DateHelper.dateToString(sinceDate)
-            var lastActiveTime:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
+            let lastActiveTime:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
             lastActiveTime.dateByAddingTimeInterval(Double(arc4random() % (3600 * 24 * 14)))
             shareThing.lastActiveTime = DateHelper.dateToString(lastActiveTime)
             shareThing.shareType = 1

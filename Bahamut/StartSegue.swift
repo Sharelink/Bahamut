@@ -10,7 +10,7 @@ import UIKit
 
 class StartSegue: UIStoryboardSegue {
     override func perform() {
-        self.sourceViewController.presentViewController(self.destinationViewController as! UIViewController,
+        self.sourceViewController.presentViewController(self.destinationViewController ,
             animated: false,
             completion: nil)
     }

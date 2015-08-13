@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreFoundation
 
 class UserService: ServiceProtocol
 {
@@ -30,6 +31,51 @@ class UserService: ServiceProtocol
     {
         //Read from cache
         return PersistentManager.sharedInstance.getModels(ShareLinkUser.self, idValues: userIds)
+    }
+    
+    func getUsersDivideWithLatinLetter(users:[ShareLinkUser]) -> [(String,[ShareLinkUser])]
+    {
+        var result = [(String,[ShareLinkUser])]()
+        var dict = [String:[ShareLinkUser]]()
+        for index in 0...25
+        {
+            let letterInt = 65 + index
+            let key = StringHelper.IntToLetterString(letterInt)
+            let list = [ShareLinkUser]()
+            dict.updateValue(list, forKey: key)
+        }
+        dict.updateValue([ShareLinkUser](), forKey: "#")
+        
+        for user in users
+        {
+            let userNoteName = user.noteName ?? user.nickName
+            let nickName:CFMutableStringRef = CFStringCreateMutableCopy(nil, 0, userNoteName);
+            CFStringTransform(nickName,nil, kCFStringTransformToLatin, false)
+            CFStringTransform(nickName, nil, kCFStringTransformStripDiacritics, false)
+            
+            let stringName = nickName as String
+            let n = advance(stringName.startIndex, 1)
+            let prefix = stringName.uppercaseString.substringToIndex(n)
+            var list = dict[prefix]
+            if list == nil
+            {
+                list = dict["#"]
+            }
+            list?.append(user)
+            dict.updateValue(list!, forKey: prefix)
+        }
+        
+        for item in dict
+        {
+            if item.1.count > 0
+            {
+                result.append((item.0,item.1))
+            }
+        }
+        result.sortInPlace { (a, b) -> Bool in
+            a.0 < b.0
+        }
+        return result
     }
     
     func getUser(userId:String, serverNewestCallback:((newestUser:ShareLinkUser!, msg:String!)->Void)! = nil) -> ShareLinkUser?
@@ -147,7 +193,7 @@ class UserService: ServiceProtocol
         client?.execute(req, callback: { (result, returnStatus) -> Void in
             if returnStatus.returnCode == ReturnCode.OK
             {
-                if let user = result as? ShareLinkUser
+                if let _ = result as? ShareLinkUser
                 {
                     checkCallback(isAvailable: false,msg: "user name has been registed")
                 }else
@@ -164,8 +210,8 @@ class UserService: ServiceProtocol
         var userLinks = [UserLink]()
         for userId in (147258..<147270)
         {
-            var user = ShareLinkUser()
-            var userLinked = UserLink()
+            let user = ShareLinkUser()
+            let userLinked = UserLink()
             userLinked.linkId = "\(147258)_\(userId)"
             userLinked.masterUserId = "147258"
             userLinked.slaveUserId = "\(userId)"
@@ -174,6 +220,7 @@ class UserService: ServiceProtocol
             userLinked.createTime = DateHelper.dateToString(randDate)
             user.userId = "\(userId)"
             user.nickName = userId.description == "147258" ? "The Different YY" : "nick:\(userId)"
+            user.noteName = ["你好","周广杰","The Dfyy","吊炸天杰少"][Int(arc4random() % 4)]
             user.headIconId = userId.description == "147258" ? "YY" : "defaultHeadIcon"
             user.personalVideoId = "\(userId)"
             user.signText = "the different \(userId)"

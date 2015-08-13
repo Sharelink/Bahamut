@@ -93,7 +93,7 @@ class ShareThingsListController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ShareThingIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ShareThingIdentifier, forIndexPath: indexPath) 
         let shareThing = shareThings[indexPath.section][indexPath.row] as ShareThing
         if let shareThingUI = cell as? UIShareThing
         {

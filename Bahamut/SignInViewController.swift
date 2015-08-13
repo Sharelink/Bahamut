@@ -31,7 +31,7 @@ class SignInViewController: UIViewController
         }else
         {
             view.makeToastActivityWithMessage(message: "authenticating")
-            service.login(validateStringTextField.text, password: passwordTextField.text, loginCallback: signCallback)
+            service.login(validateStringTextField.text!, password: passwordTextField.text!, loginCallback: signCallback)
         }
     }
     

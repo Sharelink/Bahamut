@@ -45,7 +45,7 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         super.init(frame: frame)
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -54,6 +54,8 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
             self.addSubview(playerController.view)
             playerController.view.frame = self.bounds
             playerController.delegate = self
+            playerController.muted = true
+            playerController.playbackLoops = true
             
         }
     }
@@ -91,19 +93,19 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         {
             scaleToMax()
         }
-        println(progress.frame)
+        print(progress.frame)
         isVideoFullScreen = !isVideoFullScreen
     }
     
     private func scaleToMax()
     {
         
-        println("scale to full screen")
+        print("scale to full screen")
     }
     
     private func scaleToMin()
     {
-        println("scale to min screen")
+        print("scale to min screen")
     }
     
     public override func didMoveToSuperview() {
@@ -144,8 +146,7 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
     public override func didMoveToWindow() {
         
         initGestures()
-        playerController.muted = true
-        playerController.playbackLoops = true
+        
     }
     
     public var filePath:String!
@@ -168,21 +169,21 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
     
     public func playerReady(playerController: Player)
     {
-        println("playerReady")
+        print("playerReady")
     }
     public func playerPlaybackStateDidChange(playerController: Player)
     {
-        println("playerPlaybackStateDidChange")
+        print("playerPlaybackStateDidChange")
         
     }
     public func playerBufferingStateDidChange(playerController: Player)
     {
-        println("playerBufferingStateDidChange")
+        print("playerBufferingStateDidChange")
     }
     
     public func playerPlaybackWillStartFromBeginning(playerController: Player)
     {
-        println("playerPlaybackWillStartFromBeginning")
+        print("playerPlaybackWillStartFromBeginning")
     }
     public func playerPlaybackDidEnd(playerController: Player)
     {

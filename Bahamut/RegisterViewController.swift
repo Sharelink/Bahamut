@@ -46,7 +46,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         {
             view.makeToastActivityWithMessage(message: "Registing")
             signupButton.enabled = false
-            accountService.registAccount(usernameTextField!.text, password: passwordTextField.text, registCallback: { (accountId, userId, token,sharelinkApiServer,fileApiServer, error) -> Void in
+            accountService.registAccount(usernameTextField!.text!, password: passwordTextField.text!, registCallback: { (accountId, userId, token,sharelinkApiServer,fileApiServer, error) -> Void in
                 self.view.hideToastActivity()
                 self.signupButton.enabled = true
                 if error == nil
@@ -73,7 +73,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         usernameCheckImage.hidden = !isRegular
         if isRegular
         {
-            userService.checkUsernameAvailable(usernameTextField!.text){
+            userService.checkUsernameAvailable(usernameTextField!.text!){
                 isAvailable,msg in
                 self.usernameCheckImage.hidden = !isAvailable
                 if !isAvailable
@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
     
     func checkPassword()
     {
-        let (isRegular,msg) = TestStringHelper.isRegularPassword(passwordTextField!.text)
+        let (isRegular,_) = TestStringHelper.isRegularPassword(passwordTextField!.text)
         if isRegular
         {
             passwordCheckImage!.hidden = true

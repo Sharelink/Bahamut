@@ -142,9 +142,9 @@ public class KDCircularProgress: UIView {
     
     //These are used only from the Interface-Builder. Changing these from code will have no effect.
     //Also IB colors are limited to 3, whereas programatically we can have an arbitrary number of them.
-    @objc @IBInspectable private var IBColor1: UIColor?
-    @objc @IBInspectable private var IBColor2: UIColor?
-    @objc @IBInspectable private var IBColor3: UIColor?
+    @IBInspectable public var IBColor1: UIColor?
+    @IBInspectable public var IBColor2: UIColor?
+    @IBInspectable public var IBColor3: UIColor?
     
     
     private var animationCompletionBlock: ((Bool) -> Void)?
@@ -162,9 +162,9 @@ public class KDCircularProgress: UIView {
         setColors(colors)
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init!(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setTranslatesAutoresizingMaskIntoConstraints(false)
+		translatesAutoresizingMaskIntoConstraints = false
 		userInteractionEnabled = false
 		setInitialValues()
         refreshValues()
@@ -245,7 +245,6 @@ public class KDCircularProgress: UIView {
     }
     
     public func stopAnimation() {
-        let presentationLayer = progressLayer.presentationLayer() as! KDCircularProgressViewLayer
         progressLayer.removeAllAnimations()
         angle = 0
     }
@@ -254,7 +253,7 @@ public class KDCircularProgress: UIView {
         return progressLayer.animationForKey("angle") != nil
     }
     
-    override public func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    override public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if let completionBlock = animationCompletionBlock {
             completionBlock(flag)
             animationCompletionBlock = nil
@@ -317,11 +316,11 @@ public class KDCircularProgress: UIView {
             }
         }
         
-        override class func needsDisplayForKey(key: String!) -> Bool {
+        override class func needsDisplayForKey(key: String) -> Bool {
             return key == "angle" ? true : super.needsDisplayForKey(key)
         }
         
-        override init!(layer: AnyObject!) {
+        override init(layer: AnyObject) {
             super.init(layer: layer)
             let progressLayer = layer as! KDCircularProgressViewLayer
             radius = progressLayer.radius
@@ -338,15 +337,15 @@ public class KDCircularProgress: UIView {
             colorsArray = progressLayer.colorsArray
         }
 
-        override init!() {
+        override init() {
             super.init()
         }
 
-        required init(coder aDecoder: NSCoder) {
+        required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
         }
         
-        override func drawInContext(ctx: CGContext!) {
+        override func drawInContext(ctx: CGContext) {
             UIGraphicsPushContext(ctx)
             let rect = bounds
             let size = rect.size
@@ -357,8 +356,8 @@ public class KDCircularProgress: UIView {
             CGContextAddArc(ctx, CGFloat(size.width/2.0), CGFloat(size.height/2.0), arcRadius, 0, CGFloat(M_PI * 2), 0)
             trackColor.set()
             CGContextSetLineWidth(ctx, trackLineWidth)
-            CGContextSetLineCap(ctx, kCGLineCapButt)
-            CGContextDrawPath(ctx, kCGPathStroke)
+            CGContextSetLineCap(ctx, CGLineCap.Butt)
+            CGContextDrawPath(ctx, .Stroke)
 
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
             let imageCtx = UIGraphicsGetCurrentContext()
@@ -370,11 +369,11 @@ public class KDCircularProgress: UIView {
             if glowValue > 0 {
                 CGContextSetShadowWithColor(imageCtx, CGSizeZero, glowValue, UIColor.blackColor().CGColor)
             }
-            CGContextSetLineCap(imageCtx, roundedCorners == true ? kCGLineCapRound : kCGLineCapButt)
+            CGContextSetLineCap(imageCtx, roundedCorners == true ? .Round : .Butt)
             CGContextSetLineWidth(imageCtx, progressLineWidth)
-            CGContextDrawPath(imageCtx, kCGPathStroke)
+            CGContextDrawPath(imageCtx, .Stroke)
             
-            let drawMask: CGImageRef = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext())
+            let drawMask: CGImageRef = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext())!
             UIGraphicsEndImageContext()
             
             CGContextSaveGState(ctx)
@@ -424,19 +423,19 @@ public class KDCircularProgress: UIView {
             } else {
                 let g = CGGradientCreateWithColorComponents(baseSpace, componentsArray, locations,componentsArray.count / 4)
                 self.gradientCache = g
-                gradient = g
+                gradient = g!
             }
             
             let halfX = bounds.size.width/2.0
             let floatPi = CGFloat(M_PI)
             let rotateSpeed = clockwise == true ? gradientRotateSpeed : gradientRotateSpeed * -1
             let angleInRadians = ConversionFunctions.DegreesToRadians(rotateSpeed * CGFloat(angle) - 90)
-            var oppositeAngle = angleInRadians > floatPi ? angleInRadians - floatPi : angleInRadians + floatPi
+            let oppositeAngle = angleInRadians > floatPi ? angleInRadians - floatPi : angleInRadians + floatPi
             
             let startPoint = CGPoint(x: (cos(angleInRadians) * halfX) + halfX, y: (sin(angleInRadians) * halfX) + halfX)
             let endPoint = CGPoint(x: (cos(oppositeAngle) * halfX) + halfX, y: (sin(oppositeAngle) * halfX) + halfX)
             
-            CGContextDrawLinearGradient(ctx, gradient, startPoint, endPoint, 0)
+            CGContextDrawLinearGradient(ctx, gradient, startPoint, endPoint, .DrawsBeforeStartLocation)
         }
         
         func gradientLocationsFromColorCount(colorCount: Int, gradientWidth: CGFloat) -> [CGFloat] {

@@ -32,7 +32,7 @@ extension PersistentManager
 {
     private var fileEntityName:String{return "FileRelationshipEntity"}
     
-    func getImage(imageId:String,var filePath:String) -> UIImage
+    func getImage(imageId:String, filePath:String) -> UIImage
     {
         let cache = getCache("UIImage")
         if let image = cache.objectForKey(imageId) as? UIImage
@@ -130,9 +130,9 @@ extension PersistentManager
     func saveModel(model:ShareLinkObject)
     {
         //save in cache
-        println(model.classForCoder.description())
+        print(model.classForCoder.description())
         let typeName = model.classForCoder.description()
-        var nsCache = getCache(typeName)
+        let nsCache = getCache(typeName)
         let idValue = model.valueForKey(model.getObjectUniqueIdName()) as! String
         let indexIdValue = "\(typeName):\(idValue)"
         nsCache.setObject(model, forKey: indexIdValue)
@@ -148,6 +148,10 @@ extension PersistentManager
             cellModel?.id = indexIdValue
             cellModel?.modelType = typeName
         }
-        CoreDataHelper.getEntityContext().save(nil)
+        do  {
+            try CoreDataHelper.getEntityContext().save()
+        }catch{
+            
+        }
     }
 }

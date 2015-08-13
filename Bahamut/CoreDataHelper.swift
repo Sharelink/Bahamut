@@ -13,52 +13,56 @@ import CoreData
 class CoreDataHelper {
     static func getEntityContext()-> NSManagedObjectContext
     {
-        var appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context: NSManagedObjectContext = appDel.managedObjectContext!
         return context
     }
     
     static func insertNewCell(entityName:String)->NSManagedObject
     {
-        return NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: getEntityContext()) as! NSManagedObject
+        return NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: getEntityContext()) 
     }
     
     static func getCellByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
     {
-        var request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
         request.returnsObjectsAsFaults = false
-        var result = [NSManagedObject]()
-        if let resultSet = getEntityContext().executeFetchRequest(request, error: nil)
-        {
+        let result = [NSManagedObject]()
+        do{
+            let resultSet = try getEntityContext().executeFetchRequest(request)
             return resultSet.map{ item -> NSManagedObject in
                 return item as! NSManagedObject
             }
+        }catch{
+            
         }
         return result
     }
     
     static func getAllCells(entityName:String, idFieldName:String, typeName:String)->[NSManagedObject]
     {
-        var request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(format: "\(idFieldName) LIKE %@", argumentArray: ["\(typeName)*"])
-        if let resultSet = getEntityContext().executeFetchRequest(request, error: nil)
-        {
+        do{
+            let resultSet = try getEntityContext().executeFetchRequest(request)
             return resultSet.map{ item -> NSManagedObject in
                 return item as! NSManagedObject
             }
+        }catch{
+            
         }
         return [NSManagedObject]()
     }
     
     static func getCellById(entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
     {
-        var request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) = %@", argumentArray: [idValue])
         request.returnsObjectsAsFaults = false
-        if let resultSet = getEntityContext().executeFetchRequest(request, error: nil)
-        {
+        do{
+            let resultSet = try getEntityContext().executeFetchRequest(request)
             for obj in resultSet
             {
                 if let mobj = obj as? NSManagedObject
@@ -66,6 +70,8 @@ class CoreDataHelper {
                     return mobj
                 }
             }
+        }catch{
+            
         }
         return nil
     }

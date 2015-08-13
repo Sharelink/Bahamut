@@ -31,7 +31,7 @@ class UIShareThing: UITableViewCell
         
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
@@ -67,12 +67,12 @@ class UIShareThing: UITableViewCell
     
     func swipeShareThingRight(gesture:UISwipeGestureRecognizer)
     {
-        println("swipe right")
+        print("swipe right")
     }
     
     func swipeShareThingLeft(gesture:UISwipeGestureRecognizer)
     {
-        println("swipe left")
+        print("swipe left")
     }
     
     @IBAction func vote()
@@ -87,12 +87,12 @@ class UIShareThing: UITableViewCell
     
     @IBAction func reply()
     {
-        println("reply")
+        print("reply")
     }
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        println("show user profile")
+        print("show user profile")
     }
 
     func update()
@@ -111,7 +111,7 @@ class UIShareThing: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        println("showHeadIcon")
+        print("showHeadIcon")
     }
     
 }

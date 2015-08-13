@@ -10,22 +10,22 @@ import Foundation
 /**
 Object that will support NSCoding, Printable, Hashable and Equeatable for all properties. Use this object as your base class instead of NSObject and you wil automatically have support for all these protocols.
 */
-public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
+public class EVObject: NSObject, NSCoding { //, CustomStringConvertible, Hashable, Equatable
     
     /**
     Basic init override is needed so we can use EVObject as a base class.
     */
-    public override init(){
+    public required override init(){
         super.init()
     }
     
     /**
     Decode any object
     
-    :param: theObject The object that we want to decode.
-    :param: aDecoder The NSCoder that will be used for decoding the object.
+    - parameter theObject: The object that we want to decode.
+    - parameter aDecoder: The NSCoder that will be used for decoding the object.
     */
-    public convenience required init(coder: NSCoder) {
+    public convenience required init?(coder: NSCoder) {
         self.init()
         EVReflection.decodeObjectWithCoder(self, aDecoder: coder)
     }
@@ -41,9 +41,9 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Convenience init for creating an object whith the contents of a json string.
     */
-    public convenience required init(json:String?) {
+    public convenience required init(json:String) {
         self.init()
-        var jsonDict = EVReflection.dictionaryFromJson(json)
+        let jsonDict = EVReflection.dictionaryFromJson(json)
         EVReflection.setPropertiesfromDictionary(jsonDict, anyObject: self)
     }
     
@@ -51,7 +51,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     Returns the dictionary representation of this object.
     */
     final public func toDictionary() -> NSDictionary {
-        let (reflected, types) = EVReflection.toDictionary(self)
+        let (reflected, _) = EVReflection.toDictionary(self)
         return reflected
     }
     
@@ -62,7 +62,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Encode this object using a NSCoder
     
-    :param: aCoder The NSCoder that will be used for encoding the object
+    - parameter aCoder: The NSCoder that will be used for encoding the object
     */
     final public func encodeWithCoder(aCoder: NSCoder) {
         EVReflection.encodeWithCoder(self, aCoder: aCoder)
@@ -104,7 +104,7 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Implementation of the NSObject isEqual comparisson method
     
-    :param: object The object where you want to compare with
+    - parameter object: The object where you want to compare with
     :return: Returns true if the object is the same otherwise false
     */
     final public override func isEqual(object: AnyObject?) -> Bool { // for isEqual:
@@ -116,11 +116,11 @@ public class EVObject: NSObject, NSCoding, Printable, Hashable, Equatable {
     /**
     Implementation of the setValue forUndefinedKey so that we can catch exceptions for when we use an optional Type like Int? in our object. Instead of using Int? you should use NSNumber?
     
-    :param: value The value that you wanted to set
-    :param: key The name of the property that you wanted to set
+    - parameter value: The value that you wanted to set
+    - parameter key: The name of the property that you wanted to set
     */
     public override func setValue(value: AnyObject!, forUndefinedKey key: String) {
-        println("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
+        print("\nWARNING: The class '\(EVReflection.swiftStringFromClass(self))' is not key value coding-compliant for the key '\(key)'\n There is no support for optional type, array of optionals or enum properties.\nAs a workaround you can implement the function 'setValue forUndefinedKey' for this. See the unit tests for more information\n")
     }
 }
 
@@ -142,8 +142,8 @@ public protocol EVArrayConvertable {
 /**
 Implementation for Equatable ==
 
-:param: lhs The object at the left side of the ==
-:param: rhs The object at the right side of the ==
+- parameter lhs: The object at the left side of the ==
+- parameter rhs: The object at the right side of the ==
 :return: True if the objects are the same, otherwise false.
 */
 public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
@@ -153,8 +153,8 @@ public func ==(lhs: EVObject, rhs: EVObject) -> Bool {
 /**
 Implementation for Equatable !=
 
-:param: lhs The object at the left side of the ==
-:param: rhs The object at the right side of the ==
+- parameter lhs: The object at the left side of the ==
+- parameter rhs: The object at the right side of the ==
 :return: False if the objects are the the same, otherwise true.
 */
 public func !=(lhs: EVObject, rhs: EVObject) -> Bool {

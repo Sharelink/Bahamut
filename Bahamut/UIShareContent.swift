@@ -13,14 +13,13 @@ class UIShareContent: UIView
 {
     var model:ShareContent!{
         didSet{
-            var moviePath = NSBundle.mainBundle().pathForResource("02", ofType: "mov")
-            var url = NSURL(fileURLWithPath: moviePath!)
-            mediaPlayer.filePath = url?.path
+            let moviePath = NSBundle.mainBundle().pathForResource("02", ofType: "mov")
+            mediaPlayer.filePath = moviePath
         }
     }
     
     deinit{
-        println("UIShareContent deinit")
+        print("UIShareContent deinit")
         mediaPlayer.filePath = nil
         mediaPlayer = nil
     }
