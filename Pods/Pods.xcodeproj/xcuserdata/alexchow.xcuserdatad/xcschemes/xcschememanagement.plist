@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PBJVision.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1E5CBF887CB5B1DF6AE24A868047A2E5</key>
+		<key>786D6B9E833233AE492698468AD22168</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EB0119C8C8E738A732236A708E601CF</key>
+		<key>C9804CAA9C2D50AD76E64C4FAB016778</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F67BF28BA3C6122026C8BFC490C166B5</key>
+		<key>E7327E4CE7F3436BFC9F3036836C9CC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB55A3AB80EF6B8636129A66EDDC41B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
