@@ -18,26 +18,57 @@ class CoreDataHelper {
         return context
     }
     
+    //MARK: New
     static func insertNewCell(entityName:String)->NSManagedObject
     {
         return NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: getEntityContext()) 
     }
     
+    //MARK: Delete
+    static func deleteCellByIds(entityName:String, idFieldName:String, idValues:[String])
+    {
+        let request = NSFetchRequest(entityName: entityName)
+        request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
+        request.returnsObjectsAsFaults = false
+        do{
+            let resultSet = try getEntityContext().executeFetchRequest(request)
+            let objects = resultSet.map{ item -> NSManagedObject in
+                return item as! NSManagedObject
+            }
+            for obj in objects
+            {
+                getEntityContext().deleteObject(obj)
+            }
+        }catch let error as NSError{
+            print(error.description)
+        }
+    }
+    
+    static func deleteCellById(entityName:String, idFieldName:String, idValue:String)
+    {
+        deleteCellByIds(entityName, idFieldName: idFieldName, idValues: [idValue])
+    }
+    
+    static func deleteObject(object:NSManagedObject)
+    {
+        getEntityContext().deleteObject(object)
+    }
+    
+    //MARK: Query
     static func getCellByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
     {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
         request.returnsObjectsAsFaults = false
-        let result = [NSManagedObject]()
         do{
             let resultSet = try getEntityContext().executeFetchRequest(request)
             return resultSet.map{ item -> NSManagedObject in
                 return item as! NSManagedObject
             }
-        }catch{
-            
+        }catch let error as NSError{
+            print(error.description)
+            return [NSManagedObject]()
         }
-        return result
     }
     
     static func getAllCells(entityName:String, idFieldName:String, typeName:String)->[NSManagedObject]

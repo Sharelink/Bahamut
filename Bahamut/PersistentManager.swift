@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class PersistentManager
 {
@@ -27,10 +28,78 @@ class PersistentManager
     }
 }
 
-//MARK: FileReletionshipEntity
+//MARK: FilePersistents
+
+struct FilePersistentsConstrants
+{
+    static let FileEntityName = "FileRelationshipEntity"
+    static let FileEntityIdFieldName = "fileId"
+    static let UploadTaskEntityName = "UploadTask"
+    static let UploadTaskEntityIdFieldName = "taskId"
+}
+
+extension NSManagedObject
+{
+    func saveModified() -> Bool
+    {
+        do
+        {
+            try CoreDataHelper.getEntityContext().save()
+            return true
+        }catch let error as NSError
+        {
+            print(error.description)
+            return false
+        }
+    }
+}
+
 extension PersistentManager
 {
     private var fileEntityName:String{return "FileRelationshipEntity"}
+    private var fileEntityIdFieldName:String{return "fileId"}
+    
+    func saveFile(data:NSData, filePath:String) -> FileRelationshipEntity?
+    {
+        if NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
+        {
+            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileRelationshipEntity
+            fileEntity.filePath = filePath
+            fileEntity.saveModified()
+            return fileEntity
+        }else
+        {
+            return nil
+        }
+    }
+    
+    func saveFile(fileExistsPath:String) -> FileRelationshipEntity?
+    {
+        if NSFileManager.defaultManager().fileExistsAtPath(fileExistsPath)
+        {
+            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileRelationshipEntity
+            fileEntity.filePath = fileExistsPath
+            fileEntity.saveModified()
+            return fileEntity
+        }else{
+            return nil
+        }
+    }
+    
+    func getFile(fileId:String) -> FileRelationshipEntity?
+    {
+        let cache = getCache(fileEntityName)
+        if let fileEntity = cache.objectForKey(fileId) as? FileRelationshipEntity
+        {
+            return fileEntity
+        }else if let fileEntity = CoreDataHelper.getCellById(fileEntityName, idFieldName: fileEntityIdFieldName, idValue: fileId) as? FileRelationshipEntity
+        {
+            return fileEntity
+        }else
+        {
+            return nil
+        }
+    }
     
     func getImage(imageId:String, filePath:String) -> UIImage
     {
