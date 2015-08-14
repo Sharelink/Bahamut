@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8175.2" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
     <entity name="FileRelationshipEntity" representedClassName="Bahamut.FileRelationshipEntity" syncable="YES">
         <attribute name="fileData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fileServerUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="LocalVideoEntity" syncable="YES"/>
     <entity name="ModelEntity" representedClassName="Bahamut.ModelEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modelType" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,5 +25,6 @@
         <element name="FileRelationshipEntity" positionX="-54" positionY="-9" width="128" height="105"/>
         <element name="ModelEntity" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="UploadTask" positionX="-54" positionY="9" width="128" height="150"/>
+        <element name="LocalVideoEntity" positionX="-54" positionY="45" width="128" height="45"/>
     </elements>
 </model>

@@ -24,6 +24,26 @@ class NewShareViewController: UIViewController {
     @IBOutlet weak var shareDescriptionTextArea: UITextView!
     @IBOutlet weak var shareContentContainer: UIShareContent!
 
+    struct SegueIdentifierConstants
+    {
+        static let RecordVideo = "RecordVideo"
+        static let SelectVideo = "SelectVideo"
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier!
+        {
+            case SegueIdentifierConstants.RecordVideo :
+            let cameraController = segue.destinationViewController as! UICameraViewController
+            cameraController.filePath = ServiceContainer.getService(FileService).createLocalStoreFileName(FileType.Video)
+        default:break
+        }
+    }
+    
+    @IBAction func recordVideo() {
+        performSegueWithIdentifier(SegueIdentifierConstants.RecordVideo, sender: self)
+    }
+    
     @IBAction func share()
     {
         

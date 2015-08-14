@@ -10,8 +10,9 @@
 		B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
-		E70E5B3D1B66908700CEF3BA /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3C1B66908700CEF3BA /* CoreMedia.framework */; };
+		E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7108BE51B7D9D7A009B933C /* RegexUtil.swift */; };
 		E717CC391B725D5200B19D9D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E717CC371B725D5200B19D9D /* Model.xcdatamodeld */; };
+		E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */; };
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
 		E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
 		E72F47221B7602C6002674AB /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47211B7602C6002674AB /* DateHelper.swift */; };
@@ -80,9 +81,9 @@
 		56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		E70E5B3C1B66908700CEF3BA /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		E70E5B3E1B6691EF00CEF3BA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		E7108BE51B7D9D7A009B933C /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
 		E717CC381B725D5200B19D9D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRecordButton.swift; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
 		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		E72F47211B7602C6002674AB /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -147,7 +148,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7DD18711B765CE700552C0E /* EVReflection.framework in Frameworks */,
-				E70E5B3D1B66908700CEF3BA /* CoreMedia.framework in Frameworks */,
 				E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */,
 				E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */,
 				B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */,
@@ -206,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				E754AE291B7C749B0077EECC /* UICameraViewController.swift */,
+				E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */,
 			);
 			name = UICamera;
 			sourceTree = "<group>";
@@ -224,7 +225,7 @@
 				E78D130B1B71123C00252E50 /* Source */,
 			);
 			name = ShareLinkSDK;
-			path = ../../ShareLinkSDK/ShareLinkSDK;
+			path = ../ShareLinkSDK/ShareLinkSDK;
 			sourceTree = "<group>";
 		};
 		E78D130B1B71123C00252E50 /* Source */ = {
@@ -290,6 +291,7 @@
 			children = (
 				E7EF7D141B7887B30033C2A8 /* AlamofireJsonToObjects.swift */,
 				E72F47211B7602C6002674AB /* DateHelper.swift */,
+				E7108BE51B7D9D7A009B933C /* RegexUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -369,7 +371,6 @@
 			isa = PBXGroup;
 			children = (
 				E754AE281B7C74760077EECC /* UICamera */,
-				E78D13081B71123C00252E50 /* ShareLinkSDK */,
 				E72B26C51B71EB8B008E81D6 /* UICustomSegue */,
 				E7B664FD1B6B78EA00032495 /* UIComponent */,
 				E790BCEF1B674BEF00D5426B /* UIShare */,
@@ -388,12 +389,11 @@
 		E7A62FD71B6609A500F28D73 = {
 			isa = PBXGroup;
 			children = (
-				E70E5B3E1B6691EF00CEF3BA /* MediaPlayer.framework */,
-				E70E5B3C1B66908700CEF3BA /* CoreMedia.framework */,
 				E70E5B3A1B66907900CEF3BA /* AVKit.framework */,
 				E70E5B381B66906F00CEF3BA /* AVFoundation.framework */,
 				E7A62FFB1B6609A500F28D73 /* BahamutTests */,
 				E7A62FE11B6609A500F28D73 /* Products */,
+				E78D13081B71123C00252E50 /* ShareLinkSDK */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
 				7A86D96ED0EE82317F95B25D /* Pods */,
 				D1311D6FD64F106598012550 /* Frameworks */,
@@ -639,9 +639,11 @@
 				E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E72F47241B7635D9002674AB /* UIUser.swift in Sources */,
+				E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* ReplyService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
+				E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */,
 				E78D13251B71123C00252E50 /* ShareLinkUser.swift in Sources */,
 				E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */,
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,

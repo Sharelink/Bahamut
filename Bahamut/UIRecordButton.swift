@@ -49,12 +49,11 @@ class UIRecordButtonController: UIViewController {
     {
         switch recognizer.state
         {
-            case .Began:break
-            case .Cancelled:break
-            case .Changed:break;
-            case .Ended:break
-            case .Failed:break
-            case .Possible:break
+            case .Began:parentController.startOrResumeRecord()
+            case .Cancelled:fallthrough
+            case .Ended:fallthrough
+            case .Failed:parentController.pauseRecord()
+        default:break
         }
     }
     

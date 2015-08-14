@@ -15,17 +15,41 @@ class FileService: ServiceProtocol {
         fileManager = NSFileManager.defaultManager()
         documentsPath = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first)
         documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        initFileDir()
         uploadQueue = [UploadTask]()
         initFileUploadProc()
     }
     
-    struct Constrants
+    private func initFileDir()
     {
-        static let FileEntityName = "FileRelationshipEntity"
-        static let FileEntityIdFieldName = "fileId"
-        static let UploadTaskEntityName = "UploadTask"
-        static let UploadTaskEntityIdFieldName = "taskId"
+        for item in FileType.allValues
+        {
+            let dir = documentsPathUrl.URLByAppendingPathComponent("\(item.rawValue)")
+            if fileManager.fileExistsAtPath(dir.path!) == false
+            {
+                do
+                {
+                    try fileManager.createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
+                }catch let error as NSError
+                {
+                    print(error.description)
+                }
+            }
+            let localStoreFileDir = documentsPathUrl.URLByAppendingPathComponent("localStore/\(item.rawValue)")
+            if fileManager.fileExistsAtPath(localStoreFileDir.path!) == false
+            {
+                do
+                {
+                    try fileManager.createDirectoryAtPath(localStoreFileDir.path!, withIntermediateDirectories: true, attributes: nil)
+                }catch let error as NSError
+                {
+                    print(error.description)
+                }
+            }
+            
+        }
     }
+    
     private var uploadQueue:[UploadTask]!
     private var fileManager:NSFileManager!
     private var documentsPath:String!
@@ -37,22 +61,18 @@ class FileService: ServiceProtocol {
         {
             return nil
         }
-        let uploadTask = CoreDataHelper.insertNewCell(Constrants.UploadTaskEntityName) as! UploadTask
+        let uploadTask = CoreDataHelper.insertNewCell(FilePersistentsConstrants.UploadTaskEntityName) as! UploadTask
         uploadTask.status = SendFileStatus.UploadTaskReady
         uploadTask.taskId = "\(type.rawValue)_\(NSDate().description)"
         uploadTask.localPath = filePath
         uploadTask.fileType = type.rawValue
-        do{
-            try CoreDataHelper.getEntityContext().save()
-        }catch{
-            
-        }
+        uploadTask.saveModified()
         return uploadTask.taskId
     }
     
     func requestSendFileKey(uploadTaskId:String,type:FileType,callback:((sendFileRequest:Request) -> Void)! = nil)
     {
-        let uploadTask = CoreDataHelper.getCellById(Constrants.UploadTaskEntityName, idFieldName: Constrants.UploadTaskEntityIdFieldName, idValue: uploadTaskId) as! UploadTask
+        let uploadTask = CoreDataHelper.getCellById(FilePersistentsConstrants.UploadTaskEntityName, idFieldName: FilePersistentsConstrants.UploadTaskEntityIdFieldName, idValue: uploadTaskId) as! UploadTask
         let filePath = uploadTask.localPath
         let req = NewSendFileKeyRequest()
         do{
@@ -75,36 +95,36 @@ class FileService: ServiceProtocol {
                     uploadTask.fileId = fileAccesskey
                     uploadTask.fileServerUrl = fileServer
                     uploadTask.status = SendFileStatus.SendFileReady
-                    let fileEntity = CoreDataHelper.insertNewCell(Constrants.FileEntityName) as! FileRelationshipEntity
-                    fileEntity.filePath = filePath
-                    fileEntity.fileId = fileAccesskey
-                    fileEntity.fileServerUrl = fileServer
-                    if let returnRequest:((Request) -> Void) = callback
+                    if let fileEntity:FileRelationshipEntity = PersistentManager.sharedInstance.saveFile(filePath)
                     {
-                        let req = client.sendFile(sendFileKey, filePath: filePath, fileType: type).responseJSON{ (_, _, JSON) -> Void in
-                            if JSON.error == nil
-                            {
-                                uploadTask.status = SendFileStatus.SendFileCompleted
+                        fileEntity.filePath = filePath
+                        fileEntity.fileId = fileAccesskey
+                        fileEntity.fileServerUrl = fileServer
+                        fileEntity.saveModified()
+                        if let returnRequest:((Request) -> Void) = callback
+                        {
+                            let req = client.sendFile(sendFileKey, filePath: filePath, fileType: type).responseJSON{ (_, _, JSON) -> Void in
+                                if JSON.error == nil
+                                {
+                                    CoreDataHelper.deleteObject(uploadTask)
+                                }
                             }
+                            returnRequest(req)
                         }
-                        
-                        returnRequest(req)
                     }
+                    return
                 }
             }
             uploadTask.status = SendFileStatus.RequestSendFileKeyFailed
-            do{
-                try CoreDataHelper.getEntityContext().save()
-            }catch{
-                
-            }
+            uploadTask.saveModified()
         })
     }
 
-    func fetch(fileId:String,fetchCompleted:(filePath:String)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
+    func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
     {
         let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
-        client.downloadFile(fileId).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
+        let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)").path!
+        client.downloadFile(fileId,filePath: filePath).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
             if let progressCallback = progressUpdate
             {
                 progressCallback(bytesRead: bytesRead, totalBytesRead: totalBytesRead, totalBytesExpectedToRead: totalBytesExpectedToRead)
@@ -112,15 +132,13 @@ class FileService: ServiceProtocol {
         }).responseString { (request, response, result) -> Void in
             if result.error == nil
             {
-                let fileEntity = CoreDataHelper.insertNewCell(Constrants.FileEntityName) as! FileRelationshipEntity
-                fileEntity.fileId = fileId
-                fileEntity.filePath = self.documentsPathUrl!.URLByAppendingPathComponent("files/\(fileId)").path!
-                do{
-                    try CoreDataHelper.getEntityContext().save()
-                }catch{
-                    
+                
+                if let fileEntity = PersistentManager.sharedInstance.saveFile(filePath)
+                {
+                    fileEntity.fileId = fileId
+                    fileEntity.saveModified()
+                    fetchCompleted(filePath: fileEntity.filePath)
                 }
-                fetchCompleted(filePath: fileEntity.filePath)
             }else
             {
                 fetchCompleted(filePath: "defaultHeadIcon")
@@ -130,21 +148,28 @@ class FileService: ServiceProtocol {
     
     func getFile(fileId:String,returnCallback:(filePath:String)->Void,progress:((persent:Float)->Void)! = nil)
     {
-        if let fileEntity = CoreDataHelper.getCellById(Constrants.FileEntityName, idFieldName: Constrants.FileEntityIdFieldName, idValue: fileId) as? FileRelationshipEntity
+        if let fileEntity = PersistentManager.sharedInstance.getFile(fileId)
         {
             returnCallback(filePath: fileEntity.filePath)
         }else
         {
+            let fileType = FileType.getFileTypeByFileId(fileId)
             if progress == nil
             {
-                fetch(fileId, fetchCompleted: returnCallback)
+                fetch(fileId,fileType:fileType, fetchCompleted: returnCallback)
             }else{
-                fetch(fileId, fetchCompleted: returnCallback, progressUpdate: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
+                fetch(fileId,fileType:fileType, fetchCompleted: returnCallback, progressUpdate: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
                     let persent = Float( bytesRead / totalBytesRead)
                     progress(persent:persent)
                 })
             }
         }
+    }
+    
+    func createLocalStoreFileName(fileType:FileType) -> String
+    {
+        let localStoreFileDir = documentsPathUrl.URLByAppendingPathComponent("localStore/\(fileType.rawValue)")
+        return localStoreFileDir.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
     }
     
     func initFileUploadProc()

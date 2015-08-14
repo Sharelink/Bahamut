@@ -62,7 +62,7 @@ class UserService: ServiceProtocol
                 list = dict["#"]
             }
             list?.append(user)
-            dict.updateValue(list!, forKey: prefix)
+            dict.updateValue(list!, forKey: prefix) //if not update ,the list in the dict is point to old list ,not appended list
         }
         
         for item in dict

@@ -16,6 +16,8 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     var currentVideo:NSDictionary?
     var assetLibrary:ALAssetsLibrary = ALAssetsLibrary()
     var recording:Bool = false
+    var recordTimer:NSTimer!
+    var filePath:String!
     @IBOutlet weak var recordButton: UIView!
     private var recordButtonController:UIRecordButtonController!
     
@@ -39,6 +41,18 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         recordButton.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 130, 128, 128)
         recordButton.addGestureRecognizer(moveRecorgnizer)
         self.view.bringSubviewToFront(recordButton)
+        recordButtonController.progressValue = 0
+    }
+    
+    func startTimer()
+    {
+        recordTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "recordTimer:", userInfo: nil, repeats: true)
+    }
+    
+    func recordTimer(_:NSTimer)
+    {
+        let vision:PBJVision = PBJVision.sharedInstance()
+        recordButtonController.progressValue = Float(vision.capturedVideoSeconds / 60)
     }
     
     func moveRecordButton(recognizer:UIPanGestureRecognizer)
@@ -73,7 +87,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         vision.focusMode = PBJFocusMode.AutoFocus
         vision.outputFormat = PBJOutputFormat.Standard
         vision.cameraDevice = PBJCameraDevice.Back
-        vision.maximumCaptureDuration = CMTimeMakeWithSeconds(10, 24)
+        vision.maximumCaptureDuration = CMTimeMakeWithSeconds(60, 24)
         vision.startPreview()
     }
     
@@ -82,6 +96,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         if !recording {
             PBJVision.sharedInstance().startVideoCapture()
             recording = true
+            startTimer()
         }
         else {
             PBJVision.sharedInstance().resumeVideoCapture()
@@ -96,6 +111,13 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
         currentVideo = videoDict
         let videoPath:String = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
+        recordTimer.invalidate()
+        do{
+            try NSFileManager.defaultManager().moveItemAtPath(videoPath, toPath: filePath!)
+        }catch let error as NSError
+        {
+            print(error.description)
+        }
     }
     
     /*
