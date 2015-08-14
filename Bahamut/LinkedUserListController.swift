@@ -27,10 +27,6 @@ class LinkedUserListController: UITableViewController
     {
         let newValues = userService.myLinkedUsers
         let dict = userService.getUsersDivideWithLatinLetter(newValues)
-        if userListModel.count > 0
-        {
-            self.userListModel.removeAll(keepCapacity: false)
-        }
         dispatch_async(dispatch_get_main_queue()){()->Void in
             self.userListModel = dict
         }
