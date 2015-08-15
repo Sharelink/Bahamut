@@ -24,13 +24,7 @@ class UIRecordButtonController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("URBControllerView:\(self.view)")
-        print("URBControllerView.superView:\(self.view.superview)")
         buttonInteractionView.userInteractionEnabled = true
-        
-        let doubleTapRecorgnizer = UITapGestureRecognizer(target: self, action: "doubleTapRecordButton:")
-        doubleTapRecorgnizer.numberOfTapsRequired = 2
-        self.buttonInteractionView.addGestureRecognizer(doubleTapRecorgnizer)
         let longPressTapRecorgnizer = UILongPressGestureRecognizer(target: self, action: "longPressRecordButton:")
         self.buttonInteractionView.addGestureRecognizer(longPressTapRecorgnizer)
     }

@@ -10,6 +10,13 @@ import UIKit
 import PBJVision
 import AssetsLibrary
 
+@objc
+protocol UICameraViewControllerDelegate
+{
+    optional func videoFileSaveTo(destination:String)
+    optional func videoCancelRecord()
+}
+
 class UICameraViewController: UIViewController , PBJVisionDelegate{
     var previewLayer:AVCaptureVideoPreviewLayer = PBJVision.sharedInstance().previewLayer
     
@@ -17,7 +24,8 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     var assetLibrary:ALAssetsLibrary = ALAssetsLibrary()
     var recording:Bool = false
     var recordTimer:NSTimer!
-    var filePath:String!
+    var cameraDelegate:UICameraViewControllerDelegate!
+    private var videoSavedPath:String!
     @IBOutlet weak var recordButton: UIView!
     private var recordButtonController:UIRecordButtonController!
     
@@ -29,6 +37,12 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         initPreview()
         setup()
         initRecordButton()
+    }
+    
+    @IBOutlet weak var useVideoButton: UIBarButtonItem!{
+        didSet{
+            useVideoButton.enabled = false
+        }
     }
     
     var cameraPreviewContainer: UIView! = UIView()
@@ -53,6 +67,25 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     {
         let vision:PBJVision = PBJVision.sharedInstance()
         recordButtonController.progressValue = Float(vision.capturedVideoSeconds / 60)
+    }
+    
+    @IBAction func cancelRecord(sender: AnyObject)
+    {
+        print("cancel")
+        if let videoCancelRecord = cameraDelegate?.videoCancelRecord
+        {
+            videoCancelRecord()
+        }
+    }
+    
+    @IBAction func useVideoBack(sender: AnyObject)
+    {
+        PBJVision.sharedInstance().endVideoCapture()
+        if let videoFileSaveTo = cameraDelegate?.videoFileSaveTo
+        {
+            videoFileSaveTo(videoSavedPath)
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func moveRecordButton(recognizer:UIPanGestureRecognizer)
@@ -87,6 +120,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         vision.focusMode = PBJFocusMode.AutoFocus
         vision.outputFormat = PBJOutputFormat.Standard
         vision.cameraDevice = PBJCameraDevice.Back
+        vision.audioCaptureEnabled = true
         vision.maximumCaptureDuration = CMTimeMakeWithSeconds(60, 24)
         vision.startPreview()
     }
@@ -105,21 +139,32 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     func pauseRecord()
     {
+        useVideoButton.enabled = true
         PBJVision.sharedInstance().pauseVideoCapture()
     }
     
     func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
         currentVideo = videoDict
-        let videoPath:String = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
         recordTimer.invalidate()
-        do{
-            try NSFileManager.defaultManager().moveItemAtPath(videoPath, toPath: filePath!)
-        }catch let error as NSError
+        if error == nil
         {
-            print(error.description)
+            videoSavedPath = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
+            useVideoButton.enabled = true
+        }else
+        {
+            view.makeToast(message: "Record Video Error")
+            print(error?.description)
         }
     }
     
+    deinit{
+        if recordTimer != nil
+        {
+            recordTimer.invalidate()
+            recordTimer = nil
+        }
+        PBJVision.sharedInstance().cancelVideoCapture()
+    }
     /*
     // MARK: - Navigation
 
