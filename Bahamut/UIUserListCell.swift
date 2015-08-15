@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIUser: UITableViewCell
+class UIUserListCell: UITableViewCell
 {
     var userModel:ShareLinkUser!{
         didSet{
