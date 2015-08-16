@@ -15,9 +15,27 @@ class UIUserListCell: UITableViewCell
             update()
         }
     }
+    var rootController:UIViewController!
+    @IBOutlet weak var headIconImageView: UIImageView!{
+        didSet{
+            headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
+        }
+    }
+    @IBOutlet weak var userNickTextField: UILabel!{
+        didSet{
+            userNickTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
+        }
+    }
     
-    @IBOutlet weak var headIconImageView: UIImageView!
-    @IBOutlet weak var userNickTextField: UILabel!
+    func showProfile(_:UIGestureRecognizer)
+    {
+        ServiceContainer.getService(UserService).showUserProfileViewController(rootController.navigationController!, userId: userModel.userId)
+    }
+    
+    func showHeadIcon(_:UIGestureRecognizer)
+    {
+        
+    }
     
     func update()
     {

@@ -70,6 +70,7 @@ class LinkedUserListController: UITableViewController
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.UserIdentifier, forIndexPath: indexPath) 
         let userModel = userListModel[indexPath.section].1[indexPath.row] as ShareLinkUser
+        
         if let userCell = cell as? UIUserListCell
         {
             userCell.userModel = userModel

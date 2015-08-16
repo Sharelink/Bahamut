@@ -1132,5 +1132,98 @@
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bahamut/UserProfileViewController.swift"
+            timestampString = "461414693.641253"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "showUserProfileViewController(_:userId:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bahamut.UserProfileViewController.userNickNameLabelView.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UILabel&gt;"
+                  moduleName = "Bahamut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/UserProfileViewController.swift"
+                  timestampString = "461414693.681204"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bahamut.UserProfileViewController.userNickNameLabelView.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UILabel&gt;"
+                  moduleName = "Bahamut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/UserProfileViewController.swift"
+                  timestampString = "461414693.681358"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bahamut.UserProfileViewController.userNickNameLabelView.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UILabel&gt;"
+                  moduleName = "Bahamut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/UserProfileViewController.swift"
+                  timestampString = "461414693.68146"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bahamut.UserProfileViewController.init (Bahamut.UserProfileViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; Bahamut.UserProfileViewController"
+                  moduleName = "Bahamut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/UserProfileViewController.swift"
+                  timestampString = "461414693.681556"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "260">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bahamut.UserProfileViewController.init (Bahamut.UserProfileViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; Swift.Optional&lt;Bahamut.UserProfileViewController&gt;"
+                  moduleName = "Bahamut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/UserProfileViewController.swift"
+                  timestampString = "461414693.681645"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "200">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

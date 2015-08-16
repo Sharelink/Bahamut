@@ -8,6 +8,17 @@
 
 import UIKit
 
+extension UserService
+{
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
+    {
+        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
+        let userProfile = self.getUser(userId)
+        controller.userProfileModel = userProfile
+        currentNavigationController.pushViewController(controller , animated: true)
+    }
+}
+
 class UserProfileViewController: UIViewController
 {
     @IBOutlet weak var userProfileVideo: ShareLinkFilmView!

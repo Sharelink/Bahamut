@@ -18,6 +18,8 @@ class UIShareThing: UITableViewCell
 
     }
     
+    var rootController:UIViewController!
+    
     var shareThingModel:ShareThing!
     {
         didSet
@@ -92,7 +94,7 @@ class UIShareThing: UITableViewCell
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        print("show user profile")
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
     }
 
     func update()
