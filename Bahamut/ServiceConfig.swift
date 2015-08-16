@@ -16,6 +16,7 @@ struct ServiceConfig
         ReplyService.ServiceName:ReplyService(),
         ShareService.ServiceName:ShareService(),
         UserService.ServiceName:UserService(),
-        FileService.ServiceName:FileService()
+        FileService.ServiceName:FileService(),
+        CameraService.ServiceName:CameraService()
     ]
 }

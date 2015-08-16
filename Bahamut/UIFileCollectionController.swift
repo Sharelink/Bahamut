@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import PBJVision
+import AVKit
+import AVFoundation
 
 class UIFileCollectionCell: UICollectionViewCell
 {
@@ -17,16 +20,54 @@ class UIFileCollectionCell: UICollectionViewCell
 @objc
 class UIFileCollectionCellModel : NSObject
 {
-    var fileType:FileType!
+    var fileType:FileType = FileType.Raw
     var filePath:String!
-    var thumbImage:UIImage!
+    private(set) lazy var thumbImage:UIImage! = {
+        if self.fileType == FileType.Video
+        {
+            return ImageUtil.getVideoThumbImage(self.filePath)
+        }else if self.fileType == FileType.Text
+        {
+            return ImageUtil.getTextFileIconImage()
+        }else if self.fileType == FileType.Sound
+        {
+            return ImageUtil.getSountIconImage()
+        }else if self.fileType == FileType.Image
+        {
+            return ImageUtil.getImageThumbImage(self.filePath)
+        }
+        return UIImage(named: "file")
+    }()
 }
 
 @objc
 protocol UIFileCollectionControllerDelegate
 {
-    optional func fileSelected(fileModel:UIFileCollectionCellModel, index:Int)
-    optional func fileDeSelected(fileModel:UIFileCollectionCellModel, index:Int)
+    optional func fileSelected(fileModel:UIFileCollectionCellModel, index:Int ,sender:UIFileCollectionController!)
+    optional func fileDeSelected(fileModel:UIFileCollectionCellModel, index:Int,sender:UIFileCollectionController!)
+    optional func addFile(completedHandler:(fileModel:UIFileCollectionCellModel) -> Void,sender:UIFileCollectionController!)
+}
+
+extension FileService
+{
+    func getFileModelsOfFileLocalStore(fileType:FileType ) -> [UIFileCollectionCellModel]
+    {
+        return self.getLocalStoreDirFiles(fileType).map { (filePath) -> UIFileCollectionCellModel in
+            let model = UIFileCollectionCellModel()
+            model.filePath = filePath
+            model.fileType = fileType
+            return model
+        }
+    }
+    
+    func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],delegate:UIFileCollectionControllerDelegate!)
+    {
+        let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
+        let fileCollectionController = storyBoard.instantiateViewControllerWithIdentifier("fileCollectionViewController") as! UIFileCollectionController
+        fileCollectionController.files = files
+        fileCollectionController.delegate = delegate
+        currentNavigationController.pushViewController(fileCollectionController, animated: true)
+    }
 }
 
 class UIFileCollectionController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
@@ -37,10 +78,13 @@ class UIFileCollectionController: UIViewController,UICollectionViewDelegate,UICo
         case SingleSelect
         case MultiSelect
     }
+    var delegate:UIFileCollectionControllerDelegate!
     
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
             collectionView.reloadData()
+            collectionView.delegate = self
+            collectionView.dataSource = self //need to bind the data source and the delegate
         }
     }
     var files:[UIFileCollectionCellModel]!{
@@ -51,11 +95,55 @@ class UIFileCollectionController: UIViewController,UICollectionViewDelegate,UICo
             }
         }
     }
+    
     var selectedFiles:[UIFileCollectionCellModel]!
     var selectedMode:FileSelectMode = .None{
         didSet{
             collectionView.reloadData()
         }
+    }
+    
+    @IBAction func addFile(sender: AnyObject) {
+        if let addFileDelegate = delegate.addFile
+        {
+            addFileDelegate(addFileCompletedHandler,sender: self)
+        }
+    }
+    
+    private func addFileCompletedHandler(fileModel:UIFileCollectionCellModel)
+    {
+        files.append(fileModel)
+        collectionView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        initAddFileButton()
+    }
+    
+    private func initAddFileButton()
+    {
+        if let buttons = navigationItem.rightBarButtonItems
+        {
+            var i = 0
+            for btn in buttons
+            {
+                if btn.tag == 0
+                {
+                    if nil == delegate.addFile
+                    {
+                        navigationItem.rightBarButtonItems?.removeAtIndex(i)
+                        return
+                    }
+                }
+                i++
+            }
+        }
+       
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -73,11 +161,19 @@ class UIFileCollectionController: UIViewController,UICollectionViewDelegate,UICo
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        if let delegate = delegate.fileSelected
+        {
+            delegate(files[indexPath.row] ,index: indexPath.row,sender: self)
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        if let delegate = delegate.fileDeSelected
+        {
+            delegate(files[indexPath.row] ,index: indexPath.row,sender: self)
+        }
     }
 }

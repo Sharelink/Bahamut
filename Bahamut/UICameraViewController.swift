@@ -13,8 +13,7 @@ import AssetsLibrary
 @objc
 protocol UICameraViewControllerDelegate
 {
-    optional func videoFileSaveTo(destination:String)
-    optional func videoCancelRecord()
+    optional func videoCancelRecord(sender:UICameraViewController!)
 }
 
 class UICameraViewController: UIViewController , PBJVisionDelegate{
@@ -24,7 +23,8 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     var assetLibrary:ALAssetsLibrary = ALAssetsLibrary()
     var recording:Bool = false
     var recordTimer:NSTimer!
-    var cameraDelegate:UICameraViewControllerDelegate!
+    var delegate:UICameraViewControllerDelegate!
+    var videoFileSaveTo:((destination:String) -> Void)!
     private var videoSavedPath:String!
     @IBOutlet weak var recordButton: UIView!
     private var recordButtonController:UIRecordButtonController!
@@ -72,20 +72,15 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     @IBAction func cancelRecord(sender: AnyObject)
     {
         print("cancel")
-        if let videoCancelRecord = cameraDelegate?.videoCancelRecord
+        if let videoCancelRecord = delegate?.videoCancelRecord
         {
-            videoCancelRecord()
+            videoCancelRecord(self)
         }
     }
     
     @IBAction func useVideoBack(sender: AnyObject)
     {
         PBJVision.sharedInstance().endVideoCapture()
-        if let videoFileSaveTo = cameraDelegate?.videoFileSaveTo
-        {
-            videoFileSaveTo(videoSavedPath)
-        }
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func moveRecordButton(recognizer:UIPanGestureRecognizer)
@@ -128,9 +123,10 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     func startOrResumeRecord()
     {
         if !recording {
+            startTimer()
+            useVideoButton.enabled = true
             PBJVision.sharedInstance().startVideoCapture()
             recording = true
-            startTimer()
         }
         else {
             PBJVision.sharedInstance().resumeVideoCapture()
@@ -139,7 +135,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     func pauseRecord()
     {
-        useVideoButton.enabled = true
         PBJVision.sharedInstance().pauseVideoCapture()
     }
     
@@ -149,9 +144,21 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         if error == nil
         {
             videoSavedPath = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
-            useVideoButton.enabled = true
+            if videoSavedPath != nil
+            {
+                if videoFileSaveTo != nil
+                {
+                    videoFileSaveTo(destination: videoSavedPath)
+                }
+                self.navigationController?.popViewControllerAnimated(true)
+            }else
+            {
+                view.makeToast(message: "No Video Saved")
+            }
         }else
         {
+            useVideoButton.enabled = false
+            recordButton.hidden = true
             view.makeToast(message: "Record Video Error")
             print(error?.description)
         }
@@ -165,14 +172,5 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         }
         PBJVision.sharedInstance().cancelVideoCapture()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

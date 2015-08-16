@@ -8,12 +8,15 @@
 
 import UIKit
 
-class NewShareViewController: UIViewController {
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIFileCollectionControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if shareThingModel == nil
+        {
+            shareThingModel = ShareThing()
+            shareThingModel.content = ShareContent()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,27 +24,89 @@ class NewShareViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var shareDescriptionTextArea: UITextView!
-    @IBOutlet weak var shareContentContainer: UIShareContent!
-
-    struct SegueIdentifierConstants
-    {
-        static let RecordVideo = "RecordVideo"
-        static let SelectVideo = "SelectVideo"
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier!
-        {
-            case SegueIdentifierConstants.RecordVideo :
-            let cameraController = segue.destinationViewController as! UICameraViewController
-            cameraController.filePath = ServiceContainer.getService(FileService).createLocalStoreFileName(FileType.Video)
-        default:break
+    @IBOutlet weak var shareDescriptionTextArea: UITextView!{
+        didSet{
+            shareDescriptionTextArea.delegate = self
         }
     }
     
+    @IBOutlet weak var shareContentContainer: UIShareContent!{
+        didSet{
+            if let content = shareThingModel?.content
+            {
+                shareContentContainer.model = content
+            }
+            
+        }
+    }
+    
+    var shareThingModel:ShareThing!{
+        didSet{
+            if shareContentContainer != nil
+            {
+                shareContentContainer.model = shareThingModel.content
+            }
+        }
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        shareThingModel.title = textView.text
+    }
+    
+    func fileSelected(fileModel: UIFileCollectionCellModel, index: Int, sender: UIFileCollectionController!)
+    {
+        shareThingModel.content.content = fileModel.filePath
+    }
+    
+    func fileDeSelected(fileModel: UIFileCollectionCellModel, index: Int, sender: UIFileCollectionController!)
+    {
+        shareThingModel.content.content = nil
+    }
+    
+    func addFile(completedHandler: (fileModel: UIFileCollectionCellModel) -> Void, sender: UIFileCollectionController!) {
+
+        ServiceContainer.getService(CameraService).showCamera(sender.navigationController!, delegate: nil) { (destination) -> Void in
+            let fileService = ServiceContainer.getService(FileService)
+            let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+            if fileService.moveFileTo(destination, destinationPath: newFilePath)
+            {
+                let videoFileModel = UIFileCollectionCellModel()
+                videoFileModel.filePath = newFilePath
+                videoFileModel.fileType = .Video
+                completedHandler(fileModel: videoFileModel)
+                sender.view.makeToast(message: "Video Saved")
+            }else
+            {
+                sender.view.makeToast(message: "Save Video Failed")
+            }
+        }
+    }
+    
+    func videoCancelRecord(sender: UICameraViewController!)
+    {
+        view.makeToast(message: "Cancel")
+    }
+    
     @IBAction func recordVideo() {
-        performSegueWithIdentifier(SegueIdentifierConstants.RecordVideo, sender: self)
+        ServiceContainer.getService(CameraService).showCamera(self.navigationController!, delegate: self){ destination in
+            let fileService = ServiceContainer.getService(FileService)
+            let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+            if fileService.moveFileTo(destination, destinationPath: newFilePath)
+            {
+                self.shareThingModel.content.content = newFilePath
+                self.shareContentContainer.model = self.shareThingModel.content
+                self.view.makeToast(message: "Video Saved")
+            }else
+            {
+                self.view.makeToast(message: "Save Video Failed")
+            }
+        }
+    }
+    
+    @IBAction func selectVideo()
+    {
+        let files = ServiceContainer.getService(FileService).getFileModelsOfFileLocalStore(FileType.Video)
+        ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files, delegate: self)
     }
     
     @IBAction func share()

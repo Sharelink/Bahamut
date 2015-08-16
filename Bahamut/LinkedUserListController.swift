@@ -42,6 +42,16 @@ class LinkedUserListController: UITableViewController
         refresh()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowProfile"
+        {
+            let upvc = segue.destinationViewController as! UserProfileViewController
+            let userCell = sender as? UIUserListCell
+            upvc.userProfileModel = userCell?.userModel
+        }
+        
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return userListModel.count
@@ -60,7 +70,7 @@ class LinkedUserListController: UITableViewController
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.UserIdentifier, forIndexPath: indexPath) 
         let userModel = userListModel[indexPath.section].1[indexPath.row] as ShareLinkUser
-        if let userCell = cell as? UIUser
+        if let userCell = cell as? UIUserListCell
         {
             userCell.userModel = userModel
         }

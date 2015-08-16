@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMedia
+import AVFoundation
 
 public class ShareLinkFilmView: UIView ,PlayerDelegate
 {
@@ -155,8 +156,7 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
             if filePath == nil
             {
                 playerController.reset()
-            }
-            else
+            }else
             {
                 playerController.path = filePath
             }
