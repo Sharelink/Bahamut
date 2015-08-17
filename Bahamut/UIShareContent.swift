@@ -20,6 +20,16 @@ class UIShareContent: UIView
         }
     }
     
+    func update()
+    {
+        if let moviePath = model?.content
+        {
+            mediaPlayer.filePath = moviePath
+        }else{
+            mediaPlayer.filePath = nil
+        }
+    }
+    
     deinit{
         mediaPlayer.filePath = nil
         mediaPlayer = nil
