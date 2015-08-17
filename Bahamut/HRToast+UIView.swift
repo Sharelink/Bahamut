@@ -118,7 +118,7 @@ extension UIView {
         
         self.addSubview(toast)
         objc_setAssociatedObject(self, &HRToastView, toast, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
-        
+        self.bringSubviewToFront(toast)
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0, options: [.CurveEaseOut , .AllowUserInteraction],
             animations: {
