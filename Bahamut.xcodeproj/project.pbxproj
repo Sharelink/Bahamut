@@ -22,6 +22,9 @@
 		E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47251B7637AE002674AB /* LinkedUserListController.swift */; };
 		E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44AD1B806DE700E0B6EB /* CameraService.swift */; };
 		E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E73E44AF1B80787600E0B6EB /* Component.storyboard */; };
+		E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B31B81725000E0B6EB /* UIUserTag.swift */; };
+		E73E44B61B8174F200E0B6EB /* UserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B51B8174F200E0B6EB /* UserTag.swift */; };
+		E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */; };
 		E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754AE291B7C749B0077EECC /* UICameraViewController.swift */; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
 		E78D131E1B71123C00252E50 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D130D1B71123C00252E50 /* Account.swift */; };
@@ -98,6 +101,9 @@
 		E72F47251B7637AE002674AB /* LinkedUserListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedUserListController.swift; sourceTree = "<group>"; };
 		E73E44AD1B806DE700E0B6EB /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		E73E44AF1B80787600E0B6EB /* Component.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Component.storyboard; sourceTree = "<group>"; };
+		E73E44B31B81725000E0B6EB /* UIUserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTag.swift; sourceTree = "<group>"; };
+		E73E44B51B8174F200E0B6EB /* UserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTag.swift; sourceTree = "<group>"; };
+		E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResourceExplorerController.swift; sourceTree = "<group>"; };
 		E754AE291B7C749B0077EECC /* UICameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICameraViewController.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E78D130D1B71123C00252E50 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -294,6 +300,7 @@
 			children = (
 				E78D13181B71123C00252E50 /* ShareLinkUser.swift */,
 				E78D13191B71123C00252E50 /* UserLink.swift */,
+				E73E44B51B8174F200E0B6EB /* UserTag.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -371,6 +378,7 @@
 				E72F47231B7635D9002674AB /* UIUserListCell.swift */,
 				E72F47251B7637AE002674AB /* LinkedUserListController.swift */,
 				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
+				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
 			);
 			name = UIUser;
 			sourceTree = "<group>";
@@ -477,6 +485,7 @@
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
 				E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */,
+				E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */,
 			);
 			name = UIComponent;
 			sourceTree = "<group>";
@@ -645,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7CC15161B6E0FBA001FDB0E /* StringHelper.swift in Sources */,
+				E73E44B61B8174F200E0B6EB /* UserTag.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E78D131F1B71123C00252E50 /* ShareLinkObject.swift in Sources */,
@@ -665,6 +675,7 @@
 				E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E72F47241B7635D9002674AB /* UIUserListCell.swift in Sources */,
+				E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */,
 				E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* ReplyService.swift in Sources */,
@@ -683,6 +694,7 @@
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
 				E78D13261B71123C00252E50 /* UserLink.swift in Sources */,
 				E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */,
+				E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */,
 				E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */,
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
