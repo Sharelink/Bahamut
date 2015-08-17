@@ -74,6 +74,7 @@ class LinkedUserListController: UITableViewController
         if let userCell = cell as? UIUserListCell
         {
             userCell.userModel = userModel
+            userCell.rootController = self
         }
         return cell
     }

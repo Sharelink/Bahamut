@@ -19,13 +19,24 @@ extension UserService
     }
 }
 
-class UserProfileViewController: UIViewController
+class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
 {
+    @IBOutlet weak var userTagCollectionView: UICollectionView!{
+        didSet{
+            userTagCollectionView.dataSource = self
+            userTagCollectionView.delegate = self
+            userTagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+        }
+    }
     @IBOutlet weak var userProfileVideo: ShareLinkFilmView!
     @IBOutlet weak var headIconImageView: UIImageView!
     @IBOutlet weak var userSignTextView: UILabel!
     @IBOutlet weak var userNickNameLabelView: UILabel!
     var userProfileModel:ShareLinkUser!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,4 +56,29 @@ class UserProfileViewController: UIViewController
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
         })
     }
+    
+    //MARK: user tag
+    var userTags:[UserTag]!
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userTags?.count ?? 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let identifier: String = "UserTagCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
+        cell.model = userTags[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let identifier: String = "UserTagCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
+        return CGSizeMake(cell.tagNameLabel.bounds.width, cell.tagNameLabel.bounds.height)
+    }
+    
+    func selectUserTag(_:UITapGestureRecognizer)
+    {
+        print("select tag")
+    }
+    
 }

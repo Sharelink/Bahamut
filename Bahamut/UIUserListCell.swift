@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIUserListCell: UITableViewCell
+class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource
 {
     var userModel:ShareLinkUser!{
         didSet{
@@ -18,14 +18,17 @@ class UIUserListCell: UITableViewCell
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
+            headIconImageView.userInteractionEnabled = true
             headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
         }
     }
     @IBOutlet weak var userNickTextField: UILabel!{
         didSet{
+            userNickTextField.userInteractionEnabled = true
             userNickTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
         }
     }
+    @IBOutlet weak var userTagCollectionView: UICollectionView!
     
     func showProfile(_:UIGestureRecognizer)
     {
@@ -34,7 +37,7 @@ class UIUserListCell: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        
+        print("show head icon")
     }
     
     func update()
@@ -44,4 +47,22 @@ class UIUserListCell: UITableViewCell
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
         })
     }
+    
+    //MARK user tag
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        return CGSizeMake(20, 20)
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userModel.userTags?.count ?? 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let identifier: String = "UserTagCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+        cell.backgroundColor = UIColor(CIColor: CIColor(string: userModel.userTags[indexPath.row].tagColor))
+        return cell
+    }
+
 }
