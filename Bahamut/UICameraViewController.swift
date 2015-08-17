@@ -31,12 +31,18 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
         initPreview()
         setup()
         initRecordButton()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        recordButton.hidden = true
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        recordButton.hidden = false
     }
     
     @IBOutlet weak var useVideoButton: UIBarButtonItem!{
@@ -52,7 +58,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         recordButtonController = self.childViewControllers.filter { $0 is UIRecordButtonController}.first as! UIRecordButtonController
         recordButtonController.didMoveToParentViewController(self)
         let moveRecorgnizer = UIPanGestureRecognizer(target: self, action: "moveRecordButton:")
-        recordButton.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 130, 128, 128)
         recordButton.addGestureRecognizer(moveRecorgnizer)
         self.view.bringSubviewToFront(recordButton)
         recordButtonController.progressValue = 0
@@ -71,7 +76,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     @IBAction func cancelRecord(sender: AnyObject)
     {
-        print("cancel")
         if let videoCancelRecord = delegate?.videoCancelRecord
         {
             videoCancelRecord(self)
