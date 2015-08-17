@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Files-->
@@ -22,31 +23,41 @@
                                 <rect key="frame" x="20" y="8" width="560" height="508"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f22-8k-XwS">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="64" height="64"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="FileItemCell" id="rTw-vJ-yPn" customClass="UIFileCollectionCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="64" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W8a-vd-TLE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="F0n-5X-smZ">
+                                                    <rect key="frame" x="48" y="0.0" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="GbN-r1-zN5"/>
+                                                        <constraint firstAttribute="width" constant="16" id="Q5B-Sd-9aa"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="W8a-vd-TLE" firstAttribute="top" secondItem="rTw-vJ-yPn" secondAttribute="top" id="0dh-ie-gVO"/>
+                                            <constraint firstItem="F0n-5X-smZ" firstAttribute="top" secondItem="rTw-vJ-yPn" secondAttribute="topMargin" constant="-8" id="Jz4-Bs-BbU"/>
                                             <constraint firstAttribute="trailing" secondItem="W8a-vd-TLE" secondAttribute="trailing" id="TaO-wg-pgv"/>
                                             <constraint firstAttribute="bottom" secondItem="W8a-vd-TLE" secondAttribute="bottom" id="cS3-0R-qyP"/>
                                             <constraint firstItem="W8a-vd-TLE" firstAttribute="leading" secondItem="rTw-vJ-yPn" secondAttribute="leading" id="eOO-8h-4Fc"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="F0n-5X-smZ" secondAttribute="trailing" constant="-8" id="wuV-AD-DvF"/>
                                         </constraints>
+                                        <size key="customSize" width="64" height="64"/>
                                         <connections>
                                             <outlet property="fileThumbImageView" destination="W8a-vd-TLE" id="XNV-Rj-YpA"/>
                                         </connections>
@@ -62,20 +73,33 @@
                             <constraint firstItem="6hW-B2-MVa" firstAttribute="trailing" secondItem="RWG-RJ-EwK" secondAttribute="trailingMargin" id="Yve-QS-Gio"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Files" id="0t1-YN-UUi">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Y8v-vY-L74"/>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="qTh-eb-06a">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <toolbarItems>
+                        <barButtonItem title="Delete" id="5ax-Ge-t3r">
                             <connections>
-                                <action selector="addFile:" destination="NYT-uY-zWp" id="5da-Pa-Pah"/>
+                                <action selector="deleteFile:" destination="NYT-uY-zWp" id="LRi-pg-RbH"/>
                             </connections>
                         </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Files" id="0t1-YN-UUi">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Y8v-vY-L74"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add" id="qTh-eb-06a">
+                                <connections>
+                                    <action selector="addFile:" destination="NYT-uY-zWp" id="5da-Pa-Pah"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Edit" id="bZV-ta-nn3">
+                                <connections>
+                                    <action selector="editFiles:" destination="NYT-uY-zWp" id="oCo-hX-RfK"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="collectionView" destination="6hW-B2-MVa" id="yOV-1E-kn8"/>
+                        <outlet property="uiCollectionView" destination="6hW-B2-MVa" id="Ncm-aX-hgD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9BW-7z-DLU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -229,6 +253,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="check" width="512" height="512"/>
         <image name="startRecord" width="48" height="48"/>
     </resources>
 </document>
