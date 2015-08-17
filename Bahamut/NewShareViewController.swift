@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIFileCollectionControllerDelegate {
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate ,UICollectionViewDataSource,UICollectionViewDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +40,25 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    @IBOutlet weak var userTagCollectionView: UICollectionView!{
+        didSet{
+            userTagCollectionView.delegate = self
+            userTagCollectionView.dataSource = self
+            userTagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let identifier: String = "UserTagCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+        cell.backgroundColor = UIColor(CIColor: CIColor(string: shareThingModel.userTags[indexPath.row].tagColor))
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return shareThingModel.userTags?.count ?? 0
+    }
+    
     var shareThingModel:ShareThing!{
         didSet{
             if shareContentContainer != nil
@@ -49,22 +68,22 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    func selectUserTag(_:UITapGestureRecognizer)
+    {
+        print("select tag")
+    }
+    
     func textViewDidChange(textView: UITextView) {
         shareThingModel.title = textView.text
     }
     
-    func fileSelected(fileModel: UIFileCollectionCellModel, index: Int, sender: UIFileCollectionController!)
-    {
+    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
+        let fileModel = itemModel as! UIFileCollectionCellModel
         shareThingModel.content.content = fileModel.filePath
+        self.shareContentContainer.model = shareThingModel.content
     }
     
-    func fileDeSelected(fileModel: UIFileCollectionCellModel, index: Int, sender: UIFileCollectionController!)
-    {
-        shareThingModel.content.content = nil
-    }
-    
-    func addFile(completedHandler: (fileModel: UIFileCollectionCellModel) -> Void, sender: UIFileCollectionController!) {
-
+    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!) {
         ServiceContainer.getService(CameraService).showCamera(sender.navigationController!, delegate: nil) { (destination) -> Void in
             let fileService = ServiceContainer.getService(FileService)
             let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
@@ -73,13 +92,35 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 let videoFileModel = UIFileCollectionCellModel()
                 videoFileModel.filePath = newFilePath
                 videoFileModel.fileType = .Video
-                completedHandler(fileModel: videoFileModel)
+                completedHandler(itemModel: videoFileModel)
                 sender.view.makeToast(message: "Video Saved")
             }else
             {
                 sender.view.makeToast(message: "Save Video Failed")
             }
         }
+        
+    }
+    
+    func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!) {
+        let fileModels = itemModels as! [UIFileCollectionCellModel]
+        var sum = 0
+        for fileModel in fileModels
+        {
+            do
+            {
+                try NSFileManager.defaultManager().removeItemAtPath(fileModel.filePath)
+                sum++
+            }catch let error as NSError{
+                print(error.description)
+            }
+        }
+        sender.view.makeToast(message: "\(sum) files deleted", duration: HRToastDefaultDuration, position: HRToastPositionCenter)
+    }
+    
+    func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
+        
+        sender.view.makeToast(message: "open file")
     }
     
     func videoCancelRecord(sender: UICameraViewController!)
@@ -106,7 +147,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBAction func selectVideo()
     {
         let files = ServiceContainer.getService(FileService).getFileModelsOfFileLocalStore(FileType.Video)
-        ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files, delegate: self)
+        ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files,selectionMode:.Single, delegate: self)
     }
     
     @IBAction func share()

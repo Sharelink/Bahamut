@@ -11,14 +11,25 @@ import PBJVision
 import AVKit
 import AVFoundation
 
-class UIFileCollectionCell: UICollectionViewCell
+class UIFileCollectionCell: UIResourceItemCell
 {
+    
     @IBOutlet weak var fileThumbImageView: UIImageView!
     
+    override func update() {
+        if model != nil
+        {
+            if let fileModel = model! as? UIFileCollectionCellModel
+            {
+                fileThumbImageView.image = fileModel.thumbImage
+            }
+        }
+        
+    }
 }
 
-@objc
-class UIFileCollectionCellModel : NSObject
+//MARK: model
+class UIFileCollectionCellModel : UIResrouceItemModel
 {
     var fileType:FileType = FileType.Raw
     var filePath:String!
@@ -40,14 +51,7 @@ class UIFileCollectionCellModel : NSObject
     }()
 }
 
-@objc
-protocol UIFileCollectionControllerDelegate
-{
-    optional func fileSelected(fileModel:UIFileCollectionCellModel, index:Int ,sender:UIFileCollectionController!)
-    optional func fileDeSelected(fileModel:UIFileCollectionCellModel, index:Int,sender:UIFileCollectionController!)
-    optional func addFile(completedHandler:(fileModel:UIFileCollectionCellModel) -> Void,sender:UIFileCollectionController!)
-}
-
+//MARK: service extensino
 extension FileService
 {
     func getFileModelsOfFileLocalStore(fileType:FileType ) -> [UIFileCollectionCellModel]
@@ -60,120 +64,41 @@ extension FileService
         }
     }
     
-    func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],delegate:UIFileCollectionControllerDelegate!)
+    func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],selectionMode:ResourceExplorerSelectMode = .Negative ,delegate:UIResourceExplorerDelegate! = nil)
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let fileCollectionController = storyBoard.instantiateViewControllerWithIdentifier("fileCollectionViewController") as! UIFileCollectionController
-        fileCollectionController.files = files
+        fileCollectionController.items = files
         fileCollectionController.delegate = delegate
+        fileCollectionController.selectionMode = selectionMode
         currentNavigationController.pushViewController(fileCollectionController, animated: true)
     }
 }
 
-class UIFileCollectionController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
+//MARK: controller
+class UIFileCollectionController: UIResourceExplorerController
 {
-    enum FileSelectMode
-    {
-        case None
-        case SingleSelect
-        case MultiSelect
-    }
-    var delegate:UIFileCollectionControllerDelegate!
+
+    @IBOutlet weak var uiCollectionView: UICollectionView!
     
-    @IBOutlet weak var collectionView: UICollectionView!{
-        didSet{
-            collectionView.reloadData()
-            collectionView.delegate = self
-            collectionView.dataSource = self //need to bind the data source and the delegate
-        }
-    }
-    var files:[UIFileCollectionCellModel]!{
-        didSet{
-            if collectionView != nil
-            {
-                collectionView.reloadData()
-            }
-        }
+    override func getCollectionView() -> UICollectionView {
+        return uiCollectionView
     }
     
-    var selectedFiles:[UIFileCollectionCellModel]!
-    var selectedMode:FileSelectMode = .None{
-        didSet{
-            collectionView.reloadData()
-        }
+    override func getCellReuseIdentifier() -> String {
+        return "FileItemCell"
     }
     
     @IBAction func addFile(sender: AnyObject) {
-        if let addFileDelegate = delegate.addFile
-        {
-            addFileDelegate(addFileCompletedHandler,sender: self)
-        }
+        addItem(sender)
     }
     
-    private func addFileCompletedHandler(fileModel:UIFileCollectionCellModel)
+    @IBAction func deleteFile(sender: AnyObject) {
+        deleteItem(sender)
+    }
+    
+    @IBAction func editFiles(sender: AnyObject)
     {
-        files.append(fileModel)
-        collectionView.reloadData()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        initAddFileButton()
-    }
-    
-    private func initAddFileButton()
-    {
-        if let buttons = navigationItem.rightBarButtonItems
-        {
-            var i = 0
-            for btn in buttons
-            {
-                if btn.tag == 0
-                {
-                    if nil == delegate.addFile
-                    {
-                        navigationItem.rightBarButtonItems?.removeAtIndex(i)
-                        return
-                    }
-                }
-                i++
-            }
-        }
-       
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return files.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return selectedMode != .None
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let identifier: String = "FileItemCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UIFileCollectionCell
-        cell.fileThumbImageView.image = files[indexPath.row].thumbImage
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        if let delegate = delegate.fileSelected
-        {
-            delegate(files[indexPath.row] ,index: indexPath.row,sender: self)
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        if let delegate = delegate.fileDeSelected
-        {
-            delegate(files[indexPath.row] ,index: indexPath.row,sender: self)
-        }
+        editItems(sender)
     }
 }
