@@ -15,6 +15,16 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
             update()
         }
     }
+    
+    var userTags:[UserTag]!{
+        didSet{
+            if userTagCollectionView != nil
+            {
+                userTagCollectionView.reloadData()
+            }
+        }
+    }
+    
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
@@ -46,6 +56,7 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
         ServiceContainer.getService(FileService).getFile(userModel.headIconId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
         })
+        userTagCollectionView.reloadData()
     }
     
     //MARK user tag
@@ -55,13 +66,13 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userModel.userTags?.count ?? 0
+        return userTags?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(CIColor: CIColor(string: userModel.userTags[indexPath.row].tagColor))
+        cell.backgroundColor = UIColor(CIColor: CIColor(string: userTags[indexPath.row].tagColor))
         return cell
     }
 

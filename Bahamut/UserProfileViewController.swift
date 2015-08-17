@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+//MARK: UserService
 extension UserService
 {
     func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
@@ -15,17 +17,19 @@ extension UserService
         let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
         let userProfile = self.getUser(userId)
         controller.userProfileModel = userProfile
+        controller.userTags = self.getLinkedUserAllTags(userId)
         currentNavigationController.pushViewController(controller , animated: true)
     }
 }
 
-class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
+class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIResourceExplorerDelegate
 {
     @IBOutlet weak var userTagCollectionView: UICollectionView!{
         didSet{
             userTagCollectionView.dataSource = self
             userTagCollectionView.delegate = self
             userTagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+            userTagCollectionView.reloadData()
         }
     }
     @IBOutlet weak var userProfileVideo: ShareLinkFilmView!
@@ -33,7 +37,6 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     @IBOutlet weak var userSignTextView: UILabel!
     @IBOutlet weak var userNickNameLabelView: UILabel!
     var userProfileModel:ShareLinkUser!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -55,10 +58,18 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         ServiceContainer.getService(FileService).getFile(userProfileModel.headIconId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
         })
+        userTagCollectionView.reloadData()
     }
     
     //MARK: user tag
-    var userTags:[UserTag]!
+    var userTags:[UserTag]!{
+        didSet{
+            if userTagCollectionView != nil
+            {
+                userTagCollectionView.reloadData()
+            }
+        }
+    }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userTags?.count ?? 0
     }
@@ -78,7 +89,8 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     func selectUserTag(_:UITapGestureRecognizer)
     {
-        print("select tag")
+        let userService = ServiceContainer.getService(UserService)
+        userService.showTagCollectionControllerView(self.navigationController!, tags: userService.getUserTagsResourceItemModels(self.userTags), selectionMode: .Multiple, delegate: self)
     }
     
 }

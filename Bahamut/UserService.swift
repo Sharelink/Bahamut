@@ -153,6 +153,8 @@ class UserService: ServiceProtocol
         })
     }
     
+    
+    
     private func getLinkedUsers() -> [ShareLinkUser]
     {
         let myLinkedUserLink = PersistentManager.sharedInstance.getAllModel(UserLink)
@@ -230,5 +232,41 @@ class UserService: ServiceProtocol
         UserLink.saveObjectOfArray(userLinks)
         ShareLinkUser.saveObjectOfArray(users)
         self.initLinkedUsers()
+    }
+    
+    //MARK: UserTag
+    func getMyAllUserTags() ->[UserTag]
+    {
+        let result = [UserTag]()
+        
+        return result
+    }
+    
+    func addLinkedUserAUserTag(user:ShareLinkUser,tag:UserTag)
+    {
+        
+    }
+    
+    func removeLinkedUserTag(user:ShareLinkUser,tagId:String)
+    {
+        
+    }
+    
+    func addUserTag(tag:UserTag)
+    {
+        
+    }
+    
+    func getLinkedUserAllTags(userId:String) -> [UserTag]
+    {
+        let result = [UserTag]()
+        
+        return result
+    }
+    
+    func getUserTagUsers(tag:UserTag) -> [ShareLinkUser]
+    {
+        let result = [ShareLinkUser]()
+        return result
     }
 }
