@@ -190,10 +190,25 @@ extension PersistentManager
     func getAllModel<T:ShareLinkObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
-        return CoreDataHelper.getAllCells(entityName,idFieldName: ModelEntityConstants.idFielldName,typeName: typename).map{ obj -> T in
+        let typesname = "[\(typename)]"
+        let cache = getCache(typesname)
+        let result = CoreDataHelper.getAllCells(entityName,idFieldName: ModelEntityConstants.idFielldName,typeName: typename).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
         }
+        cache.setObject(result, forKey: typesname)
+        return result
+    }
+    
+    func getAllModelFromCache<T:ShareLinkObject>(type:T.Type) -> [T]
+    {
+        let typename = "[\(type.description())]"
+        let cache = getCache(typename)
+        if let result = cache.objectForKey(typename) as? [T]
+        {
+            return result
+        }
+        return getAllModel(type)
     }
     
     func saveModel(model:ShareLinkObject)

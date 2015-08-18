@@ -30,7 +30,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="FileItemCell" id="rTw-vJ-yPn" customClass="UIFileCollectionCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="64" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -109,7 +109,6 @@
         <!--Camera View Controller-->
         <scene sceneID="R74-Gz-4gS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dN1-rt-Kk8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="cameraViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="X13-vz-Um7" customClass="UICameraViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Hr-SZ-6VV"/>
@@ -163,6 +162,7 @@
                         <outlet property="useVideoButton" destination="BQA-Vr-iMd" id="OdB-jt-Set"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dN1-rt-Kk8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="1680"/>
         </scene>
@@ -364,34 +364,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHm-L5-AW1">
-                                <rect key="frame" x="20" y="8" width="78" height="21"/>
+                                <rect key="frame" x="20" y="14" width="78" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGE-lU-gk1">
+                                <rect key="frame" x="548" y="8" width="32" height="32"/>
+                                <color key="backgroundColor" red="0.4548012085" green="0.325882697" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="73C-0t-HOM"/>
+                                    <constraint firstAttribute="width" constant="32" id="xLr-UL-dtO"/>
+                                </constraints>
+                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QuQ-kw-jNH">
-                                <rect key="frame" x="106" y="5" width="474" height="30"/>
+                                <rect key="frame" x="106" y="11" width="434" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5M1-VL-OkW">
-                                <rect key="frame" x="20" y="38" width="78" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="5M1-VL-OkW" secondAttribute="leading" id="CMg-HT-96P"/>
                             <constraint firstItem="QuQ-kw-jNH" firstAttribute="baseline" secondItem="SHm-L5-AW1" secondAttribute="baseline" id="DNY-mB-cBO"/>
-                            <constraint firstItem="SHm-L5-AW1" firstAttribute="top" secondItem="hLQ-Zp-lIf" secondAttribute="bottom" constant="8" id="Rl2-FZ-gUh"/>
+                            <constraint firstItem="SHm-L5-AW1" firstAttribute="top" secondItem="hLQ-Zp-lIf" secondAttribute="bottom" constant="14" id="Rl2-FZ-gUh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pGE-lU-gk1" secondAttribute="trailing" id="fSl-tf-9rw"/>
                             <constraint firstItem="QuQ-kw-jNH" firstAttribute="leading" secondItem="SHm-L5-AW1" secondAttribute="trailing" constant="8" symbolic="YES" id="kHQ-fM-OCZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QuQ-kw-jNH" secondAttribute="trailing" id="khk-Kb-wKy"/>
-                            <constraint firstItem="5M1-VL-OkW" firstAttribute="top" secondItem="SHm-L5-AW1" secondAttribute="bottom" constant="9" id="qNf-9m-q4U"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SHm-L5-AW1" secondAttribute="leading" id="qvT-BX-3pK"/>
-                            <constraint firstItem="5M1-VL-OkW" firstAttribute="trailing" secondItem="SHm-L5-AW1" secondAttribute="trailing" id="tiQ-If-hWq"/>
+                            <constraint firstItem="pGE-lU-gk1" firstAttribute="top" secondItem="hLQ-Zp-lIf" secondAttribute="bottom" constant="8" symbolic="YES" id="vS0-iv-oCP"/>
+                            <constraint firstItem="pGE-lU-gk1" firstAttribute="leading" secondItem="QuQ-kw-jNH" secondAttribute="trailing" constant="8" symbolic="YES" id="zGZ-5z-EbL"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="khk-Kb-wKy"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
@@ -405,6 +412,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="tagColorView" destination="pGE-lU-gk1" id="0Ls-cc-Hnc"/>
                         <outlet property="tagNameLabel" destination="QuQ-kw-jNH" id="YFN-zO-iqP"/>
                     </connections>
                 </viewController>

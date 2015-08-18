@@ -22,12 +22,12 @@ extension UserService
         })
     }
     
-    func showTagCollectionControllerView(currentNavigationController:UINavigationController,tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Multiple ,delegate:UIResourceExplorerDelegate! = nil)
+    func showTagCollectionControllerView(currentNavigationController:UINavigationController,tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)! = nil)
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
-        let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIFileCollectionController
+        let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIUserTagCollectionController
         collectionController.items = tags
-        collectionController.delegate = delegate
+        collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
@@ -41,12 +41,81 @@ class UserTagModel: UIResrouceItemModel
 class UserTagCollectionViewCell: UIResourceItemCell
 {
     
-    @IBOutlet weak var tagNameLabel: UILabel!
+    @IBOutlet weak var tagNameLabel: UILabel!{
+        didSet{
+            if let tagModel = self.model as? UserTagModel
+            {
+                tagNameLabel.text = tagModel.tagModel.tagName
+            }
+        }
+    }
     
 }
 
-class UIUserTagCollectionController: UIResourceExplorerController
+class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
+    var selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.delegate = self
+    }
+    
+    func tagEditControllerSave(saveModel: UserTagModel, sender: UIUserTagEditController)
+    {
+        let service = ServiceContainer.getService(UserService)
+        if sender.editMode == .New
+        {
+            service.addUserTag(saveModel.tagModel){
+                self.items.append(saveModel)
+                self.uiCollectionView.reloadData()
+            }
+        }else{
+            service.updateTag(saveModel.tagModel){
+                self.uiCollectionView.reloadData()
+            }
+        }
+    }
+    
+    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
+    {
+        let newTag = UserTagModel()
+        newTag.tagModel = UserTag()
+        newTag.tagModel.tagId = nil
+        newTag.tagModel.tagName = "newTag"
+        newTag.tagModel.tagColor = UIColor.redColor().toHexString()
+        ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
+    }
+    
+    func resourceExplorerItemDeSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!)
+    {
+        if let tagsChanged = self.selectedTagsChanged
+        {
+            tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UserTagModel])
+        }
+        
+    }
+    
+    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!)
+    {
+        if let tagsChanged = self.selectedTagsChanged
+            {
+                tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UserTagModel])
+        }
+    }
+    
+    func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
+    {
+        //TODO: finished this
+        
+    }
+    
+    func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!)
+    {
+        if let tagModel = itemModel as? UserTagModel
+        {
+            ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: tagModel,editMode:.Edit, delegate: self)
+        }
+    }
     
     @IBOutlet weak var uiCollectionView: UICollectionView!
     

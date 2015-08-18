@@ -42,7 +42,7 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
     
     func showProfile(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(rootController.navigationController!, userId: userModel.userId)
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel, userTags: self.userTags)
     }
     
     func showHeadIcon(_:UIGestureRecognizer)
@@ -72,7 +72,7 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(CIColor: CIColor(string: userTags[indexPath.row].tagColor))
+        cell.backgroundColor = UIColor(hexString: userTags[indexPath.row].tagColor)
         return cell
     }
 

@@ -35,6 +35,6 @@ class UserTagCell: UICollectionViewCell
     func update()
     {
         tagNameLabel.text = model.tagName
-        tagNameLabel.textColor = UIColor(CIColor: CIColor(string: model.tagColor))
+        tagNameLabel.textColor = UIColor(hexString: model.tagColor)
     }
 }

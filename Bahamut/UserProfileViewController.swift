@@ -14,15 +14,21 @@ extension UserService
 {
     func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
     {
-        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
         let userProfile = self.getUser(userId)
+        let userTags = self.getLinkedUserAllTags(userId)
+        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, userTags: userTags)
+    }
+    
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,userTags:[UserTag])
+    {
+        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
         controller.userProfileModel = userProfile
-        controller.userTags = self.getLinkedUserAllTags(userId)
+        controller.userTags = userTags
         currentNavigationController.pushViewController(controller , animated: true)
     }
 }
 
-class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIResourceExplorerDelegate
+class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
 {
     @IBOutlet weak var userTagCollectionView: UICollectionView!{
         didSet{
@@ -90,7 +96,22 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        userService.showTagCollectionControllerView(self.navigationController!, tags: userService.getUserTagsResourceItemModels(self.userTags), selectionMode: .Multiple, delegate: self)
+        userService.showTagCollectionControllerView(self.navigationController!, tags: userService.getUserTagsResourceItemModels(self.userTags), selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
+            let result = tagsSelected.map{ tag -> UserTag in
+                return tag.tagModel
+            }
+            let oldTags = Set<UserTag>(self.userTags)
+            let newTags = Set<UserTag>(result)
+            let willRemoveTags = oldTags.subtract(newTags).map{ rTag -> UserTag in
+                return rTag
+            }
+            let willAddTags = newTags.subtract(oldTags).map{ rTag -> UserTag in
+                return rTag
+            }
+            userService.updateUserTags(self.userProfileModel.userId, willAddTags: willAddTags, willRemoveTags: willRemoveTags){
+                self.userTags = result
+            }
+        }
     }
     
 }

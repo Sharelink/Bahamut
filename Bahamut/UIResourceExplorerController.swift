@@ -56,7 +56,7 @@ protocol UIResourceExplorerDelegate
     
 }
 
-enum ResourceExplorerSelectMode
+public enum ResourceExplorerSelectMode
 {
     case Negative
     case Single

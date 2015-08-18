@@ -5,12 +5,14 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "887A4DAF38295A7621106664C13C6A5C89B19F59" : 0,
+    "124669F0DF675BB95A418DB8F67186B00255CEFE" : 0,
     "B84DE46359EC6144872C156939360FB1A660D8C3" : 0,
     "D76505715D462805A666F5DB57A4D139F6E8425B" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "FA1F584E-89D4-4F79-8599-366A1CFDD2AE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "887A4DAF38295A7621106664C13C6A5C89B19F59" : "Toast-Swift",
+    "124669F0DF675BB95A418DB8F67186B00255CEFE" : "..\/DynamicColor",
     "B84DE46359EC6144872C156939360FB1A660D8C3" : "Bahamut",
     "D76505715D462805A666F5DB57A4D139F6E8425B" : "ShareLinkSDK"
   },
@@ -18,6 +20,11 @@
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Bahamut.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zhouguangjie\/DynamicColor.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "124669F0DF675BB95A418DB8F67186B00255CEFE"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zhouguangjie\/Toast-Swift.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
