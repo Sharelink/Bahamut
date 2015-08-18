@@ -70,7 +70,24 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func selectUserTag(_:UITapGestureRecognizer)
     {
-        print("select tag")
+        let userService = ServiceContainer.getService(UserService)
+        let tags = userService.getMyAllUserTags()
+        let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
+        for model in tagsModels
+        {
+            for eModel in shareThingModel.userTags
+            {
+                model.selected = eModel.tagId == model.tagModel.tagId
+            }
+        }
+        userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in
+            
+            let result = tagsSelected.map{ tag -> UserTag in
+                return tag.tagModel
+            }
+            self.shareThingModel.userTags = result
+        }
+        
     }
     
     func textViewDidChange(textView: UITextView) {

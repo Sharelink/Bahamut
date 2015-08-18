@@ -96,7 +96,16 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        userService.showTagCollectionControllerView(self.navigationController!, tags: userService.getUserTagsResourceItemModels(self.userTags), selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
+        let tags = userService.getMyAllUserTags()
+        let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
+        for model in tagsModels
+        {
+            for eModel in self.userTags
+            {
+                model.selected = eModel.tagId == model.tagModel.tagId
+            }
+        }
+        userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
             let result = tagsSelected.map{ tag -> UserTag in
                 return tag.tagModel
             }
