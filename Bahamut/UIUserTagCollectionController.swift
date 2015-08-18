@@ -26,9 +26,9 @@ extension UserService
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIUserTagCollectionController
-        collectionController.items = tags
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
+        collectionController.items = tags
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
 }
@@ -41,14 +41,19 @@ class UserTagModel: UIResrouceItemModel
 class UserTagCollectionViewCell: UIResourceItemCell
 {
     
-    @IBOutlet weak var tagNameLabel: UILabel!{
-        didSet{
-            if let tagModel = self.model as? UserTagModel
+    override func update() {
+        super.update()
+        if let tagModel = self.model as? UserTagModel
+        {
+            if tagNameLabel != nil
             {
                 tagNameLabel.text = tagModel.tagModel.tagName
             }
+            self.backgroundColor = UIColor(hexString: tagModel.tagModel.tagColor)
         }
     }
+    
+    @IBOutlet weak var tagNameLabel: UILabel!
     
 }
 
@@ -82,7 +87,7 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
         newTag.tagModel = UserTag()
         newTag.tagModel.tagId = nil
         newTag.tagModel.tagName = "newTag"
-        newTag.tagModel.tagColor = UIColor.redColor().toHexString()
+        newTag.tagModel.tagColor = UIColor(hex: arc4random()).toHexString()
         ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
     }
     

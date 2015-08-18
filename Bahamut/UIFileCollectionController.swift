@@ -68,9 +68,9 @@ extension FileService
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let fileCollectionController = storyBoard.instantiateViewControllerWithIdentifier("fileCollectionViewController") as! UIFileCollectionController
+        fileCollectionController.selectionMode = selectionMode
         fileCollectionController.items = files
         fileCollectionController.delegate = delegate
-        fileCollectionController.selectionMode = selectionMode
         currentNavigationController.pushViewController(fileCollectionController, animated: true)
     }
 }
