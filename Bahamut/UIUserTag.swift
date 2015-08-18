@@ -17,17 +17,17 @@ class UserTagCell: UICollectionViewCell
             if tagNameLabel != nil
             {
                 tagNameLabel.text = model.tagName
-                tagNameLabel.textColor = UIColor(CIColor: CIColor(string: model.tagColor))
+                tagNameLabel.textColor = UIColor(hexString: model.tagColor)
             }
         }
     }
     
     override func drawLayer(layer: CALayer, inContext ctx: CGContext) {
+        super.drawLayer(layer, inContext: ctx)
         layer.cornerRadius = 6.0
         layer.masksToBounds = true
         layer.borderWidth = 1.0
         layer.borderColor = tagNameLabel.textColor.CGColor
-        super.drawLayer(layer, inContext: ctx)
     }
     
     @IBOutlet weak var tagNameLabel: UILabel!

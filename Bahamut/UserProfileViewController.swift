@@ -45,6 +45,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     var userProfileModel:ShareLinkUser!
     override func viewDidLoad() {
         super.viewDidLoad()
+        userTagCollectionView.autoresizesSubviews = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -80,17 +81,15 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         return userTags?.count ?? 0
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return CGFloat(4)
+    }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
         cell.model = userTags[indexPath.row]
         return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let identifier: String = "UserTagCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
-        return CGSizeMake(cell.tagNameLabel.bounds.width, cell.tagNameLabel.bounds.height)
     }
     
     func selectUserTag(_:UITapGestureRecognizer)
@@ -100,9 +99,14 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
         for model in tagsModels
         {
+            model.selected = false
             for eModel in self.userTags
             {
-                model.selected = eModel.tagId == model.tagModel.tagId
+                if eModel.tagId == model.tagModel.tagId
+                {
+                    model.selected = true
+                    break
+                }
             }
         }
         userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
@@ -112,9 +116,18 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
             let oldTags = Set<UserTag>(self.userTags)
             let newTags = Set<UserTag>(result)
             let willRemoveTags = oldTags.subtract(newTags).map{ rTag -> UserTag in
+                if rTag.tagUserIds != nil
+                {
+                    rTag.tagUserIds = rTag.tagUserIds.filter{$0 != self.userProfileModel.userId}
+                }
                 return rTag
             }
             let willAddTags = newTags.subtract(oldTags).map{ rTag -> UserTag in
+                if rTag.tagUserIds == nil
+                {
+                    rTag.tagUserIds = [String]()
+                }
+                rTag.tagUserIds.append(self.userProfileModel.userId)
                 return rTag
             }
             userService.updateUserTags(self.userProfileModel.userId, willAddTags: willAddTags, willRemoveTags: willRemoveTags){

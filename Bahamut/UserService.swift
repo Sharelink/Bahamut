@@ -262,6 +262,10 @@ class UserService: ServiceProtocol
     {
         let result = PersistentManager.sharedInstance.getAllModelFromCache(UserTag)
         return result.filter{
+            if $0.tagUserIds == nil
+            {
+                return false
+            }
             for uId in $0.tagUserIds
             {
                 if uId == userId

@@ -20,28 +20,9 @@ class UIResrouceItemModel : NSObject
 
 class UIResourceItemCell: UICollectionViewCell
 {
-    private var _model:UIResrouceItemModel!
-    var model:UIResrouceItemModel!{
-        get{
-            return _model
-        }
-        set{
-            selected = newValue.selected
-            _model = newValue
-        }
-    }
+    var model:UIResrouceItemModel!
     
-    func update()
-    {
-    }
-    
-    override var selected:Bool{
-        didSet{
-            if model != nil{
-                model.selected = selected
-            }
-        }
-    }
+    func update(){}
 }
 
 //MARK:Delegate
@@ -77,7 +58,6 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             collectionView.dataSource = self //need to bind the data source and the delegate
             collectionView.allowsSelection = selectionMode != .Negative
             collectionView.allowsMultipleSelection = selectionMode == .Multiple
-            collectionView.reloadData()
         }
     }
     
@@ -99,7 +79,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         didSet{
             if collectionView != nil
             {
-                collectionView.allowsSelection = selectionMode != .None
+                collectionView.allowsSelection = selectionMode != .Negative
                 collectionView.allowsMultipleSelection = selectionMode == .Multiple
                 collectionView.reloadData()
             }
@@ -192,13 +172,13 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         return items.count
     }
     
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return selectionMode != .None
-    }
-    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.getCellReuseIdentifier(), forIndexPath: indexPath) as! UIResourceItemCell
         cell.model = items[indexPath.row]
+        
+        //MARK: NOTE: stupid bug,use seleted = true,in the view deselect operate will not perform,use hightlingted only click twice can deselete the cell
+        cell.highlighted  = cell.model.selected
+        
         let doubleClick = UITapGestureRecognizer(target: self, action: "openItem:")
         doubleClick.numberOfTapsRequired = 2
         cell.addGestureRecognizer(doubleClick)
@@ -217,9 +197,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.getCellReuseIdentifier(), forIndexPath: indexPath) as! UIResourceItemCell
-        cell.model = items[indexPath.row]
-        cell.selected = false
+        items[indexPath.row].selected = false
         if !editing
         {
             if let delegate = delegate?.resourceExplorerItemDeSelected
@@ -227,14 +205,11 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
                 delegate(items[indexPath.row] ,index: indexPath.row,sender: self)
             }
         }
-        
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.getCellReuseIdentifier(), forIndexPath: indexPath) as! UIResourceItemCell
-        cell.selected = true
-        cell.backgroundColor = UIColor.blueColor()
+        items[indexPath.row].selected = true
         if !editing
         {
             if let delegate = delegate?.resourceExplorerItemSelected

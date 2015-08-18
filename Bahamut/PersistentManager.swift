@@ -214,7 +214,7 @@ extension PersistentManager
     func saveModel(model:ShareLinkObject)
     {
         //save in cache
-        print(model.classForCoder.description())
+        //print(model.classForCoder.description())
         let typeName = model.classForCoder.description()
         let nsCache = getCache(typeName)
         let idValue = model.valueForKey(model.getObjectUniqueIdName()) as! String

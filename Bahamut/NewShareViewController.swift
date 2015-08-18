@@ -67,7 +67,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(CIColor: CIColor(string: shareThingModel.userTags[indexPath.row].tagColor))
+        cell.backgroundColor = UIColor(hexString: shareThingModel.userTags[indexPath.row].tagColor)
         return cell
     }
     
@@ -89,11 +89,20 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         let userService = ServiceContainer.getService(UserService)
         let tags = userService.getMyAllUserTags()
         let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
-        for model in tagsModels
+        if shareThingModel.userTags != nil
         {
-            for eModel in shareThingModel.userTags
+            for model in tagsModels
             {
-                model.selected = eModel.tagId == model.tagModel.tagId
+                model.selected = false
+                for eModel in shareThingModel.userTags
+                {
+                    if eModel.tagId == model.tagModel.tagId
+                    {
+                        model.selected = true
+                        break
+                    }
+                    
+                }
             }
         }
         userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in

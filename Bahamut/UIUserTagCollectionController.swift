@@ -22,7 +22,7 @@ extension UserService
         })
     }
     
-    func showTagCollectionControllerView(currentNavigationController:UINavigationController,tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)! = nil)
+    func showTagCollectionControllerView(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)! = nil)
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIUserTagCollectionController
@@ -52,7 +52,6 @@ class UserTagCollectionViewCell: UIResourceItemCell
             self.backgroundColor = UIColor(hexString: tagModel.tagModel.tagColor)
         }
     }
-    
     @IBOutlet weak var tagNameLabel: UILabel!
     
 }
@@ -91,20 +90,11 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
         ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
     }
     
-    func resourceExplorerItemDeSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!)
-    {
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         if let tagsChanged = self.selectedTagsChanged
         {
             tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UserTagModel])
-        }
-        
-    }
-    
-    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!)
-    {
-        if let tagsChanged = self.selectedTagsChanged
-            {
-                tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UserTagModel])
         }
     }
     

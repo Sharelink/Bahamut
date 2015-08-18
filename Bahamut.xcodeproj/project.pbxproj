@@ -18,12 +18,12 @@
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
 		E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
 		E72F47221B7602C6002674AB /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47211B7602C6002674AB /* DateHelper.swift */; };
-		E72F47241B7635D9002674AB /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47231B7635D9002674AB /* UIUserListCell.swift */; };
 		E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47251B7637AE002674AB /* LinkedUserListController.swift */; };
 		E73AD0091B82D3C400EE9EA0 /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD0071B82D3C400EE9EA0 /* HSL.swift */; };
 		E73AD00A1B82D3C400EE9EA0 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD0081B82D3C400EE9EA0 /* UIColor.swift */; };
 		E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */; };
 		E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
+		E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
 		E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44AD1B806DE700E0B6EB /* CameraService.swift */; };
 		E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E73E44AF1B80787600E0B6EB /* Component.storyboard */; };
 		E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B31B81725000E0B6EB /* UIUserTag.swift */; };
@@ -103,12 +103,12 @@
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
 		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		E72F47211B7602C6002674AB /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		E72F47231B7635D9002674AB /* UIUserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserListCell.swift; sourceTree = "<group>"; };
 		E72F47251B7637AE002674AB /* LinkedUserListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedUserListController.swift; sourceTree = "<group>"; };
 		E73AD0071B82D3C400EE9EA0 /* HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		E73AD0081B82D3C400EE9EA0 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserNavigationController.swift; sourceTree = "<group>"; };
+		E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserListCell.swift; sourceTree = "<group>"; };
 		E73E44AD1B806DE700E0B6EB /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		E73E44AF1B80787600E0B6EB /* Component.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Component.storyboard; sourceTree = "<group>"; };
 		E73E44B31B81725000E0B6EB /* UIUserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTag.swift; sourceTree = "<group>"; };
@@ -396,9 +396,9 @@
 		E79E3E341B6B567F00B27085 /* UIUser */ = {
 			isa = PBXGroup;
 			children = (
+				E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */,
 				E790BD021B67810200D5426B /* ProfileViewController.swift */,
 				E790BD041B67812E00D5426B /* InformationViewController.swift */,
-				E72F47231B7635D9002674AB /* UIUserListCell.swift */,
 				E72F47251B7637AE002674AB /* LinkedUserListController.swift */,
 				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
 				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
@@ -682,6 +682,7 @@
 			files = (
 				E7CC15161B6E0FBA001FDB0E /* StringHelper.swift in Sources */,
 				E73E44B61B8174F200E0B6EB /* UserTag.swift in Sources */,
+				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E78D131F1B71123C00252E50 /* ShareLinkObject.swift in Sources */,
@@ -702,7 +703,6 @@
 				E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */,
 				E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
-				E72F47241B7635D9002674AB /* UIUserListCell.swift in Sources */,
 				E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */,
 				E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,

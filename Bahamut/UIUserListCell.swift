@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource
+class UIUserListCell: UITableViewCell
 {
     var userModel:ShareLinkUser!{
         didSet{
@@ -16,14 +16,7 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
         }
     }
     
-    var userTags:[UserTag]!{
-        didSet{
-            if userTagCollectionView != nil
-            {
-                userTagCollectionView.reloadData()
-            }
-        }
-    }
+    var userTags:[UserTag]!
     
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
@@ -32,13 +25,13 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
             headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
         }
     }
+    
     @IBOutlet weak var userNickTextField: UILabel!{
         didSet{
             userNickTextField.userInteractionEnabled = true
             userNickTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
         }
     }
-    @IBOutlet weak var userTagCollectionView: UICollectionView!
     
     func showProfile(_:UIGestureRecognizer)
     {
@@ -56,24 +49,6 @@ class UIUserListCell: UITableViewCell,UICollectionViewDelegateFlowLayout,UIColle
         ServiceContainer.getService(FileService).getFile(userModel.headIconId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
         })
-        userTagCollectionView.reloadData()
-    }
-    
-    //MARK user tag
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        return CGSizeMake(20, 20)
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userTags?.count ?? 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let identifier: String = "UserTagCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(hexString: userTags[indexPath.row].tagColor)
-        return cell
     }
 
 }
