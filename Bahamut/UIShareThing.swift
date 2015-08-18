@@ -84,7 +84,7 @@ class UIShareThing: UITableViewCell
     
     @IBAction func shareToFriends()
     {
-        
+        ServiceContainer.getService(ShareService).showReshareViewController(self.rootController.navigationController!, reShareModel: shareThingModel)
     }
     
     @IBAction func reply()

@@ -8,6 +8,22 @@
 
 import UIKit
 
+//MARK: ShareService extension
+extension ShareService
+{
+    func showReshareViewController(currentNavigationController:UINavigationController,reShareModel:ShareThing)
+    {
+        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("newShareViewController") as! NewShareViewController
+        
+        controller.shareThingModel = ShareThing()
+        controller.shareThingModel.content = ShareContent()
+        controller.shareThingModel.content.content = reShareModel.content.content
+        controller.shareThingModel.shareType = reShareModel.shareType
+        controller.hidesBottomBarWhenPushed = true
+        currentNavigationController.pushViewController(controller, animated: true)
+    }
+}
+
 class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate ,UICollectionViewDataSource,UICollectionViewDelegate{
 
     override func viewDidLoad() {
@@ -86,6 +102,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 return tag.tagModel
             }
             self.shareThingModel.userTags = result
+            self.userTagCollectionView.reloadData()
         }
         
     }
