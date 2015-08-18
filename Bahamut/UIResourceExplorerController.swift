@@ -95,7 +95,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         }
     }
     
-    var selectionMode:ResourceExplorerSelectMode = ResourceExplorerSelectMode.Single{
+    var selectionMode:ResourceExplorerSelectMode = ResourceExplorerSelectMode.Multiple{
         didSet{
             if collectionView != nil
             {
