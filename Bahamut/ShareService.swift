@@ -25,7 +25,7 @@ class ShareThingSortObjectList
     private(set) var list:[ShareThingSortObject]!
     init()
     {
-        list = PersistentManager.sharedInstance.getAllModel(ShareThingSortObject)
+        list = PersistentManager.sharedInstance.getAllModelFromCache(ShareThingSortObject)
     }
     
     func sort()
@@ -310,10 +310,10 @@ class ShareService: ServiceProtocol
             shareThing.voteUserIds = ["147258","147259","147260"]
             shareThing.reShareIds = [String]()
             shareThing.reShareUserIds = [String]()
-            shareThing.content = ShareContent()
-            shareThing.content.content = "02.mov"
-            shareThing.content.shareId = shareThing.shareId
-            shareThing.content.contentId = shareThing.shareId
+            shareThing.shareContent = ShareContent()
+            shareThing.shareContent.content = "02.mov"
+            shareThing.shareContent.shareId = shareThing.shareId
+            shareThing.shareContent.contentId = shareThing.shareId
             newValues.append(shareThing)
         }
         self.shareThingSortObjectList.setShareThings(newValues)
