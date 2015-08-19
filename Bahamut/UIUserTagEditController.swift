@@ -12,7 +12,7 @@ import UIKit
 //MARK: UserService extension
 extension UserService
 {
-    func showUIUserTagEditController(currentNavigationController:UINavigationController,editModel:UserTagModel,editMode:UIUserTagEditMode,delegate:UIUserTagEditControllerDelegate)
+    func showUIUserTagEditController(currentNavigationController:UINavigationController,editModel:UISharelinkTagItemModel,editMode:UIUserTagEditMode,delegate:UIUserTagEditControllerDelegate)
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let userTagEditController = storyBoard.instantiateViewControllerWithIdentifier("userTagEditController") as! UIUserTagEditController
@@ -26,7 +26,7 @@ extension UserService
 @objc
 protocol UIUserTagEditControllerDelegate
 {
-    optional func tagEditControllerSave(saveModel:UserTagModel,sender:UIUserTagEditController)
+    optional func tagEditControllerSave(saveModel:UISharelinkTagItemModel,sender:UIUserTagEditController)
 }
 
 enum UIUserTagEditMode
@@ -49,7 +49,7 @@ class UIUserTagEditController: UIViewController
         }
     }
     var delegate:UIUserTagEditControllerDelegate!
-    var tagModel:UserTagModel!{
+    var tagModel:UISharelinkTagItemModel!{
         didSet{
             update()
         }

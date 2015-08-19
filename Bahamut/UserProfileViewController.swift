@@ -15,27 +15,27 @@ extension UserService
     func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
     {
         let userProfile = self.getUser(userId)
-        let userTags = self.getLinkedUserAllTags(userId)
-        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, userTags: userTags)
+        let tags = self.getAUsersTags(userId)
+        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, tags: tags)
     }
     
-    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,userTags:[UserTag])
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,tags:[SharelinkTag])
     {
         let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
         controller.userProfileModel = userProfile
-        controller.userTags = userTags
+        controller.tags = tags
         currentNavigationController.pushViewController(controller , animated: true)
     }
 }
 
 class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
 {
-    @IBOutlet weak var userTagCollectionView: UICollectionView!{
+    @IBOutlet weak var tagCollectionView: UICollectionView!{
         didSet{
-            userTagCollectionView.dataSource = self
-            userTagCollectionView.delegate = self
-            userTagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
-            userTagCollectionView.reloadData()
+            tagCollectionView.dataSource = self
+            tagCollectionView.delegate = self
+            tagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+            tagCollectionView.reloadData()
         }
     }
     @IBOutlet weak var userProfileVideo: ShareLinkFilmView!
@@ -45,7 +45,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     var userProfileModel:ShareLinkUser!
     override func viewDidLoad() {
         super.viewDidLoad()
-        userTagCollectionView.autoresizesSubviews = true
+        tagCollectionView.autoresizesSubviews = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -65,20 +65,20 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         ServiceContainer.getService(FileService).getFile(userProfileModel.headIconId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
         })
-        userTagCollectionView.reloadData()
+        tagCollectionView.reloadData()
     }
     
     //MARK: user tag
-    var userTags:[UserTag]!{
+    var tags:[SharelinkTag]!{
         didSet{
-            if userTagCollectionView != nil
+            if tagCollectionView != nil
             {
-                userTagCollectionView.reloadData()
+                tagCollectionView.reloadData()
             }
         }
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userTags?.count ?? 0
+        return tags?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -88,50 +88,35 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
-        cell.model = userTags[indexPath.row]
+        cell.model = tags[indexPath.row]
         return cell
     }
     
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        let tags = userService.getMyAllUserTags()
-        let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
-        for model in tagsModels
-        {
-            model.selected = false
-            for eModel in self.userTags
-            {
-                if eModel.tagId == model.tagModel.tagId
-                {
-                    model.selected = true
-                    break
-                }
-            }
-        }
-        userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
-            let result = tagsSelected.map{ tag -> UserTag in
-                return tag.tagModel
-            }
-            let oldTags = Set<UserTag>(self.userTags)
-            let newTags = Set<UserTag>(result)
-            let willRemoveTags = oldTags.subtract(newTags).map{ rTag -> UserTag in
-                if rTag.tagUserIds != nil
-                {
-                    rTag.tagUserIds = rTag.tagUserIds.filter{$0 != self.userProfileModel.userId}
-                }
-                return rTag
-            }
-            let willAddTags = newTags.subtract(oldTags).map{ rTag -> UserTag in
-                if rTag.tagUserIds == nil
-                {
-                    rTag.tagUserIds = [String]()
-                }
-                rTag.tagUserIds.append(self.userProfileModel.userId)
-                return rTag
-            }
-            userService.updateUserTags(self.userProfileModel.userId, willAddTags: willAddTags, willRemoveTags: willRemoveTags){
-                self.userTags = result
+        let allTags = userService.getMyAllTags()
+        let setAllTags = Set<SharelinkTag>(allTags)
+        let notSeletedTags = setAllTags.subtract(tags).map{return $0}
+        let seletedTagModels = userService.getUserTagsResourceItemModels(tags,selected: true) as! [UISharelinkTagItemModel]
+        let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags) as! [UISharelinkTagItemModel]
+        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
+            let newSelected = Set<UISharelinkTagItemModel>(tagsSelected)
+            let oldSelected = Set<UISharelinkTagItemModel>(seletedTagModels)
+            let willAddTags = newSelected.subtract(seletedTagModels).map({ (model) -> UserTag in
+                let ut = UserTag()
+                ut.userId = self.userProfileModel.userId
+                ut.tagId = model.tagModel.tagId
+                return ut
+            })
+            let willRemovetags = oldSelected.subtract(newSelected).map({ (model) -> UserTag in
+                let ut = UserTag()
+                ut.userId = self.userProfileModel.userId
+                ut.tagId = model.tagModel.tagId
+                return ut
+            })
+            userService.updateUserTags(self.userProfileModel.userId, willAddTags: willAddTags, willRemoveTags: willRemovetags){
+                self.tags = tagsSelected.map{return $0.tagModel}
             }
         }
     }

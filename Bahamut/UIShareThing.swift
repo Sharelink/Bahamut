@@ -105,7 +105,7 @@ class UIShareThing: UITableViewCell
         shareDateTime.text = shareThingModel.postDateString
         userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
         userReShareDetail.text = shareThingModel.userReShareDetail.isEmpty ? "" : Constants.SharePrefixEmoji + shareThingModel.userReShareDetail
-        shareContent.model = shareThingModel.content
+        shareContent.model = shareThingModel.shareContent
         ServiceContainer.getService(FileService).getFile(shareThingModel.headIconImageId, returnCallback: { (filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
         })

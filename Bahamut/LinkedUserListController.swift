@@ -64,7 +64,7 @@ class LinkedUserListController: UITableViewController
         if let userCell = cell as? UIUserListCell
         {
             userCell.userModel = userModel
-            userCell.userTags = userService.getLinkedUserAllTags(userModel.userId)
+            userCell.sharelinkTags = userService.getAUsersTags(userModel.userId)
             userCell.rootController = self
         }
         return cell

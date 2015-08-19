@@ -12,6 +12,5 @@ class UIUserNavigationController: UINavigationController
 {
     override func viewDidLoad() {
         super.viewDidLoad()
-        ServiceContainer.getService(UserService).refreshMyAllUserTags()
     }
 }

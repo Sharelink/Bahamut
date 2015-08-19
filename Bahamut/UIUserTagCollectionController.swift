@@ -13,16 +13,17 @@ import UIKit
 extension UserService
 {
     
-    func getUserTagsResourceItemModels(tags:[UserTag]) -> [UIResrouceItemModel]
+    func getUserTagsResourceItemModels(tags:[SharelinkTag],selected:Bool = false) -> [UIResrouceItemModel]
     {
-        return tags.map({ (tag) -> UserTagModel in
-            let model = UserTagModel()
+        return tags.map({ (tag) -> UISharelinkTagItemModel in
+            let model = UISharelinkTagItemModel()
+            model.selected = selected
             model.tagModel = tag
             return model
         })
     }
     
-    func showTagCollectionControllerView(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)! = nil)
+    func showTagCollectionControllerView(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
     {
         let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
         let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIUserTagCollectionController
@@ -33,9 +34,9 @@ extension UserService
     }
 }
 
-class UserTagModel: UIResrouceItemModel
+class UISharelinkTagItemModel: UIResrouceItemModel
 {
-    var tagModel:UserTag!
+    var tagModel:SharelinkTag!
 }
 
 class UserTagCollectionViewCell: UIResourceItemCell
@@ -43,7 +44,7 @@ class UserTagCollectionViewCell: UIResourceItemCell
     
     override func update() {
         super.update()
-        if let tagModel = self.model as? UserTagModel
+        if let tagModel = self.model as? UISharelinkTagItemModel
         {
             if tagNameLabel != nil
             {
@@ -58,18 +59,18 @@ class UserTagCollectionViewCell: UIResourceItemCell
 
 class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
-    var selectedTagsChanged:((tagsSeleted:[UserTagModel])->Void)!
+    var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
     }
     
-    func tagEditControllerSave(saveModel: UserTagModel, sender: UIUserTagEditController)
+    func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {
         let service = ServiceContainer.getService(UserService)
         if sender.editMode == .New
         {
-            service.addUserTag(saveModel.tagModel){
+            service.addSharelinkTag(saveModel.tagModel){
                 self.items.append(saveModel)
                 self.uiCollectionView.reloadData()
             }
@@ -82,8 +83,8 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     
     func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
     {
-        let newTag = UserTagModel()
-        newTag.tagModel = UserTag()
+        let newTag = UISharelinkTagItemModel()
+        newTag.tagModel = SharelinkTag()
         newTag.tagModel.tagId = nil
         newTag.tagModel.tagName = "newTag"
         newTag.tagModel.tagColor = UIColor(hex: arc4random()).toHexString()
@@ -94,7 +95,7 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
         super.viewDidDisappear(animated)
         if let tagsChanged = self.selectedTagsChanged
         {
-            tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UserTagModel])
+            tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UISharelinkTagItemModel])
         }
     }
     
@@ -106,7 +107,7 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!)
     {
-        if let tagModel = itemModel as? UserTagModel
+        if let tagModel = itemModel as? UISharelinkTagItemModel
         {
             ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: tagModel,editMode:.Edit, delegate: self)
         }

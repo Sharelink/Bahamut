@@ -16,8 +16,8 @@ extension ShareService
         let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("newShareViewController") as! NewShareViewController
         
         controller.shareThingModel = ShareThing()
-        controller.shareThingModel.content = ShareContent()
-        controller.shareThingModel.content.content = reShareModel.content.content
+        controller.shareThingModel.shareContent = ShareContent()
+        controller.shareThingModel.shareContent.content = reShareModel.shareContent.content
         controller.shareThingModel.shareType = reShareModel.shareType
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
@@ -31,7 +31,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
-            shareThingModel.content = ShareContent()
+            shareThingModel.shareContent = ShareContent()
         }
     }
 
@@ -48,7 +48,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
-            if let content = shareThingModel?.content
+            if let content = shareThingModel?.shareContent
             {
                 shareContentContainer.model = content
             }
@@ -67,19 +67,19 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(hexString: shareThingModel.userTags[indexPath.row].tagColor)
+        cell.backgroundColor = UIColor(hexString: shareThingModel.forTags[indexPath.row].tagColor)
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shareThingModel.userTags?.count ?? 0
+        return shareThingModel.forTags?.count ?? 0
     }
     
     var shareThingModel:ShareThing!{
         didSet{
             if shareContentContainer != nil
             {
-                shareContentContainer.model = shareThingModel.content
+                shareContentContainer.model = shareThingModel.shareContent
             }
         }
     }
@@ -87,30 +87,19 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        let tags = userService.getMyAllUserTags()
-        let tagsModels = userService.getUserTagsResourceItemModels(tags) as! [UserTagModel]
-        if shareThingModel.userTags != nil
+        let allTags = userService.getMyAllTags()
+        let setAllTags = Set<SharelinkTag>(allTags)
+        if shareThingModel.forTags == nil
         {
-            for model in tagsModels
-            {
-                model.selected = false
-                for eModel in shareThingModel.userTags
-                {
-                    if eModel.tagId == model.tagModel.tagId
-                    {
-                        model.selected = true
-                        break
-                    }
-                    
-                }
-            }
+            shareThingModel.forTags = [SharelinkTag]()
         }
-        userService.showTagCollectionControllerView(self.navigationController!, tags: tagsModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in
-            
-            let result = tagsSelected.map{ tag -> UserTag in
-                return tag.tagModel
-            }
-            self.shareThingModel.userTags = result
+        let notSeletedTags = setAllTags.subtract(shareThingModel.forTags).map{return $0}
+        let seletedTagModels = userService.getUserTagsResourceItemModels(shareThingModel.forTags,selected: true)
+        let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags)
+        
+        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in
+            let result = tagsSelected.map{return $0.tagModel!}
+            self.shareThingModel.forTags = result
             self.userTagCollectionView.reloadData()
         }
         
@@ -122,8 +111,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
         let fileModel = itemModel as! UIFileCollectionCellModel
-        shareThingModel.content.content = fileModel.filePath
-        self.shareContentContainer.model = shareThingModel.content
+        shareThingModel.shareContent.content = fileModel.filePath
+        self.shareContentContainer.model = shareThingModel.shareContent
     }
     
     func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!) {
@@ -177,8 +166,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
             if fileService.moveFileTo(destination, destinationPath: newFilePath)
             {
-                self.shareThingModel.content.content = newFilePath
-                self.shareContentContainer.model = self.shareThingModel.content
+                self.shareThingModel.shareContent.content = newFilePath
+                self.shareContentContainer.model = self.shareThingModel.shareContent
                 self.view.makeToast(message: "Video Saved")
             }else
             {

@@ -12,7 +12,7 @@ import QuartzCore
 
 class UserTagCell: UICollectionViewCell
 {
-    var model:UserTag!{
+    var model:SharelinkTag!{
         didSet{
             if tagNameLabel != nil
             {
