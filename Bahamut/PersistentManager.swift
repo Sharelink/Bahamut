@@ -139,6 +139,11 @@ extension ShareLinkObject
             item.saveModel()
         }
     }
+    
+    static func deleteObjectArray(arr:[ShareLinkObject])
+    {
+        PersistentManager.sharedInstance.removeModels(arr)
+    }
 }
 
 struct ModelEntityConstants
@@ -211,13 +216,28 @@ extension PersistentManager
         return getAllModel(type)
     }
     
+    func refreshCache<T:ShareLinkObject>(type:T.Type)
+    {
+        getAllModel(type)
+    }
+    
+    func removeModels<T:ShareLinkObject>(models:[T])
+    {
+        let typeName = T().classForCoder.description()
+        let idValues = models.map { (model) -> String in
+            let idValue = model.getObjectUniqueIdValue()
+            return "\(typeName):\(idValue)"
+        }
+        CoreDataHelper.deleteCellByIds(entityName, idFieldName: ModelEntityConstants.idFielldName, idValues: idValues)
+    }
+    
     func saveModel(model:ShareLinkObject)
     {
         //save in cache
         //print(model.classForCoder.description())
         let typeName = model.classForCoder.description()
         let nsCache = getCache(typeName)
-        let idValue = model.valueForKey(model.getObjectUniqueIdName()) as! String
+        let idValue = model.getObjectUniqueIdValue()
         let indexIdValue = "\(typeName):\(idValue)"
         nsCache.setObject(model, forKey: indexIdValue)
         //save in coredata
