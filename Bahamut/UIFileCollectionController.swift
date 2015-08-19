@@ -54,10 +54,11 @@ class UIFileCollectionCellModel : UIResrouceItemModel
 //MARK: service extensino
 extension FileService
 {
-    func getFileModelsOfFileLocalStore(fileType:FileType ) -> [UIFileCollectionCellModel]
+    func getFileModelsOfFileLocalStore(fileType:FileType,selected:Bool = false ) -> [UIFileCollectionCellModel]
     {
         return self.getLocalStoreDirFiles(fileType).map { (filePath) -> UIFileCollectionCellModel in
             let model = UIFileCollectionCellModel()
+            model.selected = selected
             model.filePath = filePath
             model.fileType = fileType
             return model
