@@ -47,6 +47,10 @@ class SignInViewController: UIViewController
                 self.view.hideToastActivity()
                 if isSuc
                 {
+                    let userService = ServiceContainer.getService(UserService)
+                    userService.refreshMyAllSharelinkTags(){
+                        userService.refreshAllLinkedUserTags()
+                    }
                     self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
                 }else
                 {

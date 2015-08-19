@@ -113,7 +113,8 @@ class UserService: ServiceProtocol
             if 1.description == "1"
             {
                 self.testGetLinkedUsers()
-                
+                PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
+                PersistentManager.sharedInstance.refreshCache(UserLink)
                 refreshCallback(isSuc: true, msg: nil)
                 return
             }
@@ -134,6 +135,8 @@ class UserService: ServiceProtocol
                             {
                                 UserLink.saveObjectOfArray(userLinks.items)
                                 ShareLinkUser.saveObjectOfArray(users.items)
+                                PersistentManager.sharedInstance.refreshCache(UserLink)
+                                PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
                                 self.initLinkedUsers()
                                 refreshCallback(isSuc: true, msg: "")
                             }else{
@@ -224,6 +227,7 @@ class UserService: ServiceProtocol
             user.headIconId = userId.description == "147258" ? "YY" : "defaultHeadIcon"
             user.personalVideoId = "\(userId)"
             user.signText = "the different \(userId)"
+            user.createTime = userLinked.createTime
             users.append(user)
             userLinks.append(userLinked)
         }
@@ -233,22 +237,35 @@ class UserService: ServiceProtocol
     }
     
     //MARK: UserTag
-    func getMyAllUserTags() ->[UserTag]
+    func getMyAllTags() ->[SharelinkTag]
     {
-        return PersistentManager.sharedInstance.getAllModel(UserTag)
+        return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
     }
     
-    func refreshMyAllUserTags(sucCallback:(()->Void)! = nil)
+    //refresh all the tag entities
+    func refreshMyAllSharelinkTags(sucCallback:(()->Void)! = nil)
     {
-        let req = GetAllUserTagsRequest()
-        req.userId = self.myUserId
+        let req = GetMyAllTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client?.execute(req, callback: { (result, returnStatus) -> Void in
             if returnStatus.returnCode == .OK
             {
-                if let userTags = result as? UserTags
+                if let tags = result as? SharelinkTags
                 {
-                    ShareLinkObject.saveObjectOfArray(userTags.items)
+                    ShareLinkObject.saveObjectOfArray(tags.items)
+                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
+                    if let callback = sucCallback
+                    {
+                        callback()
+                    }
+                }
+            }else
+            {
+                //TODO: delete
+                if let tags = result as? SharelinkTags
+                {
+                    ShareLinkObject.saveObjectOfArray(tags.items)
+                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
                     if let callback = sucCallback
                     {
                         callback()
@@ -258,54 +275,62 @@ class UserService: ServiceProtocol
         })
     }
     
-    func getLinkedUserAllTags(userId:String) -> [UserTag]
+    //refresh all user 's tags i given
+    func refreshAllLinkedUserTags(sucCallback:(()->Void)! = nil)
     {
-        let result = PersistentManager.sharedInstance.getAllModelFromCache(UserTag)
-        return result.filter{
-            if $0.tagUserIds == nil
-            {
-                return false
-            }
-            for uId in $0.tagUserIds
-            {
-                if uId == userId
-                {
-                    return true
-                }
-            }
-            return false
-        }
-    }
-    
-    func getUserTagUsers(tag:UserTag) -> [ShareLinkUser]
-    {
-        return getUsers(tag.tagUserIds)
-    }
-    
-    func addUserTag(tag:UserTag,sucCallback:(()->Void)! = nil)
-    {
-        let req = AddNewUserTagRequest()
-        req.tagName = tag.tagName
-        req.tagColor = tag.tagColor
-        req.tagUserIds = tag.tagUserIds
+        let req = GetAllLinkedUserTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == ReturnCode.OK
+            if returnStatus.returnCode == .OK
             {
-                if let addedTag = result as? UserTag
+                if let usertags = result as? UserTags
                 {
-                    tag.tagId = addedTag.tagId
+                    ShareLinkObject.saveObjectOfArray(usertags.items)
+                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
+                    if let callback = sucCallback
+                    {
+                        callback()
+                    }
+                }
+            }else{
+                //TODO: delete test
+                if let usertags = result as? UserTags
+                {
+                    ShareLinkObject.saveObjectOfArray(usertags.items)
+                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
+                    if let callback = sucCallback
+                    {
+                        callback()
+                    }
+                }
+            }
+        })
+    }
+    
+    func addSharelinkTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
+    {
+        let req = AddNewTagRequest()
+        req.tagColor = tag.tagColor
+        req.tagName = tag.tagName
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client?.execute(req, callback: { (result, returnStatus) -> Void in
+            if returnStatus.returnCode == .OK
+            {
+                if let newtag = result as? SharelinkTag
+                {
+                    tag.tagId = newtag.tagId
                     tag.saveModel()
+                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
                     if let callback = sucCallback
                     {
                         callback()
                     }
                 }
-                
             }else{
                 //TODO: delete test
                 tag.tagId = NSDate().timeIntervalSince1970.description
                 tag.saveModel()
+                PersistentManager.sharedInstance.refreshCache(SharelinkTag)
                 if let callback = sucCallback
                 {
                     callback()
@@ -314,12 +339,24 @@ class UserService: ServiceProtocol
         })
     }
     
-    func updateTag(tag:UserTag,sucCallback:(()->Void)! = nil)
+    func getAUsersTags(userId:String) -> [SharelinkTag]
     {
-        let req = UpdateTagUsersRequest()
+        let result = PersistentManager.sharedInstance.getAllModel(UserTag)
+        let ids = result.filter{$0.userId == userId}.map{return $0.tagId!}
+        return PersistentManager.sharedInstance.getModels(SharelinkTag.self, idValues: ids)
+    }
+    
+    func getUserTagUsers(tagId:String) -> [ShareLinkUser]
+    {
+        let userIds = PersistentManager.sharedInstance.getAllModelFromCache(UserTag).filter{$0.tagId == tagId}.map {return $0.userId! }
+        return getUsers(userIds)
+    }
+    
+    func updateTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
+    {
+        let req = UpdateTagRequest()
         req.tagName = tag.tagName
         req.tagColor = tag.tagColor
-        req.tagUserIds = tag.tagUserIds
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client?.execute(req, callback: { (result, returnStatus) -> Void in
             if returnStatus.returnCode == ReturnCode.OK
@@ -331,7 +368,6 @@ class UserService: ServiceProtocol
                 }
             }else{
                 //TODO: delete test
-                tag.tagId = NSDate().timeIntervalSince1970.description
                 tag.saveModel()
                 if let callback = sucCallback
                 {
@@ -345,26 +381,23 @@ class UserService: ServiceProtocol
     {
         let req = UpdateUserTagsRequest()
         req.userId = userId
-        req.willAddTagIds = willAddTags.map({ (tag) -> String in
-            return tag.tagId
-        })
-        req.willRemoveTagIds = willRemoveTags.map({ (tag) -> String in
-            return tag.tagId
-        })
+        req.willAddTagIds = willAddTags.map{return $0.tagId}
+        req.willRemoveTagIds = willRemoveTags.map{return $0.tagId}
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client?.execute(req, callback: { (result, returnStatus) -> Void in
             if returnStatus.returnCode == ReturnCode.OK
             {
                 ShareLinkObject.saveObjectOfArray(willAddTags)
-                ShareLinkObject.saveObjectOfArray(willRemoveTags)
+                ShareLinkObject.deleteObjectArray(willRemoveTags)
                 if let callback = sucCallback
                 {
                     callback()
+                    
                 }
             }else{
                 //TODO: delete test
                 ShareLinkObject.saveObjectOfArray(willAddTags)
-                ShareLinkObject.saveObjectOfArray(willRemoveTags)
+                ShareLinkObject.deleteObjectArray(willRemoveTags)
                 if let callback = sucCallback
                 {
                     callback()

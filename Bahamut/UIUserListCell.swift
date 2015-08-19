@@ -16,7 +16,7 @@ class UIUserListCell: UITableViewCell
         }
     }
     
-    var userTags:[UserTag]!
+    var sharelinkTags:[SharelinkTag]!
     
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
@@ -35,7 +35,7 @@ class UIUserListCell: UITableViewCell
     
     func showProfile(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel, userTags: self.userTags)
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel, tags: self.sharelinkTags)
     }
     
     func showHeadIcon(_:UIGestureRecognizer)
