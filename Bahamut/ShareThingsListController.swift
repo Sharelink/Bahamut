@@ -52,6 +52,19 @@ class ShareThingsListController: UITableViewController
         }
     }
     
+    @IBAction func logout(sender: AnyObject)
+    {
+        let service = ServiceContainer.getService(AccountService)
+        service.logout { (isSuc, msg) -> Void in
+            let fileSvr = ServiceContainer.getService(FileService)
+            fileSvr.clearUserCaches()
+            self.navigationController?.popViewControllerAnimated(false)
+            self.presentViewController(MainNavigationController.InstanceFromStoryBoard(), animated: false, completion: { () -> Void in
+                
+            })
+        }
+    }
+    
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         
         if bottomIndicatorView != nil && bottomIndicatorView.hidden == true{

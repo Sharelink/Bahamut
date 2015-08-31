@@ -12,12 +12,7 @@ import Alamofire
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}
     @objc func initService() {
-        fileManager = NSFileManager.defaultManager()
-        documentsPath = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first)
-        documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        initFileDir()
-        uploadQueue = [UploadTask]()
-        initFileUploadProc()
+        
     }
     
     private func initFileDir()
@@ -52,8 +47,38 @@ class FileService: ServiceProtocol {
     
     private var uploadQueue:[UploadTask]!
     private var fileManager:NSFileManager!
-    private var documentsPath:String!
     private var documentsPathUrl:NSURL!
+    
+    func initUserFoldersWithUserId(userId:String)
+    {
+        fileManager = NSFileManager.defaultManager()
+        documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(userId)
+        if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
+        {
+            do
+            {
+                try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
+            }catch let error as NSError
+            {
+                print(error.description)
+            }
+        }
+        initFileDir()
+        uploadQueue = [UploadTask]()
+        initFileUploadProc()
+    }
+    
+    func clearUserCaches()
+    {
+        do
+        {
+            try fileManager.removeItemAtURL(documentsPathUrl)
+        }catch let error as NSError
+        {
+            print(error.description)
+        }
+        
+    }
     
     func addSendFileTask(filePath:String,type:FileType) -> String!
     {

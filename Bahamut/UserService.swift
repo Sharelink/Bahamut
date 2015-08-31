@@ -14,7 +14,6 @@ class UserService: ServiceProtocol
     @objc static var ServiceName:String{return "user service"}
     @objc func initService()
     {
-        initLinkedUsers()
     }
     
     private(set) lazy var myUserId:String!={
@@ -108,8 +107,9 @@ class UserService: ServiceProtocol
     func refreshMyLinkedUsers(refreshCallback:(isSuc:Bool, msg:String!)->Void)
     {
         let req = GetUserLinksRequest()
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req, callback: { (result, returnStatus) -> Void in
-            //TODO: delete 
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
+        client.execute(req, callback: { (result, returnStatus) -> Void in
+            //TODO: delete
             if 1.description == "1"
             {
                 self.testGetLinkedUsers()

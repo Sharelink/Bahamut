@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Register-->
@@ -327,7 +328,7 @@
             </objects>
             <point key="canvasLocation" x="3035" y="-189"/>
         </scene>
-        <!--Bahamut-->
+        <!--Sharelink-->
         <scene sceneID="kSY-Pg-Hwm">
             <objects>
                 <tableViewController id="c5G-TY-KIz" customClass="ShareThingsListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -515,7 +516,13 @@
                             <outlet property="delegate" destination="c5G-TY-KIz" id="01D-2f-PTG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Bahamut" id="h9g-2y-UZX"/>
+                    <navigationItem key="navigationItem" title="Sharelink" id="h9g-2y-UZX">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="HHZ-7u-WLn">
+                            <connections>
+                                <action selector="logout:" destination="c5G-TY-KIz" id="pLA-rb-cB3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="54Y-0m-0Rr">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -865,7 +872,7 @@
             </objects>
             <point key="canvasLocation" x="855" y="1301"/>
         </scene>
-        <!--Bahamut-->
+        <!--Sharelink-->
         <scene sceneID="hto-re-eRU">
             <objects>
                 <viewController id="q7G-s6-dbS" customClass="SignInViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -877,101 +884,49 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOb-Ur-yGP">
-                                <rect key="frame" x="20" y="8" width="74" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egq-Eg-6Wm">
-                                <rect key="frame" x="20" y="46" width="74" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="100-ii-Own">
-                                <rect key="frame" x="102" y="8" width="478" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8kh-RX-je7">
-                                <rect key="frame" x="102" y="46" width="478" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOr-s4-ZXT">
-                                <rect key="frame" x="368" y="84" width="47" height="30"/>
-                                <state key="normal" title="Sign In">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsZ-WV-6Gb">
+                                <rect key="frame" x="20" y="8" width="560" height="520"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymX-0s-7rD">
+                                <rect key="frame" x="274" y="253" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
                                 <connections>
-                                    <action selector="signIn" destination="q7G-s6-dbS" eventType="touchUpInside" id="hPP-bA-4Wt"/>
+                                    <action selector="reload:" destination="q7G-s6-dbS" eventType="touchUpInside" id="N6Y-SN-t2b"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYp-Al-ngc">
-                                <rect key="frame" x="185" y="84" width="55" height="30"/>
-                                <state key="normal" title="Sign Up">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Qzb-aa-fIE" kind="show" id="Vqn-5B-Bgj"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoE-QW-kJF">
-                                <rect key="frame" x="423" y="84" width="157" height="26"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvd-yO-mUw">
-                                <rect key="frame" x="20" y="84" width="157" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="wOz-dj-GiA"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="egq-Eg-6Wm" firstAttribute="bottom" secondItem="8kh-RX-je7" secondAttribute="bottom" id="43w-xW-oYr"/>
-                            <constraint firstItem="KoE-QW-kJF" firstAttribute="leading" secondItem="HOr-s4-ZXT" secondAttribute="trailing" constant="8" symbolic="YES" id="6jd-ht-6LF"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="top" secondItem="KoE-QW-kJF" secondAttribute="top" id="BHe-s8-S9V"/>
-                            <constraint firstItem="KoE-QW-kJF" firstAttribute="top" secondItem="8kh-RX-je7" secondAttribute="bottom" constant="8" symbolic="YES" id="GhF-hN-irS"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="top" secondItem="egq-Eg-6Wm" secondAttribute="bottom" constant="8" symbolic="YES" id="Hvk-BX-Xas"/>
-                            <constraint firstItem="100-ii-Own" firstAttribute="trailing" secondItem="TbV-48-Lna" secondAttribute="trailingMargin" id="J7i-zw-9Qo"/>
-                            <constraint firstItem="aYp-Al-ngc" firstAttribute="leading" secondItem="Uvd-yO-mUw" secondAttribute="trailing" constant="8" symbolic="YES" id="JJg-eR-zZO"/>
-                            <constraint firstItem="fOb-Ur-yGP" firstAttribute="baseline" secondItem="100-ii-Own" secondAttribute="baseline" id="M0A-X8-ixR"/>
-                            <constraint firstItem="HOr-s4-ZXT" firstAttribute="leading" secondItem="aYp-Al-ngc" secondAttribute="trailing" constant="128" id="THw-hQ-8Pz"/>
-                            <constraint firstItem="HOr-s4-ZXT" firstAttribute="top" secondItem="8kh-RX-je7" secondAttribute="bottom" constant="8" symbolic="YES" id="WjO-YH-QBd"/>
-                            <constraint firstItem="KoE-QW-kJF" firstAttribute="trailing" secondItem="TbV-48-Lna" secondAttribute="trailingMargin" id="X4a-6W-Usb"/>
-                            <constraint firstItem="fOb-Ur-yGP" firstAttribute="leading" secondItem="TbV-48-Lna" secondAttribute="leadingMargin" id="XA4-Tz-BmI"/>
-                            <constraint firstItem="100-ii-Own" firstAttribute="top" secondItem="xFk-ZC-P8B" secondAttribute="bottom" constant="8" symbolic="YES" id="bw5-aU-6pb"/>
-                            <constraint firstItem="8kh-RX-je7" firstAttribute="leading" secondItem="egq-Eg-6Wm" secondAttribute="trailing" constant="8" symbolic="YES" id="cEt-oU-q4U"/>
-                            <constraint firstItem="aYp-Al-ngc" firstAttribute="top" secondItem="8kh-RX-je7" secondAttribute="bottom" constant="8" symbolic="YES" id="dC1-pI-ROB"/>
-                            <constraint firstItem="8kh-RX-je7" firstAttribute="trailing" secondItem="TbV-48-Lna" secondAttribute="trailingMargin" id="dTx-Nl-Ewg"/>
-                            <constraint firstItem="8kh-RX-je7" firstAttribute="top" secondItem="100-ii-Own" secondAttribute="bottom" constant="8" symbolic="YES" id="k5y-eJ-BNi"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="bottom" secondItem="KoE-QW-kJF" secondAttribute="bottom" id="n2S-jq-TI2"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="leading" secondItem="TbV-48-Lna" secondAttribute="leadingMargin" id="qfM-bc-RGw"/>
-                            <constraint firstItem="fOb-Ur-yGP" firstAttribute="leading" secondItem="egq-Eg-6Wm" secondAttribute="leading" id="qkL-n5-nZF"/>
-                            <constraint firstItem="egq-Eg-6Wm" firstAttribute="baseline" secondItem="8kh-RX-je7" secondAttribute="baseline" constant="6" id="tS9-o3-Wj1"/>
-                            <constraint firstItem="100-ii-Own" firstAttribute="leading" secondItem="fOb-Ur-yGP" secondAttribute="trailing" constant="8" symbolic="YES" id="tgG-5h-bkn"/>
-                            <constraint firstItem="fOb-Ur-yGP" firstAttribute="top" secondItem="xFk-ZC-P8B" secondAttribute="bottom" constant="8" symbolic="YES" id="tqJ-7j-Jdm"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="height" secondItem="KoE-QW-kJF" secondAttribute="height" id="x6u-9N-cBR"/>
-                            <constraint firstItem="Uvd-yO-mUw" firstAttribute="width" secondItem="KoE-QW-kJF" secondAttribute="width" id="y5D-Rm-35S"/>
-                            <constraint firstItem="egq-Eg-6Wm" firstAttribute="top" secondItem="8kh-RX-je7" secondAttribute="top" id="ysT-5R-wga"/>
-                            <constraint firstItem="fOb-Ur-yGP" firstAttribute="trailing" secondItem="egq-Eg-6Wm" secondAttribute="trailing" id="zgp-Sp-TLE"/>
+                            <constraint firstItem="ymX-0s-7rD" firstAttribute="centerY" secondItem="BsZ-WV-6Gb" secondAttribute="centerY" id="4fg-5j-H9A"/>
+                            <constraint firstItem="gA1-5P-FfV" firstAttribute="top" secondItem="BsZ-WV-6Gb" secondAttribute="bottom" constant="8" symbolic="YES" id="Cog-iW-A3B"/>
+                            <constraint firstItem="BsZ-WV-6Gb" firstAttribute="leading" secondItem="TbV-48-Lna" secondAttribute="leadingMargin" id="M0F-k2-gDe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BsZ-WV-6Gb" secondAttribute="trailing" id="Op2-51-EZL"/>
+                            <constraint firstItem="BsZ-WV-6Gb" firstAttribute="top" secondItem="xFk-ZC-P8B" secondAttribute="bottom" constant="8" symbolic="YES" id="YOw-q4-RI4"/>
+                            <constraint firstItem="ymX-0s-7rD" firstAttribute="centerX" secondItem="BsZ-WV-6Gb" secondAttribute="centerX" id="eHp-B4-AMG"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="tS9-o3-Wj1"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Bahamut" id="yKd-9L-X3Z">
+                    <navigationItem key="navigationItem" title="Sharelink" id="yKd-9L-X3Z">
                         <barButtonItem key="backBarButtonItem" title="Back" id="pqP-Jd-dcG"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Sign Up" id="v1g-BS-MIB">
+                                <connections>
+                                    <segue destination="Qzb-aa-fIE" kind="show" id="IrY-b4-1at"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Login" id="MX2-fi-Ttb">
+                                <connections>
+                                    <action selector="testLogin:" destination="q7G-s6-dbS" id="KRv-ic-BwR"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
-                        <outlet property="passwordTextField" destination="8kh-RX-je7" id="dPt-Cw-MJ8"/>
-                        <outlet property="validateStringTextField" destination="100-ii-Own" id="dL1-Ub-JpF"/>
-                        <segue destination="501-Fq-5xf" kind="showDetail" identifier="ShowMainView" id="N2o-I0-qzh"/>
+                        <outlet property="loginWebPageView" destination="BsZ-WV-6Gb" id="FbK-iK-ANm"/>
+                        <outlet property="reloadButton" destination="ymX-0s-7rD" id="KIc-0e-wRa"/>
+                        <segue destination="501-Fq-5xf" kind="custom" identifier="ShowMainView" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="N2o-I0-qzh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjl-Za-0ff" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -981,7 +936,7 @@
         <!--Main Navigation Controller-->
         <scene sceneID="WLf-ZN-RNc">
             <objects>
-                <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="Yy6-ii-UPZ" customClass="MainNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigationController" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yy6-ii-UPZ" customClass="MainNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8WI-5Q-QdC">
@@ -1098,7 +1053,7 @@
         <image name="video" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DeD-lV-jvJ"/>
         <segue reference="N2o-I0-qzh"/>
+        <segue reference="DeD-lV-jvJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,10 +22,18 @@ class MainNavigationController: UINavigationController
         let accountService = ServiceContainer.getService(AccountService)
         if accountService.isUserLogined
         {
+            let fService = ServiceContainer.getService(FileService)
+            fService.initUserFoldersWithUserId(accountService.userId)
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         }else
         {
             performSegueWithIdentifier(SegueIdentifier.ShowSignView, sender: self)
         }
+    }
+    
+    static func InstanceFromStoryBoard() -> MainNavigationController
+    {
+        let storyBorad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        return storyBorad.instantiateViewControllerWithIdentifier("mainNavigationController") as! MainNavigationController
     }
 }
