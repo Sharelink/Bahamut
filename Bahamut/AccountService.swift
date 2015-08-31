@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AccountService: ServiceProtocol
 {
@@ -18,7 +19,7 @@ class AccountService: ServiceProtocol
         }
         
     }
-    let authenticationURL: String = ""
+    let authenticationURL: String = "http://192.168.0.168:8086"
     
     private(set) var isUserLogined:Bool{
         get{
@@ -65,34 +66,39 @@ class AccountService: ServiceProtocol
         }
     }
     
+    func logined(userId:String,token:String,shareLinkApiServer:String,fileApiServer:String,callback:(()->Void)! = nil)
+    {
+        self.isUserLogined = true
+        self.userId = userId
+        self.token = token
+        self.shareLinkApiServer = shareLinkApiServer
+        self.fileApiServer = fileApiServer
+        if let handler = callback
+        {
+            handler()
+        }
+    }
+    
     func registAccount(userName:String,password:String,registCallback:(accountId:String!,userId:String!,token:String!,sharelinkApiServer:String!,fileApiServer:String!,error:String!)->Void)
     {
         //TODO: modify here
         registCallback(accountId: "715488548", userId: "147258", token: "qwertyuiopasdfghjklzxcvbnm", sharelinkApiServer:"https://api.sharelink.com",fileApiServer:"https://fileApi.sharelink.com",error: nil)
     }
     
-    func login(validateText:String, password:String, loginCallback:(isSuc:Bool,msg:String!)->Void)
+    func logout(logoutCallback:((isSuc:Bool,msg:String)->Void)! = nil)
     {
-        ShareLinkSDK.sharedInstance.authenticate(authenticationURL, accountValidatedThings: validateText, password: password) { (userId, token, error) -> Void in
-            if error == nil
-            {
-                self.userId = userId
-                self.token = token
-                self.isUserLogined = true
-                self.fileApiServer = ShareLinkSDK.sharedInstance.fileApiServer
-                self.shareLinkApiServer = ShareLinkSDK.sharedInstance.shareLinkApiServer
-                loginCallback(isSuc: true, msg: nil)
-            }else{
-                loginCallback(isSuc: false, msg: error)
-            }
-        }
-    }
-    
-    func logout(logoutCallback:(isSuc:Bool,msg:String)->Void)
-    {
-        ShareLinkSDK.sharedInstance.cancelToken(authenticationURL, userId: userId, token: token){
+
+        ShareLinkSDK.sharedInstance.cancelToken(){
             error in
-            logoutCallback(isSuc: error == nil, msg: error)
+            self.isUserLogined = false
+            self.userId = nil
+            self.token = nil
+            self.fileApiServer = nil
+            self.shareLinkApiServer = nil
+            if let callback = logoutCallback
+            {
+                callback(isSuc: error == nil, msg: error)
+            }
         }
     }
 }
