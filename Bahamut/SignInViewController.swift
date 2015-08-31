@@ -8,6 +8,7 @@
 
 import UIKit
 import EVReflection
+import Alamofire
 
 class SignInViewController: UIViewController,UIWebViewDelegate
 {
@@ -15,7 +16,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         static let ShowMainView = "ShowMainView"
     }
     
-    @IBOutlet weak var loginWebPageView: UIWebView!
+    @IBOutlet weak var loginWebPageView: UIWebView!{
+        didSet{
+            loginWebPageView.delegate = self
+        }
+    }
     @IBOutlet weak var reloadButton: UIButton!{
         didSet{
             reloadButton.hidden = true
@@ -31,11 +36,14 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         ServiceContainer.getService(AccountService).logined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8088", fileApiServer: "http://192.168.0.168:8089",callback: signCallback)
     }
     
-    @IBAction func reload(sender: AnyObject)
-    {
-        loginWebPageView.reload()
+    private var webViewUrl:String!{
+        didSet{
+            if loginWebPageView != nil{
+                let req = NSURLRequest(URL: NSURL(string: webViewUrl)!)
+                loginWebPageView.loadRequest(req)
+            }
+        }
     }
-    
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         
         reloadButton.hidden = false
@@ -47,38 +55,40 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        
-        let jsDocHtml = "document.documentElement.innerHTML"
-        let innerHtml = webView.stringByEvaluatingJavaScriptFromString(jsDocHtml)
-        let json = EVObject(json:innerHtml!)
-        if let accountId = json.valueForKey("AccountID") as? String
+        let uc = NSURLComponents(string: (webView.request?.URLString)!)
+        var dict = [String:String]()
+        for item in (uc?.queryItems)!
         {
-            let accessToken = json.valueForKey("AccessToken") as? String
-            let APITokenServer = json.valueForKey("APITokenServer") as? String
-            ShareLinkSDK.sharedInstance.validateToken(APITokenServer!, accountId: accountId, accessToken: accessToken!){ error in
-                if error == nil
-                {
-                    let sdk = ShareLinkSDK.sharedInstance
-                    let service = ServiceContainer.getService(AccountService)
-                    service.logined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer,callback: self.signCallback)
-                }else{
-                    self.view.makeToast(message: "Validate AccessToken Failed")
-                }
-                
+            dict[item.name] = item.value
+        }
+        if dict["AccountID"] != nil && dict["APITokenServer"] != nil && dict["AccessToken"] != nil
+        {
+            webView.stopLoading();
+            validateToken(dict["APITokenServer"]!, accountId: dict["AccountID"]!, accessToken: dict["AccessToken"]!)
+        }
+    }
+    
+    func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
+    {
+        ShareLinkSDK.sharedInstance.validateToken(apiTokenServer, accountId: accountId, accessToken: accessToken){ error in
+            if error == nil
+            {
+                let sdk = ShareLinkSDK.sharedInstance
+                let service = ServiceContainer.getService(AccountService)
+                service.logined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer,callback: self.signCallback)
+            }else{
+                self.authenticate();
+                self.view.makeToast(message: "Validate AccessToken Failed")
             }
+            
         }
     }
     
     func authenticate()
     {
         let service = ServiceContainer.getService(AccountService)
-        let authenticationURL = service.authenticationURL;
-        let appkey = ShareLinkSDK.sharedInstance.appkey;
-        let req = NSURLRequest(URL: NSURL(string: "\(authenticationURL)?appkey=\(appkey)")!)
-        loginWebPageView.delegate = self
-        loginWebPageView.loadRequest(req)
+        webViewUrl = "\(service.authenticationURL)?appkey=\(ShareLinkSDK.sharedInstance.appkey)"
     }
-    
     
     func signCallback()
     {
