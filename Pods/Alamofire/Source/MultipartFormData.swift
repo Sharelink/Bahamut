@@ -28,7 +28,6 @@ import MobileCoreServices
 import CoreServices
 #endif
 
-
 /**
     Constructs `multipart/form-data` for uploads within an HTTP or HTTPS body. There are currently two ways to encode 
     multipart form data. The first way is to encode the data directly in memory. This is very efficient, but can lead 

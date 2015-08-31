@@ -53,7 +53,7 @@ class UserService: ServiceProtocol
             CFStringTransform(nickName, nil, kCFStringTransformStripDiacritics, false)
             
             let stringName = nickName as String
-            let n = advance(stringName.startIndex, 1)
+            let n = stringName.startIndex.advancedBy(1)
             let prefix = stringName.uppercaseString.substringToIndex(n)
             var list = dict[prefix]
             if list == nil

@@ -135,7 +135,7 @@ extension ShareThing
         let names = voteUsers.map{user->String in
             return user.nickName
         }
-        return ",".join(names)
+        return names.joinWithSeparator(",")
     }
     
     var userReShareDetail:String{
@@ -143,7 +143,7 @@ extension ShareThing
         let names = reshareUsers.map{user->String in
             return user.nickName
         }
-        return ",".join(names)
+        return names.joinWithSeparator(",")
     }
     
     var replyButtonContent:String{

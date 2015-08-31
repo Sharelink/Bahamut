@@ -22,7 +22,6 @@
 
 import Foundation
 
-
 extension Manager {
     private enum Downloadable {
         case Request(NSURLRequest)

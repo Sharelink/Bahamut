@@ -22,7 +22,6 @@
 
 import Foundation
 
-
 /**
     Responsible for creating and managing `Request` objects, as well as their underlying `NSURLSession`.
 */
@@ -59,7 +58,7 @@ public class Manager {
                 }
             }
 
-            return ",".join(components)
+            return components.joinWithSeparator(",")
         }()
 
         // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3

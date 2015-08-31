@@ -1,10 +1,10 @@
 PODS:
-  - Alamofire (2.0.0-beta.1)
+  - Alamofire (2.0.0-beta.3)
   - EVReflection (2.4.2)
   - PBJVision (0.4.2)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/zhouguangjie/Alamofire.git`, branch `swift-2.0`)
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
   - EVReflection (from `https://github.com/zhouguangjie/EVReflection.git`, branch
     `Swift2`)
   - PBJVision
@@ -12,21 +12,21 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Alamofire:
     :branch: swift-2.0
-    :git: https://github.com/zhouguangjie/Alamofire.git
+    :git: https://github.com/Alamofire/Alamofire.git
   EVReflection:
     :branch: Swift2
     :git: https://github.com/zhouguangjie/EVReflection.git
 
 CHECKOUT OPTIONS:
   Alamofire:
-    :commit: f3ff8d24ba1149416431ff73810ed93fbfd00ec2
-    :git: https://github.com/zhouguangjie/Alamofire.git
+    :commit: 1bc35abfa7c167ba54af4e87158af7945cc9984e
+    :git: https://github.com/Alamofire/Alamofire.git
   EVReflection:
     :commit: 6a6a9d5c4b50ee2bf5ab0072c9a16b6714221406
     :git: https://github.com/zhouguangjie/EVReflection.git
 
 SPEC CHECKSUMS:
-  Alamofire: 96feccc1e48a735edb92395cf023ba4ed52bdb45
+  Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
   EVReflection: 873d747055371dd2000260aeb03be2538240955d
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
 

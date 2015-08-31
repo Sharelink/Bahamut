@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8CA611FAE589887A53914BE5"
+               BlueprintIdentifier = "9B09C34450FAD2219A300C6E"
                BuildableName = "EVReflection.framework"
                BlueprintName = "EVReflection"
                ReferencedContainer = "container:Pods.xcodeproj">

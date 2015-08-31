@@ -332,7 +332,6 @@ extension Manager {
     }
 }
 
-
 // MARK: -
 
 extension Request {
