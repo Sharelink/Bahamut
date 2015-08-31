@@ -25,8 +25,19 @@ class LinkedUserListController: UITableViewController
     
     func refresh()
     {
-        let newValues = userService.myLinkedUsers
-        let dict = userService.getUsersDivideWithLatinLetter(newValues)
+        if userService.myLinkedUsers == nil{
+            userService.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
+                self.refreshUserList()
+            })
+        }else{
+            refreshUserList()
+        }
+        
+    }
+    
+    private func refreshUserList(){
+        let newValues = self.userService.myLinkedUsers
+        let dict = self.userService.getUsersDivideWithLatinLetter(newValues)
         dispatch_async(dispatch_get_main_queue()){()->Void in
             self.userListModel = dict
         }
