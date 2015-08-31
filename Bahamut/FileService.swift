@@ -109,10 +109,10 @@ class FileService: ServiceProtocol {
         let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
         req.fileType = type
         
-        client.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == ReturnCode.OK
+        client.execute(req) { (result:SLResult<SendFileKey>) -> Void in
+            if result.statusCode == ReturnCode.OK
             {
-                if let sendFileKey = result as? SendFileKey
+                if let sendFileKey = result.returnObject
                 {
                     let fileAccesskey = sendFileKey.fileId
                     let fileServer = sendFileKey.fileServer
@@ -142,7 +142,7 @@ class FileService: ServiceProtocol {
             }
             uploadTask.status = SendFileStatus.RequestSendFileKeyFailed
             uploadTask.saveModified()
-        })
+        }
     }
 
     func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)

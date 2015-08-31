@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreFoundation
+import Alamofire
 
 class UserService: ServiceProtocol
 {
@@ -85,22 +86,24 @@ class UserService: ServiceProtocol
         //request server
         let req = GetShareLinkUsersRequest()
         req.userIds = [userId]
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req, callback: { (result, returnStatus) -> Void in
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()!
+        client.execute(req){ (result: SLResult<ShareLinkUsers>) -> Void in
             var newestUser:ShareLinkUser!
             var msg:String! = nil
-            if returnStatus.returnCode != ReturnCode.OK
+            if result.statusCode != ReturnCode.OK
             {
                 newestUser = nil
-                msg = returnStatus.message
-            }else if let shareLinkUsers:ShareLinkUsers = result as? ShareLinkUsers
+                msg = result.originResult.description
+            }else
             {
-                newestUser = shareLinkUsers.items.filter{$0.userId == userId}[0]
+                newestUser = result.returnObject!.items.filter{$0.userId == userId}[0]
             }
             if let callback = serverNewestCallback
             {
                 callback(newestUser: newestUser, msg: msg)
             }
-        })
+        }
+
         return user
     }
     
@@ -108,7 +111,7 @@ class UserService: ServiceProtocol
     {
         let req = GetUserLinksRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
-        client.execute(req, callback: { (result, returnStatus) -> Void in
+        client.execute(req) { (result:SLResult<UserLinks>) -> Void in
             //TODO: delete
             if 1.description == "1"
             {
@@ -119,19 +122,19 @@ class UserService: ServiceProtocol
                 return
             }
             
-            if returnStatus.returnCode == ReturnCode.OK
+            if result.statusCode == ReturnCode.OK
             {
-                if let userLinks:UserLinks = result as? UserLinks
+                if let userLinks:UserLinks = result.returnObject
                 {
                     let userIds = userLinks.items.map{ user -> String in
                         return user.slaveUserId
                     }
                     let usersReq = GetShareLinkUsersRequest()
                     usersReq.userIds = userIds
-                    ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(usersReq, callback: { (result, returnStatus) -> Void in
-                        if returnStatus.returnCode == ReturnCode.OK
+                    ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(usersReq) { (result:SLResult<ShareLinkUsers>) -> Void in
+                        if result.statusCode == ReturnCode.OK
                         {
-                            if let users:ShareLinkUsers = result as? ShareLinkUsers
+                            if let users:ShareLinkUsers = result.returnObject
                             {
                                 UserLink.saveObjectOfArray(userLinks.items)
                                 ShareLinkUser.saveObjectOfArray(users.items)
@@ -140,20 +143,20 @@ class UserService: ServiceProtocol
                                 self.initLinkedUsers()
                                 refreshCallback(isSuc: true, msg: "")
                             }else{
-                                refreshCallback(isSuc: false, msg: returnStatus.message)
+                                refreshCallback(isSuc: false, msg: result.originResult.description)
                             }
                         }else{
-                            refreshCallback(isSuc: false, msg: returnStatus.message)
+                            refreshCallback(isSuc: false, msg: result.originResult.description)
                         }
-                    })
+                    }
                 }else{
-                    refreshCallback(isSuc: false, msg: returnStatus.message)
+                    refreshCallback(isSuc: false, msg: result.originResult.description)
                 }
             }else
             {
-                refreshCallback(isSuc: false, msg: returnStatus.message)
+                refreshCallback(isSuc: false, msg: result.originResult.description)
             }
-        })
+        }
     }
     
     private func getLinkedUsers() -> [ShareLinkUser]
@@ -171,21 +174,21 @@ class UserService: ServiceProtocol
         req.nickName = properties["nickName"]
         req.signText = properties["signText"]
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
+        client?.execute(req){ (result) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
-            if returnStatus.returnCode == ReturnCode.OK
+            if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
             }else
             {
-                msg = returnStatus.message
+                msg = result.originResult.description
             }
             if let callback = setProfileCallback
             {
                 callback(isSuc: isSuc, msg: msg)
             }
-        })
+        }
     }
     
     func checkUsernameAvailable(username:String,checkCallback:(isAvailable:Bool,msg:String!)-> Void)
@@ -193,10 +196,10 @@ class UserService: ServiceProtocol
         let req = GetShareLinkUsersRequest()
         req.userName = username
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == ReturnCode.OK
+        client?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            if result.statusCode == ReturnCode.OK
             {
-                if let _ = result as? ShareLinkUser
+                if let _ = result.returnObject
                 {
                     checkCallback(isAvailable: false,msg: "user name has been registed")
                 }else
@@ -204,7 +207,7 @@ class UserService: ServiceProtocol
                     checkCallback(isAvailable: true, msg: "")
                 }
             }
-        })
+        }
     }
     
     func testGetLinkedUsers()
@@ -247,10 +250,10 @@ class UserService: ServiceProtocol
     {
         let req = GetMyAllTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == .OK
+        client?.execute(req){ (result:SLResult<SharelinkTags>) -> Void in
+            if result.statusCode == .OK
             {
-                if let tags = result as? SharelinkTags
+                if let tags = result.returnObject 
                 {
                     ShareLinkObject.saveObjectOfArray(tags.items)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
@@ -262,7 +265,7 @@ class UserService: ServiceProtocol
             }else
             {
                 //TODO: delete
-                if let tags = result as? SharelinkTags
+                if let tags = result.returnObject
                 {
                     ShareLinkObject.saveObjectOfArray(tags.items)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
@@ -272,7 +275,7 @@ class UserService: ServiceProtocol
                     }
                 }
             }
-        })
+        }
     }
     
     //refresh all user 's tags i given
@@ -280,10 +283,10 @@ class UserService: ServiceProtocol
     {
         let req = GetAllLinkedUserTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == .OK
+        client?.execute(req, callback: { (result:SLResult<UserTags>) -> Void in
+            if result.statusCode == .OK
             {
-                if let usertags = result as? UserTags
+                if let usertags = result.returnObject
                 {
                     ShareLinkObject.saveObjectOfArray(usertags.items)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
@@ -294,7 +297,7 @@ class UserService: ServiceProtocol
                 }
             }else{
                 //TODO: delete test
-                if let usertags = result as? UserTags
+                if let usertags = result.returnObject
                 {
                     ShareLinkObject.saveObjectOfArray(usertags.items)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
@@ -313,10 +316,10 @@ class UserService: ServiceProtocol
         req.tagColor = tag.tagColor
         req.tagName = tag.tagName
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == .OK
+        client?.execute(req, callback: { (result:SLResult<SharelinkTag>) -> Void in
+            if result.statusCode == .OK
             {
-                if let newtag = result as? SharelinkTag
+                if let newtag = result.returnObject
                 {
                     tag.tagId = newtag.tagId
                     tag.saveModel()
@@ -358,8 +361,8 @@ class UserService: ServiceProtocol
         req.tagName = tag.tagName
         req.tagColor = tag.tagColor
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == ReturnCode.OK
+        client?.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
+            if result.statusCode == ReturnCode.OK
             {
                 tag.saveModel()
                 if let callback = sucCallback
@@ -384,8 +387,8 @@ class UserService: ServiceProtocol
         req.willAddTagIds = willAddTags.map{return $0.tagId}
         req.willRemoveTagIds = willRemoveTags.map{return $0.tagId}
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result, returnStatus) -> Void in
-            if returnStatus.returnCode == ReturnCode.OK
+        client?.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
+            if result.statusCode == ReturnCode.OK
             {
                 ShareLinkObject.saveObjectOfArray(willAddTags)
                 ShareLinkObject.deleteObjectArray(willRemoveTags)
