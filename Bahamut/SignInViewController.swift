@@ -28,12 +28,28 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginAccountId = ServiceContainer.getService(AccountService).lastLoginAccountId
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         authenticate()
     }
     
     @IBAction func testLogin(sender: AnyObject) {
         ShareLinkSDK.sharedInstance.reuse("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")
-        ServiceContainer.getService(AccountService).logined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089",callback: signCallback)
+        ServiceContainer.getService(AccountService).setLogined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")
+        signCallback()
+
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "SignUp"
+        {
+            if let rvc = segue.destinationViewController as? RegisterViewController
+            {
+                rvc.signInViewController = self
+            }
+        }
     }
     
     private var webViewUrl:String!{
@@ -44,6 +60,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate
             }
         }
     }
+    
+    var loginAccountId:String!
+    
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         webView.hidden = false
         reloadButton.hidden = false
@@ -74,25 +93,25 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
     {
-        ShareLinkSDK.sharedInstance.validateToken(apiTokenServer, accountId: accountId, accessToken: accessToken){ error in
-            if error == nil
-            {
-                let sdk = ShareLinkSDK.sharedInstance
-                let service = ServiceContainer.getService(AccountService)
-                service.logined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer,callback: self.signCallback)
+        let accountService = ServiceContainer.getService(AccountService)
+        accountService.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (loginSuccess, message) -> Void in
+            if loginSuccess{
+                self.signCallback()
             }else{
-                self.authenticate();
-                self.view.makeToast(message: "Validate AccessToken Failed")
+                self.view.makeToast(message: message)
             }
-            
         }
     }
     
-    func authenticate()
+    private func authenticate()
     {
-        let service = ServiceContainer.getService(AccountService)
         loginWebPageView.hidden = false
-        webViewUrl = "\(service.authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
+        var url = "\(AccountService.authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
+        if let aId = loginAccountId
+        {
+            url = "\(url)&accoundId=\(aId)"
+        }
+        webViewUrl = url
     }
     
     func signCallback()

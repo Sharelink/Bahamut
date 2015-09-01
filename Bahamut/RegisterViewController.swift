@@ -8,94 +8,78 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController,UITextFieldDelegate
+class RegisterViewController: UIViewController,UITextFieldDelegate,UIWebViewDelegate
 {
     private struct Constants
     {
         static let SegueNextToProfile:String = "Next To Profile"
     }
-    @IBOutlet weak var usernameCheckImage: UIImageView!{didSet{usernameCheckImage.hidden = true}}
-    @IBOutlet weak var passwordCheckImage: UIImageView!{didSet{passwordCheckImage.hidden = true}}
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signupButton: UIButton!
+
     private weak var accountService:AccountService!
     private weak var userService:UserService!
+    var signInViewController:SignInViewController!
+    
+    var registerWebPageUrl:String!{
+        didSet{
+            if registerWebPageView != nil && self.registerWebPageUrl != nil
+            {
+                let req = NSURLRequest(URL: NSURL(string: self.registerWebPageUrl)!)
+                registerWebPageView.loadRequest(req)
+            }
+        }
+    }
+    
+    @IBOutlet weak var registerWebPageView: UIWebView!{
+        didSet{
+            registerWebPageView.delegate = self
+        }
+    }
+    
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        
+        view.hideToastActivity()
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        
+        view.hideToastActivity()
+        let uc = NSURLComponents(string: (webView.request?.URLString)!)
+        var dict = [String:String]()
+        for item in (uc?.queryItems)!
+        {
+            dict[item.name] = item.value
+        }
+        if dict["FinishRegist"] != nil && dict["AccountID"] != nil
+        {
+            webView.stopLoading();
+            webView.hidden = true;
+            finishRegist(dict["AccountID"]!)
+        }
+    }
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        
+        view.makeToastActivityWithMessage(message: "Loading")
+    }
+    
+    func regist(){
+        registerWebPageUrl = "\(AccountService.registAccountURL)?appkey=\(ShareLinkSDK.appkey)"
+    }
+    
+    func finishRegist(accountId:String)
+    {
+        self.navigationController?.popViewControllerAnimated(true)
+        if let sivc = self.signInViewController
+        {
+            sivc.loginAccountId = accountId
+        }
+    }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         accountService = ServiceContainer.getService(AccountService)
         userService = ServiceContainer.getService(UserService)
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
+        regist()
     }
     
-    func textFieldDidEndEditing(textField: UITextField)
-    {
-        switch textField
-        {
-            case usernameTextField:checkUserName()
-            default:break
-        }
-    }
-    
-    @IBAction func signUp()
-    {
-        let (isRegularUsername,msg) = TestStringHelper.isRegularUserName(usernameTextField!.text)
-        let (isRegularPsw,pmsg) = TestStringHelper.isRegularPassword(passwordTextField!.text)
-        if isRegularUsername && isRegularPsw
-        {
-            view.makeToastActivityWithMessage(message: "Registing")
-            signupButton.enabled = false
-            accountService.registAccount(usernameTextField!.text!, password: passwordTextField.text!, registCallback: { (accountId, userId, token,sharelinkApiServer,fileApiServer, error) -> Void in
-                self.view.hideToastActivity()
-                self.signupButton.enabled = true
-                if error == nil
-                {
-                    ShareLinkSDK.sharedInstance.reuse(userId, token: token, shareLinkApiServer: sharelinkApiServer, fileApiServer: fileApiServer)
-                    self.performSegueWithIdentifier(Constants.SegueNextToProfile, sender: self)
-                }else{
-                    self.view.makeToast(message: error)
-                }
-                
-            })
-        }else if isRegularUsername
-        {
-            view.makeToast(message: pmsg)
-        }else
-        {
-            view.makeToast(message: msg)
-        }
-    }
-    
-    func checkUserName()
-    {
-        let (isRegular,msg) = TestStringHelper.isRegularUserName(usernameTextField!.text)
-        usernameCheckImage.hidden = !isRegular
-        if isRegular
-        {
-            userService.checkUsernameAvailable(usernameTextField!.text!){
-                isAvailable,msg in
-                self.usernameCheckImage.hidden = !isAvailable
-                if !isAvailable
-                {
-                    self.view.makeToast(message: msg)
-                }
-            }
-        }else
-        {
-            view.makeToast(message: msg)
-        }
-    }
-    
-    func checkPassword()
-    {
-        let (isRegular,_) = TestStringHelper.isRegularPassword(passwordTextField!.text)
-        if isRegular
-        {
-            passwordCheckImage!.hidden = true
-        }else
-        {
-            passwordCheckImage!.hidden = false
-        }
-    }
 }
