@@ -85,11 +85,11 @@ class AccountService: ServiceProtocol
         registCallback(accountId: "715488548", userId: "147258", token: "qwertyuiopasdfghjklzxcvbnm", sharelinkApiServer:"https://api.sharelink.com",fileApiServer:"https://fileApi.sharelink.com",error: nil)
     }
     
-    func logout(logoutCallback:((isSuc:Bool,msg:String)->Void)! = nil)
+    func logout(logoutCallback:((message:String)->Void)! = nil)
     {
 
         ShareLinkSDK.sharedInstance.cancelToken(){
-            error in
+            message in
             self.isUserLogined = false
             self.userId = nil
             self.token = nil
@@ -97,7 +97,7 @@ class AccountService: ServiceProtocol
             self.shareLinkApiServer = nil
             if let callback = logoutCallback
             {
-                callback(isSuc: error == nil, msg: error)
+                callback(message: message)
             }
         }
     }
