@@ -19,7 +19,18 @@ class AccountService: ServiceProtocol
         }
         
     }
-    let authenticationURL: String = "http://192.168.0.168:8086/Account/Login"
+    
+    static let registAccountURL:String = "http://192.168.0.168:8086/Account/Regist"
+    static let authenticationURL: String = "http://192.168.0.168:8086/Account/Login"
+    
+    private(set) var lastLoginAccountId:String!{
+        get{
+            return NSUserDefaults.standardUserDefaults().valueForKey("lastLoginAccountId") as? String
+        }
+        set{
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "lastLoginAccountId")
+        }
+    }
     
     private(set) var isUserLogined:Bool{
         get{
@@ -66,23 +77,29 @@ class AccountService: ServiceProtocol
         }
     }
     
-    func logined(userId:String,token:String,shareLinkApiServer:String,fileApiServer:String,callback:(()->Void)! = nil)
+    func setLogined(userId:String,token:String,shareLinkApiServer:String,fileApiServer:String)
     {
         self.isUserLogined = true
         self.userId = userId
         self.token = token
         self.shareLinkApiServer = shareLinkApiServer
         self.fileApiServer = fileApiServer
-        if let handler = callback
-        {
-            handler()
-        }
     }
     
-    func registAccount(userName:String,password:String,registCallback:(accountId:String!,userId:String!,token:String!,sharelinkApiServer:String!,fileApiServer:String!,error:String!)->Void)
+    func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void)
     {
-        //TODO: modify here
-        registCallback(accountId: "715488548", userId: "147258", token: "qwertyuiopasdfghjklzxcvbnm", sharelinkApiServer:"https://api.sharelink.com",fileApiServer:"https://fileApi.sharelink.com",error: nil)
+        self.lastLoginAccountId = accountId
+        ShareLinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken){ error in
+            if error == nil
+            {
+                let sdk = ShareLinkSDK.sharedInstance
+                self.setLogined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer)
+                callback(loginSuccess: true, message: "Validate AccessToken Success")
+            }else{
+                callback(loginSuccess: false, message: "Validate AccessToken Failed")
+            }
+            
+        }
     }
     
     func logout(logoutCallback:((message:String)->Void)! = nil)
