@@ -11,14 +11,7 @@ import AVFoundation
 
 class UIShareContent: UIView
 {
-    var model:ShareContent!{
-        didSet{
-            if let moviePath = model?.content
-            {
-                mediaPlayer.filePath = moviePath
-            }
-        }
-    }
+    var model:ShareContent!
     
     func update()
     {

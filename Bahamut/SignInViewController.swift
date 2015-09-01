@@ -116,7 +116,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     
     func signCallback()
     {
-        ServiceContainer.getService(ShareService).test()
         let service = ServiceContainer.getService(UserService)
         let accountService = ServiceContainer.getService(AccountService)
         let fileService = ServiceContainer.getService(FileService)

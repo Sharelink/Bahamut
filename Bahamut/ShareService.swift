@@ -16,7 +16,11 @@ class ShareThingSortObject: ShareLinkObject
     var shareId:String!
     var lastActiveDateString:String!
     var lastActiveDate:NSDate!{
-        return DateHelper.stringToDate(self.lastActiveDateString)
+        if let res = DateHelper.stringToDate(self.lastActiveDateString)
+        {
+            return res
+        }
+        return NSDate()
     }
 }
 
@@ -180,6 +184,7 @@ class ShareService: ServiceProtocol
                         returnCallback(newValues)
                     }
                 }
+                
 
             }
         }
@@ -288,35 +293,4 @@ class ShareService: ServiceProtocol
         return oldValues
     }
     
-    func test()
-    {
-        //TODO: delete
-        var newValues = [ShareThing]()
-        for shareId in 1...7
-        {
-            let shareThing = ShareThing()
-            shareThing.shareId = "\(100 + shareId)"
-            let sinceDate:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
-            sinceDate.dateByAddingTimeInterval(Double(arc4random() % (3600 * 24 * 14)))
-            shareThing.shareTime = DateHelper.dateToString(sinceDate)
-            let lastActiveTime:NSDate = DateHelper.stringToDate("2015-07-15 00:00:00")
-            lastActiveTime.dateByAddingTimeInterval(Double(arc4random() % (3600 * 24 * 14)))
-            shareThing.lastActiveTime = DateHelper.dateToString(lastActiveTime)
-            shareThing.shareType = 1
-            shareThing.title = "一个视频告诉你什么叫“困成狗了” ，好可爱哈哈哈哈！😂"
-            shareThing.userId = "\(147258 + arc4random()%(147270-147258))"
-            shareThing.userNick =  shareThing.userId == "147258" ? "The Different YY" : "nick:\(shareThing.userId)"
-            shareThing.headIconImageId = shareThing.userId == "147258" ? "YY" : "defaultHeadIcon"
-            shareThing.voteUserIds = ["147258","147259","147260"]
-            shareThing.reShareIds = [String]()
-            shareThing.reShareUserIds = [String]()
-            shareThing.shareContent = ShareContent()
-            shareThing.shareContent.content = "02.mov"
-            shareThing.shareContent.shareId = shareThing.shareId
-            shareThing.shareContent.contentId = shareThing.shareId
-            newValues.append(shareThing)
-        }
-        self.shareThingSortObjectList.setShareThings(newValues)
-        ShareLinkObject.saveObjectOfArray(newValues)
-    }
 }

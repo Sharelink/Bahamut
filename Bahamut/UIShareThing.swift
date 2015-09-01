@@ -100,15 +100,36 @@ class UIShareThing: UITableViewCell
     func update()
     {
         replyButton.titleLabel?.text = "\(shareThingModel.notReadReply)"
-        userNicknameLabel.text = shareThingModel.userNick
         shareDesc.text = shareThingModel.title
         shareDateTime.text = shareThingModel.postDateString
         userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
         userReShareDetail.text = shareThingModel.userReShareDetail.isEmpty ? "" : Constants.SharePrefixEmoji + shareThingModel.userReShareDetail
         shareContent.model = shareThingModel.shareContent
-        ServiceContainer.getService(FileService).getFile(shareThingModel.headIconImageId, returnCallback: { (filePath) -> Void in
-            self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
-        })
+        updateHeadIcon()
+        updateUserNick()
+    }
+    
+    private func updateUserNick()
+    {
+        if let nick = shareThingModel.userNick
+        {
+            userNicknameLabel.text = nick
+        }else{
+            userNicknameLabel.text = "I Am Sharelinker"
+        }
+    }
+    
+    private func updateHeadIcon()
+    {
+        if let headIconImageId = shareThingModel.headIconImageId
+        {
+            ServiceContainer.getService(FileService).getFile(headIconImageId, returnCallback: { (filePath) -> Void in
+                self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
+            })
+            
+        }else{
+            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+        }
     }
     
     func showHeadIcon(_:UIGestureRecognizer)
@@ -131,6 +152,10 @@ extension ShareThing
     }
     
     var userVotesDetail:String{
+        if self.voteUserIds == nil
+        {
+            return ""
+        }
         let voteUsers = ServiceContainer.getService(UserService).getUsers(self.voteUserIds)
         let names = voteUsers.map{user->String in
             return user.nickName
@@ -139,6 +164,10 @@ extension ShareThing
     }
     
     var userReShareDetail:String{
+        if self.reShareUserIds == nil
+        {
+            return ""
+        }
         let reshareUsers = ServiceContainer.getService(UserService).getUsers(self.reShareUserIds)
         let names = reshareUsers.map{user->String in
             return user.nickName
