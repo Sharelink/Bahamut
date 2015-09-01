@@ -55,12 +55,13 @@ class ShareThingsListController: UITableViewController
     @IBAction func logout(sender: AnyObject)
     {
         let service = ServiceContainer.getService(AccountService)
-        service.logout { (isSuc, msg) -> Void in
+        service.logout { (msg) -> Void in
             let fileSvr = ServiceContainer.getService(FileService)
             fileSvr.clearUserCaches()
             self.navigationController?.popViewControllerAnimated(false)
-            self.presentViewController(MainNavigationController.InstanceFromStoryBoard(), animated: false, completion: { () -> Void in
-                
+            let controller = MainNavigationController.InstanceFromStoryBoard()
+            self.presentViewController(controller, animated: false, completion: { () -> Void in
+                controller.view.makeToast(message: msg)
             })
         }
     }
@@ -89,7 +90,7 @@ class ShareThingsListController: UITableViewController
             {
                 self.shareThings.append(results)
             }else{
-                self.view.makeToast(message: "the last page")
+                self.view.makeToast(message: "No More Things")
             }
             self.bottomIndicatorView.hidden = true
         }
