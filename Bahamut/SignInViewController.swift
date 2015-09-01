@@ -32,8 +32,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     }
     
     @IBAction func testLogin(sender: AnyObject) {
-        ShareLinkSDK.sharedInstance.reuse("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8088", fileApiServer: "http://192.168.0.168:8089")
-        ServiceContainer.getService(AccountService).logined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8088", fileApiServer: "http://192.168.0.168:8089",callback: signCallback)
+        ShareLinkSDK.sharedInstance.reuse("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")
+        ServiceContainer.getService(AccountService).logined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089",callback: signCallback)
     }
     
     private var webViewUrl:String!{
@@ -45,16 +45,19 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         }
     }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        
+        webView.hidden = false
         reloadButton.hidden = false
+        self.view.hideToastActivity()
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
         
         reloadButton.hidden = true
+        self.view.makeToastActivityWithMessage(message: "Loading")
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        self.view.hideToastActivity()
         let uc = NSURLComponents(string: (webView.request?.URLString)!)
         var dict = [String:String]()
         for item in (uc?.queryItems)!
@@ -64,6 +67,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         if dict["AccountID"] != nil && dict["APITokenServer"] != nil && dict["AccessToken"] != nil
         {
             webView.stopLoading();
+            webView.hidden = true;
             validateToken(dict["APITokenServer"]!, accountId: dict["AccountID"]!, accessToken: dict["AccessToken"]!)
         }
     }
@@ -87,7 +91,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     func authenticate()
     {
         let service = ServiceContainer.getService(AccountService)
-        webViewUrl = "\(service.authenticationURL)?appkey=\(ShareLinkSDK.sharedInstance.appkey)"
+        loginWebPageView.hidden = false
+        webViewUrl = "\(service.authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
     }
     
     func signCallback()
@@ -97,7 +102,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         let accountService = ServiceContainer.getService(AccountService)
         let fileService = ServiceContainer.getService(FileService)
         fileService.initUserFoldersWithUserId(accountService.userId)
-        view.makeToastActivityWithMessage(message: "Refreshing LinkedUsers")
+        view.makeToastActivityWithMessage(message: "Refreshing")
         service.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
             self.view.hideToastActivity()
             if isSuc
