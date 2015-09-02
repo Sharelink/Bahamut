@@ -67,7 +67,6 @@ class CoreDataHelper {
     {
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
-        request.predicate = NSPredicate()
         do{
             let resultSet = try getEntityContext().executeFetchRequest(request).map{$0 as! NSManagedObject}
             try deleteObjects(resultSet)
