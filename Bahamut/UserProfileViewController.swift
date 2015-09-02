@@ -12,11 +12,10 @@ import UIKit
 //MARK: UserService
 extension UserService
 {
-    func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String,userTags:[SharelinkTag])
     {
         let userProfile = self.getUser(userId)
-        let tags = self.getAUsersTags(userId)
-        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, tags: tags)
+        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, tags: userTags)
     }
     
     func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,tags:[SharelinkTag])
@@ -34,7 +33,6 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         didSet{
             tagCollectionView.dataSource = self
             tagCollectionView.delegate = self
-            tagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
             tagCollectionView.reloadData()
         }
     }
@@ -43,6 +41,9 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     @IBOutlet weak var userSignTextView: UILabel!
     @IBOutlet weak var userNickNameLabelView: UILabel!
     var userProfileModel:ShareLinkUser!
+    var isMyProfile:Bool{
+        return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tagCollectionView.autoresizesSubviews = true
@@ -50,6 +51,10 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if isMyProfile
+        {
+            tagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+        }
         update()
     }
     
@@ -95,30 +100,13 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        let allTags = userService.getMyAllTags()
+        let userTagService = ServiceContainer.getService(UserTagService)
+        let allTags = userTagService.getMyAllTags()
         let setAllTags = Set<SharelinkTag>(allTags)
         let notSeletedTags = setAllTags.subtract(tags).map{return $0}
         let seletedTagModels = userService.getUserTagsResourceItemModels(tags,selected: true) as! [UISharelinkTagItemModel]
         let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags) as! [UISharelinkTagItemModel]
-        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected in
-            let newSelected = Set<UISharelinkTagItemModel>(tagsSelected)
-            let oldSelected = Set<UISharelinkTagItemModel>(seletedTagModels)
-            let willAddTags = newSelected.subtract(seletedTagModels).map({ (model) -> UserTag in
-                let ut = UserTag()
-                ut.userId = self.userProfileModel.userId
-                ut.tagId = model.tagModel.tagId
-                return ut
-            })
-            let willRemovetags = oldSelected.subtract(newSelected).map({ (model) -> UserTag in
-                let ut = UserTag()
-                ut.userId = self.userProfileModel.userId
-                ut.tagId = model.tagModel.tagId
-                return ut
-            })
-            userService.updateUserTags(self.userProfileModel.userId, willAddTags: willAddTags, willRemoveTags: willRemovetags){
-                self.tags = tagsSelected.map{return $0.tagModel}
-            }
-        }
+        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Negative)
     }
     
 }

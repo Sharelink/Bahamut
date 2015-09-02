@@ -87,16 +87,16 @@ class UserService: ServiceProtocol
         let req = GetShareLinkUsersRequest()
         req.userIds = [userId]
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()!
-        client.execute(req){ (result: SLResult<ShareLinkUsers>) -> Void in
+        client.execute(req){ (result: SLResult<[ShareLinkUser]>) -> Void in
             var newestUser:ShareLinkUser!
             var msg:String! = nil
             if result.statusCode != ReturnCode.OK
             {
                 newestUser = nil
                 msg = result.originResult.description
-            }else
+            }else if let returnObject = result.returnObject
             {
-                newestUser = result.returnObject!.items.filter{$0.userId == userId}[0]
+                newestUser = returnObject.filter{$0.userId == userId}[0]
             }
             if let callback = serverNewestCallback
             {
@@ -111,33 +111,24 @@ class UserService: ServiceProtocol
     {
         let req = GetUserLinksRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
-        client.execute(req) { (result:SLResult<UserLinks>) -> Void in
-            //TODO: delete
-            if 1.description == "1"
-            {
-                self.testGetLinkedUsers()
-                PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
-                PersistentManager.sharedInstance.refreshCache(UserLink)
-                refreshCallback(isSuc: true, msg: nil)
-                return
-            }
+        client.execute(req) { (result:SLResult<[UserLink]>) -> Void in
             
             if result.statusCode == ReturnCode.OK
             {
-                if let userLinks:UserLinks = result.returnObject
+                if let userLinks:[UserLink] = result.returnObject
                 {
-                    let userIds = userLinks.items.map{ user -> String in
+                    let userIds = userLinks.map{ user -> String in
                         return user.slaveUserId
                     }
                     let usersReq = GetShareLinkUsersRequest()
                     usersReq.userIds = userIds
-                    ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(usersReq) { (result:SLResult<ShareLinkUsers>) -> Void in
+                    ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
                         if result.statusCode == ReturnCode.OK
                         {
-                            if let users:ShareLinkUsers = result.returnObject
+                            if let users:[ShareLinkUser] = result.returnObject
                             {
-                                UserLink.saveObjectOfArray(userLinks.items)
-                                ShareLinkUser.saveObjectOfArray(users.items)
+                                UserLink.saveObjectOfArray(userLinks)
+                                ShareLinkUser.saveObjectOfArray(users)
                                 PersistentManager.sharedInstance.refreshCache(UserLink)
                                 PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
                                 self.initLinkedUsers()
@@ -174,7 +165,7 @@ class UserService: ServiceProtocol
         req.nickName = properties["nickName"]
         req.signText = properties["signText"]
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req){ (result) -> Void in
+        client?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
             if result.statusCode == ReturnCode.OK
@@ -191,221 +182,6 @@ class UserService: ServiceProtocol
         }
     }
     
-    func checkUsernameAvailable(username:String,checkCallback:(isAvailable:Bool,msg:String!)-> Void)
-    {
-        let req = GetShareLinkUsersRequest()
-        req.userName = username
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
-            if result.statusCode == ReturnCode.OK
-            {
-                if let _ = result.returnObject
-                {
-                    checkCallback(isAvailable: false,msg: "user name has been registed")
-                }else
-                {
-                    checkCallback(isAvailable: true, msg: "")
-                }
-            }
-        }
-    }
     
-    func testGetLinkedUsers()
-    {
-        var users = [ShareLinkUser]()
-        var userLinks = [UserLink]()
-        for userId in (147258..<147270)
-        {
-            let user = ShareLinkUser()
-            let userLinked = UserLink()
-            userLinked.linkId = "\(147258)_\(userId)"
-            userLinked.masterUserId = "147258"
-            userLinked.slaveUserId = "\(userId)"
-            userLinked.status = UserLinkStatus.Linked.rawValue
-            let randDate = NSDate(timeIntervalSinceNow: Double(arc4random() % (3600 * 24 * 14)))
-            userLinked.createTime = DateHelper.dateToString(randDate)
-            user.userId = "\(userId)"
-            user.nickName = userId.description == "147258" ? "The Different YY" : "nick:\(userId)"
-            user.noteName = ["你好","周广杰","The Dfyy","吊炸天杰少"][Int(arc4random() % 4)]
-            user.headIconId = userId.description == "147258" ? "YY" : "defaultHeadIcon"
-            user.personalVideoId = "\(userId)"
-            user.signText = "the different \(userId)"
-            user.createTime = userLinked.createTime
-            users.append(user)
-            userLinks.append(userLinked)
-        }
-        UserLink.saveObjectOfArray(userLinks)
-        ShareLinkUser.saveObjectOfArray(users)
-        self.initLinkedUsers()
-    }
     
-    //MARK: UserTag
-    func getMyAllTags() ->[SharelinkTag]
-    {
-        return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
-    }
-    
-    //refresh all the tag entities
-    func refreshMyAllSharelinkTags(sucCallback:(()->Void)! = nil)
-    {
-        let req = GetMyAllTagsRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req){ (result:SLResult<SharelinkTags>) -> Void in
-            if result.statusCode == .OK
-            {
-                if let tags = result.returnObject 
-                {
-                    ShareLinkObject.saveObjectOfArray(tags.items)
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }else
-            {
-                //TODO: delete
-                if let tags = result.returnObject
-                {
-                    ShareLinkObject.saveObjectOfArray(tags.items)
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }
-        }
-    }
-    
-    //refresh all user 's tags i given
-    func refreshAllLinkedUserTags(sucCallback:(()->Void)! = nil)
-    {
-        let req = GetAllLinkedUserTagsRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result:SLResult<UserTags>) -> Void in
-            if result.statusCode == .OK
-            {
-                if let usertags = result.returnObject
-                {
-                    ShareLinkObject.saveObjectOfArray(usertags.items)
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }else{
-                //TODO: delete test
-                if let usertags = result.returnObject
-                {
-                    ShareLinkObject.saveObjectOfArray(usertags.items)
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }
-        })
-    }
-    
-    func addSharelinkTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
-    {
-        let req = AddNewTagRequest()
-        req.tagColor = tag.tagColor
-        req.tagName = tag.tagName
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result:SLResult<SharelinkTag>) -> Void in
-            if result.statusCode == .OK
-            {
-                if let newtag = result.returnObject
-                {
-                    tag.tagId = newtag.tagId
-                    tag.saveModel()
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }else{
-                //TODO: delete test
-                tag.tagId = NSDate().timeIntervalSince1970.description
-                tag.saveModel()
-                PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                if let callback = sucCallback
-                {
-                    callback()
-                }
-            }
-        })
-    }
-    
-    func getAUsersTags(userId:String) -> [SharelinkTag]
-    {
-        let result = PersistentManager.sharedInstance.getAllModel(UserTag)
-        let ids = result.filter{$0.userId == userId}.map{return $0.tagId!}
-        return PersistentManager.sharedInstance.getModels(SharelinkTag.self, idValues: ids)
-    }
-    
-    func getUserTagUsers(tagId:String) -> [ShareLinkUser]
-    {
-        let userIds = PersistentManager.sharedInstance.getAllModelFromCache(UserTag).filter{$0.tagId == tagId}.map {return $0.userId! }
-        return getUsers(userIds)
-    }
-    
-    func updateTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
-    {
-        let req = UpdateTagRequest()
-        req.tagName = tag.tagName
-        req.tagColor = tag.tagColor
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
-            if result.statusCode == ReturnCode.OK
-            {
-                tag.saveModel()
-                if let callback = sucCallback
-                {
-                    callback()
-                }
-            }else{
-                //TODO: delete test
-                tag.saveModel()
-                if let callback = sucCallback
-                {
-                    callback()
-                }
-            }
-        })
-    }
-    
-    func updateUserTags(userId:String,willAddTags:[UserTag],willRemoveTags:[UserTag],sucCallback:(()->Void)! = nil)
-    {
-        let req = UpdateUserTagsRequest()
-        req.userId = userId
-        req.willAddTagIds = willAddTags.map{return $0.tagId}
-        req.willRemoveTagIds = willRemoveTags.map{return $0.tagId}
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
-            if result.statusCode == ReturnCode.OK
-            {
-                ShareLinkObject.saveObjectOfArray(willAddTags)
-                ShareLinkObject.deleteObjectArray(willRemoveTags)
-                if let callback = sucCallback
-                {
-                    callback()
-                    
-                }
-            }else{
-                //TODO: delete test
-                ShareLinkObject.saveObjectOfArray(willAddTags)
-                ShareLinkObject.deleteObjectArray(willRemoveTags)
-                if let callback = sucCallback
-                {
-                    callback()
-                }
-            }
-        })
-    }
 }

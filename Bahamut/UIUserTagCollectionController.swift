@@ -67,7 +67,7 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     
     func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {
-        let service = ServiceContainer.getService(UserService)
+        let service = ServiceContainer.getService(UserTagService)
         if sender.editMode == .New
         {
             service.addSharelinkTag(saveModel.tagModel){
@@ -101,8 +101,12 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
     {
-        //TODO: finished this
-        
+        if let models = itemModels as? [UISharelinkTagItemModel]
+        {
+            ServiceContainer.getService(UserTagService).removeMyTags(models.map{$0.tagModel!}, sucCallback: { () -> Void in
+                self.view.makeToast(message: "Remove \(models.count) Tags")
+            })
+        }
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!)

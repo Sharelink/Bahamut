@@ -17,6 +17,7 @@ class LinkedUserListController: UITableViewController
     }
     
     private var userService:UserService!
+    private var userTagService:UserTagService!
     
     struct Constants
     {
@@ -47,6 +48,7 @@ class LinkedUserListController: UITableViewController
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         self.userService = ServiceContainer.getService(UserService)
+        self.userTagService = ServiceContainer.getService(UserTagService)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -75,7 +77,7 @@ class LinkedUserListController: UITableViewController
         if let userCell = cell as? UIUserListCell
         {
             userCell.userModel = userModel
-            userCell.sharelinkTags = userService.getAUsersTags(userModel.userId)
+            userCell.sharelinkTags = userTagService.getAUsersTags(userModel.userId)
             userCell.rootController = self
         }
         return cell
