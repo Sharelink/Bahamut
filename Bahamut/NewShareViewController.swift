@@ -87,7 +87,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func selectUserTag(_:UITapGestureRecognizer)
     {
         let userService = ServiceContainer.getService(UserService)
-        let allTags = userService.getMyAllTags()
+        let userTagService = ServiceContainer.getService(UserTagService)
+        let allTags = userTagService.getMyAllTags()
         let setAllTags = Set<SharelinkTag>(allTags)
         if shareThingModel.forTags == nil
         {
