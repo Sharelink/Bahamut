@@ -141,7 +141,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     {
         let service = ServiceContainer.getService(UserService)
         let accountService = ServiceContainer.getService(AccountService)
-        let userTagService = ServiceContainer.getService(UserTagService)
         let fileService = ServiceContainer.getService(FileService)
         fileService.initUserFoldersWithUserId(accountService.userId)
         view.makeToastActivityWithMessage(message: "Refreshing")
@@ -149,10 +148,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate
             self.view.hideToastActivity()
             if isSuc
             {
-                let userService = ServiceContainer.getService(UserService)
-                userService.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
-                    userTagService.refreshAllLinkedUserTags()
-                })
+                let userTagService = ServiceContainer.getService(UserTagService)
+                userTagService.refreshAllLinkedUserTags()
                 self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
             }else
             {
