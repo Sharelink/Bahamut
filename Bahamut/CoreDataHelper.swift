@@ -54,6 +54,28 @@ class CoreDataHelper {
         getEntityContext().deleteObject(object)
     }
     
+    static func deleteObjects(objects:[NSManagedObject]) throws
+    {
+        for obj in objects
+        {
+            getEntityContext().deleteObject(obj)
+        }
+        try getEntityContext().save()
+    }
+    
+    static func deleteAll(entityName:String)
+    {
+        let request = NSFetchRequest(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate()
+        do{
+            let resultSet = try getEntityContext().executeFetchRequest(request).map{$0 as! NSManagedObject}
+            try deleteObjects(resultSet)
+        }catch{
+            
+        }
+    }
+    
     //MARK: Query
     static func getCellByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
     {

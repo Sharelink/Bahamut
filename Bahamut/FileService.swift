@@ -73,10 +73,13 @@ class FileService: ServiceProtocol {
         do
         {
             try fileManager.removeItemAtURL(documentsPathUrl)
+            
         }catch let error as NSError
         {
             print(error.description)
         }
+        CoreDataHelper.deleteAll(FilePersistentsConstrants.FileEntityName)
+        CoreDataHelper.deleteAll(FilePersistentsConstrants.UploadTaskEntityName)
         
     }
     

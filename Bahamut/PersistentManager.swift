@@ -26,6 +26,14 @@ class PersistentManager
             return typeCache
         }
     }
+    
+    func clearCache()
+    {
+        for (_,cache) in nsCacheDict
+        {
+            cache.removeAllObjects()
+        }
+    }
 }
 
 //MARK: FilePersistents
@@ -154,6 +162,12 @@ struct ModelEntityConstants
 extension PersistentManager
 {
     var entityName:String{return "ModelEntity"}
+    
+    func clearAllData()
+    {
+        CoreDataHelper.deleteAll(entityName)
+        clearCache()
+    }
     
     func getModel<T:ShareLinkObject>(type:T.Type,idValue:String) -> T?
     {
