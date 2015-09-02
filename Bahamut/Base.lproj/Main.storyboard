@@ -737,7 +737,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Tag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ln-kB-EZl">
                                 <rect key="frame" x="20" y="442" width="69" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EJY-tx-luk">
@@ -847,6 +847,11 @@
                             <barButtonItem title="Login" id="MX2-fi-Ttb">
                                 <connections>
                                     <action selector="testLogin:" destination="q7G-s6-dbS" id="KRv-ic-BwR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Clear" id="g45-tx-uS6">
+                                <connections>
+                                    <action selector="cleardata:" destination="q7G-s6-dbS" id="OPd-xW-Aah"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
