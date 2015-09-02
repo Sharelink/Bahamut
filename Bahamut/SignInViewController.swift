@@ -83,12 +83,35 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         {
             dict[item.name] = item.value
         }
-        if dict["AccountID"] != nil && dict["APITokenServer"] != nil && dict["AccessToken"] != nil
+        let accountId = dict["AccountID"]
+        let accessToken = dict["AccessToken"]
+        if accountId != nil && accessToken != nil
         {
             webView.stopLoading();
             webView.hidden = true;
-            validateToken(dict["APITokenServer"]!, accountId: dict["AccountID"]!, accessToken: dict["AccessToken"]!)
+            let isNewUser = dict["NewUser"]?.lowercaseString
+            if (isNewUser != nil && (isNewUser == "yes" || isNewUser == "true"))
+            {
+                if let registApi = dict["RegistAPI"]
+                {
+                    registNewUser(accountId!,registApi: registApi,accessToken:accessToken!)
+                }else
+                {
+                    self.view.makeToast(message: "Server Data Error")
+                    authenticate()
+                }
+                
+            }else if dict["APITokenServer"] != nil && dict["AccessToken"] != nil
+            {
+                validateToken(dict["APITokenServer"]!, accountId: accountId!, accessToken: dict["AccessToken"]!)
+            }
         }
+    }
+    
+    func registNewUser(accountId:String,registApi:String,accessToken:String)
+    {
+        let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("profileViewController")
+        self.navigationController?.pushViewController(profileViewController, animated: true)
     }
     
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
@@ -109,7 +132,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         var url = "\(AccountService.authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
         if let aId = loginAccountId
         {
-            url = "\(url)&accoundId=\(aId)"
+            url = "\(url)&accountId=\(aId)"
         }
         webViewUrl = url
     }
@@ -118,6 +141,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     {
         let service = ServiceContainer.getService(UserService)
         let accountService = ServiceContainer.getService(AccountService)
+        let userTagService = ServiceContainer.getService(UserTagService)
         let fileService = ServiceContainer.getService(FileService)
         fileService.initUserFoldersWithUserId(accountService.userId)
         view.makeToastActivityWithMessage(message: "Refreshing")
@@ -126,9 +150,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate
             if isSuc
             {
                 let userService = ServiceContainer.getService(UserService)
-                userService.refreshMyAllSharelinkTags(){
-                    userService.refreshAllLinkedUserTags()
-                }
+                userService.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
+                    userTagService.refreshAllLinkedUserTags()
+                })
                 self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
             }else
             {
