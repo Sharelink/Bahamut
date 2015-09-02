@@ -47,7 +47,7 @@
         <!--Profile-->
         <scene sceneID="5Lr-Aw-yP7">
             <objects>
-                <viewController id="nDF-Um-n5L" customClass="ProfileViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nDF-Um-n5L" customClass="ProfileViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Ag-qb-YA7"/>
                         <viewControllerLayoutGuide type="bottom" id="p1T-I5-pTp"/>
