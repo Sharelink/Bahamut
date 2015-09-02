@@ -153,27 +153,24 @@ extension ShareThing
     }
     
     var userVotesDetail:String{
-        if self.voteUserIds == nil
+        if let users = self.voteUsers
         {
-            return ""
+            let userIds = users.map{$0.userId!}
+            let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
+            return userNicks.joinWithSeparator(",")
         }
-        let voteUsers = ServiceContainer.getService(UserService).getUsers(self.voteUserIds)
-        let names = voteUsers.map{user->String in
-            return user.nickName
-        }
-        return names.joinWithSeparator(",")
+        return ""
     }
     
     var userReShareDetail:String{
-        if self.reShareUserIds == nil
+        
+        if let reshares = reShares
         {
-            return ""
+            let userIds = reshares.map{$0.userId!}
+            let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
+            return userNicks.joinWithSeparator(",")
         }
-        let reshareUsers = ServiceContainer.getService(UserService).getUsers(self.reShareUserIds)
-        let names = reshareUsers.map{user->String in
-            return user.nickName
-        }
-        return names.joinWithSeparator(",")
+        return ""
     }
     
     var replyButtonContent:String{

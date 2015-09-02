@@ -195,35 +195,35 @@ class ShareService: ServiceProtocol
     {
         let myUserId = ServiceContainer.getService(UserService).myUserId
         var index = 0
-        for id in shareThingModel.voteUserIds
+        for user in shareThingModel.voteUsers
         {
-            if id == myUserId
+            if user.userId == myUserId
             {
                 break
             }
             index++
         }
         var req:ShareLinkSDKRequestBase!
-        if index == shareThingModel.voteUserIds.count
+        if index == shareThingModel.voteUsers.count
         {
             let areq = AddVoteRequest()
             areq.shareId = shareThingModel.shareId
-            shareThingModel.voteUserIds.append(myUserId)
             req = areq
         }else{
             let dreq = DeleteVoteRequest()
             dreq.shareId = shareThingModel.shareId
-            shareThingModel.voteUserIds.removeAtIndex(index)
             req = dreq
         }
         ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
-                if index == shareThingModel.voteUserIds.count
+                if index == shareThingModel.voteUsers.count
                 {
-                    shareThingModel.voteUserIds.append(myUserId)
+                    let newVoteUser = ShareLinkUser()
+                    newVoteUser.userId = myUserId
+                    shareThingModel.voteUsers.append(newVoteUser)
                 }else{
-                    shareThingModel.voteUserIds.removeAtIndex(index)
+                    shareThingModel.voteUsers.removeAtIndex(index)
                 }
                 shareThingModel.lastActiveTime = DateHelper.dateToString(NSDate())
                 shareThingModel.saveModel()
