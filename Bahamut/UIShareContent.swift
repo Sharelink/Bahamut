@@ -11,11 +11,11 @@ import AVFoundation
 
 class UIShareContent: UIView
 {
-    var model:ShareContent!
+    var model:String!
     
     func update()
     {
-        if let moviePath = model?.content
+        if let moviePath = model
         {
             mediaPlayer.filePath = moviePath
         }else{

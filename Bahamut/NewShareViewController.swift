@@ -16,8 +16,7 @@ extension ShareService
         let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("newShareViewController") as! NewShareViewController
         
         controller.shareThingModel = ShareThing()
-        controller.shareThingModel.shareContent = ShareContent()
-        controller.shareThingModel.shareContent.content = reShareModel.shareContent.content
+        controller.shareThingModel.shareContent = reShareModel.shareContent
         controller.shareThingModel.shareType = reShareModel.shareType
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
@@ -31,7 +30,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
-            shareThingModel.shareContent = ShareContent()
         }
     }
 
@@ -64,10 +62,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    var selectedTags:[SharelinkTag] = [SharelinkTag]()
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier: String = "UserTagCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(hexString: shareThingModel.forTags[indexPath.row].tagColor)
+        cell.backgroundColor = UIColor(hexString: selectedTags[indexPath.row].tagColor)
         return cell
     }
     
@@ -92,15 +92,15 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         let setAllTags = Set<SharelinkTag>(allTags)
         if shareThingModel.forTags == nil
         {
-            shareThingModel.forTags = [SharelinkTag]()
+            selectedTags = [SharelinkTag]()
         }
-        let notSeletedTags = setAllTags.subtract(shareThingModel.forTags).map{return $0}
-        let seletedTagModels = userService.getUserTagsResourceItemModels(shareThingModel.forTags,selected: true)
+        let notSeletedTags = setAllTags.subtract(selectedTags).map{return $0}
+        let seletedTagModels = userService.getUserTagsResourceItemModels(selectedTags,selected: true)
         let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags)
         
         userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in
             let result = tagsSelected.map{return $0.tagModel!}
-            self.shareThingModel.forTags = result
+            self.selectedTags = result
             self.userTagCollectionView.reloadData()
         }
         
@@ -112,7 +112,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
         let fileModel = itemModel as! UIFileCollectionCellModel
-        shareThingModel.shareContent.content = fileModel.filePath
+        shareThingModel.shareContent = fileModel.filePath
         self.shareContentContainer.model = shareThingModel.shareContent
     }
     
@@ -167,7 +167,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
             if fileService.moveFileTo(destination, destinationPath: newFilePath)
             {
-                self.shareThingModel.shareContent.content = newFilePath
+                self.shareThingModel.shareContent = newFilePath
                 self.shareContentContainer.model = self.shareThingModel.shareContent
                 self.view.makeToast(message: "Video Saved")
             }else
