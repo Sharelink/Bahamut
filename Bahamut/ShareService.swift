@@ -120,7 +120,7 @@ class ShareService: ServiceProtocol
         }
         
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
-        client.execute(req) { (result:SLResult<ShareThings>) -> Void in
+        client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
             var modified:Bool = true
             
@@ -129,7 +129,7 @@ class ShareService: ServiceProtocol
                 modified = false
             }else if result.statusCode == ReturnCode.OK
             {
-                if let newValues:[ShareThing] = result.returnObject.items
+                if let newValues:[ShareThing] = result.returnObject
                 {
                     if newValues.count > 0
                     {
@@ -169,13 +169,13 @@ class ShareService: ServiceProtocol
         req.olderThanThisTime = self.shareThingSortObjectList.list.last?.lastActiveDate
         req.page = 1
         req.pageCount = 10
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<ShareThings>) -> Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<[ShareThing]>) -> Void in
             if result.statusCode == ReturnCode.NotModified
             {
                 returnCallback([ShareThing]())
             }else if result.statusCode == ReturnCode.OK
             {
-                if let newValues:[ShareThing] = result.returnObject.items
+                if let newValues:[ShareThing] = result.returnObject
                 {
                     if newValues.count > 0
                     {
@@ -245,7 +245,7 @@ class ShareService: ServiceProtocol
         req.page = 1
         req.pageCount = 0
         req.shareIds = shareIds
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req) { (result:SLResult<ShareThings>) ->Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req) { (result:SLResult<[ShareThing]>) ->Void in
             var modified:Bool = true
             var newValues:[ShareThing]! = nil
             if result.statusCode == ReturnCode.NotModified
@@ -253,7 +253,7 @@ class ShareService: ServiceProtocol
                 modified = false
             }else if result.statusCode == ReturnCode.OK
             {
-                newValues = result.returnObject.items ?? nil
+                newValues = result.returnObject ?? [ShareThing]()
                 ShareLinkObject.saveObjectOfArray(newValues)
             }
             if let update = updatedCallback
@@ -274,7 +274,7 @@ class ShareService: ServiceProtocol
         req.page = 0
         req.pageCount = 0
         req.shareId = shareThing.shareId
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<ShareThings>) ->Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<[ShareThing]>) ->Void in
             var modified:Bool = true
             var newValues:[ShareThing]! = nil
             if result.statusCode == ReturnCode.NotModified
@@ -282,7 +282,7 @@ class ShareService: ServiceProtocol
                 modified = false
             }else if result.statusCode == ReturnCode.OK
             {
-                newValues = result.returnObject.items ?? nil
+                newValues = result.returnObject ?? nil
                 ShareLinkObject.saveObjectOfArray(newValues)
             }
             if let update = updatedCallback
