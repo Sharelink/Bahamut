@@ -169,7 +169,7 @@ class ShareService: ServiceProtocol
         req.olderThanThisTime = self.shareThingSortObjectList.list.last?.lastActiveDate
         req.page = 1
         req.pageCount = 10
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<[ShareThing]>) -> Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) -> Void in
             if result.statusCode == ReturnCode.NotModified
             {
                 returnCallback([ShareThing]())
@@ -184,8 +184,6 @@ class ShareService: ServiceProtocol
                         returnCallback(newValues)
                     }
                 }
-                
-
             }
         }
         
@@ -214,7 +212,7 @@ class ShareService: ServiceProtocol
             dreq.shareId = shareThingModel.shareId
             req = dreq
         }
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 if index == shareThingModel.voteUsers.count
@@ -245,7 +243,7 @@ class ShareService: ServiceProtocol
         req.page = 1
         req.pageCount = 0
         req.shareIds = shareIds
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req) { (result:SLResult<[ShareThing]>) ->Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
             var modified:Bool = true
             var newValues:[ShareThing]! = nil
             if result.statusCode == ReturnCode.NotModified
@@ -274,7 +272,7 @@ class ShareService: ServiceProtocol
         req.page = 0
         req.pageCount = 0
         req.shareId = shareThing.shareId
-        ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(req){ (result:SLResult<[ShareThing]>) ->Void in
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) ->Void in
             var modified:Bool = true
             var newValues:[ShareThing]! = nil
             if result.statusCode == ReturnCode.NotModified

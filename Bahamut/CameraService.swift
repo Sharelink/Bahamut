@@ -19,8 +19,7 @@ class CameraService: ServiceProtocol
     
     func showCamera(currentNavigationController:UINavigationController, delegate:UICameraViewControllerDelegate!, videoFileSaveTo:(destination:String) -> Void)
     {
-        let storyBorad = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
-        let cameraController = storyBorad.instantiateViewControllerWithIdentifier("cameraViewController") as! UICameraViewController
+        let cameraController = UICameraViewController.instanceFromStoryBoard()
         cameraController.videoFileSaveTo = videoFileSaveTo
         currentNavigationController.pushViewController(cameraController, animated: true)
     }

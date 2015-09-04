@@ -9,6 +9,7 @@
 import Foundation
 import CoreFoundation
 import Alamofire
+import EVReflection
 
 class UserService: ServiceProtocol
 {
@@ -27,13 +28,32 @@ class UserService: ServiceProtocol
         myLinkedUsers = getLinkedUsers()
     }
     
-    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser)
+    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String)->Void)
     {
         let req = RegistNewSharelinkUserRequest()
         req.nickName = newUser.nickName
         req.accessToken = registModel.accessToken
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ValidateResult>) -> Void in
+            if result.isFailure
+            {
+                callback(isSuc:false,msg:"Regist Failed");
+            }else if let validateResult = result.returnObject
+            {
+                if validateResult.isValidateResultDataComplete()
+                {
+                    ShareLinkSDK.sharedInstance.useValidateData(validateResult)
+                    callback(isSuc: true, msg: "regist success")
+                }else
+                {
+                    callback(isSuc: false, msg: "Data Error")
+                }
+            }else
+            {
+                callback(isSuc:false,msg:"Regist Failed");
+            }
+        }
     }
     
     func getUsers(userIds:[String]) -> [ShareLinkUser]
@@ -42,6 +62,8 @@ class UserService: ServiceProtocol
         return PersistentManager.sharedInstance.getModels(ShareLinkUser.self, idValues: userIds)
     }
     
+    
+    //TODO: rebuild this ungly code
     func getUsersDivideWithLatinLetter(users:[ShareLinkUser]) -> [(String,[ShareLinkUser])]
     {
         var result = [(String,[ShareLinkUser])]()
@@ -95,7 +117,7 @@ class UserService: ServiceProtocol
         //request server
         let req = GetShareLinkUsersRequest()
         req.userIds = [userId]
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()!
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result: SLResult<[ShareLinkUser]>) -> Void in
             var newestUser:ShareLinkUser!
             var msg:String! = nil
@@ -131,7 +153,7 @@ class UserService: ServiceProtocol
                     }
                     let usersReq = GetShareLinkUsersRequest()
                     usersReq.userIds = userIds
-                    ShareLinkSDK.sharedInstance.getShareLinkClient()?.execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
+                    ShareLinkSDK.sharedInstance.getShareLinkClient().execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
                         if result.statusCode == ReturnCode.OK
                         {
                             if let users:[ShareLinkUser] = result.returnObject
@@ -174,7 +196,7 @@ class UserService: ServiceProtocol
         req.nickName = properties["nickName"]
         req.signText = properties["signText"]
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client?.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
             if result.statusCode == ReturnCode.OK
