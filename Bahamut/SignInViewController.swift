@@ -99,8 +99,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     
     func registNewUser(accountId:String,registApi:String,accessToken:String)
     {
-        let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("profileViewController")
-        self.navigationController?.pushViewController(profileViewController, animated: true)
+        ServiceContainer.getService(UserService).showRegistNewUserController(self.navigationController!, registApi: registApi)
     }
     
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
