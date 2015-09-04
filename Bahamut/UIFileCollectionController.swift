@@ -67,8 +67,7 @@ extension FileService
     
     func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],selectionMode:ResourceExplorerSelectMode = .Negative ,delegate:UIResourceExplorerDelegate! = nil)
     {
-        let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
-        let fileCollectionController = storyBoard.instantiateViewControllerWithIdentifier("fileCollectionViewController") as! UIFileCollectionController
+        let fileCollectionController = UIFileCollectionController.instanceFromStoryBoard()
         fileCollectionController.selectionMode = selectionMode
         fileCollectionController.items = files
         fileCollectionController.delegate = delegate
@@ -101,5 +100,10 @@ class UIFileCollectionController: UIResourceExplorerController
     @IBAction func editFiles(sender: AnyObject)
     {
         editItems(sender)
+    }
+    
+    static func instanceFromStoryBoard() -> UIFileCollectionController
+    {
+        return instanceFromStoryBoard("Component", identifier: "fileCollectionViewController") as! UIFileCollectionController
     }
 }

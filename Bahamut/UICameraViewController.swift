@@ -176,5 +176,10 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         }
         PBJVision.sharedInstance().cancelVideoCapture()
     }
+    
+    static func instanceFromStoryBoard() -> UICameraViewController
+    {
+        return instanceFromStoryBoard("Component", identifier: "cameraViewController") as! UICameraViewController
+    }
 
 }

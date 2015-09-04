@@ -31,9 +31,16 @@ class MainNavigationController: UINavigationController
         }
     }
     
-    static func InstanceFromStoryBoard() -> MainNavigationController
+    private static func instanceFromStoryBoard() -> MainNavigationController
     {
-        let storyBorad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        return storyBorad.instantiateViewControllerWithIdentifier("mainNavigationController") as! MainNavigationController
+        return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
+    }
+    
+    static func start(currentController:UIViewController,msg:String)
+    {
+        let mainController = instanceFromStoryBoard();
+        currentController.presentViewController(mainController, animated: false) { () -> Void in
+            mainController.view.makeToast(message: msg)
+        }
     }
 }

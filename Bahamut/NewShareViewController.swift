@@ -13,8 +13,7 @@ extension ShareService
 {
     func showReshareViewController(currentNavigationController:UINavigationController,reShareModel:ShareThing)
     {
-        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("newShareViewController") as! NewShareViewController
-        
+        let controller = NewShareViewController.instanceFromStoryBoard()
         controller.shareThingModel = ShareThing()
         controller.shareThingModel.shareContent = reShareModel.shareContent
         controller.shareThingModel.shareType = reShareModel.shareType
@@ -188,4 +187,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         
     }
 
+    static func instanceFromStoryBoard() -> NewShareViewController
+    {
+        return instanceFromStoryBoard("Main", identifier: "newShareViewController") as! NewShareViewController
+    }
 }

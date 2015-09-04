@@ -20,7 +20,7 @@ extension UserService
     
     func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,tags:[SharelinkTag])
     {
-        let controller = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("userProfileViewController") as! UserProfileViewController
+        let controller = UserProfileViewController.instanceFromStoryBoard()
         controller.userProfileModel = userProfile
         controller.tags = tags
         currentNavigationController.pushViewController(controller , animated: true)
@@ -109,4 +109,8 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Negative)
     }
     
+    static func instanceFromStoryBoard() -> UserProfileViewController
+    {
+        return instanceFromStoryBoard("UserAccount", identifier: "userProfileViewController") as! UserProfileViewController
+    }
 }

@@ -14,8 +14,7 @@ extension UserService
 {
     func showUIUserTagEditController(currentNavigationController:UINavigationController,editModel:UISharelinkTagItemModel,editMode:UIUserTagEditMode,delegate:UIUserTagEditControllerDelegate)
     {
-        let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
-        let userTagEditController = storyBoard.instantiateViewControllerWithIdentifier("userTagEditController") as! UIUserTagEditController
+        let userTagEditController = UIUserTagEditController.instanceFromStoryBoard()
         userTagEditController.delegate = delegate
         userTagEditController.tagModel = editModel
         userTagEditController.editMode = editMode
@@ -83,6 +82,11 @@ class UIUserTagEditController: UIViewController
             saveHandler(tagModel,sender: self)
         }
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    static func instanceFromStoryBoard() -> UIUserTagEditController
+    {
+        return instanceFromStoryBoard("Component", identifier: "userTagEditController") as! UIUserTagEditController
     }
     
 }

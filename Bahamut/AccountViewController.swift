@@ -22,4 +22,9 @@ class AccountViewController: UIViewController {
     }
     @IBAction func saveInformation() {
     }
+    
+    static func instanceFromStoryBoard() -> AccountViewController
+    {
+        return instanceFromStoryBoard("UserAccount", identifier: "accountViewController") as! AccountViewController
+    }
 }

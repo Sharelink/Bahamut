@@ -25,8 +25,8 @@ extension UserService
     
     func showTagCollectionControllerView(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
     {
-        let storyBoard = UIStoryboard(name: "Component", bundle: NSBundle.mainBundle())
-        let collectionController = storyBoard.instantiateViewControllerWithIdentifier("tagCollectionViewController") as! UIUserTagCollectionController
+        
+        let collectionController = UIUserTagCollectionController.instanceFromStoryBoard()
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
         collectionController.items = tags
@@ -138,6 +138,11 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     @IBAction func editTags(sender: AnyObject)
     {
         editItems(sender)
+    }
+    
+    static func instanceFromStoryBoard() -> UIUserTagCollectionController
+    {
+        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController") as! UIUserTagCollectionController
     }
 }
 

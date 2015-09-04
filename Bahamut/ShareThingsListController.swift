@@ -59,11 +59,8 @@ class ShareThingsListController: UITableViewController
             let fileSvr = ServiceContainer.getService(FileService)
             fileSvr.clearUserCaches()
             PersistentManager.sharedInstance.clearAllData()
-            self.navigationController?.popViewControllerAnimated(false)
-            let controller = MainNavigationController.InstanceFromStoryBoard()
-            self.presentViewController(controller, animated: false, completion: { () -> Void in
-                controller.view.makeToast(message: msg)
-            })
+            self.navigationController?.popToRootViewControllerAnimated(false)
+            MainNavigationController.start(self, msg: msg)
         }
     }
     

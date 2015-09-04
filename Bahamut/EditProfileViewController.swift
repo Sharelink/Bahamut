@@ -12,7 +12,7 @@ extension UserService
 {
     func showEditProfileViewController(navigationController:UINavigationController,userModel:ShareLinkUser)
     {
-        let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("editProfileViewController") as! EditProfileViewController
+        let profileViewController = EditProfileViewController.instanceFromStoryBoard()
         profileViewController.model = userModel
         profileViewController.isRegistNewUser = false
         navigationController.pushViewController(profileViewController, animated: true)
@@ -20,7 +20,7 @@ extension UserService
     
     func showRegistNewUserController(navigationController:UINavigationController,registModel:RegistModel)
     {
-        let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("editProfileViewController") as! EditProfileViewController
+        let profileViewController = EditProfileViewController.instanceFromStoryBoard()
         profileViewController.isRegistNewUser = true
         profileViewController.registModel = registModel
         profileViewController.model = ShareLinkUser()
@@ -73,7 +73,15 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate
     {
         if isRegistNewUser
         {
-            ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model)
+            ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg in
+                if isSuc
+                {
+                    
+                }else
+                {
+                    self.view.makeToast(message: msg)
+                }
+            }
         }else{
             ServiceContainer.getService(UserService).setProfile(["nickName":model.nickName])
         }
@@ -88,5 +96,9 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate
     func takeHeadIconPhoto(_:UIGestureRecognizer! = nil)
     {
         print("takeHeadIconPhoto()")
+    }
+    
+    static func instanceFromStoryBoard()->EditProfileViewController{
+        return instanceFromStoryBoard("UserAccount", identifier: "editProfileViewController") as! EditProfileViewController
     }
 }
