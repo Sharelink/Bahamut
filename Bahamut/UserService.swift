@@ -27,6 +27,15 @@ class UserService: ServiceProtocol
         myLinkedUsers = getLinkedUsers()
     }
     
+    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser)
+    {
+        let req = RegistNewSharelinkUserRequest()
+        req.nickName = newUser.nickName
+        req.accessToken = registModel.accessToken
+        req.accountId = registModel.accountId
+        req.apiServerUrl = registModel.registUserServer
+    }
+    
     func getUsers(userIds:[String]) -> [ShareLinkUser]
     {
         //Read from cache

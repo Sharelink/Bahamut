@@ -99,7 +99,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     
     func registNewUser(accountId:String,registApi:String,accessToken:String)
     {
-        ServiceContainer.getService(UserService).showRegistNewUserController(self.navigationController!, registApi: registApi)
+        let registModel = RegistModel()
+        registModel.accessToken = accessToken
+        registModel.registUserServer = registApi
+        registModel.accountId = accountId
+        ServiceContainer.getService(UserService).showRegistNewUserController(self.navigationController!, registModel:registModel)
     }
     
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)

@@ -10,26 +10,35 @@ import UIKit
 
 extension UserService
 {
-    func showEditProfileViewController(navigationController:UINavigationController)
+    func showEditProfileViewController(navigationController:UINavigationController,userModel:ShareLinkUser)
     {
         let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("editProfileViewController") as! EditProfileViewController
+        profileViewController.model = userModel
         profileViewController.isRegistNewUser = false
         navigationController.pushViewController(profileViewController, animated: true)
     }
     
-    func showRegistNewUserController(navigationController:UINavigationController,registApi:String)
+    func showRegistNewUserController(navigationController:UINavigationController,registModel:RegistModel)
     {
         let profileViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("editProfileViewController") as! EditProfileViewController
         profileViewController.isRegistNewUser = true
-        profileViewController.registNewUserApi = registApi
+        profileViewController.registModel = registModel
+        profileViewController.model = ShareLinkUser()
         navigationController.pushViewController(profileViewController, animated: true)
     }
 }
 
-class EditProfileViewController: UIViewController
+class RegistModel {
+    var registUserServer:String!
+    var accountId:String!
+    var accessToken:String!
+}
+
+class EditProfileViewController: UIViewController,UITextFieldDelegate
 {
     var isRegistNewUser:Bool = false
-    var registNewUserApi:String!
+    var registModel:RegistModel!
+    var model:ShareLinkUser!
     @IBOutlet weak var nickNameTextfield: UITextField!
     @IBOutlet weak var saveProfileButton: UIButton!
     @IBOutlet weak var profileVideoView:UIView!{
@@ -56,8 +65,18 @@ class EditProfileViewController: UIViewController
         super.viewDidAppear(animated)
     }
     
+    func textFieldDidEndEditing(textField: UITextField) {
+        self.model.nickName = textField.text
+    }
+    
     @IBAction func saveProfile()
     {
+        if isRegistNewUser
+        {
+            ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model)
+        }else{
+            ServiceContainer.getService(UserService).setProfile(["nickName":model.nickName])
+        }
     }
 
     
