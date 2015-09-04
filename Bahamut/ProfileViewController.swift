@@ -8,13 +8,10 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController
+class EditProfileViewController: UIViewController
 {
-    
-
-    private struct Constants{
-        static let SegueNextToInformation:String = "Next To Information"
-    }
+    var isRegistNewUser:Bool = false
+    var registNewUserApi:String!
     @IBOutlet weak var nickNameTextfield: UITextField!
     @IBOutlet weak var saveProfileButton: UIButton!
     @IBOutlet weak var profileVideoView:UIView!{
