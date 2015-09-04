@@ -86,12 +86,14 @@ class AccountService: ServiceProtocol
         self.fileApiServer = fileApiServer
     }
     
-    func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void)
+    func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
         self.lastLoginAccountId = accountId
-        ShareLinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken){ error in
-            if error == nil
+        ShareLinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer) -> Void in
+            if isNewUser
             {
+                registCallback(registApiServer:registApiServer)
+            }else if error == nil{
                 let sdk = ShareLinkSDK.sharedInstance
                 self.setLogined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer)
                 callback(loginSuccess: true, message: "Validate AccessToken Success")

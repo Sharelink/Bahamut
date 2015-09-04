@@ -88,26 +88,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         }
         let accountId = dict["AccountID"]
         let accessToken = dict["AccessToken"]
-        if accountId != nil && accessToken != nil
+        let apiServer = dict["APITokenServer"]
+        if accountId != nil && accessToken != nil && apiServer != nil
         {
-            webView.stopLoading();
-            webView.hidden = true;
-            let isNewUser = dict["NewUser"]?.lowercaseString
-            if (isNewUser != nil && (isNewUser == "yes" || isNewUser == "true"))
-            {
-                if let registApi = dict["RegistAPI"]
-                {
-                    registNewUser(accountId!,registApi: registApi,accessToken:accessToken!)
-                }else
-                {
-                    self.view.makeToast(message: "Server Data Error")
-                    authenticate()
-                }
-                
-            }else if dict["APITokenServer"] != nil && dict["AccessToken"] != nil
-            {
-                validateToken(dict["APITokenServer"]!, accountId: accountId!, accessToken: dict["AccessToken"]!)
-            }
+            webView.stopLoading()
+            webView.hidden = true
+            validateToken(apiServer!, accountId: accountId!, accessToken: accessToken!)
         }
     }
     
@@ -120,12 +106,17 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        accountService.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (loginSuccess, message) -> Void in
+        
+        accountService.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
             if loginSuccess{
                 self.signCallback()
             }else{
                 self.view.makeToast(message: message)
+                self.authenticate()
             }
+            
+        }) { (registApiServer) -> Void in
+            self.registNewUser(accountId,registApi: registApiServer,accessToken:accessToken)
         }
     }
     
