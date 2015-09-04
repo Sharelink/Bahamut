@@ -1,3 +1,4 @@
+
 //
 //  ReplyService.swift
 //  Bahamut
@@ -17,6 +18,6 @@ class ReplyService: ServiceProtocol
     
     func getShareIdNotReadMessageCount(shareId:String) -> UInt32
     {
-        return arc4random() % 20
+        return 0
     }
 }
