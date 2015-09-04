@@ -49,8 +49,8 @@
 		E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
 		E790BD001B6780C900D5426B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCFF1B6780C900D5426B /* RegisterViewController.swift */; };
-		E790BD031B67810200D5426B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* ProfileViewController.swift */; };
-		E790BD051B67812E00D5426B /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD041B67812E00D5426B /* InformationViewController.swift */; };
+		E790BD031B67810200D5426B /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* EditProfileViewController.swift */; };
+		E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD041B67812E00D5426B /* AccountViewController.swift */; };
 		E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD061B67EA1B00D5426B /* SignInViewController.swift */; };
 		E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD091B67EFE600D5426B /* ServiceProtocol.swift */; };
 		E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
@@ -135,8 +135,8 @@
 		E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIReplyMessage.swift; sourceTree = "<group>"; };
 		E790BCF51B676EAB00D5426B /* UIShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareContent.swift; sourceTree = "<group>"; };
 		E790BCFF1B6780C900D5426B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		E790BD021B67810200D5426B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		E790BD041B67812E00D5426B /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		E790BD021B67810200D5426B /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		E790BD041B67812E00D5426B /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		E790BD061B67EA1B00D5426B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E790BD091B67EFE600D5426B /* ServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		E790BD0B1B67F12000D5426B /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
@@ -352,6 +352,7 @@
 		E790BCEE1B6748FB00D5426B /* UIAccount */ = {
 			isa = PBXGroup;
 			children = (
+				E790BD041B67812E00D5426B /* AccountViewController.swift */,
 				E790BCFF1B6780C900D5426B /* RegisterViewController.swift */,
 				E790BD061B67EA1B00D5426B /* SignInViewController.swift */,
 			);
@@ -400,8 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */,
-				E790BD021B67810200D5426B /* ProfileViewController.swift */,
-				E790BD041B67812E00D5426B /* InformationViewController.swift */,
+				E790BD021B67810200D5426B /* EditProfileViewController.swift */,
 				E72F47251B7637AE002674AB /* LinkedUserListController.swift */,
 				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
 				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
@@ -691,7 +691,7 @@
 				E78D131F1B71123C00252E50 /* ShareLinkObject.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E73681501B96A816004E8B56 /* UserTagService.swift in Sources */,
-				E790BD051B67812E00D5426B /* InformationViewController.swift in Sources */,
+				E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E78D13221B71123C00252E50 /* File.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
@@ -735,7 +735,7 @@
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
 				E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
-				E790BD031B67810200D5426B /* ProfileViewController.swift in Sources */,
+				E790BD031B67810200D5426B /* EditProfileViewController.swift in Sources */,
 				E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */,
 				E78D131E1B71123C00252E50 /* Account.swift in Sources */,
 				E72F47221B7602C6002674AB /* DateHelper.swift in Sources */,
