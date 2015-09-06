@@ -32,7 +32,7 @@ class AccountService: ServiceProtocol
         }
     }
     
-    private(set) var isUserLogined:Bool{
+    var isUserLogined:Bool{
         get{
             return NSUserDefaults.standardUserDefaults().boolForKey("isUserLogined")
         }
@@ -98,7 +98,7 @@ class AccountService: ServiceProtocol
                 self.setLogined(sdk.userId, token: sdk.token, shareLinkApiServer: sdk.shareLinkApiServer, fileApiServer: sdk.fileApiServer)
                 callback(loginSuccess: true, message: "Validate AccessToken Success")
             }else{
-                callback(loginSuccess: false, message: "Validate AccessToken Failed")
+                callback(loginSuccess: false, message: error)
             }
             
         }

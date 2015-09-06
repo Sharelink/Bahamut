@@ -155,7 +155,7 @@ extension ShareThing
     var userVotesDetail:String{
         if let users = self.voteUsers
         {
-            let userIds = users.map{$0.userId!}
+            let userIds = users.map{$0}
             let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
             return userNicks.joinWithSeparator(",")
         }

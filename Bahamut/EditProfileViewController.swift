@@ -71,19 +71,20 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate
     
     @IBAction func saveProfile()
     {
+        model.nickName = nickNameTextfield.text
         if isRegistNewUser
         {
             ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg in
                 if isSuc
                 {
-                    
+                    MainNavigationController.start(self.navigationController!, msg: "Regist Success")
                 }else
                 {
                     self.view.makeToast(message: msg)
                 }
             }
         }else{
-            ServiceContainer.getService(UserService).setProfile(["nickName":model.nickName])
+            ServiceContainer.getService(UserService).setProfileNick(model.nickName)
         }
     }
 

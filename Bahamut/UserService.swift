@@ -44,6 +44,7 @@ class UserService: ServiceProtocol
                 if validateResult.isValidateResultDataComplete()
                 {
                     ShareLinkSDK.sharedInstance.useValidateData(validateResult)
+                    ServiceContainer.getService(AccountService).setLogined(validateResult.UserId, token: validateResult.AppToken, shareLinkApiServer: validateResult.APIServer, fileApiServer: validateResult.FileAPIServer)
                     callback(isSuc: true, msg: "regist success")
                 }else
                 {
@@ -190,11 +191,10 @@ class UserService: ServiceProtocol
         return getUsers(userIds)
     }
     
-    func setProfile(properties:[String:String],setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
     {
-        let req = UpdateShareLinkUserProfileRequest()
-        req.nickName = properties["nickName"]
-        req.signText = properties["signText"]
+        let req = UpdateShareLinkUserProfileNickNameRequest()
+        req.nickName = newNick
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
@@ -213,6 +213,27 @@ class UserService: ServiceProtocol
         }
     }
     
+    func setProfileSignText(newSignText:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        let req = UpdateShareLinkUserProfileSignTextRequest()
+        req.signText = newSignText
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            var isSuc:Bool = false
+            var msg:String! = nil
+            if result.statusCode == ReturnCode.OK
+            {
+                isSuc = true
+            }else
+            {
+                msg = result.originResult.description
+            }
+            if let callback = setProfileCallback
+            {
+                callback(isSuc: isSuc, msg: msg)
+            }
+        }
+    }
     
     
 }

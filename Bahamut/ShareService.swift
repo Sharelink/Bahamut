@@ -195,7 +195,7 @@ class ShareService: ServiceProtocol
         var index = 0
         for user in shareThingModel.voteUsers
         {
-            if user.userId == myUserId
+            if user == myUserId
             {
                 break
             }
@@ -217,9 +217,7 @@ class ShareService: ServiceProtocol
             {
                 if index == shareThingModel.voteUsers.count
                 {
-                    let newVoteUser = ShareLinkUser()
-                    newVoteUser.userId = myUserId
-                    shareThingModel.voteUsers.append(newVoteUser)
+                    shareThingModel.voteUsers.append(myUserId)
                 }else{
                     shareThingModel.voteUsers.removeAtIndex(index)
                 }
