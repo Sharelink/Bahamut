@@ -145,8 +145,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate
             self.view.hideToastActivity()
             if isSuc
             {
-                let userTagService = ServiceContainer.getService(UserTagService)
-                userTagService.refreshAllLinkedUserTags()
                 self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
             }else
             {
