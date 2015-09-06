@@ -253,7 +253,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAb-tL-Fxc">
-                                <rect key="frame" x="84" y="300" width="496" height="41"/>
+                                <rect key="frame" x="84" y="289" width="496" height="41"/>
                                 <string key="text">Labela;jfklajsdfkljal;sdjflajsdkl;fjla;jksadkls;;jaklsdjfl;kajsd;lfklja;dklsjf;aljsdlkfjioej;lafjldkj;aflkdjs;lfkajdls;kjf;alkdjsfl;akjsdl;kfjal;ksdjflaksdjfdfasdfasdfasdfadsfads</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="highlightedColor"/>
@@ -304,17 +304,31 @@
                                     <constraint firstAttribute="width" constant="72" id="bqn-Qb-Sv1"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9m-uT-GWZ">
+                                <rect key="frame" x="568" y="229" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="VZt-fI-ADX"/>
+                                    <constraint firstAttribute="width" constant="32" id="cEJ-LG-hqV"/>
+                                </constraints>
+                                <state key="normal" image="edit">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="editProfileVideo" destination="Ht6-Ye-kY6" eventType="touchUpInside" id="BhN-0S-bLh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6La-Le-Oyn" firstAttribute="trailing" secondItem="lAb-tL-Fxc" secondAttribute="trailing" id="9BS-Tx-Kqe"/>
                             <constraint firstItem="gc7-K2-hcP" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="trailing" id="9py-li-EUV"/>
-                            <constraint firstItem="FeM-jc-wh6" firstAttribute="bottom" secondItem="lAb-tL-Fxc" secondAttribute="bottom" id="DEV-eb-3Gr"/>
                             <constraint firstItem="6La-Le-Oyn" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="leading" id="Ela-s2-8wB"/>
+                            <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="HHW-s6-0Rr"/>
+                            <constraint firstItem="g9m-uT-GWZ" firstAttribute="bottom" secondItem="lHT-sO-2xC" secondAttribute="bottom" id="PXr-LB-cYF"/>
                             <constraint firstItem="lAb-tL-Fxc" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="leading" id="UnU-iZ-lYK"/>
                             <constraint firstItem="FeM-jc-wh6" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="top" id="aMB-R1-kEQ"/>
+                            <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="bGT-A5-eG1"/>
                             <constraint firstItem="6La-Le-Oyn" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="bottom" constant="8" id="cnc-Gs-bta"/>
-                            <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="esL-fe-6WY"/>
                             <constraint firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="fnS-Vz-OZ4"/>
                             <constraint firstItem="lHT-sO-2xC" firstAttribute="leading" secondItem="Ub0-HE-2uq" secondAttribute="leading" id="j7E-W5-TGp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lAb-tL-Fxc" secondAttribute="trailing" id="noZ-WP-Nhl"/>
@@ -324,11 +338,6 @@
                             <constraint firstItem="FeM-jc-wh6" firstAttribute="top" secondItem="lHT-sO-2xC" secondAttribute="bottom" constant="8" id="uKa-bg-aB9"/>
                             <constraint firstItem="HyK-dk-aoU" firstAttribute="top" secondItem="6La-Le-Oyn" secondAttribute="bottom" constant="8" symbolic="YES" id="w2q-oM-AIc"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="esL-fe-6WY"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Profile" id="xm0-ee-F4k">
@@ -337,6 +346,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="editProfileVideoButton" destination="g9m-uT-GWZ" id="tFR-AN-k63"/>
                         <outlet property="headIconImageView" destination="FeM-jc-wh6" id="OYA-CM-1cd"/>
                         <outlet property="tagCollectionView" destination="6La-Le-Oyn" id="6IP-xY-uI7"/>
                         <outlet property="userNickNameLabelView" destination="gc7-K2-hcP" id="qjY-Zb-VlX"/>
@@ -351,5 +361,6 @@
     </scenes>
     <resources>
         <image name="YY" width="324" height="335"/>
+        <image name="edit" width="48" height="48"/>
     </resources>
 </document>

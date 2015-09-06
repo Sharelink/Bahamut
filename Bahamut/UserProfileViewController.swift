@@ -27,7 +27,7 @@ extension UserService
     }
 }
 
-class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
+class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIEditTextPropertyViewControllerDelegate
 {
     @IBOutlet weak var tagCollectionView: UICollectionView!{
         didSet{
@@ -36,10 +36,23 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
             tagCollectionView.reloadData()
         }
     }
+    @IBOutlet weak var editProfileVideoButton: UIButton!
     @IBOutlet weak var userProfileVideo: ShareLinkFilmView!
-    @IBOutlet weak var headIconImageView: UIImageView!
-    @IBOutlet weak var userSignTextView: UILabel!
-    @IBOutlet weak var userNickNameLabelView: UILabel!
+    @IBOutlet weak var headIconImageView: UIImageView!{
+        didSet{
+            headIconImageView.userInteractionEnabled = true
+        }
+    }
+    @IBOutlet weak var userSignTextView: UILabel!{
+        didSet{
+            userSignTextView.userInteractionEnabled = true
+        }
+    }
+    @IBOutlet weak var userNickNameLabelView: UILabel!{
+        didSet{
+            userNickNameLabelView.userInteractionEnabled = true
+        }
+    }
     var userProfileModel:ShareLinkUser!
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
@@ -49,18 +62,33 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         tagCollectionView.autoresizesSubviews = true
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         super.viewWillAppear(animated)
+        bindTapActions()
+        update()
+        updateEditVideoButton()
+    }
+    
+    func bindTapActions()
+    {
         if isMyProfile
         {
             tagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+            userNickNameLabelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editNickName:"))
+            userSignTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editSignText:"))
         }
-        update()
+        headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "headIconTapped:"))
     }
     
     @IBAction func editProfileVideo()
     {
         
+    }
+    
+    func updateEditVideoButton()
+    {
+        editProfileVideoButton.hidden = !isMyProfile
     }
     
     func update()
@@ -95,6 +123,39 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
         cell.model = tags[indexPath.row]
         return cell
+    }
+    
+    func editNickName(_:UITapGestureRecognizer)
+    {
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "nick", propertyValue: self.userProfileModel.nickName, propertyLabel: "NickName", title: "Nick", delegate: self)
+    }
+    
+    func editSignText(_:UITapGestureRecognizer)
+    {
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "signtext", propertyValue: self.userProfileModel.signText, propertyLabel: "Sign Text", title: "Sign Text", delegate: self)
+    }
+    
+    func headIconTapped(_:UITapGestureRecognizer)
+    {
+        print("to do headIconTapped")
+    }
+    
+    func editPropertySave(propertyId: String!, newValue: String!)
+    {
+        let userService = ServiceContainer.getService(UserService)
+        if propertyId == "signtext"
+        {
+            self.view.makeToastActivityWithMessage(message: "Updating")
+            userService.setProfileNick(newValue, setProfileCallback: { (isSuc, msg) -> Void in
+                self.view.hideToastActivity()
+            })
+        }else if propertyId == "nick"
+        {
+            self.view.makeToastActivityWithMessage(message: "Updating")
+            userService.setProfileNick(newValue, setProfileCallback: { (isSuc, msg) -> Void in
+                self.view.hideToastActivity()
+            })
+        }
     }
     
     func selectUserTag(_:UITapGestureRecognizer)

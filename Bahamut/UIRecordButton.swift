@@ -20,6 +20,7 @@ class UIRecordButtonController: UIViewController {
         }
     }
     
+    @IBOutlet weak var tipsLabelTextField: UILabel!
     private var parentController:UICameraViewController!
     
     override func viewDidAppear(animated: Bool) {
@@ -44,9 +45,11 @@ class UIRecordButtonController: UIViewController {
         switch recognizer.state
         {
             case .Began:parentController.startOrResumeRecord()
+            tipsLabel.hidden = true
             case .Cancelled:fallthrough
             case .Ended:fallthrough
             case .Failed:parentController.pauseRecord()
+            tipsLabel.hidden = false
         default:break
         }
     }
