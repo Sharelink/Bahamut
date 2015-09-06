@@ -42,27 +42,6 @@ public class UserTagService : ServiceProtocol
         }
     }
     
-    //refresh all user 's tags i given
-    func refreshAllLinkedUserTags(sucCallback:(()->Void)! = nil)
-    {
-        let req = GetAllLinkedUserTagsRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req, callback: { (result:SLResult<UserSharelinkTags>) -> Void in
-            if result.statusCode == .OK
-            {
-                if let usertags = result.returnObject
-                {
-                    usertags.saveModel()
-                    PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
-                }
-            }
-        })
-    }
-    
     func addSharelinkTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
     {
         let req = AddNewTagRequest()
@@ -127,11 +106,25 @@ public class UserTagService : ServiceProtocol
     
     func updateTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
     {
-        let req = UpdateTagRequest()
-        req.tagName = tag.tagName
-        req.tagColor = tag.tagColor
+        var r:ShareLinkSDKRequestBase! = nil
+        if tag.tagColor != nil
+        {
+            let req = UpdateTagColorRequest()
+            req.tagColor = tag.tagColor
+            req.tagId = tag.tagId
+            r = req
+        }else if tag.tagName != nil
+        {
+            let req = UpdateTagNameRequest()
+            req.tagName = tag.tagName
+            req.tagId = tag.tagId
+            r = req
+        }else if let callback = sucCallback{
+            callback()
+        }
+        
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
+        client.execute(r!, callback: { (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 tag.saveModel()
