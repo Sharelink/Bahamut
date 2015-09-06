@@ -63,50 +63,10 @@ class UserService: ServiceProtocol
         return PersistentManager.sharedInstance.getModels(ShareLinkUser.self, idValues: userIds)
     }
     
-    
-    //TODO: rebuild this ungly code
-    func getUsersDivideWithLatinLetter(users:[ShareLinkUser]) -> [(String,[ShareLinkUser])]
+    func getUsersDivideWithLatinLetter(users:[ShareLinkUser]) -> [(latinLetter:String,items:[ShareLinkUser])]
     {
-        var result = [(String,[ShareLinkUser])]()
-        var dict = [String:[ShareLinkUser]]()
-        for index in 0...25
-        {
-            let letterInt = 65 + index
-            let key = StringHelper.IntToLetterString(letterInt)
-            let list = [ShareLinkUser]()
-            dict.updateValue(list, forKey: key)
-        }
-        dict.updateValue([ShareLinkUser](), forKey: "#")
-        
-        for user in users
-        {
-            let userNoteName = user.noteName ?? user.nickName
-            let nickName:CFMutableStringRef = CFStringCreateMutableCopy(nil, 0, userNoteName);
-            CFStringTransform(nickName,nil, kCFStringTransformToLatin, false)
-            CFStringTransform(nickName, nil, kCFStringTransformStripDiacritics, false)
-            
-            let stringName = nickName as String
-            let n = stringName.startIndex.advancedBy(1)
-            let prefix = stringName.uppercaseString.substringToIndex(n)
-            var list = dict[prefix]
-            if list == nil
-            {
-                list = dict["#"]
-            }
-            list?.append(user)
-            dict.updateValue(list!, forKey: prefix) //if not update ,the list in the dict is point to old list ,not appended list
-        }
-        
-        for item in dict
-        {
-            if item.1.count > 0
-            {
-                result.append((item.0,item.1))
-            }
-        }
-        result.sortInPlace { (a, b) -> Bool in
-            a.0 < b.0
-        }
+        var result = ArrayUtil.groupWithLatinLetter(users){$0.noteName}
+        result = result.filter{ $0.items.count > 0}
         return result
     }
     

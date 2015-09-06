@@ -10,7 +10,7 @@ import UIKit
 
 class LinkedUserListController: UITableViewController
 {
-    var userListModel:[(String , [ShareLinkUser])] = [(String , [ShareLinkUser])](){
+    var userListModel:[(latinLetter:String , items:[ShareLinkUser])] = [(latinLetter:String , items:[ShareLinkUser])](){
         didSet{
             self.tableView.reloadData()
         }

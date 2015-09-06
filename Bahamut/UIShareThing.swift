@@ -135,7 +135,7 @@ class UIShareThing: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        print("showHeadIcon")
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"])
     }
     
 }

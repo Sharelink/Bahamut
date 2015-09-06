@@ -137,7 +137,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     func headIconTapped(_:UITapGestureRecognizer)
     {
-        print("to do headIconTapped")
+        UIImagePlayerController.showImagePlayer(self, imageUrls: [userProfileModel.headIconId])
     }
     
     func editPropertySave(propertyId: String!, newValue: String!)

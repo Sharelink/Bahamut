@@ -40,7 +40,7 @@ class UIUserListCell: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        print("show head icon")
+        UIImagePlayerController.showImagePlayer(self.rootController.navigationController!, imageUrls: ["defaultView"])
     }
     
     func update()
