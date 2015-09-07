@@ -168,7 +168,7 @@ class ShareService: ServiceProtocol
         let req = GetShareThingsRequest()
         req.olderThanThisTime = self.shareThingSortObjectList.list.last?.lastActiveDate
         req.page = 1
-        req.pageCount = 10
+        req.pageCount = pageNum
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) -> Void in
             if result.statusCode == ReturnCode.NotModified
             {
