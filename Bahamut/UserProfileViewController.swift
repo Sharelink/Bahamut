@@ -95,7 +95,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     {
         userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
         userSignTextView.text = userProfileModel.signText
-        ServiceContainer.getService(FileService).getFile(userProfileModel.headIconId, returnCallback: { (filePath) -> Void in
+        ServiceContainer.getService(FileService).getFile(userProfileModel.headIconId, returnCallback: { (error,filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
         })
         tagCollectionView.reloadData()
@@ -137,7 +137,8 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     func headIconTapped(_:UITapGestureRecognizer)
     {
-        UIImagePlayerController.showImagePlayer(self, imageUrls: [userProfileModel.headIconId])
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        UIImagePlayerController.showImagePlayer(self, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
     }
     
     func editPropertySave(propertyId: String!, newValue: String!)

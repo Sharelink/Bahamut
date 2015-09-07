@@ -35,7 +35,7 @@ class ShareThingsListController: UITableViewController
             bottomIndicatorView.hidden = true
         }
     }
-
+    
     @IBAction func refresh(sender: UIRefreshControl)
     {
         self.shareService.getNewShareThings { (haveChange) -> Void in

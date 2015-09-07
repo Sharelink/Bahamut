@@ -147,8 +147,17 @@ class FileService: ServiceProtocol {
             uploadTask.saveModified()
         }
     }
+    
 
-    func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
+    
+    func getFileFetcher(fileType:FileType) -> FileFetcher
+    {
+        let fetcher = DefaultFileFetcher()
+        fetcher.fileType = fileType
+        return fetcher
+    }
+    
+    func fetch(fileId:String,fileType:FileType,fetchCompleted:(error:Bool,filePath:String!)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
     {
         let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
         let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)").path!
@@ -165,20 +174,20 @@ class FileService: ServiceProtocol {
                 {
                     fileEntity.fileId = fileId
                     fileEntity.saveModified()
-                    fetchCompleted(filePath: fileEntity.filePath)
+                    fetchCompleted(error:false,filePath: fileEntity.filePath)
                 }
             }else
             {
-                fetchCompleted(filePath: "defaultHeadIcon")
+                fetchCompleted(error:true,filePath: nil)
             }
         }
     }
     
-    func getFile(fileId:String,returnCallback:(filePath:String)->Void,progress:((persent:Float)->Void)! = nil)
+    func getFile(fileId:String,returnCallback:(isSuc:Bool,filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
     {
         if let fileEntity = PersistentManager.sharedInstance.getFile(fileId)
         {
-            returnCallback(filePath: fileEntity.filePath)
+            returnCallback(isSuc:true,filePath: fileEntity.filePath)
         }else
         {
             let fileType = FileType.getFileTypeByFileId(fileId)
@@ -244,6 +253,14 @@ class FileService: ServiceProtocol {
     func initFileUploadProc()
     {
         
+    }
+}
+
+class DefaultFileFetcher: FileFetcher
+{
+    var fileType:FileType = .Raw
+    func startFetch(url: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
+        ServiceContainer.getService(FileService).getFile(url, returnCallback: completed, progress: progress)
     }
 }
 

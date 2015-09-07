@@ -124,8 +124,15 @@ class UIShareThing: UITableViewCell
     {
         if let headIconImageId = shareThingModel.headIconImageId
         {
-            ServiceContainer.getService(FileService).getFile(headIconImageId, returnCallback: { (filePath) -> Void in
-                self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
+            ServiceContainer.getService(FileService).getFile(headIconImageId, returnCallback: { (error,filePath) -> Void in
+                if !error
+                {
+                    
+                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
+                }else
+                {
+                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+                }
             })
             
         }else{
@@ -135,7 +142,8 @@ class UIShareThing: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"])
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
     }
     
 }
