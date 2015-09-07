@@ -65,25 +65,31 @@ class ShareThingsListController: UITableViewController
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        if bottomIndicatorView != nil && bottomIndicatorView.hidden == true{
+        if bottomIndicatorView != nil
+        {
+            print("\(scrollView.contentSize.height):\(scrollView.contentOffset.y)")
+        }
+        if bottomIndicatorView != nil && bottomIndicatorView.hidden == true && scrollView.contentOffset.y > 0
+        {
             loadNextPage()
         }
     }
     
     func loadNextPage()
     {
-        if shareThings.count == 0
+        if shareThings.count == 0 || bottomIndicatorView.hidden == false
         {
             return
         }
+        self.bottomIndicatorView.hidden = false
         var startIndex = 0
         for list in shareThings
         {
             startIndex += list.count
         }
-        self.bottomIndicatorView.hidden = false
+        print("request")
         self.shareService.getNextPageShareThings(startIndex, pageNum: 20) { (results) -> Void in
+            print("return")
             if results.count > 0
             {
                 self.shareThings.append(results)
