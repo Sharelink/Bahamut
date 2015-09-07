@@ -66,6 +66,7 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         let clickVideoGesture = UITapGestureRecognizer(target: self, action: "playOrPausePlayer:")
         let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
         doubleClickVideoGesture.numberOfTapsRequired = 2
+        clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
         self.addGestureRecognizer(clickVideoGesture)
         self.addGestureRecognizer(doubleClickVideoGesture)
     }
