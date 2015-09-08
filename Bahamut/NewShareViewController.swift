@@ -31,11 +31,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             shareThingModel = ShareThing()
         }
     }
-
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,6 +45,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
+            shareContentContainer.mediaPlayer.fileFetcher = FilePathFileFetcher()
             if let content = shareThingModel?.shareContent
             {
                 shareContentContainer.model = content

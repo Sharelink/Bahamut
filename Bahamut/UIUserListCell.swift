@@ -47,7 +47,7 @@ class UIUserListCell: UITableViewCell
     func update()
     {
         userNickTextField.text = userModel.noteName ?? userModel.nickName
-        ServiceContainer.getService(FileService).getFile(userModel.headIconId, returnCallback: { (error,filePath) -> Void in
+        ServiceContainer.getService(FileService).getFileByFileId(userModel.headIconId, returnCallback: { (error,filePath) -> Void in
             if !error
             {
                 self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)

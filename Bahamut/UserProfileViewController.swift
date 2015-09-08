@@ -102,7 +102,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     {
         userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
         userSignTextView.text = userProfileModel.signText
-        ServiceContainer.getService(FileService).getFile(userProfileModel.headIconId, returnCallback: { (error,filePath) -> Void in
+        ServiceContainer.getService(FileService).getFileByFileId(userProfileModel.headIconId, returnCallback: { (error,filePath) -> Void in
             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
         })
         tagCollectionView.reloadData()

@@ -152,7 +152,7 @@ class FileService: ServiceProtocol {
     
     func getFileFetcher(fileType:FileType) -> FileFetcher
     {
-        let fetcher = DefaultFileFetcher()
+        let fetcher = IdFileFetcher()
         fetcher.fileType = fileType
         return fetcher
     }
@@ -183,7 +183,7 @@ class FileService: ServiceProtocol {
         }
     }
     
-    func getFile(fileId:String,returnCallback:(isSuc:Bool,filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
+    func getFileByFileId(fileId:String,returnCallback:(isSuc:Bool,filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
     {
         if let fileEntity = PersistentManager.sharedInstance.getFile(fileId)
         {
@@ -256,12 +256,24 @@ class FileService: ServiceProtocol {
     }
 }
 
-class DefaultFileFetcher: FileFetcher
+class IdFileFetcher: FileFetcher
 {
     var fileType:FileType = .Raw
-    func startFetch(url: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
-        ServiceContainer.getService(FileService).getFile(url, returnCallback: completed, progress: progress)
+    func startFetch(fileId: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
+        ServiceContainer.getService(FileService).getFileByFileId(fileId, returnCallback: completed, progress: progress)
     }
+}
+
+class FilePathFileFetcher: FileFetcher
+{
+    var fileType:FileType = .Raw
+    func startFetch(filepath: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
+        completed(error: false, filePath: filepath)
+    }
+    
+    static let shareInstance:FileFetcher = {
+        return FilePathFileFetcher()
+    }()
 }
 
 public struct SendFileStatus

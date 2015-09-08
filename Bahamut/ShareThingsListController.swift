@@ -113,6 +113,7 @@ class ShareThingsListController: UITableViewController
         if let shareThingUI = cell as? UIShareThing
         {
             shareThingUI.rootController = self
+
             shareThingUI.shareThingModel = shareThing
         }
         return cell

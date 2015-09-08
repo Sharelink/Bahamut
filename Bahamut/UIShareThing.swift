@@ -54,6 +54,7 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var shareDateTime: UILabel!
     @IBOutlet weak var shareContent: UIShareContent!{
         didSet{
+            shareContent.mediaPlayer.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
             var gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingLeft:")
             gesture.direction = UISwipeGestureRecognizerDirection.Left
             self.addGestureRecognizer(gesture)
@@ -124,7 +125,7 @@ class UIShareThing: UITableViewCell
     {
         if let headIconImageId = shareThingModel.headIconImageId
         {
-            ServiceContainer.getService(FileService).getFile(headIconImageId, returnCallback: { (error,filePath) -> Void in
+            ServiceContainer.getService(FileService).getFileByFileId(headIconImageId, returnCallback: { (error,filePath) -> Void in
                 if !error
                 {
                     

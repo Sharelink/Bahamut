@@ -34,7 +34,6 @@ class UIShareContent: UIView
     
     private(set) lazy var mediaPlayer:ShareLinkFilmView! = {
         let player = ShareLinkFilmView(frame: self.bounds)
-        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
         self.addSubview(player)
         return player
     }()
