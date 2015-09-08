@@ -14,7 +14,7 @@ class CoreDataHelper {
     static func getEntityContext()-> NSManagedObjectContext
     {
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let context: NSManagedObjectContext = appDel.managedObjectContext!
+        let context: NSManagedObjectContext = appDel.managedObjectContext
         return context
     }
     

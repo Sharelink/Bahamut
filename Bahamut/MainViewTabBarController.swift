@@ -8,8 +8,17 @@
 
 import UIKit
 
-class MainViewTabBarController: UITabBarController
+class MainViewTabBarController: UITabBarController ,OrientationsNavigationController
 {
+    func supportedViewOrientations() -> UIInterfaceOrientationMask
+    {
+        if let pvc = self.selectedViewController as? OrientationsNavigationController
+        {
+            return pvc.supportedViewOrientations()
+        }
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

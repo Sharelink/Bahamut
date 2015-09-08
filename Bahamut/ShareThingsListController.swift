@@ -64,11 +64,8 @@ class ShareThingsListController: UITableViewController
         }
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if bottomIndicatorView != nil
-        {
-            print("\(scrollView.contentSize.height):\(scrollView.contentOffset.y)")
-        }
+    override func scrollViewDidScroll(scrollView: UIScrollView)
+    {
         if bottomIndicatorView != nil && bottomIndicatorView.hidden == true && scrollView.contentOffset.y > 0
         {
             loadNextPage()

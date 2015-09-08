@@ -18,10 +18,20 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         }
     }
     
+    var fileFetcher:FileFetcher!
+    
     private var timeLine: UIProgressView!{
         didSet{
-            timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
             self.addSubview(timeLine)
+        }
+    }
+    
+    var refreshButton:UIButton!{
+        didSet{
+            refreshButton.titleLabel?.text = "Load Video Error"
+            refreshButton.hidden = true
+            refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(refreshButton)
         }
     }
     
@@ -36,29 +46,82 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
             progress.roundedCorners = true
             progress.glowMode = .Forward
             progress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
-            progress.frame = CGRectMake(self.frame.width / 2.0 - 16, self.frame.height / 2.0 - 16, 32, 32)
+            
             self.addSubview(progress)
             setProgressValue(0)
         }
     }
     
+    public var autoLoad:Bool = false
+    public var canSwitchToFullScreen = true
+    
+    public var filePath:String!
+        {
+        didSet{
+            if filePath == nil
+            {
+                setNoVideo()
+            }else if autoLoad
+            {
+                startLoadVideo()
+            }
+        }
+    }
+    
+    func setNoVideo()
+    {
+        if playerController != nil
+        {
+            playerController.reset()
+        }
+        self.backgroundColor = UIColor.blackColor()
+    }
+    
+    var loaded:Bool = false
+    
+    private func startLoadVideo()
+    {
+        if filePath == nil
+        {
+            return
+        }
+        loaded = false
+        refreshButton.hidden = true
+        setProgressValue(0)
+        fileFetcher.startFetch(filePath, progress: { (persent) -> Void in
+            self.setProgressValue(persent)
+            }) { (error,video) -> Void in
+                self.setProgressValue(0)
+                if error
+                {
+                    self.playerController.path = NSBundle.mainBundle().pathForResource("02", ofType: ".mov")
+                    //self.refreshButton.hidden = false
+                    //self.playerController.reset()
+                    self.loaded = true
+                }else
+                {
+                    self.playerController.path = video
+                    self.loaded = true
+                }
+                self.refreshUI()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initControls()
+        initGestures()
+        setNoVideo()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    private var playerController:Player!{
-        didSet{
-            self.addSubview(playerController.view)
-            playerController.view.frame = self.bounds
-            playerController.delegate = self
-            playerController.muted = true
-            playerController.playbackLoops = true
-            
-        }
+    func initControls()
+    {
+        self.playerController = Player()
+        progress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+        timeLine = UIProgressView()
+        refreshButton = UIButton(type: UIButtonType.InfoDark)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
+        initObserver()
     }
     
     private func initGestures()
@@ -71,50 +134,123 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         self.addGestureRecognizer(doubleClickVideoGesture)
     }
     
-    func playOrPausePlayer(_:UIGestureRecognizer! = nil)
+    func refreshButtonClick(_:UIButton)
     {
-        if playerController.playbackState != PlaybackState.Playing
-        {
-            playerController.playFromCurrentTime()
-        }else if playerController.playbackState == PlaybackState.Stopped
-        {
-            playerController.playFromBeginning()
-        }else
-        {
-            playerController.pause()
-        }
+        startLoadVideo()
     }
     
-    private var isVideoFullScreen:Bool = false
-    func switchFullScreenOnOff(_:UIGestureRecognizer! = nil)
+    private func initObserver()
+    {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+    }
+    
+    func didChangeStatusBarOrientation(_: NSNotification)
     {
         if isVideoFullScreen
         {
-            scaleToMin()
+            if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
+            {
+                UIApplication.sharedApplication().keyWindow?.addSubview(self)
+                self.frame = wFrame
+                refreshUI()
+            }
+        }
+        
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    private var playerController:Player!{
+        didSet{
+            self.addSubview(playerController.view)
+            playerController.delegate = self
+            playerController.muted = true
+            playerController.playbackLoops = true
+            
+        }
+    }
+
+    func playOrPausePlayer(_:UIGestureRecognizer! = nil)
+    {
+        if loaded
+        {
+            if playerController.playbackState != PlaybackState.Playing
+            {
+                playerController.playFromCurrentTime()
+            }else if playerController.playbackState == PlaybackState.Stopped
+            {
+                playerController.playFromBeginning()
+            }else
+            {
+                playerController.pause()
+            }
         }else
         {
-            scaleToMax()
+            startLoadVideo()
         }
-        print(progress.frame)
+        
+    }
+    
+    private var isVideoFullScreen:Bool = false{
+        didSet{
+            if canSwitchToFullScreen
+            {
+                isVideoFullScreen ? scaleToMax() : scaleToMin()
+            }
+        }
+    }
+    
+    func switchFullScreenOnOff(_:UIGestureRecognizer! = nil)
+    {
         isVideoFullScreen = !isVideoFullScreen
     }
     
+    private var minScreenFrame:CGRect!
+    private var originContainer:UIView!
     private func scaleToMax()
     {
+        if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
+        {
+            self.removeFromSuperview()
+            UIApplication.sharedApplication().keyWindow?.addSubview(self)
+            self.frame = wFrame
+            playerController.muted = false
+            refreshUI()
+        }
         
-        print("scale to full screen")
     }
     
     private func scaleToMin()
     {
-        print("scale to min screen")
+        if originContainer == nil {return}
+        self.removeFromSuperview()
+        originContainer.addSubview(self)
+        self.frame = minScreenFrame
+        playerController.muted = true
+        refreshUI()
     }
     
-    public override func didMoveToSuperview() {
-        self.playerController = Player()
-        progress = KDCircularProgress(frame: CGRectMake(0, 0, 32, 32))
-        timeLine = UIProgressView()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
+    public override func didMoveToSuperview()
+    {
+        if minScreenFrame == nil
+        {
+            self.minScreenFrame = self.frame
+        }
+        if originContainer == nil
+        {
+            self.originContainer = self.superview
+        }
+    }
+    
+    func refreshUI()
+    {
+        self.superview?.bringSubviewToFront(self)
+        progress.center = self.center
+        timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
+        playerController.view.frame = self.bounds
+        refreshButton.center = self.center
     }
     
     func timerTime(_:NSTimer)
@@ -129,12 +265,11 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
             let b = CMTimeGetSeconds(currentFilm.duration)
             let c = a / b
             timeLine.progress = Float(c)
-            setProgressValue(timeLine.progress)
         }
         
     }
     
-    public func setProgressValue(value:Float)
+    func setProgressValue(value:Float)
     {
         progress.angle = Int(360 * value)
         if progress.angle > 0 && progress.angle <= 356
@@ -145,46 +280,23 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         }
     }
     
-    public override func didMoveToWindow() {
-        
-        initGestures()
-        
-    }
-    
-    public var filePath:String!
-    {
-        didSet{
-            if filePath == nil
-            {
-                playerController.reset()
-            }else
-            {
-                playerController.path = filePath
-            }
-        }
-    }
-    
     deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         playerController.reset()
     }
     
     public func playerReady(playerController: Player)
     {
-        print("playerReady")
     }
     public func playerPlaybackStateDidChange(playerController: Player)
     {
-        print("playerPlaybackStateDidChange")
-        
     }
     public func playerBufferingStateDidChange(playerController: Player)
     {
-        print("playerBufferingStateDidChange")
     }
     
     public func playerPlaybackWillStartFromBeginning(playerController: Player)
     {
-        print("playerPlaybackWillStartFromBeginning")
     }
     public func playerPlaybackDidEnd(playerController: Player)
     {

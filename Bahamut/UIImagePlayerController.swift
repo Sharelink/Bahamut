@@ -9,11 +9,6 @@
 import UIKit
 import Alamofire
 
-protocol FileFetcher
-{
-    func startFetch(url:String,progress:(persent:Float)->Void,completed:(error:Bool,filePath:String!)->Void)
-}
-
 class UIFetchImageView: UIScrollView,UIScrollViewDelegate
 {
     var progress:KDCircularProgress!{
@@ -25,12 +20,12 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
             
         }
     }
-    var errorButton:UIButton!{
+    var refreshButton:UIButton!{
         didSet{
-            errorButton.titleLabel?.text = "Load Image Error"
-            errorButton.hidden = true
-            errorButton.addTarget(self, action: "errorButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.addSubview(errorButton)
+            refreshButton.titleLabel?.text = "Load Image Error"
+            refreshButton.hidden = true
+            refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(refreshButton)
         }
     }
     var fileFetcher:FileFetcher!
@@ -57,7 +52,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         }
     }
     
-    func errorButtonClick(_:UIButton)
+    func refreshButtonClick(_:UIButton)
     {
         startLoadImage()
     }
@@ -65,7 +60,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
     private func startLoadImage()
     {
         canScale = false
-        errorButton.hidden = true
+        refreshButton.hidden = true
         setProgressValue(0)
         fileFetcher.startFetch(url, progress: { (persent) -> Void in
             self.setProgressValue(persent)
@@ -73,12 +68,15 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
             self.setProgressValue(0)
             if error
             {
-                self.errorButton.hidden = false
+                self.imageView.image = UIImage(named: "defaultView")
+                self.canScale = true
+//                self.refreshButton.hidden = false
             }else
             {
                 self.imageView.image = UIImage(contentsOfFile: image)
                 self.canScale = true
             }
+            self.refreshUI()
         }
     }
     
@@ -91,7 +89,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
     
     private func initErrorButton()
     {
-        self.errorButton = UIButton(type: UIButtonType.InfoDark)
+        self.refreshButton = UIButton(type: UIButtonType.InfoDark)
     }
     
     private func initGesture()
@@ -121,16 +119,12 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         progress.hidden = true
     }
     
-    override func layoutSubviews() {
-        
-        if !isScale && !isScrollling
-        {
-            progress.center = CGPoint(x: self.center.x, y: self.center.y)
-            errorButton.center = CGPoint(x: self.center.x, y: self.center.y)
-            imageView.frame = frame
-        }
-        super.layoutSubviews()
-        
+    func refreshUI()
+    {
+        self.setZoomScale(self.minimumZoomScale, animated: true)
+        progress.center = CGPoint(x: self.center.x, y: self.center.y)
+        refreshButton.center = CGPoint(x: self.center.x, y: self.center.y)
+        imageView.frame = bounds
     }
     
     var isScale:Bool = false
@@ -142,7 +136,6 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         if !canScale{return}
         let touchPoint = ges.locationInView(self)
         if (self.zoomScale != self.minimumZoomScale) {
-            isScrollling = false
             self.setZoomScale(self.minimumZoomScale, animated: true)
         } else {
             let newZoomScale = CGFloat(2.0)
@@ -156,17 +149,8 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         return self.imageView
     }
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        isScrollling = true
-    }
-    
     func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
-        isScale = true
         self.scrollEnabled = true
-    }
-    
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        isScale = false
     }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
@@ -176,20 +160,26 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
     
     convenience init()
     {
-        self.init(frame:CGRectMake(0, 0, 0, 0))
+        self.init(frame: CGRectZero)
     }
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect)
+    {
         super.init(frame: frame)
+        initScrollView()
+        initImageView()
+        initProgress()
+        initErrorButton()
+        initGesture()
+    }
+    
+    private func initScrollView()
+    {
         self.delegate = self
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.decelerationRate = UIScrollViewDecelerationRateFast
         self.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        initImageView()
-        initProgress()
-        initErrorButton()
-        initGesture()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -199,12 +189,6 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
 
 class UIImagePlayerController: UIViewController,UIScrollViewDelegate
 {
-    private var imageWidth:CGFloat{
-        return scrollView.bounds.width
-    }
-    private var imageHeight:CGFloat{
-        return scrollView.bounds.height
-    }
     var imageUrls:[String]!{
         didSet{
             if pageControl != nil
@@ -216,6 +200,11 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
     
     var images = [UIFetchImageView]()
     var imageFileFetcher:FileFetcher!
+    
+    func supportedViewOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.All
+    }
     
     @IBOutlet weak var scrollView: UIScrollView!{
         didSet{
@@ -248,6 +237,7 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         super.viewDidAppear(animated)
         initScrollView()
         initPageControl()
+        initObserver()
     }
     
     override func viewWillLayoutSubviews() {
@@ -291,16 +281,51 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         self.view.addGestureRecognizer(doubleTapGesture)
     }
     
+    private func initObserver()
+    {
+        //UIApplicationDidChangeStatusBarOrientationNotification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+    }
+    
+    func didChangeStatusBarOrientation(_: NSNotification)
+    {
+        resizeScrollView()
+    }
+    
     func resizeScrollView()
     {
+        let svFrame = self.view.bounds
+        let imageWidth = svFrame.width
+        let imageHeight = svFrame.height
         for var i:Int = 0; i < images.count;i++
         {
             let imageX = CGFloat(integerLiteral: i) * imageWidth
             let frame = CGRectMake( imageX , 0, imageWidth, imageHeight)
             images[i].frame = frame
-            images[i].contentMode = .ScaleAspectFit
+            images[i].refreshUI()
         }
-        scrollView.contentSize = CGSizeMake(CGFloat(integerLiteral:imageUrls.count) * imageWidth, 0)
+        scrollView.frame = svFrame
+        scrollView.contentSize = CGSizeMake(CGFloat(integerLiteral:imageUrls.count) * imageWidth, imageHeight)
+    }
+    
+    enum OrientationAngle:CGFloat
+    {
+        case Portrait = 0.0
+        case LandscapeLeft = 270.0
+        case LandscapeRight = 90.0
+        case PortraitUpsideDown = 180.0
+    }
+    
+    func getRotationAngle() -> OrientationAngle
+    {
+        switch UIApplication.sharedApplication().statusBarOrientation
+        {
+            case .Portrait: return OrientationAngle.Portrait
+            case .LandscapeLeft: return OrientationAngle.LandscapeLeft
+            case .LandscapeRight: return OrientationAngle.LandscapeRight
+            case .PortraitUpsideDown: return OrientationAngle.PortraitUpsideDown
+            case .Unknown: return OrientationAngle.Portrait
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -324,15 +349,22 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         self.dismissViewControllerAnimated(true) { () -> Void in
         }
     }
-
-    static func showImagePlayer(currentNavigationController:UIViewController,imageUrls:[String],imageFileFetcher:FileFetcher,imageIndex:Int = 0)
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    static func showImagePlayer(currentController:UIViewController,imageUrls:[String],imageFileFetcher:FileFetcher,imageIndex:Int = 0)
     {
         let controller = instanceFromStoryBoard("Component", identifier: "imagePlayerController") as!UIImagePlayerController
         controller.imageUrls = imageUrls
         controller.currentIndex = imageIndex
         controller.imageFileFetcher = imageFileFetcher
-        currentNavigationController.presentViewController(controller, animated: true) { () -> Void in
-        }
+        currentController.presentViewController(controller, animated: true, completion: { () -> Void in
+            
+        })
+        
     }
     
 }

@@ -18,7 +18,22 @@ protocol UICameraViewControllerDelegate
 
 class UICameraViewController: UIViewController , PBJVisionDelegate{
     var previewLayer:AVCaptureVideoPreviewLayer = PBJVision.sharedInstance().previewLayer
-    
+    var useFrontCamera:Bool{
+        get{
+            return NSUserDefaults.standardUserDefaults().boolForKey("useFrontCamera")
+        }
+        set{
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "useFrontCamera")
+            if newValue && PBJVision.sharedInstance().isCameraDeviceAvailable(PBJCameraDevice.Front)
+            {
+                PBJVision.sharedInstance().cameraDevice = PBJCameraDevice.Front
+            }else
+            {
+                PBJVision.sharedInstance().cameraDevice = PBJCameraDevice.Back
+            }
+        }
+        
+    }
     var currentVideo:NSDictionary?
     var assetLibrary:ALAssetsLibrary = ALAssetsLibrary()
     var recording:Bool = false
@@ -108,6 +123,22 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         cameraPreviewContainer.layer.addSublayer(previewLayer)
         self.view.sendSubviewToBack(cameraPreviewContainer)
+        initGesture()
+    }
+    
+    func initGesture()
+    {
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "changeCamera:")
+        rightSwipe.direction = .Right
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "changeCamera:")
+        leftSwipe.direction = .Left
+        self.view.addGestureRecognizer(rightSwipe)
+        self.view.addGestureRecognizer(leftSwipe)
+    }
+    
+    func changeCamera(_:UISwipeGestureRecognizer)
+    {
+        useFrontCamera = !useFrontCamera
     }
     
     func setup()
@@ -116,9 +147,10 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         vision.delegate = self
         vision.cameraMode = PBJCameraMode.Video
         vision.cameraOrientation = PBJCameraOrientation.Portrait
-        vision.focusMode = PBJFocusMode.AutoFocus
+        vision.focusMode = PBJFocusMode.ContinuousAutoFocus
         vision.outputFormat = PBJOutputFormat.Standard
-        vision.cameraDevice = PBJCameraDevice.Back
+        let useFrontCam = useFrontCamera
+        useFrontCamera = useFrontCam
         vision.audioCaptureEnabled = true
         vision.maximumCaptureDuration = CMTimeMakeWithSeconds(60, 24)
         vision.startPreview()
@@ -166,6 +198,26 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
             view.makeToast(message: "Record Video Error")
             print(error?.description)
         }
+    }
+    
+    func visionDidEndVideoCapture(vision: PBJVision)
+    {
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    func visionDidPauseVideoCapture(vision: PBJVision)
+    {
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    func visionDidResumeVideoCapture(vision: PBJVision)
+    {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
+    func visionDidStartVideoCapture(vision: PBJVision)
+    {
+        self.navigationController?.navigationBarHidden = true
     }
     
     deinit{

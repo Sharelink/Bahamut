@@ -37,11 +37,16 @@ class LinkedUserListController: UITableViewController
     }
     
     private func refreshUserList(){
-        let newValues = self.userService.myLinkedUsers
-        let dict = self.userService.getUsersDivideWithLatinLetter(newValues)
-        dispatch_async(dispatch_get_main_queue()){()->Void in
-            self.userListModel = dict
+        if let newValues = self.userService.myLinkedUsers
+        {
+            let dict = self.userService.getUsersDivideWithLatinLetter(newValues)
+            dispatch_async(dispatch_get_main_queue()){()->Void in
+                self.userListModel = dict
+            }
+        }else{
+            view.makeToast(message: "Data Error", duration: 0.0, position: HRToastPositionCenter)
         }
+        
     }
     
     override func viewDidLoad() {

@@ -32,6 +32,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
 
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,10 +68,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     var selectedTags:[SharelinkTag] = [SharelinkTag]()
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
         let identifier: String = "UserTagCell"
+        let tag = selectedTags[indexPath.row]
+        let tagColor = UIColor(hexString: tag.tagColor)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor(hexString: selectedTags[indexPath.row].tagColor)
+        let label = UILabel()
+        label.text = tag.tagName
+        label.textColor = tagColor
+        cell.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        label.addSubview(label)
         return cell
     }
     

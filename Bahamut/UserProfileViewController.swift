@@ -37,7 +37,14 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         }
     }
     @IBOutlet weak var editProfileVideoButton: UIButton!
-    @IBOutlet weak var userProfileVideo: ShareLinkFilmView!
+    @IBOutlet weak var userProfileVideo: ShareLinkFilmView!{
+        didSet{
+            userProfileVideo.autoLoad = true
+            userProfileVideo.canSwitchToFullScreen = false
+            userProfileVideo.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+        }
+    }
+    
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
             headIconImageView.userInteractionEnabled = true

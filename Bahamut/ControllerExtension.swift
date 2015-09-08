@@ -19,3 +19,16 @@ extension UIViewController
         }
     }
 }
+
+@objc
+protocol OrientationsNavigationController
+{
+    func supportedViewOrientations() -> UIInterfaceOrientationMask
+}
+
+class UIOrientationsNavigationController: UINavigationController ,OrientationsNavigationController
+{
+    func supportedViewOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.All
+    }
+}
