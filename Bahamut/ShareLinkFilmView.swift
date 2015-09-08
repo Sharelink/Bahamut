@@ -10,7 +10,7 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
-public class ShareLinkFilmView: UIView ,PlayerDelegate
+public class ShareLinkFilmView: UIView
 {
     private var timer:NSTimer!{
         didSet{
@@ -94,10 +94,8 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
                 self.setProgressValue(0)
                 if error
                 {
-                    self.playerController.path = NSBundle.mainBundle().pathForResource("02", ofType: ".mov")
-                    //self.refreshButton.hidden = false
-                    //self.playerController.reset()
-                    self.loaded = true
+                    self.refreshButton.hidden = false
+                    self.playerController.reset()
                 }else
                 {
                     self.playerController.path = video
@@ -130,8 +128,8 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
         doubleClickVideoGesture.numberOfTapsRequired = 2
         clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
-        self.addGestureRecognizer(clickVideoGesture)
-        self.addGestureRecognizer(doubleClickVideoGesture)
+        playerController.view.addGestureRecognizer(clickVideoGesture)
+        playerController.view.addGestureRecognizer(doubleClickVideoGesture)
     }
     
     func refreshButtonClick(_:UIButton)
@@ -165,7 +163,6 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
     private var playerController:Player!{
         didSet{
             self.addSubview(playerController.view)
-            playerController.delegate = self
             playerController.muted = true
             playerController.playbackLoops = true
             
@@ -280,26 +277,46 @@ public class ShareLinkFilmView: UIView ,PlayerDelegate
         }
     }
     
+
+    
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
         playerController.reset()
     }
     
-    public func playerReady(playerController: Player)
+    class SharelinkFilmPlayerLayer : UIView
     {
-    }
-    public func playerPlaybackStateDidChange(playerController: Player)
-    {
-    }
-    public func playerBufferingStateDidChange(playerController: Player)
-    {
+        override init(frame: CGRect)
+        {
+            super.init(frame: frame)
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeView:"))
+            self.backgroundColor = UIColor.blackColor()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func closeView(_:UIGestureRecognizer)
+        {
+            self.removeFromSuperview()
+        }
     }
     
-    public func playerPlaybackWillStartFromBeginning(playerController: Player)
+    static func showPlayer(currentController:UIViewController,uri:String,fileFetcer:FileFetcher)
     {
-    }
-    public func playerPlaybackDidEnd(playerController: Player)
-    {
+        let view = currentController.view.window!
+        let width = min(view.bounds.width, view.bounds.height)
+        let frame = CGRectMake(0, 0, width, width)
+        let playerView = ShareLinkFilmView(frame: frame)
+        playerView.center = view.center
+        playerView.autoLoad = true
+        playerView.playerController.playbackLoops = false
+        playerView.fileFetcher = fileFetcer
+        let layer = SharelinkFilmPlayerLayer(frame: view.bounds)
+        layer.addSubview(playerView)
+        view.addSubview(layer)
+        playerView.filePath = uri
     }
 
 }

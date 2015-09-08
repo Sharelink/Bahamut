@@ -46,6 +46,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
             shareContentContainer.mediaPlayer.fileFetcher = FilePathFileFetcher()
+            shareContentContainer.mediaPlayer.autoLoad = true
             if let content = shareThingModel?.shareContent
             {
                 shareContentContainer.model = content
@@ -159,8 +160,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
-        
-        sender.view.makeToast(message: "open file")
+        let fileModel = itemModel as! UIFileCollectionCellModel
+        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
     func videoCancelRecord(sender: UICameraViewController!)
