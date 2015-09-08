@@ -36,6 +36,7 @@
 		E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E75EE44D1B9A05B800783308 /* UserAccount.storyboard */; settings = {ASSET_TAGS = (); }; };
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; settings = {ASSET_TAGS = (); }; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
+		E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */; settings = {ASSET_TAGS = (); }; };
 		E78D131E1B71123C00252E50 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D130D1B71123C00252E50 /* Account.swift */; };
 		E78D131F1B71123C00252E50 /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D130F1B71123C00252E50 /* ShareLinkObject.swift */; };
 		E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D13101B71123C00252E50 /* ShareLinkSDKClient.swift */; };
@@ -127,6 +128,7 @@
 		E75EE44D1B9A05B800783308 /* UserAccount.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserAccount.storyboard; sourceTree = "<group>"; };
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFetcher.swift; sourceTree = "<group>"; };
 		E78D130D1B71123C00252E50 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E78D130F1B71123C00252E50 /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkObject.swift; sourceTree = "<group>"; };
 		E78D13101B71123C00252E50 /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
@@ -283,6 +285,14 @@
 				E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		E76A45A91B9E8AE20059AA3D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */,
+			);
+			name = Protocol;
 			sourceTree = "<group>";
 		};
 		E78D13081B71123C00252E50 /* ShareLinkSDK */ = {
@@ -450,6 +460,7 @@
 		E79E3E3A1B6B591800B27085 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E76A45A91B9E8AE20059AA3D /* Protocol */,
 				E75EE44F1B9A05E200783308 /* StoryBoard */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
 				E754AE281B7C74760077EECC /* UICamera */,
@@ -772,6 +783,7 @@
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E73AD0091B82D3C400EE9EA0 /* HSL.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
+				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagCollectionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
