@@ -96,15 +96,13 @@
                                                 <action selector="reply" destination="Fkk-ck-SnS" eventType="touchUpInside" id="fV9-Ae-iWX"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJe-8V-nOH">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJe-8V-nOH">
                                             <rect key="frame" x="232" y="111" width="72" height="72"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="72" id="9nb-Ok-DIF"/>
                                                 <constraint firstAttribute="width" constant="72" id="VMT-4L-9q1"/>
                                             </constraints>
-                                            <state key="normal" image="hand_thumbsup">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
+                                            <state key="normal" image="hand_thumbsup"/>
                                             <connections>
                                                 <action selector="vote" destination="Fkk-ck-SnS" eventType="touchUpInside" id="0db-4s-xMh"/>
                                             </connections>
@@ -137,11 +135,9 @@
                                             <color key="textColor" red="0.4061326475" green="0.57792840369999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHQ-Ql-CNB">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHQ-Ql-CNB">
                                             <rect key="frame" x="232" y="191" width="72" height="72"/>
-                                            <state key="normal" image="share">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
+                                            <state key="normal" image="share"/>
                                             <connections>
                                                 <action selector="shareToFriends" destination="Fkk-ck-SnS" eventType="touchUpInside" id="8GG-lS-3c1"/>
                                             </connections>

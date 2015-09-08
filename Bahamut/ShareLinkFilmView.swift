@@ -128,8 +128,8 @@ public class ShareLinkFilmView: UIView
         let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
         doubleClickVideoGesture.numberOfTapsRequired = 2
         clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
-        playerController.view.addGestureRecognizer(clickVideoGesture)
-        playerController.view.addGestureRecognizer(doubleClickVideoGesture)
+        self.addGestureRecognizer(clickVideoGesture)
+        self.addGestureRecognizer(doubleClickVideoGesture)
     }
     
     func refreshButtonClick(_:UIButton)
@@ -173,12 +173,12 @@ public class ShareLinkFilmView: UIView
     {
         if loaded
         {
-            if playerController.playbackState != PlaybackState.Playing
-            {
-                playerController.playFromCurrentTime()
-            }else if playerController.playbackState == PlaybackState.Stopped
+            if playerController.playbackState == PlaybackState.Stopped
             {
                 playerController.playFromBeginning()
+            }else if playerController.playbackState != PlaybackState.Playing
+            {
+                playerController.playFromCurrentTime()
             }else
             {
                 playerController.pause()
