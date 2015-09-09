@@ -31,3 +31,9 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+Bahamut.xcworkspace/xcuserdata/alexchow.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+
+*.xcbkptlist
+
+Bahamut.xcworkspace/xcuserdata/alexchow.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
