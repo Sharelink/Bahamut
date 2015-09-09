@@ -109,11 +109,7 @@ class UserService: ServiceProtocol
             {
                 if let userLinks:[UserLink] = result.returnObject
                 {
-                    let userIds = userLinks.map{ user -> String in
-                        return user.slaveUserId
-                    }
                     let usersReq = GetShareLinkUsersRequest()
-                    usersReq.userIds = userIds
                     ShareLinkSDK.sharedInstance.getShareLinkClient().execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
                         if result.statusCode == ReturnCode.OK
                         {
@@ -123,7 +119,7 @@ class UserService: ServiceProtocol
                                 ShareLinkUser.saveObjectOfArray(users)
                                 PersistentManager.sharedInstance.refreshCache(UserLink)
                                 PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
-                                self.initLinkedUsers()
+                                self.myLinkedUsers = users;
                                 refreshCallback(isSuc: true, msg: "")
                             }else{
                                 refreshCallback(isSuc: false, msg: result.originResult.description)

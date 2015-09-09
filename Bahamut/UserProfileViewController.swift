@@ -102,10 +102,37 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     {
         userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
         userSignTextView.text = userProfileModel.signText
+        
         ServiceContainer.getService(FileService).getFileByFileId(userProfileModel.headIconId, returnCallback: { (error,filePath) -> Void in
-            self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
+            if error
+            {
+                self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+            }else
+            {
+                self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
+            }
         })
         tagCollectionView.reloadData()
+    }
+    
+    func updateHeadIcon()
+    {
+        if let headIconFileId = userProfileModel.headIconId
+        {
+            ServiceContainer.getService(FileService).getFileByFileId(headIconFileId, returnCallback: { (error,filePath) -> Void in
+                if !error
+                {
+                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
+                }else
+                {
+                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+                }
+            })
+            
+        }else
+        {
+            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+        }
     }
     
     //MARK: user tag

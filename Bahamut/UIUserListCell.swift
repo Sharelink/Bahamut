@@ -41,21 +41,33 @@ class UIUserListCell: UITableViewCell
     func showHeadIcon(_:UIGestureRecognizer)
     {
         let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.headIconId ?? "defaultHeadIcon"],imageFileFetcher: imageFileFetcher)
     }
     
     func update()
     {
         userNickTextField.text = userModel.noteName ?? userModel.nickName
-        ServiceContainer.getService(FileService).getFileByFileId(userModel.headIconId, returnCallback: { (error,filePath) -> Void in
-            if !error
-            {
-                self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
-            }else
-            {
-                self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-            }
-        })
+        updateHeadIcon()
+    }
+    
+    func updateHeadIcon()
+    {
+        if let headIconFileId = userModel.headIconId
+        {
+            ServiceContainer.getService(FileService).getFileByFileId(headIconFileId, returnCallback: { (error,filePath) -> Void in
+                if !error
+                {
+                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
+                }else
+                {
+                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+                }
+            })
+            
+        }else
+        {
+            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
+        }
     }
 
 }
