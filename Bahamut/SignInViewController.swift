@@ -148,6 +148,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
                 self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
             }else
             {
+				self.authenticate()
                 self.view.makeToast(message: msg)
             }
         })
