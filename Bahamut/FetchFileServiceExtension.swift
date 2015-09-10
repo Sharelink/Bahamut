@@ -20,7 +20,7 @@ extension FileService
     
     func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String!)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
     {
-        let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
+        let client = ShareLinkSDK.sharedInstance.getFileClient()
         let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)").path!
         client.downloadFile(fileId,filePath: filePath).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
             if let progressCallback = progressUpdate
@@ -30,11 +30,8 @@ extension FileService
         }).responseString { (request, response, result) -> Void in
             if result.error == nil
             {
-                
-                if let fileEntity = PersistentManager.sharedInstance.saveFile(filePath)
+                if let fileEntity = PersistentManager.sharedInstance.saveFile(fileId,fileExistsPath: filePath)
                 {
-                    fileEntity.fileId = fileId
-                    fileEntity.saveModified()
                     fetchCompleted(filePath: fileEntity.localPath)
                 }
             }else
@@ -48,16 +45,16 @@ extension FileService
 class IdFileFetcher: FileFetcher
 {
     var fileType:FileType = .Raw
-    func startFetch(fileId: String, progress: (persent: Float) -> Void, completed: (filePath: String!) -> Void) {
-        ServiceContainer.getService(FileService).getFileByFileId(fileId, returnCallback: completed, progress: progress)
+    func startFetch(fileId: String, delegate: FileFetcherDelegate) {
+        ServiceContainer.getService(FileService).getFileByFileId(fileId, returnCallback: delegate.fetchFileCompleted!, progress: delegate.fetchFileProgress)
     }
 }
 
 class FilePathFileFetcher: FileFetcher
 {
     var fileType:FileType = .Raw
-    func startFetch(filepath: String, progress: (persent: Float) -> Void, completed: (filePath: String!) -> Void) {
-        completed(filePath: filepath)
+    func startFetch(filepath: String, delegate: FileFetcherDelegate) {
+        delegate.fetchFileCompleted!(filepath)
     }
     
     static let shareInstance:FileFetcher = {

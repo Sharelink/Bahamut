@@ -10,7 +10,7 @@ import Foundation
 
 struct FilmAssetsConstants
 {
-    static let defaultPersonalFilm = "defaultPersonalFilm.mov"
+    static let defaultPersonalFilm = "defaultPersonalFilm.mp4"
 }
 
 struct  ImageAssetsConstants

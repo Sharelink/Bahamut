@@ -36,7 +36,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     }
     
     @IBAction func cleardata(sender: AnyObject) {
-        PersistentManager.sharedInstance.clearAllData()
+        PersistentManager.sharedInstance.clearAllFileManageData()
+        PersistentManager.sharedInstance.clearAllModelData()
+        PersistentManager.sharedInstance.clearCache()
     }
     @IBAction func testLogin(sender: AnyObject) {
         ShareLinkSDK.sharedInstance.reuse("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")

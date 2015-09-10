@@ -59,7 +59,7 @@
                                     <action selector="saveProfile" destination="KSz-HA-Lk6" eventType="touchUpInside" id="TxS-AJ-Lx5"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPu-Vg-Ifp" customClass="ShareLinkFilmView" customModule="Bahamut" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPu-Vg-Ifp">
                                 <rect key="frame" x="340" y="115" width="128" height="128"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>

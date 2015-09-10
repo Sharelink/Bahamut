@@ -19,3 +19,10 @@ protocol FileFetcherDelegate
     optional func fetchFileProgress(persent:Float)->Void
     optional func fetchFileCompleted(filePath:String!)->Void
 }
+
+@objc
+protocol FileUploadDelegate
+{
+    optional func uploadFileProgress(persent:Float)->Void
+    optional func uploadFileCompleted(fileId:String,isSuc:Bool)->Void
+}

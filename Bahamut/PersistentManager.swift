@@ -34,16 +34,17 @@ class PersistentManager
             cache.removeAllObjects()
         }
     }
+
 }
 
 //MARK: FilePersistents
 
 struct FilePersistentsConstrants
 {
-    static let FileEntityName = "FileInfoEntity"
-    static let FileEntityIdFieldName = "fileId"
-    static let UploadTaskEntityName = "UploadTask"
-    static let UploadTaskEntityIdFieldName = "taskId"
+    static let fileEntityName = "FileInfoEntity"
+    static let fileEntityIdFieldName = "fileId"
+    static let uploadTaskEntityName = "UploadTask"
+    static let uploadTaskEntityIdFieldName = "fileId"
 }
 
 extension NSManagedObject
@@ -64,34 +65,41 @@ extension NSManagedObject
 
 extension PersistentManager
 {
-    private var fileEntityName:String{return "FileInfoEntity"}
-    private var fileEntityIdFieldName:String{return "fileId"}
+    func clearAllFileManageData()
+    {
+        CoreDataHelper.deleteAll(FilePersistentsConstrants.fileEntityName)
+        CoreDataHelper.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
+    }
     
-    func saveFile(data:NSData, filePath:String) -> FileInfoEntity?
+    func saveFile(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?
     {
         if NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
         {
-            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
-            fileEntity.localPath = filePath
-            fileEntity.saveModified()
-            return fileEntity
+            return saveFile(fileId, fileExistsPath: filePath)
         }else
         {
             return nil
         }
     }
     
-    func saveFile(fileExistsPath:String) -> FileInfoEntity?
+    func saveFile(fileId:String,fileExistsPath:String) -> FileInfoEntity?
     {
         if NSFileManager.defaultManager().fileExistsAtPath(fileExistsPath)
         {
-            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
-            fileEntity.localPath = fileExistsPath
-            fileEntity.saveModified()
-            return fileEntity
-        }else{
-            return nil
+            if let fileEntity = getFile(fileId)
+            {
+                fileEntity.localPath = fileExistsPath
+                fileEntity.saveModified()
+                return fileEntity
+            }else if let fileEntity = CoreDataHelper.insertNewCell(FilePersistentsConstrants.fileEntityName) as? FileInfoEntity
+            {
+                fileEntity.localPath = fileExistsPath
+                fileEntity.fileId = fileId
+                fileEntity.saveModified()
+                return fileEntity
+            }
         }
+        return nil
     }
     
     func getFile(fileId:String!) -> FileInfoEntity?
@@ -100,11 +108,12 @@ extension PersistentManager
         {
             return nil
         }
-        let cache = getCache(fileEntityName)
+        let cache = getCache(FilePersistentsConstrants.fileEntityName)
         if let fileEntity = cache.objectForKey(fileId) as? FileInfoEntity
         {
             return fileEntity
-        }else if let fileEntity = CoreDataHelper.getCellById(fileEntityName, idFieldName: fileEntityIdFieldName, idValue: fileId) as? FileInfoEntity
+        }else if let fileEntity = CoreDataHelper.getCellById(FilePersistentsConstrants.fileEntityName,
+            idFieldName: FilePersistentsConstrants.fileEntityIdFieldName, idValue: fileId) as? FileInfoEntity
         {
             return fileEntity
         }else
@@ -160,15 +169,14 @@ extension ShareLinkObject
 struct ModelEntityConstants
 {
     static let idFielldName = "id"
+    static let entityName = "ModelEntity"
 }
 
 extension PersistentManager
 {
-    var entityName:String{return "ModelEntity"}
-    
-    func clearAllData()
+    func clearAllModelData()
     {
-        CoreDataHelper.deleteAll(entityName)
+        CoreDataHelper.deleteAll(ModelEntityConstants.entityName)
         clearCache()
     }
     
@@ -185,7 +193,7 @@ extension PersistentManager
         }else
         {
             //read from core data
-            if let cellModel = CoreDataHelper.getCellById(entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
+            if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
             {
                 let jsonString = cellModel.serializableValue
                 let model = T(json: jsonString)
@@ -214,7 +222,7 @@ extension PersistentManager
         let typename = type.description()
         let typesname = "[\(typename)]"
         let cache = getCache(typesname)
-        let result = CoreDataHelper.getAllCells(entityName,idFieldName: ModelEntityConstants.idFielldName,typeName: typename).map{ obj -> T in
+        let result = CoreDataHelper.getAllCells(ModelEntityConstants.entityName,idFieldName: ModelEntityConstants.idFielldName,typeName: typename).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
         }
@@ -245,7 +253,7 @@ extension PersistentManager
             let idValue = model.getObjectUniqueIdValue()
             return "\(typeName):\(idValue)"
         }
-        CoreDataHelper.deleteCellByIds(entityName, idFieldName: ModelEntityConstants.idFielldName, idValues: idValues)
+        CoreDataHelper.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValues: idValues)
     }
     
     func saveModel(model:ShareLinkObject)
@@ -259,12 +267,12 @@ extension PersistentManager
         nsCache.setObject(model, forKey: indexIdValue)
         //save in coredata
         let jsonString = model.toJsonString()
-        if let cellModel = CoreDataHelper.getCellById(entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
+        if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
         {
             cellModel.serializableValue = jsonString
         }else
         {
-            let cellModel = CoreDataHelper.insertNewCell(entityName) as? ModelEntity
+            let cellModel = CoreDataHelper.insertNewCell(ModelEntityConstants.entityName) as? ModelEntity
             cellModel?.serializableValue = jsonString
             cellModel?.id = indexIdValue
             cellModel?.modelType = typeName

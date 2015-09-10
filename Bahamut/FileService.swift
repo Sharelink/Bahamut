@@ -68,7 +68,7 @@ class FileService: ServiceProtocol {
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
     
-    func clearUserCaches()
+    func clearUserDatas()
     {
         do
         {
@@ -78,8 +78,9 @@ class FileService: ServiceProtocol {
         {
             print(error.description)
         }
-        CoreDataHelper.deleteAll(FilePersistentsConstrants.FileEntityName)
-        CoreDataHelper.deleteAll(FilePersistentsConstrants.UploadTaskEntityName)
+        PersistentManager.sharedInstance.clearAllFileManageData()
+        PersistentManager.sharedInstance.clearAllModelData()
+        PersistentManager.sharedInstance.clearCache()
         
     }
     
@@ -152,10 +153,6 @@ class FileService: ServiceProtocol {
             return url.path!
         })
     }
-    
-    func initFileUploadProc()
-    {
-        
-    }
+
 }
 

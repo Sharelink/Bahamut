@@ -17,13 +17,9 @@ class FileInfoEntity: NSManagedObject {
 
 
 class UploadTask: NSManagedObject {
-    
-    @NSManaged var accessKey: String
     @NSManaged var fileId: String
     @NSManaged var fileServerUrl: String
-    @NSManaged var fileType: NSNumber
     @NSManaged var localPath: String
     @NSManaged var status: NSNumber
-    @NSManaged var taskId: String
     
 }

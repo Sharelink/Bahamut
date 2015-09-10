@@ -289,4 +289,24 @@ class ShareService: ServiceProtocol
         return oldValues
     }
     
+    func postNewShare(newShare:ShareThing,callback:(isSuc:Bool)->Void)
+    {
+        let req = AddNewShareThingRequest()
+        req.shareContent = newShare.shareContent
+        req.title = newShare.title
+        req.tags = newShare.forTags
+        req.shareType = newShare.shareType
+        req.pShareId = newShare.pShareId
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result:SLResult<ShareThing>) -> Void in
+            if result.isSuccess
+            {
+                newShare.lastActiveTime = DateHelper.dateToString(NSDate())
+                newShare.shareId = result.returnObject.shareId
+                newShare.saveModel()
+            }
+            callback(isSuc: result.isSuccess)
+        }
+    }
+    
 }

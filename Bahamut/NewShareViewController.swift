@@ -15,6 +15,7 @@ extension ShareService
     {
         let controller = NewShareViewController.instanceFromStoryBoard()
         controller.shareThingModel = ShareThing()
+        controller.shareThingModel.pShareId = reShareModel.shareId
         controller.shareThingModel.shareContent = reShareModel.shareContent
         controller.shareThingModel.shareType = reShareModel.shareType
         controller.hidesBottomBarWhenPushed = true
@@ -148,6 +149,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         var sum = 0
         for fileModel in fileModels
         {
+            if fileModel.filePath == shareThingModel.shareContent
+            {
+                shareThingModel.shareContent = nil
+            }
             do
             {
                 try NSFileManager.defaultManager().removeItemAtPath(fileModel.filePath)
@@ -193,7 +198,35 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBAction func share()
     {
-        
+        if let localFilmPath = shareThingModel.shareContent
+        {
+            let sService = ServiceContainer.getService(ShareService)
+            let fService = ServiceContainer.getService(FileService)
+            self.view.makeToastActivityWithMessage(message: "Sending Film")
+            fService.requestFileId(localFilmPath, type: FileType.Video, callback: { (fileId) -> Void in
+                self.view.hideToastActivity()
+                if fileId != nil
+                {
+                    self.shareThingModel.shareContent = fileId
+                    fService.startSendFile(fileId)
+                    self.view.makeToastActivityWithMessage(message: "Posting")
+                    sService.postNewShare(self.shareThingModel, callback: { (isSuc) -> Void in
+                        self.view.hideToastActivity()
+                        if isSuc
+                        {
+                            
+                        }else
+                        {
+                            self.view.makeToast(message: "Post New Share Failed")
+                        }
+                    })
+                }
+            })
+            
+        }else
+        {
+            self.view.makeToast(message: "must select or capture a film!")
+        }
     }
 
     static func instanceFromStoryBoard() -> NewShareViewController
