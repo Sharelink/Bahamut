@@ -88,7 +88,7 @@ class FileService: ServiceProtocol {
         if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {
             returnCallback(filePath: path)
-        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.filePath
+        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.localPath
         {
             returnCallback(filePath: path)
         }else

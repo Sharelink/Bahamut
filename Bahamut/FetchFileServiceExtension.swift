@@ -35,7 +35,7 @@ extension FileService
                 {
                     fileEntity.fileId = fileId
                     fileEntity.saveModified()
-                    fetchCompleted(filePath: fileEntity.filePath)
+                    fetchCompleted(filePath: fileEntity.localPath)
                 }
             }else
             {

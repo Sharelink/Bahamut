@@ -54,9 +54,8 @@ extension FileService
                     uploadTask.status = SendFileStatus.SendFileReady
                     if let fileEntity:FileInfoEntity = PersistentManager.sharedInstance.saveFile(filePath)
                     {
-                        fileEntity.filePath = filePath
+                        fileEntity.localPath = filePath
                         fileEntity.fileId = fileAccesskey
-                        fileEntity.fileServerUrl = fileServer
                         fileEntity.saveModified()
                         if let returnRequest:((Request) -> Void) = callback
                         {

@@ -72,7 +72,7 @@ extension PersistentManager
         if NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
         {
             let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
-            fileEntity.filePath = filePath
+            fileEntity.localPath = filePath
             fileEntity.saveModified()
             return fileEntity
         }else
@@ -86,7 +86,7 @@ extension PersistentManager
         if NSFileManager.defaultManager().fileExistsAtPath(fileExistsPath)
         {
             let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
-            fileEntity.filePath = fileExistsPath
+            fileEntity.localPath = fileExistsPath
             fileEntity.saveModified()
             return fileEntity
         }else{
@@ -121,7 +121,7 @@ extension PersistentManager
             return image
         }else if let entify = getFile(fileId)
         {
-            let image = UIImage(contentsOfFile: entify.filePath)
+            let image = UIImage(contentsOfFile: entify.localPath)
             cache.setObject(image!, forKey: fileId)
             return image!
         }else if let image = UIImage(named: fileId)

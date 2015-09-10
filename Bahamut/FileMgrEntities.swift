@@ -10,12 +10,9 @@ import Foundation
 import CoreData
 
 class FileInfoEntity: NSManagedObject {
-
-    @NSManaged var fileData: NSData
     @NSManaged var fileId: String
-    @NSManaged var filePath: String
-    @NSManaged var fileServerUrl: String
-
+    @NSManaged var localPath: String
+    @NSManaged var fileType: NSNumber
 }
 
 
