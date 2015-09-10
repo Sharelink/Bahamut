@@ -94,8 +94,12 @@ extension PersistentManager
         }
     }
     
-    func getFile(fileId:String) -> FileRelationshipEntity?
+    func getFile(fileId:String!) -> FileRelationshipEntity?
     {
+        if fileId == nil || fileId.isEmpty
+        {
+            return nil
+        }
         let cache = getCache(fileEntityName)
         if let fileEntity = cache.objectForKey(fileId) as? FileRelationshipEntity
         {
@@ -109,25 +113,24 @@ extension PersistentManager
         }
     }
     
-    func getImage(imageId:String, filePath:String) -> UIImage
+    func getImage(fileId:String!) -> UIImage?
     {
         let cache = getCache("UIImage")
-        if let image = cache.objectForKey(imageId) as? UIImage
+        if let image = cache.objectForKey(fileId) as? UIImage
         {
+            return image
+        }else if let entify = getFile(fileId)
+        {
+            let image = UIImage(contentsOfFile: entify.filePath)
+            cache.setObject(image!, forKey: fileId)
+            return image!
+        }else if let image = UIImage(named: fileId)
+        {
+            cache.setObject(image, forKey: fileId)
             return image
         }else
         {
-            if let data = NSFileManager.defaultManager().contentsAtPath(filePath)
-            {
-                let image = UIImage(data: data)
-                cache.setObject(image!, forKey: imageId)
-                return image!
-            }else if let image = UIImage(named: imageId)
-            {
-                cache.setObject(image, forKey: imageId)
-                return image
-            }
-            return UIImage(named: "defaultView")!
+            return nil
         }
     }
 }

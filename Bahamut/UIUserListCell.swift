@@ -41,7 +41,7 @@ class UIUserListCell: UITableViewCell
     func showHeadIcon(_:UIGestureRecognizer)
     {
         let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.headIconId ?? "defaultHeadIcon"],imageFileFetcher: imageFileFetcher)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.headIconId ?? ImageAssetsConstants.defaultHeadIcon],imageFileFetcher: imageFileFetcher)
     }
     
     func update()
@@ -52,22 +52,8 @@ class UIUserListCell: UITableViewCell
     
     func updateHeadIcon()
     {
-        if let headIconFileId = userModel.headIconId
-        {
-            ServiceContainer.getService(FileService).getFileByFileId(headIconFileId, returnCallback: { (error,filePath) -> Void in
-                if !error
-                {
-                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userModel.headIconId, filePath: filePath)
-                }else
-                {
-                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-                }
-            })
-            
-        }else
-        {
-            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-        }
+        let fileService = ServiceContainer.getService(FileService)
+        fileService.setHeadIcon(self.headIconImageView, iconFileId: userModel.headIconId)
     }
 
 }

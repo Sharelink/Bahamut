@@ -52,6 +52,7 @@ public class ShareLinkFilmView: UIView
         }
     }
     
+    public var autoPlay:Bool = false
     public var autoLoad:Bool = false
     public var canSwitchToFullScreen = true
     
@@ -78,21 +79,24 @@ public class ShareLinkFilmView: UIView
     }
     
     var loaded:Bool = false
+    var loading:Bool = false
     
     private func startLoadVideo()
     {
-        if filePath == nil
+        if filePath == nil || loading
         {
             return
         }
         loaded = false
+        loading = true
         refreshButton.hidden = true
         setProgressValue(0)
         fileFetcher.startFetch(filePath, progress: { (persent) -> Void in
             self.setProgressValue(persent)
-            }) { (error,video) -> Void in
+            }) { (video) -> Void in
+                self.loading = false
                 self.setProgressValue(0)
-                if error
+                if video == nil
                 {
                     self.refreshButton.hidden = false
                     self.playerController.reset()
@@ -105,11 +109,21 @@ public class ShareLinkFilmView: UIView
         }
     }
     
+    convenience init()
+    {
+        self.init(frame: CGRectZero)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initControls()
         initGestures()
         setNoVideo()
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("can't init from xib,please use addSubview() to load this view")
     }
     
     func initControls()
@@ -156,15 +170,11 @@ public class ShareLinkFilmView: UIView
         
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     private var playerController:Player!{
         didSet{
             self.addSubview(playerController.view)
-            playerController.muted = true
-            playerController.playbackLoops = true
+            playerController.muted = isMute
+            playerController.playbackLoops = isPlaybackLoops
             
         }
     }
@@ -213,10 +223,28 @@ public class ShareLinkFilmView: UIView
             self.removeFromSuperview()
             UIApplication.sharedApplication().keyWindow?.addSubview(self)
             self.frame = wFrame
-            playerController.muted = false
+            isMute = true
             refreshUI()
         }
         
+    }
+    
+    var isMute:Bool = true{
+        didSet{
+            if playerController != nil
+            {
+                playerController.muted = isMute
+            }
+        }
+    }
+    
+    var isPlaybackLoops:Bool = true{
+        didSet{
+            if playerController != nil
+            {
+                playerController.playbackLoops = isPlaybackLoops
+            }
+        }
     }
     
     private func scaleToMin()
@@ -225,12 +253,13 @@ public class ShareLinkFilmView: UIView
         self.removeFromSuperview()
         originContainer.addSubview(self)
         self.frame = minScreenFrame
-        playerController.muted = true
         refreshUI()
     }
-    
-    public override func didMoveToSuperview()
+
+    public override func layoutSubviews()
     {
+        self.frame = (superview?.bounds)!
+        refreshUI()
         if minScreenFrame == nil
         {
             self.minScreenFrame = self.frame
@@ -239,6 +268,7 @@ public class ShareLinkFilmView: UIView
         {
             self.originContainer = self.superview
         }
+        super.layoutSubviews()
     }
     
     func refreshUI()

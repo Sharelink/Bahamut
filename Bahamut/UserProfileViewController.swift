@@ -14,8 +14,10 @@ extension UserService
 {
     func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String,userTags:[SharelinkTag])
     {
-        let userProfile = self.getUser(userId)
-        showUserProfileViewController(currentNavigationController, userProfile: userProfile!, tags: userTags)
+        if let userProfile = self.getUser(userId)
+        {
+            showUserProfileViewController(currentNavigationController, userProfile: userProfile, tags: userTags)
+        }
     }
     
     func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,tags:[SharelinkTag])
@@ -33,17 +35,22 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         didSet{
             tagCollectionView.dataSource = self
             tagCollectionView.delegate = self
+            tagCollectionView.autoresizesSubviews = true
             tagCollectionView.reloadData()
         }
     }
-    @IBOutlet weak var editProfileVideoButton: UIButton!
-    @IBOutlet weak var userProfileVideo: ShareLinkFilmView!{
+    private var profileVideoView:ShareLinkFilmView!{
         didSet{
-            userProfileVideo.autoLoad = true
-            userProfileVideo.canSwitchToFullScreen = false
-            userProfileVideo.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+            profileVideoViewContainer.addSubview(profileVideoView)
+            profileVideoView.autoLoad = true
+            profileVideoView.canSwitchToFullScreen = true
+            profileVideoView.isMute = false
+            profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+            profileVideoViewContainer.sendSubviewToBack(profileVideoView)
         }
     }
+    @IBOutlet weak var editProfileVideoButton: UIButton!
+    @IBOutlet weak var profileVideoViewContainer: UIView!
     
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
@@ -60,13 +67,15 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
             userNickNameLabelView.userInteractionEnabled = true
         }
     }
+    
+    let fileService = ServiceContainer.getService(FileService)
     var userProfileModel:ShareLinkUser!
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        tagCollectionView.autoresizesSubviews = true
+        initProfileVideoView()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -75,6 +84,20 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         bindTapActions()
         update()
         updateEditVideoButton()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    private func initProfileVideoView()
+    {
+        if profileVideoView == nil
+        {
+            profileVideoView = ShareLinkFilmView(frame: profileVideoViewContainer.bounds)
+            updatePersonalFilm()
+        }
     }
     
     func bindTapActions()
@@ -102,37 +125,29 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     {
         userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
         userSignTextView.text = userProfileModel.signText
-        
-        ServiceContainer.getService(FileService).getFileByFileId(userProfileModel.headIconId, returnCallback: { (error,filePath) -> Void in
-            if error
-            {
-                self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-            }else
-            {
-                self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
-            }
-        })
+        updateHeadIcon()
+        updatePersonalFilm()
         tagCollectionView.reloadData()
+    }
+    
+    func updatePersonalFilm()
+    {
+        if profileVideoView == nil
+        {
+            return
+        }
+        if nil == userProfileModel.personalVideoId || userProfileModel.personalVideoId.isEmpty
+        {
+            profileVideoView.filePath = FilmAssetsConstants.defaultPersonalFilm
+        }else
+        {
+            profileVideoView.filePath = userProfileModel.personalVideoId
+        }
     }
     
     func updateHeadIcon()
     {
-        if let headIconFileId = userProfileModel.headIconId
-        {
-            ServiceContainer.getService(FileService).getFileByFileId(headIconFileId, returnCallback: { (error,filePath) -> Void in
-                if !error
-                {
-                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.userProfileModel.headIconId, filePath: filePath)
-                }else
-                {
-                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-                }
-            })
-            
-        }else
-        {
-            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-        }
+        fileService.setHeadIcon(headIconImageView, iconFileId: userProfileModel.headIconId)
     }
     
     //MARK: user tag

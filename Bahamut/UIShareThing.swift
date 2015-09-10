@@ -123,22 +123,8 @@ class UIShareThing: UITableViewCell
     
     private func updateHeadIcon()
     {
-        if let headIconImageId = shareThingModel.headIconImageId
-        {
-            ServiceContainer.getService(FileService).getFileByFileId(headIconImageId, returnCallback: { (error,filePath) -> Void in
-                if !error
-                {
-                    
-                    self.headIconImageView.image = PersistentManager.sharedInstance.getImage(self.shareThingModel.headIconImageId, filePath: filePath)
-                }else
-                {
-                    self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-                }
-            })
-            
-        }else{
-            self.headIconImageView.image = UIImage(named: "defaultHeadIcon")
-        }
+        let fileService = ServiceContainer.getService(FileService)
+        fileService.setHeadIcon(self.headIconImageView, iconFileId: shareThingModel.headIconImageId)
     }
     
     func showHeadIcon(_:UIGestureRecognizer)

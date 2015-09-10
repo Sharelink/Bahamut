@@ -51,18 +51,21 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate
             headIconImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "takeHeadIconPhoto:"))
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     private func initProfileVideoPlayer()
     {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        update()
+    }
+    
+    func update()
+    {
+        let fService = ServiceContainer.getService(FileService)
+        fService.setHeadIcon(headIconImage, iconFileId: model.headIconId)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {

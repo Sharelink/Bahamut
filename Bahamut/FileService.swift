@@ -15,6 +15,25 @@ class FileService: ServiceProtocol {
         
     }
     
+    func initUserFoldersWithUserId(userId:String)
+    {
+        fileManager = NSFileManager.defaultManager()
+        documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(userId)
+        if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
+        {
+            do
+            {
+                try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
+            }catch let error as NSError
+            {
+                print(error.description)
+            }
+        }
+        initFileDir()
+        uploadQueue = [UploadTask]()
+        initFileUploadProc()
+    }
+    
     private func initFileDir()
     {
         for item in FileType.allValues
@@ -45,28 +64,11 @@ class FileService: ServiceProtocol {
         }
     }
     
-    private var uploadQueue:[UploadTask]!
-    private var fileManager:NSFileManager!
-    private var documentsPathUrl:NSURL!
+    private(set) var uploadQueue:[UploadTask]!
+    private(set) var fileManager:NSFileManager!
+    private(set) var documentsPathUrl:NSURL!
     
-    func initUserFoldersWithUserId(userId:String)
-    {
-        fileManager = NSFileManager.defaultManager()
-        documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(userId)
-        if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
-        {
-            do
-            {
-                try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
-            }catch let error as NSError
-            {
-                print(error.description)
-            }
-        }
-        initFileDir()
-        uploadQueue = [UploadTask]()
-        initFileUploadProc()
-    }
+
     
     func clearUserCaches()
     {
@@ -83,111 +85,14 @@ class FileService: ServiceProtocol {
         
     }
     
-    func addSendFileTask(filePath:String,type:FileType) -> String!
+    func getFileByFileId(fileId:String!,returnCallback:(filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
     {
-        if !fileManager.fileExistsAtPath(filePath)
+        if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {
-            return nil
-        }
-        let uploadTask = CoreDataHelper.insertNewCell(FilePersistentsConstrants.UploadTaskEntityName) as! UploadTask
-        uploadTask.status = SendFileStatus.UploadTaskReady
-        uploadTask.taskId = "\(type.rawValue)_\(NSDate().description)"
-        uploadTask.localPath = filePath
-        uploadTask.fileType = type.rawValue
-        uploadTask.saveModified()
-        return uploadTask.taskId
-    }
-    
-    func requestSendFileKey(uploadTaskId:String,type:FileType,callback:((sendFileRequest:Request) -> Void)! = nil)
-    {
-        let uploadTask = CoreDataHelper.getCellById(FilePersistentsConstrants.UploadTaskEntityName, idFieldName: FilePersistentsConstrants.UploadTaskEntityIdFieldName, idValue: uploadTaskId) as! UploadTask
-        let filePath = uploadTask.localPath
-        let req = NewSendFileKeyRequest()
-        do{
-            let fileSize = try fileManager.attributesOfItemAtPath(filePath)[NSFileSize] as! Int
-            req.fileSize = fileSize
-        }catch{
-            
-        }
-        let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
-        req.fileType = type
-        
-        client.execute(req) { (result:SLResult<SendFileKey>) -> Void in
-            if result.statusCode == ReturnCode.OK
-            {
-                if let sendFileKey = result.returnObject
-                {
-                    let fileAccesskey = sendFileKey.fileId
-                    let fileServer = sendFileKey.fileServer
-                    uploadTask.accessKey = fileAccesskey
-                    uploadTask.fileId = fileAccesskey
-                    uploadTask.fileServerUrl = fileServer
-                    uploadTask.status = SendFileStatus.SendFileReady
-                    if let fileEntity:FileRelationshipEntity = PersistentManager.sharedInstance.saveFile(filePath)
-                    {
-                        fileEntity.filePath = filePath
-                        fileEntity.fileId = fileAccesskey
-                        fileEntity.fileServerUrl = fileServer
-                        fileEntity.saveModified()
-                        if let returnRequest:((Request) -> Void) = callback
-                        {
-                            let req = client.sendFile(sendFileKey, filePath: filePath, fileType: type).responseJSON{ (_, _, JSON) -> Void in
-                                if JSON.error == nil
-                                {
-                                    CoreDataHelper.deleteObject(uploadTask)
-                                }
-                            }
-                            returnRequest(req)
-                        }
-                    }
-                    return
-                }
-            }
-            uploadTask.status = SendFileStatus.RequestSendFileKeyFailed
-            uploadTask.saveModified()
-        }
-    }
-    
-
-    
-    func getFileFetcher(fileType:FileType) -> FileFetcher
-    {
-        let fetcher = IdFileFetcher()
-        fetcher.fileType = fileType
-        return fetcher
-    }
-    
-    func fetch(fileId:String,fileType:FileType,fetchCompleted:(error:Bool,filePath:String!)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
-    {
-        let client = ShareLinkSDK.sharedInstance.getFileClient() as! FileClient
-        let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)").path!
-        client.downloadFile(fileId,filePath: filePath).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
-            if let progressCallback = progressUpdate
-            {
-                progressCallback(bytesRead: bytesRead, totalBytesRead: totalBytesRead, totalBytesExpectedToRead: totalBytesExpectedToRead)
-            }
-        }).responseString { (request, response, result) -> Void in
-            if result.error == nil
-            {
-                
-                if let fileEntity = PersistentManager.sharedInstance.saveFile(filePath)
-                {
-                    fileEntity.fileId = fileId
-                    fileEntity.saveModified()
-                    fetchCompleted(error:false,filePath: fileEntity.filePath)
-                }
-            }else
-            {
-                fetchCompleted(error:true,filePath: nil)
-            }
-        }
-    }
-    
-    func getFileByFileId(fileId:String,returnCallback:(isSuc:Bool,filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
-    {
-        if let fileEntity = PersistentManager.sharedInstance.getFile(fileId)
+            returnCallback(filePath: path)
+        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.filePath
         {
-            returnCallback(isSuc:true,filePath: fileEntity.filePath)
+            returnCallback(filePath: path)
         }else
         {
             let fileType = FileType.getFileTypeByFileId(fileId)
@@ -256,32 +161,3 @@ class FileService: ServiceProtocol {
     }
 }
 
-class IdFileFetcher: FileFetcher
-{
-    var fileType:FileType = .Raw
-    func startFetch(fileId: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
-        ServiceContainer.getService(FileService).getFileByFileId(fileId, returnCallback: completed, progress: progress)
-    }
-}
-
-class FilePathFileFetcher: FileFetcher
-{
-    var fileType:FileType = .Raw
-    func startFetch(filepath: String, progress: (persent: Float) -> Void, completed: (error: Bool, filePath: String!) -> Void) {
-        completed(error: false, filePath: filepath)
-    }
-    
-    static let shareInstance:FileFetcher = {
-        return FilePathFileFetcher()
-    }()
-}
-
-public struct SendFileStatus
-{
-    static let UploadTaskReady:NSNumber = 0
-    static let SendFileReady:NSNumber = 1
-    static let SendingFile:NSNumber = 2
-    static let SendFileCompleted:NSNumber = 3
-    static let TaskDeleted:NSNumber = 4
-    static let RequestSendFileKeyFailed:NSNumber = 5
-}

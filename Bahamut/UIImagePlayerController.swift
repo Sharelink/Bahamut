@@ -64,9 +64,9 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         setProgressValue(0)
         fileFetcher.startFetch(url, progress: { (persent) -> Void in
             self.setProgressValue(persent)
-        }) { (error,image) -> Void in
+        }) { (image) -> Void in
             self.setProgressValue(0)
-            if error
+            if image == nil
             {
                 self.imageView.image = UIImage(named: "defaultView")
                 self.canScale = true
