@@ -76,7 +76,7 @@
 		E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */; };
 		E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF239A1B7B651700076202 /* NewShareViewController.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
-		E7B665031B6B8EF600032495 /* defaultPersonalFilm.mov in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */; };
+		E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */; };
 		E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B714251B7F36880085E3B6 /* ImageUtil.swift */; };
 		E7CC15161B6E0FBA001FDB0E /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */; };
 		E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */; };
@@ -86,8 +86,7 @@
 		E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EBE8661B732FEB00C02F1F /* PersistentManager.swift */; };
 		E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EF7D141B7887B30033C2A8 /* AlamofireJsonToObjects.swift */; };
 		E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F931B75F18B00B75C25 /* ModelEntity.swift */; };
-		E7F08F961B75F18C00B75C25 /* FileRelationshipEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileRelationshipEntity.swift */; };
-		E7F08F981B75F18C00B75C25 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F971B75F18C00B75C25 /* UploadTask.swift */; };
+		E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */; };
 		E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -176,7 +175,7 @@
 		E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BahamutTests.swift; sourceTree = "<group>"; };
 		E7AF239A1B7B651700076202 /* NewShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
-		E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = defaultPersonalFilm.mov; sourceTree = "<group>"; };
+		E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultPersonalFilm.mp4; sourceTree = "<group>"; };
 		E7B714251B7F36880085E3B6 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
@@ -186,8 +185,7 @@
 		E7EBE8661B732FEB00C02F1F /* PersistentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		E7EF7D141B7887B30033C2A8 /* AlamofireJsonToObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireJsonToObjects.swift; sourceTree = "<group>"; };
 		E7F08F931B75F18B00B75C25 /* ModelEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
-		E7F08F951B75F18C00B75C25 /* FileRelationshipEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRelationshipEntity.swift; sourceTree = "<group>"; };
-		E7F08F971B75F18C00B75C25 /* UploadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
+		E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -467,8 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				E717CC371B725D5200B19D9D /* Model.xcdatamodeld */,
-				E7F08F971B75F18C00B75C25 /* UploadTask.swift */,
-				E7F08F951B75F18C00B75C25 /* FileRelationshipEntity.swift */,
+				E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */,
 				E7F08F931B75F18B00B75C25 /* ModelEntity.swift */,
 				E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */,
 				E7EBE8661B732FEB00C02F1F /* PersistentManager.swift */,
@@ -576,7 +573,7 @@
 		E7B665011B6B8EA200032495 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */,
+				E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
@@ -668,7 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */,
-				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mov in Resources */,
+				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
@@ -780,7 +777,7 @@
 				E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
-				E7F08F961B75F18C00B75C25 /* FileRelationshipEntity.swift in Sources */,
+				E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */,
 				E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */,
 				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
@@ -802,7 +799,6 @@
 				E78D131E1B71123C00252E50 /* Account.swift in Sources */,
 				E72F47221B7602C6002674AB /* DateHelper.swift in Sources */,
 				E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */,
-				E7F08F981B75F18C00B75C25 /* UploadTask.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E73AD0091B82D3C400EE9EA0 /* HSL.swift in Sources */,
 				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
