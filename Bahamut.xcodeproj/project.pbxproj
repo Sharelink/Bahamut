@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */; settings = {ASSET_TAGS = (); }; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
 		E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7108BE51B7D9D7A009B933C /* RegexUtil.swift */; };
@@ -72,7 +76,7 @@
 		E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */; };
 		E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF239A1B7B651700076202 /* NewShareViewController.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
-		E7B665031B6B8EF600032495 /* 02.mov in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* 02.mov */; };
+		E7B665031B6B8EF600032495 /* defaultPersonalFilm.mov in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */; };
 		E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B714251B7F36880085E3B6 /* ImageUtil.swift */; };
 		E7CC15161B6E0FBA001FDB0E /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */; };
 		E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */; };
@@ -100,6 +104,10 @@
 /* Begin PBXFileReference section */
 		12068C6D6B3CD72448DC90C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileServiceExtension.swift; sourceTree = "<group>"; };
+		E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchFileServiceExtension.swift; sourceTree = "<group>"; };
+		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
+		E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsConstants.swift; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		E7108BE51B7D9D7A009B933C /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
@@ -168,7 +176,7 @@
 		E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BahamutTests.swift; sourceTree = "<group>"; };
 		E7AF239A1B7B651700076202 /* NewShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
-		E7B665021B6B8EF600032495 /* 02.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 02.mov; sourceTree = "<group>"; };
+		E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = defaultPersonalFilm.mov; sourceTree = "<group>"; };
 		E7B714251B7F36880085E3B6 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
@@ -224,13 +232,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E70C48B31BA122B600F805C3 /* FileService */ = {
+			isa = PBXGroup;
+			children = (
+				E72F00761B6C94F8007E9E29 /* FileService.swift */,
+				E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */,
+				E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */,
+				E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */,
+			);
+			name = FileService;
+			sourceTree = "<group>";
+		};
 		E72B26C41B71E159008E81D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E70C48B31BA122B600F805C3 /* FileService */,
 				E79E3E371B6B56A900B27085 /* UserService.swift */,
 				E790BD111B67FDEF00D5426B /* ReplyService.swift */,
 				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
-				E72F00761B6C94F8007E9E29 /* FileService.swift */,
 				E790BD131B68069A00D5426B /* ShareService.swift */,
 				E73E44AD1B806DE700E0B6EB /* CameraService.swift */,
 				E736814F1B96A816004E8B56 /* UserTagService.swift */,
@@ -557,7 +576,8 @@
 		E7B665011B6B8EA200032495 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E7B665021B6B8EF600032495 /* 02.mov */,
+				E7B665021B6B8EF600032495 /* defaultPersonalFilm.mov */,
+				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -648,7 +668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */,
-				E7B665031B6B8EF600032495 /* 02.mov in Resources */,
+				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mov in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
@@ -761,6 +781,7 @@
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E7F08F961B75F18C00B75C25 /* FileRelationshipEntity.swift in Sources */,
+				E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */,
 				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
 				E78D13261B71123C00252E50 /* UserLink.swift in Sources */,
@@ -769,11 +790,13 @@
 				E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */,
 				E73AD00A1B82D3C400EE9EA0 /* UIColor.swift in Sources */,
 				E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */,
+				E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */,
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
 				E7A3AA9C1B9C332F0094B0D0 /* UIImagePlayerController.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
 				E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
+				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E790BD031B67810200D5426B /* EditProfileViewController.swift in Sources */,
 				E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */,
 				E78D131E1B71123C00252E50 /* Account.swift in Sources */,
@@ -782,6 +805,7 @@
 				E7F08F981B75F18C00B75C25 /* UploadTask.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E73AD0091B82D3C400EE9EA0 /* HSL.swift in Sources */,
+				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagCollectionController.swift in Sources */,
@@ -914,6 +938,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -926,6 +951,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -933,6 +959,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -945,6 +972,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
