@@ -41,6 +41,10 @@
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; settings = {ASSET_TAGS = (); }; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
 		E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */; settings = {ASSET_TAGS = (); }; };
+		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608551BA1E28A00E2BECA /* QRCode.swift */; settings = {ASSET_TAGS = (); }; };
 		E78D131E1B71123C00252E50 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D130D1B71123C00252E50 /* Account.swift */; };
 		E78D131F1B71123C00252E50 /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D130F1B71123C00252E50 /* ShareLinkObject.swift */; };
 		E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78D13101B71123C00252E50 /* ShareLinkSDKClient.swift */; };
@@ -136,6 +140,10 @@
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFetcher.swift; sourceTree = "<group>"; };
+		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
+		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
+		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
+		E78608551BA1E28A00E2BECA /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		E78D130D1B71123C00252E50 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E78D130F1B71123C00252E50 /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkObject.swift; sourceTree = "<group>"; };
 		E78D13101B71123C00252E50 /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
@@ -295,6 +303,7 @@
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E73AD0061B82D3C400EE9EA0 /* DynamicColor */,
 				E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */,
 				E7B714251B7F36880085E3B6 /* ImageUtil.swift */,
@@ -310,6 +319,28 @@
 				E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */,
 			);
 			name = Protocol;
+			sourceTree = "<group>";
+		};
+		E786084D1BA1DEB600E2BECA /* Sharelinker */ = {
+			isa = PBXGroup;
+			children = (
+				E790BD021B67810200D5426B /* EditProfileViewController.swift */,
+				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
+				E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */,
+				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
+				E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */,
+			);
+			name = Sharelinker;
+			sourceTree = "<group>";
+		};
+		E786084E1BA1DEDE00E2BECA /* SharelinkTag */ = {
+			isa = PBXGroup;
+			children = (
+				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
+				E73E44B91B82058300E0B6EB /* UIUserTagCollectionController.swift */,
+				E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */,
+			);
+			name = SharelinkTag;
 			sourceTree = "<group>";
 		};
 		E78D13081B71123C00252E50 /* ShareLinkSDK */ = {
@@ -449,13 +480,10 @@
 		E79E3E341B6B567F00B27085 /* UIUser */ = {
 			isa = PBXGroup;
 			children = (
+				E786084E1BA1DEDE00E2BECA /* SharelinkTag */,
+				E786084D1BA1DEB600E2BECA /* Sharelinker */,
 				E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */,
-				E790BD021B67810200D5426B /* EditProfileViewController.swift */,
 				E72F47251B7637AE002674AB /* LinkedUserListController.swift */,
-				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
-				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
-				E73E44B91B82058300E0B6EB /* UIUserTagCollectionController.swift */,
-				E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */,
 				E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */,
 			);
 			name = UIUser;
@@ -744,6 +772,7 @@
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E73681501B96A816004E8B56 /* UserTagService.swift in Sources */,
 				E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */,
+				E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E78D13221B71123C00252E50 /* File.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
@@ -755,6 +784,7 @@
 				E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */,
 				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78D13231B71123C00252E50 /* ShareLinkSDK.swift in Sources */,
+				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
 				E78D13211B71123C00252E50 /* ShareLinkSDKRequestBase.swift in Sources */,
 				E78D13271B71123C00252E50 /* Vote.swift in Sources */,
 				E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */,
@@ -777,6 +807,7 @@
 				E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
+				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
 				E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */,
 				E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */,
 				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
@@ -796,6 +827,7 @@
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E790BD031B67810200D5426B /* EditProfileViewController.swift in Sources */,
 				E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */,
+				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E78D131E1B71123C00252E50 /* Account.swift in Sources */,
 				E72F47221B7602C6002674AB /* DateHelper.swift in Sources */,
 				E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */,

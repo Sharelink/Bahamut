@@ -21,6 +21,11 @@ class UserService: ServiceProtocol
     private(set) lazy var myUserId:String!={
         return NSUserDefaults.standardUserDefaults().valueForKey("userId") as? String
     }()
+    
+    var myUserModel:ShareLinkUser{
+        return getUser(myUserId)!
+    }
+    
     private(set) var myLinkedUsers:[ShareLinkUser]!
     
     private func initLinkedUsers()

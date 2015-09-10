@@ -8,9 +8,6 @@
 
 import UIKit
 
-class UIUserNavigationController:UINavigationController
+class UIUserNavigationController:UIOrientationsNavigationController
 {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }

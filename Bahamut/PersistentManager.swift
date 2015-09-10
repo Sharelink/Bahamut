@@ -124,6 +124,10 @@ extension PersistentManager
     
     func getImage(fileId:String!) -> UIImage?
     {
+        if fileId == nil
+        {
+            return nil
+        }
         let cache = getCache("UIImage")
         if let image = cache.objectForKey(fileId) as? UIImage
         {

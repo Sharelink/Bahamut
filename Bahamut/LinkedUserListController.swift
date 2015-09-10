@@ -60,6 +60,17 @@ class LinkedUserListController: UITableViewController
         refresh()
     }
     
+    @IBAction func addNewLink(sender: AnyObject)
+    {
+        userService.showScanQRViewController(self.navigationController!)
+    }
+    
+    
+    @IBAction func showMyQRCode(sender: AnyObject)
+    {
+        userService.showMyQRViewController(self.navigationController!, avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.headIconId))
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return userListModel.count
