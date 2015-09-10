@@ -40,7 +40,7 @@ class PersistentManager
 
 struct FilePersistentsConstrants
 {
-    static let FileEntityName = "FileRelationshipEntity"
+    static let FileEntityName = "FileInfoEntity"
     static let FileEntityIdFieldName = "fileId"
     static let UploadTaskEntityName = "UploadTask"
     static let UploadTaskEntityIdFieldName = "taskId"
@@ -64,14 +64,14 @@ extension NSManagedObject
 
 extension PersistentManager
 {
-    private var fileEntityName:String{return "FileRelationshipEntity"}
+    private var fileEntityName:String{return "FileInfoEntity"}
     private var fileEntityIdFieldName:String{return "fileId"}
     
-    func saveFile(data:NSData, filePath:String) -> FileRelationshipEntity?
+    func saveFile(data:NSData, filePath:String) -> FileInfoEntity?
     {
         if NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
         {
-            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileRelationshipEntity
+            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
             fileEntity.filePath = filePath
             fileEntity.saveModified()
             return fileEntity
@@ -81,11 +81,11 @@ extension PersistentManager
         }
     }
     
-    func saveFile(fileExistsPath:String) -> FileRelationshipEntity?
+    func saveFile(fileExistsPath:String) -> FileInfoEntity?
     {
         if NSFileManager.defaultManager().fileExistsAtPath(fileExistsPath)
         {
-            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileRelationshipEntity
+            let fileEntity = CoreDataHelper.insertNewCell(fileEntityName) as! FileInfoEntity
             fileEntity.filePath = fileExistsPath
             fileEntity.saveModified()
             return fileEntity
@@ -94,17 +94,17 @@ extension PersistentManager
         }
     }
     
-    func getFile(fileId:String!) -> FileRelationshipEntity?
+    func getFile(fileId:String!) -> FileInfoEntity?
     {
         if fileId == nil || fileId.isEmpty
         {
             return nil
         }
         let cache = getCache(fileEntityName)
-        if let fileEntity = cache.objectForKey(fileId) as? FileRelationshipEntity
+        if let fileEntity = cache.objectForKey(fileId) as? FileInfoEntity
         {
             return fileEntity
-        }else if let fileEntity = CoreDataHelper.getCellById(fileEntityName, idFieldName: fileEntityIdFieldName, idValue: fileId) as? FileRelationshipEntity
+        }else if let fileEntity = CoreDataHelper.getCellById(fileEntityName, idFieldName: fileEntityIdFieldName, idValue: fileId) as? FileInfoEntity
         {
             return fileEntity
         }else

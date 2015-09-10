@@ -12,7 +12,7 @@ import Alamofire
 extension FileService
 {
     
-    func addSendFileTask(filePath:String,type:FileType) -> String!
+    private func addSendFileTask(filePath:String,type:FileType) -> String!
     {
         if !fileManager.fileExistsAtPath(filePath)
         {
@@ -27,7 +27,7 @@ extension FileService
         return uploadTask.taskId
     }
     
-    func requestSendFileKey(uploadTaskId:String,type:FileType,callback:((sendFileRequest:Request) -> Void)! = nil)
+    private func requestSendFileKey(uploadTaskId:String,type:FileType,callback:((sendFileRequest:Request) -> Void)! = nil)
     {
         let uploadTask = CoreDataHelper.getCellById(FilePersistentsConstrants.UploadTaskEntityName, idFieldName: FilePersistentsConstrants.UploadTaskEntityIdFieldName, idValue: uploadTaskId) as! UploadTask
         let filePath = uploadTask.localPath
@@ -52,7 +52,7 @@ extension FileService
                     uploadTask.fileId = fileAccesskey
                     uploadTask.fileServerUrl = fileServer
                     uploadTask.status = SendFileStatus.SendFileReady
-                    if let fileEntity:FileRelationshipEntity = PersistentManager.sharedInstance.saveFile(filePath)
+                    if let fileEntity:FileInfoEntity = PersistentManager.sharedInstance.saveFile(filePath)
                     {
                         fileEntity.filePath = filePath
                         fileEntity.fileId = fileAccesskey

@@ -68,8 +68,6 @@ class FileService: ServiceProtocol {
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
     
-
-    
     func clearUserCaches()
     {
         do
