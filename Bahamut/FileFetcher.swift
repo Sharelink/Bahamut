@@ -10,5 +10,12 @@ import Foundation
 
 protocol FileFetcher
 {
-    func startFetch(resourceUri:String,progress:(persent:Float)->Void,completed:(filePath:String!)->Void)
+    func startFetch(resourceUri:String,delegate:FileFetcherDelegate)
+}
+
+@objc
+protocol FileFetcherDelegate
+{
+    optional func fetchFileProgress(persent:Float)->Void
+    optional func fetchFileCompleted(filePath:String!)->Void
 }

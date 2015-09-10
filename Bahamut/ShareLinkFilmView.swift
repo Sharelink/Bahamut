@@ -10,7 +10,7 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
-public class ShareLinkFilmView: UIView
+public class ShareLinkFilmView: UIView,FileFetcherDelegate
 {
     private var timer:NSTimer!{
         didSet{
@@ -91,22 +91,28 @@ public class ShareLinkFilmView: UIView
         loading = true
         refreshButton.hidden = true
         setProgressValue(0)
-        fileFetcher.startFetch(filePath, progress: { (persent) -> Void in
-            self.setProgressValue(persent)
-            }) { (video) -> Void in
-                self.loading = false
-                self.setProgressValue(0)
-                if video == nil
-                {
-                    self.refreshButton.hidden = false
-                    self.playerController.reset()
-                }else
-                {
-                    self.playerController.path = video
-                    self.loaded = true
-                }
-                self.refreshUI()
+        fileFetcher.startFetch(filePath,delegate: self)
+    }
+    
+    func fetchFileCompleted(video: String!)
+    {
+        self.loading = false
+        self.setProgressValue(0)
+        if video == nil
+        {
+            self.refreshButton.hidden = false
+            self.playerController.reset()
+        }else
+        {
+            self.playerController.path = video
+            self.loaded = true
         }
+        self.refreshUI()
+    }
+    
+    func fetchFileProgress(persent: Float)
+    {
+        self.setProgressValue(persent)
     }
     
     convenience init()

@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class UIFetchImageView: UIScrollView,UIScrollViewDelegate
+class UIFetchImageView: UIScrollView,UIScrollViewDelegate,FileFetcherDelegate
 {
     var progress:KDCircularProgress!{
         didSet{
@@ -62,22 +62,27 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         canScale = false
         refreshButton.hidden = true
         setProgressValue(0)
-        fileFetcher.startFetch(url, progress: { (persent) -> Void in
-            self.setProgressValue(persent)
-        }) { (image) -> Void in
-            self.setProgressValue(0)
-            if image == nil
-            {
-                self.imageView.image = UIImage(named: "defaultView")
-                self.canScale = true
-//                self.refreshButton.hidden = false
-            }else
-            {
-                self.imageView.image = UIImage(contentsOfFile: image)
-                self.canScale = true
-            }
-            self.refreshUI()
+        fileFetcher.startFetch(url, delegate: self)
+    }
+    
+    func fetchFileCompleted(image: String!)
+    {
+        self.setProgressValue(0)
+        if image == nil
+        {
+            self.imageView.image = UIImage(named: "defaultView")
+            self.canScale = true
+        }else
+        {
+            self.imageView.image = UIImage(contentsOfFile: image)
+            self.canScale = true
         }
+        self.refreshUI()
+    }
+    
+    func fetchFileProgress(persent: Float)
+    {
+        self.setProgressValue(persent)
     }
     
     private func initImageView()
