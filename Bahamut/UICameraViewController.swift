@@ -13,7 +13,8 @@ import AssetsLibrary
 @objc
 protocol UICameraViewControllerDelegate
 {
-    optional func videoCancelRecord(sender:UICameraViewController!)
+    optional func cameraCancelRecord(sender:UICameraViewController!)
+    optional func cameraSaveRecordVideo(sender:UICameraViewController!, destination:String!)
 }
 
 class UICameraViewController: UIViewController , PBJVisionDelegate{
@@ -39,7 +40,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     var recording:Bool = false
     var recordTimer:NSTimer!
     var delegate:UICameraViewControllerDelegate!
-    var videoFileSaveTo:((destination:String) -> Void)!
     private var videoSavedPath:String!
     @IBOutlet weak var recordButton: UIView!
     private var recordButtonController:UIRecordButtonController!
@@ -91,7 +91,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     @IBAction func cancelRecord(sender: AnyObject)
     {
-        if let videoCancelRecord = delegate?.videoCancelRecord
+        if let videoCancelRecord = delegate?.cameraCancelRecord
         {
             videoCancelRecord(self)
         }
@@ -182,9 +182,9 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
             videoSavedPath = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
             if videoSavedPath != nil
             {
-                if videoFileSaveTo != nil
+                if let videoFileSaveTo = delegate.cameraSaveRecordVideo
                 {
-                    videoFileSaveTo(destination: videoSavedPath)
+                    videoFileSaveTo(self,destination: videoSavedPath)
                 }
                 self.navigationController?.popViewControllerAnimated(true)
             }else
@@ -233,5 +233,62 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     {
         return instanceFromStoryBoard("Component", identifier: "cameraViewController") as! UICameraViewController
     }
+    
+    static func showCamera(currentNavigationController:UINavigationController, delegate:UICameraViewControllerDelegate!) -> UICameraViewController
+    {
+        let cameraController = UICameraViewController.instanceFromStoryBoard()
+        currentNavigationController.pushViewController(cameraController, animated: true)
+        return cameraController
+    }
 
+}
+
+class UIRecordButtonController: UIViewController {
+    
+    var progressValue:Float = 0{
+        didSet{
+            if recordProgress != nil
+            {
+                recordProgress.angle = Int(360 * progressValue)
+            }
+        }
+    }
+    
+    @IBOutlet weak var tipsLabelTextField: UILabel!
+    private var parentController:UICameraViewController!
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        buttonInteractionView.userInteractionEnabled = true
+        let longPressTapRecorgnizer = UILongPressGestureRecognizer(target: self, action: "longPressRecordButton:")
+        self.buttonInteractionView.addGestureRecognizer(longPressTapRecorgnizer)
+    }
+    
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.didMoveToParentViewController(parent)
+        parentController = parent as? UICameraViewController
+    }
+    
+    func doubleTapRecordButton(recognizer:UITapGestureRecognizer)
+    {
+        parentController.startOrResumeRecord()
+    }
+    
+    func longPressRecordButton(recognizer:UILongPressGestureRecognizer)
+    {
+        switch recognizer.state
+        {
+        case .Began:parentController.startOrResumeRecord()
+        tipsLabel.hidden = true
+        case .Cancelled:fallthrough
+        case .Ended:fallthrough
+        case .Failed:parentController.pauseRecord()
+        tipsLabel.hidden = false
+        default:break
+        }
+    }
+    
+    @IBOutlet weak var buttonInteractionView: UIView!
+    @IBOutlet weak var recordProgress: KDCircularProgress!
+    @IBOutlet weak var tipsLabel: UILabel!
 }
