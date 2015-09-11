@@ -15,6 +15,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIWebViewDele
         static let SegueNextToProfile:String = "Next To Profile"
     }
 
+    var registAccountURL:String {
+        return "http://192.168.0.168:8086/Account/Regist"
+    }
+    
     private weak var accountService:AccountService!
     private weak var userService:UserService!
     var signInViewController:SignInViewController!
@@ -63,7 +67,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIWebViewDele
     }
     
     func regist(){
-        registerWebPageUrl = "\(AccountService.registAccountURL)?appkey=\(ShareLinkSDK.appkey)"
+        registerWebPageUrl = "\(registAccountURL)?appkey=\(ShareLinkSDK.appkey)"
     }
     
     func finishRegist(accountId:String)

@@ -20,9 +20,6 @@ class AccountService: ServiceProtocol
         
     }
     
-    static let registAccountURL:String = "http://192.168.0.168:8086/Account/Regist"
-    static let authenticationURL: String = "http://192.168.0.168:8086/Account/Login"
-    
     private(set) var lastLoginAccountId:String!{
         get{
             return NSUserDefaults.standardUserDefaults().valueForKey("lastLoginAccountId") as? String

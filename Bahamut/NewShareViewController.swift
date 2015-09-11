@@ -31,6 +31,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             shareThingModel = ShareThing()
         }
+        lockScreen()
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,23 +126,45 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         self.shareContentContainer.model = shareThingModel.shareContent
     }
     
-    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!) {
-        ServiceContainer.getService(CameraService).showCamera(sender.navigationController!, delegate: nil) { (destination) -> Void in
-            let fileService = ServiceContainer.getService(FileService)
-            let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
-            if fileService.moveFileTo(destination, destinationPath: newFilePath)
+    func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
+        let fileModel = itemModel as! UIFileCollectionCellModel
+        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
+    }
+    
+    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
+    {
+        
+        class SaveVideo:NSObject,UICameraViewControllerDelegate
+        {
+            init(handler:(itemModel: UIResrouceItemModel) -> Void)
             {
-                let videoFileModel = UIFileCollectionCellModel()
-                videoFileModel.filePath = newFilePath
-                videoFileModel.fileType = .Video
-                completedHandler(itemModel: videoFileModel)
-                sender.view.makeToast(message: "Video Saved")
-            }else
+                completedHandler = handler
+            }
+            var completedHandler:(itemModel: UIResrouceItemModel) -> Void
+            @objc private func cameraCancelRecord(sender: UICameraViewController!)
             {
-                sender.view.makeToast(message: "Save Video Failed")
+                sender.view.makeToast(message: "Record Cancel")
+            }
+            
+            @objc private func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!) {
+                let fileService = ServiceContainer.getService(FileService)
+                let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+                if fileService.moveFileTo(destination, destinationPath: newFilePath)
+                {
+                    let videoFileModel = UIFileCollectionCellModel()
+                    videoFileModel.filePath = newFilePath
+                    videoFileModel.fileType = .Video
+                    completedHandler(itemModel: videoFileModel)
+                    sender.view.makeToast(message: "Video Saved")
+                }else
+                {
+                    sender.view.makeToast(message: "Save Video Failed")
+                }
+                
             }
         }
         
+        UICameraViewController.showCamera(sender.navigationController!, delegate: SaveVideo(handler:completedHandler))
     }
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!) {
@@ -164,30 +187,31 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         sender.view.makeToast(message: "\(sum) files deleted", duration: HRToastDefaultDuration, position: HRToastPositionCenter)
     }
     
-    func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
-        let fileModel = itemModel as! UIFileCollectionCellModel
-        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
-    }
+
     
-    func videoCancelRecord(sender: UICameraViewController!)
+    func cameraCancelRecord(sender: UICameraViewController!)
     {
         view.makeToast(message: "Cancel")
     }
     
-    @IBAction func recordVideo() {
-        ServiceContainer.getService(CameraService).showCamera(self.navigationController!, delegate: self){ destination in
-            let fileService = ServiceContainer.getService(FileService)
-            let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
-            if fileService.moveFileTo(destination, destinationPath: newFilePath)
-            {
-                self.shareThingModel.shareContent = newFilePath
-                self.shareContentContainer.model = self.shareThingModel.shareContent
-                self.view.makeToast(message: "Video Saved")
-            }else
-            {
-                self.view.makeToast(message: "Save Video Failed")
-            }
+    func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
+    {
+        let fileService = ServiceContainer.getService(FileService)
+        let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+        if fileService.moveFileTo(destination, destinationPath: newFilePath)
+        {
+            self.shareThingModel.shareContent = newFilePath
+            self.shareContentContainer.model = self.shareThingModel.shareContent
+            self.view.makeToast(message: "Video Saved")
+        }else
+        {
+            self.view.makeToast(message: "Save Video Failed")
         }
+    }
+    
+    @IBAction func recordVideo()
+    {
+        UICameraViewController.showCamera(self.navigationController!, delegate: self)
     }
     
     @IBAction func selectVideo()

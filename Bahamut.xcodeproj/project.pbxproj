@@ -16,7 +16,6 @@
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
 		E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7108BE51B7D9D7A009B933C /* RegexUtil.swift */; };
 		E717CC391B725D5200B19D9D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E717CC371B725D5200B19D9D /* Model.xcdatamodeld */; };
-		E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */; };
 		E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */; };
 		E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */; };
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
@@ -29,7 +28,6 @@
 		E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */; };
 		E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
 		E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
-		E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44AD1B806DE700E0B6EB /* CameraService.swift */; };
 		E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E73E44AF1B80787600E0B6EB /* Component.storyboard */; };
 		E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B31B81725000E0B6EB /* UIUserTag.swift */; };
 		E73E44B61B8174F200E0B6EB /* UserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B51B8174F200E0B6EB /* UserTag.swift */; };
@@ -37,6 +35,7 @@
 		E73E44BA1B82058300E0B6EB /* UIUserTagCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B91B82058300E0B6EB /* UIUserTagCollectionController.swift */; };
 		E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */; };
 		E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754AE291B7C749B0077EECC /* UICameraViewController.swift */; };
+		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; settings = {ASSET_TAGS = (); }; };
 		E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E75EE44D1B9A05B800783308 /* UserAccount.storyboard */; settings = {ASSET_TAGS = (); }; };
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; settings = {ASSET_TAGS = (); }; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
@@ -115,7 +114,6 @@
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		E7108BE51B7D9D7A009B933C /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
 		E717CC381B725D5200B19D9D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRecordButton.swift; sourceTree = "<group>"; };
 		E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFileCollectionController.swift; sourceTree = "<group>"; };
 		E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserNavigationController.swift; sourceTree = "<group>"; };
 		E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserListCell.swift; sourceTree = "<group>"; };
-		E73E44AD1B806DE700E0B6EB /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		E73E44AF1B80787600E0B6EB /* Component.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Component.storyboard; sourceTree = "<group>"; };
 		E73E44B31B81725000E0B6EB /* UIUserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTag.swift; sourceTree = "<group>"; };
 		E73E44B51B8174F200E0B6EB /* UserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTag.swift; sourceTree = "<group>"; };
@@ -136,6 +133,7 @@
 		E73E44B91B82058300E0B6EB /* UIUserTagCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagCollectionController.swift; sourceTree = "<group>"; };
 		E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagEditController.swift; sourceTree = "<group>"; };
 		E754AE291B7C749B0077EECC /* UICameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICameraViewController.swift; sourceTree = "<group>"; };
+		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
 		E75EE44D1B9A05B800783308 /* UserAccount.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserAccount.storyboard; sourceTree = "<group>"; };
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 				E790BD111B67FDEF00D5426B /* ReplyService.swift */,
 				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
 				E790BD131B68069A00D5426B /* ShareService.swift */,
-				E73E44AD1B806DE700E0B6EB /* CameraService.swift */,
 				E736814F1B96A816004E8B56 /* UserTagService.swift */,
 			);
 			name = Models;
@@ -281,15 +278,6 @@
 			path = ../../../DynamicColor/DynamicColor;
 			sourceTree = "<group>";
 		};
-		E754AE281B7C74760077EECC /* UICamera */ = {
-			isa = PBXGroup;
-			children = (
-				E754AE291B7C749B0077EECC /* UICameraViewController.swift */,
-				E71EC8D71B7D057F006D5034 /* UIRecordButton.swift */,
-			);
-			name = UICamera;
-			sourceTree = "<group>";
-		};
 		E75EE44F1B9A05E200783308 /* StoryBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,8 +291,8 @@
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E73AD0061B82D3C400EE9EA0 /* DynamicColor */,
+				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */,
 				E7B714251B7F36880085E3B6 /* ImageUtil.swift */,
 				E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */,
@@ -507,7 +495,6 @@
 				E76A45A91B9E8AE20059AA3D /* Protocol */,
 				E75EE44F1B9A05E200783308 /* StoryBoard */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
-				E754AE281B7C74760077EECC /* UICamera */,
 				E72B26C51B71EB8B008E81D6 /* UICustomSegue */,
 				E7B664FD1B6B78EA00032495 /* UIComponent */,
 				E790BCEF1B674BEF00D5426B /* UIShare */,
@@ -587,6 +574,7 @@
 		E7B664FD1B6B78EA00032495 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				E754AE291B7C749B0077EECC /* UICameraViewController.swift */,
 				E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */,
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
@@ -594,6 +582,7 @@
 				E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */,
 				E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */,
 				E7A3AA9B1B9C332F0094B0D0 /* UIImagePlayerController.swift */,
+				E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */,
 			);
 			name = UIComponent;
 			sourceTree = "<group>";
@@ -791,7 +780,6 @@
 				E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */,
-				E71EC8D81B7D057F006D5034 /* UIRecordButton.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* ReplyService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
@@ -804,7 +792,6 @@
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
 				E7A3AA9A1B9C2B050094B0D0 /* ControllerExtension.swift in Sources */,
 				E717CC391B725D5200B19D9D /* Model.xcdatamodeld in Sources */,
-				E73E44AE1B806DE700E0B6EB /* CameraService.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
@@ -834,6 +821,7 @@
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E73AD0091B82D3C400EE9EA0 /* HSL.swift in Sources */,
 				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
+				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagCollectionController.swift in Sources */,

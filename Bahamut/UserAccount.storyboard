@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -125,9 +125,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqM-25-V09" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="2709"/>
+            <point key="canvasLocation" x="1667" y="2709"/>
         </scene>
-        <!--ScanQR View Controller-->
+        <!--Scan QRCode-->
         <scene sceneID="YLu-wW-M2i">
             <objects>
                 <viewController storyboardIdentifier="scanQRViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O88-qi-Z5Q" customClass="ScanQRViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,13 +140,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Scan QRCode" id="T9K-ON-62O">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="VfJ-wf-YxY"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTP-5T-PuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-496" y="3378"/>
+            <point key="canvasLocation" x="143" y="3420"/>
         </scene>
-        <!--MyQR View Controller-->
+        <!--My QRCode-->
         <scene sceneID="byg-ow-P6T">
             <objects>
                 <viewController storyboardIdentifier="myQRViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="i1a-oh-ktc" customClass="MyQRViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,13 +170,16 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Oru-8D-Uq3" firstAttribute="centerX" secondItem="AkD-rx-nBd" secondAttribute="centerX" id="bZh-Ed-pbF"/>
                             <constraint firstItem="Oru-8D-Uq3" firstAttribute="centerY" secondItem="AkD-rx-nBd" secondAttribute="centerY" id="hos-o4-noZ"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="My QRCode" id="LlU-DB-1Tr">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="x1V-lY-xZm"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -181,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHa-wC-1wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-496" y="2709"/>
+            <point key="canvasLocation" x="143" y="2709"/>
         </scene>
         <!--Link Confirm View Controller-->
         <scene sceneID="jqW-d8-p9k">
@@ -200,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOd-4r-Hy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="2709"/>
+            <point key="canvasLocation" x="855" y="2709"/>
         </scene>
         <!--Profile-->
         <scene sceneID="vSP-VE-I9b">

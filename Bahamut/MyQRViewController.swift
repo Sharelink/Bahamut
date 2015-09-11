@@ -21,6 +21,11 @@ class MyQRViewController: UIViewController
         myQRImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showActionSheet:"))
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     func showActionSheet(_:UITapGestureRecognizer)
     {
         let alert = UIAlertController(title: "Save QRCode", message: nil, preferredStyle: .ActionSheet)

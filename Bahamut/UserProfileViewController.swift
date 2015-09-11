@@ -29,7 +29,7 @@ extension UserService
     }
 }
 
-class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIEditTextPropertyViewControllerDelegate
+class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate
 {
     @IBOutlet weak var tagCollectionView: UICollectionView!{
         didSet{
@@ -113,7 +113,60 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     @IBAction func editProfileVideo()
     {
-        
+        showEditProfileVideoActionSheet()
+    }
+    
+    private func showEditProfileVideoActionSheet()
+    {
+        let alert = UIAlertController(title: "Change Profile Video", message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Record A New Video", style: .Destructive) { _ in
+            self.recordVideo()
+            })
+        alert.addAction(UIAlertAction(title: "Select A Video From Album", style: .Destructive) { _ in
+            self.seleteVideo()
+            })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func recordVideo()
+    {
+        UICameraViewController.showCamera(self.navigationController!, delegate: self)
+    }
+    
+    func cameraCancelRecord(sender: UICameraViewController!)
+    {
+        view.makeToast(message: "Cancel")
+    }
+    
+    func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
+    {
+        let fileService = ServiceContainer.getService(FileService)
+        let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+        if fileService.moveFileTo(destination, destinationPath: newFilePath)
+        {
+            profileVideoView.filePath = newFilePath
+            self.view.makeToast(message: "Video Saved")
+        }else
+        {
+            self.view.makeToast(message: "Save Video Failed")
+        }
+    }
+    
+    private func seleteVideo()
+    {
+        let files = ServiceContainer.getService(FileService).getFileModelsOfFileLocalStore(FileType.Video)
+        ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files,selectionMode:.Single, delegate: self)
+    }
+    
+    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
+        let fileModel = itemModel as! UIFileCollectionCellModel
+        profileVideoView.filePath = fileModel.filePath
+    }
+    
+    func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
+        let fileModel = itemModel as! UIFileCollectionCellModel
+        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
     func updateEditVideoButton()

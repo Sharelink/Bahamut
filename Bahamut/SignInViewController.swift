@@ -35,16 +35,25 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         authenticate()
     }
     
-    @IBAction func cleardata(sender: AnyObject) {
-        PersistentManager.sharedInstance.clearAllFileManageData()
-        PersistentManager.sharedInstance.clearAllModelData()
-        PersistentManager.sharedInstance.clearCache()
+    
+    @IBAction func switchAuthUrl(sender: AnyObject)
+    {
+        if let s = sender as? UISwitch
+        {
+            if s.on
+            {
+                remoteHost = "http://192.168.0.168:8086"
+            }else
+            {
+                remoteHost = "http://192.168.0.67:8086"
+            }
+        }
     }
-    @IBAction func testLogin(sender: AnyObject) {
-        ShareLinkSDK.sharedInstance.reuse("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")
-        ServiceContainer.getService(AccountService).setLogined("147258", token: "asdfasdfads", shareLinkApiServer: "http://192.168.0.168:8086", fileApiServer: "http://192.168.0.168:8089")
-        signCallback()
-
+    
+    private var remoteHost:String = "http://192.168.0.67:8086"
+    
+    private var authenticationURL: String {
+        return "\(remoteHost)/Account/Login"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -128,7 +137,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     private func authenticate()
     {
         loginWebPageView.hidden = false
-        var url = "\(AccountService.authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
+        var url = "\(authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
         if let aId = loginAccountId
         {
             url = "\(url)&accountId=\(aId)"

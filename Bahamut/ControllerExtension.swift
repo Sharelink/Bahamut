@@ -20,6 +20,44 @@ extension UIViewController
     }
 }
 
+
+//TODO: complete this
+class ScreenLockProxy:NSObject
+{
+    var lockScreenLayer = UIView(){
+        didSet{
+            
+        }
+    }
+    
+    static let sharedInstance:ScreenLockProxy = {
+        return ScreenLockProxy()
+    }()
+    
+    func lockScreen()
+    {
+    }
+    
+    func unlockScreen()
+    {
+        
+    }
+    
+}
+
+extension UIViewController
+{
+    func lockScreen()
+    {
+        ScreenLockProxy.sharedInstance.lockScreen()
+    }
+    
+    func unlockScreen()
+    {
+        ScreenLockProxy.sharedInstance.unlockScreen()
+    }
+}
+
 @objc
 protocol OrientationsNavigationController
 {
