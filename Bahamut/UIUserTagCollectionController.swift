@@ -142,7 +142,7 @@ class UIUserTagCollectionController: UIResourceExplorerController,UIResourceExpl
     
     static func instanceFromStoryBoard() -> UIUserTagCollectionController
     {
-        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController") as! UIUserTagCollectionController
+        return instanceFromStoryBoard("Component", identifier: "userTagCollectionViewController") as! UIUserTagCollectionController
     }
 }
 

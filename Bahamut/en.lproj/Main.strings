@@ -1,0 +1,84 @@
+
+/* Class = "UINavigationItem"; title = "Linked Users"; ObjectID = "1Xh-re-5O4"; */
+"1Xh-re-5O4.title" = "Linked Users";
+
+/* Class = "UILabel"; text = "For Tags"; ObjectID = "3Ln-kB-EZl"; */
+"3Ln-kB-EZl.text" = "For Tags";
+
+/* Class = "UIButton"; normalTitle = "Refuse"; ObjectID = "4P4-HF-ZE7"; */
+"4P4-HF-ZE7.normalTitle" = "Refuse";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "B1L-wo-IgA"; */
+"B1L-wo-IgA.title" = "Back";
+
+/* Class = "UITabBarItem"; title = "ShareThings"; ObjectID = "CH4-Ed-A9Y"; */
+"CH4-Ed-A9Y.title" = "ShareThings";
+
+/* Class = "UINavigationItem"; title = "New Share"; ObjectID = "HYV-rK-sj8"; */
+"HYV-rK-sj8.title" = "New Share";
+
+/* Class = "UILabel"; text = "sharelinker ask for link"; ObjectID = "Idq-eK-5tu"; */
+"Idq-eK-5tu.text" = "sharelinker ask for link";
+
+/* Class = "UILabel"; text = "Sharelink Description"; ObjectID = "MeW-hK-2ok"; */
+"MeW-hK-2ok.text" = "Sharelink Description";
+
+/* Class = "UILabel"; text = "I Am A Sharelinker"; ObjectID = "PYT-Cs-ull"; */
+"PYT-Cs-ull.text" = "I Am A Sharelinker";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Rql-6R-BBA"; */
+"Rql-6R-BBA.title" = "Back";
+
+/* Class = "UIButton"; normalTitle = "Record"; ObjectID = "Th1-pD-gNq"; */
+"Th1-pD-gNq.normalTitle" = "Record";
+
+/* Class = "UILabel"; text = "👍周广杰"; ObjectID = "UWu-3l-Jzz"; */
+"UWu-3l-Jzz.text" = "👍周广杰";
+
+/* Class = "UITabBarItem"; title = "New"; ObjectID = "UuT-lE-eP1"; */
+"UuT-lE-eP1.title" = "New";
+
+/* Class = "UINavigationItem"; title = "Register"; ObjectID = "Wbf-zC-Spg"; */
+"Wbf-zC-Spg.title" = "Register";
+
+/* Class = "UILabel"; text = "Record A Video"; ObjectID = "dZ2-d5-OQp"; */
+"dZ2-d5-OQp.text" = "Record A Video";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "dtk-mP-E4X"; */
+"dtk-mP-E4X.normalTitle" = "0";
+
+/* Class = "UINavigationItem"; title = "Sharelink"; ObjectID = "h9g-2y-UZX"; */
+"h9g-2y-UZX.title" = "Sharelink";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "mdk-WE-azC"; */
+"mdk-WE-azC.title" = "Cancel";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "pqP-Jd-dcG"; */
+"pqP-Jd-dcG.title" = "Back";
+
+/* Class = "UILabel"; text = "This is the title of the share,^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"; ObjectID = "qbz-VV-XeC"; */
+"qbz-VV-XeC.text" = "This is the title of the share,^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+
+/* Class = "UIButton"; normalTitle = "Accept"; ObjectID = "tEG-RO-Wwy"; */
+"tEG-RO-Wwy.normalTitle" = "Accept";
+
+/* Class = "UILabel"; text = "2014年01月01日 上午11：53"; ObjectID = "tVH-H0-9bE"; */
+"tVH-H0-9bE.text" = "2014年01月01日 上午11：53";
+
+/* Class = "UITabBarItem"; title = "Linked Users"; ObjectID = "u3m-F6-p0L"; */
+"u3m-F6-p0L.title" = "Linked Users";
+
+/* Class = "UIBarButtonItem"; title = "Sign Up"; ObjectID = "v1g-BS-MIB"; */
+"v1g-BS-MIB.title" = "Sign Up";
+
+/* Class = "UILabel"; text = "NoteName"; ObjectID = "wQn-AD-BJA"; */
+"wQn-AD-BJA.text" = "NoteName";
+
+/* Class = "UINavigationItem"; title = "Sharelink"; ObjectID = "yKd-9L-X3Z"; */
+"yKd-9L-X3Z.title" = "Sharelink";
+
+/* Class = "UILabel"; text = "🔗周广杰"; ObjectID = "yRa-MO-7HR"; */
+"yRa-MO-7HR.text" = "🔗周广杰";
+
+/* Class = "UIButton"; normalTitle = "Refresh"; ObjectID = "ymX-0s-7rD"; */
+"ymX-0s-7rD.normalTitle" = "Refresh";

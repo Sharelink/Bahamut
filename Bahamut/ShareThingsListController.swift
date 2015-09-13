@@ -52,7 +52,7 @@ class ShareThingsListController: UITableViewController
         }
     }
     
-    @IBAction func logout(sender: AnyObject)
+    @IBAction func userSetting(sender:AnyObject)
     {
         let service = ServiceContainer.getService(AccountService)
         service.logout { (msg) -> Void in

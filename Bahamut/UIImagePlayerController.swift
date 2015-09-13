@@ -70,7 +70,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,FileFetcherDelegate
         self.setProgressValue(0)
         if image == nil
         {
-            self.imageView.image = UIImage(named: "defaultView")
+            refreshButton.hidden = false
             self.canScale = true
         }else
         {

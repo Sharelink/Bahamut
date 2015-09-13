@@ -40,6 +40,7 @@ class UIShareThing: UITableViewCell
     
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
+            headIconImageView.layer.cornerRadius = 3
             headIconImageView.userInteractionEnabled = true
             headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
         }
@@ -85,7 +86,26 @@ class UIShareThing: UITableViewCell
     
     @IBAction func shareToFriends()
     {
-        ServiceContainer.getService(ShareService).showReshareViewController(self.rootController.navigationController!, reShareModel: shareThingModel)
+        let alert = UIAlertController(title: "Share To Your Linkers", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Share", style: UIAlertActionStyle.Default){ aa in
+            let textField = alert.textFields?.first
+            self.reshare(textField?.text ?? nil)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Say something to your linkers"
+        }
+    }
+    
+    private func cancelShare()
+    {
+        
+    }
+    
+    private func reshare(message:String! = nil)
+    {
+        let shareService = ServiceContainer.getService(ShareService)
+        shareService.reshare(self.shareThingModel.shareId, message: message)
     }
     
     @IBAction func reply()
@@ -141,10 +161,6 @@ extension ShareThing
     
     var notReadReply:UInt32{
         return ServiceContainer.getService(ReplyService).getShareIdNotReadMessageCount(self.shareId)
-    }
-    
-    var reShareThings:[ShareThing]{
-        return ServiceContainer.getService(ShareService).getReShareThingsOfShareThing(self)
     }
     
     var userVotesDetail:String{

@@ -68,7 +68,10 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {
-        userService.showMyQRViewController(self.navigationController!, avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.headIconId))
+        if let sharelinkUserId = userService.myUserId
+        {
+            userService.showMyQRViewController(self.navigationController!,sharelinkUserId: sharelinkUserId ,avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.headIconId))
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int

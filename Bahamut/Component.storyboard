@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -265,7 +265,7 @@
         <!--UserTags-->
         <scene sceneID="ypL-1e-3PJ">
             <objects>
-                <viewController storyboardIdentifier="tagCollectionViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UIUserTagCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userTagCollectionViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UIUserTagCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oi3-Hp-7ne"/>
                         <viewControllerLayoutGuide type="bottom" id="lj8-Fi-0wH"/>
@@ -524,8 +524,67 @@
             </objects>
             <point key="canvasLocation" x="-126" y="3003"/>
         </scene>
+        <!--Tag Collection View Controller-->
+        <scene sceneID="7He-ch-jYu">
+            <objects>
+                <collectionViewController storyboardIdentifier="tagCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="UITagCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Uu-gp-KIX">
+                            <size key="itemSize" width="94" height="30"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="Qqg-UF-Fid">
+                                <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
+                                            <rect key="frame" x="16" y="9" width="27" height="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bullet-blue" translatesAutoresizingMaskIntoConstraints="NO" id="Hng-t9-MHb">
+                                            <rect key="frame" x="0.0" y="7" width="16" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="96b-iR-gy5"/>
+                                                <constraint firstAttribute="width" constant="16" id="x3p-3R-xkm"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="Hng-t9-MHb" firstAttribute="centerY" secondItem="Qqg-UF-Fid" secondAttribute="centerY" id="1aV-gW-U6H"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="Hng-t9-MHb" secondAttribute="leading" constant="8" id="PlR-lI-5Pg"/>
+                                    <constraint firstItem="zj1-Jx-KxB" firstAttribute="leading" secondItem="Hng-t9-MHb" secondAttribute="trailing" id="QiX-pW-qsy"/>
+                                    <constraint firstItem="zj1-Jx-KxB" firstAttribute="centerY" secondItem="Qqg-UF-Fid" secondAttribute="centerY" id="kOd-fe-SSK"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="YBx-pe-9kd" id="H6T-IG-F8c"/>
+                            <outlet property="delegate" destination="YBx-pe-9kd" id="4ME-aG-yhl"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="WJT-rI-KUy"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yeX-By-uUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="566" y="3003"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="bullet-blue" width="24" height="24"/>
         <image name="check" width="512" height="512"/>
         <image name="plasmid" width="512" height="512"/>
     </resources>

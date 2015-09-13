@@ -45,12 +45,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate
                 remoteHost = "http://192.168.0.168:8086"
             }else
             {
-                remoteHost = "http://192.168.0.67:8086"
+                remoteHost = "http://192.168.1.67:8086"
             }
         }
     }
     
-    private var remoteHost:String = "http://192.168.0.67:8086"
+    private var remoteHost:String = "http://192.168.1.67:8086"
     
     private var authenticationURL: String {
         return "\(remoteHost)/Account/Login"
@@ -99,7 +99,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         }
         let accountId = dict["AccountID"]
         let accessToken = dict["AccessToken"]
-        let apiServer = dict["APITokenServer"]
+        let apiServer = dict["AppServiceUrl"]
         if accountId != nil && accessToken != nil && apiServer != nil
         {
             webView.stopLoading()

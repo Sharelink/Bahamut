@@ -10,7 +10,6 @@ import UIKit
 
 extension UIViewController
 {
-    
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         for sv in view.subviews

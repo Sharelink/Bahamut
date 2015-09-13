@@ -23,7 +23,7 @@ extension ShareService
     }
 }
 
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate ,UICollectionViewDataSource,UICollectionViewDelegate{
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +41,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareDescriptionTextArea: UITextView!{
         didSet{
+            shareDescriptionTextArea.layer.cornerRadius = 7
             shareDescriptionTextArea.delegate = self
         }
     }
@@ -57,32 +58,19 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    @IBOutlet weak var userTagCollectionView: UICollectionView!{
+    var selectTagCollectionViewController:UITagCollectionViewController!
+    @IBOutlet weak var tagCollectionViewContainer: UIView!{
         didSet{
-            userTagCollectionView.delegate = self
-            userTagCollectionView.dataSource = self
-            userTagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
+            tagCollectionViewContainer.layer.cornerRadius = 7
+            selectTagCollectionViewController  = UITagCollectionViewController.instanceFromStoryBoard()
+            tagCollectionViewContainer.addSubview(selectTagCollectionViewController.view)
+            self.addChildViewController(selectTagCollectionViewController)
         }
     }
     
-    var selectedTags:[SharelinkTag] = [SharelinkTag]()
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
-    {
-        let identifier: String = "UserTagCell"
-        let tag = selectedTags[indexPath.row]
-        let tagColor = UIColor(hexString: tag.tagColor)
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-        let label = UILabel()
-        label.text = tag.tagName
-        label.textColor = tagColor
-        cell.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        label.addSubview(label)
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shareThingModel.forTags?.count ?? 0
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        selectTagCollectionViewController.view.frame = tagCollectionViewContainer.bounds
     }
     
     var shareThingModel:ShareThing!{
@@ -94,27 +82,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    func selectUserTag(_:UITapGestureRecognizer)
-    {
-        let userService = ServiceContainer.getService(UserService)
-        let userTagService = ServiceContainer.getService(UserTagService)
-        let allTags = userTagService.getMyAllTags()
-        let setAllTags = Set<SharelinkTag>(allTags)
-        if shareThingModel.forTags == nil
-        {
-            selectedTags = [SharelinkTag]()
-        }
-        let notSeletedTags = setAllTags.subtract(selectedTags).map{return $0}
-        let seletedTagModels = userService.getUserTagsResourceItemModels(selectedTags,selected: true)
-        let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags)
-        
-        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Multiple){ tagsSelected -> Void in
-            let result = tagsSelected.map{return $0.tagModel!}
-            self.selectedTags = result
-            self.userTagCollectionView.reloadData()
-        }
-        
-    }
     
     func textViewDidChange(textView: UITextView) {
         shareThingModel.title = textView.text

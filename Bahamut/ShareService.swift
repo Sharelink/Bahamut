@@ -260,33 +260,9 @@ class ShareService: ServiceProtocol
         return oldValues
     }
     
-    func getReShareThingsOfShareThing(shareThing:ShareThing,updatedCallback:((haveChange:Bool,newValues:[ShareThing]!)->Void)! = nil) -> [ShareThing]
+    func reshare(shareId:String,message:String!)
     {
-        let oldValues = [ShareThing]()
-        //TODO: read from cache
         
-        //Access Network
-        let req = GetReShareThingsRequest()
-        req.page = 0
-        req.pageCount = 0
-        req.shareId = shareThing.shareId
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) ->Void in
-            var modified:Bool = true
-            var newValues:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.NotModified
-            {
-                modified = false
-            }else if result.statusCode == ReturnCode.OK
-            {
-                newValues = result.returnObject ?? nil
-                ShareLinkObject.saveObjectOfArray(newValues)
-            }
-            if let update = updatedCallback
-            {
-                update(haveChange: modified, newValues: newValues)
-            }
-        }
-        return oldValues
     }
     
     func postNewShare(newShare:ShareThing,callback:(isSuc:Bool)->Void)
