@@ -23,15 +23,20 @@ extension ShareService
     }
 }
 
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate {
-
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate
+{
+    static let tagsLimit = 7
     override func viewDidLoad() {
         super.viewDidLoad()
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
         }
-        lockScreen()
+        registerForKeyboardNotifications()
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,6 +51,22 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    @IBOutlet weak var scrollView: UIScrollView!{
+        didSet{
+            scrollView.userInteractionEnabled = true
+            scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKBoard:"))
+        }
+    }
+    
+    func hideKBoard(_:UITapGestureRecognizer)
+    {
+        if activeTextField != nil
+        {
+            activeTextField.resignFirstResponder()
+        }
+        hideKeyBoard()
+    }
+    
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
             shareContentContainer.mediaPlayer.fileFetcher = FilePathFileFetcher()
@@ -58,20 +79,134 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    var selectTagCollectionViewController:UITagCollectionViewController!
-    @IBOutlet weak var tagCollectionViewContainer: UIView!{
+    var myTagController:UITagCollectionViewController!{
         didSet{
-            tagCollectionViewContainer.layer.cornerRadius = 7
-            selectTagCollectionViewController  = UITagCollectionViewController.instanceFromStoryBoard()
-            tagCollectionViewContainer.addSubview(selectTagCollectionViewController.view)
-            self.addChildViewController(selectTagCollectionViewController)
+            myTagController.delegate = self
+            self.addChildViewController(myTagController)
+        }
+    }
+    @IBOutlet weak var myTagCollectionViewContainer: UIView!{
+        didSet{
+            myTagCollectionViewContainer.layer.cornerRadius = 7
+            myTagController = UITagCollectionViewController.instanceFromStoryBoard()
+            myTagCollectionViewContainer.addSubview(myTagController.view)
+        }
+    }
+    
+    
+    var selectedTagController:UITagCollectionViewController!{
+        didSet{
+            selectedTagController.delegate = self
+            self.addChildViewController(selectedTagController)
+        }
+    }
+    @IBOutlet weak var selectedTagViewContainer: UIView!{
+        didSet{
+            selectedTagViewContainer.layer.cornerRadius = 7
+            selectedTagController  = UITagCollectionViewController.instanceFromStoryBoard()
+            selectedTagViewContainer.addSubview(selectedTagController.view)
         }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        selectTagCollectionViewController.view.frame = tagCollectionViewContainer.bounds
+        selectedTagController.view.frame = selectedTagViewContainer.bounds
+        myTagController.view.frame = myTagCollectionViewContainer.bounds
     }
+    
+    @IBOutlet weak var newTagNameTextfield: UITextField!{
+        didSet{
+            newTagNameTextfield.delegate = self
+        }
+    }
+    @IBAction func addTag()
+    {
+        if selectedTagController.tags != nil && selectedTagController.tags.count >= NewShareViewController.tagsLimit
+        {
+            view.makeToast(message: "can't not add more tags")
+            return
+        }
+        if let newTagName = newTagNameTextfield.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        {
+            if !newTagName.isEmpty
+            {
+                let newTag = UITagCellModel()
+                newTag.tagColor = UIColor(hex: arc4random()).toHexString()
+                newTag.tagName = newTagName
+                newTagNameTextfield.text = nil
+                if !selectedTagController.addTag(newTag)
+                {
+                    self.view.makeToast(message: "tags has been ready")
+                }
+                newTagNameTextfield.becomeFirstResponder()
+                return
+            }
+        }
+        view.makeToast(message: "tag can't be white space")
+        newTagNameTextfield.becomeFirstResponder()
+        
+    }
+    
+    func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
+    {
+        if sender == myTagController
+        {
+            let tag = myTagController.tags[indexPath.row]
+            if !selectedTagController.addTag(tag)
+            {
+                self.view.makeToast(message: "tags has been ready")
+            }
+        }else if sender == selectedTagController
+        {
+            sender.removeTag(indexPath)
+        }
+    }
+    
+    var activeTextField:UIView!
+    
+    func registerForKeyboardNotifications()
+    {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWasShown(aNotification:NSNotification)
+    {
+        let info = aNotification.userInfo
+        if let kbSize = info![UIKeyboardFrameBeginUserInfoKey]!.CGRectValue
+        {
+            let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.size.height, 0.0)
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+            
+            var aRect = view.frame
+            aRect.size.height -= kbSize.size.height
+            if !CGRectContainsPoint(aRect, self.activeTextField.frame.origin)
+            {
+                let scrollPoint = CGPointMake(0.0, activeTextField.frame.origin.y - kbSize.size.height + activeTextField.bounds.height)
+                scrollView.setContentOffset(scrollPoint, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(aNotification:NSNotification)
+    {
+        let contentInsets = UIEdgeInsetsZero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeTextField = textField
+        
+    }
+    
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        activeTextField = nil
+    }
+
     
     var shareThingModel:ShareThing!{
         didSet{
@@ -82,6 +217,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    func textViewDidBeginEditing(textView: UITextView) {
+        activeTextField = textView
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        
+        activeTextField = nil
+    }
     
     func textViewDidChange(textView: UITextView) {
         shareThingModel.title = textView.text
@@ -205,7 +348,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                         self.view.hideToastActivity()
                         if isSuc
                         {
-                            
+                            self.view.makeToast(message: "Post New Share Failed")
                         }else
                         {
                             self.view.makeToast(message: "Post New Share Failed")

@@ -186,6 +186,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
                 {
                     videoFileSaveTo(self,destination: videoSavedPath)
                 }
+                
                 self.navigationController?.popViewControllerAnimated(true)
             }else
             {

@@ -9,33 +9,57 @@
 import Foundation
 import UIKit
 
-class UITagCellModel
+class UITagCellModel :SharelinkTag
 {
-    var tagColor:String!
-    var tagName:String!
 }
 
+@objc
 protocol UITagCollectionViewControllerDelegate
 {
-    
+    optional func tagDidTap(sender:UITagCollectionViewController,indexPath:NSIndexPath)
 }
 
 class UITagCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
 {
-    var tags:[UITagCellModel]!
+    var tags:[UITagCellModel]!{
+        didSet{
+            if collectionView != nil
+            {
+                collectionView?.reloadData()
+            }
+        }
+        
+    }
+    
+    var delegate:UITagCollectionViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tags = [UITagCellModel]()
-        let tag = UITagCellModel()
-        tag.tagColor = UIColor.redColor().toHexString()
-        tag.tagName = "hahahahah"
-        tags.append(tag)
-        
-        let tag2 = UITagCellModel()
-        tag2.tagColor = UIColor.redColor().toHexString()
-        tag2.tagName = "hahah"
-        tags.append(tag2)
+        collectionView?.delegate = self
+        collectionView?.reloadData()
+    }
+    
+    func addTag(tagModel:UITagCellModel)->Bool
+    {
+        if tags == nil
+        {
+            tags = [UITagCellModel]()
+        }
+        let exists = tags.contains{$0.tagName == tagModel.tagName || ($0.tagId != nil && $0.tagId == tagModel.tagId)}
+        if exists
+        {
+            return false
+        }else
+        {
+            tags.append(tagModel)
+            collectionView?.reloadData()
+            return true
+        }
+    }
+    
+    func removeTag(indexPath:NSIndexPath)
+    {
+        tags.removeAtIndex(indexPath.row)
         collectionView?.reloadData()
     }
     
@@ -48,26 +72,40 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
             label.text = tags[indexPath.row].tagName
             label.textColor = color
         }
+        
+        //Redraw
         let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.BottomLeft , .TopLeft], cornerRadii: CGSizeMake(23.0, 23.0))
         
         let maskLayer = CAShapeLayer()
         maskLayer.frame = cell.bounds
         maskLayer.path = path.CGPath
         cell.layer.mask = maskLayer
-        let maskBorderLayer = CAShapeLayer(layer: cell.layer)
-        maskBorderLayer.path = maskLayer.path
-        maskBorderLayer.fillColor = UIColor.clearColor().CGColor
-        maskBorderLayer.strokeColor = color.CGColor
-        maskBorderLayer.lineWidth = 2
-        cell.layer.addSublayer(maskBorderLayer)
-        
         cell.setNeedsLayout()
         cell.setNeedsDisplay()
         return cell
     }
     
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        if let tapHandler = delegate.tagDidTap
+        {
+            tapHandler(self, indexPath: indexPath)
+        }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let tapHandler = delegate.tagDidTap
+        {
+            tapHandler(self, indexPath: indexPath)
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
+        if tags == nil
+        {
+            return 0
+        }
         return tags.count
     }
     
@@ -75,15 +113,19 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsetsMake(7, 7, 7, 7);
+        return UIEdgeInsetsMake(3, 3, 3, 3);
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         let uifont = UIFont.systemFontOfSize(10.0)
-        var size = NSString(string: tags[indexPath.row].tagName).sizeWithAttributes([NSFontAttributeName : uifont])
-        size.width += 23.0
-        size.height += 7.0
+        let tagName = tags[indexPath.row].tagName
+        let label = UILabel()
+        label.text = tagName
+        label.font = uifont
+        label.sizeToFit()
+        var size = label.bounds.size
+        size.width += 23
         return size
     }
     

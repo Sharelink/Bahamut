@@ -21,6 +21,7 @@ class UIUserListCell: UITableViewCell
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
+            headIconImageView.layer.cornerRadius = 3.0
             headIconImageView.userInteractionEnabled = true
             headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
         }

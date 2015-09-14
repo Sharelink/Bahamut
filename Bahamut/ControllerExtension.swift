@@ -10,8 +10,14 @@ import UIKit
 
 extension UIViewController
 {
+    
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
+        hideKeyBoard()
+    }
+    
+    func hideKeyBoard()
+    {
         for sv in view.subviews
         {
             sv.resignFirstResponder()

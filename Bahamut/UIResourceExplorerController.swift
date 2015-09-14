@@ -128,6 +128,11 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         editing = !editing
     }
     
+    override func viewWillDisappear(animated: Bool)
+    {
+        navigationController?.setToolbarHidden(true, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView = getCollectionView()

@@ -29,16 +29,9 @@ extension UserService
     }
 }
 
-class UserProfileViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate
+class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate
 {
-    @IBOutlet weak var tagCollectionView: UICollectionView!{
-        didSet{
-            tagCollectionView.dataSource = self
-            tagCollectionView.delegate = self
-            tagCollectionView.autoresizesSubviews = true
-            tagCollectionView.reloadData()
-        }
-    }
+
     private var profileVideoView:ShareLinkFilmView!{
         didSet{
             profileVideoViewContainer.addSubview(profileVideoView)
@@ -54,6 +47,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
+            headIconImageView.layer.cornerRadius = 3
             headIconImageView.userInteractionEnabled = true
         }
     }
@@ -100,11 +94,54 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         }
     }
     
+    var focusTagController:UITagCollectionViewController!{
+        didSet{
+            self.addChildViewController(focusTagController)
+            focusTagController.delegate = self
+        }
+    }
+    
+    func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
+    {
+        if sender == focusTagController
+        {
+            showConfirmAddTagAlert(sender.tags[indexPath.row])
+        }
+    }
+    
+    func showConfirmAddTagAlert(tag:UITagCellModel)
+    {
+        let alert = UIAlertController(title: "I'm interest in \(tag.tagName)", message: "Are your sure to focus this tag?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes!", style: .Default){ _ in
+            self.addThisTapToMyFocus(tag)
+        })
+        alert.addAction(UIAlertAction(title: "Ummm!", style: .Cancel){ _ in
+            self.cancelAddTap(tag)
+        })
+    }
+    
+    func cancelAddTap(tag:UITagCellModel)
+    {
+        
+    }
+    
+    func addThisTapToMyFocus(tag:UITagCellModel)
+    {
+        
+    }
+    
+    @IBOutlet weak var focusTagViewContainer: UIView!{
+        didSet{
+            focusTagViewContainer.layer.cornerRadius = 7
+            focusTagController = UITagCollectionViewController.instanceFromStoryBoard()
+            focusTagViewContainer.addSubview(focusTagController.view)
+            
+        }
+    }
     func bindTapActions()
     {
         if isMyProfile
         {
-            tagCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectUserTag:"))
             userNickNameLabelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editNickName:"))
             userSignTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editSignText:"))
         }
@@ -180,7 +217,6 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
         userSignTextView.text = userProfileModel.signText
         updateHeadIcon()
         updatePersonalFilm()
-        tagCollectionView.reloadData()
     }
     
     func updatePersonalFilm()
@@ -206,25 +242,7 @@ class UserProfileViewController: UIViewController,UICollectionViewDataSource,UIC
     //MARK: user tag
     var tags:[SharelinkTag]!{
         didSet{
-            if tagCollectionView != nil
-            {
-                tagCollectionView.reloadData()
-            }
         }
-    }
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags?.count ?? 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return CGFloat(4)
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let identifier: String = "UserTagCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! UserTagCell
-        cell.model = tags[indexPath.row]
-        return cell
     }
     
     func editNickName(_:UITapGestureRecognizer)
