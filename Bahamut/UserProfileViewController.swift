@@ -127,7 +127,14 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func addThisTapToMyFocus(tag:UITagCellModel)
     {
-        
+        let tagService = ServiceContainer.getService(SharelinkTagService)
+        let newTag = SharelinkTag()
+        newTag.tagName = tag.tagName
+        newTag.tagColor = tag.tagColor
+        newTag.isFocus = "\(true)"
+        tagService.addSharelinkTag(newTag) { () -> Void in
+            
+        }
     }
     
     @IBOutlet weak var focusTagViewContainer: UIView!{
@@ -138,13 +145,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             
         }
     }
+    
     func bindTapActions()
     {
-        if isMyProfile
-        {
-            userNickNameLabelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editNickName:"))
-            userSignTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "editSignText:"))
-        }
         headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "headIconTapped:"))
     }
     
@@ -213,6 +216,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func update()
     {
+        self.navigationItem.title = userProfileModel.nickName
         userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
         userSignTextView.text = userProfileModel.signText
         updateHeadIcon()
@@ -245,14 +249,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    func editNickName(_:UITapGestureRecognizer)
+    @IBAction func editNoteName()
     {
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "nick", propertyValue: self.userProfileModel.nickName, propertyLabel: "NickName", title: "Nick", delegate: self)
-    }
-    
-    func editSignText(_:UITapGestureRecognizer)
-    {
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "signtext", propertyValue: self.userProfileModel.signText, propertyLabel: "Sign Text", title: "Sign Text", delegate: self)
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "note", propertyValue: self.userProfileModel.noteName, propertyLabel: "NoteName", title: "NoteNoteName", delegate: self)
     }
     
     func headIconTapped(_:UITapGestureRecognizer)
@@ -264,31 +263,13 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     func editPropertySave(propertyId: String!, newValue: String!)
     {
         let userService = ServiceContainer.getService(UserService)
-        if propertyId == "signtext"
+        if propertyId == "note"
         {
             self.view.makeToastActivityWithMessage(message: "Updating")
-            userService.setProfileNick(newValue, setProfileCallback: { (isSuc, msg) -> Void in
+            userService.setUserNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
                 self.view.hideToastActivity()
-            })
-        }else if propertyId == "nick"
-        {
-            self.view.makeToastActivityWithMessage(message: "Updating")
-            userService.setProfileNick(newValue, setProfileCallback: { (isSuc, msg) -> Void in
-                self.view.hideToastActivity()
-            })
+            }
         }
-    }
-    
-    func selectUserTag(_:UITapGestureRecognizer)
-    {
-        let userService = ServiceContainer.getService(UserService)
-        let userTagService = ServiceContainer.getService(UserTagService)
-        let allTags = userTagService.getMyAllTags()
-        let setAllTags = Set<SharelinkTag>(allTags)
-        let notSeletedTags = setAllTags.subtract(tags).map{return $0}
-        let seletedTagModels = userService.getUserTagsResourceItemModels(tags,selected: true) as! [UISharelinkTagItemModel]
-        let notSeletedTagModels = userService.getUserTagsResourceItemModels(notSeletedTags) as! [UISharelinkTagItemModel]
-        userService.showTagCollectionControllerView(self.navigationController!, tags: seletedTagModels + notSeletedTagModels, selectionMode: ResourceExplorerSelectMode.Negative)
     }
     
     static func instanceFromStoryBoard() -> UserProfileViewController

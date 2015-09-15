@@ -152,6 +152,11 @@ class UserService: ServiceProtocol
         return getUsers(userIds)
     }
     
+    func setUserNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        
+    }
+    
     func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
     {
         let req = UpdateShareLinkUserProfileNickNameRequest()

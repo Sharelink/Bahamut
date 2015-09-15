@@ -45,12 +45,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate
                 remoteHost = "http://192.168.0.168:8086"
             }else
             {
-                remoteHost = "http://192.168.1.67:8086"
+                remoteHost = "http://192.168.0.67:8086"
             }
         }
     }
     
-    private var remoteHost:String = "http://192.168.1.67:8086"
+    private var remoteHost:String = "http://192.168.0.67:8086"
     
     private var authenticationURL: String {
         return "\(remoteHost)/Account/Login"

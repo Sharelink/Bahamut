@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -218,11 +218,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDk-8s-IJv">
-                                <rect key="frame" x="30" y="38" width="48" height="48"/>
+                                <rect key="frame" x="23" y="31" width="63" height="63"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="JEh-UC-8lL"/>
-                                    <constraint firstAttribute="width" constant="48" id="UvY-33-C9p"/>
+                                    <constraint firstAttribute="height" constant="63" id="JEh-UC-8lL"/>
+                                    <constraint firstAttribute="width" constant="63" id="UvY-33-C9p"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -251,21 +251,22 @@
                             </mask>
                         </variation>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="107" height="107"/>
                     <connections>
                         <outlet property="buttonInteractionView" destination="GDk-8s-IJv" id="rFc-Hr-s9h"/>
                         <outlet property="recordProgress" destination="jdl-gP-Ecx" id="OB1-Th-YRX"/>
                         <outlet property="tipsLabel" destination="o8V-8b-8WC" id="nAx-Re-Deh"/>
-                        <outlet property="tipsLabelTextField" destination="o8V-8b-8WC" id="8v1-N7-Dbz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DXw-LD-3dm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242.5" y="2165.5"/>
         </scene>
-        <!--UserTags-->
+        <!--MyTags-->
         <scene sceneID="ypL-1e-3PJ">
             <objects>
-                <viewController storyboardIdentifier="userTagCollectionViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UIUserTagCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UITagExplorerController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UIUserTagCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oi3-Hp-7ne"/>
                         <viewControllerLayoutGuide type="bottom" id="lj8-Fi-0wH"/>
@@ -291,27 +292,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="dYC-ub-gJ4">
-                                                    <rect key="frame" x="48" y="0.0" width="16" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="feB-1q-61P"/>
-                                                        <constraint firstAttribute="height" constant="16" id="uMJ-gg-JdM"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDk-yz-k33">
-                                                    <rect key="frame" x="11" y="43" width="42" height="21"/>
+                                                    <rect key="frame" x="11" y="21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="dYC-ub-gJ4">
+                                                    <rect key="frame" x="24" y="24" width="16" height="16"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="4vC-Fe-ekV"/>
-                                            <constraint firstAttribute="bottom" secondItem="DDk-yz-k33" secondAttribute="bottom" id="chJ-GT-A3w"/>
-                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="top" secondItem="Asb-zM-XqL" secondAttribute="topMargin" constant="-8" id="v1k-uU-aMF"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="dYC-ub-gJ4" secondAttribute="trailing" constant="-8" id="wxb-hW-9zt"/>
+                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="centerX" secondItem="DDk-yz-k33" secondAttribute="centerX" id="9Jp-JO-ToU"/>
+                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="centerY" secondItem="DDk-yz-k33" secondAttribute="centerY" id="G7a-sg-sMV"/>
+                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="top" secondItem="Asb-zM-XqL" secondAttribute="topMargin" constant="16" id="XaD-g9-Tbg"/>
+                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerY" secondItem="Asb-zM-XqL" secondAttribute="centerY" id="YUo-8h-Hbj"/>
+                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="kuR-PF-eYt"/>
+                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="leading" secondItem="Asb-zM-XqL" secondAttribute="leadingMargin" constant="16" id="qAm-ac-LoK"/>
                                         </constraints>
                                         <size key="customSize" width="64" height="64"/>
                                         <connections>
@@ -336,7 +335,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="UserTags" id="dvA-mC-VAc">
+                    <navigationItem key="navigationItem" title="MyTags" id="dvA-mC-VAc">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Lsz-Sq-Zoi"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="9xl-wz-i4J">
@@ -392,14 +391,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3L9-yK-RJY">
+                                <rect key="frame" x="531" y="113" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Focus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAV-1m-gT7">
+                                <rect key="frame" x="20" y="118" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QuQ-kw-jNH" firstAttribute="baseline" secondItem="SHm-L5-AW1" secondAttribute="baseline" id="DNY-mB-cBO"/>
+                            <constraint firstItem="3L9-yK-RJY" firstAttribute="trailing" secondItem="pGE-lU-gk1" secondAttribute="trailing" id="Qey-9x-yk2"/>
                             <constraint firstItem="SHm-L5-AW1" firstAttribute="top" secondItem="hLQ-Zp-lIf" secondAttribute="bottom" constant="14" id="Rl2-FZ-gUh"/>
+                            <constraint firstItem="JAV-1m-gT7" firstAttribute="top" secondItem="SHm-L5-AW1" secondAttribute="bottom" constant="19" id="WL6-EY-aSf"/>
+                            <constraint firstItem="JAV-1m-gT7" firstAttribute="leading" secondItem="SHm-L5-AW1" secondAttribute="leading" id="Xin-pW-CWQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pGE-lU-gk1" secondAttribute="trailing" id="fSl-tf-9rw"/>
                             <constraint firstItem="QuQ-kw-jNH" firstAttribute="leading" secondItem="SHm-L5-AW1" secondAttribute="trailing" constant="8" symbolic="YES" id="kHQ-fM-OCZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QuQ-kw-jNH" secondAttribute="trailing" id="khk-Kb-wKy"/>
+                            <constraint firstItem="3L9-yK-RJY" firstAttribute="top" secondItem="pGE-lU-gk1" secondAttribute="bottom" constant="9" id="lbm-vE-DVi"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SHm-L5-AW1" secondAttribute="leading" id="qvT-BX-3pK"/>
                             <constraint firstItem="pGE-lU-gk1" firstAttribute="top" secondItem="hLQ-Zp-lIf" secondAttribute="bottom" constant="8" symbolic="YES" id="vS0-iv-oCP"/>
                             <constraint firstItem="pGE-lU-gk1" firstAttribute="leading" secondItem="QuQ-kw-jNH" secondAttribute="trailing" constant="8" symbolic="YES" id="zGZ-5z-EbL"/>
@@ -422,6 +434,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="focusSwitch" destination="3L9-yK-RJY" id="npM-HH-Jm1"/>
                         <outlet property="tagColorView" destination="pGE-lU-gk1" id="0Ls-cc-Hnc"/>
                         <outlet property="tagNameLabel" destination="QuQ-kw-jNH" id="YFN-zO-iqP"/>
                     </connections>

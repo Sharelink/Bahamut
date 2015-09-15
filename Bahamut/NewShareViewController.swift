@@ -32,10 +32,15 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             shareThingModel = ShareThing()
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         registerForKeyboardNotifications()
     }
     
-    deinit{
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

@@ -17,6 +17,6 @@ struct ServiceConfig
         ShareService.ServiceName:ShareService(),
         UserService.ServiceName:UserService(),
         FileService.ServiceName:FileService(),
-        UserTagService.ServiceName:UserTagService()
+        SharelinkTagService.ServiceName:SharelinkTagService()
     ]
 }

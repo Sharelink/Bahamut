@@ -13,6 +13,7 @@ class ShareThingsListController: UITableViewController
     struct Constants
     {
         static let ShareThingIdentifier = "ShareThing"
+        static let NetworkErrorCellIdentifier = "networkErrorCell"
     }
     
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class ShareThingsListController: UITableViewController
         refresh(self.refreshControl!)
     }
     
+    var isNetworkError:Bool = false
     var shareService = ServiceContainer.getService(ShareService)
     var shareThings:[[ShareThing]] = [[ShareThing]]()
     
@@ -98,15 +100,24 @@ class ShareThingsListController: UITableViewController
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return shareThings.count
+        return isNetworkError ? shareThings.count + 1 : shareThings.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        if isNetworkError
+        {
+            return section == 0 ? 1 :  shareThings[section + 1].count
+        }
         return shareThings[section].count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if isNetworkError && indexPath.section == 0
+        {
+            let errorCell = tableView.dequeueReusableCellWithIdentifier(Constants.NetworkErrorCellIdentifier, forIndexPath: indexPath)
+            return errorCell
+        }
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ShareThingIdentifier, forIndexPath: indexPath)
         let shareThing = shareThings[indexPath.section][indexPath.row] as ShareThing
         if let shareThingUI = cell as? UIShareThing

@@ -115,7 +115,7 @@ class UIShareThing: UITableViewCell
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        let userTags = ServiceContainer.getService(UserTagService).getAUsersTags(shareThingModel.userId)
+        let userTags = ServiceContainer.getService(SharelinkTagService).getAUsersTags(shareThingModel.userId)
         ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId,userTags: userTags)
     }
 

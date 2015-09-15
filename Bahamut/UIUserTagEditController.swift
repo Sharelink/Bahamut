@@ -41,6 +41,10 @@ class UIUserTagEditController: UIViewController
             update()
         }
     }
+    
+    
+    @IBOutlet weak var focusSwitch: UISwitch!
+    
     @IBOutlet weak var tagColorView: UIView!{
         didSet{
             tagColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectColor:"))
@@ -77,6 +81,7 @@ class UIUserTagEditController: UIViewController
     {
         tagModel.tagModel.tagName = tagNameLabel.text
         tagModel.tagModel.tagColor = tagColorView.backgroundColor?.toHexString()
+        tagModel.tagModel.isFocus = "\(focusSwitch.on)"
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)

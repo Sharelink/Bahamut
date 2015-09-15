@@ -41,7 +41,11 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     var recordTimer:NSTimer!
     var delegate:UICameraViewControllerDelegate!
     private var videoSavedPath:String!
-    @IBOutlet weak var recordButton: UIView!
+    @IBOutlet weak var recordButton: UIView!{
+        didSet{
+            recordButton.frame = CGRectMake(0, 0, 107, 107)
+        }
+    }
     private var recordButtonController:UIRecordButtonController!
     
     override func viewDidLoad() {
@@ -71,11 +75,35 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     func initRecordButton()
     {
         recordButtonController = self.childViewControllers.filter { $0 is UIRecordButtonController}.first as! UIRecordButtonController
-        recordButtonController.didMoveToParentViewController(self)
+        recordButtonController.removeFromParentViewController()
         let moveRecorgnizer = UIPanGestureRecognizer(target: self, action: "moveRecordButton:")
         recordButton.addGestureRecognizer(moveRecorgnizer)
+        recordButtonController.buttonInteractionView.userInteractionEnabled = true
+        let longPressTapRecorgnizer = UILongPressGestureRecognizer(target: self, action: "longPressRecordButton:")
+        recordButtonController.buttonInteractionView.addGestureRecognizer(longPressTapRecorgnizer)
         self.view.bringSubviewToFront(recordButton)
         recordButtonController.progressValue = 0
+    }
+    
+    func longPressRecordButton(recognizer:UILongPressGestureRecognizer)
+    {
+        switch recognizer.state
+        {
+        case .Began:startOrResumeRecord()
+        recordButtonController.tipsLabel.hidden = true
+        case .Cancelled:fallthrough
+        case .Ended:fallthrough
+        case .Failed:pauseRecord()
+        recordButtonController.tipsLabel.hidden = false
+        default:break
+        }
+    }
+    
+    func moveRecordButton(recognizer:UIPanGestureRecognizer)
+    {
+        let point = recognizer.translationInView(self.view)
+        recordButton.center = CGPointMake((recognizer.view?.center.x)! + point.x, (recognizer.view?.center.y)! + point.y)
+        recognizer.setTranslation(CGPointMake(0, 0), inView: self.view)
     }
     
     func startTimer()
@@ -101,13 +129,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     {
         PBJVision.sharedInstance().endVideoCapture()
     }
-    
-    func moveRecordButton(recognizer:UIPanGestureRecognizer)
-    {
-        let point = recognizer.translationInView(self.view)
-        recordButton.center = CGPointMake((recognizer.view?.center.x)! + point.x, (recognizer.view?.center.y)! + point.y)
-        recognizer.setTranslation(CGPointMake(0, 0), inView: self.view)
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -182,7 +204,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
             videoSavedPath = currentVideo?.objectForKey(PBJVisionVideoPathKey) as! String
             if videoSavedPath != nil
             {
-                if let videoFileSaveTo = delegate.cameraSaveRecordVideo
+                if let videoFileSaveTo = delegate?.cameraSaveRecordVideo
                 {
                     videoFileSaveTo(self,destination: videoSavedPath)
                 }
@@ -227,7 +249,9 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
             recordTimer.invalidate()
             recordTimer = nil
         }
+        
         PBJVision.sharedInstance().cancelVideoCapture()
+        PBJVision.sharedInstance().stopPreview()
     }
     
     static func instanceFromStoryBoard() -> UICameraViewController
@@ -238,6 +262,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     static func showCamera(currentNavigationController:UINavigationController, delegate:UICameraViewControllerDelegate!) -> UICameraViewController
     {
         let cameraController = UICameraViewController.instanceFromStoryBoard()
+        cameraController.delegate = delegate
         currentNavigationController.pushViewController(cameraController, animated: true)
         return cameraController
     }
@@ -256,39 +281,6 @@ class UIRecordButtonController: UIViewController {
     }
     
     @IBOutlet weak var tipsLabelTextField: UILabel!
-    private var parentController:UICameraViewController!
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        buttonInteractionView.userInteractionEnabled = true
-        let longPressTapRecorgnizer = UILongPressGestureRecognizer(target: self, action: "longPressRecordButton:")
-        self.buttonInteractionView.addGestureRecognizer(longPressTapRecorgnizer)
-    }
-    
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        super.didMoveToParentViewController(parent)
-        parentController = parent as? UICameraViewController
-    }
-    
-    func doubleTapRecordButton(recognizer:UITapGestureRecognizer)
-    {
-        parentController.startOrResumeRecord()
-    }
-    
-    func longPressRecordButton(recognizer:UILongPressGestureRecognizer)
-    {
-        switch recognizer.state
-        {
-        case .Began:parentController.startOrResumeRecord()
-        tipsLabel.hidden = true
-        case .Cancelled:fallthrough
-        case .Ended:fallthrough
-        case .Failed:parentController.pauseRecord()
-        tipsLabel.hidden = false
-        default:break
-        }
-    }
-    
     @IBOutlet weak var buttonInteractionView: UIView!
     @IBOutlet weak var recordProgress: KDCircularProgress!
     @IBOutlet weak var tipsLabel: UILabel!
