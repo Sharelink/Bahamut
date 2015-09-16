@@ -91,6 +91,7 @@
 		E7EF7D151B7887B30033C2A8 /* AlamofireJsonToObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EF7D141B7887B30033C2A8 /* AlamofireJsonToObjects.swift */; };
 		E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F931B75F18B00B75C25 /* ModelEntity.swift */; };
 		E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */; };
+		E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F11CAE1BA9947C00CA7DB2 /* Common.swift */; };
 		E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -195,6 +196,7 @@
 		E7EF7D141B7887B30033C2A8 /* AlamofireJsonToObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireJsonToObjects.swift; sourceTree = "<group>"; };
 		E7F08F931B75F18B00B75C25 /* ModelEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
 		E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
+		E7F11CAE1BA9947C00CA7DB2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -290,6 +292,7 @@
 				E7B714251B7F36880085E3B6 /* ImageUtil.swift */,
 				E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */,
 				E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */,
+				E7F11CAE1BA9947C00CA7DB2 /* Common.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E78D13221B71123C00252E50 /* File.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
+				E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
