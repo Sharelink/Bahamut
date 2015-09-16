@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-class UITagCellModel :SharelinkTag
-{
-}
-
 @objc
 protocol UITagCollectionViewControllerDelegate
 {
@@ -21,7 +17,7 @@ protocol UITagCollectionViewControllerDelegate
 
 class UITagCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
 {
-    var tags:[UITagCellModel]!{
+    var tags:[SharelinkTag]!{
         didSet{
             if collectionView != nil
             {
@@ -39,11 +35,11 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         collectionView?.reloadData()
     }
     
-    func addTag(tagModel:UITagCellModel)->Bool
+    func addTag(tagModel:SharelinkTag)->Bool
     {
         if tags == nil
         {
-            tags = [UITagCellModel]()
+            tags = [SharelinkTag]()
         }
         let exists = tags.contains{$0.tagName == tagModel.tagName || ($0.tagId != nil && $0.tagId == tagModel.tagId)}
         if exists
@@ -69,6 +65,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         let color = UIColor(hexString: tags[indexPath.row].tagColor)
         if let label = cell.viewWithTag(1) as? UILabel
         {
+            label.font = tagNameLabelFont
             label.text = tags[indexPath.row].tagName
             label.textColor = color
         }
@@ -80,6 +77,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         maskLayer.frame = cell.bounds
         maskLayer.path = path.CGPath
         cell.layer.mask = maskLayer
+        cell.userInteractionEnabled = true
         cell.setNeedsLayout()
         cell.setNeedsDisplay()
         return cell
@@ -111,21 +109,21 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     //MARK: layout
     
+    let tagNameLabelFont = UIFont.systemFontOfSize(13.0)
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsetsMake(3, 3, 3, 3);
+        return UIEdgeInsetsMake(3, 1, 3, 2);
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        let uifont = UIFont.systemFontOfSize(10.0)
-        let tagName = tags[indexPath.row].tagName
         let label = UILabel()
-        label.text = tagName
-        label.font = uifont
+        label.font = tagNameLabelFont
+        label.text = tags[indexPath.row].tagName
         label.sizeToFit()
         var size = label.bounds.size
-        size.width += 23
+        size.width += 17
         return size
     }
     

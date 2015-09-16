@@ -10,6 +10,8 @@ import UIKit
 
 class LinkedUserListController: UITableViewController
 {
+    var talkingUserList:[ShareLinkUser]!
+    var askingLinkUserList:[ShareLinkUser]!
     var userListModel:[(latinLetter:String , items:[ShareLinkUser])] = [(latinLetter:String , items:[ShareLinkUser])](){
         didSet{
             self.tableView.reloadData()
@@ -54,6 +56,7 @@ class LinkedUserListController: UITableViewController
         tableView.rowHeight = UITableViewAutomaticDimension
         self.userService = ServiceContainer.getService(UserService)
         self.sharelinkTagService = ServiceContainer.getService(SharelinkTagService)
+        headerGesture = UITapGestureRecognizer(target: self, action: "tapHeader:")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -74,6 +77,14 @@ class LinkedUserListController: UITableViewController
         }
     }
     
+    var headerGesture:UITapGestureRecognizer!
+    func tapHeader(tap:UITapGestureRecognizer)
+    {
+        //TODO:
+        
+        print("header")
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return userListModel.count
@@ -81,12 +92,17 @@ class LinkedUserListController: UITableViewController
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return userListModel[section].1.count
+        return userListModel[section].items.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section:Int) -> String?  {
-        
-        return userListModel[section].0
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRectMake(0, 0, 23, 23))
+        headerView.backgroundColor = UIColor.lightGrayColor()
+        let label = UILabel(frame: CGRectMake(7, 0, 23, 23))
+        label.text = userListModel[section].latinLetter
+        headerView.addSubview(label)
+        headerView.addGestureRecognizer(headerGesture)
+        return headerView
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

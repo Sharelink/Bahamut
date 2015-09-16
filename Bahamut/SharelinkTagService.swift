@@ -8,9 +8,23 @@
 
 import Foundation
 
+class SharelinkTagUseRecord: ShareLinkObject
+{
+    var tagId:String!
+    var lastUserDateStr:String!
+    var times:NSNumber!
+    func lastUseDate()->NSDate{
+        return DateHelper.stringToDate(lastUserDateStr) ?? NSDate(timeIntervalSince1970: 0)
+    }
+    
+    override func getObjectUniqueIdName() -> String {
+        return "tagId"
+    }
+}
+
 public class SharelinkTagService : ServiceProtocol
 {
-    @objc static var ServiceName:String{return "UserTag Service"}
+    @objc static var ServiceName:String{return "SharelinkTagService"}
     @objc func initService()
     {
     }
@@ -107,25 +121,14 @@ public class SharelinkTagService : ServiceProtocol
     
     func updateTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
     {
-        var r:ShareLinkSDKRequestBase! = nil
-        if tag.tagColor != nil
-        {
-            let req = UpdateTagColorRequest()
-            req.tagColor = tag.tagColor
-            req.tagId = tag.tagId
-            r = req
-        }else if tag.tagName != nil
-        {
-            let req = UpdateTagNameRequest()
-            req.tagName = tag.tagName
-            req.tagId = tag.tagId
-            r = req
-        }else if let callback = sucCallback{
-            callback()
-        }
+        let req = UpdateTagRequest()
+        req.tagId = tag.tagId
+        req.tagName = tag.tagName
+        req.tagColor = tag.tagColor
+        req.isFocus = tag.isFocus
         
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(r!, callback: { (result:SLResult<ShareLinkObject>) -> Void in
+        client.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 tag.saveModel()

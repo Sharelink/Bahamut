@@ -1,0 +1,40 @@
+//
+//  Common.swift
+//  Bahamut
+//
+//  Created by AlexChow on 15/9/16.
+//  Copyright © 2015年 GStudio. All rights reserved.
+//
+
+import Foundation
+import UIKit
+struct ColorSets
+{
+    static let textColors:[UIColor] =
+    [
+        UIColor.redColor(),
+        UIColor.orangeColor(),
+        UIColor.yellowColor(),
+        UIColor.greenColor(),
+        UIColor.cyanColor(),
+        UIColor.blueColor(),
+        UIColor.purpleColor(),
+        UIColor.blackColor()
+    ]
+}
+
+
+extension UIColor
+{
+    
+    static func getRandomTextColor() -> UIColor
+    {
+        let index = Int(arc4random_uniform(UInt32(ColorSets.textColors.count)))
+        return ColorSets.textColors[index]
+    }
+    
+    static func getRandomColor() -> UIColor
+    {
+        return UIColor(hex: arc4random())
+    }
+}

@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" constant="72" id="VHh-Yr-gxR"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I'm a Sharelinker" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vja-XT-z4B">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Link to world, share the world!" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vja-XT-z4B">
                                 <rect key="frame" x="105" y="114" width="389" height="30"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -212,16 +212,14 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9m-uT-GWZ">
-                                        <rect key="frame" x="568" y="0.0" width="32" height="32"/>
+                                        <rect key="frame" x="568" y="191" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="VZt-fI-ADX"/>
                                             <constraint firstAttribute="width" constant="32" id="cEJ-LG-hqV"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="32" id="nib-Ln-nmy"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="rbB-Ay-14x"/>
                                         </constraints>
-                                        <state key="normal" image="edit">
-                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <state key="normal" image="document-edit"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="nib-Ln-nmy"/>
@@ -257,16 +255,6 @@
                                             <constraint firstAttribute="width" constant="72" id="bqn-Qb-Sv1"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-tW-64e">
-                                        <rect key="frame" x="159" y="196" width="30" height="28"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Note">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="editNoteName" destination="Ht6-Ye-kY6" eventType="touchUpInside" id="DCD-su-hIu"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kkx-R0-5We">
                                         <rect key="frame" x="7" y="300" width="586" height="128"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -278,7 +266,6 @@
                                 <constraints>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" constant="-7" id="0vs-vq-FSh"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="leading" id="30X-V7-kmY"/>
-                                    <constraint firstItem="fNh-tW-64e" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="trailing" constant="8" id="3yK-s2-3p1"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="trailing" constant="8" symbolic="YES" id="FDJ-rj-nU3"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="Iw9-Q2-HML"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="PSs-af-SAu"/>
@@ -288,9 +275,9 @@
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="top" secondItem="O9m-gS-Bgf" secondAttribute="top" id="YdL-b3-cUG"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="centerX" secondItem="O9m-gS-Bgf" secondAttribute="centerX" id="aUx-Xk-teu"/>
                                     <constraint firstItem="Mcc-7E-wyR" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="bottom" constant="8" id="cM6-4G-uvl"/>
+                                    <constraint firstItem="g9m-uT-GWZ" firstAttribute="bottom" secondItem="lHT-sO-2xC" secondAttribute="bottom" id="cfc-QG-C1l"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="top" secondItem="lHT-sO-2xC" secondAttribute="top" id="dKW-rJ-bOq"/>
                                     <constraint firstItem="FeM-jc-wh6" firstAttribute="top" secondItem="lHT-sO-2xC" secondAttribute="bottom" constant="-32" id="jmd-ol-Jta"/>
-                                    <constraint firstItem="fNh-tW-64e" firstAttribute="bottom" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="mIv-sL-E78"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="top" secondItem="Mcc-7E-wyR" secondAttribute="bottom" constant="8" id="mac-Ru-62V"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="top" id="nz8-iF-XSO"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="trailing" secondItem="lAb-tL-Fxc" secondAttribute="trailing" id="sDr-Ky-D6N"/>
@@ -298,6 +285,11 @@
                                     <constraint firstAttribute="bottom" secondItem="lHT-sO-2xC" secondAttribute="bottom" constant="313" id="vbS-QV-anc"/>
                                     <constraint firstItem="FeM-jc-wh6" firstAttribute="leading" secondItem="lHT-sO-2xC" secondAttribute="leading" constant="7" id="zw3-SL-lzd"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dKW-rJ-bOq"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -311,6 +303,11 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Profile" id="xm0-ee-F4k">
                         <barButtonItem key="backBarButtonItem" title="Back" id="DGj-NE-SvT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Note" id="frU-6E-GUV">
+                            <connections>
+                                <action selector="editNoteName" destination="Ht6-Ye-kY6" id="aK2-0K-I8t"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -330,7 +327,7 @@
     </scenes>
     <resources>
         <image name="defaultHeadIcon" width="666" height="666"/>
-        <image name="edit" width="48" height="48"/>
+        <image name="document-edit" width="64" height="64"/>
         <image name="sharelinkRounded" width="666" height="666"/>
     </resources>
 </document>

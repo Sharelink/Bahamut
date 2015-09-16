@@ -109,7 +109,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    func showConfirmAddTagAlert(tag:UITagCellModel)
+    func showConfirmAddTagAlert(tag:SharelinkTag)
     {
         let alert = UIAlertController(title: "I'm interest in \(tag.tagName)", message: "Are your sure to focus this tag?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes!", style: .Default){ _ in
@@ -120,12 +120,12 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         })
     }
     
-    func cancelAddTap(tag:UITagCellModel)
+    func cancelAddTap(tag:SharelinkTag)
     {
         
     }
     
-    func addThisTapToMyFocus(tag:UITagCellModel)
+    func addThisTapToMyFocus(tag:SharelinkTag)
     {
         let tagService = ServiceContainer.getService(SharelinkTagService)
         let newTag = SharelinkTag()
@@ -251,7 +251,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     @IBAction func editNoteName()
     {
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "note", propertyValue: self.userProfileModel.noteName, propertyLabel: "NoteName", title: "NoteNoteName", delegate: self)
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "note", propertyValue: self.userProfileModel.noteName, propertyLabel: "NoteName", title: "NoteName", delegate: self)
     }
     
     func headIconTapped(_:UITapGestureRecognizer)

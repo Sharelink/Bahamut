@@ -265,12 +265,12 @@ class ShareService: ServiceProtocol
         
     }
     
-    func postNewShare(newShare:ShareThing,callback:(isSuc:Bool)->Void)
+    func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(isSuc:Bool)->Void)
     {
         let req = AddNewShareThingRequest()
         req.shareContent = newShare.shareContent
         req.title = newShare.title
-        req.tags = newShare.forTags
+        req.tags = tags.map{ $0.getTagString()}.joinWithSeparator("#")
         req.shareType = newShare.shareType
         req.pShareId = newShare.pShareId
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()

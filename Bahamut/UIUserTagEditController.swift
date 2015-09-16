@@ -47,6 +47,7 @@ class UIUserTagEditController: UIViewController
     
     @IBOutlet weak var tagColorView: UIView!{
         didSet{
+            tagColorView.layer.cornerRadius = 3
             tagColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectColor:"))
             update()
         }
@@ -62,7 +63,7 @@ class UIUserTagEditController: UIViewController
 
     func selectColor(_:UITapGestureRecognizer)
     {
-        tagColorView.backgroundColor = UIColor(hex: arc4random())
+        tagColorView.backgroundColor = UIColor.getRandomTextColor()
     }
     
     func update()

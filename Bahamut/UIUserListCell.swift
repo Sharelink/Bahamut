@@ -18,6 +18,7 @@ class UIUserListCell: UITableViewCell
     
     var sharelinkTags:[SharelinkTag]!
     
+    @IBOutlet weak var levelLabel: UILabel!
     var rootController:UIViewController!
     @IBOutlet weak var headIconImageView: UIImageView!{
         didSet{
@@ -48,6 +49,7 @@ class UIUserListCell: UITableViewCell
     func update()
     {
         userNickTextField.text = userModel.noteName ?? userModel.nickName
+        levelLabel.text = "Lv.\(userModel.level ?? 1)"
         updateHeadIcon()
     }
     

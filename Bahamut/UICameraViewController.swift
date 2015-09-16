@@ -76,8 +76,8 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     {
         recordButtonController = self.childViewControllers.filter { $0 is UIRecordButtonController}.first as! UIRecordButtonController
         recordButtonController.removeFromParentViewController()
-        let moveRecorgnizer = UIPanGestureRecognizer(target: self, action: "moveRecordButton:")
-        recordButton.addGestureRecognizer(moveRecorgnizer)
+//        let moveRecorgnizer = UIPanGestureRecognizer(target: self, action: "moveRecordButton:")
+//        recordButton.addGestureRecognizer(moveRecorgnizer)
         recordButtonController.buttonInteractionView.userInteractionEnabled = true
         let longPressTapRecorgnizer = UILongPressGestureRecognizer(target: self, action: "longPressRecordButton:")
         recordButtonController.buttonInteractionView.addGestureRecognizer(longPressTapRecorgnizer)
@@ -104,6 +104,8 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         let point = recognizer.translationInView(self.view)
         recordButton.center = CGPointMake((recognizer.view?.center.x)! + point.x, (recognizer.view?.center.y)! + point.y)
         recognizer.setTranslation(CGPointMake(0, 0), inView: self.view)
+        recordButton.updateConstraints()
+        recordButton.updateConstraintsIfNeeded()
     }
     
     func startTimer()

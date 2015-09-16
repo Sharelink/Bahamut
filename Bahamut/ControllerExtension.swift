@@ -25,7 +25,6 @@ extension UIViewController
     }
 }
 
-
 //TODO: complete this
 class ScreenLockProxy:NSObject
 {
