@@ -14,7 +14,6 @@ struct ColorSets
     [
         UIColor.redColor(),
         UIColor.orangeColor(),
-        UIColor.yellowColor(),
         UIColor.greenColor(),
         UIColor.cyanColor(),
         UIColor.blueColor(),

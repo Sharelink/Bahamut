@@ -54,9 +54,10 @@ class EditUserProfileViewController: UIViewController
     {
         model.nickName = nickNameTextfield.text
         model.signText = signText.text
-        ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg in
+        ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             if isSuc
             {
+                ServiceContainer.getService(AccountService).setLogined(validateResult.UserId, token: validateResult.AppToken, shareLinkApiServer: validateResult.APIServer, fileApiServer: validateResult.FileAPIServer)
                 MainNavigationController.start(self.navigationController!, msg: "Regist Success")
             }else
             {

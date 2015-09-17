@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class SharelinkTagUseRecord: ShareLinkObject
 {
@@ -25,14 +26,29 @@ class SharelinkTagUseRecord: ShareLinkObject
 public class SharelinkTagService : ServiceProtocol
 {
     @objc static var ServiceName:String{return "SharelinkTagService"}
-    @objc func initService()
-    {
+    @objc func appStartInit() {
+        
+        
     }
     
-    //MARK: UserTag
+    @objc func userLoginInit(userId: String) {
+        
+    }
+    
+    //MARK: My Tag
     func getMyAllTags() ->[SharelinkTag]
     {
-        return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
+        var result = [SharelinkTag]()
+        var tag = SharelinkTag()
+        tag.tagColor = UIColor.getRandomTextColor().toHexString()
+        tag.tagName = "hahaha"
+        result.append(tag)
+        tag = SharelinkTag()
+        tag.tagColor = UIColor.getRandomTextColor().toHexString()
+        tag.tagName = "hahaha2"
+        result.append(tag)
+        return result
+        //return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
     }
     
     //refresh all the tag entities
@@ -80,28 +96,6 @@ public class SharelinkTagService : ServiceProtocol
         })
     }
     
-    func getAUsersTags(userId:String) -> [SharelinkTag]
-    {
-        let result = PersistentManager.sharedInstance.getModel(UserSharelinkTags.self, idValue: userId)
-        return result?.tags ?? [SharelinkTag]()
-    }
-    
-    func getUserIdsHaveThisTagOfId(tagId:String) -> [String]
-    {
-        if let tag = PersistentManager.sharedInstance.getModel(SharelinkTag.self, idValue: tagId)
-        {
-            return getUserIdsHaveThisTagOfTagName(tag.tagName!)
-        }
-        return [String]()
-    }
-    
-    func getUserIdsHaveThisTagOfTagName(tagName:String) -> [String]
-    {
-        let usertags = PersistentManager.sharedInstance.getAllModelFromCache(UserSharelinkTags)
-        let userIds = usertags.filter{$0.tags.contains{$0.tagName == tagName}}.map{$0.userId!}
-        return userIds
-    }
-    
     func removeMyTags(tags:[SharelinkTag],sucCallback:(()->Void)! = nil)
     {
         let req = RemoveTagsRequest()
@@ -139,4 +133,45 @@ public class SharelinkTagService : ServiceProtocol
             }
         })
     }
+    
+    //MARK: Linked User Tag
+    
+    func getUserTags(userId:String,updated:(([SharelinkTag])->Void)!) -> [SharelinkTag]
+    {
+        let req = GetLinkedUserTagsRequest()
+        req.userId = userId
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<UserSharelinkTags>) -> Void in
+            if result.statusCode == .OK
+            {
+                if let newtag = result.returnObject
+                {
+                    newtag.saveModel()
+                    if let callback = updated
+                    {
+                        callback(newtag.tags)
+                    }
+                }
+            }
+        }
+        let result = PersistentManager.sharedInstance.getModel(UserSharelinkTags.self, idValue: userId)
+        return result?.tags ?? [SharelinkTag]()
+    }
+    
+    func getUserIdsHaveThisTagOfId(tagId:String) -> [String]
+    {
+        if let tag = PersistentManager.sharedInstance.getModel(SharelinkTag.self, idValue: tagId)
+        {
+            return getUserIdsHaveThisTagOfTagName(tag.tagName!)
+        }
+        return [String]()
+    }
+    
+    func getUserIdsHaveThisTagOfTagName(tagName:String) -> [String]
+    {
+        let usertags = PersistentManager.sharedInstance.getAllModelFromCache(UserSharelinkTags)
+        let userIds = usertags.filter{$0.tags.contains{$0.tagName == tagName}}.map{$0.userId!}
+        return userIds
+    }
+    
+
 }

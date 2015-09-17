@@ -149,8 +149,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     {
         let service = ServiceContainer.getService(UserService)
         let accountService = ServiceContainer.getService(AccountService)
-        let fileService = ServiceContainer.getService(FileService)
-        fileService.initUserFoldersWithUserId(accountService.userId)
+        ServiceContainer.instance.userLogin(accountService.userId)
         view.makeToastActivityWithMessage(message: "Refreshing")
         service.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
             self.view.hideToastActivity()

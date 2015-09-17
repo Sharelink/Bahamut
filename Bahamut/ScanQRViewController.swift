@@ -55,7 +55,7 @@ extension UserService: QRStringDelegate
 {
     func QRdealString(qrString: String)
     {
-        
+        ServiceContainer.getService(AccountService).getSharelinkerAccountIdFromQRString(qrString)
     }
     
     func showScanQRViewController(currentNavigationController:UINavigationController)

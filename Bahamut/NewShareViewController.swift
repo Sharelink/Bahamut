@@ -59,13 +59,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
-            shareContentContainer.mediaPlayer.fileFetcher = FilePathFileFetcher()
-            shareContentContainer.mediaPlayer.autoLoad = true
-            if let content = shareThingModel?.shareContent
-            {
-                shareContentContainer.model = content
-            }
-            
+            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareType.filmType)
+            shareContentContainer.shareThing = shareThingModel
         }
     }
     
@@ -223,7 +218,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         didSet{
             if shareContentContainer != nil
             {
-                shareContentContainer.model = shareThingModel.shareContent
+                shareContentContainer.shareThing = shareThingModel
             }
         }
     }
@@ -244,7 +239,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
         let fileModel = itemModel as! UIFileCollectionCellModel
         shareThingModel.shareContent = fileModel.filePath
-        self.shareContentContainer.model = shareThingModel.shareContent
+        self.shareContentContainer.shareThing = shareThingModel
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
@@ -322,7 +317,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if fileService.moveFileTo(destination, destinationPath: newFilePath)
         {
             self.shareThingModel.shareContent = newFilePath
-            self.shareContentContainer.model = self.shareThingModel.shareContent
+            self.shareContentContainer.shareThing = self.shareThingModel
             self.view.makeToast(message: "Video Saved")
         }else
         {

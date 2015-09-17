@@ -23,7 +23,15 @@ class ServiceContainer
         
         for (_,service) in serviceDict
         {
-            service.initService()
+            service.appStartInit()
+        }
+    }
+    
+    func userLogin(userId:String)
+    {
+        for (_,service) in serviceDict
+        {
+            service.userLoginInit(userId)
         }
     }
     

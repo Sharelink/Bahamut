@@ -12,19 +12,18 @@ import UIKit
 //MARK: UserService
 extension UserService
 {
-    func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String,userTags:[SharelinkTag])
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userId:String)
     {
         if let userProfile = self.getUser(userId)
         {
-            showUserProfileViewController(currentNavigationController, userProfile: userProfile, tags: userTags)
+            showUserProfileViewController(currentNavigationController, userProfile: userProfile)
         }
     }
     
-    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser,tags:[SharelinkTag])
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser)
     {
         let controller = UserProfileViewController.instanceFromStoryBoard()
         controller.userProfileModel = userProfile
-        controller.tags = tags
         currentNavigationController.pushViewController(controller , animated: true)
     }
 }
@@ -70,6 +69,14 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         initProfileVideoView()
+        initTags()
+    }
+    
+    func initTags()
+    {
+        tags = ServiceContainer.getService(SharelinkTagService).getUserTags(userProfileModel.userId){ result in
+            self.tags = result
+        }
     }
     
     override func viewWillAppear(animated: Bool)
@@ -216,11 +223,16 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func update()
     {
-        self.navigationItem.title = userProfileModel.nickName
-        userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
+        updateName()
         userSignTextView.text = userProfileModel.signText
         updateHeadIcon()
         updatePersonalFilm()
+    }
+    
+    func updateName()
+    {
+        self.navigationItem.title = userProfileModel.nickName
+        userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
     }
     
     func updatePersonalFilm()
@@ -268,6 +280,12 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             self.view.makeToastActivityWithMessage(message: "Updating")
             userService.setUserNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
                 self.view.hideToastActivity()
+                if isSuc
+                {
+                    self.userProfileModel.noteName = newValue
+                    self.userProfileModel.saveModel()
+                    self.updateName()
+                }
             }
         }
     }

@@ -55,7 +55,6 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var shareDateTime: UILabel!
     @IBOutlet weak var shareContent: UIShareContent!{
         didSet{
-            shareContent.mediaPlayer.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
             var gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingLeft:")
             gesture.direction = UISwipeGestureRecognizerDirection.Left
             self.addGestureRecognizer(gesture)
@@ -115,8 +114,7 @@ class UIShareThing: UITableViewCell
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        let userTags = ServiceContainer.getService(SharelinkTagService).getAUsersTags(shareThingModel.userId)
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId,userTags: userTags)
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
     }
 
     func update()
@@ -126,7 +124,7 @@ class UIShareThing: UITableViewCell
         shareDateTime.text = shareThingModel.postDateString
         userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
         userReShareDetail.text = shareThingModel.userReShareDetail.isEmpty ? "" : Constants.SharePrefixEmoji + shareThingModel.userReShareDetail
-        shareContent.model = shareThingModel.shareContent
+        shareContent.shareThing = shareThingModel
         updateHeadIcon()
         updateUserNick()
     }
@@ -160,7 +158,7 @@ extension ShareThing
 {
     
     var notReadReply:UInt32{
-        return ServiceContainer.getService(ReplyService).getShareIdNotReadMessageCount(self.shareId)
+        return ServiceContainer.getService(MessageService).getShareIdNotReadMessageCount(self.shareId)
     }
     
     var userVotesDetail:String{
@@ -185,7 +183,7 @@ extension ShareThing
     }
     
     var replyButtonContent:String{
-        let messageCount = ServiceContainer.getService(ReplyService).getShareIdNotReadMessageCount(self.shareId)
+        let messageCount = ServiceContainer.getService(MessageService).getShareIdNotReadMessageCount(self.shareId)
         return "\(Int(messageCount))"
     }
     

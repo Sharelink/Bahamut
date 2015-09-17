@@ -8,15 +8,48 @@
 
 import UIKit
 
+class UIUserListMessageCell: UITableViewCell
+{
+    
+    static let cellIdentifier:String = "UIUserListMessageCell"
+    @IBOutlet weak var noteNameLabel: UILabel!
+    @IBOutlet weak var headIcon: UIImageView!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+}
+
+class UIUserListAskingLinkCell: UITableViewCell
+{
+    static let cellIdentifier:String = "UserAskLinkCell"
+    var user:ShareLinkUser!
+    @IBOutlet weak var headIcon: UIImageView!
+    @IBOutlet weak var userNickLabel: UILabel!
+    @IBAction func ignore(sender: AnyObject)
+    {
+    }
+    
+    @IBAction func accept(sender: AnyObject)
+    {
+        let userService = ServiceContainer.getService(UserService)
+        userService.acceptUserLink(user.userId, noteName: user.nickName){ isSuc in
+            
+        }
+    }
+    
+}
+
 class UIUserListCell: UITableViewCell
 {
+    static let cellIdentifier:String = "UserCell"
+    
     var userModel:ShareLinkUser!{
         didSet{
             update()
         }
     }
     
-    var sharelinkTags:[SharelinkTag]!
+    //var sharelinkTags:[SharelinkTag]!
     
     @IBOutlet weak var levelLabel: UILabel!
     var rootController:UIViewController!
@@ -37,7 +70,7 @@ class UIUserListCell: UITableViewCell
     
     func showProfile(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel, tags: self.sharelinkTags)
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel)
     }
     
     func showHeadIcon(_:UIGestureRecognizer)

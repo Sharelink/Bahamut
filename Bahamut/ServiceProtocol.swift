@@ -12,5 +12,6 @@ import Foundation
 protocol ServiceProtocol
 {
     static var ServiceName:String {get}
-    func initService()
+    func appStartInit()
+    func userLoginInit(userId:String)
 }

@@ -11,11 +11,16 @@ import Alamofire
 
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}
-    @objc func initService() {
+    @objc func appStartInit() {
+        
         
     }
     
-    func initUserFoldersWithUserId(userId:String)
+    @objc func userLoginInit(userId: String) {
+        initUserFoldersWithUserId(userId)
+    }
+    
+    private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()
         documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(userId)

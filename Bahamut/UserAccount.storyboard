@@ -170,7 +170,7 @@
             </objects>
             <point key="canvasLocation" x="143" y="2709"/>
         </scene>
-        <!--Link Confirm View Controller-->
+        <!--Sharelinker-->
         <scene sceneID="jqW-d8-p9k">
             <objects>
                 <viewController storyboardIdentifier="linkConfirmViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bcA-Mv-Uu5" customClass="LinkConfirmViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -179,11 +179,58 @@
                         <viewControllerLayoutGuide type="bottom" id="DRU-1e-w11"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LC9-UV-1cv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGA-zI-Fxj">
+                                <rect key="frame" x="20" y="20" width="86" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="set a note name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0a-ip-jYK">
+                                <rect key="frame" x="20" y="49" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ask for your link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vty-VN-XJ3">
+                                <rect key="frame" x="114" y="20" width="121" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b0a-ip-jYK" firstAttribute="leading" secondItem="AGA-zI-Fxj" secondAttribute="leading" id="IdE-ij-DOy"/>
+                            <constraint firstItem="Vty-VN-XJ3" firstAttribute="leading" secondItem="AGA-zI-Fxj" secondAttribute="trailing" constant="8" id="bSx-mC-eu7"/>
+                            <constraint firstItem="AGA-zI-Fxj" firstAttribute="leading" secondItem="LC9-UV-1cv" secondAttribute="leadingMargin" id="dzR-AP-r48"/>
+                            <constraint firstItem="b0a-ip-jYK" firstAttribute="top" secondItem="AGA-zI-Fxj" secondAttribute="bottom" constant="8" id="gpm-pY-8FW"/>
+                            <constraint firstItem="Vty-VN-XJ3" firstAttribute="top" secondItem="AGA-zI-Fxj" secondAttribute="top" id="heG-Up-6Lb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b0a-ip-jYK" secondAttribute="trailing" id="sVf-lM-Ucq"/>
+                            <constraint firstItem="AGA-zI-Fxj" firstAttribute="top" secondItem="LC9-UV-1cv" secondAttribute="top" constant="20" symbolic="YES" id="x13-gZ-UDW"/>
+                        </constraints>
                     </view>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Sharelinker" id="MPR-3r-vWs">
+                        <barButtonItem key="leftBarButtonItem" title="Ignore" id="36A-9D-hHV">
+                            <connections>
+                                <action selector="ignore:" destination="bcA-Mv-Uu5" id="IpL-Pf-dVe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="OK" id="C3O-5R-If1">
+                            <connections>
+                                <action selector="ok:" destination="bcA-Mv-Uu5" id="B6j-Cn-CPx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="noteNameField" destination="b0a-ip-jYK" id="mk6-TD-haP"/>
+                        <outlet property="userNickLabel" destination="AGA-zI-Fxj" id="nXg-46-323"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOd-4r-Hy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

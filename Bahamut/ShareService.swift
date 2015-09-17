@@ -92,7 +92,12 @@ class ShareThingSortObjectList
 class ShareService: ServiceProtocol
 {
     @objc static var ServiceName:String{return "share service"}
-    @objc func initService()
+    @objc func appStartInit()
+    {
+        
+    }
+    
+    @objc func userLoginInit(userId:String)
     {
         initSortObjectList()
     }

@@ -9,32 +9,86 @@
 import UIKit
 import AVFoundation
 
-class UIShareContent: UIView
+protocol UIShareContentDelegate
 {
-    var model:String!{
-        didSet{
-            update()
-        }
+    func refresh(sender:UIShareContent,share:ShareThing?)
+    func getContentView(sender: UIShareContent, share: ShareThing?) -> UIView
+    
+}
+
+enum ShareType:String
+{
+    case filmType = "film"
+}
+
+class UIShareContentTypeDelegateGenerator
+{
+    static func getDelegate(shareType:ShareType) -> UIShareContentDelegate!
+    {
+        return getDelegate(shareType.rawValue)
     }
     
-    func update()
+    static func getDelegate(shareType:String) -> UIShareContentDelegate!
     {
-        if let moviePath = model
+        switch(shareType)
+        {
+            case ShareType.filmType.rawValue : return FilmContent()
+        default:return nil
+        }
+    }
+}
+
+class FilmContent: UIShareContentDelegate
+{
+    func refresh(sender: UIShareContent, share: ShareThing?)
+    {
+        let mediaPlayer = sender.contentView as! ShareLinkFilmView
+        if let moviePath = share?.shareContent
         {
             mediaPlayer.filePath = moviePath
         }else{
             mediaPlayer.filePath = nil
         }
+        
+    }
+    
+    func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
+    {
+        let player = ShareLinkFilmView(frame: sender.bounds)
+        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+        return player
+    }
+}
+
+class UIShareContent: UIView
+{
+    var delegate:UIShareContentDelegate!{
+        didSet{
+            contentView = delegate.getContentView(self, share: shareThing)
+        }
+    }
+    
+    var shareThing:ShareThing!{
+        didSet{
+            update()
+        }
+    }
+    
+    private func update()
+    {
+        if delegate != nil && contentView != nil
+        {
+            delegate.refresh(self, share: shareThing)
+        }
     }
     
     deinit{
-        mediaPlayer.filePath = nil
-        mediaPlayer = nil
+        if contentView != nil
+        {
+            contentView.removeFromSuperview()
+            contentView = nil
+        }
     }
     
-    private(set) lazy var mediaPlayer:ShareLinkFilmView! = {
-        let player = ShareLinkFilmView(frame: self.bounds)
-        self.addSubview(player)
-        return player
-    }()
+    private(set) var contentView:UIView!
 }

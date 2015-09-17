@@ -13,7 +13,7 @@ struct ServiceConfig
     static let Services:[String:ServiceProtocol] =
     [
         AccountService.ServiceName:AccountService(),
-        ReplyService.ServiceName:ReplyService(),
+        MessageService.ServiceName:MessageService(),
         ShareService.ServiceName:ShareService(),
         UserService.ServiceName:UserService(),
         FileService.ServiceName:FileService(),

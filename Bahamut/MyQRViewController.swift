@@ -11,13 +11,12 @@ import UIKit
 
 class MyQRViewController: UIViewController
 {
-
-    var sharelinkUserId:String!
+    var qrString:String!
     var avatarImage:UIImage!
     @IBOutlet weak var myQRImageView: UIImageView!
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        myQRImageView.image = QRCode.generateImage("sharelinker:\(sharelinkUserId)", avatarImage: avatarImage, avatarScale: 0.3)
+        myQRImageView.image = QRCode.generateImage(qrString, avatarImage: avatarImage, avatarScale: 0.3)
         myQRImageView.userInteractionEnabled = true
         myQRImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showActionSheet:"))
     }
@@ -58,7 +57,7 @@ extension UserService
     {
         let controller = MyQRViewController.instanceFromStoryBoard()
         controller.avatarImage = avataImage
-        controller.sharelinkUserId = sharelinkUserId
+        controller.qrString = ServiceContainer.getService(AccountService).generateSharelinkerQrString()
         currentNavigationController.pushViewController(controller, animated: true)
     }
 }

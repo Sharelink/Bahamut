@@ -11,16 +11,21 @@ import CoreFoundation
 import Alamofire
 import EVReflection
 
-class UserService: ServiceProtocol
+class UserService: NSNotificationCenter,ServiceProtocol
 {
     @objc static var ServiceName:String{return "user service"}
-    @objc func initService()
+    
+    @objc func appStartInit()
     {
+        
     }
     
-    private(set) lazy var myUserId:String!={
-        return NSUserDefaults.standardUserDefaults().valueForKey("userId") as? String
-    }()
+    @objc func userLoginInit(userId:String)
+    {
+        myUserId = userId
+    }
+    
+    private(set) var myUserId:String!
     
     var myUserModel:ShareLinkUser{
         return getUser(myUserId)!
@@ -33,7 +38,7 @@ class UserService: ServiceProtocol
         myLinkedUsers = getLinkedUsers()
     }
     
-    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String)->Void)
+    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
     {
         let req = RegistNewSharelinkUserRequest()
         req.nickName = newUser.nickName
@@ -43,21 +48,20 @@ class UserService: ServiceProtocol
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
-                callback(isSuc:false,msg:"Regist Failed");
+                callback(isSuc:false,msg:"Regist Failed",validateResult: nil);
             }else if let validateResult = result.returnObject
             {
                 if validateResult.isValidateResultDataComplete()
                 {
                     ShareLinkSDK.sharedInstance.useValidateData(validateResult)
-                    ServiceContainer.getService(AccountService).setLogined(validateResult.UserId, token: validateResult.AppToken, shareLinkApiServer: validateResult.APIServer, fileApiServer: validateResult.FileAPIServer)
-                    callback(isSuc: true, msg: "regist success")
+                    callback(isSuc: true, msg: "regist success",validateResult:validateResult)
                 }else
                 {
-                    callback(isSuc: false, msg: "Data Error")
+                    callback(isSuc: false, msg: "Data Error",validateResult:nil)
                 }
             }else
             {
-                callback(isSuc:false,msg:"Regist Failed");
+                callback(isSuc:false,msg:"Regist Failed",validateResult:nil);
             }
         }
     }
@@ -70,7 +74,7 @@ class UserService: ServiceProtocol
     
     func getUsersDivideWithLatinLetter(users:[ShareLinkUser]) -> [(latinLetter:String,items:[ShareLinkUser])]
     {
-        var result = ArrayUtil.groupWithLatinLetter(users){$0.noteName}
+        var result = ArrayUtil.groupWithLatinLetter(users){$0.noteName ?? $0.nickName}
         result = result.filter{ $0.items.count > 0}
         return result
     }
@@ -152,9 +156,37 @@ class UserService: ServiceProtocol
         return getUsers(userIds)
     }
     
-    func setUserNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    func acceptUserLink(userId:String,noteName:String!,callback:((isSuc:Bool) -> Void)! = nil)
     {
         
+    }
+    
+    func askSharelinkForLink(accountId:String)
+    {
+        
+    }
+    
+    func setUserNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        let req = UpdateLinkedUserNoteNameRequest()
+        req.newNoteName = newNoteName
+        req.userId = userId
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            var isSuc:Bool = false
+            var msg:String! = nil
+            if result.statusCode == ReturnCode.OK
+            {
+                isSuc = true
+            }else
+            {
+                msg = result.originResult.description
+            }
+            if let callback = setProfileCallback
+            {
+                callback(isSuc: isSuc, msg: msg)
+            }
+        }
     }
     
     func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)

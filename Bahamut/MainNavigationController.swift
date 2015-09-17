@@ -22,8 +22,7 @@ class MainNavigationController: UINavigationController
         let accountService = ServiceContainer.getService(AccountService)
         if accountService.isUserLogined
         {
-            let fService = ServiceContainer.getService(FileService)
-            fService.initUserFoldersWithUserId(accountService.userId)
+            ServiceContainer.instance.userLogin(accountService.userId)
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         }else
         {

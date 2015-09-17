@@ -15,6 +15,13 @@ protocol UITagCollectionViewControllerDelegate
     optional func tagDidTap(sender:UITagCollectionViewController,indexPath:NSIndexPath)
 }
 
+class TagCollectionCell: UICollectionViewCell
+{
+    static let cellIdentifier = "tagCell"
+    @IBOutlet weak var tagNameLabel: UILabel!
+    var indexPath:NSIndexPath!
+}
+
 class UITagCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
 {
     var tags:[SharelinkTag]!{
@@ -41,7 +48,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         {
             tags = [SharelinkTag]()
         }
-        let exists = tags.contains{$0.tagName == tagModel.tagName || ($0.tagId != nil && $0.tagId == tagModel.tagId)}
+        let exists = tags.contains{ $0.getTagString() == tagModel.getTagString() }
         if exists
         {
             return false
@@ -61,14 +68,17 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("tagCell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("tagCell", forIndexPath: indexPath) as! TagCollectionCell
         let color = UIColor(hexString: tags[indexPath.row].tagColor)
-        if let label = cell.viewWithTag(1) as? UILabel
+        if let label = cell.tagNameLabel
         {
             label.font = tagNameLabelFont
             label.text = tags[indexPath.row].tagName
             label.textColor = color
         }
+        
+        cell.indexPath = indexPath
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self,action:"tagDidTap:"))
         
         //Redraw
         let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.BottomLeft , .TopLeft], cornerRadii: CGSizeMake(23.0, 23.0))
@@ -83,18 +93,15 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    func tagDidTap(aTap:UITapGestureRecognizer)
     {
-        if let tapHandler = delegate.tagDidTap
+        if let cell = aTap.view as? TagCollectionCell
         {
-            tapHandler(self, indexPath: indexPath)
-        }
-    }
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let tapHandler = delegate.tagDidTap
-        {
-            tapHandler(self, indexPath: indexPath)
+            let indexPath = cell.indexPath
+            if let tapHandler = delegate.tagDidTap
+            {
+                tapHandler(self, indexPath: indexPath)
+            }
         }
     }
     

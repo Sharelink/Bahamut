@@ -9,10 +9,16 @@
 
 import Foundation
 
-class ReplyService: ServiceProtocol
+class MessageService: ServiceProtocol
 {
-    @objc static var ServiceName:String {return "reply service"}
-    @objc func initService() {
+    @objc static var ServiceName:String {return "MessageService"}
+    @objc func appStartInit() {
+        
+        
+    }
+    
+    @objc func userLoginInit(userId: String) {
+        
         
     }
     

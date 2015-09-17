@@ -40,7 +40,7 @@ class UIEditTextPropertyViewController: UIViewController
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    static func showEditPropertyViewController(currentNavigationController:UINavigationController,propertyIdentifier:String,propertyValue:String,propertyLabel:String,title:String,delegate:UIEditTextPropertyViewControllerDelegate)
+    static func showEditPropertyViewController(currentNavigationController:UINavigationController,propertyIdentifier:String,propertyValue:String?,propertyLabel:String,title:String,delegate:UIEditTextPropertyViewControllerDelegate)
     {
         let controller = instanceFromStoryBoard()
         controller.title = title

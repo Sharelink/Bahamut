@@ -13,7 +13,7 @@ class ShareThingsListController: UITableViewController
     struct Constants
     {
         static let ShareThingIdentifier = "ShareThing"
-        static let NetworkErrorCellIdentifier = "networkErrorCell"
+        static let RollMessageCellIdentifier = "RollMessage"
     }
     
     override func viewDidLoad() {
@@ -28,7 +28,14 @@ class ShareThingsListController: UITableViewController
         refresh(self.refreshControl!)
     }
     
-    var isNetworkError:Bool = false
+    var isNetworkError:Bool = false{
+        didSet{
+            if tableView != nil
+            {
+                tableView.reloadData()
+            }
+        }
+    }
     var shareService = ServiceContainer.getService(ShareService)
     var shareThings:[[ShareThing]] = [[ShareThing]]()
     
@@ -100,24 +107,50 @@ class ShareThingsListController: UITableViewController
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return isNetworkError ? shareThings.count + 1 : shareThings.count
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if isNetworkError
+        if shareThings.count > section
         {
-            return section == 0 ? 1 :  shareThings[section + 1].count
+            return shareThings[section].count
         }
-        return shareThings[section].count
+        return 0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if isNetworkError && indexPath.section == 0
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        if isNetworkError
         {
-            let errorCell = tableView.dequeueReusableCellWithIdentifier(Constants.NetworkErrorCellIdentifier, forIndexPath: indexPath)
-            return errorCell
+            return 42
         }
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        if isNetworkError
+        {
+            let headerView = UIView()
+            let msgLabel = UILabel()
+            msgLabel.font = UIFont.systemFontOfSize(14, weight: 0.3)
+            msgLabel.text = "Some network things happened~"
+            msgLabel.textAlignment = .Center
+            msgLabel.textColor = UIColor.redColor()
+            msgLabel.sizeToFit()
+            headerView.bounds = CGRectMake(0, 0, tableView.bounds.width, 42)
+            msgLabel.center.x = tableView.center.x
+            msgLabel.center.y = headerView.bounds.height / 2
+            headerView.addSubview(msgLabel)
+            headerView.backgroundColor = UIColor.lightGrayColor()
+            return headerView
+        }
+        return nil
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ShareThingIdentifier, forIndexPath: indexPath)
         let shareThing = shareThings[indexPath.section][indexPath.row] as ShareThing
         if let shareThingUI = cell as? UIShareThing

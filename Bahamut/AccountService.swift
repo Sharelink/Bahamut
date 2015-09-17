@@ -12,7 +12,14 @@ import UIKit
 class AccountService: ServiceProtocol
 {
     @objc static var ServiceName:String{return "account service"}
-    @objc func initService() {
+    
+    @objc func userLoginInit(userId:String)
+    {
+        
+    }
+    
+    @objc func appStartInit()
+    {
         if isUserLogined
         {
             ShareLinkSDK.sharedInstance.reuse(userId, token: token, shareLinkApiServer: shareLinkApiServer, fileApiServer: fileApiServer)
@@ -81,6 +88,16 @@ class AccountService: ServiceProtocol
         self.token = token
         self.shareLinkApiServer = shareLinkApiServer
         self.fileApiServer = fileApiServer
+    }
+    
+    func generateSharelinkerQrString() -> String
+    {
+        return "sharelinker://accountId=\(lastLoginAccountId)"
+    }
+    
+    func getSharelinkerAccountIdFromQRString(qr:String)-> String
+    {
+        return qr.substringFromIndex("sharelinker://accountId= ".endIndex)
     }
     
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)

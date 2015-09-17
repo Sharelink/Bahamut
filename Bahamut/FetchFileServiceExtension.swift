@@ -21,7 +21,7 @@ extension FileService
     func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String!)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
     {
         let client = ShareLinkSDK.sharedInstance.getFileClient()
-        let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)").path!
+        let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)\(fileType.FileSuffix)").path!
         client.downloadFile(fileId,filePath: filePath).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
             if let progressCallback = progressUpdate
             {
