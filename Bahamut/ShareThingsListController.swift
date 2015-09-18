@@ -63,13 +63,7 @@ class ShareThingsListController: UITableViewController
     
     @IBAction func userSetting(sender:AnyObject)
     {
-        let service = ServiceContainer.getService(AccountService)
-        service.logout { (msg) -> Void in
-            let fileSvr = ServiceContainer.getService(FileService)
-            fileSvr.clearUserDatas()
-            self.navigationController?.popToRootViewControllerAnimated(false)
-            MainNavigationController.start(self, msg: msg)
-        }
+        ServiceContainer.getService(UserService).showMyDetailView(self.navigationController!)
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView)

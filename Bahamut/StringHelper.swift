@@ -21,6 +21,36 @@ class StringHelper
     }
 }
 
+extension String
+{
+    static func isNullOrEmpty(value:String?) -> Bool
+    {
+        if let v = value
+        {
+            if v == ""
+            {
+                return true
+            }
+            return false
+        }else
+        {
+            return true
+        }
+    }
+    
+    static func isNullOrWhiteSpace(value:String?) -> Bool
+    {
+        if isNullOrEmpty(value)
+        {
+            return true
+        }else
+        {
+            let v = value?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            return isNullOrEmpty(v)
+        }
+    }
+}
+
 class ArrayUtil
 {
     static func groupWithLatinLetter<T>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]

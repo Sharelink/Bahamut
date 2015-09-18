@@ -48,7 +48,7 @@
             <objects>
                 <tableViewController id="c5G-TY-KIz" customClass="ShareThingsListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="365" sectionHeaderHeight="22" sectionFooterHeight="22" id="WIZ-za-8E1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="ltY-3s-OWG">
@@ -241,6 +241,7 @@
                             <outlet property="delegate" destination="c5G-TY-KIz" id="01D-2f-PTG"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sharelinks" id="jn5-6e-O46">
                         <barButtonItem key="rightBarButtonItem" image="user" id="HHZ-7u-WLn">
@@ -271,7 +272,7 @@
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="22" sectionFooterHeight="22" id="wFU-9I-Bug">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -434,6 +435,7 @@
                             <outlet property="delegate" destination="zlK-ye-pOd" id="Oqh-P5-LM3"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sharelinkers" id="zwT-Iu-aIj">
                         <barButtonItem key="leftBarButtonItem" image="qr_code" id="nbv-qj-n6S">
@@ -461,6 +463,7 @@
         <scene sceneID="x7m-4a-hAj">
             <objects>
                 <navigationController id="VjT-9Z-NQj" customClass="UIUserNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Sharelinkers" image="bottomItemLink" id="fZq-ca-5yA"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="roK-tV-Jea">
@@ -495,7 +498,7 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="wd7-kf-uru">
                                 <rect key="frame" x="20" y="37" width="560" height="63"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="2Ia-Q5-Sk7"/>
                                     <constraint firstAttribute="height" constant="63" id="4GS-D2-7sJ"/>
@@ -552,7 +555,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyN-kc-vBY">
                                 <rect key="frame" x="20" y="334" width="277" height="112"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add special tag for share" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
                                 <rect key="frame" x="20" y="454" width="560" height="30"/>
@@ -564,7 +567,7 @@
                             </textField>
                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0T-Qe-Y5S">
                                 <rect key="frame" x="304" y="334" width="276" height="112"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIj-6r-axM">
                                 <rect key="frame" x="304" y="305" width="65" height="21"/>
@@ -717,6 +720,7 @@
         <scene sceneID="rrQ-OE-wcm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IPg-yr-IBk" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="New" image="bottomItemNewShare" id="TYP-e0-mwn"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -737,6 +741,7 @@
         <scene sceneID="L20-bk-8FX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="wuC-ja-IW1" customClass="UIOrientationsNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Sharelinks" image="bottomItemShare" id="Sb9-t4-Wis"/>
                     <toolbarItems/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

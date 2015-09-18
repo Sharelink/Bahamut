@@ -466,11 +466,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VL9-JV-4Ut">
+                                <rect key="frame" x="20" y="107" width="560" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="vML-ZS-DgG"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VL9-JV-4Ut" firstAttribute="trailing" secondItem="2xz-9Y-M2J" secondAttribute="trailing" id="0xq-bq-3SY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="h2B-Ba-q2R" secondAttribute="leading" id="4dw-IL-aAt"/>
                             <constraint firstItem="2xz-9Y-M2J" firstAttribute="leading" secondItem="h2B-Ba-q2R" secondAttribute="trailing" constant="8" symbolic="YES" id="7t1-ur-dq7"/>
+                            <constraint firstItem="VL9-JV-4Ut" firstAttribute="top" secondItem="h2B-Ba-q2R" secondAttribute="bottom" constant="8" symbolic="YES" id="KZc-a0-8Qe"/>
+                            <constraint firstItem="VL9-JV-4Ut" firstAttribute="leading" secondItem="h2B-Ba-q2R" secondAttribute="leading" id="NzB-AP-kDh"/>
                             <constraint firstItem="h2B-Ba-q2R" firstAttribute="top" secondItem="eV8-yn-yeE" secondAttribute="bottom" constant="14" id="UXS-wY-9mA"/>
                             <constraint firstItem="2xz-9Y-M2J" firstAttribute="baseline" secondItem="h2B-Ba-q2R" secondAttribute="baseline" id="iYD-hX-m9J"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2xz-9Y-M2J" secondAttribute="trailing" id="wVB-LA-IM7"/>
@@ -490,6 +502,7 @@
                     <connections>
                         <outlet property="propertyNameLabel" destination="h2B-Ba-q2R" id="RO3-aP-Hzx"/>
                         <outlet property="propertyValueTextField" destination="2xz-9Y-M2J" id="TCb-G7-AOi"/>
+                        <outlet property="propertyValueTextView" destination="VL9-JV-4Ut" id="qXZ-1V-ElL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Geu-F7-EIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -541,7 +554,7 @@
         <scene sceneID="7He-ch-jYu">
             <objects>
                 <collectionViewController storyboardIdentifier="tagCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="UITagCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -553,7 +566,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="Qqg-UF-Fid" customClass="TagCollectionCell" customModule="Bahamut" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="tagCell" id="Qqg-UF-Fid" customClass="TagCollectionCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

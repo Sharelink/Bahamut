@@ -226,7 +226,7 @@ class ShareService: ServiceProtocol
                 }else{
                     shareThingModel.voteUsers.removeAtIndex(index)
                 }
-                shareThingModel.lastActiveTime = DateHelper.dateToString(NSDate())
+                shareThingModel.lastActiveTime = DateHelper.toDateTimeString(NSDate())
                 shareThingModel.saveModel()
             }
             if let update = updateCallback
@@ -282,7 +282,7 @@ class ShareService: ServiceProtocol
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
             {
-                newShare.lastActiveTime = DateHelper.dateToString(NSDate())
+                newShare.lastActiveTime = DateHelper.toDateTimeString(NSDate())
                 newShare.shareId = result.returnObject.shareId
                 newShare.saveModel()
             }

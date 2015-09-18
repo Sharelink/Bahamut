@@ -49,6 +49,9 @@ class LinkedUserListController: UITableViewController
     override func viewDidLoad() {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        let uiview = UIView()
+        uiview.backgroundColor = UIColor.clearColor()
+        tableView.tableFooterView = uiview
         self.userService = ServiceContainer.getService(UserService)
         self.sharelinkTagService = ServiceContainer.getService(SharelinkTagService)
         headerGesture = UITapGestureRecognizer(target: self, action: "tapHeader:")

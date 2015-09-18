@@ -89,7 +89,7 @@ class FileService: ServiceProtocol {
         
     }
     
-    func getFileByFileId(fileId:String!,returnCallback:(filePath:String!)->Void,progress:((persent:Float)->Void)! = nil)
+    func getFileByFileId(fileId:String!,progress:((persent:Float)->Void)! = nil,returnCallback:(filePath:String!)->Void)
     {
         if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {

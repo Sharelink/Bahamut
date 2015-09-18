@@ -16,6 +16,7 @@
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
 		E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7108BE51B7D9D7A009B933C /* RegexUtil.swift */; };
 		E717CC391B725D5200B19D9D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E717CC371B725D5200B19D9D /* Model.xcdatamodeld */; };
+		E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */; };
 		E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */; };
 		E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */; };
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
@@ -57,14 +58,14 @@
 		E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
 		E790BD001B6780C900D5426B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCFF1B6780C900D5426B /* RegisterViewController.swift */; };
-		E790BD031B67810200D5426B /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* EditUserProfileViewController.swift */; };
+		E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* NewUserProfileViewController.swift */; };
 		E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD041B67812E00D5426B /* AccountViewController.swift */; };
 		E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD061B67EA1B00D5426B /* SignInViewController.swift */; };
 		E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD091B67EFE600D5426B /* ServiceProtocol.swift */; };
 		E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
 		E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0D1B67F44E00D5426B /* AccountService.swift */; };
 		E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */; };
-		E790BD121B67FDEF00D5426B /* ReplyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* ReplyService.swift */; };
+		E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* MessageService.swift */; };
 		E790BD141B68069A00D5426B /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD131B68069A00D5426B /* ShareService.swift */; };
 		E79E3E381B6B56A900B27085 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E3E371B6B56A900B27085 /* UserService.swift */; };
 		E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */; };
@@ -116,6 +117,7 @@
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		E7108BE51B7D9D7A009B933C /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
 		E717CC381B725D5200B19D9D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDetailViewController.swift; sourceTree = "<group>"; };
 		E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFileCollectionController.swift; sourceTree = "<group>"; };
 		E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
@@ -157,14 +159,14 @@
 		E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIReplyMessage.swift; sourceTree = "<group>"; };
 		E790BCF51B676EAB00D5426B /* UIShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareContent.swift; sourceTree = "<group>"; };
 		E790BCFF1B6780C900D5426B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		E790BD021B67810200D5426B /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
+		E790BD021B67810200D5426B /* NewUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserProfileViewController.swift; sourceTree = "<group>"; };
 		E790BD041B67812E00D5426B /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		E790BD061B67EA1B00D5426B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E790BD091B67EFE600D5426B /* ServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		E790BD0B1B67F12000D5426B /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
 		E790BD0D1B67F44E00D5426B /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
-		E790BD111B67FDEF00D5426B /* ReplyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyService.swift; sourceTree = "<group>"; };
+		E790BD111B67FDEF00D5426B /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		E790BD131B68069A00D5426B /* ShareService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 		E79E3E371B6B56A900B27085 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEditTextPropertyViewController.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 			children = (
 				E70C48B31BA122B600F805C3 /* FileService */,
 				E79E3E371B6B56A900B27085 /* UserService.swift */,
-				E790BD111B67FDEF00D5426B /* ReplyService.swift */,
+				E790BD111B67FDEF00D5426B /* MessageService.swift */,
 				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
 				E790BD131B68069A00D5426B /* ShareService.swift */,
 				E736814F1B96A816004E8B56 /* SharelinkTagService.swift */,
@@ -308,11 +310,12 @@
 		E786084D1BA1DEB600E2BECA /* Sharelinker */ = {
 			isa = PBXGroup;
 			children = (
-				E790BD021B67810200D5426B /* EditUserProfileViewController.swift */,
+				E790BD021B67810200D5426B /* NewUserProfileViewController.swift */,
 				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
 				E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */,
 				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
 				E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */,
+				E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */,
 			);
 			name = Sharelinker;
 			sourceTree = "<group>";
@@ -789,7 +792,7 @@
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
-				E790BD121B67FDEF00D5426B /* ReplyService.swift in Sources */,
+				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
 				E7108BE61B7D9D7A009B933C /* RegexUtil.swift in Sources */,
 				E78D13251B71123C00252E50 /* ShareLinkUser.swift in Sources */,
@@ -797,6 +800,7 @@
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E790BD001B6780C900D5426B /* RegisterViewController.swift in Sources */,
+				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
 				E7A3AA9A1B9C2B050094B0D0 /* ControllerExtension.swift in Sources */,
 				E717CC391B725D5200B19D9D /* Model.xcdatamodeld in Sources */,
@@ -821,7 +825,7 @@
 				E7E6ABA51BA73ED800BC597D /* UIColor.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
-				E790BD031B67810200D5426B /* EditUserProfileViewController.swift in Sources */,
+				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
 				E78D13201B71123C00252E50 /* ShareLinkSDKClient.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E78D131E1B71123C00252E50 /* Account.swift in Sources */,

@@ -203,7 +203,7 @@ extension ShareThing
             return "\(Int(shareTimeOfDate.timeIntervalSinceNow/3600/24)) days ago"
         }else
         {
-            return DateHelper.dateToString(self.shareTimeOfDate)
+            return DateHelper.toDateTimeString(self.shareTimeOfDate)
         }
     }
     

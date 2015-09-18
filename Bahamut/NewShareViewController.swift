@@ -53,6 +53,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var shareDescriptionTextArea: UITextView!{
         didSet{
             shareDescriptionTextArea.layer.cornerRadius = 7
+            shareDescriptionTextArea.layer.borderColor = UIColor.lightGrayColor().CGColor
+            shareDescriptionTextArea.layer.borderWidth = 1
             shareDescriptionTextArea.delegate = self
         }
     }
@@ -78,6 +80,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var myTagCollectionViewContainer: UIView!{
         didSet{
             myTagCollectionViewContainer.layer.cornerRadius = 7
+            myTagCollectionViewContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
+            myTagCollectionViewContainer.layer.borderWidth = 1
             myTagController = UITagCollectionViewController.instanceFromStoryBoard()
             myTagCollectionViewContainer.addSubview(myTagController.view)
         }
@@ -93,6 +97,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         didSet{
             selectedTagViewContainer.userInteractionEnabled = true
             selectedTagViewContainer.layer.cornerRadius = 7
+            selectedTagViewContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
+            selectedTagViewContainer.layer.borderWidth = 1
             selectedTagController  = UITagCollectionViewController.instanceFromStoryBoard()
             selectedTagViewContainer.addSubview(selectedTagController.view)
         }

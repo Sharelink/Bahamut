@@ -46,7 +46,7 @@ class IdFileFetcher: FileFetcher
 {
     var fileType:FileType = .Raw
     func startFetch(fileId: String, delegate: FileFetcherDelegate) {
-        ServiceContainer.getService(FileService).getFileByFileId(fileId, returnCallback: delegate.fetchFileCompleted!, progress: delegate.fetchFileProgress)
+        ServiceContainer.getService(FileService).getFileByFileId(fileId, progress: delegate.fetchFileProgress, returnCallback: delegate.fetchFileCompleted!)
     }
 }
 

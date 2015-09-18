@@ -263,7 +263,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     @IBAction func editNoteName()
     {
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertyIdentifier: "note", propertyValue: self.userProfileModel.noteName, propertyLabel: "NoteName", title: "NoteName", delegate: self)
+        let propertySet = UIEditTextPropertySet()
+        propertySet.propertyIdentifier = "note"
+        propertySet.propertyValue = userProfileModel.noteName
+        propertySet.propertyLabel = "Note Name"
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: "Note Name", delegate: self)
     }
     
     func headIconTapped(_:UITapGestureRecognizer)
