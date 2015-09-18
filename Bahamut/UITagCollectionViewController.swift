@@ -118,11 +118,6 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     let tagNameLabelFont = UIFont.systemFontOfSize(13.0)
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsetsMake(3, 1, 3, 2);
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         let label = UILabel()
