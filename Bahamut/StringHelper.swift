@@ -55,22 +55,23 @@ extension NSDate
 {
     func toFriendlyString() -> String
     {
-        if self.timeIntervalSinceNow < 60
+        let interval = -self.timeIntervalSinceNow
+        if interval < 60
         {
-            return "newly"
+            return "new"
         }
-        else if self.timeIntervalSinceNow < 3600
+        else if interval < 3600
         {
-            return "\(Int(self.timeIntervalSinceNow/60)) minutes ago"
+            return "\(Int(interval/60)) minutes ago"
         }else if self.timeIntervalSinceNow < 3600 * 24
         {
-            return "\(Int(self.timeIntervalSinceNow/3600)) hours ago"
+            return "\(Int(interval/3600)) hours ago"
         }else if self.timeIntervalSinceNow < 3600 * 24 * 7
         {
-            return "\(Int(self.timeIntervalSinceNow/3600/24)) days ago"
+            return "\(Int(interval/3600/24)) days ago"
         }else
         {
-            return self.toDateString()
+            return self.toLocalDateString()
         }
     }
 }

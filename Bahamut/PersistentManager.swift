@@ -122,24 +122,24 @@ extension PersistentManager
         }
     }
     
-    func getImage(fileId:String!) -> UIImage?
+    func getImage(fileId:String?) -> UIImage?
     {
         if fileId == nil
         {
             return nil
         }
         let cache = getCache("UIImage")
-        if let image = cache.objectForKey(fileId) as? UIImage
+        if let image = cache.objectForKey(fileId!) as? UIImage
         {
             return image
         }else if let entify = getFile(fileId)
         {
             let image = UIImage(contentsOfFile: entify.localPath)
-            cache.setObject(image!, forKey: fileId)
+            cache.setObject(image!, forKey: fileId!)
             return image!
-        }else if let image = UIImage(named: fileId)
+        }else if let image = UIImage(named: fileId!)
         {
-            cache.setObject(image, forKey: fileId)
+            cache.setObject(image, forKey: fileId!)
             return image
         }else
         {

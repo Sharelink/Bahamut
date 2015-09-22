@@ -76,13 +76,17 @@ class UIUserTagEditController: UIViewController
         {
             tagColorView.backgroundColor = UIColor(hexString: tagModel.tagModel.tagColor)
         }
+        if focusSwitch != nil
+        {
+            focusSwitch.on = tagModel.tagModel.isFocus == "true"
+        }
     }
     
     @IBAction func save(sender: AnyObject)
     {
         tagModel.tagModel.tagName = tagNameLabel.text
         tagModel.tagModel.tagColor = tagColorView.backgroundColor?.toHexString()
-        tagModel.tagModel.isFocus = "\(focusSwitch.on)"
+        tagModel.tagModel.isFocus = focusSwitch.on ? "true":"false"
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)

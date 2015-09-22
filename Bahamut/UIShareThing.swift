@@ -16,7 +16,11 @@ class UIShareMessage:UITableViewCell
     @IBOutlet weak var noteNameLabel: UILabel!
     @IBOutlet weak var headIconImageView: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
-    var rootController:UIViewController!
+    var rootController:UIViewController!{
+        didSet{
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
+        }
+    }
     var shareThingModel:ShareThing!
         {
         didSet
@@ -25,12 +29,18 @@ class UIShareMessage:UITableViewCell
         }
     }
     
+    func showUserProfile(_:UIGestureRecognizer)
+    {
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
+    }
+    
     private func update()
     {
         timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString()
         noteNameLabel.text = shareThingModel.userNick
-        headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId)
-        messageLabel.text = shareThingModel.shareContent
+        headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId) ??
+            PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
+        messageLabel.text = "focus on \(shareThingModel.shareContent) and more"
     }
 }
 
