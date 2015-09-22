@@ -89,6 +89,12 @@ class UIFileCollectionController: UIResourceExplorerController
         return "FileItemCell"
     }
     
+    @IBAction func ok(sender: AnyObject)
+    {
+        notifyItemSelectState()
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     @IBAction func addFile(sender: AnyObject) {
         addItem(sender)
     }

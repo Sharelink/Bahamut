@@ -105,6 +105,11 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.view.frame = view.superview!.bounds
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if tags == nil
@@ -116,7 +121,12 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     //MARK: layout
     
-    let tagNameLabelFont = UIFont.systemFontOfSize(13.0)
+    let tagNameLabelFont = UIFont.systemFontOfSize(14.0)
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
+    {
+        return UIEdgeInsetsMake(3, 3, 3, 3);
+    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
@@ -124,9 +134,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         label.font = tagNameLabelFont
         label.text = tags[indexPath.row].tagName
         label.sizeToFit()
-        var size = label.bounds.size
-        size.width += 17
-        return size
+        return CGSizeMake(label.bounds.width + 23, label.bounds.height)
     }
     
     static func instanceFromStoryBoard() -> UITagCollectionViewController

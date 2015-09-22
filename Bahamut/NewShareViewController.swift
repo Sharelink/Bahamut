@@ -32,6 +32,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             shareThingModel = ShareThing()
         }
+        myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -71,19 +72,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         myTagController.tags = ServiceContainer.getService(SharelinkTagService).getMyAllTags()
     }
     
-    var myTagController:UITagCollectionViewController!{
+    var myTagController:UITagCollectionViewController!
+    {
         didSet{
+            myTagContainer = UIView()
             myTagController.delegate = self
             self.addChildViewController(myTagController)
-        }
-    }
-    @IBOutlet weak var myTagCollectionViewContainer: UIView!{
-        didSet{
-            myTagCollectionViewContainer.layer.cornerRadius = 7
-            myTagCollectionViewContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
-            myTagCollectionViewContainer.layer.borderWidth = 1
-            myTagController = UITagCollectionViewController.instanceFromStoryBoard()
-            myTagCollectionViewContainer.addSubview(myTagController.view)
         }
     }
     
@@ -104,23 +98,48 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        selectedTagController.view.frame = selectedTagViewContainer.bounds
-        myTagController.view.frame = myTagCollectionViewContainer.bounds
-    }
-    
     @IBOutlet weak var newTagNameTextfield: UITextField!{
         didSet{
             newTagNameTextfield.delegate = self
         }
     }
     
+    @IBAction func selectTag(sender: AnyObject)
+    {
+        if myTagContainer.superview != nil
+        {
+            hideMyTagsCollection()
+        }else{
+            showMyTagsCollection()
+        }
+    }
+    
+    private var myTagContainer:UIView!{
+        didSet{
+            myTagContainer.layer.cornerRadius = 7
+            myTagContainer.layer.borderWidth = 1
+            myTagContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
+            myTagContainer.backgroundColor = UIColor.whiteColor()
+        }
+    }
+    private func showMyTagsCollection()
+    {
+        let height = CGFloat(126)
+        myTagContainer.frame = CGRectMake(self.selectedTagViewContainer.frame.origin.x, selectedTagViewContainer.frame.origin.y - height - 7,self.selectedTagViewContainer.bounds.width, height)
+        self.view.addSubview(myTagContainer)
+        self.myTagContainer.addSubview(myTagController.view)
+    }
+    
+    private func hideMyTagsCollection()
+    {
+        myTagContainer.removeFromSuperview()
+    }
+    
     func addTag()
     {
         if selectedTagController.tags != nil && selectedTagController.tags.count >= NewShareViewController.tagsLimit
         {
-            selectedTagViewContainer.makeToast(message: "can't not add more tags!", duration: 1, position: HRToastPositionTop)
+            selectedTagViewContainer.makeToast(message: "can't not add more tags!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
             return
         }
         if let newTagName = newTagNameTextfield.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
@@ -133,12 +152,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 newTagNameTextfield.text = nil
                 if !selectedTagController.addTag(newTag)
                 {
-                    selectedTagViewContainer.makeToast(message: "tag has been added!", duration: 1, position: HRToastPositionTop)
+                    selectedTagViewContainer.makeToast(message: "tag has been added!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
                 }
                 return
             }
         }
-        selectedTagViewContainer.makeToast(message: "there is nothing!", duration: 1, position: HRToastPositionTop)
+        selectedTagViewContainer.makeToast(message: "there is nothing!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
     }
 
     func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
@@ -242,10 +261,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         shareThingModel.title = textView.text
     }
     
-    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
-        let fileModel = itemModel as! UIFileCollectionCellModel
-        shareThingModel.shareContent = fileModel.filePath
-        self.shareContentContainer.shareThing = shareThingModel
+    func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
+        if itemModels.count > 0
+        {
+            let fileModel = itemModels.first as! UIFileCollectionCellModel
+            shareThingModel.shareContent = fileModel.filePath
+            self.shareContentContainer.shareThing = shareThingModel
+        }
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
@@ -270,7 +292,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             
             @objc private func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!) {
                 let fileService = ServiceContainer.getService(FileService)
-                let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+                let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
                 if fileService.moveFileTo(destination, destinationPath: newFilePath)
                 {
                     let videoFileModel = UIFileCollectionCellModel()
@@ -319,7 +341,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
     {
         let fileService = ServiceContainer.getService(FileService)
-        let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+        let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if fileService.moveFileTo(destination, destinationPath: newFilePath)
         {
             self.shareThingModel.shareContent = newFilePath

@@ -20,9 +20,18 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
     
     var fileFetcher:FileFetcher!
     
+    public var showTimeLine:Bool = false{
+        didSet{
+            if timeLine != nil
+            {
+                timeLine.hidden = !showTimeLine
+            }
+        }
+    }
     private var timeLine: UIProgressView!{
         didSet{
             self.addSubview(timeLine)
+            timeLine.hidden = !showTimeLine
         }
     }
     
@@ -227,8 +236,8 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
         if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
         {
             self.removeFromSuperview()
-            UIApplication.sharedApplication().keyWindow?.addSubview(self)
             self.frame = wFrame
+            UIApplication.sharedApplication().keyWindow?.addSubview(self)
             isMute = true
             refreshUI()
         }
@@ -257,8 +266,8 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
     {
         if originContainer == nil {return}
         self.removeFromSuperview()
-        originContainer.addSubview(self)
         self.frame = minScreenFrame
+        originContainer.addSubview(self)
         refreshUI()
     }
 
@@ -341,17 +350,20 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
     
     static func showPlayer(currentController:UIViewController,uri:String,fileFetcer:FileFetcher)
     {
+        
         let view = currentController.view.window!
         let width = min(view.bounds.width, view.bounds.height)
         let frame = CGRectMake(0, 0, width, width)
+        let container = UIView(frame: frame)
+        container.center = view.center
         let playerView = ShareLinkFilmView(frame: frame)
-        playerView.center = view.center
         playerView.autoLoad = true
         playerView.playerController.playbackLoops = false
         playerView.fileFetcher = fileFetcer
         let layer = SharelinkFilmPlayerLayer(frame: view.bounds)
-        layer.addSubview(playerView)
         view.addSubview(layer)
+        layer.addSubview(container)
+        container.addSubview(playerView)
         playerView.filePath = uri
     }
 

@@ -31,7 +31,9 @@ class LinkConfirmViewController: UIViewController
         dismissViewControllerAnimated(true){
             if newNote != nil && newNote!.isEmpty == false
             {
-                ServiceContainer.getService(UserService).acceptUserLink(self.sharelinker.userId,noteName: newNote!)
+                ServiceContainer.getService(UserService).acceptUserLink(self.sharelinker.userId,noteName: newNote!){ isSuc in
+                    
+                }
             }
         }
         

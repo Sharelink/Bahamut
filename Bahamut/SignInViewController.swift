@@ -42,15 +42,15 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         {
             if s.on
             {
-                remoteHost = "http://192.168.0.168:8086"
+                remoteHost = "http://192.168.1.168:8086"
             }else
             {
-                remoteHost = "http://192.168.0.67:8086"
+                remoteHost = "http://192.168.1.67:8086"
             }
         }
     }
     
-    private var remoteHost:String = "http://192.168.0.67:8086"
+    private var remoteHost:String = "http://192.168.1.67:8086"
     
     private var authenticationURL: String {
         return "\(remoteHost)/Account/Login"
@@ -120,8 +120,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        
+        view.makeToastActivityWithMessage(message: "Login")
         accountService.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
+            self.view.hideToastActivity()
             if loginSuccess{
                 self.signCallback()
             }else{
@@ -150,17 +151,23 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         let service = ServiceContainer.getService(UserService)
         let accountService = ServiceContainer.getService(AccountService)
         ServiceContainer.instance.userLogin(accountService.userId)
+        service.addObserver(self, selector: "initUsers:", name: UserService.userListUpdated, object: service)
         view.makeToastActivityWithMessage(message: "Refreshing")
-        service.refreshMyLinkedUsers({ (isSuc, msg) -> Void in
-            self.view.hideToastActivity()
-            if isSuc
-            {
-                self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
-            }else
-            {
-				self.authenticate()
-                self.view.makeToast(message: msg)
-            }
-        })
+        service.refreshMyLinkedUsers()
+    }
+    
+    func initUsers(_:AnyObject)
+    {
+        let service = ServiceContainer.getService(UserService)
+        service.removeObserver(self)
+        self.view.hideToastActivity()
+        if service.myLinkedUsers != nil
+        {
+            self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
+        }else
+        {
+            self.authenticate()
+            self.view.makeToast(message: "Server Failed")
+        }
     }
 }

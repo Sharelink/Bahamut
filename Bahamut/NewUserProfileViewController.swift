@@ -58,7 +58,7 @@ class NewUserProfileViewController: UIViewController
             if isSuc
             {
                 ServiceContainer.getService(AccountService).setLogined(validateResult.UserId, token: validateResult.AppToken, shareLinkApiServer: validateResult.APIServer, fileApiServer: validateResult.FileAPIServer)
-                MainNavigationController.start(self.navigationController!, msg: "Regist Success")
+                MainNavigationController.start("Regist Success")
             }else
             {
                 self.view.makeToast(message: msg)

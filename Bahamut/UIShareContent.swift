@@ -19,6 +19,7 @@ protocol UIShareContentDelegate
 enum ShareType:String
 {
     case filmType = "film"
+    case messageType = "message"
 }
 
 class UIShareContentTypeDelegateGenerator
@@ -55,7 +56,8 @@ class FilmContent: UIShareContentDelegate
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
     {
         let player = ShareLinkFilmView(frame: sender.bounds)
-        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+        player.autoLoad = true
+        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFilePath(FileType.Video)
         return player
     }
 }
@@ -65,6 +67,7 @@ class UIShareContent: UIView
     var delegate:UIShareContentDelegate!{
         didSet{
             contentView = delegate.getContentView(self, share: shareThing)
+            self.addSubview(contentView)
         }
     }
     

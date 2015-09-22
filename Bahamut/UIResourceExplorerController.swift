@@ -15,7 +15,26 @@ import AVFoundation
 @objc
 class UIResrouceItemModel : NSObject
 {
-    var selected:Bool = false
+    var cell:UICollectionViewCell!{
+        didSet{
+            cell.highlighted = selected
+        }
+    }
+    var indexPath:NSIndexPath!
+    var selected:Bool = false{
+        didSet{
+            if cell != nil{
+                cell.highlighted = selected
+            }
+        }
+    }
+    var editModeSelected:Bool =  false{
+        didSet{
+            if cell != nil{
+                cell.highlighted = editModeSelected
+            }
+        }
+    }
 }
 
 class UIResourceItemCell: UICollectionViewCell
@@ -29,8 +48,7 @@ class UIResourceItemCell: UICollectionViewCell
 @objc
 protocol UIResourceExplorerDelegate
 {
-    optional func resourceExplorerItemSelected(itemModel:UIResrouceItemModel, index:Int ,sender:UIResourceExplorerController!)
-    optional func resourceExplorerItemDeSelected(itemModel:UIResrouceItemModel, index:Int,sender:UIResourceExplorerController!)
+    optional func resourceExplorerItemsSelected(itemModels:[UIResrouceItemModel] ,sender:UIResourceExplorerController!)
     optional func resourceExplorerAddItem(completedHandler:(itemModel:UIResrouceItemModel) -> Void,sender:UIResourceExplorerController!)
     optional func resourceExplorerDeleteItem(itemModels:[UIResrouceItemModel],sender:UIResourceExplorerController!)
     optional func resourceExplorerOpenItem(itemModel:UIResrouceItemModel,sender:UIResourceExplorerController!)
@@ -56,8 +74,8 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self //need to bind the data source and the delegate
-            collectionView.allowsSelection = selectionMode != .Negative
-            collectionView.allowsMultipleSelection = selectionMode == .Multiple
+            collectionView.allowsSelection = false
+            collectionView.allowsMultipleSelection = false
         }
     }
     
@@ -79,8 +97,6 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         didSet{
             if collectionView != nil
             {
-                collectionView.allowsSelection = selectionMode != .Negative
-                collectionView.allowsMultipleSelection = selectionMode == .Multiple
                 collectionView.reloadData()
             }
         }
@@ -102,30 +118,36 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     func deleteItem(sender: AnyObject) {
         if let deleteDelegate = self.delegate.resourceExplorerDeleteItem
         {
-            let willDeleteItems = items.filter{ $0.selected }
+            let willDeleteItems = items.filter{ $0.editModeSelected }
             deleteDelegate(willDeleteItems,sender: self)
         }
-        items = items.filter{ !$0.selected }
+        items = items.filter{ !$0.editModeSelected }
     }
     
     func editItems(sender: AnyObject)
     {
         let btn = sender as! UIBarButtonItem
+        editing = !editing
         if editing
         {
-            btn.title = "Edit"
-            collectionView.allowsSelection = selectionMode != .None
-            collectionView.allowsMultipleSelection = selectionMode == .Multiple
-            navigationController?.setToolbarHidden(true, animated: true)
+            btn.title = "Finish"
+            for item in items
+            {
+                item.editModeSelected = false
+            }
+            navigationController?.setToolbarHidden(false, animated: true)
             
         }else
         {
-            btn.title = "Finish"
-            collectionView.allowsSelection = true
-            collectionView.allowsMultipleSelection = true
-            navigationController?.setToolbarHidden(false, animated: true)
+            btn.title = "Edit"
+            for item in items
+            {
+                item.editModeSelected = false
+                let selected = item.selected
+                item.selected = selected
+            }
+            navigationController?.setToolbarHidden(true, animated: true)
         }
-        editing = !editing
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -180,15 +202,50 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.getCellReuseIdentifier(), forIndexPath: indexPath) as! UIResourceItemCell
         cell.model = items[indexPath.row]
-        
-        //MARK: NOTE: stupid bug,use seleted = true,in the view deselect operate will not perform,use hightlingted only click twice can deselete the cell
-        cell.highlighted  = cell.model.selected
+        cell.model.cell = cell
+        cell.model.indexPath = indexPath
         
         let doubleClick = UITapGestureRecognizer(target: self, action: "openItem:")
         doubleClick.numberOfTapsRequired = 2
+        let selectTap = UITapGestureRecognizer(target: self, action: "selectItem:")
+        selectTap.requireGestureRecognizerToFail(doubleClick)
+        cell.addGestureRecognizer(selectTap)
         cell.addGestureRecognizer(doubleClick)
         cell.update()
         return cell
+    }
+    
+    func selectItem(recognizer:UITapGestureRecognizer)->Void
+    {
+        let cell = recognizer.view as! UIResourceItemCell
+        let model = cell.model
+        if editing
+        {
+            model.editModeSelected = !model.editModeSelected
+        }else if selectionMode == .Negative
+        {
+            openItem(recognizer)
+        }else if selectionMode == .Single
+        {
+            let selected = model.selected
+            for item in items
+            {
+                item.selected = false
+            }
+            model.selected = !selected
+        }else if selectionMode == .Multiple
+        {
+            model.selected = !model.selected
+        }
+        
+    }
+    
+    func notifyItemSelectState()
+    {
+        if let delegate = delegate?.resourceExplorerItemsSelected
+        {
+            delegate(items.filter{$0.selected},sender: self)
+        }
     }
     
     func openItem(recognizer:UITapGestureRecognizer)->Void
@@ -197,30 +254,6 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         {
             let cell = recognizer.view as! UIResourceItemCell
             openDelegate(cell.model,sender: self)
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        items[indexPath.row].selected = false
-        if !editing
-        {
-            if let delegate = delegate?.resourceExplorerItemDeSelected
-            {
-                delegate(items[indexPath.row] ,index: indexPath.row,sender: self)
-            }
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        items[indexPath.row].selected = true
-        if !editing
-        {
-            if let delegate = delegate?.resourceExplorerItemSelected
-            {
-                delegate(items[indexPath.row] ,index: indexPath.row,sender: self)
-            }
         }
     }
 }

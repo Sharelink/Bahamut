@@ -8,9 +8,35 @@
 
 import UIKit
 
+class UIShareMessage:UITableViewCell
+{
+    
+    static let RollMessageCellIdentifier = "RollMessage"
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var noteNameLabel: UILabel!
+    @IBOutlet weak var headIconImageView: UIImageView!
+    @IBOutlet weak var messageLabel: UILabel!
+    var rootController:UIViewController!
+    var shareThingModel:ShareThing!
+        {
+        didSet
+        {
+            update()
+        }
+    }
+    
+    private func update()
+    {
+        timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString()
+        noteNameLabel.text = shareThingModel.userNick
+        headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId)
+        messageLabel.text = shareThingModel.shareContent
+    }
+}
+
 class UIShareThing: UITableViewCell
 {
-
+    static let ShareThingCellIdentifier = "ShareThing"
     struct Constants
     {
         static let VotePrefixEmoji = "👍"
@@ -94,6 +120,7 @@ class UIShareThing: UITableViewCell
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Say something to your linkers"
         }
+        rootController.presentViewController(alert, animated: true, completion: nil)
     }
     
     private func cancelShare()
@@ -147,7 +174,7 @@ class UIShareThing: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
         UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
     }
     
@@ -188,23 +215,7 @@ extension ShareThing
     }
     
     var postDateString:String{
-        if shareTimeOfDate.timeIntervalSinceNow < 60
-        {
-            return "newly"
-        }
-        else if shareTimeOfDate.timeIntervalSinceNow < 3600
-        {
-            return "\(Int(shareTimeOfDate.timeIntervalSinceNow/60)) minutes ago"
-        }else if shareTimeOfDate.timeIntervalSinceNow < 3600 * 24
-        {
-            return "\(Int(shareTimeOfDate.timeIntervalSinceNow/3600)) hours ago"
-        }else if shareTimeOfDate.timeIntervalSinceNow < 3600 * 24 * 7
-        {
-            return "\(Int(shareTimeOfDate.timeIntervalSinceNow/3600/24)) days ago"
-        }else
-        {
-            return DateHelper.toDateTimeString(self.shareTimeOfDate)
-        }
+        return shareTimeOfDate.toFriendlyString()
     }
     
 }

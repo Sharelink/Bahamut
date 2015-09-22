@@ -37,7 +37,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             profileVideoView.autoLoad = true
             profileVideoView.canSwitchToFullScreen = true
             profileVideoView.isMute = false
-            profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Video)
+            profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
             profileVideoViewContainer.sendSubviewToBack(profileVideoView)
         }
     }
@@ -110,6 +110,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
     {
+        if isMyProfile
+        {
+            return
+        }
         if sender == focusTagController
         {
             showConfirmAddTagAlert(sender.tags[indexPath.row])
@@ -125,6 +129,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         alert.addAction(UIAlertAction(title: "Ummm!", style: .Cancel){ _ in
             self.cancelAddTap(tag)
         })
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func cancelAddTap(tag:SharelinkTag)
@@ -142,6 +147,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         tagService.addSharelinkTag(newTag) { () -> Void in
             
         }
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
     }
     
     @IBOutlet weak var focusTagViewContainer: UIView!{
@@ -189,7 +199,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
     {
         let fileService = ServiceContainer.getService(FileService)
-        let newFilePath = fileService.createLocalStoreFileName(FileType.Video) + ".mp4"
+        let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if fileService.moveFileTo(destination, destinationPath: newFilePath)
         {
             profileVideoView.filePath = newFilePath
@@ -206,9 +216,12 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files,selectionMode:.Single, delegate: self)
     }
     
-    func resourceExplorerItemSelected(itemModel: UIResrouceItemModel, index: Int, sender: UIResourceExplorerController!) {
-        let fileModel = itemModel as! UIFileCollectionCellModel
-        profileVideoView.filePath = fileModel.filePath
+    func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
+        if itemModels.count > 0
+        {
+            let fileModel = itemModels.first as! UIFileCollectionCellModel
+            profileVideoView.filePath = fileModel.filePath
+        }
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
@@ -258,6 +271,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     //MARK: user tag
     var tags:[SharelinkTag]!{
         didSet{
+            self.focusTagController.tags = tags
         }
     }
     
@@ -272,7 +286,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func headIconTapped(_:UITapGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
         UIImagePlayerController.showImagePlayer(self, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
     }
     

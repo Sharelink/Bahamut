@@ -10,11 +10,6 @@ import UIKit
 
 class ShareThingsListController: UITableViewController
 {
-    struct Constants
-    {
-        static let ShareThingIdentifier = "ShareThing"
-        static let RollMessageCellIdentifier = "RollMessage"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +54,13 @@ class ShareThingsListController: UITableViewController
             }
             sender.endRefreshing()
         }
+    }
+    
+    @IBAction func tag(sender: AnyObject)
+    {
+        let tagService = ServiceContainer.getService(SharelinkTagService)
+        let allTagModels = tagService.getMyAllTags()
+        tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
     }
     
     @IBAction func userSetting(sender:AnyObject)
@@ -145,15 +147,22 @@ class ShareThingsListController: UITableViewController
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ShareThingIdentifier, forIndexPath: indexPath)
+        
         let shareThing = shareThings[indexPath.section][indexPath.row] as ShareThing
-        if let shareThingUI = cell as? UIShareThing
+        if shareThing.shareType == ShareType.messageType.rawValue
         {
-            shareThingUI.rootController = self
-
-            shareThingUI.shareThingModel = shareThing
+            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
+            cell.rootController = self
+            cell.shareThingModel = shareThing
+            return cell
+        }else
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
+            cell.rootController = self
+            cell.shareThingModel = shareThing
+            return cell
         }
-        return cell
+        
     }
     
 }

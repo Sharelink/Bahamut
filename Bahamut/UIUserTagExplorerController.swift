@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //MARK: UserService Extension
-extension UserService
+extension SharelinkTagService
 {
     
     func getUserTagsResourceItemModels(tags:[SharelinkTag],selected:Bool = false) -> [UIResrouceItemModel]
@@ -23,12 +23,13 @@ extension UserService
         })
     }
     
-    func showTagExplorerController(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
+    func showTagExplorerController(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
     {
         
         let collectionController = UITagExplorerController.instanceFromStoryBoard()
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
+        collectionController.explorerIdentifier = identifier
         collectionController.items = tags
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
@@ -41,7 +42,10 @@ class UISharelinkTagItemModel: UIResrouceItemModel
 
 class UITagExplorerViewCell: UIResourceItemCell
 {
-    
+    override func layoutSubviews() {
+        self.layer.cornerRadius = 7
+        super.layoutSubviews()
+    }
     override func update() {
         super.update()
         if let tagModel = self.model as? UISharelinkTagItemModel
@@ -59,23 +63,32 @@ class UITagExplorerViewCell: UIResourceItemCell
 
 class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
+    var explorerIdentifier:String!
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        notifyItemSelectState()
+    }
+    
     func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {
         let service = ServiceContainer.getService(SharelinkTagService)
+        self.view.makeToastActivityWithMessage(message: "Saveing Tag")
         if sender.editMode == .New
         {
             service.addSharelinkTag(saveModel.tagModel){
                 self.items.append(saveModel)
+                self.view.hideToastActivity()
                 self.uiCollectionView.reloadData()
             }
         }else{
             service.updateTag(saveModel.tagModel){
+                self.view.hideToastActivity()
                 self.uiCollectionView.reloadData()
             }
         }
@@ -99,22 +112,23 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         return CGSizeZero
     }
     
+    func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
+    {
+        if let tagsChanged = self.selectedTagsChanged
+        {
+            tagsChanged(tagsSeleted: itemModels as! [UISharelinkTagItemModel])
+        }
+    }
+    
     func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
     {
         let newTag = UISharelinkTagItemModel()
         newTag.tagModel = SharelinkTag()
         newTag.tagModel.tagId = nil
         newTag.tagModel.tagName = "newTag"
+        newTag.tagModel.isFocus = "true"
         newTag.tagModel.tagColor = UIColor(hex: arc4random()).toHexString()
         ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        if let tagsChanged = self.selectedTagsChanged
-        {
-            tagsChanged(tagsSeleted: self.items.filter{ $0.selected} as! [UISharelinkTagItemModel])
-        }
     }
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
@@ -122,7 +136,8 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         if let models = itemModels as? [UISharelinkTagItemModel]
         {
             ServiceContainer.getService(SharelinkTagService).removeMyTags(models.map{$0.tagModel!}, sucCallback: { () -> Void in
-                self.view.makeToast(message: "Remove \(models.count) Tags")
+                self.view.makeToast(message: "Remove \(models.count) Tags", duration: 0, position: HRToastPositionCenter)
+                
             })
         }
     }

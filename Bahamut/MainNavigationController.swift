@@ -35,11 +35,10 @@ class MainNavigationController: UINavigationController
         return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
     }
     
-    static func start(currentController:UIViewController,msg:String)
+    static func start(msg:String)
     {
         let mainController = instanceFromStoryBoard();
-        currentController.presentViewController(mainController, animated: false) { () -> Void in
-            mainController.view.makeToast(message: msg)
-        }
+        UIApplication.sharedApplication().delegate?.window!?.rootViewController?.removeFromParentViewController()
+        UIApplication.sharedApplication().delegate?.window!?.rootViewController = mainController
     }
 }

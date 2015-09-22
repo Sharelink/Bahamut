@@ -51,6 +51,30 @@ extension String
     }
 }
 
+extension NSDate
+{
+    func toFriendlyString() -> String
+    {
+        if self.timeIntervalSinceNow < 60
+        {
+            return "newly"
+        }
+        else if self.timeIntervalSinceNow < 3600
+        {
+            return "\(Int(self.timeIntervalSinceNow/60)) minutes ago"
+        }else if self.timeIntervalSinceNow < 3600 * 24
+        {
+            return "\(Int(self.timeIntervalSinceNow/3600)) hours ago"
+        }else if self.timeIntervalSinceNow < 3600 * 24 * 7
+        {
+            return "\(Int(self.timeIntervalSinceNow/3600/24)) days ago"
+        }else
+        {
+            return self.toDateString()
+        }
+    }
+}
+
 class ArrayUtil
 {
     static func groupWithLatinLetter<T>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]

@@ -32,23 +32,13 @@ public class SharelinkTagService : ServiceProtocol
     }
     
     @objc func userLoginInit(userId: String) {
-        
+        refreshMyAllSharelinkTags()
     }
     
     //MARK: My Tag
     func getMyAllTags() ->[SharelinkTag]
     {
-        var result = [SharelinkTag]()
-        var tag = SharelinkTag()
-        tag.tagColor = UIColor.getRandomTextColor().toHexString()
-        tag.tagName = "hahaha"
-        result.append(tag)
-        tag = SharelinkTag()
-        tag.tagColor = UIColor.getRandomTextColor().toHexString()
-        tag.tagName = "hahaha2"
-        result.append(tag)
-        return result
-        //return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
+        return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
     }
     
     //refresh all the tag entities
@@ -105,11 +95,13 @@ public class SharelinkTagService : ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 PersistentManager.sharedInstance.removeModels(tags)
+                
                 if let callback = sucCallback
                 {
                     callback()
                 }
             }
+            PersistentManager.sharedInstance.refreshCache(SharelinkTag)
         })
     }
     

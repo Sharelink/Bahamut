@@ -13,6 +13,9 @@ import EVReflection
 
 class UserService: NSNotificationCenter,ServiceProtocol
 {
+    static let userListUpdated = "userListUpdated"
+    static let askingLinkUserListUpdated = "askingLinkUserListUpdated"
+    
     @objc static var ServiceName:String{return "user service"}
     
     @objc func appStartInit()
@@ -23,6 +26,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         myUserId = userId
+        initLinkedUsers()
     }
     
     private(set) var myUserId:String!
@@ -31,6 +35,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         return getUser(myUserId)!
     }
     
+    private(set) var askingLinkUserList:[ShareLinkUser]!
     private(set) var myLinkedUsers:[ShareLinkUser]!
     
     private func initLinkedUsers()
@@ -104,11 +109,11 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 callback(newestUser: newestUser, msg: msg)
             }
         }
-
+        
         return user
     }
     
-    func refreshMyLinkedUsers(refreshCallback:(isSuc:Bool, msg:String!)->Void)
+    func refreshMyLinkedUsers()
     {
         let req = GetUserLinksRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
@@ -119,7 +124,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 if let userLinks:[UserLink] = result.returnObject
                 {
                     let usersReq = GetShareLinkUsersRequest()
-                    ShareLinkSDK.sharedInstance.getShareLinkClient().execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
+                    client.execute(usersReq) { (result:SLResult<[ShareLinkUser]>) -> Void in
                         if result.statusCode == ReturnCode.OK
                         {
                             if let users:[ShareLinkUser] = result.returnObject
@@ -128,41 +133,65 @@ class UserService: NSNotificationCenter,ServiceProtocol
                                 ShareLinkUser.saveObjectOfArray(users)
                                 PersistentManager.sharedInstance.refreshCache(UserLink)
                                 PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
-                                self.myLinkedUsers = users;
-                                refreshCallback(isSuc: true, msg: "")
-                            }else{
-                                refreshCallback(isSuc: false, msg: result.originResult.description)
+                                self.initLinkedUsers()
+                                self.postNotificationName(UserService.userListUpdated, object: self)
+                                self.postNotificationName(UserService.askingLinkUserListUpdated, object: self)
+                          
                             }
-                        }else{
-                            refreshCallback(isSuc: false, msg: result.originResult.description)
                         }
                     }
-                }else{
-                    refreshCallback(isSuc: false, msg: result.originResult.description)
                 }
-            }else
-            {
-                refreshCallback(isSuc: false, msg: result.originResult.description)
             }
         }
     }
     
+    func getUserLink(userId:String) -> UserLink?
+    {
+        return PersistentManager.sharedInstance.getModel(UserLink.self, idValue: userId)
+    }
+    
     private func getLinkedUsers() -> [ShareLinkUser]
     {
-        let myLinkedUserLink = PersistentManager.sharedInstance.getAllModel(UserLink)
-        let userIds = myLinkedUserLink.filter{$0.masterUserId == self.myUserId}.map{ link -> String in
+        let myLinkedUserLink = PersistentManager.sharedInstance.getAllModelFromCache(UserLink)
+        let userIds = myLinkedUserLink.map{ link -> String in
             return link.slaveUserId
         }
         return getUsers(userIds)
     }
     
-    func acceptUserLink(userId:String,noteName:String!,callback:((isSuc:Bool) -> Void)! = nil)
+    func rejectUserLink(userId:String!)
     {
-        
+        let req = UpdateUserLinkStatusWithOtherRequest()
+        req.userId = userId
+        req.status = UserLinkStatus.Rejected.rawValue.description
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ShareLinkObject>) -> Void in
+            if result.isSuccess{
+                self.refreshMyLinkedUsers()
+            }
+        }
     }
     
-    func askSharelinkForLink(accountId:String)
+    func acceptUserLink(userId:String,noteName:String!,callback:((isSuc:Bool) -> Void)! = nil)
     {
+        let req = UpdateUserLinkStatusWithOtherRequest()
+        req.userId = userId
+        req.status = UserLinkStatus.Linked.rawValue.description
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ShareLinkObject>) -> Void in
+            if result.isSuccess{
+                self.refreshMyLinkedUsers()
+                self.setUserNoteName(userId, newNoteName: noteName)
+            }
+        }
+    }
+    
+    func askSharelinkForLink(accountId:String,callback:(isSuc:Bool)->Void)
+    {
+        let req = AddUserLinkRequest()
+        req.accountId = accountId
+        req.note = "\(myUserModel.nickName) want to add a link with you"
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ShareLinkObject>) -> Void in
+            callback(isSuc: result.isSuccess)
+        }
         
     }
     

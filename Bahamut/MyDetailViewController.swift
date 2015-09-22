@@ -151,8 +151,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         service.logout { (msg) -> Void in
             let fileSvr = ServiceContainer.getService(FileService)
             fileSvr.clearUserDatas()
-            self.navigationController?.popToRootViewControllerAnimated(false)
-            MainNavigationController.start(self, msg: msg)
+            MainNavigationController.start(msg)
         }
     }
     
@@ -212,7 +211,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func tapHeadIcon(_:UITapGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
         UIImagePlayerController.showImagePlayer(self, imageUrls: [myInfo.headIconId ?? ImageAssetsConstants.defaultHeadIcon],imageFileFetcher: imageFileFetcher)
     }
     

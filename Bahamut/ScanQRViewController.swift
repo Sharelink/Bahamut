@@ -11,13 +11,13 @@ import UIKit
 
 protocol QRStringDelegate
 {
-    func QRdealString(qrString:String)
+    func QRdealString(sender:ScanQRViewController,qrString:String)
 }
 
 class ScanQRViewController: UIViewController
 {
     var delegate:QRStringDelegate!
-    let scanner = QRCode()
+    private let scanner = QRCode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,15 @@ class ScanQRViewController: UIViewController
         scanner.prepareScan(view) { (stringValue) -> () in
             if let d = self.delegate
             {
-                d.QRdealString(stringValue)
+                d.QRdealString(self,qrString: stringValue)
             }
         }
         scanner.scanFrame = view.bounds
+    }
+    
+    func startScan()
+    {
+        scanner.startScan()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,9 +58,13 @@ class ScanQRViewController: UIViewController
 
 extension UserService: QRStringDelegate
 {
-    func QRdealString(qrString: String)
+    func QRdealString(sender:ScanQRViewController,qrString: String)
     {
-        ServiceContainer.getService(AccountService).getSharelinkerAccountIdFromQRString(qrString)
+        let accountId = ServiceContainer.getService(AccountService).getSharelinkerAccountIdFromQRString(qrString)
+        ServiceContainer.getService(UserService).askSharelinkForLink(accountId){ isSuc in
+            sender.view.makeToast(message: "Request sended")
+            sender.startScan()
+        }
     }
     
     func showScanQRViewController(currentNavigationController:UINavigationController)

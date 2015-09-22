@@ -9,18 +9,24 @@
 
 import Foundation
 
-class MessageService: ServiceProtocol
+class UserMessageListItem
+{
+    var userId:String!
+    var shareId:String!
+    var message:String!
+    var time:NSDate!
+}
+
+class MessageService:NSNotificationCenter,ServiceProtocol
 {
     @objc static var ServiceName:String {return "MessageService"}
-    @objc func appStartInit() {
-        
-        
-    }
+    @objc func appStartInit() {}
     
-    @objc func userLoginInit(userId: String) {
-        
-        
-    }
+    @objc func userLoginInit(userId: String) {}
+    
+    static let messageListUpdated = "messageListUpdated"
+    
+    private(set) var messageList:[UserMessageListItem]!
     
     func getShareIdNotReadMessageCount(shareId:String) -> UInt32
     {

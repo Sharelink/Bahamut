@@ -11,9 +11,16 @@ import Foundation
 extension FileService
 {
     
-    func getFileFetcher(fileType:FileType) -> FileFetcher
+    func getFileFetcherOfFileId(fileType:FileType) -> FileFetcher
     {
         let fetcher = IdFileFetcher()
+        fetcher.fileType = fileType
+        return fetcher
+    }
+    
+    func getFileFetcherOfFilePath(fileType:FileType) -> FileFetcher
+    {
+        let fetcher = FilePathFileFetcher()
         fetcher.fileType = fileType
         return fetcher
     }

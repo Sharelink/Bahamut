@@ -12,11 +12,25 @@ class UIUserListMessageCell: UITableViewCell
 {
     
     static let cellIdentifier:String = "UIUserListMessageCell"
+    var model:UserMessageListItem!{
+        didSet{
+            update()
+        }
+    }
     @IBOutlet weak var noteNameLabel: UILabel!
     @IBOutlet weak var headIcon: UIImageView!
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
+    
+    private func update()
+    {
+        let user = ServiceContainer.getService(UserService).getUser(model.userId)
+        noteNameLabel.text = user?.noteName
+        timeLabel.text = model.time.toFriendlyString()
+        messageLabel.text = model.message
+        headIcon.image = PersistentManager.sharedInstance.getImage(user?.headIconId)
+    }
 }
 
 class UIUserListAskingLinkCell: UITableViewCell
@@ -25,6 +39,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     var user:ShareLinkUser!
     @IBOutlet weak var headIcon: UIImageView!
     @IBOutlet weak var userNickLabel: UILabel!
+    
     @IBAction func ignore(sender: AnyObject)
     {
     }
@@ -35,6 +50,12 @@ class UIUserListAskingLinkCell: UITableViewCell
         userService.acceptUserLink(user.userId, noteName: user.nickName){ isSuc in
             
         }
+    }
+    
+    private func update()
+    {
+        userNickLabel.text = "\(user?.nickName) asking for a link"
+        headIcon.image = PersistentManager.sharedInstance.getImage(user?.headIconId)
     }
     
 }
@@ -75,7 +96,7 @@ class UIUserListCell: UITableViewCell
     
     func showHeadIcon(_:UIGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcher(FileType.Image)
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
         UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.headIconId ?? ImageAssetsConstants.defaultHeadIcon],imageFileFetcher: imageFileFetcher)
     }
     

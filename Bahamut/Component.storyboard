@@ -7,7 +7,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Files-->
+        <!--File Collection Controller-->
         <scene sceneID="odz-ad-Jgt">
             <objects>
                 <viewController storyboardIdentifier="fileCollectionViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NYT-uY-zWp" customClass="UIFileCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -80,9 +80,14 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Files" id="0t1-YN-UUi">
+                    <navigationItem key="navigationItem" id="0t1-YN-UUi">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Y8v-vY-L74"/>
                         <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="2xs-gL-DFi">
+                                <connections>
+                                    <action selector="ok:" destination="NYT-uY-zWp" id="NHB-zN-Skl"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="add" id="qTh-eb-06a">
                                 <connections>
                                     <action selector="addFile:" destination="NYT-uY-zWp" id="5da-Pa-Pah"/>
@@ -263,10 +268,10 @@
             </objects>
             <point key="canvasLocation" x="1242.5" y="2165.5"/>
         </scene>
-        <!--MyTags-->
+        <!--My Tags-->
         <scene sceneID="ypL-1e-3PJ">
             <objects>
-                <viewController storyboardIdentifier="UITagExplorerController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UIUserTagCollectionController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UITagExplorerController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oi3-Hp-7ne"/>
                         <viewControllerLayoutGuide type="bottom" id="lj8-Fi-0wH"/>
@@ -279,40 +284,53 @@
                                 <rect key="frame" x="20" y="20" width="560" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SrN-Qt-g4g">
-                                    <size key="itemSize" width="64" height="64"/>
+                                    <size key="itemSize" width="137" height="64"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="TagItemCell" id="Asb-zM-XqL" customClass="UserTagCollectionViewCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="64" height="64"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="TagItemCell" id="Asb-zM-XqL" customClass="UITagExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="137" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="137" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDk-yz-k33">
-                                                    <rect key="frame" x="11" y="21" width="42" height="21"/>
+                                                    <rect key="frame" x="48" y="21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="dYC-ub-gJ4">
-                                                    <rect key="frame" x="24" y="24" width="16" height="16"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="gYd-28-Iyg">
+                                                    <rect key="frame" x="61" y="24" width="16" height="16"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="Auy-8T-l0j"/>
+                                                        <constraint firstAttribute="height" constant="16" id="KfM-aV-xcF"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="centerX" secondItem="DDk-yz-k33" secondAttribute="centerX" id="9Jp-JO-ToU"/>
-                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="centerY" secondItem="DDk-yz-k33" secondAttribute="centerY" id="G7a-sg-sMV"/>
-                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="top" secondItem="Asb-zM-XqL" secondAttribute="topMargin" constant="16" id="XaD-g9-Tbg"/>
+                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="leading" secondItem="Asb-zM-XqL" secondAttribute="leadingMargin" constant="12" id="38N-0d-HQb"/>
+                                            <constraint firstItem="DDk-yz-k33" firstAttribute="leading" secondItem="gYd-28-Iyg" secondAttribute="trailing" constant="12" id="5zg-SI-QdL"/>
+                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="8Lo-wC-jkw"/>
+                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="centerY" secondItem="Asb-zM-XqL" secondAttribute="centerY" id="Nsy-4D-IuU"/>
                                             <constraint firstItem="DDk-yz-k33" firstAttribute="centerY" secondItem="Asb-zM-XqL" secondAttribute="centerY" id="YUo-8h-Hbj"/>
                                             <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="kuR-PF-eYt"/>
-                                            <constraint firstItem="dYC-ub-gJ4" firstAttribute="leading" secondItem="Asb-zM-XqL" secondAttribute="leadingMargin" constant="16" id="qAm-ac-LoK"/>
+                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="msq-Ep-cnB"/>
                                         </constraints>
-                                        <size key="customSize" width="64" height="64"/>
+                                        <size key="customSize" width="137" height="64"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="5zg-SI-QdL"/>
+                                                <exclude reference="kuR-PF-eYt"/>
+                                                <exclude reference="38N-0d-HQb"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="tagNameLabel" destination="DDk-yz-k33" id="QLp-Lt-eLU"/>
                                         </connections>
@@ -335,7 +353,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="MyTags" id="dvA-mC-VAc">
+                    <navigationItem key="navigationItem" title="My Tags" id="dvA-mC-VAc">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Lsz-Sq-Zoi"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="9xl-wz-i4J">
@@ -397,7 +415,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Focus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAV-1m-gT7">
                                 <rect key="frame" x="20" y="118" width="64" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -553,37 +571,37 @@
         <!--Tag Collection View Controller-->
         <scene sceneID="7He-ch-jYu">
             <objects>
-                <collectionViewController storyboardIdentifier="tagCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="UITagCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
+                <collectionViewController storyboardIdentifier="tagCollectionViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="UITagCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Uu-gp-KIX">
-                            <size key="itemSize" width="94" height="30"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dUd-gu-SQl">
+                            <size key="itemSize" width="50" height="24"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="tagCell" id="Qqg-UF-Fid" customClass="TagCollectionCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="Qqg-UF-Fid" customClass="TagCollectionCell" customModule="Bahamut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
-                                            <rect key="frame" x="16" y="7" width="36" height="17"/>
+                                            <rect key="frame" x="14" y="4" width="36" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bullet-blue" translatesAutoresizingMaskIntoConstraints="NO" id="Hng-t9-MHb">
-                                            <rect key="frame" x="0.0" y="7" width="16" height="16"/>
+                                            <rect key="frame" x="0.0" y="5" width="14" height="14"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="16" id="96b-iR-gy5"/>
-                                                <constraint firstAttribute="width" constant="16" id="x3p-3R-xkm"/>
+                                                <constraint firstAttribute="height" constant="14" id="96b-iR-gy5"/>
+                                                <constraint firstAttribute="width" constant="14" id="x3p-3R-xkm"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
