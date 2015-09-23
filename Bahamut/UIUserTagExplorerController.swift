@@ -78,17 +78,14 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {
         let service = ServiceContainer.getService(SharelinkTagService)
-        self.view.makeToastActivityWithMessage(message: "Saveing Tag")
         if sender.editMode == .New
         {
             service.addSharelinkTag(saveModel.tagModel){
                 self.items.append(saveModel)
-                self.view.hideToastActivity()
                 self.uiCollectionView.reloadData()
             }
         }else{
             service.updateTag(saveModel.tagModel){
-                self.view.hideToastActivity()
                 self.uiCollectionView.reloadData()
             }
         }
