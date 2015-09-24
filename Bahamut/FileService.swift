@@ -37,6 +37,7 @@ class FileService: ServiceProtocol {
         initFileDir()
         uploadQueue = [UploadTask]()
         initFileUploadProc()
+        PersistentManager.sharedInstance.initManager(fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0])
     }
     
     private func initFileDir()
@@ -89,26 +90,31 @@ class FileService: ServiceProtocol {
         
     }
     
-    func getFileByFileId(fileId:String!,progress:((persent:Float)->Void)! = nil,returnCallback:(filePath:String!)->Void)
+    func getFileByFileId(fileId:String!,var fileType:FileType!,returnCallback:(filePath:String!)->Void)
     {
         if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {
+            ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: path)
             returnCallback(filePath: path)
-        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.localPath
+        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.getObsoluteFilePath()
         {
+            ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: path)
             returnCallback(filePath: path)
         }else
         {
-            let fileType = FileType.getFileTypeByFileId(fileId)
-            if progress == nil
+            if fileType == nil
             {
-                fetch(fileId,fileType:fileType, fetchCompleted: returnCallback)
-            }else{
-                fetch(fileId,fileType:fileType, fetchCompleted: returnCallback, progressUpdate: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
-                    let persent = Float( bytesRead / totalBytesRead)
-                    progress(persent:persent)
-                })
+                fileType = FileType.getFileTypeByFileId(fileId)
+                if fileType == .Raw
+                {
+                    if let fe = PersistentManager.sharedInstance.getFile(fileId)
+                    {
+                        
+                        fileType = FileType.getFileType(fe.fileType.integerValue)
+                    }
+                }
             }
+            fetch(fileId,fileType:fileType,callback: returnCallback)
         }
     }
     

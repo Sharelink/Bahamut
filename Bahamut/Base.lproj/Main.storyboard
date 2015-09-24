@@ -35,6 +35,7 @@
                     <navigationItem key="navigationItem" title="Register" id="Wbf-zC-Spg">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="mdk-WE-azC"/>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
                         <outlet property="registerWebPageView" destination="ND4-UY-9BY" id="aZ3-vZ-K1l"/>
                     </connections>
@@ -43,21 +44,21 @@
             </objects>
             <point key="canvasLocation" x="1667" y="-189"/>
         </scene>
-        <!--Sharelinks-->
+        <!--Sharelink-->
         <scene sceneID="kSY-Pg-Hwm">
             <objects>
                 <tableViewController id="c5G-TY-KIz" customClass="ShareThingsListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="365" sectionHeaderHeight="22" sectionFooterHeight="22" id="WIZ-za-8E1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="ltY-3s-OWG">
-                            <rect key="frame" x="0.0" y="515" width="600" height="20"/>
+                            <rect key="frame" x="0.0" y="451" width="600" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShareThing" rowHeight="365" id="Fkk-ck-SnS" customClass="UIShareThing" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="365"/>
+                                <rect key="frame" x="0.0" y="22" width="600" height="365"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="Fkk-ck-SnS" id="SHG-GU-H1A">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="364"/>
@@ -191,7 +192,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="default" indentationWidth="10" reuseIdentifier="RollMessage" rowHeight="64" id="Ev9-Ds-XeQ" customClass="UIShareMessage" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="451" width="600" height="64"/>
+                                <rect key="frame" x="0.0" y="387" width="600" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ev9-Ds-XeQ" id="IM0-Iu-fpj">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
@@ -262,7 +263,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinks" id="jn5-6e-O46">
+                    <navigationItem key="navigationItem" title="Sharelink" id="jn5-6e-O46">
                         <barButtonItem key="backBarButtonItem" title="Back" id="WgG-Dt-AGc"/>
                         <barButtonItem key="leftBarButtonItem" image="tag_fill" id="ocy-Ig-wHe">
                             <inset key="imageInsets" minX="3" minY="3" maxX="3" maxY="3"/>
@@ -278,7 +279,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="54Y-0m-0Rr">
                         <autoresizingMask key="autoresizingMask"/>
@@ -294,17 +295,17 @@
             </objects>
             <point key="canvasLocation" x="855" y="557"/>
         </scene>
-        <!--Sharelinkers-->
+        <!--Sharelinker-->
         <scene sceneID="vir-N7-30o">
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="22" sectionFooterHeight="22" id="wFU-9I-Bug">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="58" id="g2o-Ko-7wM" customClass="UIUserListCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="58"/>
+                                <rect key="frame" x="0.0" y="22" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g2o-Ko-7wM" id="gIt-cZ-KwZ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
@@ -347,7 +348,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserAskLinkCell" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="600" height="58"/>
+                                <rect key="frame" x="0.0" y="80" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="80A-tW-7eC" id="i9r-5O-2RD">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
@@ -398,7 +399,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="202" width="600" height="58"/>
+                                <rect key="frame" x="0.0" y="138" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjP-Sc-6TF" id="49C-wb-dN4">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
@@ -464,7 +465,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinkers" id="zwT-Iu-aIj">
+                    <navigationItem key="navigationItem" title="Sharelinker" id="zwT-Iu-aIj">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Yk6-tG-t18"/>
                         <barButtonItem key="leftBarButtonItem" image="qr_code" id="nbv-qj-n6S">
                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -479,7 +480,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </tableViewController>
@@ -487,12 +488,12 @@
             </objects>
             <point key="canvasLocation" x="-568" y="2041"/>
         </scene>
-        <!--Sharelinkers-->
+        <!--Sharelinker-->
         <scene sceneID="x7m-4a-hAj">
             <objects>
                 <navigationController id="VjT-9Z-NQj" customClass="UIUserNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Sharelinkers" image="bottomItemLink" id="fZq-ca-5yA"/>
+                    <tabBarItem key="tabBarItem" title="Sharelinker" image="bottomItemLink" id="fZq-ca-5yA"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="roK-tV-Jea">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -717,7 +718,7 @@
                     <connections>
                         <outlet property="loginWebPageView" destination="BsZ-WV-6Gb" id="FbK-iK-ANm"/>
                         <outlet property="reloadButton" destination="ymX-0s-7rD" id="KIc-0e-wRa"/>
-                        <segue destination="501-Fq-5xf" kind="custom" identifier="ShowMainView" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="N2o-I0-qzh"/>
+                        <segue destination="501-Fq-5xf" kind="presentation" identifier="ShowMainView" id="N2o-I0-qzh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjl-Za-0ff" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -765,13 +766,14 @@
             </objects>
             <point key="canvasLocation" x="143" y="1301"/>
         </scene>
-        <!--Sharelinks-->
+        <!--Sharelink-->
         <scene sceneID="L20-bk-8FX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="wuC-ja-IW1" customClass="UIOrientationsNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Sharelinks" image="bottomItemShare" id="Sb9-t4-Wis"/>
+                    <tabBarItem key="tabBarItem" title="Sharelink" image="bottomItemShare" id="Sb9-t4-Wis"/>
                     <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Row-My-WbT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

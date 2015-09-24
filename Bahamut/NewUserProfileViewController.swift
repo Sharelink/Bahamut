@@ -39,6 +39,11 @@ class NewUserProfileViewController: UIViewController
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        changeNavigationBarColor()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         update()

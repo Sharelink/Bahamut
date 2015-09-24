@@ -14,6 +14,14 @@ class PersistentManager
 {
     static let sharedInstance: PersistentManager = {return PersistentManager()}()
     private var nsCacheDict = [String:NSCache]()
+    private(set) var documentsPathUrl:NSURL!
+    private(set) var documentsPath:String!
+    
+    func initManager(documentsPathUrl:NSURL)
+    {
+        self.documentsPathUrl = documentsPathUrl
+        self.documentsPath = documentsPathUrl.path
+    }
     
     func getCache(typename:String) -> NSCache
     {
@@ -63,6 +71,14 @@ extension NSManagedObject
     }
 }
 
+extension FileInfoEntity
+{
+    func getObsoluteFilePath() -> String!
+    {
+        return PersistentManager.sharedInstance.getAbsoluteFilePath(self.localPath)
+    }
+}
+
 extension PersistentManager
 {
     func clearAllFileManageData()
@@ -84,22 +100,37 @@ extension PersistentManager
     
     func saveFile(fileId:String,fileExistsPath:String) -> FileInfoEntity?
     {
-        if NSFileManager.defaultManager().fileExistsAtPath(fileExistsPath)
+        var relativePath:String!
+        if let index = fileExistsPath.rangeOfString(documentsPath)?.last
+        {
+            let i = index.advancedBy(2) //advance 2 to trim '/' operator
+            relativePath = fileExistsPath.substringFromIndex(i)
+        }else
+        {
+            relativePath = fileExistsPath
+        }
+        let absolutePath = documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
+        if NSFileManager.defaultManager().fileExistsAtPath(absolutePath)
         {
             if let fileEntity = getFile(fileId)
             {
-                fileEntity.localPath = fileExistsPath
+                fileEntity.localPath = relativePath
                 fileEntity.saveModified()
                 return fileEntity
             }else if let fileEntity = CoreDataHelper.insertNewCell(FilePersistentsConstrants.fileEntityName) as? FileInfoEntity
             {
-                fileEntity.localPath = fileExistsPath
+                fileEntity.localPath = relativePath
                 fileEntity.fileId = fileId
                 fileEntity.saveModified()
                 return fileEntity
             }
         }
         return nil
+    }
+    
+    func getAbsoluteFilePath(relativePath:String) -> String
+    {
+        return documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
     }
     
     func getFile(fileId:String!) -> FileInfoEntity?

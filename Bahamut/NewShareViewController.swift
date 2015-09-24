@@ -23,14 +23,16 @@ extension ShareService
     }
 }
 
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
 {
     static let tagsLimit = 7
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeNavigationBarColor()
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
+            shareThingModel.shareType = ShareType.filmType.rawValue
         }
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
@@ -63,6 +65,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
             shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareType.filmType)
+            let player = shareContentContainer.contentView as! ShareLinkFilmView
+            player.fileFetcher = FilePathFileFetcher.shareInstance
             shareContentContainer.shareThing = shareThingModel
         }
     }
@@ -375,14 +379,19 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 self.view.hideToastActivity()
                 if fileId != nil
                 {
-                    self.shareThingModel.shareContent = fileId
+                    let newShare = ShareThing()
+                    newShare.title = self.shareDescriptionTextArea.text
+                    newShare.shareContent = fileId
+                    newShare.shareType = ShareType.filmType.rawValue
+                    
+                    ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: self)
                     fService.startSendFile(fileId)
                     self.view.makeToastActivityWithMessage(message: "Posting")
-                    sService.postNewShare(self.shareThingModel, tags: self.selectedTagController.tags ,callback: { (isSuc) -> Void in
+                    sService.postNewShare(newShare, tags: self.selectedTagController.tags ,callback: { (isSuc) -> Void in
                         self.view.hideToastActivity()
                         if isSuc
                         {
-                            self.view.makeToast(message: "Post New Share Failed")
+                            self.view.makeToast(message: "Post New Share Success")
                         }else
                         {
                             self.view.makeToast(message: "Post New Share Failed")
@@ -395,6 +404,44 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             self.view.makeToast(message: "must select or capture a film!")
         }
+    }
+    
+    func taskProgress(taskIdentifier: String, persent: Float) {
+        print(persent)
+    }
+    
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+        print("completed")
+        ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
+    }
+    
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
+        print("failed")
+        ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
+    }
+    
+    func testupload()
+    {
+        let fService = ServiceContainer.getService(FileService)
+        fService.getFileByFileId(FilmAssetsConstants.defaultPersonalFilm,fileType: FileType.Video) { (filePath) -> Void in
+            if let localFilmPath = filePath
+            {
+                self.view.makeToastActivityWithMessage(message: "Sending Film")
+                fService.requestFileId(localFilmPath, type: FileType.Video, callback: { (fileId) -> Void in
+                    self.view.hideToastActivity()
+                    if fileId != nil
+                    {
+                        ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: self)
+                        fService.startSendFile(fileId)
+                    }
+                })
+                
+            }else
+            {
+                self.view.makeToast(message: "must select or capture a film!")
+            }
+        }
+        
     }
 
     static func instanceFromStoryBoard() -> NewShareViewController

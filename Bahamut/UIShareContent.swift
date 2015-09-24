@@ -57,7 +57,7 @@ class FilmContent: UIShareContentDelegate
     {
         let player = ShareLinkFilmView(frame: sender.bounds)
         player.autoLoad = true
-        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFilePath(FileType.Video)
+        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
         return player
     }
 }

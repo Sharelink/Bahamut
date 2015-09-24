@@ -155,6 +155,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         }
     }
     
+    func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 23
+    }
+    
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.estimatedRowHeight = tableView.rowHeight

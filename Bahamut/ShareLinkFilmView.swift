@@ -10,7 +10,7 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
-public class ShareLinkFilmView: UIView,FileFetcherDelegate
+public class ShareLinkFilmView: UIView,ProgressTaskDelegate
 {
     private var timer:NSTimer!{
         didSet{
@@ -18,9 +18,13 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
         }
     }
     
-    var fileFetcher:FileFetcher!
+    var fileFetcher:FileFetcher!{
+        didSet{
+            
+        }
+    }
     
-    public var showTimeLine:Bool = false{
+    public var showTimeLine:Bool = true{
         didSet{
             if timeLine != nil
             {
@@ -90,7 +94,7 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
     var loaded:Bool = false
     var loading:Bool = false
     
-    private func startLoadVideo()
+    func startLoadVideo()
     {
         if filePath == nil || loading
         {
@@ -103,25 +107,32 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
-    func fetchFileCompleted(video: String!)
+    func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
         self.loading = false
         self.setProgressValue(0)
-        if video == nil
-        {
-            self.refreshButton.hidden = false
-            self.playerController.reset()
-        }else
+        if let video = result as? String
         {
             self.playerController.path = video
             self.loaded = true
+            self.refreshUI()
+        }else
+        {
+            taskFailed(fileIdentifier, result: result)
         }
-        self.refreshUI()
+        
     }
     
-    func fetchFileProgress(persent: Float)
+    func taskProgress(fileIdentifier: String, persent: Float) {
+        self.setProgressValue(persent / 100)
+    }
+    
+    func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
-        self.setProgressValue(persent)
+        self.loading = false
+        self.setProgressValue(0)
+        self.refreshButton.hidden = false
+        self.playerController.reset()
     }
     
     convenience init()
@@ -313,7 +324,8 @@ public class ShareLinkFilmView: UIView,FileFetcherDelegate
     
     func setProgressValue(value:Float)
     {
-        progress.angle = Int(360 * value)
+        //progress.angle = Int(360 * value)
+        print(Int(360 * value))
         if progress.angle > 0 && progress.angle <= 356
         {
             progress.hidden = false

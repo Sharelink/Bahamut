@@ -51,6 +51,16 @@ class ScreenLockProxy:NSObject
 
 extension UIViewController
 {
+    func changeNavigationBarColor()
+    {
+        let navBcgColor = UIColor(hexString: "#438ccb")
+        self.navigationController?.navigationBar.tintColor = navBcgColor
+        self.navigationController?.navigationBar.backgroundColor = navBcgColor
+    }
+}
+
+extension UIViewController
+{
     func lockScreen()
     {
         ScreenLockProxy.sharedInstance.lockScreen()

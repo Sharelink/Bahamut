@@ -20,7 +20,7 @@ extension FileService
                 imageView.image = uiimage
             }else
             {
-                getFileByFileId(fileId, returnCallback: { (filePath) -> Void in
+                getFileByFileId(fileId,fileType: FileType.Image, returnCallback: { (filePath) -> Void in
                     if filePath != nil
                     {
                         imageView.image = PersistentManager.sharedInstance.getImage(fileId)

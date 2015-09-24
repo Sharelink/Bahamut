@@ -78,17 +78,17 @@ extension NSDate
 
 class ArrayUtil
 {
-    static func groupWithLatinLetter<T>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]
+    static func groupWithLatinLetter<T:AnyObject>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]
     {
-        var dict = [String:[T]]()
+        var dict = [String:NSMutableArray]()
         for index in 0...25
         {
             let letterInt = 65 + index
             let key = StringHelper.IntToLetterString(letterInt)
-            let list = [T]()
+            let list = NSMutableArray()
             dict.updateValue(list, forKey: key)
         }
-        dict.updateValue([T](), forKey: "#")
+        dict.updateValue(NSMutableArray(), forKey: "#")
         for item in items
         {
             let orderString = orderBy(item)
@@ -104,10 +104,9 @@ class ArrayUtil
             {
                 list = dict["#"]
             }
-            list?.append(item)
-            dict.updateValue(list!, forKey: prefix) //if not update ,the list in the dict is point to old list ,not appended list
+            list?.addObject(item)
         }
-        var result = dict.map {(latinLetter:$0.0,items:$0.1)}
+        var result = dict.map {(latinLetter:$0.0, items:$0.1.map{$0 as! T}) }
         result.sortInPlace{$0.0 < $1.0}
         return result
     }

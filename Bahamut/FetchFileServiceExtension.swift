@@ -25,43 +25,51 @@ extension FileService
         return fetcher
     }
     
-    func fetch(fileId:String,fileType:FileType,fetchCompleted:(filePath:String!)->Void,progressUpdate:((bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)->Void)! = nil)
+    func fetch(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
         let client = ShareLinkSDK.sharedInstance.getFileClient()
-        let filePath = self.documentsPathUrl!.URLByAppendingPathComponent("\(fileType.rawValue)/\(fileId)\(fileType.FileSuffix)").path!
-        client.downloadFile(fileId,filePath: filePath).progress ({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
-            if let progressCallback = progressUpdate
+        
+        let absoluteFilePath = self.createLocalStoreFileName(fileType)
+        
+        func progress(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
+        {
+            print("bytesRead:\(bytesRead) : totalBytesRead\(totalBytesRead)")
+            ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: Float(totalBytesRead * 100 / totalBytesExpectedToRead))
+        }
+        
+        client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
+            if error == nil
             {
-                progressCallback(bytesRead: bytesRead, totalBytesRead: totalBytesRead, totalBytesExpectedToRead: totalBytesExpectedToRead)
-            }
-        }).responseString { (request, response, result) -> Void in
-            if result.error == nil
-            {
-                if let fileEntity = PersistentManager.sharedInstance.saveFile(fileId,fileExistsPath: filePath)
+                if let fe = PersistentManager.sharedInstance.saveFile(fileId,fileExistsPath: absoluteFilePath)
                 {
-                    fetchCompleted(filePath: fileEntity.localPath)
+                    ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: fe.getObsoluteFilePath())
+                    callback(filePath:fe.getObsoluteFilePath())
+                    return
                 }
-            }else
-            {
-                fetchCompleted(filePath: nil)
             }
+            ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
+            callback(filePath:nil)
         }
     }
 }
 
 class IdFileFetcher: FileFetcher
 {
-    var fileType:FileType = .Raw
-    func startFetch(fileId: String, delegate: FileFetcherDelegate) {
-        ServiceContainer.getService(FileService).getFileByFileId(fileId, progress: delegate.fetchFileProgress, returnCallback: delegate.fetchFileCompleted!)
+    var fileType:FileType!;
+    func startFetch(fileId: String, delegate: ProgressTaskDelegate)
+    {
+        ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
+        ServiceContainer.getService(FileService).getFileByFileId(fileId,fileType:fileType) { (filePath) -> Void in
+            ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
+        }
     }
 }
 
 class FilePathFileFetcher: FileFetcher
 {
-    var fileType:FileType = .Raw
-    func startFetch(filepath: String, delegate: FileFetcherDelegate) {
-        delegate.fetchFileCompleted!(filepath)
+    var fileType:FileType!;
+    func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
+        delegate.taskCompleted!(filepath, result: filepath)
     }
     
     static let shareInstance:FileFetcher = {

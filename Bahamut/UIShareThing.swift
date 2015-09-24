@@ -161,9 +161,18 @@ class UIShareThing: UITableViewCell
         shareDateTime.text = shareThingModel.postDateString
         userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
         userReShareDetail.text = shareThingModel.userReShareDetail.isEmpty ? "" : Constants.SharePrefixEmoji + shareThingModel.userReShareDetail
-        shareContent.shareThing = shareThingModel
+        updateContent()
         updateHeadIcon()
         updateUserNick()
+    }
+    
+    private func updateContent()
+    {
+        if shareContent.delegate == nil
+        {
+            shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
+        }
+        shareContent.shareThing = shareThingModel
     }
     
     private func updateUserNick()

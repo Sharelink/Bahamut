@@ -8,21 +8,111 @@
 
 import Foundation
 
+class ProgressTaskWatcher
+{
+    static let sharedInstance:ProgressTaskWatcher = {
+        return ProgressTaskWatcher()
+        }()
+    
+    private var dict = [String:NSMutableSet]()
+    
+    private static let progressName = "progress"
+    private static let completedName = "completed"
+    private static let failedName = "failed"
+    
+    class TaskRecord
+    {
+        var id:String!
+        var delegate:ProgressTaskDelegate!
+    }
+    
+    func addTaskObserver(taskIdentifier:String,delegate:ProgressTaskDelegate)
+    {
+        var list = dict[taskIdentifier]
+        if list == nil
+        {
+            list = NSMutableSet()
+            dict[taskIdentifier] = list
+        }
+        let record = TaskRecord()
+        record.delegate = delegate
+        record.id = taskIdentifier
+        list?.addObject(record)
+    }
+    
+    func removeTaskObserver(taskIdentifier:String,delegate:ProgressTaskDelegate)
+    {
+        
+        if let list = dict[taskIdentifier]
+        {
+            for var i = list.count; i >= 0; i--
+            {
+                let record = TaskRecord()
+                record.delegate = delegate
+                record.id = taskIdentifier
+                list.removeObject(record)
+            }
+        }
+    }
+    
+    func setProgress(taskIdentifier:String,persent:Float)
+    {
+        if let list = dict[taskIdentifier]
+        {
+            list.forEach({ (record) -> () in
+                if let r = record as? TaskRecord
+                {
+                    if let progress = r.delegate.taskProgress
+                    {
+                        progress(taskIdentifier, persent: persent)
+                    }
+                }
+            })
+        }
+    }
+    
+    func missionCompleted(taskIdentifier:String,result:AnyObject!)
+    {
+        if let list = dict[taskIdentifier]
+        {
+            list.forEach({ (record) -> () in
+                if let r = record as? TaskRecord
+                {
+                    if let taskCompleted = r.delegate.taskCompleted
+                    {
+                        taskCompleted(taskIdentifier, result: result)
+                    }
+                }
+            })
+        }
+    }
+    
+    func missionFailed(taskIdentifier:String,result:AnyObject!)
+    {
+        if let list = dict[taskIdentifier]
+        {
+            list.forEach({ (record) -> () in
+                if let r = record as? TaskRecord
+                {
+                    if let taskFailed = r.delegate.taskFailed
+                    {
+                        taskFailed(taskIdentifier, result: result)
+                    }
+                }
+            })
+        }
+    }
+}
+
 protocol FileFetcher
 {
-    func startFetch(resourceUri:String,delegate:FileFetcherDelegate)
+    func startFetch(resourceUri:String,delegate:ProgressTaskDelegate)
 }
 
 @objc
-protocol FileFetcherDelegate
+protocol ProgressTaskDelegate
 {
-    optional func fetchFileProgress(persent:Float)->Void
-    optional func fetchFileCompleted(filePath:String!)->Void
-}
-
-@objc
-protocol FileUploadDelegate
-{
-    optional func uploadFileProgress(persent:Float)->Void
-    optional func uploadFileCompleted(fileId:String,isSuc:Bool)->Void
+    optional func taskProgress(taskIdentifier:String,persent:Float)
+    optional func taskCompleted(taskIdentifier:String,result:AnyObject!)
+    optional func taskFailed(taskIdentifier:String,result:AnyObject!)
 }

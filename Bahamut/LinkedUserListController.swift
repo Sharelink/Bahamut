@@ -86,6 +86,8 @@ class LinkedUserListController: UITableViewController
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        changeNavigationBarColor()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         let uiview = UIView()

@@ -43,8 +43,10 @@ extension FileService
         do{
             let fileSize = try fileManager.attributesOfItemAtPath(localfilePath)[NSFileSize] as! Int
             req.fileSize = fileSize
-        }catch{
-            
+        }catch let err as NSError{
+            print(err)
+            callback(fileId: nil)
+            return
         }
         let client = ShareLinkSDK.sharedInstance.getFileClient()
         req.fileType = type
@@ -87,55 +89,22 @@ extension FileService
 
         func progressCallback(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {
-            let persent = Float( bytesRead / totalBytesRead)
-            UploadTaskWatcher.sharedInstance.setProgress(fileId, persent: persent)
+            let persent = Float( totalBytesRead * 100 / totalBytesExpectedToRead)
+            ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: persent)
         }
         
-        let _ = client.sendFile(sendFileKey, filePath: uploadTask.localPath).progress(progressCallback).responseJSON{ (_, _, JSON) -> Void in
+        client.sendFile(sendFileKey, filePath: uploadTask.localPath).progress(progressCallback).responseJSON{ (request, _, JSON) -> Void in
             if JSON.error == nil
             {
-                UploadTaskWatcher.sharedInstance.setUploadCompleted(fileId)
+                ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: fileId)
                 CoreDataHelper.deleteObject(uploadTask)
             }else
             {
-                UploadTaskWatcher.sharedInstance.setUploadFailed(fileId)
+                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: fileId)
             }
         }
     }
     
-}
-
-class UploadTaskWatcher : NSObject
-{
-    static let sharedInstance:UploadTaskWatcher = {
-        return UploadTaskWatcher()
-    }()
-    
-    
-    func addUploadTaskObserver(fileId:String,delegate:FileUploadDelegate)
-    {
-
-    }
-    
-    func removeUploadTaskObserver(fileId:String,delegate:FileUploadDelegate)
-    {
-        
-    }
-    
-    func setProgress(fileId:String,persent:Float)
-    {
-        
-    }
-    
-    func setUploadCompleted(fileId:String)
-    {
-        
-    }
-    
-    func setUploadFailed(fileId:String)
-    {
-        
-    }
 }
 
 public struct SendFileStatus

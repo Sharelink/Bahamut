@@ -15,12 +15,14 @@ class ShareThingsListController: UITableViewController
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
+        refresh(self.refreshControl!)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        refresh(self.refreshControl!)
+        
     }
     
     var isNetworkError:Bool = false{
