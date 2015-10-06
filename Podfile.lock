@@ -2,11 +2,13 @@ PODS:
   - Alamofire (2.0.0-beta.3)
   - EVReflection (2.6.0)
   - PBJVision (0.4.2)
+  - RSKImageCropper (1.3.1)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
   - EVReflection (from `https://github.com/evermeer/EVReflection.git`, branch `Swift2`)
   - PBJVision
+  - RSKImageCropper
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -28,5 +30,6 @@ SPEC CHECKSUMS:
   Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
   EVReflection: e8f562eaa015ae14a4a2af640d06b6e89c0a925c
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
+  RSKImageCropper: b4993121db4f6679a7f7ed1305050ef970764e3f
 
 COCOAPODS: 0.38.2
