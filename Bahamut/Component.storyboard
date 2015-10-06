@@ -86,19 +86,16 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="2xs-gL-DFi">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="ok:" destination="NYT-uY-zWp" id="NHB-zN-Skl"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="qTh-eb-06a">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="addFile:" destination="NYT-uY-zWp" id="5da-Pa-Pah"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="compose" id="bZV-ta-nn3">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="editFiles:" destination="NYT-uY-zWp" id="oCo-hX-RfK"/>
                                 </connections>
@@ -160,7 +157,6 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="BQA-Vr-iMd">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="useVideoBack:" destination="X13-vz-Um7" id="o4V-Ig-3BY"/>
                             </connections>
@@ -366,13 +362,11 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="9xl-wz-i4J">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="addTag:" destination="RC0-xy-4Ps" id="BIf-2s-0e7"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="compose" id="5gp-wF-AfT">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="editTags:" destination="RC0-xy-4Ps" id="ay0-Eo-ZSA"/>
                                 </connections>
@@ -455,7 +449,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="Hzx-Y6-Pbn">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="LpJ-2x-P3D">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="save:" destination="xkf-Mc-ucN" id="Agi-Aa-AOc"/>
                             </connections>
@@ -522,7 +515,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="hr8-cw-byV">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="fco-j9-HpX">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="save:" destination="dgN-AS-4e4" id="T9B-fN-Saa"/>
                             </connections>

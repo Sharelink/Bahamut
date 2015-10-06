@@ -71,7 +71,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="NCw-i8-npl">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="saveProfile" destination="KSz-HA-Lk6" id="QRg-P5-378"/>
                             </connections>
@@ -212,7 +211,6 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="shutdown" id="xUS-vf-tHa">
                             <inset key="imageInsets" minX="3" minY="3" maxX="3" maxY="3"/>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="logout:" destination="83i-Ku-Y1r" id="Dfd-Er-av1"/>
                             </connections>
@@ -359,13 +357,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sharelinker" id="MPR-3r-vWs">
                         <barButtonItem key="leftBarButtonItem" title="Ignore" id="36A-9D-hHV">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="ignore:" destination="bcA-Mv-Uu5" id="IpL-Pf-dVe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="OK" id="C3O-5R-If1">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="ok:" destination="bcA-Mv-Uu5" id="B6j-Cn-CPx"/>
                             </connections>
@@ -499,7 +495,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Note" id="frU-6E-GUV">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="editNoteName" destination="Ht6-Ye-kY6" id="aK2-0K-I8t"/>
                             </connections>
