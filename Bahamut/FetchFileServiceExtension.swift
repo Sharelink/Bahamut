@@ -40,7 +40,7 @@ extension FileService
         client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             if error == nil
             {
-                if let fe = PersistentManager.sharedInstance.saveFile(fileId,fileExistsPath: absoluteFilePath)
+                if let fe = PersistentManager.sharedInstance.bindFileIdAndPath(fileId,fileExistsPath: absoluteFilePath)
                 {
                     ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: fe.getObsoluteFilePath())
                     callback(filePath:fe.getObsoluteFilePath())

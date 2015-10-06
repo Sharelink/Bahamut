@@ -10,7 +10,12 @@ import UIKit
 
 class UIShareMessage:UITableViewCell
 {
-    
+    static let dateFomatter:NSDateFormatter = {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yy/MM/dd"
+        formatter.timeZone = NSTimeZone()
+        return formatter
+    }()
     static let RollMessageCellIdentifier = "RollMessage"
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!
@@ -36,7 +41,7 @@ class UIShareMessage:UITableViewCell
     
     private func update()
     {
-        timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString()
+        timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
         noteNameLabel.text = shareThingModel.userNick
         headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId) ??
             PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)

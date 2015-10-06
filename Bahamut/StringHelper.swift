@@ -53,7 +53,7 @@ extension String
 
 extension NSDate
 {
-    func toFriendlyString() -> String
+    func toFriendlyString(formatter:NSDateFormatter! = nil) -> String
     {
         let interval = -self.timeIntervalSinceNow
         if interval < 60
@@ -63,15 +63,18 @@ extension NSDate
         else if interval < 3600
         {
             return "\(Int(interval/60)) minutes ago"
-        }else if self.timeIntervalSinceNow < 3600 * 24
+        }else if interval < 3600 * 24
         {
             return "\(Int(interval/3600)) hours ago"
-        }else if self.timeIntervalSinceNow < 3600 * 24 * 7
+        }else if interval < 3600 * 24 * 7
         {
             return "\(Int(interval/3600/24)) days ago"
-        }else
+        }else if formatter == nil
         {
             return self.toLocalDateString()
+        }else
+        {
+            return formatter.stringFromDate(self)
         }
     }
 }

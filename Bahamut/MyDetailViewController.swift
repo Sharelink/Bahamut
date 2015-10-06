@@ -23,7 +23,6 @@ extension UserService
 class MyDetailTextPropertyCell:UITableViewCell
 {
     static let reuseIdentifier = "MyDetailTextPropertyCell"
-    static let reuseUneditableIdentifier = "MyDetailUneditableTextPropertyCell"
     var info:(propertySet:UIEditTextPropertySet!,editable:Bool)!{
         didSet{
             if propertyNameLabel != nil
@@ -74,7 +73,7 @@ class MyDetailHeadIconCell:UITableViewCell
     }
 }
 
-class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate
+class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
     struct InfoIds
     {
@@ -98,13 +97,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         textPropertyCells.append((propertySet:propertySet,editable:true))
         
         propertySet = UIEditTextPropertySet()
-        propertySet.propertyIdentifier = InfoIds.signText
-        propertySet.propertyLabel = "Sign Text"
-        propertySet.propertyValue = myInfo.signText
-        propertySet.isOneLineValue = false
-        textPropertyCells.append((propertySet:propertySet,editable:true))
-        
-        propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.level
         propertySet.propertyLabel = "Level"
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
@@ -121,10 +113,19 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyLabel = "AccountID"
         propertySet.propertyValue = accountId
         textPropertyCells.insert((propertySet:propertySet,editable:false), atIndex: 2)
+        
+        propertySet = UIEditTextPropertySet()
+        propertySet.propertyIdentifier = InfoIds.signText
+        propertySet.propertyLabel = "Sign Text"
+        propertySet.propertyValue = myInfo.signText
+        propertySet.isOneLineValue = false
+        textPropertyCells.append((propertySet:propertySet,editable:true))
     }
     
     override func viewDidLoad() {
         initPropertySet()
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
     }
     
@@ -157,7 +158,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
     {
-        return 23
+        return 21
     }
     
     @IBOutlet weak var tableView: UITableView!{
@@ -175,7 +176,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0
         {
-            return 72
+            return 84
         }else
         {
             return UITableViewAutomaticDimension
@@ -201,6 +202,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
     }
     
+    var headIconImageView:UIImageView!
     func getHeadIconCell() -> MyDetailHeadIconCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailHeadIconCell.reuseIdentifier) as! MyDetailHeadIconCell
@@ -210,7 +212,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         cell.headIconImageView?.image = PersistentManager.sharedInstance.getImage(myInfo.headIconId ?? ImageAssetsConstants.defaultHeadIcon)
         let tapIcon = UITapGestureRecognizer(target: self, action: "tapHeadIcon:")
         cell.headIconImageView?.addGestureRecognizer(tapIcon)
-        
+        headIconImageView = cell.headIconImageView
         return cell
     }
     
@@ -233,13 +235,56 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    private var imagePickerController:UIImagePickerController! = UIImagePickerController()
+    {
+        didSet{
+            imagePickerController.delegate = self
+        }
+    }
+    
     func newPictureWithCamera()
     {
-        
+        imagePickerController.sourceType = .Camera
+        imagePickerController.allowsEditing = true
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
     func selectPictureFromAlbum()
     {
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
+    {
+        imagePickerController.dismissViewControllerAnimated(true)
+        {
+            if self.headIconImageView != nil
+            {
+                self.headIconImageView.image = image
+                let fService = ServiceContainer.getService(FileService)
+                let imageData = UIImageJPEGRepresentation(image, 1)
+                let localPath = fService.createLocalStoreFileName(FileType.Image)
+                PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
+                fService.requestFileId(localPath, type: FileType.Image, callback: { (fileId) -> Void in
+                    fService.startSendFile(fileId)
+                    let uService = ServiceContainer.getService(UserService)
+                    uService.setUserHeadIcon(fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                        if isSuc
+                        {
+                            self.myInfo.headIconId = fileId
+                            self.myInfo.saveModel()
+                            self.headIconImageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                        }else
+                        {
+                            self.view.makeToast(message: "Set Head Icon failed")
+                        }
+                    })
+                })
+            }
+        }
         
     }
     
@@ -249,18 +294,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         let info = textPropertyCells[index]
         
-        if info.editable
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier) as! MyDetailTextPropertyCell
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapTextProperty:"))
-            cell.info = info
-            return cell
-        }else
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseUneditableIdentifier) as! MyDetailTextPropertyCell
-            cell.info = info
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier) as! MyDetailTextPropertyCell
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapTextProperty:"))
+        cell.info = info
+        return cell
     }
     
     func tapTextProperty(aTap:UITapGestureRecognizer)

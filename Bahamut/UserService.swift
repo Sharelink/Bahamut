@@ -195,6 +195,50 @@ class UserService: NSNotificationCenter,ServiceProtocol
         
     }
     
+    func setUserHeadIcon(newIconId:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        let req = UpdateHeadIconRequest()
+        req.newHeadIconId = newIconId
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            var isSuc:Bool = false
+            var msg:String! = nil
+            if result.statusCode == ReturnCode.OK
+            {
+                isSuc = true
+            }else
+            {
+                msg = result.originResult.description
+            }
+            if let callback = setProfileCallback
+            {
+                callback(isSuc: isSuc, msg: msg)
+            }
+        }
+    }
+    
+    func setUserProfileVideo(newVideoId:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        let req = UpdateProfileVideoRequest()
+        req.newProfileVideoId = newVideoId
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            var isSuc:Bool = false
+            var msg:String! = nil
+            if result.statusCode == ReturnCode.OK
+            {
+                isSuc = true
+            }else
+            {
+                msg = result.originResult.description
+            }
+            if let callback = setProfileCallback
+            {
+                callback(isSuc: isSuc, msg: msg)
+            }
+        }
+    }
+    
     func setUserNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
     {
         let req = UpdateLinkedUserNoteNameRequest()

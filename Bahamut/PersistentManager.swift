@@ -87,18 +87,23 @@ extension PersistentManager
         CoreDataHelper.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
     }
     
-    func saveFile(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?
+    func storeFile(data:NSData, filePath:String) -> Bool
     {
-        if NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
+        return NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
+    }
+    
+    func bindFileIdAndPath(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?
+    {
+        if storeFile(data, filePath: filePath)
         {
-            return saveFile(fileId, fileExistsPath: filePath)
+            return bindFileIdAndPath(fileId, fileExistsPath: filePath)
         }else
         {
             return nil
         }
     }
     
-    func saveFile(fileId:String,fileExistsPath:String) -> FileInfoEntity?
+    func bindFileIdAndPath(fileId:String,fileExistsPath:String) -> FileInfoEntity?
     {
         var relativePath:String!
         if let index = fileExistsPath.rangeOfString(documentsPath)?.last

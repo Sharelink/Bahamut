@@ -63,7 +63,7 @@ extension FileService
                         uploadTask.fileId = fileAccesskey
                         uploadTask.fileServerUrl = fileServer
                         uploadTask.status = SendFileStatus.SendFileReady
-                        if let _ = PersistentManager.sharedInstance.saveFile(fileAccesskey,fileExistsPath: localfilePath)
+                        if let _ = PersistentManager.sharedInstance.bindFileIdAndPath(fileAccesskey,fileExistsPath: localfilePath)
                         {
                             callback(fileId: fileAccesskey)
                             return

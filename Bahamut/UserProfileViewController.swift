@@ -37,10 +37,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             profileVideoView.autoLoad = true
             profileVideoView.canSwitchToFullScreen = true
             profileVideoView.isMute = false
-            profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
             profileVideoViewContainer.sendSubviewToBack(profileVideoView)
         }
     }
+    
     @IBOutlet weak var editProfileVideoButton: UIButton!
     @IBOutlet weak var profileVideoViewContainer: UIView!
     
@@ -168,6 +168,27 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "headIconTapped:"))
     }
     
+    func saveProfileVideo()
+    {
+        let fService = ServiceContainer.getService(FileService)
+        fService.requestFileId(profileVideoView.filePath, type: FileType.Video, callback: { (fileId) -> Void in
+            self.view.hideToastActivity()
+            if fileId != nil
+            {
+                fService.startSendFile(fileId)
+                let uService = ServiceContainer.getService(UserService)
+                uService.setUserProfileVideo(fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                    if isSuc
+                    {
+                        self.userProfileModel.personalVideoId = fileId
+                        self.userProfileModel.saveModel()
+                        self.updatePersonalFilm()
+                    }
+                })
+            }
+        })
+    }
+    
     @IBAction func editProfileVideo()
     {
         showEditProfileVideoActionSheet()
@@ -202,8 +223,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if fileService.moveFileTo(destination, destinationPath: newFilePath)
         {
+            profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath
             self.view.makeToast(message: "Video Saved")
+            saveProfileVideo()
         }else
         {
             self.view.makeToast(message: "Save Video Failed")
@@ -220,7 +243,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if itemModels.count > 0
         {
             let fileModel = itemModels.first as! UIFileCollectionCellModel
+            profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = fileModel.filePath
+            saveProfileVideo()
         }
     }
     
@@ -254,6 +279,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             return
         }
+        profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
         if nil == userProfileModel.personalVideoId || userProfileModel.personalVideoId.isEmpty
         {
             profileVideoView.filePath = FilmAssetsConstants.defaultPersonalFilm
