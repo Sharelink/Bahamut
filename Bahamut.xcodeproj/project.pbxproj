@@ -44,7 +44,6 @@
 		E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEA1B67414300D5426B /* UIShareThing.swift */; };
 		E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
-		E790BD001B6780C900D5426B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCFF1B6780C900D5426B /* RegisterViewController.swift */; };
 		E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* NewUserProfileViewController.swift */; };
 		E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD041B67812E00D5426B /* AccountViewController.swift */; };
 		E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD061B67EA1B00D5426B /* SignInViewController.swift */; };
@@ -96,6 +95,8 @@
 		E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */; };
 		E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F11CAE1BA9947C00CA7DB2 /* Common.swift */; };
 		E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */; };
+		E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */ = {isa = PBXBuildFile; fileRef = E7FDBAB31BC4C1A90017BCEF /* WebAssets */; };
+		E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +148,6 @@
 		E790BCEA1B67414300D5426B /* UIShareThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareThing.swift; sourceTree = "<group>"; };
 		E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIReplyMessage.swift; sourceTree = "<group>"; };
 		E790BCF51B676EAB00D5426B /* UIShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareContent.swift; sourceTree = "<group>"; };
-		E790BCFF1B6780C900D5426B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E790BD021B67810200D5426B /* NewUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserProfileViewController.swift; sourceTree = "<group>"; };
 		E790BD041B67812E00D5426B /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		E790BD061B67EA1B00D5426B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +205,8 @@
 		E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
 		E7F11CAE1BA9947C00CA7DB2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		E7FDBAB31BC4C1A90017BCEF /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
+		E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */,
 				E7DD18711B765CE700552C0E /* EVReflection.framework in Frameworks */,
 				E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */,
 				E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */,
@@ -242,6 +245,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */,
 				E7DD186F1B765CE700552C0E /* EVReflection.framework */,
 				12068C6D6B3CD72448DC90C7 /* Pods.framework */,
 			);
@@ -340,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				E790BD041B67812E00D5426B /* AccountViewController.swift */,
-				E790BCFF1B6780C900D5426B /* RegisterViewController.swift */,
 				E790BD061B67EA1B00D5426B /* SignInViewController.swift */,
 			);
 			name = UIAccount;
@@ -456,6 +459,7 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
+				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E7B665011B6B8EA200032495 /* Assets */,
 				E79E3E3A1B6B591800B27085 /* Source */,
 				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
@@ -717,6 +721,7 @@
 			files = (
 				E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */,
 				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */,
+				E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
@@ -825,7 +830,6 @@
 				E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */,
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
-				E790BD001B6780C900D5426B /* RegisterViewController.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
 				E7EACC061BC34F6A002A294D /* UserLink.swift in Sources */,
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
