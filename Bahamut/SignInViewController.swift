@@ -18,6 +18,7 @@ import JavaScriptCore
     func hideToastActivity()
     func validateToken(result:String)
     func finishRegist(accountId:String)
+    func alert(msg:String)
 }
 
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
@@ -33,6 +34,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
     }
 
+    func alert(msg: String) {
+        let alert = UIAlertController(title: "Sharelink", message: msg, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel){ _ in})
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()

@@ -136,7 +136,7 @@ $(document).ready(function(){
                 success: function(result){
 					controller.hideToastActivity();
 					if (result.suc == true){
-						alert("注册成功，请记住您的Sharelink ID:\n" + result.accountId);
+						controller.alert("注册成功，请记住您的Sharelink ID:\n" + result.accountId);
 						controller.finishRegist(result.accountId);
 					}else if (result.msg) {
 						controller.makeToast(result.msg);
