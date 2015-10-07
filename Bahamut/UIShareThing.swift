@@ -23,7 +23,7 @@ class UIShareMessage:UITableViewCell
     @IBOutlet weak var messageLabel: UILabel!
     var rootController:UIViewController!{
         didSet{
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
         }
     }
     var shareThingModel:ShareThing!
@@ -34,9 +34,9 @@ class UIShareMessage:UITableViewCell
         }
     }
     
-    func showUserProfile(_:UIGestureRecognizer)
+    func tapCell(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
+        
     }
     
     private func update()
@@ -55,7 +55,6 @@ class UIShareThing: UITableViewCell
     struct Constants
     {
         static let VotePrefixEmoji = "👍"
-        static let SharePrefixEmoji = "🔗"
 
     }
     
@@ -104,7 +103,7 @@ class UIShareThing: UITableViewCell
             self.addGestureRecognizer(gesture)
         }
     }
-    @IBOutlet weak var userReShareDetail: UILabel!
+    
     @IBOutlet weak var userVoteDetail: UILabel!
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var shareDesc: UILabel!
@@ -119,9 +118,31 @@ class UIShareThing: UITableViewCell
         print("swipe left")
     }
     
+    private static var voteOriginColor:UIColor!
+    private static var voteButtonVotedColor:UIColor!
+    @IBOutlet weak var voteButton: UIButton!{
+        didSet{
+            if UIShareThing.voteOriginColor == nil{
+                UIShareThing.voteOriginColor = voteButton.tintColor
+                UIShareThing.voteButtonVotedColor = UIColor.blueColor()
+            }
+        }
+    }
+    
     @IBAction func vote()
     {
-        ServiceContainer.getService(ShareService).voteShareThing(shareThingModel,updateCallback: update)
+        if voted
+        {
+            let alert = UIAlertController(title: "Unvote this share?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default){ aa in
+                ServiceContainer.getService(ShareService).unVoteShareThing(self.shareThingModel,updateCallback: self.updateVote)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){ _ in })
+            rootController.presentViewController(alert, animated: true, completion: nil)
+        }else{
+            
+            ServiceContainer.getService(ShareService).voteShareThing(shareThingModel,updateCallback: updateVote)
+        }
     }
     
     @IBAction func shareToFriends()
@@ -161,14 +182,25 @@ class UIShareThing: UITableViewCell
 
     func update()
     {
-        replyButton.titleLabel?.text = "\(shareThingModel.notReadReply)"
+        replyButton.titleLabel?.text = shareThingModel.notReadReply > 0 ? "\(shareThingModel.notReadReply)" : ""
         shareDesc.text = shareThingModel.title
         shareDateTime.text = shareThingModel.postDateString
-        userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
-        userReShareDetail.text = shareThingModel.userReShareDetail.isEmpty ? "" : Constants.SharePrefixEmoji + shareThingModel.userReShareDetail
+        updateVote()
         updateContent()
         updateHeadIcon()
         updateUserNick()
+    }
+    
+    var voted:Bool
+    {
+        let myUserId = ServiceContainer.getService(UserService).myUserId
+        return self.shareThingModel.voteUsers.contains{$0 == myUserId}
+    }
+    
+    private func updateVote()
+    {
+        voteButton.tintColor = voted ?  UIShareThing.voteButtonVotedColor : UIShareThing.voteOriginColor
+        userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
     }
     
     private func updateContent()
@@ -216,17 +248,6 @@ extension ShareThing
         if let users = self.voteUsers
         {
             let userIds = users.map{$0}
-            let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
-            return userNicks.joinWithSeparator(",")
-        }
-        return ""
-    }
-    
-    var userReShareDetail:String{
-        
-        if let reshares = reShares
-        {
-            let userIds = reshares.map{$0.userId!}
             let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
             return userNicks.joinWithSeparator(",")
         }

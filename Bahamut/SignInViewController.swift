@@ -9,25 +9,33 @@
 import UIKit
 import EVReflection
 import Alamofire
+import JavaScriptCore
 
-class SignInViewController: UIViewController,UIWebViewDelegate
+@objc protocol SignInViewControllerJSProtocol : JSExport
+{
+    func makeToast(msg:String)
+    func showToastActivity(msg:String?)
+    func hideToastActivity()
+    func validateToken(result:String)
+    func finishRegist(accountId:String)
+}
+
+class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
 {
     struct SegueConstants {
         static let ShowMainView = "ShowMainView"
     }
     
-    @IBOutlet weak var loginWebPageView: UIWebView!{
+    @IBOutlet weak var webPageView: UIWebView!{
         didSet{
-            loginWebPageView.delegate = self
+            webPageView.scrollView.scrollEnabled = false
+            webPageView.delegate = self
         }
     }
-    @IBOutlet weak var reloadButton: UIButton!{
-        didSet{
-            reloadButton.hidden = true
-        }
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeNavigationBarColor()
         loginAccountId = ServiceContainer.getService(AccountService).lastLoginAccountId
     }
     
@@ -35,42 +43,16 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         authenticate()
     }
     
-    
-    @IBAction func switchAuthUrl(sender: AnyObject)
-    {
-        if let s = sender as? UISwitch
-        {
-            if s.on
-            {
-                remoteHost = "http://192.168.1.168:8086"
-            }else
-            {
-                remoteHost = "http://192.168.1.67:8086"
-            }
-        }
-    }
-    
-    private var remoteHost:String = "http://192.168.1.67:8086"
-    
     private var authenticationURL: String {
-        return "\(remoteHost)/Account/Login"
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SignUp"
-        {
-            if let rvc = segue.destinationViewController as? RegisterViewController
-            {
-                rvc.signInViewController = self
-            }
-        }
+        let url = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        return url!
     }
     
     private var webViewUrl:String!{
         didSet{
-            if loginWebPageView != nil{
+            if webPageView != nil{
                 let req = NSURLRequest(URL: NSURL(string: webViewUrl)!)
-                loginWebPageView.loadRequest(req)
+                webPageView.loadRequest(req)
             }
         }
     }
@@ -78,34 +60,28 @@ class SignInViewController: UIViewController,UIWebViewDelegate
     var loginAccountId:String!
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        webView.hidden = false
-        reloadButton.hidden = false
-        self.view.hideToastActivity()
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
         
-        reloadButton.hidden = true
-        self.view.makeToastActivityWithMessage(message: "Loading")
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        self.view.hideToastActivity()
-        let uc = NSURLComponents(string: (webView.request?.URLString)!)
-        var dict = [String:String]()
-        for item in (uc?.queryItems)!
+        if let jsContext:JSContext = webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
         {
-            dict[item.name] = item.value
+            jsContext.setObject(self, forKeyedSubscript: "controller")
+            jsContext.exceptionHandler = jsExceptionHandler
         }
-        let accountId = dict["AccountID"]
-        let accessToken = dict["AccessToken"]
-        let apiServer = dict["AppServiceUrl"]
-        if accountId != nil && accessToken != nil && apiServer != nil
-        {
-            webView.stopLoading()
-            webView.hidden = true
-            validateToken(apiServer!, accountId: accountId!, accessToken: accessToken!)
-        }
+    }
+    
+    func jsExceptionHandler(context:JSContext!,value:JSValue!) {
+        self.view.makeToast(message: "Js Error")
+    }
+    
+    func finishRegist(accountId:String)
+    {
+        self.loginAccountId = accountId
+        authenticate()
     }
     
     func registNewUser(accountId:String,registApi:String,accessToken:String)
@@ -117,11 +93,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         ServiceContainer.getService(UserService).showRegistNewUserController(self.navigationController!, registModel:registModel)
     }
     
-    func validateToken(apiTokenServer:String, accountId:String, accessToken: String)
+    func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
         view.makeToastActivityWithMessage(message: "Login")
-        accountService.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
+        accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
             self.view.hideToastActivity()
             if loginSuccess{
                 self.signCallback()
@@ -130,18 +106,40 @@ class SignInViewController: UIViewController,UIWebViewDelegate
                 self.authenticate()
             }
             
-        }) { (registApiServer) -> Void in
-            self.registNewUser(accountId,registApi: registApiServer,accessToken:accessToken)
+            }) { (registApiServer) -> Void in
+                self.registNewUser(accountId,registApi: registApiServer,accessToken:accessToken)
         }
+    }
+    
+    //MARK: implements jsProtocol
+    func validateToken(result:String)
+    {
+        var params = result.componentsSeparatedByString("#p")
+        self.validateToken(params[0], accountId: params[1], accessToken: params[2])
+    }
+    
+    func makeToast(msg:String){
+        view.makeToast(message: msg)
+    }
+    
+    func showToastActivity(msg:String? = nil){
+        if msg == nil
+        {
+            view.makeToastActivity()
+        }else{
+            view.makeToastActivityWithMessage(message: msg!)
+        }
+    }
+    func hideToastActivity(){
+        view.hideToastActivity()
     }
     
     private func authenticate()
     {
-        loginWebPageView.hidden = false
-        var url = "\(authenticationURL)?appkey=\(ShareLinkSDK.appkey)"
+        var url = authenticationURL
         if let aId = loginAccountId
         {
-            url = "\(url)&accountId=\(aId)"
+            url = "\(url)?accountId=\(aId)"
         }
         webViewUrl = url
     }
@@ -153,7 +151,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate
         ServiceContainer.instance.userLogin(accountService.userId)
         service.addObserver(self, selector: "initUsers:", name: UserService.userListUpdated, object: service)
         view.makeToastActivityWithMessage(message: "Refreshing")
-        service.refreshMyLinkedUsers()
+        service.refreshMyLinkedUsers() 
     }
     
     func initUsers(_:AnyObject)

@@ -285,7 +285,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 })
             }
         }
-        
     }
     
     var textPropertyCells:[(propertySet:UIEditTextPropertySet!,editable:Bool)] = [(propertySet:UIEditTextPropertySet!,editable:Bool)]()

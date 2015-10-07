@@ -85,7 +85,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="action" id="2xs-gL-DFi">
+                            <barButtonItem image="icon_check" id="2xs-gL-DFi">
                                 <connections>
                                     <action selector="ok:" destination="NYT-uY-zWp" id="NHB-zN-Skl"/>
                                 </connections>
@@ -638,6 +638,7 @@
     <resources>
         <image name="bullet-blue" width="24" height="24"/>
         <image name="check" width="512" height="512"/>
+        <image name="icon_check" width="32" height="32"/>
         <image name="plasmid" width="512" height="512"/>
     </resources>
 </document>

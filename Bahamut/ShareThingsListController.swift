@@ -61,8 +61,12 @@ class ShareThingsListController: UITableViewController
     @IBAction func tag(sender: AnyObject)
     {
         let tagService = ServiceContainer.getService(SharelinkTagService)
-        let allTagModels = tagService.getMyAllTags()
-        tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
+        view.makeToastActivity()
+        tagService.refreshMyAllSharelinkTags { () -> Void in
+            self.view.hideToastActivity()
+            let allTagModels = tagService.getMyAllTags()
+            tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
+        }
     }
     
     @IBAction func userSetting(sender:AnyObject)

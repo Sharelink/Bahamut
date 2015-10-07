@@ -194,38 +194,39 @@ class ShareService: ServiceProtocol
         
     }
     
-    func voteShareThing(shareThingModel:ShareThing,updateCallback:(()->Void)! = nil)
+    func unVoteShareThing(shareThingModel:ShareThing,updateCallback:(()->Void)! = nil)
     {
         let myUserId = ServiceContainer.getService(UserService).myUserId
-        var index = 0
-        for user in shareThingModel.voteUsers
-        {
-            if user == myUserId
-            {
-                break
-            }
-            index++
-        }
-        var req:ShareLinkSDKRequestBase!
-        if index == shareThingModel.voteUsers.count
-        {
-            let areq = AddVoteRequest()
-            areq.shareId = shareThingModel.shareId
-            req = areq
-        }else{
-            let dreq = DeleteVoteRequest()
-            dreq.shareId = shareThingModel.shareId
-            req = dreq
-        }
+        let req = DeleteVoteRequest()
+        req.shareId = shareThingModel.shareId
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
-                if index == shareThingModel.voteUsers.count
+                for var i:Int = shareThingModel.voteUsers.count - 1; i >= 0; i--
                 {
-                    shareThingModel.voteUsers.append(myUserId)
-                }else{
-                    shareThingModel.voteUsers.removeAtIndex(index)
+                    if shareThingModel.voteUsers[i] == myUserId
+                    {
+                        shareThingModel.voteUsers.removeAtIndex(i)
+                    }
                 }
+                shareThingModel.saveModel()
+            }
+            if let update = updateCallback
+            {
+                update()
+            }
+        }
+    }
+    
+    func voteShareThing(shareThingModel:ShareThing,updateCallback:(()->Void)! = nil)
+    {
+        let myUserId = ServiceContainer.getService(UserService).myUserId
+        let req = AddVoteRequest()
+        req.shareId = shareThingModel.shareId
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            if result.statusCode == ReturnCode.OK
+            {
+                shareThingModel.voteUsers.append(myUserId)
                 shareThingModel.lastActiveTime = DateHelper.toDateTimeString(NSDate())
                 shareThingModel.saveModel()
             }
