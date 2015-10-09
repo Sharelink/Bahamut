@@ -36,7 +36,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         
     }
     var currentVideo:NSDictionary?
-    var assetLibrary:ALAssetsLibrary = ALAssetsLibrary()
     var recording:Bool = false
     var recordTimer:NSTimer!
     var delegate:UICameraViewControllerDelegate!

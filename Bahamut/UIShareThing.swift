@@ -172,7 +172,9 @@ class UIShareThing: UITableViewCell
     
     @IBAction func reply()
     {
-        print("reply")
+        let controller = ChatViewController.instanceFromStoryBoard()
+        controller.chatModel = ChatModel()
+        self.rootController.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showUserProfile(_:UIGestureRecognizer)

@@ -110,11 +110,15 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBAction func selectTag(sender: AnyObject)
     {
+        let btn = sender as! UIButton
+        
         if myTagContainer.superview != nil
         {
             hideMyTagsCollection()
+            btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         }else{
             showMyTagsCollection()
+            btn.setTitleColor(UIColor.themeColor, forState: .Normal)
         }
     }
     
@@ -128,10 +132,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     }
     private func showMyTagsCollection()
     {
-        let height = CGFloat(126)
-        myTagContainer.frame = CGRectMake(self.selectedTagViewContainer.frame.origin.x, selectedTagViewContainer.frame.origin.y - height - 7,self.selectedTagViewContainer.bounds.width, height)
         self.view.addSubview(myTagContainer)
+        myTagContainer.frame = selectedTagViewContainer.frame
         self.myTagContainer.addSubview(myTagController.view)
+        let height = CGFloat(126)
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(0.3)
+        myTagContainer.frame = CGRectMake(self.selectedTagViewContainer.frame.origin.x, selectedTagViewContainer.frame.origin.y - height - 7,self.selectedTagViewContainer.bounds.width, height)
+        UIView.commitAnimations()
     }
     
     private func hideMyTagsCollection()
@@ -184,7 +192,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func removeObserverForKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
@@ -196,19 +204,30 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func keyboardWasShown(aNotification:NSNotification)
     {
-        let info = aNotification.userInfo
+        let info = aNotification.userInfo!
         
-        if let kbRect = info![UIKeyboardFrameBeginUserInfoKey]!.CGRectValue
+        if let kbRect = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
         {
             let tfFrame = activeTextField.frame
             let kbHeight = kbRect.height + 7
             let bottom = view.frame.height - tfFrame.origin.y - kbHeight - tfFrame.height
             if bottom < 0
             {
+                var animationDuration:NSTimeInterval
+                var animationCurve:UIViewAnimationCurve
+                let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! Int
+                animationCurve = UIViewAnimationCurve(rawValue: curve)!
+                animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+                
+                UIView.beginAnimations(nil, context:nil)
+                UIView.setAnimationDuration(animationDuration)
+                UIView.setAnimationCurve(animationCurve)
                 
                 originCenter = view.center
                 view.center.y += bottom
-                view.layoutMarginsDidChange()
+                view.layoutIfNeeded()
+                
+                UIView.commitAnimations()
             }
         }
     }

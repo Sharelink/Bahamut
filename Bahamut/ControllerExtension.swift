@@ -18,10 +18,7 @@ extension UIViewController
     
     func hideKeyBoard()
     {
-        for sv in view.subviews
-        {
-            sv.resignFirstResponder()
-        }
+        self.view.endEditing(true)
     }
 }
 

@@ -7,22 +7,38 @@
 //
 
 import UIKit
+import MJRefresh
 
 class ShareThingsListController: UITableViewController
 {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+        initTableView()
+        initRefresh()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
-        refresh(self.refreshControl!)
+        
+    }
+    
+    private func initTableView()
+    {
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        let uiview = UIView()
+        tableView.tableFooterView = uiview
+    }
+    
+    private func initRefresh()
+    {
+        tableView.header = MJRefreshNormalHeader(){self.refresh()}
+        tableView.footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
+        tableView.footer.automaticallyHidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        refresh()
     }
     
     var isNetworkError:Bool = false{
@@ -36,13 +52,7 @@ class ShareThingsListController: UITableViewController
     var shareService = ServiceContainer.getService(ShareService)
     var shareThings:[[ShareThing]] = [[ShareThing]]()
     
-    @IBOutlet weak var bottomIndicatorView: UIActivityIndicatorView!{
-        didSet{
-            bottomIndicatorView.hidden = true
-        }
-    }
-    
-    @IBAction func refresh(sender: UIRefreshControl)
+    func refresh()
     {
         self.shareService.getNewShareThings { (haveChange) -> Void in
             if !haveChange{
@@ -54,7 +64,7 @@ class ShareThingsListController: UITableViewController
                 self.shareThings.insert(newValues, atIndex: 0)
                 self.tableView.reloadData()
             }
-            sender.endRefreshing()
+            self.tableView.header.endRefreshing()
         }
     }
     
@@ -74,36 +84,26 @@ class ShareThingsListController: UITableViewController
         ServiceContainer.getService(UserService).showMyDetailView(self.navigationController!)
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView)
-    {
-        if bottomIndicatorView != nil && bottomIndicatorView.hidden == true && scrollView.contentOffset.y > 0
-        {
-            loadNextPage()
-        }
-    }
-    
     func loadNextPage()
     {
-        if shareThings.count == 0 || bottomIndicatorView.hidden == false
+        if shareThings.count == 0
         {
             return
         }
-        self.bottomIndicatorView.hidden = false
         var startIndex = 0
         for list in shareThings
         {
             startIndex += list.count
         }
-        print("request")
-        self.shareService.getNextPageShareThings(startIndex, pageNum: 20) { (results) -> Void in
-            print("return")
+        self.shareService.getNextPageShareThings(startIndex, pageNum: 10) { (results) -> Void in
+            self.tableView.footer.endRefreshing()
             if results.count > 0
             {
                 self.shareThings.append(results)
             }else{
-                self.view.makeToast(message: "No More Things")
+                self.tableView.footer.noticeNoMoreData()
             }
-            self.bottomIndicatorView.hidden = true
+            
         }
     }
     

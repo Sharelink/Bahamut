@@ -517,7 +517,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="defaultHeadIcon" width="666" height="666"/>
+        <image name="defaultHeadIcon" width="133" height="133"/>
         <image name="document-edit" width="64" height="64"/>
         <image name="next" width="64" height="64"/>
         <image name="sharelinkRounded" width="666" height="666"/>

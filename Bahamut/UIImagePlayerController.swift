@@ -292,7 +292,6 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
     
     private func initObserver()
     {
-        //UIApplicationDidChangeStatusBarOrientationNotification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     

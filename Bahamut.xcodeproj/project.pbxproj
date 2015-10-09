@@ -53,6 +53,8 @@
 		E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */; };
 		E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* MessageService.swift */; };
 		E790BD141B68069A00D5426B /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD131B68069A00D5426B /* ShareService.swift */; };
+		E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798102D1BC6C38B002F35A5 /* ChatViewController.swift */; };
+		E79DED701BC7EB710051CE3C /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */; };
 		E79E3E381B6B56A900B27085 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E3E371B6B56A900B27085 /* UserService.swift */; };
 		E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */; };
 		E7A3AA9A1B9C2B050094B0D0 /* ControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */; };
@@ -61,17 +63,34 @@
 		E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEC1B6609A500F28D73 /* Main.storyboard */; };
 		E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEF1B6609A500F28D73 /* Images.xcassets */; };
 		E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */; };
-		E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */; };
 		E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF239A1B7B651700076202 /* NewShareViewController.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */; };
 		E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B714251B7F36880085E3B6 /* ImageUtil.swift */; };
+		E7C556DB1BC7555500CB388E /* UIMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7C556DA1BC7555500CB388E /* UIMessage.storyboard */; };
+		E7C556F01BC7619E00CB388E /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556DD1BC7619E00CB388E /* chat_animation1.png */; };
+		E7C556F11BC7619E00CB388E /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556DE1BC7619E00CB388E /* chat_animation2.png */; };
+		E7C556F21BC7619E00CB388E /* chat_animation3.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556DF1BC7619E00CB388E /* chat_animation3.png */; };
+		E7C556F31BC7619E00CB388E /* chat_animation_white1.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E01BC7619E00CB388E /* chat_animation_white1.png */; };
+		E7C556F41BC7619E00CB388E /* chat_animation_white2.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E11BC7619E00CB388E /* chat_animation_white2.png */; };
+		E7C556F51BC7619E00CB388E /* chat_animation_white3.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E21BC7619E00CB388E /* chat_animation_white3.png */; };
+		E7C556F61BC7619E00CB388E /* chat_ipunt_message.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E31BC7619E00CB388E /* chat_ipunt_message.png */; };
+		E7C556F71BC7619E00CB388E /* chat_message_back.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E41BC7619E00CB388E /* chat_message_back.png */; };
+		E7C556F81BC7619E00CB388E /* Chat_record_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E51BC7619E00CB388E /* Chat_record_circle.png */; };
+		E7C556F91BC7619E00CB388E /* chat_send_message.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E61BC7619E00CB388E /* chat_send_message.png */; };
+		E7C556FA1BC7619E00CB388E /* Chat_take_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E71BC7619E00CB388E /* Chat_take_picture.png */; };
+		E7C556FB1BC7619E00CB388E /* chat_voice_record.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E81BC7619E00CB388E /* chat_voice_record.png */; };
+		E7C556FC1BC7619E00CB388E /* chatfrom_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556E91BC7619E00CB388E /* chatfrom_bg_normal.png */; };
+		E7C556FD1BC7619E00CB388E /* chatfrom_doctor_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556EA1BC7619E00CB388E /* chatfrom_doctor_icon.png */; };
+		E7C556FE1BC7619E00CB388E /* chatto_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C556EB1BC7619E00CB388E /* chatto_bg_normal.png */; };
+		E7C557031BC7BA0700CB388E /* headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C557021BC7BA0700CB388E /* headImage.png */; };
+		E7C8239E1BC7F9B40089F9EF /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */; };
+		E7C8239F1BC7F9B40089F9EF /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7CC15161B6E0FBA001FDB0E /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */; };
 		E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */; };
 		E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
 		E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */; };
-		E7DD18711B765CE700552C0E /* EVReflection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DD186F1B765CE700552C0E /* EVReflection.framework */; };
 		E7E6ABA41BA73ED800BC597D /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6ABA21BA73ED800BC597D /* HSL.swift */; };
 		E7E6ABA51BA73ED800BC597D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6ABA31BA73ED800BC597D /* UIColor.swift */; };
 		E7EACBFE1BC34F6A002A294D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EACBE21BC34F6A002A294D /* Message.swift */; };
@@ -99,15 +118,19 @@
 		E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E7A62FF91B6609A500F28D73 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E7A62FD81B6609A500F28D73 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E7A62FDF1B6609A500F28D73;
-			remoteInfo = Bahamut;
+/* Begin PBXCopyFilesBuildPhase section */
+		E7C823A01BC7F9B40089F9EF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E7C8239F1BC7F9B40089F9EF /* ChatFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		12068C6D6B3CD72448DC90C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +180,8 @@
 		E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		E790BD111B67FDEF00D5426B /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		E790BD131B68069A00D5426B /* ShareService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
+		E798102D1BC6C38B002F35A5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ChatFramework.framework; path = "../../../Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Debug-iphoneos/ChatFramework.framework"; sourceTree = "<group>"; };
 		E79E3E371B6B56A900B27085 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEditTextPropertyViewController.swift; sourceTree = "<group>"; };
 		E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerExtension.swift; sourceTree = "<group>"; };
@@ -167,20 +192,33 @@
 		E7A62FED1B6609A500F28D73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7A62FEF1B6609A500F28D73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7A62FF21B6609A500F28D73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BahamutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7A62FFD1B6609A500F28D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BahamutTests.swift; sourceTree = "<group>"; };
 		E7AF239A1B7B651700076202 /* NewShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultPersonalFilm.mp4; sourceTree = "<group>"; };
 		E7B714251B7F36880085E3B6 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
+		E7C556DA1BC7555500CB388E /* UIMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UIMessage.storyboard; sourceTree = "<group>"; };
+		E7C556DD1BC7619E00CB388E /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
+		E7C556DE1BC7619E00CB388E /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
+		E7C556DF1BC7619E00CB388E /* chat_animation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation3.png; sourceTree = "<group>"; };
+		E7C556E01BC7619E00CB388E /* chat_animation_white1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white1.png; sourceTree = "<group>"; };
+		E7C556E11BC7619E00CB388E /* chat_animation_white2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white2.png; sourceTree = "<group>"; };
+		E7C556E21BC7619E00CB388E /* chat_animation_white3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white3.png; sourceTree = "<group>"; };
+		E7C556E31BC7619E00CB388E /* chat_ipunt_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_ipunt_message.png; sourceTree = "<group>"; };
+		E7C556E41BC7619E00CB388E /* chat_message_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_back.png; sourceTree = "<group>"; };
+		E7C556E51BC7619E00CB388E /* Chat_record_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat_record_circle.png; sourceTree = "<group>"; };
+		E7C556E61BC7619E00CB388E /* chat_send_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_send_message.png; sourceTree = "<group>"; };
+		E7C556E71BC7619E00CB388E /* Chat_take_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat_take_picture.png; sourceTree = "<group>"; };
+		E7C556E81BC7619E00CB388E /* chat_voice_record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_voice_record.png; sourceTree = "<group>"; };
+		E7C556E91BC7619E00CB388E /* chatfrom_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_bg_normal.png; sourceTree = "<group>"; };
+		E7C556EA1BC7619E00CB388E /* chatfrom_doctor_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_doctor_icon.png; sourceTree = "<group>"; };
+		E7C556EB1BC7619E00CB388E /* chatto_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatto_bg_normal.png; sourceTree = "<group>"; };
+		E7C557021BC7BA0700CB388E /* headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headImage.png; sourceTree = "<group>"; };
 		E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		E7D5A2341B7CC0D800F34CE0 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		E7D8DCD81BA59E2C00DB6C11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITagCollectionViewController.swift; sourceTree = "<group>"; };
-		E7DD186F1B765CE700552C0E /* EVReflection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EVReflection.framework; path = "Pods/../build/Debug-iphoneos/EVReflection.framework"; sourceTree = "<group>"; };
 		E7E6ABA21BA73ED800BC597D /* HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		E7E6ABA31BA73ED800BC597D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E7EACBE21BC34F6A002A294D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Source/Message/Message.swift; sourceTree = "<group>"; };
@@ -205,6 +243,7 @@
 		E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
 		E7F11CAE1BA9947C00CA7DB2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7FDBAB31BC4C1A90017BCEF /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
 		E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -215,18 +254,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E79DED701BC7EB710051CE3C /* ChatFramework.framework in Frameworks */,
+				E7C8239E1BC7F9B40089F9EF /* ChatFramework.framework in Frameworks */,
 				E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */,
-				E7DD18711B765CE700552C0E /* EVReflection.framework in Frameworks */,
 				E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */,
 				E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */,
 				B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7A62FF51B6609A500F28D73 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,8 +278,8 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */,
 				E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */,
-				E7DD186F1B765CE700552C0E /* EVReflection.framework */,
 				12068C6D6B3CD72448DC90C7 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -287,6 +320,7 @@
 		E75EE44F1B9A05E200783308 /* StoryBoard */ = {
 			isa = PBXGroup;
 			children = (
+				E7C556DA1BC7555500CB388E /* UIMessage.storyboard */,
 				E7A62FEC1B6609A500F28D73 /* Main.storyboard */,
 				E73E44AF1B80787600E0B6EB /* Component.storyboard */,
 				E75EE44D1B9A05B800783308 /* UserAccount.storyboard */,
@@ -414,6 +448,7 @@
 		E79E3E3A1B6B591800B27085 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E7F225FE1BC646F00034B745 /* UIMessage */,
 				E76A45A91B9E8AE20059AA3D /* Protocol */,
 				E75EE44F1B9A05E200783308 /* StoryBoard */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
@@ -438,7 +473,6 @@
 			children = (
 				E70E5B3A1B66907900CEF3BA /* AVKit.framework */,
 				E70E5B381B66906F00CEF3BA /* AVFoundation.framework */,
-				E7A62FFB1B6609A500F28D73 /* BahamutTests */,
 				E7A62FE11B6609A500F28D73 /* Products */,
 				E7EACBFD1BC34F6A002A294D /* ShareLinkSDK */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
@@ -451,7 +485,6 @@
 			isa = PBXGroup;
 			children = (
 				E7A62FE01B6609A500F28D73 /* Bahamut.app */,
-				E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -459,11 +492,13 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
+				E7C556DC1BC7619E00CB388E /* ChatAssets */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E7B665011B6B8EA200032495 /* Assets */,
 				E79E3E3A1B6B591800B27085 /* Source */,
 				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7A62FE31B6609A500F28D73 /* Supporting Files */,
+				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
 			);
 			path = Bahamut;
 			sourceTree = "<group>";
@@ -473,23 +508,6 @@
 			children = (
 				E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */,
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E7A62FFB1B6609A500F28D73 /* BahamutTests */ = {
-			isa = PBXGroup;
-			children = (
-				E7A62FFE1B6609A500F28D73 /* BahamutTests.swift */,
-				E7A62FFC1B6609A500F28D73 /* Supporting Files */,
-			);
-			path = BahamutTests;
-			sourceTree = "<group>";
-		};
-		E7A62FFC1B6609A500F28D73 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E7A62FFD1B6609A500F28D73 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -517,6 +535,37 @@
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		E7C556DC1BC7619E00CB388E /* ChatAssets */ = {
+			isa = PBXGroup;
+			children = (
+				E7C556DD1BC7619E00CB388E /* chat_animation1.png */,
+				E7C556DE1BC7619E00CB388E /* chat_animation2.png */,
+				E7C556DF1BC7619E00CB388E /* chat_animation3.png */,
+				E7C556E01BC7619E00CB388E /* chat_animation_white1.png */,
+				E7C556E11BC7619E00CB388E /* chat_animation_white2.png */,
+				E7C556E21BC7619E00CB388E /* chat_animation_white3.png */,
+				E7C556E31BC7619E00CB388E /* chat_ipunt_message.png */,
+				E7C556E41BC7619E00CB388E /* chat_message_back.png */,
+				E7C556E51BC7619E00CB388E /* Chat_record_circle.png */,
+				E7C556E61BC7619E00CB388E /* chat_send_message.png */,
+				E7C556E71BC7619E00CB388E /* Chat_take_picture.png */,
+				E7C556E81BC7619E00CB388E /* chat_voice_record.png */,
+				E7C556E91BC7619E00CB388E /* chatfrom_bg_normal.png */,
+				E7C556EA1BC7619E00CB388E /* chatfrom_doctor_icon.png */,
+				E7C556EB1BC7619E00CB388E /* chatto_bg_normal.png */,
+				E7C556EC1BC7619E00CB388E /* photo */,
+			);
+			path = ChatAssets;
+			sourceTree = "<group>";
+		};
+		E7C556EC1BC7619E00CB388E /* photo */ = {
+			isa = PBXGroup;
+			children = (
+				E7C557021BC7BA0700CB388E /* headImage.png */,
+			);
+			path = photo;
 			sourceTree = "<group>";
 		};
 		E7E6ABA11BA73ED800BC597D /* DynamicColor */ = {
@@ -634,6 +683,14 @@
 			path = ../ShareLinkSDK/ShareLinkSDK;
 			sourceTree = "<group>";
 		};
+		E7F225FE1BC646F00034B745 /* UIMessage */ = {
+			isa = PBXGroup;
+			children = (
+				E798102D1BC6C38B002F35A5 /* ChatViewController.swift */,
+			);
+			name = UIMessage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -647,6 +704,7 @@
 				E7A62FDE1B6609A500F28D73 /* Resources */,
 				D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */,
 				5E5B533462BB1C9FCE028608 /* Copy Pods Resources */,
+				E7C823A01BC7F9B40089F9EF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -656,24 +714,6 @@
 			productName = Bahamut;
 			productReference = E7A62FE01B6609A500F28D73 /* Bahamut.app */;
 			productType = "com.apple.product-type.application";
-		};
-		E7A62FF71B6609A500F28D73 /* BahamutTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E7A630051B6609A500F28D73 /* Build configuration list for PBXNativeTarget "BahamutTests" */;
-			buildPhases = (
-				E7A62FF41B6609A500F28D73 /* Sources */,
-				E7A62FF51B6609A500F28D73 /* Frameworks */,
-				E7A62FF61B6609A500F28D73 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E7A62FFA1B6609A500F28D73 /* PBXTargetDependency */,
-			);
-			name = BahamutTests;
-			productName = BahamutTests;
-			productReference = E7A62FF81B6609A500F28D73 /* BahamutTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -688,10 +728,6 @@
 					E7A62FDF1B6609A500F28D73 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 9UH472QS6S;
-					};
-					E7A62FF71B6609A500F28D73 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = E7A62FDF1B6609A500F28D73;
 					};
 				};
 			};
@@ -709,7 +745,6 @@
 			projectRoot = "";
 			targets = (
 				E7A62FDF1B6609A500F28D73 /* Bahamut */,
-				E7A62FF71B6609A500F28D73 /* BahamutTests */,
 			);
 		};
 /* End PBXProject section */
@@ -720,20 +755,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73E44B01B80787600E0B6EB /* Component.storyboard in Resources */,
+				E7C556FB1BC7619E00CB388E /* chat_voice_record.png in Resources */,
+				E7C556DB1BC7555500CB388E /* UIMessage.storyboard in Resources */,
 				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */,
 				E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */,
+				E7C557031BC7BA0700CB388E /* headImage.png in Resources */,
+				E7C556F11BC7619E00CB388E /* chat_animation2.png in Resources */,
+				E7C556F41BC7619E00CB388E /* chat_animation_white2.png in Resources */,
+				E7C556F01BC7619E00CB388E /* chat_animation1.png in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
+				E7C556F31BC7619E00CB388E /* chat_animation_white1.png in Resources */,
+				E7C556F71BC7619E00CB388E /* chat_message_back.png in Resources */,
 				E75EE44E1B9A05B800783308 /* UserAccount.storyboard in Resources */,
+				E7C556FD1BC7619E00CB388E /* chatfrom_doctor_icon.png in Resources */,
+				E7C556F91BC7619E00CB388E /* chat_send_message.png in Resources */,
+				E7C556F21BC7619E00CB388E /* chat_animation3.png in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
+				E7C556F61BC7619E00CB388E /* chat_ipunt_message.png in Resources */,
+				E7C556F81BC7619E00CB388E /* Chat_record_circle.png in Resources */,
+				E7C556FE1BC7619E00CB388E /* chatto_bg_normal.png in Resources */,
 				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
+				E7C556F51BC7619E00CB388E /* chat_animation_white3.png in Resources */,
+				E7C556FC1BC7619E00CB388E /* chatfrom_bg_normal.png in Resources */,
 				E7EACC0D1BC34F6A002A294D /* Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7A62FF61B6609A500F28D73 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				E7C556FA1BC7619E00CB388E /* Chat_take_picture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +861,7 @@
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
 				E7EACC081BC34F6A002A294D /* ShareThing.swift in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
+				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
 				E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */,
 				E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */,
@@ -871,23 +917,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7A62FF41B6609A500F28D73 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7A62FFF1B6609A500F28D73 /* BahamutTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E7A62FFA1B6609A500F28D73 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E7A62FDF1B6609A500F28D73 /* Bahamut */;
-			targetProxy = E7A62FF91B6609A500F28D73 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E7A62FEC1B6609A500F28D73 /* Main.storyboard */ = {
@@ -930,6 +960,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -950,6 +981,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = Bahamut;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -976,6 +1008,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -988,6 +1021,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_MODULE_NAME = Bahamut;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1001,6 +1035,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1008,10 +1045,24 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"EVReflection\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"PBJVision\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -1023,6 +1074,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1030,39 +1084,25 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"EVReflection\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"PBJVision\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
-			};
-			name = Release;
-		};
-		E7A630061B6609A500F28D73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BahamutTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bahamut.app/Bahamut";
-			};
-			name = Debug;
-		};
-		E7A630071B6609A500F28D73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = BahamutTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gstudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bahamut.app/Bahamut";
 			};
 			name = Release;
 		};
@@ -1083,15 +1123,6 @@
 			buildConfigurations = (
 				E7A630031B6609A500F28D73 /* Debug */,
 				E7A630041B6609A500F28D73 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E7A630051B6609A500F28D73 /* Build configuration list for PBXNativeTarget "BahamutTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E7A630061B6609A500F28D73 /* Debug */,
-				E7A630071B6609A500F28D73 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

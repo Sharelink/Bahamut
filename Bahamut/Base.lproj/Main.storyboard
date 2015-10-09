@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yy6-ii-UPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yy6-ii-UPZ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -14,10 +14,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="ltY-3s-OWG">
-                            <rect key="frame" x="0.0" y="472" width="600" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShareThing" rowHeight="342" id="Fkk-ck-SnS" customClass="UIShareThing" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="66" width="600" height="342"/>
@@ -229,15 +225,6 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="54Y-0m-0Rr">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="refresh:" destination="c5G-TY-KIz" eventType="valueChanged" id="XJb-8A-t96"/>
-                        </connections>
-                    </refreshControl>
-                    <connections>
-                        <outlet property="bottomIndicatorView" destination="ltY-3s-OWG" id="yl3-dD-mGn"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ap-2A-VhK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -541,16 +528,23 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add special tag for share" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
-                                <rect key="frame" x="20" y="405" width="479" height="30"/>
+                                <rect key="frame" x="20" y="405" width="423" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Vzf-M9-FP7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-JN-AFN">
-                                <rect key="frame" x="522" y="405" width="58" height="30"/>
-                                <state key="normal" title="Tag Hub"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-JN-AFN">
+                                <rect key="frame" x="466" y="404" width="114" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="FDD-6n-QzR"/>
+                                    <constraint firstAttribute="height" constant="32" id="T8j-WE-Wih"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title=" Tags Hub" image="commerce">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="selectTag:" destination="iK5-v5-9SH" eventType="touchUpInside" id="uly-gf-Pz5"/>
                                 </connections>
@@ -572,8 +566,8 @@
                             <constraint firstItem="Spg-gX-s4O" firstAttribute="leading" secondItem="25l-Re-LsY" secondAttribute="leading" id="Pz7-xx-EDM"/>
                             <constraint firstItem="iyN-kc-vBY" firstAttribute="top" secondItem="Spg-gX-s4O" secondAttribute="bottom" constant="8" id="Qgv-vo-MPR"/>
                             <constraint firstItem="fYb-vu-ScZ" firstAttribute="top" secondItem="iyN-kc-vBY" secondAttribute="bottom" constant="8" id="U4e-yF-xN5"/>
+                            <constraint firstItem="B2I-JN-AFN" firstAttribute="centerY" secondItem="fYb-vu-ScZ" secondAttribute="centerY" id="Vu9-yc-hfu"/>
                             <constraint firstItem="wd7-kf-uru" firstAttribute="leading" secondItem="osp-x9-S0w" secondAttribute="leading" id="WhP-v8-MzR"/>
-                            <constraint firstItem="B2I-JN-AFN" firstAttribute="top" secondItem="iyN-kc-vBY" secondAttribute="bottom" constant="8" id="YW0-7Q-G4L"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iyN-kc-vBY" secondAttribute="trailing" id="YiU-cB-YXM"/>
                             <constraint firstItem="Th1-pD-gNq" firstAttribute="trailing" secondItem="g0g-WT-xPN" secondAttribute="trailing" id="b68-ka-GoL"/>
                             <constraint firstItem="25l-Re-LsY" firstAttribute="top" secondItem="DG5-vr-2m2" secondAttribute="bottom" constant="8" symbolic="YES" id="cCz-RL-MNM"/>
@@ -581,14 +575,8 @@
                             <constraint firstItem="g0g-WT-xPN" firstAttribute="leading" secondItem="25l-Re-LsY" secondAttribute="trailing" constant="8" symbolic="YES" id="iNO-RO-4iM"/>
                             <constraint firstItem="osp-x9-S0w" firstAttribute="leading" secondItem="wvR-Tt-UIR" secondAttribute="leadingMargin" id="q9C-as-ZrH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wd7-kf-uru" secondAttribute="trailing" id="qHC-e4-9x9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fYb-vu-ScZ" secondAttribute="trailing" id="xyz-Ka-qo2"/>
                             <constraint firstItem="25l-Re-LsY" firstAttribute="leading" secondItem="DG5-vr-2m2" secondAttribute="leading" id="yea-8E-xup"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="xyz-Ka-qo2"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
@@ -782,7 +770,8 @@
         <image name="bottomItemNewShare" width="32" height="32"/>
         <image name="bottomItemShare" width="32" height="32"/>
         <image name="check2" width="32" height="32"/>
-        <image name="defaultHeadIcon" width="666" height="666"/>
+        <image name="commerce" width="32" height="32"/>
+        <image name="defaultHeadIcon" width="133" height="133"/>
         <image name="hand_thumbsup" width="128" height="128"/>
         <image name="message" width="16" height="16"/>
         <image name="movie17" width="512" height="512"/>

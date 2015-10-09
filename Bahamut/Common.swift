@@ -20,11 +20,17 @@ struct ColorSets
         UIColor.purpleColor(),
         UIColor.blackColor()
     ]
+    
+    static let themeColor = UIColor(hexString: "#438ccb")
 }
 
 
 extension UIColor
 {
+    
+    static var themeColor:UIColor{
+        return ColorSets.themeColor
+    }
     
     static func getRandomTextColor() -> UIColor
     {
