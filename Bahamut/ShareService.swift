@@ -117,11 +117,12 @@ class ShareService: ServiceProtocol
         {
             req.newerThanThisTime = firstThing.lastActiveDate
             req.page = 0
+            req.pageCount = 3
         }else
         {
             req.olderThanThisTime = NSDate()
             req.page = 1
-            req.pageCount = 10
+            req.pageCount = 3
         }
         
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
@@ -187,8 +188,10 @@ class ShareService: ServiceProtocol
                         self.shareThingSortObjectList.setShareThings(newValues)
                         ShareLinkObject.saveObjectOfArray(newValues)
                         returnCallback(newValues)
+                        return
                     }
                 }
+                returnCallback([ShareThing]())
             }
         }
         

@@ -34,10 +34,26 @@ class FileService: ServiceProtocol {
                 print(error.description)
             }
         }
+        initFileCacheDir()
         initFileDir()
         uploadQueue = [UploadTask]()
         initFileUploadProc()
         PersistentManager.sharedInstance.initManager(fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0])
+    }
+    
+    private func initFileCacheDir()
+    {
+        fileCachePathUrl = documentsPathUrl.URLByAppendingPathComponent("caches")
+        if !fileManager.fileExistsAtPath(fileCachePathUrl.path!)
+        {
+            do
+            {
+                try fileManager.createDirectoryAtPath(fileCachePathUrl.path!, withIntermediateDirectories: true, attributes: nil)
+            }catch let error as NSError
+            {
+                print(error.description)
+            }
+        }
     }
     
     private func initFileDir()
@@ -73,6 +89,7 @@ class FileService: ServiceProtocol {
     private(set) var uploadQueue:[UploadTask]!
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
+    private(set) var fileCachePathUrl:NSURL!
     
     func clearUserDatas()
     {
@@ -131,6 +148,12 @@ class FileService: ServiceProtocol {
     func createLocalStoreFileName(fileType:FileType) -> String
     {
         let localStoreFileDir = documentsPathUrl.URLByAppendingPathComponent("localStore/\(fileType.rawValue)")
+        return localStoreFileDir.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+    }
+    
+    func createCacheFileName(fileType:FileType) -> String
+    {
+        let localStoreFileDir = fileCachePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
         return localStoreFileDir.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
     }
     
