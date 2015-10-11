@@ -9,4 +9,4 @@ pod 'PBJVision'
 
 pod 'MJRefresh'
 
-#pod 'MBProgressHUD', '~> 0.9.1'
+pod 'MBProgressHUD', '~> 0.9.1'
