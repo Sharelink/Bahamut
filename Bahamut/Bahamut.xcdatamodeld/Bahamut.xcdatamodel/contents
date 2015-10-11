@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9056" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
+    <entity name="FileInfoEntity" representedClassName=".FileInfoEntity" syncable="YES">
+        <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="localPath" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MessageEntity" representedClassName=".MessageEntity" syncable="YES">
+        <attribute name="chatId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSend" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="msgData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="msgId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msgText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ModelEntity" representedClassName=".ModelEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modelType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serializableValue" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ShareChatEntity" representedClassName=".ShareChatEntity" syncable="YES">
+        <attribute name="chatId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="chatUsers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shareId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UploadTask" representedClassName=".UploadTask" syncable="YES">
+        <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileServerUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="localPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FileInfoEntity" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="MessageEntity" positionX="-54" positionY="36" width="128" height="180"/>
+        <element name="ModelEntity" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="ShareChatEntity" positionX="-45" positionY="63" width="128" height="90"/>
+        <element name="UploadTask" positionX="-54" positionY="9" width="128" height="120"/>
+    </elements>
+</model>

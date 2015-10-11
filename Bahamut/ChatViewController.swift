@@ -9,150 +9,41 @@
 import UIKit
 import MJRefresh
 import ChatFramework
+import BBBadgeBarButtonItem
 
-class UUMsgItem
+class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate
 {
-    init()
-    {
-        frame = UUMessageFrame()
-        uimsg = UUMessage()
-        dic = [NSObject : AnyObject]()
-        msgFrom = .Me
-    }
-    private(set) var dic:[NSObject : AnyObject]!
-    private var frame:UUMessageFrame!
-    private var uimsg:UUMessage!
-    var msgFrame:UUMessageFrame{
-        uimsg.setWithDict(dic)
-        frame.message = uimsg
-        return frame
-    }
-    
-    var previousTime:String!{
+    var shareChat:ShareChatHub!{
         didSet{
-            uimsg.minuteOffSetStart(previousTime, end: timeString)
-            frame.showTime = uimsg.showDateLabel
+            if chatRoomListViewController != nil
+            {
+                chatRoomListViewController.shareChat = shareChat
+            }
+            currentChatModel = shareChat.getSortChats().first
         }
     }
-    
-    var nick:String!{
-        didSet{
-            dic.updateValue(nick, forKey: "strName")
-        }
-    }
-    
-    var msgFrom:UUMessageFrom{
-        didSet{
-            dic.updateValue(msgFrom.rawValue, forKey: "from")
-        }
-    }
-    
-    var timeString:String!{
-        didSet{
-            uimsg.minuteOffSetStart(previousTime, end: timeString)
-            frame.showTime = uimsg.showDateLabel
-            dic.updateValue(timeString, forKey: "strTime")
-        }
-    }
-    
-    var headIcon:String!{
-        didSet{
-            dic.updateValue(headIcon, forKey: "strIcon")
-        }
-    }
-    
-    var msgType:UUMessageType = .Text{
-        didSet{
-            dic.updateValue(msgType.rawValue, forKey: "type")
-        }
-    }
-    
-}
-
-class UUMsgTextItem: UUMsgItem
-{
-    override init()
-    {
-        super.init()
-        self.msgType = .Text
-    }
-    
-    var message:String!{
-        didSet{
-            dic.updateValue(message, forKey: "strContent")
-        }
-    }
-}
-
-class UUMsgVoiceItem: UUMsgItem
-{
-    override init()
-    {
-        super.init()
-        self.msgType = .Voice
-    }
-    
-    var voice:NSData!{
-        didSet{
-            dic.updateValue(voice, forKey: "voice")
-        }
-    }
-    
-    var voiceTimeSec:Int = 0{
-        didSet{
-            dic.updateValue("\(voiceTimeSec)", forKey: "strVoiceTime")
-        }
-    }
-}
-
-class UUmsgPictureItem: UUMsgItem
-{
-    override init()
-    {
-        super.init()
-        self.msgType = .Picture
-    }
-    
-    var image:UIImage!{
-        didSet{
-            dic.updateValue(image, forKey: "picture")
-        }
-    }
-}
-
-class ChatModel
-{
-    
-    init()
-    {
-        dataSource = NSMutableArray();
-    }
-    var previousTime:String!
-    var myIcon:String!
-    func addMessage(newMsg:UUMsgItem)
-    {
-        newMsg.timeString = NSDate().description
-        newMsg.previousTime = previousTime
-        if newMsg.msgFrame.showTime
-        {
-            previousTime = newMsg.timeString
-        }
-        dataSource.addObject(newMsg)
-    }
-    
-    private(set) var dataSource:NSMutableArray!
-}
-
-@objc class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate
-{
     
     var head:MJRefreshHeader!
-    var chatModel:ChatModel!{
+    var currentChatModel:ChatModel!{
         didSet{
-            
+            updateChatTitle()
+            refreshMessageList()
+            hideRommListContainer()
+            currentChatModel.clearNotReadMessageNotify()
         }
     }
     
+    @IBOutlet weak var chatTitle: UINavigationItem!{
+        didSet{
+            updateChatTitle()
+        }
+    }
+    
+    var chatRoomListViewController:ChatRoomListViewController!
+    @IBOutlet weak var roomsContainer: UIView!
+    @IBOutlet weak var roomContainerTrailiing: NSLayoutConstraint!
+    
+    var chatRoomItem: BBBadgeBarButtonItem!
     @IBOutlet weak var chatTableView:UITableView!{
         didSet{
             chatTableView.dataSource = self
@@ -165,17 +56,43 @@ class ChatModel
     override  func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        self.initChatRoomListViewController()
         self.initBar()
         self.addRefreshViews()
-        self.loadBaseViewsAndData()
+        self.addInputFunctionView()
+        self.refreshMessageList()
+    }
+    
+    private func initChatRoomListViewController()
+    {
+        chatRoomListViewController = self.childViewControllers.filter{$0 is ChatRoomListViewController}.first as! ChatRoomListViewController
+        chatRoomListViewController.rootController = self
+        chatRoomListViewController.shareChat = self.shareChat
+    }
+    
+    private func initGesture()
+    {
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
+        leftSwipe.direction = .Left
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "swipeRight:")
+        leftSwipe.direction = .Right
+        self.view.addGestureRecognizer(leftSwipe)
+        self.view.addGestureRecognizer(rightSwipe)
+    }
+    
+    func swipeRight(_:UIGestureRecognizer)
+    {
+        hideRommListContainer()
+    }
+    
+    func swipeLeft(_:UIGestureRecognizer)
+    {
+        showRoomListContainer()
     }
     
     override func viewDidAppear(animated:Bool)
     {
-        
         super.viewDidAppear(animated)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillShowNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillHideNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"tableViewScrollToBottom:", name:UIKeyboardDidShowNotification, object:nil)
@@ -183,28 +100,37 @@ class ChatModel
     
     override func viewWillDisappear(animated:Bool)
     {
-        
-        super.viewWillDisappear(animated)
-        
+        super.viewWillDisappear(animated)   
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func initBar()
     {
+        chatRoomItem = BBBadgeBarButtonItem(image: UIImage(named: "icon_comment_alt"), style: .Plain , target: self, action: "clickChatRoomItem:")
+        self.navigationItem.rightBarButtonItem = chatRoomItem
         
+    }
+    
+    func updateChatRoomItemBadge(num:Int)
+    {
+        chatRoomItem.badgeValue = "\(num)"
     }
     
     func addRefreshViews()
     {
-        let pageNum =  3
         let header = MJRefreshNormalHeader(){
-            if (self.chatModel.dataSource.count > pageNum) {
-                let indexPath =  NSIndexPath(forRow: pageNum, inSection: 0)
+            let msgCnt = self.currentChatModel.dataSource.count
+            self.currentChatModel.loadPreviousMessage()
+            if (self.currentChatModel.dataSource.count > msgCnt) {
+                let indexPath =  NSIndexPath(forRow: msgCnt, inSection: 0)
                 let time = Double(NSEC_PER_SEC) / 10
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64( time)), dispatch_get_main_queue()){
                     self.chatTableView.reloadData()
                     self.chatTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition:UITableViewScrollPosition.Top, animated:false)
                 }
+            }else
+            {
+                self.view.makeToast(message: "No More Message~")
             }
             self.head.endRefreshing()
         }
@@ -214,14 +140,73 @@ class ChatModel
         chatTableView.header = head
     }
     
-    func loadBaseViewsAndData()
+    func addInputFunctionView()
     {
         IFView = UUInputFunctionView()
         IFView.superVC = self
         IFView.delegate = self
+        IFView.TextViewInput.returnKeyType = .Send
         self.view.addSubview(IFView)
-        self.chatTableView.reloadData()
-        self.chatTableViewScrollToBottom()
+    }
+    
+    func refreshMessageList()
+    {
+        if chatTableView != nil
+        {
+            self.currentChatModel.loadPreviousMessage()
+            self.chatTableView.reloadData()
+            self.chatTableViewScrollToBottom()
+        }
+    }
+    
+    func updateChatTitle()
+    {
+        if chatTitle != nil && currentChatModel != nil
+        {
+            chatTitle.title = currentChatModel.chatTitle
+        }else
+        {
+            chatTitle.title = ""
+        }
+    }
+    
+    func clickChatRoomItem(sender: AnyObject)
+    {
+
+        if roomContainerTrailiing.constant > 0
+        {
+            hideRommListContainer()
+        }else
+        {
+            showRoomListContainer()
+        }
+    }
+    
+    func showRoomListContainer()
+    {
+        if roomContainerTrailiing != nil
+        {
+            UIView.beginAnimations(nil, context:nil)
+            UIView.setAnimationDuration(0.2)
+            UIView.setAnimationCurve(.Linear)
+            roomContainerTrailiing.constant = roomsContainer.frame.size.width
+            self.view.layoutIfNeeded()
+            UIView.commitAnimations()
+        }
+    }
+    
+    func hideRommListContainer()
+    {
+        if roomContainerTrailiing != nil
+        {
+            UIView.beginAnimations(nil, context:nil)
+            UIView.setAnimationDuration(0.1)
+            UIView.setAnimationCurve(.Linear)
+            roomContainerTrailiing.constant = 0
+            self.view.layoutIfNeeded()
+            
+            UIView.commitAnimations()
+        }
     }
     
     func keyboardChange(notification:NSNotification)
@@ -246,6 +231,7 @@ class ChatModel
         
         //adjust ChatTableView's height
         if (notification.name == UIKeyboardWillShowNotification) {
+            hideRommListContainer()
             self.bottomConstraint.constant = keyboardEndFrame.size.height + 40
         }else{
             self.bottomConstraint.constant = 40
@@ -267,11 +253,11 @@ class ChatModel
     //tableView Scroll to bottom
     func chatTableViewScrollToBottom()
     {
-        if self.chatModel.dataSource.count==0
+        if self.currentChatModel == nil || self.currentChatModel.dataSource.count==0
         {
             return
         }
-        let indexPath =  NSIndexPath(forRow:self.chatModel.dataSource.count - 1, inSection:0)
+        let indexPath =  NSIndexPath(forRow:self.currentChatModel.dataSource.count - 1, inSection:0)
         chatTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
@@ -316,18 +302,18 @@ class ChatModel
     
     func dealTheFunctionData(msgItem:UUMsgItem)
     {
-        self.chatModel.addMessage(msgItem)
+        self.currentChatModel.addMessage(msgItem)
         self.chatTableView.reloadData()
         self.chatTableViewScrollToBottom()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return 1
+        return currentChatModel == nil ? 0 : 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.chatModel.dataSource.count
+        return self.currentChatModel.dataSource.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -337,32 +323,33 @@ class ChatModel
             cell = UUMessageCell(style:UITableViewCellStyle.Default, reuseIdentifier:"UUMessageCellID")
             cell!.delegate = self
         }
-        cell!.messageFrame = (self.chatModel.dataSource[indexPath.row] as! UUMsgItem).msgFrame
+        cell!.messageFrame = (self.currentChatModel.dataSource[indexPath.row]).msgFrame
         return cell!
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        if let cf = self.chatModel.dataSource[indexPath.row] as? UUMsgItem
-        {
-            return cf.msgFrame.cellHeight
-        }
-        return 0.0
+        let cf = self.currentChatModel.dataSource[indexPath.row]
+        return cf.msgFrame.cellHeight
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.view.endEditing(true)    
+        hideRommListContainer()
+        hideKeyBoard()
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.view.endEditing(true)
+        hideRommListContainer()
+        hideKeyBoard()
     }
     
     func scrollViewWillBeginDragging(scrollView:UIScrollView)
     {
-        self.view.endEditing(true)
+        hideRommListContainer()
+        hideKeyBoard()
+        hideKeyBoard()
     }
     
     func headImageDidClick(cell:UUMessageCell, userId:String!)

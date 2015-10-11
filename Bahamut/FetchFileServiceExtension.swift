@@ -29,26 +29,24 @@ extension FileService
     {
         let client = ShareLinkSDK.sharedInstance.getFileClient()
         
-        let absoluteFilePath = self.createLocalStoreFileName(fileType)
+        let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fileId, fileType: fileType)
         
         func progress(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {
-            print("bytesRead:\(bytesRead) : totalBytesRead\(totalBytesRead)")
+            print("bytesRead:\(bytesRead) , totalBytesRead:\(totalBytesRead) , totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
             ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: Float(totalBytesRead * 100 / totalBytesExpectedToRead))
         }
         
         client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             if error == nil
             {
-                if let fe = PersistentManager.sharedInstance.bindFileIdAndPath(fileId,fileExistsPath: absoluteFilePath)
-                {
-                    ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: fe.getObsoluteFilePath())
-                    callback(filePath:fe.getObsoluteFilePath())
-                    return
-                }
+                callback(filePath:absoluteFilePath)
+                ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: absoluteFilePath)
+            }else
+            {
+                callback(filePath:nil)
+                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
             }
-            ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
-            callback(filePath:nil)
         }
     }
 }
@@ -58,10 +56,19 @@ class IdFileFetcher: FileFetcher
     var fileType:FileType!;
     func startFetch(fileId: String, delegate: ProgressTaskDelegate)
     {
-        ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
-        ServiceContainer.getService(FileService).getFileByFileId(fileId,fileType:fileType) { (filePath) -> Void in
-            ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
+        let fileService = ServiceContainer.getService(FileService)
+        if let path = fileService.getFilePath(fileId, type: fileType){
+            print("\(fileId) already exists")
+            delegate.taskCompleted(fileId, result: path)
+        }else
+        {
+            print("downloading \(fileId)")
+            ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
+            fileService.fetch(fileId, fileType: fileType, callback: { (filePath) -> Void in
+                ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
+            })
         }
+        
     }
 }
 
@@ -69,7 +76,7 @@ class FilePathFileFetcher: FileFetcher
 {
     var fileType:FileType!;
     func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
-        delegate.taskCompleted!(filepath, result: filepath)
+        delegate.taskCompleted(filepath, result: filepath)
     }
     
     static let shareInstance:FileFetcher = {

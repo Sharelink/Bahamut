@@ -92,11 +92,16 @@ class CoreDataHelper {
         }
     }
     
-    static func getAllCells(entityName:String, idFieldName:String, typeName:String)->[NSManagedObject]
+    static func getCells(entityName:String,predicate:NSPredicate?,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
     {
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
-        request.predicate = NSPredicate(format: "\(idFieldName) LIKE %@", argumentArray: ["\(typeName)*"])
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptors
+        if limit != -1
+        {
+            request.fetchLimit = limit
+        }
         do{
             let resultSet = try getEntityContext().executeFetchRequest(request)
             return resultSet.map{ item -> NSManagedObject in
@@ -108,23 +113,27 @@ class CoreDataHelper {
         return [NSManagedObject]()
     }
     
-    static func getCellById(entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
+    static func getCellsById(entityName:String, idFieldName:String, idValue:String,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]?
     {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) = %@", argumentArray: [idValue])
+        request.sortDescriptors = sortDescriptors
+        if limit != -1
+        {
+            request.fetchLimit = limit
+        }
         request.returnsObjectsAsFaults = false
         do{
             let resultSet = try getEntityContext().executeFetchRequest(request)
-            for obj in resultSet
-            {
-                if let mobj = obj as? NSManagedObject
-                {
-                    return mobj
-                }
-            }
+            return resultSet as? [NSManagedObject]
         }catch{
             
         }
         return nil
+    }
+    
+    static func getCellById(entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
+    {
+        return getCellsById(entityName, idFieldName: idFieldName, idValue: idValue)?.first
     }
 }

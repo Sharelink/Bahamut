@@ -20,15 +20,21 @@ extension FileService
                 imageView.image = uiimage
             }else
             {
-                getFileByFileId(fileId,fileType: FileType.Image, returnCallback: { (filePath) -> Void in
-                    if filePath != nil
-                    {
-                        imageView.image = PersistentManager.sharedInstance.getImage(fileId)
-                    }else
-                    {
-                        imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
-                    }
-                })
+                if let image = PersistentManager.sharedInstance.getImage(fileId)
+                {
+                    imageView.image = image
+                }else
+                {
+                    fetch(fileId, fileType: FileType.Image, callback: { (filePath) -> Void in
+                        if filePath != nil
+                        {
+                            imageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                        }else
+                        {
+                            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
+                        }
+                    })
+                }
             }
         }else
         {

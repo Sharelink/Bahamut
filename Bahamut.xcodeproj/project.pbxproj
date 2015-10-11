@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B8717EF26F962C72A6034CE9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; };
+		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
+		E708CD1E1BC8DC21000ADD1B /* SwiftBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1D1BC8DC21000ADD1B /* SwiftBadge.swift */; };
+		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
+		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
 		E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */; };
 		E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */; };
 		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
@@ -135,6 +139,10 @@
 /* Begin PBXFileReference section */
 		12068C6D6B3CD72448DC90C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E708CD1D1BC8DC21000ADD1B /* SwiftBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftBadge.swift; sourceTree = "<group>"; };
+		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
+		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
@@ -254,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */,
 				E79DED701BC7EB710051CE3C /* ChatFramework.framework in Frameworks */,
 				E7C8239E1BC7F9B40089F9EF /* ChatFramework.framework in Frameworks */,
 				E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */,
@@ -278,6 +287,9 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E70E5B3A1B66907900CEF3BA /* AVKit.framework */,
+				E70E5B381B66906F00CEF3BA /* AVFoundation.framework */,
+				E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */,
 				E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */,
 				E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */,
 				12068C6D6B3CD72448DC90C7 /* Pods.framework */,
@@ -331,6 +343,7 @@
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				E708CD1D1BC8DC21000ADD1B /* SwiftBadge.swift */,
 				E7E6ABA11BA73ED800BC597D /* DynamicColor */,
 				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */,
@@ -471,8 +484,6 @@
 		E7A62FD71B6609A500F28D73 = {
 			isa = PBXGroup;
 			children = (
-				E70E5B3A1B66907900CEF3BA /* AVKit.framework */,
-				E70E5B381B66906F00CEF3BA /* AVFoundation.framework */,
 				E7A62FE11B6609A500F28D73 /* Products */,
 				E7EACBFD1BC34F6A002A294D /* ShareLinkSDK */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
@@ -687,6 +698,8 @@
 			isa = PBXGroup;
 			children = (
 				E798102D1BC6C38B002F35A5 /* ChatViewController.swift */,
+				E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */,
+				E708CD211BC90494000ADD1B /* ChatModel.swift */,
 			);
 			name = UIMessage;
 			sourceTree = "<group>";
@@ -842,6 +855,7 @@
 				E7EACC001BC34F6A002A294D /* ShareLinkObject.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E7EACC041BC34F6A002A294D /* UserTag.swift in Sources */,
+				E708CD1E1BC8DC21000ADD1B /* SwiftBadge.swift in Sources */,
 				E7EACC071BC34F6A002A294D /* Account.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
@@ -856,6 +870,7 @@
 				E7EACC031BC34F6A002A294D /* Vote.swift in Sources */,
 				E7EACC091BC34F6A002A294D /* RegexUtil.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
+				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
 				E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
@@ -910,6 +925,7 @@
 				E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
+				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,

@@ -173,7 +173,7 @@ class UIShareThing: UITableViewCell
     @IBAction func reply()
     {
         let controller = ChatViewController.instanceFromStoryBoard()
-        controller.chatModel = ChatModel()
+        controller.shareChat = ServiceContainer.getService(MessageService).getShareChatHub(shareThingModel.shareId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -184,13 +184,19 @@ class UIShareThing: UITableViewCell
 
     func update()
     {
-        replyButton.titleLabel?.text = shareThingModel.notReadReply > 0 ? "\(shareThingModel.notReadReply)" : ""
         shareDesc.text = shareThingModel.title
         shareDateTime.text = shareThingModel.postDateString
+        updateBadge()
         updateVote()
         updateContent()
         updateHeadIcon()
         updateUserNick()
+    }
+    
+    private func updateBadge()
+    {
+        let notReadmsg = shareThingModel.notReadReply
+        replyButton.badgeValue = "\(notReadmsg)"
     }
     
     var voted:Bool

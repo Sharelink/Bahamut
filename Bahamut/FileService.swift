@@ -23,44 +23,45 @@ class FileService: ServiceProtocol {
     private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()
-        documentsPathUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(userId)
+        rootUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        initDocumentUrl(userId)
+        initLocalStoreDir()
+        initFileCacheDir()
+        PersistentManager.sharedInstance.initManager(rootUrl,fileCacheDirUrl: fileCachePathUrl)
+    }
+    
+    private func initDocumentUrl(userId:String)
+    {
+        documentsPathUrl = rootUrl.URLByAppendingPathComponent(userId)
         if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
         {
             do
             {
                 try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
-            }catch let error as NSError
+            }catch
             {
-                print(error.description)
+                print("create document dir error")
             }
         }
-        initFileCacheDir()
-        initFileDir()
-        uploadQueue = [UploadTask]()
-        initFileUploadProc()
-        PersistentManager.sharedInstance.initManager(fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0])
+    }
+    
+    private func initLocalStoreDir()
+    {
+        localStorePathUrl = documentsPathUrl.URLByAppendingPathComponent("localStore")
+        initFileDir(localStorePathUrl)
     }
     
     private func initFileCacheDir()
     {
         fileCachePathUrl = documentsPathUrl.URLByAppendingPathComponent("caches")
-        if !fileManager.fileExistsAtPath(fileCachePathUrl.path!)
-        {
-            do
-            {
-                try fileManager.createDirectoryAtPath(fileCachePathUrl.path!, withIntermediateDirectories: true, attributes: nil)
-            }catch let error as NSError
-            {
-                print(error.description)
-            }
-        }
+        initFileDir(fileCachePathUrl)
     }
     
-    private func initFileDir()
+    private func initFileDir(parentDirUrl:NSURL)
     {
         for item in FileType.allValues
         {
-            let dir = documentsPathUrl.URLByAppendingPathComponent("\(item.rawValue)")
+            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")
             if fileManager.fileExistsAtPath(dir.path!) == false
             {
                 do
@@ -71,25 +72,14 @@ class FileService: ServiceProtocol {
                     print(error.description)
                 }
             }
-            let localStoreFileDir = documentsPathUrl.URLByAppendingPathComponent("localStore/\(item.rawValue)")
-            if fileManager.fileExistsAtPath(localStoreFileDir.path!) == false
-            {
-                do
-                {
-                    try fileManager.createDirectoryAtPath(localStoreFileDir.path!, withIntermediateDirectories: true, attributes: nil)
-                }catch let error as NSError
-                {
-                    print(error.description)
-                }
-            }
-            
         }
     }
     
-    private(set) var uploadQueue:[UploadTask]!
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
+    private(set) var localStorePathUrl:NSURL!
     private(set) var fileCachePathUrl:NSURL!
+    private(set) var rootUrl:NSURL!
     
     func clearUserDatas()
     {
@@ -107,31 +97,17 @@ class FileService: ServiceProtocol {
         
     }
     
-    func getFileByFileId(fileId:String!,var fileType:FileType!,returnCallback:(filePath:String!)->Void)
+    func getFilePath(fileId:String!,type:FileType!) -> String!
     {
         if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {
-            ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: path)
-            returnCallback(filePath: path)
+            return path
         }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.getObsoluteFilePath()
         {
-            ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: path)
-            returnCallback(filePath: path)
+            return path
         }else
         {
-            if fileType == nil
-            {
-                fileType = FileType.getFileTypeByFileId(fileId)
-                if fileType == .Raw
-                {
-                    if let fe = PersistentManager.sharedInstance.getFile(fileId)
-                    {
-                        
-                        fileType = FileType.getFileType(fe.fileType.integerValue)
-                    }
-                }
-            }
-            fetch(fileId,fileType:fileType,callback: returnCallback)
+            return PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
         }
     }
     
@@ -142,19 +118,12 @@ class FileService: ServiceProtocol {
     
     func getLocalStoreDirUrlOfFileType(fileType:FileType) -> NSURL
     {
-        return documentsPathUrl.URLByAppendingPathComponent("localStore/\(fileType.rawValue)")
+        return localStorePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
     }
     
     func createLocalStoreFileName(fileType:FileType) -> String
     {
-        let localStoreFileDir = documentsPathUrl.URLByAppendingPathComponent("localStore/\(fileType.rawValue)")
-        return localStoreFileDir.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
-    }
-    
-    func createCacheFileName(fileType:FileType) -> String
-    {
-        let localStoreFileDir = fileCachePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
-        return localStoreFileDir.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+        return localStorePathUrl.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
     }
     
     func moveFileTo(srcPath:String,destinationPath:String) -> Bool

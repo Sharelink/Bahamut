@@ -16,9 +16,11 @@ class PersistentManager
     private var nsCacheDict = [String:NSCache]()
     private(set) var documentsPathUrl:NSURL!
     private(set) var documentsPath:String!
+    private(set) var fileCacheDirUrl:NSURL!
     
-    func initManager(documentsPathUrl:NSURL)
+    func initManager(documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
+        self.fileCacheDirUrl = fileCacheDirUrl
         self.documentsPathUrl = documentsPathUrl
         self.documentsPath = documentsPathUrl.path
     }
@@ -45,15 +47,6 @@ class PersistentManager
 
 }
 
-//MARK: FilePersistents
-
-struct FilePersistentsConstrants
-{
-    static let fileEntityName = "FileInfoEntity"
-    static let fileEntityIdFieldName = "fileId"
-    static let uploadTaskEntityName = "UploadTask"
-    static let uploadTaskEntityIdFieldName = "fileId"
-}
 
 extension NSManagedObject
 {
@@ -70,6 +63,100 @@ extension NSManagedObject
         }
     }
 }
+
+//MARK: MessagePersistents
+struct ChatConstrants
+{
+    static let chatEntityName = "ShareChatEntity"
+    static let chatEntityShareIdFieldName = "shareId"
+    static let chatEntityChatIdFieldName = "chatId"
+    
+    static let messageEntityName = "MessageEntity"
+    static let messageEntityChatIdFieldName = "chatId"
+    static let messageEntityMessageIdFieldName = "msgId"
+}
+
+extension PersistentManager
+{
+    func getShareChats(shareId:String) -> [ShareChatEntity]
+    {
+        if let result = CoreDataHelper.getCellsById(ChatConstrants.chatEntityName, idFieldName: ChatConstrants.chatEntityShareIdFieldName, idValue: shareId) as? [ShareChatEntity]
+        {
+            return result
+        }else
+        {
+            return [ShareChatEntity]()
+        }
+    }
+    
+    func getShareChat(chatId:String) -> ShareChatEntity!
+    {
+        if let result = CoreDataHelper.getCellById(ChatConstrants.chatEntityName,idFieldName: ChatConstrants.chatEntityChatIdFieldName, idValue: chatId) as? ShareChatEntity
+        {
+            return result
+        }
+        return nil
+    }
+    
+    func getMessage(chatId:String,limit:Int = 7,beforeTime:NSDate! = nil) -> [MessageEntity]
+    {
+        let sortDesc = NSSortDescriptor(key: "time", ascending: false)
+        let predict = NSPredicate(format: "\(ChatConstrants.messageEntityChatIdFieldName) = %@ and time < %@", argumentArray: [chatId,beforeTime ?? NSDate()])
+        if let result = CoreDataHelper.getCells(ChatConstrants.messageEntityName, predicate: predict, limit: limit, sortDescriptors: [sortDesc]) as? [MessageEntity]
+        {
+            return result
+        }
+        return [MessageEntity]()
+    }
+    
+    func getMessage(msgId:String) -> MessageEntity!
+    {
+        if let result = CoreDataHelper.getCellById(ChatConstrants.messageEntityName,idFieldName: ChatConstrants.messageEntityMessageIdFieldName, idValue: msgId) as? MessageEntity
+        {
+            return result
+        }
+        return nil
+    }
+    
+    func getNewMessage(msgId:String) -> MessageEntity!
+    {
+        if getMessage(msgId) == nil
+        {
+            if let newEntity = CoreDataHelper.insertNewCell(ChatConstrants.messageEntityName) as? MessageEntity
+            {
+                newEntity.msgId = msgId
+                return newEntity
+            }
+        }
+        return nil
+    }
+    
+    func saveNewChat(shareId:String,chatId:String) -> ShareChatEntity!
+    {
+        if getShareChat(chatId) == nil
+        {
+            if let newEntity = CoreDataHelper.insertNewCell(ChatConstrants.chatEntityName) as? ShareChatEntity
+            {
+                newEntity.chatId = chatId
+                newEntity.shareId = shareId
+                newEntity.saveModified()
+                return newEntity
+            }
+        }
+        return nil
+    }
+}
+
+//MARK: FilePersistents
+
+struct FilePersistentsConstrants
+{
+    static let fileEntityName = "FileInfoEntity"
+    static let fileEntityIdFieldName = "fileId"
+    static let uploadTaskEntityName = "UploadTask"
+    static let uploadTaskEntityIdFieldName = "fileId"
+}
+
 
 extension FileInfoEntity
 {
@@ -158,6 +245,22 @@ extension PersistentManager
         }
     }
     
+    func createCacheFileName(fileId:String,fileType:FileType) -> String
+    {
+        let localStoreFileDir = fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
+        return localStoreFileDir.URLByAppendingPathComponent("/\(fileId)\(fileType.FileSuffix)").path!
+    }
+    
+    func getFilePathFromCachePath(fileId:String,type:FileType!) -> String!
+    {
+        let path = createCacheFileName(fileId,fileType: type)
+        if NSFileManager.defaultManager().fileExistsAtPath(path)
+        {
+            return path
+        }
+        return nil
+    }
+    
     func getImage(fileId:String?) -> UIImage?
     {
         if fileId == nil
@@ -179,6 +282,12 @@ extension PersistentManager
             return image
         }else
         {
+            if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
+            {
+                let image = UIImage(contentsOfFile: path)
+                cache.setObject(image!, forKey: fileId!)
+                return image
+            }
             return nil
         }
     }
@@ -262,7 +371,8 @@ extension PersistentManager
         let typename = type.description()
         let typesname = "[\(typename)]"
         let cache = getCache(typesname)
-        let result = CoreDataHelper.getAllCells(ModelEntityConstants.entityName,idFieldName: ModelEntityConstants.idFielldName,typeName: typename).map{ obj -> T in
+        let predicate = NSPredicate(format: "\(ModelEntityConstants.idFielldName) LIKE %@", argumentArray: ["\(typename)*"])
+        let result = CoreDataHelper.getCells(ModelEntityConstants.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
         }

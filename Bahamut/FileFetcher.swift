@@ -78,10 +78,7 @@ class ProgressTaskWatcher
             list.forEach({ (record) -> () in
                 if let r = record as? TaskRecord
                 {
-                    if let taskCompleted = r.delegate.taskCompleted
-                    {
-                        taskCompleted(taskIdentifier, result: result)
-                    }
+                    r.delegate.taskCompleted(taskIdentifier, result: result)
                 }
             })
         }
@@ -113,6 +110,6 @@ protocol FileFetcher
 protocol ProgressTaskDelegate
 {
     optional func taskProgress(taskIdentifier:String,persent:Float)
-    optional func taskCompleted(taskIdentifier:String,result:AnyObject!)
+    func taskCompleted(taskIdentifier:String,result:AnyObject!)
     optional func taskFailed(taskIdentifier:String,result:AnyObject!)
 }

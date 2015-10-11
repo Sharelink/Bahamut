@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import BBBadgeBarButtonItem
 
 class ShareThingsListController: UITableViewController
 {

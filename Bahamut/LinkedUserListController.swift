@@ -31,7 +31,7 @@ class LinkedUserListController: UITableViewController
     
     private var messageService:MessageService!{
         didSet{
-            messageService.addObserver(self, selector: "talkingUserListUpdated:", name: MessageService.messageListUpdated, object: nil)
+            
         }
     }
     
@@ -55,16 +55,6 @@ class LinkedUserListController: UITableViewController
             let dict = userService.getUsersDivideWithLatinLetter(newValues)
             dispatch_async(dispatch_get_main_queue()){()->Void in
                 self.userListModel = dict
-            }
-        }
-    }
-    
-    func talkingUserListUpdated(sender:AnyObject)
-    {
-        if let newValues = messageService.messageList
-        {
-            dispatch_async(dispatch_get_main_queue()){()->Void in
-                self.talkingListModel = newValues
             }
         }
     }

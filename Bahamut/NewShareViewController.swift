@@ -37,14 +37,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         registerForKeyboardNotifications()
         initMytags()
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         removeObserverForKeyboardNotifications()
     }
     
@@ -77,7 +77,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     }
     
     var myTagController:UITagCollectionViewController!
-    {
+        {
         didSet{
             myTagContainer = UIView()
             myTagController.delegate = self
@@ -102,11 +102,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    @IBOutlet weak var newTagNameTextfield: UITextField!{
-        didSet{
-            newTagNameTextfield.delegate = self
-        }
-    }
+    @IBOutlet weak var newTagNameTextfield: UITextField!
     
     @IBAction func selectTag(sender: AnyObject)
     {
@@ -139,11 +135,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.3)
         myTagContainer.frame = CGRectMake(self.selectedTagViewContainer.frame.origin.x, selectedTagViewContainer.frame.origin.y - height - 7,self.selectedTagViewContainer.bounds.width, height)
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
     }
     
     private func hideMyTagsCollection()
     {
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(0.3)
+        myTagContainer.frame = selectedTagViewContainer.frame
+        self.view.layoutIfNeeded()
+        UIView.commitAnimations()
         myTagContainer.removeFromSuperview()
     }
     
@@ -171,7 +173,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
         selectedTagViewContainer.makeToast(message: "there is nothing!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
     }
-
+    
     func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
     {
         if sender == myTagController
@@ -187,57 +189,58 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    var activeTextField:UIView!
-    var originCenter:CGPoint!
-    
     func removeObserverForKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func registerForKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func keyboardWasShown(aNotification:NSNotification)
+    var offset:CGFloat = 0
+    func keyboardChanged(aNotification:NSNotification)
     {
         let info = aNotification.userInfo!
-        
-        if let kbRect = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
+        if !newTagNameTextfield.isFirstResponder()
         {
-            let tfFrame = activeTextField.frame
-            let kbHeight = kbRect.height + 7
-            let bottom = view.frame.height - tfFrame.origin.y - kbHeight - tfFrame.height
-            if bottom < 0
+            return
+        }
+        if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
+        {
+            let tfFrame = newTagNameTextfield.frame
+            
+            if aNotification.name == UIKeyboardDidShowNotification
             {
+                offset = tfFrame.origin.y + tfFrame.size.height + 7 - kbFrame.origin.y
+                if offset <= 0
+                {
+                    return
+                }
                 var animationDuration:NSTimeInterval
                 var animationCurve:UIViewAnimationCurve
                 let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! Int
                 animationCurve = UIViewAnimationCurve(rawValue: curve)!
                 animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-                
                 UIView.beginAnimations(nil, context:nil)
                 UIView.setAnimationDuration(animationDuration)
                 UIView.setAnimationCurve(animationCurve)
                 
-                originCenter = view.center
-                view.center.y += bottom
-                view.layoutIfNeeded()
+                view.frame.origin.y = -offset
                 
+                view.layoutIfNeeded()
                 UIView.commitAnimations()
+            }else
+            {
+                if offset <= 0
+                {
+                    return
+                }
+                view.frame.origin.y = 0
+                view.layoutIfNeeded()
             }
-        }
-    }
-    
-    func keyboardWillBeHidden(aNotification:NSNotification)
-    {
-        if let ocenter = originCenter
-        {
-            view.center = ocenter
-            originCenter = nil
         }
     }
     
@@ -250,18 +253,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField)
-    {
-        activeTextField = textField
-        
-    }
-    
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        activeTextField = nil
-    }
-
-    
     var shareThingModel:ShareThing!{
         didSet{
             if shareContentContainer != nil
@@ -269,15 +260,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 shareContentContainer.shareThing = shareThingModel
             }
         }
-    }
-    
-    func textViewDidBeginEditing(textView: UITextView) {
-        activeTextField = textView
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        
-        activeTextField = nil
     }
     
     func textViewDidChange(textView: UITextView) {
@@ -354,7 +336,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         sender.view.makeToast(message: "\(sum) files deleted", duration: HRToastDefaultDuration, position: HRToastPositionCenter)
     }
     
-
+    
     
     func cameraCancelRecord(sender: UICameraViewController!)
     {
@@ -439,30 +421,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
     }
     
-    func testupload()
-    {
-        let fService = ServiceContainer.getService(FileService)
-        fService.getFileByFileId(FilmAssetsConstants.defaultPersonalFilm,fileType: FileType.Video) { (filePath) -> Void in
-            if let localFilmPath = filePath
-            {
-                self.view.makeToastActivityWithMessage(message: "Sending Film")
-                fService.requestFileId(localFilmPath, type: FileType.Video, callback: { (fileId) -> Void in
-                    self.view.hideToastActivity()
-                    if fileId != nil
-                    {
-                        ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: self)
-                        fService.startSendFile(fileId)
-                    }
-                })
-                
-            }else
-            {
-                self.view.makeToast(message: "must select or capture a film!")
-            }
-        }
-        
-    }
-
     static func instanceFromStoryBoard() -> NewShareViewController
     {
         return instanceFromStoryBoard("Main", identifier: "newShareViewController") as! NewShareViewController

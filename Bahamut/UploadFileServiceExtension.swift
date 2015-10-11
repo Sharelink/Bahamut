@@ -11,12 +11,6 @@ import Alamofire
 
 extension FileService
 {
-    
-    func initFileUploadProc()
-    {
-        
-    }
-    
     private func addUploadTask(fileId:String,filePath:String) -> UploadTask?
     {
         if !fileManager.fileExistsAtPath(filePath)

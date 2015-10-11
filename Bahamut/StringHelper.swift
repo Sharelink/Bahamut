@@ -21,8 +21,25 @@ class StringHelper
     }
 }
 
+extension String {
+    
+    //Encode base64
+    func base64Encoded() -> String {
+        let plainData = self.dataUsingEncoding(NSUTF8StringEncoding)
+        let base64String = plainData?.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        return base64String!.trim()
+    }
+    
+    //Decode base64
+    func base64Decoded() -> String {
+        let decodedData = NSData(base64EncodedString: self, options: .IgnoreUnknownCharacters)
+        let decodedString = NSString(data: decodedData!, encoding: NSUTF8StringEncoding)
+        return decodedString! as String
+    }
+}
 extension String
 {
+    
     static func isNullOrEmpty(value:String?) -> Bool
     {
         if let v = value
@@ -48,6 +65,73 @@ extension String
             let v = value?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             return isNullOrEmpty(v)
         }
+    }
+}
+
+extension String{
+    //分割字符
+    func split(s:String)->[String]{
+        if s.isEmpty{
+            var x = [String]()
+            for y in self.characters{
+                x.append(String(y))
+            }
+            return x
+        }
+        return self.componentsSeparatedByString(s)
+    }
+    //去掉左右空格
+    func trim()->String{
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+    //是否包含字符串
+    func has(s:String)->Bool{
+        if (self.rangeOfString(s) != nil) {
+            return true
+        }else{
+            return false
+        }
+    }
+    //是否包含前缀
+    func hasBegin(s:String)->Bool{
+        if self.hasPrefix(s) {
+            return true
+        }else{
+            return false
+        }
+    }
+    //是否包含后缀
+    func hasEnd(s:String)->Bool{
+        if self.hasSuffix(s) {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func substringFromIndex(index:Int) -> String
+    {
+        return self.substringFromIndex(self.startIndex.advancedBy(index))
+    }
+    
+    func substringToIndex(index:Int) -> String
+    {
+        return self.substringToIndex(self.startIndex.advancedBy(index))
+    }
+    
+    func substringWithRange(startIndex:Int,endIndex:Int) -> String
+    {
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex), end: self.startIndex.advancedBy(endIndex)))
+    }
+
+    //反转
+    func reverse()-> String{
+        let s=self.split("").reverse()
+        var x=""
+        for y in s{
+            x+=y
+        }
+        return x
     }
 }
 

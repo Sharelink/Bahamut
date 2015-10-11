@@ -42,7 +42,7 @@ public class SharelinkTagService : ServiceProtocol
     }
     
     //refresh all the tag entities
-    func refreshMyAllSharelinkTags(sucCallback:(()->Void)! = nil)
+    func refreshMyAllSharelinkTags(callback:(()->Void)! = nil)
     {
         let req = GetMyAllTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
@@ -53,11 +53,11 @@ public class SharelinkTagService : ServiceProtocol
                 {
                     ShareLinkObject.saveObjectOfArray(tags)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
                 }
+            }
+            if let handler = callback
+            {
+                handler()
             }
         }
     }

@@ -89,7 +89,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        updatePersonalFilm()
     }
     
     private func initProfileVideoView()
@@ -97,7 +97,6 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if profileVideoView == nil
         {
             profileVideoView = ShareLinkFilmView(frame: profileVideoViewContainer.bounds)
-            updatePersonalFilm()
         }
     }
     

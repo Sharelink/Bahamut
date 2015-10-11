@@ -1,35 +1,32 @@
 PODS:
-  - Alamofire (2.0.0-beta.3)
+  - Alamofire (2.0.2)
+  - BBBadgeBarButtonItem (1.1)
   - EVReflection (2.6.0)
+  - MJRefresh (2.4.9)
   - PBJVision (0.4.2)
-  - RSKImageCropper (1.3.1)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
+  - Alamofire (~> 2.0.0)
+  - BBBadgeBarButtonItem
   - EVReflection (from `https://github.com/evermeer/EVReflection.git`, branch `Swift2`)
+  - MJRefresh
   - PBJVision
-  - RSKImageCropper
 
 EXTERNAL SOURCES:
-  Alamofire:
-    :branch: swift-2.0
-    :git: https://github.com/Alamofire/Alamofire.git
   EVReflection:
     :branch: Swift2
     :git: https://github.com/evermeer/EVReflection.git
 
 CHECKOUT OPTIONS:
-  Alamofire:
-    :commit: 1bc35abfa7c167ba54af4e87158af7945cc9984e
-    :git: https://github.com/Alamofire/Alamofire.git
   EVReflection:
     :commit: 435644cbfd049ea20ee5e64ca3b316e42fc48a93
     :git: https://github.com/evermeer/EVReflection.git
 
 SPEC CHECKSUMS:
-  Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
+  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  BBBadgeBarButtonItem: 958744e7c429e467b14af983040dbaae105b3355
   EVReflection: e8f562eaa015ae14a4a2af640d06b6e89c0a925c
+  MJRefresh: be84acb912d0a66364f76a75426698a39528e2ed
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
-  RSKImageCropper: b4993121db4f6679a7f7ed1305050ef970764e3f
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

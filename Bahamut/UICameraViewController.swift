@@ -74,7 +74,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     func initRecordButton()
     {
         recordButtonController = self.childViewControllers.filter { $0 is UIRecordButtonController}.first as! UIRecordButtonController
-        recordButtonController.removeFromParentViewController()
 //        let moveRecorgnizer = UIPanGestureRecognizer(target: self, action: "moveRecordButton:")
 //        recordButton.addGestureRecognizer(moveRecorgnizer)
         recordButtonController.buttonInteractionView.userInteractionEnabled = true
