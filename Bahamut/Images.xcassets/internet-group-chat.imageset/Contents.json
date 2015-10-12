@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "message.png"
+      "filename" : "internet-group-chat.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

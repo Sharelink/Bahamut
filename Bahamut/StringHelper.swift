@@ -23,6 +23,11 @@ class StringHelper
 
 extension String {
     
+    func toUTF8EncodingData() -> NSData!
+    {
+        return self.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+    
     //Encode base64
     func base64Encoded() -> String {
         let plainData = self.dataUsingEncoding(NSUTF8StringEncoding)

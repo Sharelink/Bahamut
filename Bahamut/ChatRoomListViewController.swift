@@ -17,6 +17,15 @@ class ChatRoomListCell: UITableViewCell
             }
         }
     }
+    var badgeValue:Int = 0{
+        didSet{
+            if badgeButton != nil{
+                badgeButton.badgeValue = "\(badgeValue)"
+                badgeButton.badgeMinSize = 13
+            }
+        }
+    }
+    @IBOutlet weak var badgeButton: UIButton!
     var title:String!{
         didSet{
             titleLabel.text = title
@@ -57,6 +66,10 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
         didSet{
             roomListTableView.dataSource = self
             roomListTableView.delegate = self
+            let bcgv = UIImageView(image: UIImage(named: "chat_room"))
+            bcgv.contentMode = .ScaleAspectFill
+            roomListTableView.backgroundView = bcgv
+            roomListTableView.separatorStyle = .None
         }
     }
     var rootController:ChatViewController!
@@ -70,6 +83,8 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
         let model = chatModels[indexPath.row]
         cell.title = model.chatTitle
         cell.iconFilePath = model.chatIcon
+        cell.backgroundColor = UIColor.clearColor()
+        cell.badgeValue = 2
         return cell
     }
     

@@ -62,7 +62,7 @@ class NewUserProfileViewController: UIViewController,UIImagePickerControllerDele
         ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             if isSuc
             {
-                ServiceContainer.getService(AccountService).setLogined(validateResult.UserId, token: validateResult.AppToken, shareLinkApiServer: validateResult.APIServer, fileApiServer: validateResult.FileAPIServer)
+                ServiceContainer.getService(AccountService).setLogined(validateResult)
                 MainNavigationController.start("Regist Success")
             }else
             {

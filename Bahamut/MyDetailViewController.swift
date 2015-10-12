@@ -12,9 +12,8 @@ extension UserService
 {
     func showMyDetailView(currentNavigationController:UINavigationController)
     {
-        let aService = ServiceContainer.getService(AccountService)
         let controller = MyDetailViewController.instanceFromStoryBoard()
-        controller.accountId = aService.lastLoginAccountId
+        controller.accountId = BahamutConfig.lastLoginAccountId
         controller.myInfo = self.myUserModel
         currentNavigationController.pushViewController(controller, animated: true)
     }
@@ -104,19 +103,19 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime
-        propertySet.propertyLabel = "Craete At"
+        propertySet.propertyLabel = "Join"
         propertySet.propertyValue = DateHelper.stringToDate(myInfo.createTime).toDateString()
         textPropertyCells.append((propertySet:propertySet,editable:false))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "accountId"
-        propertySet.propertyLabel = "AccountID"
+        propertySet.propertyLabel = "Sharelink ID"
         propertySet.propertyValue = accountId
         textPropertyCells.insert((propertySet:propertySet,editable:false), atIndex: 2)
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.signText
-        propertySet.propertyLabel = "Sign Text"
+        propertySet.propertyLabel = "Motto"
         propertySet.propertyValue = myInfo.signText
         propertySet.isOneLineValue = false
         textPropertyCells.append((propertySet:propertySet,editable:true))
@@ -131,7 +130,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     @IBAction func logout(sender: AnyObject)
     {
-        let alert = UIAlertController(title: "Sure To Logout?", message: nil, preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Sure To Logout?", message: "it will clear all you message data with your sharelinkers", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .Default) { _ in
             self.logout()
             })
@@ -224,7 +223,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func tapHeadIconCell(aTap:UITapGestureRecognizer)
     {
-        let alert = UIAlertController(title: "Change Head Icon", message: nil, preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: "Change Avatar", message: nil, preferredStyle: .ActionSheet)
         alert.addAction(UIAlertAction(title: "Take A New Photo", style: .Destructive) { _ in
             self.newPictureWithCamera()
             })
@@ -279,7 +278,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                             self.headIconImageView.image = PersistentManager.sharedInstance.getImage(fileId)
                         }else
                         {
-                            self.view.makeToast(message: "Set Head Icon failed")
+                            self.view.makeToast(message: "Set Avatar failed")
                         }
                     })
                 })

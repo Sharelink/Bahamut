@@ -16,11 +16,16 @@ class MainNavigationController: UINavigationController
         static let ShowMainView = "Show Main Navigation"
     }
     
-    override func viewDidAppear(animated: Bool)
-    {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         let accountService = ServiceContainer.getService(AccountService)
-        if accountService.isUserLogined
+        if BahamutConfig.isUserLogined
         {
             ServiceContainer.instance.userLogin(accountService.userId)
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)

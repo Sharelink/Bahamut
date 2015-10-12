@@ -92,6 +92,11 @@ class UIShareThing: UITableViewCell
             userNicknameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
         }
     }
+    @IBOutlet weak var shareButton: UIButton!{
+        didSet{
+            shareButton.tintColor = UIColor.themeColor
+        }
+    }
     @IBOutlet weak var shareDateTime: UILabel!
     @IBOutlet weak var shareContent: UIShareContent!{
         didSet{
@@ -104,8 +109,16 @@ class UIShareThing: UITableViewCell
         }
     }
     
-    @IBOutlet weak var userVoteDetail: UILabel!
-    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var userVoteDetail: UILabel!{
+        didSet{
+            userVoteDetail.textColor = UIColor.themeColor
+        }
+    }
+    @IBOutlet weak var replyButton: UIButton!{
+        didSet{
+            replyButton.tintColor = UIColor.themeColor
+        }
+    }
     @IBOutlet weak var shareDesc: UILabel!
     
     func swipeShareThingRight(gesture:UISwipeGestureRecognizer)
@@ -124,7 +137,7 @@ class UIShareThing: UITableViewCell
         didSet{
             if UIShareThing.voteOriginColor == nil{
                 UIShareThing.voteOriginColor = voteButton.tintColor
-                UIShareThing.voteButtonVotedColor = UIColor.blueColor()
+                UIShareThing.voteButtonVotedColor = UIColor.themeColor
             }
         }
     }
@@ -173,7 +186,7 @@ class UIShareThing: UITableViewCell
     @IBAction func reply()
     {
         let controller = ChatViewController.instanceFromStoryBoard()
-        controller.shareChat = ServiceContainer.getService(MessageService).getShareChatHub(shareThingModel.shareId)
+        controller.shareChat = ServiceContainer.getService(MessageService).getShareChatHub(shareThingModel.shareId,shareSenderId: shareThingModel.userId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -17,9 +17,24 @@ class ShareThingsListController: UITableViewController
         super.viewDidLoad()
         initTableView()
         initRefresh()
+        initConnectionToChicago()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
         
+    }
+    
+    private func initConnectionToChicago()
+    {
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+    }
+    
+    deinit{
+        ChicagoClient.sharedInstance.removeObserver(self)
+    }
+    
+    func chicagoClientStateChanged(aNotification:NSNotification)
+    {
+        tableView.reloadData()
     }
     
     private func initTableView()
@@ -124,30 +139,31 @@ class ShareThingsListController: UITableViewController
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        if isNetworkError
+        if ChicagoClient.sharedInstance.clientState != ChicagoClientState.Connected
         {
-            return 42
+            return 35
         }
         return 0
     }
     
+    var stateHeaderView:UIClientStateHeader!
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        if isNetworkError
+        let cstate = ChicagoClient.sharedInstance.clientState
+        if cstate != ChicagoClientState.Connected
         {
-            let headerView = UIView()
-            let msgLabel = UILabel()
-            msgLabel.font = UIFont.systemFontOfSize(14, weight: 0.3)
-            msgLabel.text = "Some network things happened~"
-            msgLabel.textAlignment = .Center
-            msgLabel.textColor = UIColor.redColor()
-            msgLabel.sizeToFit()
-            headerView.bounds = CGRectMake(0, 0, tableView.bounds.width, 42)
-            msgLabel.center.x = tableView.center.x
-            msgLabel.center.y = headerView.bounds.height / 2
-            headerView.addSubview(msgLabel)
-            headerView.backgroundColor = UIColor.lightGrayColor()
-            return headerView
+            if stateHeaderView == nil
+            {
+                stateHeaderView = NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
+            }
+            if cstate == ChicagoClientState.Disconnected
+            {
+                stateHeaderView.setConnectError()
+            }else
+            {
+                stateHeaderView.startConnect()
+            }
+            return stateHeaderView
         }
         return nil
     }

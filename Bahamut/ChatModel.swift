@@ -63,6 +63,8 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         }
     }
     var chatId:String!
+    var audienceId:String!
+    var shareId:String!
     private var sharelinkerMap:[String:ShareLinkUser]!
     func addMessage(newMsg:UUMsgItem)
     {
@@ -77,13 +79,13 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         {
             newMsg.nick = sendUser?.noteName
         }
-        newMsg.timeString = NSDate().description
+        let now = NSDate()
+        newMsg.timeString = now.toAccurateDateTimeString()
         newMsg.previousTime = previousTime
         if newMsg.msgFrame.showTime
         {
             previousTime = newMsg.timeString
         }
-        newMsgTime = NSDate()
         msgItems.append(newMsg)
         if newMsg.msgFrom == .Me
         {
@@ -104,11 +106,11 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 msgData = m.voice;
                 msgText = m.voiceTimeSec.description
             }
-            let msgEntity = messageService.saveNewMessage(newMsgTime.timeIntervalSince1970.hashValue.description, chatId: chatId, type: msgType, time: newMsgTime, senderId: userService.myUserId, msgText: msgText, data: msgData)
+            let msgEntity = messageService.saveNewMessage("\(now.timeIntervalSince1970.hashValue.description)_\(arc4random())", chatId: chatId, type: msgType, time: now, senderId: userService.myUserId, msgText: msgText, data: msgData)
             msgEntity.isRead = true
             msgEntity.isSend = false
             msgEntity.saveModified()
-            messageService.sendMessage(msgEntity)
+            messageService.sendMessage(shareId, audienceId: audienceId, msg: msgEntity)
         }
     }
     
@@ -128,9 +130,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             msgEntities = messageService.getMessage(chatId, limit: 7, beforeTime: NSDate())
         }
         var items = msgEntities.map { messageEntityToUUMsgItem($0) }
-        items.sortInPlace{ (item0, item1) -> Bool in
-            return item0.time.timeIntervalSince1970 < item1.time.timeIntervalSince1970
-        }
+        items = items.reverse()
         for var i:Int = items.count - 1; i >= 0; i--
         {
             if i > 0

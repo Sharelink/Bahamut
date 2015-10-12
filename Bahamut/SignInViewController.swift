@@ -43,7 +43,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        loginAccountId = ServiceContainer.getService(AccountService).lastLoginAccountId
+        loginAccountId = BahamutConfig.lastLoginAccountId
     }
     
     override func viewWillAppear(animated: Bool) {

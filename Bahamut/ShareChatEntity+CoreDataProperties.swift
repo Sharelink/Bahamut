@@ -16,7 +16,7 @@ extension ShareChatEntity {
 
     func addUser(userId:String)
     {
-        if (chatUsers.containsString("userId")) == true
+        if (chatUsers.containsString("\(userId)")) == true
         {
             return
         }

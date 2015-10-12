@@ -39,6 +39,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         }
         let uService = ServiceContainer.getService(UserService)
         let cm = ChatModel()
+        cm.shareId = entity.shareId
         cm.chatId = entity.chatId
         cm.sharelinkers = entity.getUsers()
         if cm.sharelinkers.count == 1{
@@ -51,9 +52,9 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         return cm
     }
     
-    func getChatIdWithUserOfShareId(shareId:String,userId:String) -> String
+    func getChatIdWithAudienceOfShareId(shareId:String,audienceId:String) -> String
     {
-        return "\(shareId)&\(userId)"
+        return "\(shareId)&\(audienceId)"
     }
     
     func getMessage(chatId:String,limit:Int = 7,beforeTime:NSDate! = nil) -> [MessageEntity]
@@ -82,26 +83,48 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         return msgEntity
     }
     
-    func sendMessage(msg:MessageEntity)
+    func sendMessage(shareId:String,audienceId:String,msg:MessageEntity)
     {
-        
+        let req = SendShareMessageRequest()
+        req.time = msg.time
+        req.type = msg.type
+        req.shareId = shareId
+        req.message = msg.msgText
+        req.messageData = msg.msgData
+        req.audienceId = audienceId;
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result:SLResult<Message>) -> Void in
+            msg.isSend = true
+            msg.msgId = result.returnObject.msgId
+            msg.saveModified()
+        }
     }
     
-    func getShareChatHub(shareId:String) -> ShareChatHub
+    func recevieMessage(msgs:[Message])
+    {
+        for msg in msgs
+        {
+            saveNewMessage(msg.msgId, chatId: getChatIdWithAudienceOfShareId(msg.shareId, audienceId: msg.senderId), type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
+        }
+    }
+    
+    func getShareChatHub(shareId:String,shareSenderId:String) -> ShareChatHub
     {
         let uService = ServiceContainer.getService(UserService)
         var shareChats = PersistentManager.sharedInstance.getShareChats(shareId)
         if shareChats.count == 0
         {
-            let chatId = getChatIdWithUserOfShareId(shareId, userId: uService.myUserId)
+            let chatId = getChatIdWithAudienceOfShareId(shareId, audienceId: shareSenderId)
             let newSCE = PersistentManager.sharedInstance.saveNewChat(shareId,chatId: chatId)
             newSCE.addUser(uService.myUserId)
+            newSCE.saveModified()
             shareChats.append(newSCE)
         }
         let chatModels = shareChats.map{return self.getChatModel($0.chatId)}.filter{$0 != nil}
         let sc = ShareChatHub()
         for cm in chatModels
         {
+            cm.audienceId = shareSenderId
             sc.addChatModel(cm)
         }
         return sc

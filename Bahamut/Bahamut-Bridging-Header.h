@@ -10,5 +10,6 @@
 #define Bahamut_Bridging_Header_h
 
 #import "UIBarButtomItem-Badge/UIButton+Badge.h"
+#import "UIBarButtomItem-Badge/UIbarButtonItem+Badge.h"
 
 #endif /* Bahamut_Bridging_Header_h */

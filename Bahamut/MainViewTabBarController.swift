@@ -21,5 +21,6 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.whiteColor()
     }
 }

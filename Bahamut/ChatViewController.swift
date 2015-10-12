@@ -9,7 +9,6 @@
 import UIKit
 import MJRefresh
 import ChatFramework
-import BBBadgeBarButtonItem
 
 class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate
 {
@@ -43,7 +42,13 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     @IBOutlet weak var roomsContainer: UIView!
     @IBOutlet weak var roomContainerTrailiing: NSLayoutConstraint!
     
-    var chatRoomItem: BBBadgeBarButtonItem!
+    var chatRoomBadgeValue:Int!{
+        didSet{
+            chatRoomItemBadgeButton.badgeValue = "\(chatRoomBadgeValue)"
+        }
+    }
+    var chatRoomItemBadgeButton:UIButton!
+    var chatRoomItem: UIBarButtonItem!
     @IBOutlet weak var chatTableView:UITableView!{
         didSet{
             chatTableView.dataSource = self
@@ -56,11 +61,26 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     override  func viewDidLoad()
     {
         super.viewDidLoad()
+        self.addInputFunctionView()
+        initConnectionToChicago()
         self.initChatRoomListViewController()
         self.initBar()
         self.addRefreshViews()
-        self.addInputFunctionView()
         self.refreshMessageList()
+    }
+    
+    private func initConnectionToChicago()
+    {
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+    }
+    
+    deinit{
+        ChicagoClient.sharedInstance.removeObserver(self)
+    }
+    
+    func chicagoClientStateChanged(aNotification:NSNotification)
+    {
+        chatTableView.reloadData()
     }
     
     private func initChatRoomListViewController()
@@ -68,16 +88,12 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         chatRoomListViewController = self.childViewControllers.filter{$0 is ChatRoomListViewController}.first as! ChatRoomListViewController
         chatRoomListViewController.rootController = self
         chatRoomListViewController.shareChat = self.shareChat
+        self.view.bringSubviewToFront(roomsContainer)
     }
     
     private func initGesture()
     {
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
-        leftSwipe.direction = .Left
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "swipeRight:")
-        leftSwipe.direction = .Right
-        self.view.addGestureRecognizer(leftSwipe)
-        self.view.addGestureRecognizer(rightSwipe)
+        
     }
     
     func swipeRight(_:UIGestureRecognizer)
@@ -106,8 +122,14 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func initBar()
     {
-        chatRoomItem = BBBadgeBarButtonItem(image: UIImage(named: "icon_comment_alt"), style: .Plain , target: self, action: "clickChatRoomItem:")
+        chatRoomItemBadgeButton = UIButton(type: .System)
+        let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: "clickChatRoomItem:")
+        item.customView = UIImageView(image: UIImage(named: "internet-group-chat"))
+        item.customView?.addSubview(chatRoomItemBadgeButton)
+        item.customView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clickChatRoomItem:"))
+        chatRoomItem = item
         self.navigationItem.rightBarButtonItem = chatRoomItem
+        chatRoomBadgeValue = 7
         
     }
     
@@ -119,10 +141,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     func addRefreshViews()
     {
         let header = MJRefreshNormalHeader(){
-            let msgCnt = self.currentChatModel.dataSource.count
-            self.currentChatModel.loadPreviousMessage()
-            if (self.currentChatModel.dataSource.count > msgCnt) {
-                let indexPath =  NSIndexPath(forRow: msgCnt, inSection: 0)
+            let num = self.currentChatModel.loadPreviousMessage()
+            if (num > 0) {
+                let indexPath =  NSIndexPath(forRow: num, inSection: 0)
                 let time = Double(NSEC_PER_SEC) / 10
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64( time)), dispatch_get_main_queue()){
                     self.chatTableView.reloadData()
@@ -189,7 +210,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             UIView.beginAnimations(nil, context:nil)
             UIView.setAnimationDuration(0.2)
             UIView.setAnimationCurve(.Linear)
-            roomContainerTrailiing.constant = roomsContainer.frame.size.width
+            roomContainerTrailiing.constant = roomsContainer.frame.size.width - 13
             self.view.layoutIfNeeded()
             UIView.commitAnimations()
         }
@@ -331,6 +352,36 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         let cf = self.currentChatModel.dataSource[indexPath.row]
         return cf.msgFrame.cellHeight
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if ChicagoClient.sharedInstance.clientState != .Connected
+        {
+            return 35
+        }
+        return 0
+    }
+    
+    var stateHeaderView:UIClientStateHeader!
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let cstate = ChicagoClient.sharedInstance.clientState
+        if cstate != ChicagoClientState.Connected
+        {
+            if stateHeaderView == nil
+            {
+                stateHeaderView = NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
+            }
+            if cstate == ChicagoClientState.Disconnected
+            {
+                stateHeaderView.setConnectError()
+            }else
+            {
+                stateHeaderView.startConnect()
+            }
+            return stateHeaderView
+        }
+        return nil
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)

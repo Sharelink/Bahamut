@@ -102,7 +102,21 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    @IBOutlet weak var newTagNameTextfield: UITextField!
+    @IBOutlet weak var recordNewFilmButton: UIButton!{
+        didSet{
+            recordNewFilmButton.tintColor = UIColor.themeColor
+        }
+    }
+    @IBOutlet weak var selectFilmButton: UIButton!{
+        didSet{
+            selectFilmButton.tintColor = UIColor.themeColor
+        }
+    }
+    @IBOutlet weak var newTagNameTextfield: UITextField!{
+        didSet{
+            newTagNameTextfield.delegate = self
+        }
+    }
     
     @IBAction func selectTag(sender: AnyObject)
     {
