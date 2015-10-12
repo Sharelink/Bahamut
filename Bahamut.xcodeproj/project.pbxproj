@@ -119,6 +119,10 @@
 		E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */; };
 		E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F11CAE1BA9947C00CA7DB2 /* Common.swift */; };
 		E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */; };
+		E7FD584D1BCB82B700E42C95 /* ChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584C1BCB82B700E42C95 /* ChatClient.swift */; };
+		E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */; };
+		E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7FD58501BCBDB4D00E42C95 /* UIViews.xib */; };
+		E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */; };
 		E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */ = {isa = PBXBuildFile; fileRef = E7FDBAB31BC4C1A90017BCEF /* WebAssets */; };
 		E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */; };
 		E7FFC0381BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FFC0341BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift */; };
@@ -261,6 +265,10 @@
 		E7F11CAE1BA9947C00CA7DB2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
+		E7FD584C1BCB82B700E42C95 /* ChatClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatClient.swift; sourceTree = "<group>"; };
+		E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutConfig.swift; sourceTree = "<group>"; };
+		E7FD58501BCBDB4D00E42C95 /* UIViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIViews.xib; sourceTree = "<group>"; };
+		E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClientStateHeader.swift; sourceTree = "<group>"; };
 		E7FDBAB31BC4C1A90017BCEF /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
 		E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		E7FFC0341BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MessageEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -352,15 +360,17 @@
 			path = "UIBarButtomItem-Badge";
 			sourceTree = "<group>";
 		};
-		E75EE44F1B9A05E200783308 /* StoryBoard */ = {
+		E75EE44F1B9A05E200783308 /* UIResource */ = {
 			isa = PBXGroup;
 			children = (
 				E7C556DA1BC7555500CB388E /* UIMessage.storyboard */,
 				E7A62FEC1B6609A500F28D73 /* Main.storyboard */,
 				E73E44AF1B80787600E0B6EB /* Component.storyboard */,
 				E75EE44D1B9A05B800783308 /* UserAccount.storyboard */,
+				E7FD58501BCBDB4D00E42C95 /* UIViews.xib */,
+				E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */,
 			);
-			name = StoryBoard;
+			name = UIResource;
 			sourceTree = "<group>";
 		};
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
@@ -461,6 +471,7 @@
 			children = (
 				E708CD211BC90494000ADD1B /* ChatModel.swift */,
 				E790BD111B67FDEF00D5426B /* MessageService.swift */,
+				E7FD584C1BCB82B700E42C95 /* ChatClient.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -493,7 +504,7 @@
 			children = (
 				E7F225FE1BC646F00034B745 /* UIMessage */,
 				E76A45A91B9E8AE20059AA3D /* Protocol */,
-				E75EE44F1B9A05E200783308 /* StoryBoard */,
+				E75EE44F1B9A05E200783308 /* UIResource */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
 				E72B26C51B71EB8B008E81D6 /* UICustomSegue */,
 				E7B664FD1B6B78EA00032495 /* UIComponent */,
@@ -540,6 +551,7 @@
 				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7A62FE31B6609A500F28D73 /* Supporting Files */,
 				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
+				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
 			);
 			path = Bahamut;
 			sourceTree = "<group>";
@@ -819,6 +831,7 @@
 				E7C557031BC7BA0700CB388E /* headImage.png in Resources */,
 				E7C556F11BC7619E00CB388E /* chat_animation2.png in Resources */,
 				E7C556F41BC7619E00CB388E /* chat_animation_white2.png in Resources */,
+				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
 				E7C556F01BC7619E00CB388E /* chat_animation1.png in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E7C556F31BC7619E00CB388E /* chat_animation_white1.png in Resources */,
@@ -900,6 +913,7 @@
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E7FFC0381BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E7EACC041BC34F6A002A294D /* UserTag.swift in Sources */,
+				E7FD584D1BCB82B700E42C95 /* ChatClient.swift in Sources */,
 				E7EACC071BC34F6A002A294D /* Account.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
@@ -910,6 +924,7 @@
 				E790BD051B67812E00D5426B /* AccountViewController.swift in Sources */,
 				E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */,
 				E7EACC011BC34F6A002A294D /* ShareLinkSDKRequestBase.swift in Sources */,
+				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E7EACC031BC34F6A002A294D /* Vote.swift in Sources */,
 				E7EACC091BC34F6A002A294D /* RegexUtil.swift in Sources */,
@@ -939,6 +954,7 @@
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
+				E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */,
 				E7EACC061BC34F6A002A294D /* UserLink.swift in Sources */,
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
 				E7A3AA9A1B9C2B050094B0D0 /* ControllerExtension.swift in Sources */,
