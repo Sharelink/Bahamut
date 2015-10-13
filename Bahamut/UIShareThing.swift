@@ -19,7 +19,11 @@ class UIShareMessage:UITableViewCell
     static let RollMessageCellIdentifier = "RollMessage"
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!
-    @IBOutlet weak var headIconImageView: UIImageView!
+    @IBOutlet weak var headIconImageView: UIImageView!{
+        didSet{
+            headIconImageView.layer.cornerRadius = 3
+        }
+    }
     @IBOutlet weak var messageLabel: UILabel!
     var rootController:UIViewController!{
         didSet{
@@ -45,7 +49,7 @@ class UIShareMessage:UITableViewCell
         noteNameLabel.text = shareThingModel.userNick
         headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId) ??
             PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
-        messageLabel.text = "focus on \(shareThingModel.shareContent) and more"
+        messageLabel.text = "focus on \(shareThingModel.shareContent)"
     }
 }
 
@@ -88,7 +92,6 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var userNicknameLabel: UILabel!{
         didSet{
             userNicknameLabel.userInteractionEnabled = true
-            
             userNicknameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
         }
     }
@@ -235,12 +238,7 @@ class UIShareThing: UITableViewCell
     
     private func updateUserNick()
     {
-        if let nick = shareThingModel.userNick
-        {
-            userNicknameLabel.text = nick
-        }else{
-            userNicknameLabel.text = "I Am Sharelinker"
-        }
+        userNicknameLabel.text = ServiceContainer.getService(UserService).getUserNoteName(shareThingModel.userId) ?? (shareThingModel.userNick ?? "Sharelinker")
     }
     
     private func updateHeadIcon()

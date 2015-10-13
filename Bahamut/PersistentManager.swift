@@ -17,6 +17,24 @@ class PersistentManager
     private(set) var documentsPathUrl:NSURL!
     private(set) var documentsPath:String!
     private(set) var fileCacheDirUrl:NSURL!
+    private(set) var rootUrl:NSURL!
+    private(set) var tmpUrl:NSURL!
+    
+    init()
+    {
+        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        tmpUrl = rootUrl.URLByAppendingPathComponent("tmp")
+        if NSFileManager.defaultManager().fileExistsAtPath(tmpUrl.path!) == false
+        {
+            do
+            {
+                try NSFileManager.defaultManager().createDirectoryAtPath(tmpUrl.path!, withIntermediateDirectories: true, attributes: nil)
+            }catch
+            {
+                print("create tmp dir error")
+            }
+        }
+    }
     
     func initManager(documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
@@ -245,6 +263,17 @@ extension PersistentManager
         }
     }
     
+    func createTmpFileName(fileType:FileType,fileName:String! = nil) -> String
+    {
+        if fileName == nil
+        {
+            return tmpUrl.URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+        }else
+        {
+            return tmpUrl.URLByAppendingPathComponent("\(fileName)\(fileType.FileSuffix)").path!
+        }
+    }
+    
     func createCacheFileName(fileId:String,fileType:FileType) -> String
     {
         let localStoreFileDir = fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
@@ -273,9 +302,11 @@ extension PersistentManager
             return image
         }else if let entify = getFile(fileId)
         {
-            let image = UIImage(contentsOfFile: entify.localPath)
-            cache.setObject(image!, forKey: fileId!)
-            return image!
+            if let image = UIImage(contentsOfFile: getAbsoluteFilePath(entify.localPath))
+            {
+                cache.setObject(image, forKey: fileId!)
+                return image
+            }
         }else if let image = UIImage(named: fileId!)
         {
             cache.setObject(image, forKey: fileId!)
@@ -284,12 +315,15 @@ extension PersistentManager
         {
             if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
             {
-                let image = UIImage(contentsOfFile: path)
-                cache.setObject(image!, forKey: fileId!)
-                return image
+                if let image = UIImage(contentsOfFile: path)
+                {
+                    cache.setObject(image, forKey: fileId!)
+                    return image
+                }
+                
             }
-            return nil
         }
+        return nil
     }
 }
 

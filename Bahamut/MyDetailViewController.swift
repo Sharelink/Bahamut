@@ -91,8 +91,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = "Nick Name"
         propertySet.propertyValue = myInfo.nickName
-        propertySet.valueRegex = "^[a-zA-Z0-9\\u4e00-\\u9fa5]{4,23}$"
-        propertySet.illegalValueMessage = "At least 4 character,less than 23 character"
+        propertySet.valueRegex = "^[a-zA-Z0-9\\u4e00-\\u9fa5 ]{1,23}$"
+        propertySet.illegalValueMessage = "At least 1 character,less than 23 character"
         textPropertyCells.append((propertySet:propertySet,editable:true))
         
         propertySet = UIEditTextPropertySet()
@@ -260,14 +260,18 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         imagePickerController.dismissViewControllerAnimated(true)
         {
-            if self.headIconImageView != nil
+            self.headIconImageView.image = image
+            let fService = ServiceContainer.getService(FileService)
+            let imageData = UIImageJPEGRepresentation(image, 0.7)
+            let localPath = fService.createLocalStoreFileName(FileType.Image)
+            if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
             {
-                self.headIconImageView.image = image
-                let fService = ServiceContainer.getService(FileService)
-                let imageData = UIImageJPEGRepresentation(image, 1)
-                let localPath = fService.createLocalStoreFileName(FileType.Image)
-                PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
-                fService.requestFileId(localPath, type: FileType.Image, callback: { (fileId) -> Void in
+                fService.requestFileId(localPath, type: FileType.Image){ fileId in
+                    if fileId == nil
+                    {
+                        self.view.makeToast(message: "Set Avatar failed")
+                        return
+                    }
                     fService.startSendFile(fileId)
                     let uService = ServiceContainer.getService(UserService)
                     uService.setUserHeadIcon(fileId, setProfileCallback: { (isSuc, msg) -> Void in
@@ -281,7 +285,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                             self.view.makeToast(message: "Set Avatar failed")
                         }
                     })
-                })
+                }
+            }else
+            {
+                self.view.makeToast(message: "Set Avatar failed")
             }
         }
     }
@@ -308,8 +315,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func editPropertySave(propertyIdentifier: String!, newValue: String!)
     {
         let userService = ServiceContainer.getService(UserService)
+        let ppt = self.textPropertyCells.filter{$0.propertySet.propertyIdentifier == propertyIdentifier}.first!
+        ppt.propertySet.propertyValue = newValue
         switch propertyIdentifier
         {
+            
             case InfoIds.nickName:
                 userService.setProfileNick(newValue){ isSuc,msg in
                     if isSuc

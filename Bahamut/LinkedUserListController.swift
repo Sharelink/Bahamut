@@ -141,7 +141,7 @@ class LinkedUserListController: UITableViewController
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRectMake(0, 0, 23, 23))
-        headerView.backgroundColor = UIColor.lightGrayColor()
+        headerView.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         let label = UILabel(frame: CGRectMake(7, 0, 23, 23))
         headerView.addSubview(label)
         

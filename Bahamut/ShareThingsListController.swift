@@ -8,7 +8,6 @@
 
 import UIKit
 import MJRefresh
-import BBBadgeBarButtonItem
 
 class ShareThingsListController: UITableViewController
 {
@@ -26,6 +25,7 @@ class ShareThingsListController: UITableViewController
     private func initConnectionToChicago()
     {
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+        ChicagoClient.sharedInstance.connect(BahamutConfig.chicagoServerHost, port: BahamutConfig.chicagoServerHostPort)
     }
     
     deinit{
@@ -184,6 +184,37 @@ class ShareThingsListController: UITableViewController
             cell.rootController = self
             cell.shareThingModel = shareThing
             return cell
+        }
+        
+    }
+    
+    //MARK: Add tag from share msg
+    func showConfirmAddTagAlert(tag:SharelinkTag)
+    {
+        let alert = UIAlertController(title: "I'm interest in \(tag.tagName)", message: "Are your sure to focus this tag?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes!", style: .Default){ _ in
+            self.addThisTapToMyFocus(tag)
+            })
+        alert.addAction(UIAlertAction(title: "Ummm!", style: .Cancel){ _ in
+            self.cancelAddTap(tag)
+            })
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func cancelAddTap(tag:SharelinkTag)
+    {
+        
+    }
+    
+    func addThisTapToMyFocus(tag:SharelinkTag)
+    {
+        let tagService = ServiceContainer.getService(SharelinkTagService)
+        let newTag = SharelinkTag()
+        newTag.tagName = tag.tagName
+        newTag.tagColor = tag.tagColor
+        newTag.isFocus = "\(true)"
+        tagService.addSharelinkTag(newTag) { () -> Void in
+            
         }
         
     }

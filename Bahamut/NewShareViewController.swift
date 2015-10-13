@@ -412,6 +412,9 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                             self.view.makeToast(message: "Post New Share Failed")
                         }
                     })
+                }else
+                {
+                    self.view.makeToast(message: "Send Film Error")
                 }
             })
             

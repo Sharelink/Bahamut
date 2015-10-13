@@ -268,8 +268,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func updateName()
     {
-        self.navigationItem.title = userProfileModel.nickName
-        userNickNameLabelView.text = userProfileModel.noteName ?? userProfileModel.nickName
+        self.navigationItem.title = userProfileModel.noteName ?? userProfileModel.nickName
+        userNickNameLabelView.text = userProfileModel.nickName
     }
     
     func updatePersonalFilm()

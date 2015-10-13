@@ -11,12 +11,12 @@ import UIKit
 extension UserService
 {
     
-    func showRegistNewUserController(navigationController:UINavigationController,registModel:RegistModel)
+    func showRegistNewUserController(currentController:UIViewController,registModel:RegistModel)
     {
-        let profileViewController = NewUserProfileViewController.instanceFromStoryBoard()
-        profileViewController.registModel = registModel
-        profileViewController.model = ShareLinkUser()
-        navigationController.pushViewController(profileViewController, animated: true)
+        let profileViewNvController = NewUserProfileViewController.instanceFromStoryBoard()
+        profileViewNvController.registModel = registModel
+        currentController.presentViewController(profileViewNvController, animated: false) { () -> Void in
+        }
     }
 }
 
@@ -26,35 +26,22 @@ class RegistModel {
     var accessToken:String!
 }
 
-class NewUserProfileViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate
+class NewUserProfileViewController: UIViewController
 {
     var registModel:RegistModel!
-    var model:ShareLinkUser!
+    let model:ShareLinkUser! = ShareLinkUser()
     @IBOutlet weak var nickNameTextfield: UITextField!
     @IBOutlet weak var signText: UITextField!
-
-    @IBOutlet weak var headIconImage: UIImageView!{
-        didSet{
-            headIconImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "takeHeadIconPhoto:"))
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
+        if let nvc = self.navigationController as? NewUserProfileViewNVController
+        {
+            self.registModel = nvc.registModel
+        }
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        update()
-    }
-    
-    func update()
-    {
-        let fService = ServiceContainer.getService(FileService)
-        fService.setHeadIcon(headIconImage, iconFileId: model.headIconId)
-    }
-    
+
     @IBAction func saveProfile()
     {
         model.nickName = nickNameTextfield.text
@@ -63,7 +50,7 @@ class NewUserProfileViewController: UIViewController,UIImagePickerControllerDele
             if isSuc
             {
                 ServiceContainer.getService(AccountService).setLogined(validateResult)
-                MainNavigationController.start("Regist Success")
+                self.signCallback()
             }else
             {
                 self.view.makeToast(message: msg)
@@ -71,72 +58,36 @@ class NewUserProfileViewController: UIViewController,UIImagePickerControllerDele
         }
     }
     
-    private var imagePickerController:UIImagePickerController! = UIImagePickerController()
+    func signCallback()
+    {
+        let service = ServiceContainer.getService(UserService)
+        let accountService = ServiceContainer.getService(AccountService)
+        ServiceContainer.instance.userLogin(accountService.userId)
+        service.addObserver(self, selector: "initUsers:", name: UserService.userListUpdated, object: service)
+        view.makeToastActivityWithMessage(message: "Refreshing")
+        service.refreshMyLinkedUsers()
+    }
+    
+    func initUsers(_:AnyObject)
+    {
+        let service = ServiceContainer.getService(UserService)
+        service.removeObserver(self)
+        self.view.hideToastActivity()
+        if service.myLinkedUsers != nil
         {
-        didSet{
-            imagePickerController.delegate = self
-        }
-    }
-    func takeHeadIconPhoto(_:UIGestureRecognizer)
-    {
-        let alert = UIAlertController(title: "Change HeadIcon", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Take A Photo", style: .Destructive) { _ in
-            self.takePhoto()
-            })
-        alert.addAction(UIAlertAction(title: "Select A Photo From Album", style: .Destructive) { _ in
-            self.selectPhoto()
-            })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func takePhoto()
-    {
-        imagePickerController.sourceType = .Camera
-        imagePickerController.allowsEditing = true
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
-    {
-        imagePickerController.dismissViewControllerAnimated(true)
-            {
-                if self.headIconImage != nil
-                {
-                    self.headIconImage.image = image
-                    let fService = ServiceContainer.getService(FileService)
-                    let imageData = UIImageJPEGRepresentation(image, 1)
-                    let localPath = fService.createLocalStoreFileName(FileType.Image)
-                    PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
-                    fService.requestFileId(localPath, type: FileType.Image, callback: { (fileId) -> Void in
-                        fService.startSendFile(fileId)
-                        let uService = ServiceContainer.getService(UserService)
-                        uService.setUserHeadIcon(fileId, setProfileCallback: { (isSuc, msg) -> Void in
-                            if isSuc
-                            {
-                                let myInfo = uService.myUserModel
-                                myInfo.headIconId = fileId
-                                myInfo.saveModel()
-                                self.headIconImage.image = PersistentManager.sharedInstance.getImage(fileId)
-                            }else
-                            {
-                                self.view.makeToast(message: "Set Head Icon failed")
-                            }
-                        })
-                    })
-                }
+            MainNavigationController.start("Regist Success")
+        }else
+        {
+            self.view.makeToast(message: "Server Failed")
         }
     }
     
-    func selectPhoto()
-    {
-        imagePickerController.sourceType = .PhotoLibrary
-        imagePickerController.allowsEditing = true
-        imagePickerController.delegate = self
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    static func instanceFromStoryBoard()->NewUserProfileViewNVController{
+        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewNVController") as! NewUserProfileViewNVController
     }
-    
-    static func instanceFromStoryBoard()->NewUserProfileViewController{
-        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewController") as! NewUserProfileViewController
-    }
+}
+
+class NewUserProfileViewNVController: UINavigationController
+{
+    var registModel:RegistModel!
 }

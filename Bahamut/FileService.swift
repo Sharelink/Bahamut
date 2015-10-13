@@ -23,7 +23,7 @@ class FileService: ServiceProtocol {
     private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()
-        rootUrl = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        rootUrl = PersistentManager.sharedInstance.rootUrl
         initDocumentUrl(userId)
         initLocalStoreDir()
         initFileCacheDir()
@@ -123,7 +123,7 @@ class FileService: ServiceProtocol {
     
     func createLocalStoreFileName(fileType:FileType) -> String
     {
-        return localStorePathUrl.URLByAppendingPathComponent("/\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+        return getLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
     }
     
     func moveFileTo(srcPath:String,destinationPath:String) -> Bool

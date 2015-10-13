@@ -47,6 +47,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = RegistNewSharelinkUserRequest()
         req.nickName = newUser.nickName
+        req.signText = newUser.signText
         req.accessToken = registModel.accessToken
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
@@ -71,6 +72,17 @@ class UserService: NSNotificationCenter,ServiceProtocol
         }
     }
     
+    func getUserNoteName(userId:String) -> String!
+    {
+        let user = getUser(userId)
+        return user?.noteName ?? user?.nickName
+    }
+    
+    func getUserNickName(userId:String) -> String!
+    {
+        return getUser(userId)?.nickName
+    }
+    
     func getUsers(userIds:[String]) -> [ShareLinkUser]
     {
         //Read from cache
@@ -88,6 +100,11 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         //Read from cache
         let user = PersistentManager.sharedInstance.getModel(ShareLinkUser.self, idValue: userId)
+        
+        if serverNewestCallback == nil
+        {
+            return user
+        }
         
         //request server
         let req = GetShareLinkUsersRequest()

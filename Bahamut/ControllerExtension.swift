@@ -50,7 +50,7 @@ extension UIViewController
 {
     func changeNavigationBarColor()
     {
-        let navBcgColor = UIColor(hexString: "#438ccb")
+        let navBcgColor = UIColor.themeColor
         self.navigationController?.navigationBar.tintColor = navBcgColor
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     }
