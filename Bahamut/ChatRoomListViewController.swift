@@ -13,14 +13,14 @@ class ChatRoomListCell: UITableViewCell
     var iconFilePath:String!{
         didSet{
             if iconView != nil{
-                ServiceContainer.getService(FileService).setHeadIcon(iconView, iconFileId: iconFilePath)
+                ServiceContainer.getService(FileService).setAvatar(iconView, iconFileId: iconFilePath)
             }
         }
     }
     var badgeValue:Int = 0{
         didSet{
             if badgeButton != nil{
-                badgeButton.badgeValue = "\(badgeValue)"
+                badgeButton.badgeValue = badgeValue == 0 ? "" : "\(badgeValue)"
                 badgeButton.badgeMinSize = 13
             }
         }
@@ -39,7 +39,7 @@ class ChatRoomListCell: UITableViewCell
     @IBOutlet weak var iconView: UIImageView!{
         didSet{
             iconView.layer.cornerRadius = 3
-            ServiceContainer.getService(FileService).setHeadIcon(iconView, iconFileId: iconFilePath)
+            ServiceContainer.getService(FileService).setAvatar(iconView, iconFileId: iconFilePath)
         }
     }
     static let cellReusableIdentifier = "chatRoomListCell"
@@ -59,7 +59,17 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
     var shareChat:ShareChatHub!{
         didSet{
             chatModels = shareChat.getSortChats()
+            if oldValue != nil
+            {
+                oldValue.removeObserver(self)
+            }
+            shareChat.addObserver(self, selector: "chatHubNewMessageChanged:", name: ShareChatHubNewMessageChanged, object: nil)
         }
+    }
+    
+    func chatHubNewMessageChanged(a:NSNotification)
+    {
+        self.roomListTableView.reloadData()
     }
     
     @IBOutlet weak var roomListTableView: UITableView!{
@@ -84,7 +94,7 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
         cell.title = model.chatTitle
         cell.iconFilePath = model.chatIcon
         cell.backgroundColor = UIColor.clearColor()
-        cell.badgeValue = 2
+        cell.badgeValue = model.chatEntity.newMessage.integerValue
         return cell
     }
     
@@ -111,16 +121,5 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

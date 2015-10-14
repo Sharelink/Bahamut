@@ -41,7 +41,11 @@ class UUMsgItem
         }
     }
     
-    var senderId:String!
+    var senderId:String!{
+        didSet{
+            dic.updateValue(senderId, forKey: "strId")
+        }
+    }
     
     var nick:String!{
         didSet{
@@ -67,11 +71,11 @@ class UUMsgItem
         return DateHelper.stringToDate(timeString.substringToIndex(19))
     }
     
-    var headIcon:String!{
+    var avatar:String!{
         didSet{
-            if headIcon != nil
+            if avatar != nil
             {
-                dic.updateValue(headIcon, forKey: "strIcon")
+                dic.updateValue(avatar, forKey: "strIcon")
             }
             
         }

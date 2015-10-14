@@ -166,7 +166,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
         self.view.hideToastActivity()
-        if service.myLinkedUsers != nil
+        if service.myLinkedUsers.count > 0
         {
             self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
         }else

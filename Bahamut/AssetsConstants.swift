@@ -15,6 +15,6 @@ struct FilmAssetsConstants
 
 struct  ImageAssetsConstants
 {
-    static let defaultHeadIcon = "defaultHeadIcon"
+    static let defaultAvatar = "defaultAvatar"
     static let defaultViewImage = "defaultView"
 }

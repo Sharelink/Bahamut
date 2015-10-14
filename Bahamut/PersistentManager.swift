@@ -290,6 +290,22 @@ extension PersistentManager
         return nil
     }
     
+    func getImageFilePath(fileId:String?) -> String!
+    {
+        if fileId == nil
+        {
+            return nil
+        }
+        if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
+        {
+            return path
+        }else if let entify = getFile(fileId)
+        {
+            return getAbsoluteFilePath(entify.localPath)
+        }
+        return nil
+    }
+    
     func getImage(fileId:String?) -> UIImage?
     {
         if fileId == nil
@@ -300,27 +316,16 @@ extension PersistentManager
         if let image = cache.objectForKey(fileId!) as? UIImage
         {
             return image
-        }else if let entify = getFile(fileId)
-        {
-            if let image = UIImage(contentsOfFile: getAbsoluteFilePath(entify.localPath))
-            {
-                cache.setObject(image, forKey: fileId!)
-                return image
-            }
         }else if let image = UIImage(named: fileId!)
         {
             cache.setObject(image, forKey: fileId!)
             return image
-        }else
+        }else if let path = getImageFilePath(fileId)
         {
-            if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
+            if let image = UIImage(contentsOfFile: path)
             {
-                if let image = UIImage(contentsOfFile: path)
-                {
-                    cache.setObject(image, forKey: fileId!)
-                    return image
-                }
-                
+                cache.setObject(image, forKey: fileId!)
+                return image
             }
         }
         return nil

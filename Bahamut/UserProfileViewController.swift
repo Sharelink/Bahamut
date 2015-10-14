@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ChatFramework
 
 //MARK: UserService
 extension UserService
@@ -44,10 +44,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     @IBOutlet weak var editProfileVideoButton: UIButton!
     @IBOutlet weak var profileVideoViewContainer: UIView!
     
-    @IBOutlet weak var headIconImageView: UIImageView!{
+    @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            headIconImageView.layer.cornerRadius = 3
-            headIconImageView.userInteractionEnabled = true
+            avatarImageView.layer.cornerRadius = 3
+            avatarImageView.userInteractionEnabled = true
         }
     }
     @IBOutlet weak var userSignTextView: UILabel!{
@@ -164,7 +164,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func bindTapActions()
     {
-        headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "headIconTapped:"))
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "avatarTapped:"))
     }
     
     func saveProfileVideo()
@@ -262,7 +262,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     {
         updateName()
         userSignTextView.text = userProfileModel.signText
-        updateHeadIcon()
+        updateAvatar()
         updatePersonalFilm()
     }
     
@@ -288,9 +288,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    func updateHeadIcon()
+    func updateAvatar()
     {
-        fileService.setHeadIcon(headIconImageView, iconFileId: userProfileModel.headIconId)
+        fileService.setAvatar(avatarImageView, iconFileId: userProfileModel.avatarId)
     }
     
     //MARK: user tag
@@ -309,10 +309,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: "Note Name", delegate: self)
     }
     
-    func headIconTapped(_:UITapGestureRecognizer)
+    func avatarTapped(_:UITapGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
+        UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
     func editPropertySave(propertyId: String!, newValue: String!)

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -139,7 +138,7 @@
                                             <outlet property="propertyValueLabel" destination="aYq-JH-DOt" id="a1s-Pa-WJy"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyDetailHeadIconCell" rowHeight="82" id="Ak2-Jq-B8n" customClass="MyDetailHeadIconCell" customModule="Bahamut" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyDetailAvatarCell" rowHeight="82" id="Ak2-Jq-B8n" customClass="MyDetailAvatarCell" customModule="Bahamut" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="600" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ak2-Jq-B8n" id="jnr-5W-qBd">
@@ -159,7 +158,7 @@
                                                         <constraint firstAttribute="width" constant="23" id="Yuh-GN-RDS"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultHeadIcon" translatesAutoresizingMaskIntoConstraints="NO" id="pXk-aJ-tUP">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="pXk-aJ-tUP">
                                                     <rect key="frame" x="513" y="13" width="56" height="56"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="4Ik-nJ-xsW"/>
@@ -183,7 +182,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="headIconImageView" destination="pXk-aJ-tUP" id="nOI-g9-XV6"/>
+                                            <outlet property="avatarImageView" destination="pXk-aJ-tUP" id="nOI-g9-XV6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -431,7 +430,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultHeadIcon" translatesAutoresizingMaskIntoConstraints="NO" id="FeM-jc-wh6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="FeM-jc-wh6">
                                         <rect key="frame" x="7" y="191" width="72" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="72" id="WZe-Ti-8Iy"/>
@@ -497,9 +496,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="avatarImageView" destination="FeM-jc-wh6" id="OYA-CM-1cd"/>
                         <outlet property="editProfileVideoButton" destination="g9m-uT-GWZ" id="tFR-AN-k63"/>
                         <outlet property="focusTagViewContainer" destination="Kkx-R0-5We" id="fqN-1b-RGN"/>
-                        <outlet property="headIconImageView" destination="FeM-jc-wh6" id="OYA-CM-1cd"/>
                         <outlet property="profileVideoViewContainer" destination="lHT-sO-2xC" id="mZT-zl-3SP"/>
                         <outlet property="userNickNameLabelView" destination="gc7-K2-hcP" id="qjY-Zb-VlX"/>
                         <outlet property="userSignTextView" destination="lAb-tL-Fxc" id="vGr-ee-pLf"/>
@@ -534,7 +533,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="defaultHeadIcon" width="133" height="133"/>
+        <image name="defaultAvatar" width="64" height="64"/>
         <image name="document-edit" width="64" height="64"/>
         <image name="next" width="64" height="64"/>
         <image name="shutdown" width="32" height="32"/>

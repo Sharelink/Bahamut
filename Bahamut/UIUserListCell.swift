@@ -18,7 +18,7 @@ class UIUserListMessageCell: UITableViewCell
         }
     }
     @IBOutlet weak var noteNameLabel: UILabel!
-    @IBOutlet weak var headIcon: UIImageView!
+    @IBOutlet weak var avatar: UIImageView!
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
@@ -29,7 +29,7 @@ class UIUserListMessageCell: UITableViewCell
         noteNameLabel.text = user?.noteName
         timeLabel.text = model.time.toFriendlyString()
         messageLabel.text = model.message
-        headIcon.image = PersistentManager.sharedInstance.getImage(user?.headIconId)
+        avatar.image = PersistentManager.sharedInstance.getImage(user?.avatarId)
     }
 }
 
@@ -37,7 +37,7 @@ class UIUserListAskingLinkCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserAskLinkCell"
     var user:ShareLinkUser!
-    @IBOutlet weak var headIcon: UIImageView!
+    @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var userNickLabel: UILabel!
     
     @IBAction func ignore(sender: AnyObject)
@@ -55,7 +55,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     private func update()
     {
         userNickLabel.text = "\(user?.nickName) asking for a link"
-        headIcon.image = PersistentManager.sharedInstance.getImage(user?.headIconId)
+        avatar.image = PersistentManager.sharedInstance.getImage(user?.avatarId)
     }
     
 }
@@ -74,11 +74,11 @@ class UIUserListCell: UITableViewCell
     
     @IBOutlet weak var levelLabel: UILabel!
     var rootController:UIViewController!
-    @IBOutlet weak var headIconImageView: UIImageView!{
+    @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            headIconImageView.layer.cornerRadius = 3.0
-            headIconImageView.userInteractionEnabled = true
-            headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
+            avatarImageView.layer.cornerRadius = 3.0
+            avatarImageView.userInteractionEnabled = true
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }
     }
     
@@ -94,23 +94,23 @@ class UIUserListCell: UITableViewCell
         ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel)
     }
     
-    func showHeadIcon(_:UIGestureRecognizer)
+    func showAvatar(_:UIGestureRecognizer)
     {
         let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.headIconId ?? ImageAssetsConstants.defaultHeadIcon],imageFileFetcher: imageFileFetcher)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [userModel.avatarId ?? ImageAssetsConstants.defaultAvatar],imageFileFetcher: imageFileFetcher)
     }
     
     func update()
     {
         userNickTextField.text = userModel.noteName ?? userModel.nickName
         levelLabel.text = "Lv.\(userModel.level ?? 1)"
-        updateHeadIcon()
+        updateAvatar()
     }
     
-    func updateHeadIcon()
+    func updateAvatar()
     {
         let fileService = ServiceContainer.getService(FileService)
-        fileService.setHeadIcon(self.headIconImageView, iconFileId: userModel.headIconId)
+        fileService.setAvatar(self.avatarImageView, iconFileId: userModel.avatarId)
     }
 
 }

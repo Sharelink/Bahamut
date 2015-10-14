@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChatFramework
 
 extension UserService
 {
@@ -61,13 +62,13 @@ class MyDetailTextPropertyCell:UITableViewCell
     
 }
 
-class MyDetailHeadIconCell:UITableViewCell
+class MyDetailAvatarCell:UITableViewCell
 {
-    static let reuseIdentifier = "MyDetailHeadIconCell"
+    static let reuseIdentifier = "MyDetailAvatarCell"
     
-    @IBOutlet weak var headIconImageView: UIImageView!{
+    @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            headIconImageView.layer.cornerRadius = 7
+            avatarImageView.layer.cornerRadius = 7
         }
     }
 }
@@ -148,6 +149,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func logout()
     {
         let service = ServiceContainer.getService(AccountService)
+        ChicagoClient.sharedInstance.close()
         service.logout { (msg) -> Void in
             let fileSvr = ServiceContainer.getService(FileService)
             fileSvr.clearUserDatas()
@@ -191,7 +193,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0
         {
-            return getHeadIconCell()
+            return getAvatarCell()
         }else if indexPath.row > 0 && indexPath.row <= textPropertyCells.count
         {
             return getTextPropertyCell(indexPath.row - 1)
@@ -201,27 +203,26 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
     }
     
-    var headIconImageView:UIImageView!
-    func getHeadIconCell() -> MyDetailHeadIconCell
+    var avatarImageView:UIImageView!
+    func getAvatarCell() -> MyDetailAvatarCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailHeadIconCell.reuseIdentifier) as! MyDetailHeadIconCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailAvatarCell.reuseIdentifier) as! MyDetailAvatarCell
         
-        let tapCell = UITapGestureRecognizer(target: self, action: "tapHeadIconCell:")
+        let tapCell = UITapGestureRecognizer(target: self, action: "tapAvatarCell:")
         cell.addGestureRecognizer(tapCell)
-        cell.headIconImageView?.image = PersistentManager.sharedInstance.getImage(myInfo.headIconId ?? ImageAssetsConstants.defaultHeadIcon)
-        let tapIcon = UITapGestureRecognizer(target: self, action: "tapHeadIcon:")
-        cell.headIconImageView?.addGestureRecognizer(tapIcon)
-        headIconImageView = cell.headIconImageView
+        cell.avatarImageView?.image = PersistentManager.sharedInstance.getImage(myInfo.avatarId ?? ImageAssetsConstants.defaultAvatar)
+        let tapIcon = UITapGestureRecognizer(target: self, action: "tapAvatar:")
+        cell.avatarImageView?.addGestureRecognizer(tapIcon)
+        avatarImageView = cell.avatarImageView
         return cell
     }
     
-    func tapHeadIcon(_:UITapGestureRecognizer)
+    func tapAvatar(_:UITapGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self, imageUrls: [myInfo.headIconId ?? ImageAssetsConstants.defaultHeadIcon],imageFileFetcher: imageFileFetcher)
+        UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
-    func tapHeadIconCell(aTap:UITapGestureRecognizer)
+    func tapAvatarCell(aTap:UITapGestureRecognizer)
     {
         let alert = UIAlertController(title: "Change Avatar", message: nil, preferredStyle: .ActionSheet)
         alert.addAction(UIAlertAction(title: "Take A New Photo", style: .Destructive) { _ in
@@ -260,7 +261,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         imagePickerController.dismissViewControllerAnimated(true)
         {
-            self.headIconImageView.image = image
+            self.avatarImageView.image = image
             let fService = ServiceContainer.getService(FileService)
             let imageData = UIImageJPEGRepresentation(image, 0.7)
             let localPath = fService.createLocalStoreFileName(FileType.Image)
@@ -274,12 +275,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     }
                     fService.startSendFile(fileId)
                     let uService = ServiceContainer.getService(UserService)
-                    uService.setUserHeadIcon(fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                    uService.setUserAvatar(fileId, setProfileCallback: { (isSuc, msg) -> Void in
                         if isSuc
                         {
-                            self.myInfo.headIconId = fileId
+                            self.myInfo.avatarId = fileId
                             self.myInfo.saveModel()
-                            self.headIconImageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                            self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileId)
                         }else
                         {
                             self.view.makeToast(message: "Set Avatar failed")

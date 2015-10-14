@@ -11,15 +11,20 @@ import MJRefresh
 
 class ShareThingsListController: UITableViewController
 {
-    
+    private(set) var userService:UserService!
+    private(set) var fileService:FileService!
+    private(set) var messageService:MessageService!
     override func viewDidLoad() {
         super.viewDidLoad()
+        userService = ServiceContainer.getService(UserService)
+        fileService = ServiceContainer.getService(FileService)
+        messageService = ServiceContainer.getService(MessageService)
         initTableView()
         initRefresh()
         initConnectionToChicago()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
-        
+        refresh()
     }
     
     private func initConnectionToChicago()
@@ -47,14 +52,14 @@ class ShareThingsListController: UITableViewController
     
     private func initRefresh()
     {
-        tableView.header = MJRefreshNormalHeader(){self.refresh()}
+        tableView.header = MJRefreshNormalHeader(){self.refreshFromServer()}
         tableView.footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
         tableView.footer.automaticallyHidden = true
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        refresh()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshFromServer()
     }
     
     var isNetworkError:Bool = false{
@@ -70,16 +75,21 @@ class ShareThingsListController: UITableViewController
     
     func refresh()
     {
+        self.shareThings.removeAll(keepCapacity: true)
+        let newValues = self.shareService.getShareThings(0)
+        dispatch_async(dispatch_get_main_queue()){()->Void in
+            self.shareThings.insert(newValues, atIndex: 0)
+            self.tableView.reloadData()
+        }
+    }
+    
+    func refreshFromServer()
+    {
         self.shareService.getNewShareThings { (haveChange) -> Void in
             if !haveChange{
                 return
             }
-            self.shareThings.removeAll(keepCapacity: true)
-            let newValues = self.shareService.getShareThings(0)
-            dispatch_async(dispatch_get_main_queue()){()->Void in
-                self.shareThings.insert(newValues, atIndex: 0)
-                self.tableView.reloadData()
-            }
+            self.refresh()
             self.tableView.header.endRefreshing()
         }
     }
@@ -97,7 +107,7 @@ class ShareThingsListController: UITableViewController
     
     @IBAction func userSetting(sender:AnyObject)
     {
-        ServiceContainer.getService(UserService).showMyDetailView(self.navigationController!)
+        userService.showMyDetailView(self.navigationController!)
     }
     
     func loadNextPage()
@@ -146,7 +156,17 @@ class ShareThingsListController: UITableViewController
         return 0
     }
     
-    var stateHeaderView:UIClientStateHeader!
+    var stateHeaderView:UIClientStateHeader!{
+        didSet{
+            stateHeaderView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
+        }
+    }
+    
+    func reconnectChicagoClient(_:UIGestureRecognizer)
+    {
+        ChicagoClient.sharedInstance.reConnect()
+    }
+
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState

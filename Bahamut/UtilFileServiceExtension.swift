@@ -11,7 +11,7 @@ import UIKit
 
 extension FileService
 {
-    func setHeadIcon(imageView:UIImageView,iconFileId:String!)
+    func setAvatar(imageView:UIImageView,iconFileId:String!)
     {
         if let fileId = iconFileId
         {
@@ -31,14 +31,14 @@ extension FileService
                             imageView.image = PersistentManager.sharedInstance.getImage(fileId)
                         }else
                         {
-                            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
+                            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
                         }
                     })
                 }
             }
         }else
         {
-            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
+            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
         }
     }
 }

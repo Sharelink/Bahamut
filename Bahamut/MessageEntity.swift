@@ -10,14 +10,10 @@ import Foundation
 import CoreData
 
 
-class MessageEntity: NSManagedObject {
-    @NSManaged var chatId: String
-    @NSManaged var isRead: NSNumber
-    @NSManaged var msgData: NSData
-    @NSManaged var msgId: String
-    @NSManaged var senderId: String
-    @NSManaged var msgText: String
-    @NSManaged var type: String
-    @NSManaged var time: NSDate
-    @NSManaged var isSend: NSNumber
+class MessageEntity: NSManagedObject
+{
+    func isSending() -> Bool
+    {
+        return isSend.boolValue == false && sendFailed == false
+    }
 }

@@ -18,18 +18,40 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             {
                 chatRoomListViewController.shareChat = shareChat
             }
+            if oldValue != nil
+            {
+                oldValue.removeObserver(self)
+            }
+            shareChat.addObserver(self, selector: "chatHubNewMessageChanged:", name: ShareChatHubNewMessageChanged, object: nil)
             currentChatModel = shareChat.getSortChats().first
+            chatRoomBadgeValue = shareChat.newMessage
         }
+    }
+    
+    func chatHubNewMessageChanged(a:NSNotification)
+    {
+        chatRoomBadgeValue = shareChat.newMessage
     }
     
     var head:MJRefreshHeader!
     var currentChatModel:ChatModel!{
         didSet{
+            if oldValue != nil
+            {
+                oldValue.removeObserver(self)
+            }
             updateChatTitle()
             refreshMessageList()
             hideRommListContainer()
             currentChatModel.clearNotReadMessageNotify()
+            currentChatModel.addObserver(self, selector: "currentChatNewMessageChanged:", name: ChatModelNewMessageChanged, object: nil)
         }
+    }
+    
+    func currentChatNewMessageChanged(a:NSNotification)
+    {
+        self.chatTableView.reloadData()
+        self.chatTableViewScrollToBottom()
     }
     
     @IBOutlet weak var chatTitle: UINavigationItem!{
@@ -38,13 +60,17 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         }
     }
     
+    var messageService:MessageService!
     var chatRoomListViewController:ChatRoomListViewController!
     @IBOutlet weak var roomsContainer: UIView!
     @IBOutlet weak var roomContainerTrailiing: NSLayoutConstraint!
     
     var chatRoomBadgeValue:Int!{
         didSet{
-            chatRoomItemBadgeButton.badgeValue = "\(chatRoomBadgeValue)"
+            if chatRoomItemBadgeButton != nil
+            {
+                chatRoomItemBadgeButton.badgeValue =  chatRoomBadgeValue == 0 ? "" : "\(chatRoomBadgeValue)"
+            }
         }
     }
     var chatRoomItemBadgeButton:UIButton!
@@ -62,20 +88,15 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         super.viewDidLoad()
         self.addInputFunctionView()
-        initConnectionToChicago()
         self.initChatRoomListViewController()
         self.initBar()
         self.addRefreshViews()
         self.refreshMessageList()
     }
     
-    private func initConnectionToChicago()
-    {
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
-    }
-    
     deinit{
-        ChicagoClient.sharedInstance.removeObserver(self)
+        shareChat.removeObserver(self)
+        currentChatModel.removeObserver(self)
     }
     
     func chicagoClientStateChanged(aNotification:NSNotification)
@@ -129,15 +150,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         item.customView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clickChatRoomItem:"))
         chatRoomItem = item
         self.navigationItem.rightBarButtonItem = chatRoomItem
-        chatRoomBadgeValue = 7
-        
+        chatRoomBadgeValue = self.shareChat.newMessage
     }
-    
-    func updateChatRoomItemBadge(num:Int)
-    {
-        chatRoomItem.badgeValue = "\(num)"
-    }
-    
+
     func addRefreshViews()
     {
         let header = MJRefreshNormalHeader(){
@@ -405,7 +420,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func headImageDidClick(cell:UUMessageCell, userId:String!)
     {
-        
+        ServiceContainer.getService(UserService).showUserProfileViewController(self.navigationController!, userId: userId)
     }
     
     static func instanceFromStoryBoard() -> ChatViewController

@@ -36,11 +36,18 @@ class UserService: NSNotificationCenter,ServiceProtocol
     }
     
     private(set) var askingLinkUserList:[ShareLinkUser]!
-    private(set) var myLinkedUsers:[ShareLinkUser]!
+    
+    private(set) var myLinkedUsers:[ShareLinkUser] = [ShareLinkUser]()
+    private(set) var myLinkedUsersMap:[String:ShareLinkUser] = [String:ShareLinkUser]()
     
     private func initLinkedUsers()
     {
-        myLinkedUsers = getLinkedUsers()
+        let users = getLinkedUsers()
+        for u in users
+        {
+            myLinkedUsersMap.updateValue(u, forKey: u.userId)
+        }
+        myLinkedUsers = myLinkedUsersMap.map{$0.1}
     }
     
     func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
@@ -98,8 +105,9 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     func getUser(userId:String, serverNewestCallback:((newestUser:ShareLinkUser!, msg:String!)->Void)! = nil) -> ShareLinkUser?
     {
+        
         //Read from cache
-        let user = PersistentManager.sharedInstance.getModel(ShareLinkUser.self, idValue: userId)
+        let user = myLinkedUsersMap[userId] ?? PersistentManager.sharedInstance.getModel(ShareLinkUser.self, idValue: userId)
         
         if serverNewestCallback == nil
         {
@@ -212,10 +220,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
         
     }
     
-    func setUserHeadIcon(newIconId:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    func setUserAvatar(newAvatarId:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
     {
-        let req = UpdateHeadIconRequest()
-        req.newHeadIconId = newIconId
+        let req = UpdateAvatarRequest()
+        req.newAvatarId = newAvatarId
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false

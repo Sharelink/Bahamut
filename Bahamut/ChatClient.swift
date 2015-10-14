@@ -63,9 +63,22 @@ enum ChicagoClientState
 
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
 {
+    class ValidationInfo: EVObject
+    {
+        var UserId:String!
+        var AppToken:String!
+        var Appkey:String!
+        
+    }
     var socket:AsyncSocket!
+    
+    private(set) var validationInfo:ValidationInfo!
+    private(set) var appToken:String!
+    private(set) var userId:String!
+    
     private(set) var host:String!
     private(set) var port:UInt16 = 0
+    private(set) var reConnectFailedTimes:Int = 0
     private(set) var clientState:ChicagoClientState = .Disconnected{
         didSet{
             self.postNotificationName(ChicagoClientStateChanged, object: self)
@@ -101,6 +114,38 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         return tag
     }
     
+    func useValidationInfo(userId:String,appkey:String,apptoken:String)
+    {
+        if self.validationInfo == nil
+        {
+            self.validationInfo = ValidationInfo()
+        }
+        self.validationInfo.UserId = userId;
+        self.validationInfo.Appkey = appkey;
+        self.validationInfo.AppToken = apptoken
+    }
+    
+    func validate()
+    {
+        let route = ChicagoRoute()
+        route.ExtName = "SharelinkerValidation"
+        route.CmdName = "Login"
+        
+        sendChicagoMessage(route, json: validationInfo.toJsonString())
+    }
+    
+    func heartBeat()
+    {
+        let dict = [":)":":>"]
+        let msg = EVObject(dictionary: dict)
+        
+        let route = ChicagoRoute()
+        route.ExtName = "HeartBeat"
+        route.CmdName = "Beat"
+        
+        sendChicagoMessage(route, json: msg.toJsonString())
+    }
+    
     func sendChicagoMessage(chicagoRoute:ChicagoRoute,json:String)
     {
         let package = ChicagoProtocolUtil.getDataWithChicagoRouteAndJson(chicagoRoute, jsonString: json)
@@ -129,6 +174,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         {
             let route = ChicagoProtocolUtil.getChicagoRouteFromData(data)
             let json = ChicagoProtocolUtil.getChicagoMessageJsonFromData(data)
+            print(json)
             self.postNotificationName(getAName(route), object: self, userInfo: [ChicagoClientReturnJsonValue : json!])
         }
     }
@@ -145,16 +191,27 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16)
     {
         clientState = .Connected
+        reConnectFailedTimes = 0;
+        sock.readDataToLength(4, withTimeout: -1, tag: ChicagoClient.readHeadTag)
+        validate()
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!)
     {
         clientState = .Disconnected
-        reConnect()
+        reConnectFailedTimes++
+        if reConnectFailedTimes < 3
+        {
+            reConnect()
+        }
     }
     
     func connect(host:String, port:UInt16)
     {
+        if clientState != .Disconnected
+        {
+            return
+        }
         self.host = host
         self.port = port
         do
@@ -169,11 +226,12 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func reConnect()
     {
-        
+        connect(self.host, port: self.port)
     }
     
     func close()
     {
+        socket.disconnect()
     }
     
 }

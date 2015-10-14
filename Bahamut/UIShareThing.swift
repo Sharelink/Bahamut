@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChatFramework
 
 class UIShareMessage:UITableViewCell
 {
@@ -19,13 +20,14 @@ class UIShareMessage:UITableViewCell
     static let RollMessageCellIdentifier = "RollMessage"
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!
-    @IBOutlet weak var headIconImageView: UIImageView!{
+    @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            headIconImageView.layer.cornerRadius = 3
+            avatarImageView.layer.cornerRadius = 3
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }
     }
     @IBOutlet weak var messageLabel: UILabel!
-    var rootController:UIViewController!{
+    var rootController:ShareThingsListController!{
         didSet{
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
         }
@@ -43,12 +45,17 @@ class UIShareMessage:UITableViewCell
         
     }
     
+    func showAvatar(_:UIGestureRecognizer)
+    {
+        UUImageAvatarBrowser.showImage(avatarImageView)
+    }
+    
     private func update()
     {
         timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
         noteNameLabel.text = shareThingModel.userNick
-        headIconImageView.image = PersistentManager.sharedInstance.getImage(shareThingModel.headIconImageId) ??
-            PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultHeadIcon)
+        avatarImageView.image = PersistentManager.sharedInstance.getImage(rootController.userService.getUser(shareThingModel.userId)?.avatarId) ??
+            PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
         messageLabel.text = "focus on \(shareThingModel.shareContent)"
     }
 }
@@ -62,7 +69,7 @@ class UIShareThing: UITableViewCell
 
     }
     
-    var rootController:UIViewController!
+    var rootController:ShareThingsListController!
     
     var shareThingModel:ShareThing!
     {
@@ -82,11 +89,11 @@ class UIShareThing: UITableViewCell
         
     }
     
-    @IBOutlet weak var headIconImageView: UIImageView!{
+    @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            headIconImageView.layer.cornerRadius = 3
-            headIconImageView.userInteractionEnabled = true
-            headIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showHeadIcon:"))
+            avatarImageView.layer.cornerRadius = 3
+            avatarImageView.userInteractionEnabled = true
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }
     }
     @IBOutlet weak var userNicknameLabel: UILabel!{
@@ -189,13 +196,13 @@ class UIShareThing: UITableViewCell
     @IBAction func reply()
     {
         let controller = ChatViewController.instanceFromStoryBoard()
-        controller.shareChat = ServiceContainer.getService(MessageService).getShareChatHub(shareThingModel.shareId,shareSenderId: shareThingModel.userId)
+        controller.shareChat = rootController.messageService.getShareChatHub(shareThingModel.shareId,shareSenderId: shareThingModel.userId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
+        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
     }
 
     func update()
@@ -205,7 +212,7 @@ class UIShareThing: UITableViewCell
         updateBadge()
         updateVote()
         updateContent()
-        updateHeadIcon()
+        updateAvatar()
         updateUserNick()
     }
     
@@ -217,7 +224,7 @@ class UIShareThing: UITableViewCell
     
     var voted:Bool
     {
-        let myUserId = ServiceContainer.getService(UserService).myUserId
+        let myUserId = rootController.userService.myUserId
         return self.shareThingModel.voteUsers.contains{$0 == myUserId}
     }
     
@@ -238,19 +245,17 @@ class UIShareThing: UITableViewCell
     
     private func updateUserNick()
     {
-        userNicknameLabel.text = ServiceContainer.getService(UserService).getUserNoteName(shareThingModel.userId) ?? (shareThingModel.userNick ?? "Sharelinker")
+        userNicknameLabel.text = rootController.userService.getUserNoteName(shareThingModel.userId) ?? (shareThingModel.userNick ?? "Sharelinker")
     }
     
-    private func updateHeadIcon()
+    private func updateAvatar()
     {
-        let fileService = ServiceContainer.getService(FileService)
-        fileService.setHeadIcon(self.headIconImageView, iconFileId: shareThingModel.headIconImageId)
+        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: rootController.userService.getUser(shareThingModel.userId)?.avatarId)
     }
     
-    func showHeadIcon(_:UIGestureRecognizer)
+    func showAvatar(_:UIGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: ["defaultView"],imageFileFetcher: imageFileFetcher)
+        UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
 }

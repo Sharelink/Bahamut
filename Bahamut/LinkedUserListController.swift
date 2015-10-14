@@ -50,13 +50,12 @@ class LinkedUserListController: UITableViewController
     
     func myLinkedUsersUpdated(sender:AnyObject)
     {
-        if let newValues = userService.myLinkedUsers
-        {
-            let dict = userService.getUsersDivideWithLatinLetter(newValues)
-            dispatch_async(dispatch_get_main_queue()){()->Void in
-                self.userListModel = dict
-            }
+        let newValues = userService.myLinkedUsers
+        let dict = userService.getUsersDivideWithLatinLetter(newValues)
+        dispatch_async(dispatch_get_main_queue()){()->Void in
+            self.userListModel = dict
         }
+        
     }
     
     func askingLinkUserListUpdated(sender:AnyObject)
@@ -102,7 +101,7 @@ class LinkedUserListController: UITableViewController
     {
         if let sharelinkUserId = userService.myUserId
         {
-            userService.showMyQRViewController(self.navigationController!,sharelinkUserId: sharelinkUserId ,avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.headIconId))
+            userService.showMyQRViewController(self.navigationController!,sharelinkUserId: sharelinkUserId ,avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.avatarId))
         }
     }
     

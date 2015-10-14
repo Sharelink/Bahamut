@@ -9,6 +9,7 @@
 
 import Foundation
 import UIKit
+import EVReflection
 
 class UserMessageListItem
 {
@@ -18,14 +19,47 @@ class UserMessageListItem
     var time:NSDate!
 }
 
+let MessageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
+let MessageServiceNewMessage = "MessageServiceNewMessage"
+
 class MessageService:NSNotificationCenter,ServiceProtocol
 {
     @objc static var ServiceName:String {return "MessageService"}
     @objc func appStartInit() {}
     
-    @objc func userLoginInit(userId: String) {}
+    @objc func userLoginInit(userId: String)
+    {
+        let route = ChicagoRoute()
+        route.ExtName = "NotificationCenter"
+        route.CmdName = "UsrNewMsg"
+        ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
+    }
     
     static let messageListUpdated = "messageListUpdated"
+    
+    func newMessage(a:NSNotification)
+    {
+        getMessageFromServer()
+    }
+    
+    func getMessageFromServer()
+    {
+        let req = GetNewShareMessagesRequest()
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result:SLResult<[Message]>) -> Void in
+            if result.isSuccess
+            {
+                if result.returnObject != nil && result.returnObject.count > 0
+                {
+                    self.recevieMessage(result.returnObject!)
+                    let dreq = NotifyNewMessagesReceivedRequest()
+                    client.execute(dreq, callback: { (result:SLResult<EVObject>) -> Void in
+                        
+                    })
+                }
+            }
+        }
+    }
     
     func getChatModel(chatId:String) -> ChatModel!
     {
@@ -45,10 +79,13 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         if cm.sharelinkers.count == 1{
             let user = uService.getUser(cm.sharelinkers.first!)
             cm.chatTitle = user?.noteName
-            cm.chatIcon = user?.headIconId
+            cm.chatIcon = user?.avatarId
         }else{
             cm.chatTitle = "chat hub"
         }
+        cm.audienceId = cm.sharelinkers.first
+        cm.shareId = entity.shareId
+        cm.chatEntity = entity
         return cm
     }
     
@@ -83,29 +120,38 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         return msgEntity
     }
     
-    func sendMessage(shareId:String,audienceId:String,msg:MessageEntity)
+    func sendMessage(chatId:String,msg:MessageEntity,shareId:String,audienceId:String)
     {
         let req = SendShareMessageRequest()
         req.time = msg.time
         req.type = msg.type
-        req.shareId = shareId
+        req.chatId = chatId
         req.message = msg.msgText
         req.messageData = msg.msgData
-        req.audienceId = audienceId;
+        req.audienceId = audienceId
+        req.shareId = shareId
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<Message>) -> Void in
-            msg.isSend = true
-            msg.msgId = result.returnObject.msgId
-            msg.saveModified()
+            if result.isSuccess
+            {
+                msg.isSend = true
+                msg.saveModified()
+            }else
+            {
+                msg.sendFailed = NSNumber(bool: true)
+            }
         }
     }
     
     func recevieMessage(msgs:[Message])
     {
+        var msgEntities = [MessageEntity]()
         for msg in msgs
         {
-            saveNewMessage(msg.msgId, chatId: getChatIdWithAudienceOfShareId(msg.shareId, audienceId: msg.senderId), type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
+            let me = saveNewMessage(msg.msgId, chatId: msg.chatId, type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
+            msgEntities.append(me)
         }
+        self.postNotificationName(MessageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessage:msgEntities])
     }
     
     func getShareChatHub(shareId:String,shareSenderId:String) -> ShareChatHub

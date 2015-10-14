@@ -12,8 +12,25 @@ import CoreData
 
 class ShareChatEntity: NSManagedObject {
 
-    @NSManaged var chatId: String
-    @NSManaged var shareId: String
-    @NSManaged var chatUsers: String
+    func addUser(userId:String)
+    {
+        if (chatUsers.containsString("\(userId)")) == true
+        {
+            return
+        }
+        chatUsers.appendContentsOf("\(userId);")
+    }
+    
+    func removeUser(userId:String)
+    {
+        chatUsers = chatUsers.stringByReplacingOccurrencesOfString("\(userId);", withString: "")
+    }
+    
+    func getUsers() -> [String]
+    {
+        let list = chatUsers.split(";")
+        return list.filter{String.isNullOrWhiteSpace($0) == false}
+    }
+    
 
 }

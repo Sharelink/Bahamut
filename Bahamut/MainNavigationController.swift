@@ -28,6 +28,8 @@ class MainNavigationController: UINavigationController
         if BahamutConfig.isUserLogined
         {
             ServiceContainer.instance.userLogin(accountService.userId)
+            let aService = ServiceContainer.getService(AccountService)
+            ChicagoClient.sharedInstance.useValidationInfo(aService.userId, appkey: ShareLinkSDK.appkey, apptoken: aService.token)
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         }else
         {

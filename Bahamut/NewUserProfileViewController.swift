@@ -73,7 +73,7 @@ class NewUserProfileViewController: UIViewController
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
         self.view.hideToastActivity()
-        if service.myLinkedUsers != nil
+        if service.myLinkedUsers.count > 0
         {
             MainNavigationController.start("Regist Success")
         }else
