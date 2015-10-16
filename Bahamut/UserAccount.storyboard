@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -71,8 +72,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="motto" destination="vja-XT-z4B" id="ho5-09-GHE"/>
                         <outlet property="nickNameTextfield" destination="esA-aa-ZDv" id="tq8-Uf-mZU"/>
-                        <outlet property="signText" destination="vja-XT-z4B" id="ho5-09-GHE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Lc-XG-raD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -255,13 +256,95 @@
                     </view>
                     <navigationItem key="navigationItem" title="Scan QRCode" id="T9K-ON-62O">
                         <barButtonItem key="backBarButtonItem" title="Close" id="VfJ-wf-YxY"/>
+                        <barButtonItem key="rightBarButtonItem" image="add_link" id="BvE-OG-Q18">
+                            <connections>
+                                <segue destination="GuF-rk-wEs" kind="popoverPresentation" identifier="showAddMoreFriends" popoverAnchorBarButtonItem="BvE-OG-Q18" id="vsD-6c-OG0">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addMoreFriendsButton" destination="BvE-OG-Q18" id="mgP-1f-8dm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTP-5T-PuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="3420"/>
+            <point key="canvasLocation" x="49" y="3420"/>
+        </scene>
+        <!--Add More Friends View Controller-->
+        <scene sceneID="LHt-Nk-PQD">
+            <objects>
+                <viewController id="GuF-rk-wEs" customClass="AddMoreFriendsViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ILr-Ns-TrZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="tjL-9t-9FD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gvx-dy-1UY">
+                        <rect key="frame" x="0.0" y="0.0" width="128" height="218"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHb-VU-vup">
+                                <rect key="frame" x="38" y="58" width="52" height="30"/>
+                                <state key="normal" title="Wechat"/>
+                                <connections>
+                                    <action selector="addWeChat:" destination="GuF-rk-wEs" eventType="touchUpInside" id="HOv-s4-QmQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-8x-IHj">
+                                <rect key="frame" x="43" y="134" width="43" height="30"/>
+                                <state key="normal" title="Weibo"/>
+                                <connections>
+                                    <action selector="addWeibo:" destination="GuF-rk-wEs" eventType="touchUpInside" id="6Sj-aQ-EJo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77K-9T-g83">
+                                <rect key="frame" x="37" y="20" width="55" height="30"/>
+                                <state key="normal" title="Contact"/>
+                                <connections>
+                                    <action selector="addContact:" destination="GuF-rk-wEs" eventType="touchUpInside" id="pIT-Ou-eLk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6V-oH-0fG">
+                                <rect key="frame" x="49" y="172" width="30" height="30"/>
+                                <state key="normal" title="Mail"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bch-sp-JF2">
+                                <rect key="frame" x="49" y="96" width="30" height="30"/>
+                                <state key="normal" title="QQ"/>
+                                <connections>
+                                    <action selector="addQQ:" destination="GuF-rk-wEs" eventType="touchUpInside" id="wm0-tY-oN7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="77K-9T-g83" firstAttribute="centerX" secondItem="gvx-dy-1UY" secondAttribute="centerX" id="0dA-wn-an5"/>
+                            <constraint firstItem="A6V-oH-0fG" firstAttribute="top" secondItem="h1q-8x-IHj" secondAttribute="bottom" constant="8" symbolic="YES" id="5Qb-Hw-T5f"/>
+                            <constraint firstItem="h1q-8x-IHj" firstAttribute="top" secondItem="Bch-sp-JF2" secondAttribute="bottom" constant="8" symbolic="YES" id="8Op-zt-P5k"/>
+                            <constraint firstItem="aHb-VU-vup" firstAttribute="top" secondItem="77K-9T-g83" secondAttribute="bottom" constant="8" symbolic="YES" id="GIL-Kw-xQQ"/>
+                            <constraint firstItem="A6V-oH-0fG" firstAttribute="centerX" secondItem="77K-9T-g83" secondAttribute="centerX" id="J4e-ZR-P84"/>
+                            <constraint firstItem="h1q-8x-IHj" firstAttribute="centerX" secondItem="Bch-sp-JF2" secondAttribute="centerX" id="NwV-jT-URE"/>
+                            <constraint firstItem="Bch-sp-JF2" firstAttribute="leading" secondItem="A6V-oH-0fG" secondAttribute="leading" id="PeZ-3Q-KX3"/>
+                            <constraint firstItem="aHb-VU-vup" firstAttribute="centerX" secondItem="77K-9T-g83" secondAttribute="centerX" id="S9q-cc-Zau"/>
+                            <constraint firstItem="77K-9T-g83" firstAttribute="top" secondItem="ILr-Ns-TrZ" secondAttribute="bottom" id="b41-Ra-mdD"/>
+                            <constraint firstItem="Bch-sp-JF2" firstAttribute="top" secondItem="aHb-VU-vup" secondAttribute="bottom" constant="8" symbolic="YES" id="fT1-rB-xlx"/>
+                            <constraint firstItem="77K-9T-g83" firstAttribute="leading" secondItem="gvx-dy-1UY" secondAttribute="leadingMargin" constant="-3" id="oVZ-8G-RGn"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oVZ-8G-RGn"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="128" height="218"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aiz-dh-tdL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="443" y="3220"/>
         </scene>
         <!--My QRCode-->
         <scene sceneID="byg-ow-P6T">
@@ -317,12 +400,6 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGA-zI-Fxj">
-                                <rect key="frame" x="20" y="20" width="86" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="set a note name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0a-ip-jYK">
                                 <rect key="frame" x="20" y="49" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -330,6 +407,12 @@
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ask for your link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vty-VN-XJ3">
                                 <rect key="frame" x="114" y="20" width="121" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGA-zI-Fxj">
+                                <rect key="frame" x="20" y="20" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -500,8 +583,8 @@
                         <outlet property="editProfileVideoButton" destination="g9m-uT-GWZ" id="tFR-AN-k63"/>
                         <outlet property="focusTagViewContainer" destination="Kkx-R0-5We" id="fqN-1b-RGN"/>
                         <outlet property="profileVideoViewContainer" destination="lHT-sO-2xC" id="mZT-zl-3SP"/>
+                        <outlet property="userMottoView" destination="lAb-tL-Fxc" id="vGr-ee-pLf"/>
                         <outlet property="userNickNameLabelView" destination="gc7-K2-hcP" id="qjY-Zb-VlX"/>
-                        <outlet property="userSignTextView" destination="lAb-tL-Fxc" id="vGr-ee-pLf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9d-Oi-qHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -533,7 +616,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="defaultAvatar" width="64" height="64"/>
+        <image name="add_link" width="32" height="32"/>
+        <image name="defaultAvatar" width="133" height="133"/>
         <image name="document-edit" width="64" height="64"/>
         <image name="next" width="64" height="64"/>
         <image name="shutdown" width="32" height="32"/>

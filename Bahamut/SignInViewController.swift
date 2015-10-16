@@ -91,15 +91,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         authenticate()
     }
     
-    func registNewUser(accountId:String,registApi:String,accessToken:String)
-    {
-        let registModel = RegistModel()
-        registModel.accessToken = accessToken
-        registModel.registUserServer = registApi
-        registModel.accountId = accountId
-        ServiceContainer.getService(UserService).showRegistNewUserController(self, registModel:registModel)
-    }
-    
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
@@ -115,6 +106,47 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             
             }) { (registApiServer) -> Void in
                 self.registNewUser(accountId,registApi: registApiServer,accessToken:accessToken)
+        }
+    }
+    
+    func registNewUser(accountId:String,registApi:String,accessToken:String)
+    {
+        let registModel = RegistModel()
+        registModel.accessToken = accessToken
+        registModel.registUserServer = registApi
+        registModel.accountId = accountId
+        ServiceContainer.getService(AccountService).showRegistNewUserController(self, registModel:registModel)
+    }
+    
+    private func authenticate()
+    {
+        var url = authenticationURL
+        if let aId = loginAccountId
+        {
+            url = "\(url)?accountId=\(aId)"
+        }
+        webViewUrl = url
+    }
+    
+    func signCallback()
+    {
+        let service = ServiceContainer.getService(UserService)
+        service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
+        view.makeToastActivityWithMessage(message: "Refreshing")
+    }
+    
+    func initUsers(_:AnyObject)
+    {
+        let service = ServiceContainer.getService(UserService)
+        service.removeObserver(self)
+        self.view.hideToastActivity()
+        if service.myUserModel != nil
+        {
+            self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
+        }else
+        {
+            self.authenticate()
+            self.view.makeToast(message: "Server Failed")
         }
     }
     
@@ -141,38 +173,4 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         view.hideToastActivity()
     }
     
-    private func authenticate()
-    {
-        var url = authenticationURL
-        if let aId = loginAccountId
-        {
-            url = "\(url)?accountId=\(aId)"
-        }
-        webViewUrl = url
-    }
-    
-    func signCallback()
-    {
-        let service = ServiceContainer.getService(UserService)
-        let accountService = ServiceContainer.getService(AccountService)
-        ServiceContainer.instance.userLogin(accountService.userId)
-        service.addObserver(self, selector: "initUsers:", name: UserService.userListUpdated, object: service)
-        view.makeToastActivityWithMessage(message: "Refreshing")
-        service.refreshMyLinkedUsers() 
-    }
-    
-    func initUsers(_:AnyObject)
-    {
-        let service = ServiceContainer.getService(UserService)
-        service.removeObserver(self)
-        self.view.hideToastActivity()
-        if service.myLinkedUsers.count > 0
-        {
-            self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
-        }else
-        {
-            self.authenticate()
-            self.view.makeToast(message: "Server Failed")
-        }
-    }
 }

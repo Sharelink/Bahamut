@@ -24,12 +24,8 @@ class MainNavigationController: UINavigationController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let accountService = ServiceContainer.getService(AccountService)
         if BahamutConfig.isUserLogined
         {
-            ServiceContainer.instance.userLogin(accountService.userId)
-            let aService = ServiceContainer.getService(AccountService)
-            ChicagoClient.sharedInstance.useValidationInfo(aService.userId, appkey: ShareLinkSDK.appkey, apptoken: aService.token)
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         }else
         {
@@ -42,7 +38,7 @@ class MainNavigationController: UINavigationController
         return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
     }
     
-    static func start(msg:String)
+    static func start()
     {
         let mainController = instanceFromStoryBoard();
         UIApplication.sharedApplication().delegate?.window!?.rootViewController?.removeFromParentViewController()

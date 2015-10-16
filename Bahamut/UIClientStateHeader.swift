@@ -28,7 +28,7 @@ class UIClientStateHeader: UIView {
     {
         self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         indicator.stopAnimating()
-        messageLabel.text = "Stupid Network"
+        messageLabel.text = "Network Is Down!"
     }
 
 }

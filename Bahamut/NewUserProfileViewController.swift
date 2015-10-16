@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UserService
+extension AccountService
 {
     
     func showRegistNewUserController(currentController:UIViewController,registModel:RegistModel)
@@ -31,7 +31,7 @@ class NewUserProfileViewController: UIViewController
     var registModel:RegistModel!
     let model:ShareLinkUser! = ShareLinkUser()
     @IBOutlet weak var nickNameTextfield: UITextField!
-    @IBOutlet weak var signText: UITextField!
+    @IBOutlet weak var motto: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +45,10 @@ class NewUserProfileViewController: UIViewController
     @IBAction func saveProfile()
     {
         model.nickName = nickNameTextfield.text
-        model.signText = signText.text
-        ServiceContainer.getService(UserService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
+        model.motto = motto.text
+        ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             if isSuc
             {
-                ServiceContainer.getService(AccountService).setLogined(validateResult)
                 self.signCallback()
             }else
             {
@@ -61,11 +60,8 @@ class NewUserProfileViewController: UIViewController
     func signCallback()
     {
         let service = ServiceContainer.getService(UserService)
-        let accountService = ServiceContainer.getService(AccountService)
-        ServiceContainer.instance.userLogin(accountService.userId)
-        service.addObserver(self, selector: "initUsers:", name: UserService.userListUpdated, object: service)
+        service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
         view.makeToastActivityWithMessage(message: "Refreshing")
-        service.refreshMyLinkedUsers()
     }
     
     func initUsers(_:AnyObject)
@@ -73,9 +69,9 @@ class NewUserProfileViewController: UIViewController
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
         self.view.hideToastActivity()
-        if service.myLinkedUsers.count > 0
+        if service.myUserModel != nil
         {
-            MainNavigationController.start("Regist Success")
+            MainNavigationController.start()
         }else
         {
             self.view.makeToast(message: "Server Failed")

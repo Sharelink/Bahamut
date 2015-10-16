@@ -17,55 +17,42 @@ class AccountService: ServiceProtocol
         
     }
     
+    @objc func userLogout(userId: String) {
+        BahamutConfig.token = nil
+        BahamutConfig.isUserLogined = false
+        BahamutConfig.fileApiServer = nil
+        BahamutConfig.shareLinkApiServer = nil
+        BahamutConfig.chicagoServerHost = nil
+        BahamutConfig.chicagoServerHostPort = 0
+        BahamutConfig.userId = nil
+        ShareLinkSDK.sharedInstance.cancelToken(){
+            message in
+            
+        }
+    }
+    
     @objc func appStartInit()
     {
         if BahamutConfig.isUserLogined
         {
-            ShareLinkSDK.sharedInstance.reuse(userId, token: token, shareLinkApiServer: BahamutConfig.shareLinkApiServer, fileApiServer: BahamutConfig.fileApiServer)
+            ShareLinkSDK.sharedInstance.reuse(BahamutConfig.userId, token: BahamutConfig.token, shareLinkApiServer: BahamutConfig.shareLinkApiServer, fileApiServer: BahamutConfig.fileApiServer)
         }
         
     }
     
-    private(set) var userId:String!{
-        get{
-            return NSUserDefaults.standardUserDefaults().valueForKey("userId") as? String
-        }
-        set{
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "userId")
-        }
-    }
-    
-    private(set) var token:String!{
-        get{
-            return NSUserDefaults.standardUserDefaults().valueForKey("token") as? String
-        }
-        set{
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "token")
-        }
-    }
-    
-    func setLogined(validateResult:ValidateResult)
+    private func setLogined(validateResult:ValidateResult)
     {
-        self.userId = validateResult.UserId
-        self.token = validateResult.AppToken
+        BahamutConfig.token = validateResult.AppToken
         BahamutConfig.isUserLogined = true
         BahamutConfig.shareLinkApiServer = validateResult.APIServer
         BahamutConfig.fileApiServer = validateResult.FileAPIServer
         let chicagoStrs = validateResult.ChicagoServer.split(":")
         BahamutConfig.chicagoServerHost = chicagoStrs[0]
         BahamutConfig.chicagoServerHostPort = UInt16(chicagoStrs[1])!
+        BahamutConfig.userId = validateResult.UserId
+        ServiceContainer.instance.userLogin(validateResult.UserId)
     }
-    
-    func generateSharelinkerQrString() -> String
-    {
-        return "sharelinker://accountId=\(BahamutConfig.lastLoginAccountId)"
-    }
-    
-    func getSharelinkerAccountIdFromQRString(qr:String)-> String
-    {
-        return qr.substringFromIndex("sharelinker://accountId= ".endIndex)
-    }
-    
+
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
         BahamutConfig.lastLoginAccountId = accountId
@@ -83,21 +70,32 @@ class AccountService: ServiceProtocol
         }
     }
     
-    func logout(logoutCallback:((message:String)->Void)! = nil)
+    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
     {
-
-        ShareLinkSDK.sharedInstance.cancelToken(){
-            message in
-            self.userId = nil
-            self.token = nil
-            BahamutConfig.isUserLogined = false
-            BahamutConfig.fileApiServer = nil
-            BahamutConfig.shareLinkApiServer = nil
-            BahamutConfig.chicagoServerHost = nil
-            BahamutConfig.chicagoServerHostPort = 0
-            if let callback = logoutCallback
+        let req = RegistNewSharelinkUserRequest()
+        req.nickName = newUser.nickName
+        req.motto = newUser.motto
+        req.accessToken = registModel.accessToken
+        req.accountId = registModel.accountId
+        req.apiServerUrl = registModel.registUserServer
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ValidateResult>) -> Void in
+            if result.isFailure
             {
-                callback(message: message)
+                callback(isSuc:false,msg:"Regist Failed",validateResult: nil);
+            }else if let validateResult = result.returnObject
+            {
+                if validateResult.isValidateResultDataComplete()
+                {
+                    ShareLinkSDK.sharedInstance.useValidateData(validateResult)
+                    self.setLogined(validateResult)
+                    callback(isSuc: true, msg: "regist success",validateResult:validateResult)
+                }else
+                {
+                    callback(isSuc: false, msg: "Data Error",validateResult:nil)
+                }
+            }else
+            {
+                callback(isSuc:false,msg:"Regist Failed",validateResult:nil);
             }
         }
     }

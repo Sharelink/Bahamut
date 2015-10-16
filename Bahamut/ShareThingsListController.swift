@@ -19,18 +19,12 @@ class ShareThingsListController: UITableViewController
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         messageService = ServiceContainer.getService(MessageService)
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         initTableView()
         initRefresh()
-        initConnectionToChicago()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
         refresh()
-    }
-    
-    private func initConnectionToChicago()
-    {
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
-        ChicagoClient.sharedInstance.connect(BahamutConfig.chicagoServerHost, port: BahamutConfig.chicagoServerHostPort)
     }
     
     deinit{
@@ -149,7 +143,7 @@ class ShareThingsListController: UITableViewController
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        if ChicagoClient.sharedInstance.clientState != ChicagoClientState.Connected
+        if ChicagoClient.sharedInstance.clientState != ChicagoClientState.Validated
         {
             return 35
         }
@@ -170,7 +164,7 @@ class ShareThingsListController: UITableViewController
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState
-        if cstate != ChicagoClientState.Connected
+        if cstate != ChicagoClientState.Validated
         {
             if stateHeaderView == nil
             {

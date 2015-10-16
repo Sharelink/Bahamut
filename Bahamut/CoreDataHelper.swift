@@ -11,6 +11,19 @@ import UIKit
 import CoreData
 
 class CoreDataHelper {
+    
+    static func initNSManagedObjectContext()
+    {
+        let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDel.initmanagedObjectContext()
+    }
+    
+    static func deinitNSManagedObjectContext()
+    {
+        let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDel.deinitManagedObjectContext()
+    }
+    
     static func getEntityContext()-> NSManagedObjectContext
     {
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -39,6 +52,7 @@ class CoreDataHelper {
             {
                 getEntityContext().deleteObject(obj)
             }
+            try getEntityContext().save()
         }catch let error as NSError{
             print(error.description)
         }
@@ -56,11 +70,12 @@ class CoreDataHelper {
     
     static func deleteObjects(objects:[NSManagedObject]) throws
     {
+        let context = getEntityContext()
         for obj in objects
         {
-            getEntityContext().deleteObject(obj)
+            context.deleteObject(obj)
         }
-        try getEntityContext().save()
+        try context.save()
     }
     
     static func deleteAll(entityName:String)
@@ -68,10 +83,16 @@ class CoreDataHelper {
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
         do{
-            let resultSet = try getEntityContext().executeFetchRequest(request).map{$0 as! NSManagedObject}
-            try deleteObjects(resultSet)
-        }catch{
-            
+            let context = getEntityContext()
+            let resultSet = try context.executeFetchRequest(request).map{$0 as! NSManagedObject}
+            for obj in resultSet
+            {
+                context.deleteObject(obj)
+            }
+            try context.save()
+        }catch let ex as NSError{
+            print(ex.description)
+            print("delete entity:\(entityName) error")
         }
     }
     

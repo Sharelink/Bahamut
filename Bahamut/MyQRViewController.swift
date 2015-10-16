@@ -16,14 +16,33 @@ class MyQRViewController: UIViewController
     @IBOutlet weak var myQRImageView: UIImageView!
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        myQRImageView.image = QRCode.generateImage(qrString, avatarImage: avatarImage, avatarScale: 0.3)
+        myQRImageView.image = QRCode.generateImage(qrString, avatarImage: nil, avatarScale: 0.3)
         myQRImageView.userInteractionEnabled = true
         myQRImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showActionSheet:"))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ServiceContainer.getService(UserService).addObserver(self, selector: "onNewLink:", name: UserService.linkMessageUpdated, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        ServiceContainer.getService(UserService).removeObserver(self)
+    }
+    
+    func onNewLink(a:NSNotification)
+    {
+        if let userInfo = a.userInfo
+        {
+            if let lm = userInfo[UserServiceFirstLinkMessage] as? LinkMessage
+            {
+                if lm.isAskingLink.boolValue
+                {
+                    ServiceContainer.getService(UserService).showLinkConfirmViewController(self.navigationController!, linkMessage: lm)
+                }
+            }
+        }
     }
     
     func showActionSheet(_:UITapGestureRecognizer)
@@ -57,7 +76,7 @@ extension UserService
     {
         let controller = MyQRViewController.instanceFromStoryBoard()
         controller.avatarImage = avataImage
-        controller.qrString = ServiceContainer.getService(AccountService).generateSharelinkerQrString()
+        controller.qrString = ServiceContainer.getService(UserService).generateSharelinkerQrString()
         currentNavigationController.pushViewController(controller, animated: true)
     }
 }

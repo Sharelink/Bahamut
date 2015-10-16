@@ -65,4 +65,28 @@ class BahamutConfig
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "isUserLogined")
         }
     }
+    
+    private static var _userId:String!
+    static var userId:String!{
+        get{
+            if _userId == nil
+            {
+                _userId = NSUserDefaults.standardUserDefaults().valueForKey("userId") as? String
+            }
+            return _userId
+        }
+        set{
+            _userId = newValue
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "userId")
+        }
+    }
+    
+    static var token:String!{
+        get{
+            return NSUserDefaults.standardUserDefaults().valueForKey("token") as? String
+        }
+        set{
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "token")
+        }
+    }
 }

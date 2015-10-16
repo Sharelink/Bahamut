@@ -9,20 +9,38 @@
 import Foundation
 import UIKit
 
+extension UserService
+{
+    func showLinkConfirmViewController(currentNavicationController:UINavigationController,linkMessage:LinkMessage)
+    {
+        let controller = LinkConfirmViewController.instanceFromStoryBoard()
+        controller.linkMessage = linkMessage
+        currentNavicationController.pushViewController(controller, animated: true)
+    }
+}
+
 class LinkConfirmViewController: UIViewController
 {
-    var sharelinker:ShareLinkUser!
+    var linkMessage:LinkMessage!
     @IBOutlet weak var noteNameField: UITextField!
     @IBOutlet weak var userNickLabel: UILabel!
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        update()
+    }
+    
     private func update()
     {
-        userNickLabel.text = sharelinker.nickName
+        userNickLabel.text = linkMessage.sharelinkerNick
+        noteNameField.text = linkMessage.sharelinkerNick
     }
     
     @IBAction func ignore(sender: AnyObject)
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true){
+            
+        }
     }
     
     @IBAction func ok(sender: AnyObject)
@@ -31,11 +49,15 @@ class LinkConfirmViewController: UIViewController
         dismissViewControllerAnimated(true){
             if newNote != nil && newNote!.isEmpty == false
             {
-                ServiceContainer.getService(UserService).acceptUserLink(self.sharelinker.userId,noteName: newNote!){ isSuc in
+                ServiceContainer.getService(UserService).acceptUserLink(self.linkMessage.sharelinkerId,noteName: newNote!){ isSuc in
                     
                 }
             }
         }
-        
+    }
+    
+    static func instanceFromStoryBoard() -> LinkConfirmViewController
+    {
+        return instanceFromStoryBoard("UserAccount", identifier: "linkConfirmViewController") as! LinkConfirmViewController
     }
 }

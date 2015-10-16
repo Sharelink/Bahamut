@@ -31,7 +31,7 @@ extension FileService
         return uploadTask
     }
     
-    func requestFileId(localfilePath:String,type:FileType,callback:(fileId:String!) -> Void)
+    func requestFileId(localfilePath:String,type:FileType,callback:(fileKey:SendFileKey!) -> Void)
     {
         let req = NewSendFileKeyRequest()
         do{
@@ -39,7 +39,7 @@ extension FileService
             req.fileSize = fileSize
         }catch let err as NSError{
             print(err)
-            callback(fileId: nil)
+            callback(fileKey: nil)
             return
         }
         let client = ShareLinkSDK.sharedInstance.getFileClient()
@@ -51,7 +51,7 @@ extension FileService
                 if let sendFileKey = result.returnObject
                 {
                     let fileAccesskey = sendFileKey.accessKey
-                    let fileServer = sendFileKey.acceptServerUrl
+                    let fileServer = sendFileKey.server
                     if let uploadTask = self.addUploadTask(fileAccesskey,filePath: localfilePath)
                     {
                         uploadTask.fileId = fileAccesskey
@@ -59,7 +59,7 @@ extension FileService
                         uploadTask.status = SendFileStatus.SendFileReady
                         if let _ = PersistentManager.sharedInstance.bindFileIdAndPath(fileAccesskey,fileExistsPath: localfilePath)
                         {
-                            callback(fileId: fileAccesskey)
+                            callback(fileKey: sendFileKey)
                             return
                         }else
                         {
@@ -69,32 +69,32 @@ extension FileService
                     
                 }
             }
-            callback(fileId: nil)
+            callback(fileKey: nil)
         }
     }
     
-    func startSendFile(fileId:String)
+    func startSendFile(accessKey:String)
     {
-        let uploadTask = getUploadTask(fileId)
+        let uploadTask = getUploadTask(accessKey)
         let sendFileKey = SendFileKey()
-        sendFileKey.acceptServerUrl = uploadTask.fileServerUrl
+        sendFileKey.server = uploadTask.fileServerUrl
         sendFileKey.accessKey = uploadTask.fileId
         let client = ShareLinkSDK.sharedInstance.getFileClient()
 
         func progressCallback(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {
             let persent = Float( totalBytesRead * 100 / totalBytesExpectedToRead)
-            ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: persent)
+            ProgressTaskWatcher.sharedInstance.setProgress(accessKey, persent: persent)
         }
         
         client.sendFile(sendFileKey, filePath: uploadTask.localPath).progress(progressCallback).responseJSON{ (request, _, JSON) -> Void in
             if JSON.error == nil
             {
-                ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: fileId)
+                ProgressTaskWatcher.sharedInstance.missionCompleted(accessKey, result: accessKey)
                 CoreDataHelper.deleteObject(uploadTask)
             }else
             {
-                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: fileId)
+                ProgressTaskWatcher.sharedInstance.missionFailed(accessKey, result: accessKey)
             }
         }
     }

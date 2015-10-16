@@ -10,13 +10,13 @@ import Foundation
 
 struct ServiceConfig
 {
-    static let Services:[String:ServiceProtocol] =
+    static let Services:[(String,ServiceProtocol)] =
     [
-        AccountService.ServiceName:AccountService(),
-        MessageService.ServiceName:MessageService(),
-        ShareService.ServiceName:ShareService(),
-        UserService.ServiceName:UserService(),
-        FileService.ServiceName:FileService(),
-        SharelinkTagService.ServiceName:SharelinkTagService()
+        (AccountService.ServiceName,AccountService()), //AccountService Must Be First One,it include init BahamutConfig function
+        (FileService.ServiceName,FileService()), //FileService must second to init core data
+        (MessageService.ServiceName,MessageService()),
+        (ShareService.ServiceName,ShareService()),
+        (UserService.ServiceName,UserService()),
+        (SharelinkTagService.ServiceName,SharelinkTagService())
     ]
 }

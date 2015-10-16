@@ -269,7 +269,7 @@
                                     <outlet property="userNickTextField" destination="PYT-Cs-ull" id="OqV-Ch-khi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserAskLinkCell" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="80A-tW-7eC" id="i9r-5O-2RD">
@@ -320,7 +320,7 @@
                                     <outlet property="userNickLabel" destination="Idq-eK-5tu" id="1Ms-pn-F7s"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="138" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjP-Sc-6TF" id="49C-wb-dN4">
@@ -347,30 +347,32 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boA-xx-LwI">
-                                            <rect key="frame" x="516" y="18" width="76" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="532" y="8" width="60" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-5T-9w5">
+                                            <rect key="frame" x="562" y="23" width="30" height="30"/>
+                                            <state key="normal" title="Ok"/>
+                                            <connections>
+                                                <action selector="Ok:" destination="rjP-Sc-6TF" eventType="touchUpInside" id="ZfD-fR-0Gu"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kFN-6r-SAC" firstAttribute="bottom" secondItem="zrv-Vh-Dze" secondAttribute="bottom" id="1Lx-iz-AvY"/>
+                                        <constraint firstItem="wxx-5T-9w5" firstAttribute="baseline" secondItem="kFN-6r-SAC" secondAttribute="baseline" id="92i-4g-H3D"/>
+                                        <constraint firstItem="boA-xx-LwI" firstAttribute="top" secondItem="V0E-F6-hu7" secondAttribute="top" id="A6o-nk-8hm"/>
+                                        <constraint firstItem="wxx-5T-9w5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kFN-6r-SAC" secondAttribute="trailing" constant="7" id="Edc-aU-vkn"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="leading" secondItem="49C-wb-dN4" secondAttribute="leadingMargin" constant="7" id="JGv-jY-Gi0"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="top" secondItem="zrv-Vh-Dze" secondAttribute="top" id="SJF-WD-t9z"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="boA-xx-LwI" secondAttribute="trailing" id="Xyz-C2-mmf"/>
-                                        <constraint firstItem="boA-xx-LwI" firstAttribute="centerY" secondItem="49C-wb-dN4" secondAttribute="centerY" id="acO-Yo-bN4"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="centerY" secondItem="49C-wb-dN4" secondAttribute="centerY" id="bXt-02-4Wr"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="zrv-Vh-Dze" secondAttribute="leading" constant="7" id="dHb-LP-G75"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="leading" secondItem="zrv-Vh-Dze" secondAttribute="trailing" constant="8" id="hLv-vz-pfT"/>
                                         <constraint firstItem="kFN-6r-SAC" firstAttribute="leading" secondItem="V0E-F6-hu7" secondAttribute="leading" id="hMS-3E-kQJ"/>
-                                        <constraint firstItem="kFN-6r-SAC" firstAttribute="top" secondItem="V0E-F6-hu7" secondAttribute="bottom" constant="-2" id="sgY-KQ-zo0"/>
+                                        <constraint firstItem="wxx-5T-9w5" firstAttribute="trailing" secondItem="boA-xx-LwI" secondAttribute="trailing" id="pYL-J8-QG0"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="boA-xx-LwI" secondAttribute="trailing" id="tfZ-NY-ff6"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="dHb-LP-G75"/>
-                                            <exclude reference="sgY-KQ-zo0"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatar" destination="zrv-Vh-Dze" id="wWw-Z7-cpP"/>
@@ -617,7 +619,7 @@
                             <constraint firstItem="BsZ-WV-6Gb" firstAttribute="bottom" secondItem="gA1-5P-FfV" secondAttribute="top" id="nKa-UT-TtO"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="yKd-9L-X3Z">
                         <barButtonItem key="backBarButtonItem" title="Back" id="pqP-Jd-dcG"/>
                     </navigationItem>
@@ -636,7 +638,7 @@
         <!--Main Navigation Controller-->
         <scene sceneID="WLf-ZN-RNc">
             <objects>
-                <navigationController storyboardIdentifier="mainNavigationController" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yy6-ii-UPZ" customClass="MainNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigationController" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="Yy6-ii-UPZ" customClass="MainNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8WI-5Q-QdC">
@@ -735,13 +737,13 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="gSG-zD-Igm" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dLE-eg-Mak">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -760,7 +762,7 @@
         <image name="bottomItemShare" width="32" height="32"/>
         <image name="check2" width="32" height="32"/>
         <image name="commerce" width="32" height="32"/>
-        <image name="defaultAvatar" width="64" height="64"/>
+        <image name="defaultAvatar" width="133" height="133"/>
         <image name="hand_thumbsup" width="128" height="128"/>
         <image name="mail_24" width="32" height="32"/>
         <image name="movie17" width="512" height="512"/>

@@ -370,7 +370,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if ChicagoClient.sharedInstance.clientState != .Connected
+        if ChicagoClient.sharedInstance.clientState != .Validated
         {
             return 35
         }
@@ -381,7 +381,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState
-        if cstate != ChicagoClientState.Connected
+        if cstate != ChicagoClientState.Validated
         {
             if stateHeaderView == nil
             {

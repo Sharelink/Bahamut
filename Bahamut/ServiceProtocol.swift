@@ -13,5 +13,6 @@ protocol ServiceProtocol
 {
     static var ServiceName:String {get}
     func appStartInit()
-    func userLoginInit(userId:String)
+    optional func userLoginInit(userId:String)
+    optional func userLogout(userId:String)
 }

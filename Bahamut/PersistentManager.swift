@@ -38,6 +38,7 @@ class PersistentManager
     
     func initManager(documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
+        CoreDataHelper.initNSManagedObjectContext()
         self.fileCacheDirUrl = fileCacheDirUrl
         self.documentsPathUrl = documentsPathUrl
         self.documentsPath = documentsPathUrl.path
@@ -63,6 +64,10 @@ class PersistentManager
         }
     }
 
+    func reset()
+    {
+        CoreDataHelper.deinitNSManagedObjectContext()
+    }
 }
 
 
@@ -96,6 +101,12 @@ struct ChatConstrants
 
 extension PersistentManager
 {
+    func clearMessageEntities()
+    {
+        CoreDataHelper.deleteAll(ChatConstrants.chatEntityName)
+        CoreDataHelper.deleteAll(ChatConstrants.messageEntityName)
+    }
+    
     func getShareChats(shareId:String) -> [ShareChatEntity]
     {
         if let result = CoreDataHelper.getCellsById(ChatConstrants.chatEntityName, idFieldName: ChatConstrants.chatEntityShareIdFieldName, idValue: shareId) as? [ShareChatEntity]
@@ -190,6 +201,37 @@ extension PersistentManager
     {
         CoreDataHelper.deleteAll(FilePersistentsConstrants.fileEntityName)
         CoreDataHelper.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
+        do
+        {
+            try NSFileManager.defaultManager().removeItemAtPath(documentsPathUrl.path!)
+            clearFileCacheDir()
+            clearTmpDir()
+        }catch
+        {
+            
+        }
+    }
+    
+    func clearFileCacheDir()
+    {
+        do
+        {
+            try NSFileManager.defaultManager().removeItemAtPath(fileCacheDirUrl.path!)
+        }catch
+        {
+            NSLog("clearTmpDir error")
+        }
+    }
+    
+    func clearTmpDir()
+    {
+        do
+        {
+            try NSFileManager.defaultManager().removeItemAtPath(tmpUrl.path!)
+        }catch
+        {
+            NSLog("clearTmpDir error")
+        }
     }
     
     func storeFile(data:NSData, filePath:String) -> Bool

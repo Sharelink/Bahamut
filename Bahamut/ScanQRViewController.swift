@@ -8,17 +8,19 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
 
 protocol QRStringDelegate
 {
     func QRdealString(sender:ScanQRViewController,qrString:String)
 }
 
-class ScanQRViewController: UIViewController
+class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDelegate
 {
     var delegate:QRStringDelegate!
     private let scanner = QRCode()
     
+    @IBOutlet weak var addMoreFriendsButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +36,31 @@ class ScanQRViewController: UIViewController
     func startScan()
     {
         scanner.startScan()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "showAddMoreFriends"
+        {
+            if let sg = segue as? UIStoryboardPopoverSegue
+            {
+                sg.destinationViewController.preferredContentSize = CGSizeMake(128, 200)
+                sg.destinationViewController.popoverPresentationController?.sourceRect = CGRectMake(0, 0, 128, 200)
+                sg.destinationViewController.popoverPresentationController?.delegate = self
+                sg.destinationViewController.popoverPresentationController?.permittedArrowDirections = .Down
+            }
+        }
+        
+        super.prepareForSegue(segue, sender: sender)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    @IBAction func addMoreFriends(sender: AnyObject)
+    {
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -60,8 +87,9 @@ extension UserService: QRStringDelegate
 {
     func QRdealString(sender:ScanQRViewController,qrString: String)
     {
-        let accountId = ServiceContainer.getService(AccountService).getSharelinkerAccountIdFromQRString(qrString)
-        ServiceContainer.getService(UserService).askSharelinkForLink(accountId){ isSuc in
+        let userService = ServiceContainer.getService(UserService)
+        let userId = userService.getSharelinkerIdFromQRString(qrString)
+        userService.askSharelinkForLink(userId){ isSuc in
             sender.view.makeToast(message: "Request sended")
             sender.startScan()
         }

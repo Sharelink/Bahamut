@@ -79,7 +79,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         static let nickName = "nickname"
         static let level = "level"
-        static let signText = "signtext"
+        static let motto = "signtext"
         static let createTime = "createtime"
     }
     
@@ -115,9 +115,9 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         textPropertyCells.insert((propertySet:propertySet,editable:false), atIndex: 2)
         
         propertySet = UIEditTextPropertySet()
-        propertySet.propertyIdentifier = InfoIds.signText
+        propertySet.propertyIdentifier = InfoIds.motto
         propertySet.propertyLabel = "Motto"
-        propertySet.propertyValue = myInfo.signText
+        propertySet.propertyValue = myInfo.motto
         propertySet.isOneLineValue = false
         textPropertyCells.append((propertySet:propertySet,editable:true))
     }
@@ -148,13 +148,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func logout()
     {
-        let service = ServiceContainer.getService(AccountService)
-        ChicagoClient.sharedInstance.close()
-        service.logout { (msg) -> Void in
-            let fileSvr = ServiceContainer.getService(FileService)
-            fileSvr.clearUserDatas()
-            MainNavigationController.start(msg)
+        ServiceContainer.instance.userLogout()
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            MainNavigationController.start()
         }
+        
     }
     
     func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
@@ -267,20 +265,20 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             let localPath = fService.createLocalStoreFileName(FileType.Image)
             if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
             {
-                fService.requestFileId(localPath, type: FileType.Image){ fileId in
-                    if fileId == nil
+                fService.requestFileId(localPath, type: FileType.Image){ fileKey in
+                    if fileKey == nil
                     {
                         self.view.makeToast(message: "Set Avatar failed")
                         return
                     }
-                    fService.startSendFile(fileId)
+                    fService.startSendFile(fileKey.accessKey)
                     let uService = ServiceContainer.getService(UserService)
-                    uService.setUserAvatar(fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                    uService.setMyAvatar(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
                         if isSuc
                         {
-                            self.myInfo.avatarId = fileId
+                            self.myInfo.avatarId = fileKey.accessKey
                             self.myInfo.saveModel()
-                            self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                            self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
                         }else
                         {
                             self.view.makeToast(message: "Set Avatar failed")
@@ -334,11 +332,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     }
                     
                 }
-            case InfoIds.signText:
-                userService.setProfileSignText(newValue){ isSuc,msg in
+            case InfoIds.motto:
+                userService.setProfileMotto(newValue){ isSuc,msg in
                     if isSuc
                     {
-                        self.myInfo.signText = newValue
+                        self.myInfo.motto = newValue
                         self.myInfo.saveModel()
                         self.tableView.reloadData()
                     }else

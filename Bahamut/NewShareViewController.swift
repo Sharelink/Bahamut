@@ -390,22 +390,24 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let sService = ServiceContainer.getService(ShareService)
             let fService = ServiceContainer.getService(FileService)
             self.view.makeToastActivityWithMessage(message: "Sending Film")
-            fService.requestFileId(localFilmPath, type: FileType.Video, callback: { (fileId) -> Void in
+            fService.requestFileId(localFilmPath, type: FileType.Video, callback: { (fileKey) -> Void in
                 self.view.hideToastActivity()
-                if fileId != nil
+                if fileKey != nil
                 {
                     let newShare = ShareThing()
                     newShare.title = self.shareDescriptionTextArea.text
-                    newShare.shareContent = fileId
+                    newShare.shareContent = fileKey.fileId
                     newShare.shareType = ShareType.filmType.rawValue
                     
-                    ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: self)
-                    fService.startSendFile(fileId)
+                    ProgressTaskWatcher.sharedInstance.addTaskObserver(fileKey.accessKey, delegate: self)
+                    fService.startSendFile(fileKey.accessKey)
                     self.view.makeToastActivityWithMessage(message: "Posting")
                     sService.postNewShare(newShare, tags: self.selectedTagController.tags ,callback: { (isSuc) -> Void in
                         self.view.hideToastActivity()
                         if isSuc
                         {
+                            newShare.shareContent = fileKey.accessKey
+                            newShare.saveModel()
                             self.view.makeToast(message: "Post New Share Success")
                         }else
                         {

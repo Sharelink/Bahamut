@@ -20,6 +20,12 @@ class FileService: ServiceProtocol {
         initUserFoldersWithUserId(userId)
     }
     
+    @objc func userLogout(userId: String) {
+        PersistentManager.sharedInstance.clearTmpDir()
+        PersistentManager.sharedInstance.clearCache()
+        PersistentManager.sharedInstance.reset()
+    }
+    
     private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()
@@ -80,22 +86,6 @@ class FileService: ServiceProtocol {
     private(set) var localStorePathUrl:NSURL!
     private(set) var fileCachePathUrl:NSURL!
     private(set) var rootUrl:NSURL!
-    
-    func clearUserDatas()
-    {
-        do
-        {
-            try fileManager.removeItemAtURL(documentsPathUrl)
-            
-        }catch let error as NSError
-        {
-            print(error.description)
-        }
-        PersistentManager.sharedInstance.clearAllFileManageData()
-        PersistentManager.sharedInstance.clearAllModelData()
-        PersistentManager.sharedInstance.clearCache()
-        
-    }
     
     func getFilePath(fileId:String!,type:FileType!) -> String!
     {

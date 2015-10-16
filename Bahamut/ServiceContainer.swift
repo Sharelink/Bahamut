@@ -10,15 +10,20 @@ import Foundation
 
 class ServiceContainer
 {
-    static let instance:ServiceContainer! = ServiceContainer()
+    static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
-    
+    private var userId:String!
     private init()
     {
+        
+    }
+    
+    func initContainer()
+    {
         serviceDict = [String:ServiceProtocol]()
-        for (serviceName,service) in ServiceConfig.Services
+        for (name,service) in ServiceConfig.Services
         {
-            addService(serviceName,service: service)
+            addService(name,service: service)
         }
         
         for (_,service) in serviceDict
@@ -29,9 +34,25 @@ class ServiceContainer
     
     func userLogin(userId:String)
     {
-        for (_,service) in serviceDict
+        self.userId = userId
+        
+        for (_,service) in ServiceConfig.Services
         {
-            service.userLoginInit(userId)
+            if let initHandler = service.userLoginInit
+            {
+                initHandler(userId)
+            }
+        }
+    }
+    
+    func userLogout()
+    {
+        for (_,service) in ServiceConfig.Services
+        {
+            if let logoutHandler = service.userLogout
+            {
+                logoutHandler(userId)
+            }
         }
     }
     

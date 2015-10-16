@@ -12,7 +12,7 @@ class UIUserListMessageCell: UITableViewCell
 {
     
     static let cellIdentifier:String = "UIUserListMessageCell"
-    var model:UserMessageListItem!{
+    var model:LinkMessage!{
         didSet{
             update()
         }
@@ -23,39 +23,45 @@ class UIUserListMessageCell: UITableViewCell
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
+    @IBAction func Ok(sender: AnyObject)
+    {
+        ServiceContainer.getService(UserService).deleteLinkMessage(model.id)
+    }
+    
     private func update()
     {
-        let user = ServiceContainer.getService(UserService).getUser(model.userId)
-        noteNameLabel.text = user?.noteName
-        timeLabel.text = model.time.toFriendlyString()
+        noteNameLabel.text = model.sharelinkerNick
+        timeLabel.text = DateHelper.stringToDate(model.time).toFriendlyString()
         messageLabel.text = model.message
-        avatar.image = PersistentManager.sharedInstance.getImage(user?.avatarId)
+        ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
 }
 
 class UIUserListAskingLinkCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserAskLinkCell"
-    var user:ShareLinkUser!
+    var model:LinkMessage!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var userNickLabel: UILabel!
     
     @IBAction func ignore(sender: AnyObject)
     {
+        let userService = ServiceContainer.getService(UserService)
+        userService.deleteLinkMessage(model.id)
     }
     
     @IBAction func accept(sender: AnyObject)
     {
         let userService = ServiceContainer.getService(UserService)
-        userService.acceptUserLink(user.userId, noteName: user.nickName){ isSuc in
+        userService.acceptUserLink(model.sharelinkerId, noteName: model.sharelinkerNick){ isSuc in
             
         }
     }
     
     private func update()
     {
-        userNickLabel.text = "\(user?.nickName) asking for a link"
-        avatar.image = PersistentManager.sharedInstance.getImage(user?.avatarId)
+        userNickLabel.text = "\(model.sharelinkerNick) asking for a link"
+        avatar.image = PersistentManager.sharedInstance.getImage(model.avatar)
     }
     
 }

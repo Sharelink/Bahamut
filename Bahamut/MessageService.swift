@@ -11,14 +11,6 @@ import Foundation
 import UIKit
 import EVReflection
 
-class UserMessageListItem
-{
-    var userId:String!
-    var shareId:String!
-    var message:String!
-    var time:NSDate!
-}
-
 let MessageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
 let MessageServiceNewMessage = "MessageServiceNewMessage"
 
@@ -32,7 +24,16 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         let route = ChicagoRoute()
         route.ExtName = "NotificationCenter"
         route.CmdName = "UsrNewMsg"
+        ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
+        ChicagoClient.sharedInstance.connect(BahamutConfig.chicagoServerHost, port: BahamutConfig.chicagoServerHostPort)
+        ChicagoClient.sharedInstance.startHeartBeat()
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: ShareLinkSDK.appkey, apptoken: BahamutConfig.token)
+    }
+    
+    func userLogout(userId: String) {
+        ChicagoClient.sharedInstance.removeObserver(self)
+        ChicagoClient.sharedInstance.close()
     }
     
     static let messageListUpdated = "messageListUpdated"

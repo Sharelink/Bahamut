@@ -50,9 +50,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             avatarImageView.userInteractionEnabled = true
         }
     }
-    @IBOutlet weak var userSignTextView: UILabel!{
+    @IBOutlet weak var userMottoView: UILabel!{
         didSet{
-            userSignTextView.userInteractionEnabled = true
+            userMottoView.userInteractionEnabled = true
         }
     }
     @IBOutlet weak var userNickNameLabelView: UILabel!{
@@ -170,16 +170,16 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     func saveProfileVideo()
     {
         let fService = ServiceContainer.getService(FileService)
-        fService.requestFileId(profileVideoView.filePath, type: FileType.Video, callback: { (fileId) -> Void in
+        fService.requestFileId(profileVideoView.filePath, type: FileType.Video, callback: { (fileKey) -> Void in
             self.view.hideToastActivity()
-            if fileId != nil
+            if fileKey != nil
             {
-                fService.startSendFile(fileId)
+                fService.startSendFile(fileKey.accessKey)
                 let uService = ServiceContainer.getService(UserService)
-                uService.setUserProfileVideo(fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                uService.setMyProfileVideo(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
                     if isSuc
                     {
-                        self.userProfileModel.personalVideoId = fileId
+                        self.userProfileModel.personalVideoId = fileKey.accessKey
                         self.userProfileModel.saveModel()
                         self.updatePersonalFilm()
                     }
@@ -261,7 +261,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     func update()
     {
         updateName()
-        userSignTextView.text = userProfileModel.signText
+        userMottoView.text = userProfileModel.motto
         updateAvatar()
         updatePersonalFilm()
     }
@@ -320,7 +320,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if propertyId == "note"
         {
             self.view.makeToastActivityWithMessage(message: "Updating")
-            userService.setUserNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
+            userService.setLinkerNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
                 self.view.hideToastActivity()
                 if isSuc
                 {

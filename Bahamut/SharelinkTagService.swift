@@ -32,7 +32,6 @@ public class SharelinkTagService : ServiceProtocol
     }
     
     @objc func userLoginInit(userId: String) {
-        refreshMyAllSharelinkTags()
     }
     
     //MARK: My Tag

@@ -17,35 +17,23 @@ class LinkedUserListController: UITableViewController
         }
     }
     
-    var askingListModel:[ShareLinkUser] = [ShareLinkUser](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
-    
-    var talkingListModel:[UserMessageListItem] = [UserMessageListItem](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
-    
-    private var messageService:MessageService!{
-        didSet{
-            
-        }
-    }
+    var askingListModel:[LinkMessage] = [LinkMessage]()
+    var linkMessageModel:[LinkMessage] = [LinkMessage]()
     
     private var userService:UserService!{
         didSet{
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
-            userService.addObserver(self, selector: "askingLinkUserListUpdated:", name: UserService.askingLinkUserListUpdated, object: nil)
+            userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
+            userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
         }
     }
     
     deinit
     {
-        userService.removeObserver(self)
-        messageService.removeObserver(self)
+        if userService != nil
+        {
+            userService.removeObserver(self)
+        }
     }
     
     func myLinkedUsersUpdated(sender:AnyObject)
@@ -58,14 +46,20 @@ class LinkedUserListController: UITableViewController
         
     }
     
-    func askingLinkUserListUpdated(sender:AnyObject)
+    func linkMessageUpdated(sender:AnyObject)
     {
-        if let newValues = userService.askingLinkUserList
-        {
-            dispatch_async(dispatch_get_main_queue()){()->Void in
+        dispatch_async(dispatch_get_main_queue()){()->Void in
+            if let newValues = self.userService.askingLinkUserList
+            {
                 self.askingListModel = newValues
             }
+            if let newValues = self.userService.linkMessageList
+            {
+                self.linkMessageModel = newValues
+            }
+            self.tableView.reloadData()
         }
+        
     }
     
     func refresh()
@@ -99,10 +93,7 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {
-        if let sharelinkUserId = userService.myUserId
-        {
-            userService.showMyQRViewController(self.navigationController!,sharelinkUserId: sharelinkUserId ,avataImage: PersistentManager.sharedInstance.getImage(userService.myUserModel.avatarId))
-        }
+        userService.showMyQRViewController(self.navigationController!,sharelinkUserId: userService.myUserId ,avataImage: nil)
     }
     
     var headerGesture:UITapGestureRecognizer!
@@ -114,7 +105,7 @@ class LinkedUserListController: UITableViewController
     }
     
     var indexOfUserList:Int{
-        return (askingListModel.count > 0 ? 1:0) + (talkingListModel.count > 0 ? 1:0)
+        return (askingListModel.count > 0 ? 1:0) + (linkMessageModel.count > 0 ? 1:0)
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -128,9 +119,9 @@ class LinkedUserListController: UITableViewController
         if section == 0 && askingListModel.count > 0
         {
             return askingListModel.count
-        }else if section <= 1 && talkingListModel.count > 0
+        }else if section <= 1 && linkMessageModel.count > 0
         {
-            return talkingListModel.count
+            return linkMessageModel.count
         }else
         {
             return userListModel[section - indexOfUserList].items.count
@@ -153,11 +144,11 @@ class LinkedUserListController: UITableViewController
             {
                 return nil
             }
-        }else if section  <= 1 && talkingListModel.count > 0
+        }else if section  <= 1 && linkMessageModel.count > 0
         {
-            if talkingListModel.count > 0
+            if linkMessageModel.count > 0
             {
-               label.text = "talking"
+               label.text = "Message"
             }else
             {
                 return nil
@@ -177,14 +168,14 @@ class LinkedUserListController: UITableViewController
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListAskingLinkCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListAskingLinkCell
             let model = askingListModel[indexPath.row]
-            cell.user = model
+            cell.model = model
             return cell
             
             
-        }else if indexPath.section  <= 1 && talkingListModel.count > 0
+        }else if indexPath.section  <= 1 && linkMessageModel.count > 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListMessageCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListMessageCell
-            let model = talkingListModel[indexPath.row]
+            let model = linkMessageModel[indexPath.row]
             cell.model = model
             return cell
         }else

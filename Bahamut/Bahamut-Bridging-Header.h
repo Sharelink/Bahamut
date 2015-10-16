@@ -12,4 +12,13 @@
 #import "UIBarButtomItem-Badge/UIButton+Badge.h"
 #import "UIBarButtomItem-Badge/UIbarButtonItem+Badge.h"
 
+#import <ShareSDK/ShareSDK.h>
+
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+
+#import "WXApi.h"
+
+#import "WeiboSDK.h"
+
 #endif /* Bahamut_Bridging_Header_h */
