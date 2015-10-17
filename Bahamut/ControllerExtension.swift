@@ -27,7 +27,9 @@ class ScreenLockProxy:NSObject
 {
     var lockScreenLayer = UIView(){
         didSet{
-            
+            let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            lockScreenLayer.frame = (appDel.window?.frame)!
+            lockScreenLayer.backgroundColor = UIColor.clearColor()
         }
     }
     
@@ -35,13 +37,14 @@ class ScreenLockProxy:NSObject
         return ScreenLockProxy()
     }()
     
-    func lockScreen()
+    func lockScreen(controller:UIViewController)
     {
+        controller.view.addSubview(lockScreenLayer)
     }
     
-    func unlockScreen()
+    func unlockScreen(controller:UIViewController)
     {
-        
+        lockScreenLayer.removeFromSuperview()
     }
     
 }
@@ -60,12 +63,12 @@ extension UIViewController
 {
     func lockScreen()
     {
-        ScreenLockProxy.sharedInstance.lockScreen()
+        ScreenLockProxy.sharedInstance.lockScreen(self)
     }
     
     func unlockScreen()
     {
-        ScreenLockProxy.sharedInstance.unlockScreen()
+        ScreenLockProxy.sharedInstance.unlockScreen(self)
     }
 }
 

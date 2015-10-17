@@ -24,6 +24,11 @@ class MainNavigationController: UINavigationController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        go()
+    }
+    
+    func go()
+    {
         if BahamutConfig.isUserLogined
         {
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
@@ -40,8 +45,11 @@ class MainNavigationController: UINavigationController
     
     static func start()
     {
-        let mainController = instanceFromStoryBoard();
-        UIApplication.sharedApplication().delegate?.window!?.rootViewController?.removeFromParentViewController()
-        UIApplication.sharedApplication().delegate?.window!?.rootViewController = mainController
+        //let mainController = instanceFromStoryBoard();
+        if let mainController = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController
+        {
+            mainController.navigationController?.popToRootViewControllerAnimated(false)
+            mainController.go()
+        }
     }
 }

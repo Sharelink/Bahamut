@@ -16,12 +16,6 @@ protocol UIShareContentDelegate
     
 }
 
-enum ShareType:String
-{
-    case filmType = "film"
-    case messageType = "message"
-}
-
 class UIShareContentTypeDelegateGenerator
 {
     static func getDelegate(shareType:ShareType) -> UIShareContentDelegate!

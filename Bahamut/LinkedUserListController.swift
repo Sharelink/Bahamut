@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK: LinkedUserListController
 class LinkedUserListController: UITableViewController
 {
 
@@ -17,14 +18,14 @@ class LinkedUserListController: UITableViewController
         }
     }
     
-    var askingListModel:[LinkMessage] = [LinkMessage]()
     var linkMessageModel:[LinkMessage] = [LinkMessage]()
     
-    private var userService:UserService!{
+    private(set) var userService:UserService!{
         didSet{
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
             userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
+            userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
         }
     }
     
@@ -46,13 +47,17 @@ class LinkedUserListController: UITableViewController
         
     }
     
+    func newLinkMessageUpdated(a:NSNotification)
+    {
+        if let newMsgCnt = a.userInfo?[UserServiceNewLinkMessageCount] as? Int
+        {
+            self.tabBarItem.badgeValue = "\(newMsgCnt)"
+        }
+    }
+    
     func linkMessageUpdated(sender:AnyObject)
     {
         dispatch_async(dispatch_get_main_queue()){()->Void in
-            if let newValues = self.userService.askingLinkUserList
-            {
-                self.askingListModel = newValues
-            }
             if let newValues = self.userService.linkMessageList
             {
                 self.linkMessageModel = newValues
@@ -83,6 +88,7 @@ class LinkedUserListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.tabBarItem.badgeValue = nil
         tableView.reloadData()
     }
     
@@ -105,7 +111,7 @@ class LinkedUserListController: UITableViewController
     }
     
     var indexOfUserList:Int{
-        return (askingListModel.count > 0 ? 1:0) + (linkMessageModel.count > 0 ? 1:0)
+        return linkMessageModel.count > 0 ? 1 : 0
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -116,10 +122,7 @@ class LinkedUserListController: UITableViewController
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if section == 0 && askingListModel.count > 0
-        {
-            return askingListModel.count
-        }else if section <= 1 && linkMessageModel.count > 0
+        if section == 0 && linkMessageModel.count > 0
         {
             return linkMessageModel.count
         }else
@@ -135,24 +138,9 @@ class LinkedUserListController: UITableViewController
         let label = UILabel(frame: CGRectMake(7, 0, 23, 23))
         headerView.addSubview(label)
         
-        if section == 0 && askingListModel.count > 0
+        if section == 0 && linkMessageModel.count > 0
         {
-            if askingListModel.count > 0
-            {
-                label.text = "Sharelinks ask for link"
-            }else
-            {
-                return nil
-            }
-        }else if section  <= 1 && linkMessageModel.count > 0
-        {
-            if linkMessageModel.count > 0
-            {
-               label.text = "Message"
-            }else
-            {
-                return nil
-            }
+            label.text = "Sharelinks"
         }else
         {
             label.text = userListModel[section - indexOfUserList].latinLetter
@@ -164,20 +152,22 @@ class LinkedUserListController: UITableViewController
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        if indexPath.section == 0 && askingListModel.count > 0
+        if indexPath.section == 0 && linkMessageModel.count > 0
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListAskingLinkCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListAskingLinkCell
-            let model = askingListModel[indexPath.row]
-            cell.model = model
-            return cell
-            
-            
-        }else if indexPath.section  <= 1 && linkMessageModel.count > 0
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListMessageCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListMessageCell
             let model = linkMessageModel[indexPath.row]
-            cell.model = model
-            return cell
+            if model.type == LinkMessageType.AskLink.rawValue
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListAskingLinkCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListAskingLinkCell
+                cell.model = model
+                cell.rootController = self
+                return cell
+            }else
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListMessageCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListMessageCell
+                cell.model = model
+                cell.rootController = self
+                return cell
+            }
         }else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListCell.cellIdentifier, forIndexPath: indexPath)

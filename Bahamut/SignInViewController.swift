@@ -168,8 +168,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }else{
             view.makeToastActivityWithMessage(message: msg!)
         }
+        self.lockScreen()
     }
     func hideToastActivity(){
+        self.unlockScreen()
         view.hideToastActivity()
     }
     

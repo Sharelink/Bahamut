@@ -17,6 +17,8 @@ class UIUserListMessageCell: UITableViewCell
             update()
         }
     }
+    
+    var rootController:LinkedUserListController!
     @IBOutlet weak var noteNameLabel: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     
@@ -25,7 +27,7 @@ class UIUserListMessageCell: UITableViewCell
     
     @IBAction func Ok(sender: AnyObject)
     {
-        ServiceContainer.getService(UserService).deleteLinkMessage(model.id)
+        rootController.userService.deleteLinkMessage(model.id)
     }
     
     private func update()
@@ -41,26 +43,34 @@ class UIUserListAskingLinkCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserAskLinkCell"
     var model:LinkMessage!
+    var rootController:LinkedUserListController!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var userNickLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     
     @IBAction func ignore(sender: AnyObject)
     {
-        let userService = ServiceContainer.getService(UserService)
-        userService.deleteLinkMessage(model.id)
+        rootController.userService.deleteLinkMessage(model.id)
     }
     
     @IBAction func accept(sender: AnyObject)
     {
-        let userService = ServiceContainer.getService(UserService)
+        let userService = rootController.userService
         userService.acceptUserLink(model.sharelinkerId, noteName: model.sharelinkerNick){ isSuc in
-            
+            if isSuc
+            {
+                userService.deleteLinkMessage(self.model.id)
+            }else
+            {
+                self.rootController.view.makeToast(message: "acceptUserLink error")
+            }
         }
     }
     
     private func update()
     {
-        userNickLabel.text = "\(model.sharelinkerNick) asking for a link"
+        userNickLabel.text = "\(model.sharelinkerNick)"
+        messageLabel.text = "asking for a link"
         avatar.image = PersistentManager.sharedInstance.getImage(model.avatar)
     }
     
@@ -79,7 +89,7 @@ class UIUserListCell: UITableViewCell
     //var sharelinkTags:[SharelinkTag]!
     
     @IBOutlet weak var levelLabel: UILabel!
-    var rootController:UIViewController!
+    var rootController:LinkedUserListController!
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 3.0
@@ -97,7 +107,7 @@ class UIUserListCell: UITableViewCell
     
     func showProfile(_:UIGestureRecognizer)
     {
-        ServiceContainer.getService(UserService).showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel)
+        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel)
     }
     
     func showAvatar(_:UIGestureRecognizer)

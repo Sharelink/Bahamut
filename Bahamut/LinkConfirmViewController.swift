@@ -38,19 +38,23 @@ class LinkConfirmViewController: UIViewController
     
     @IBAction func ignore(sender: AnyObject)
     {
-        dismissViewControllerAnimated(true){
-            
-        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func ok(sender: AnyObject)
     {
         let newNote = noteNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        dismissViewControllerAnimated(true){
-            if newNote != nil && newNote!.isEmpty == false
-            {
-                ServiceContainer.getService(UserService).acceptUserLink(self.linkMessage.sharelinkerId,noteName: newNote!){ isSuc in
-                    
+        
+        if newNote != nil && newNote!.isEmpty == false
+        {
+            ServiceContainer.getService(UserService).acceptUserLink(self.linkMessage.sharelinkerId,noteName: newNote!){ isSuc in
+                if isSuc
+                {
+                    ServiceContainer.getService(UserService).deleteLinkMessage(self.linkMessage.id)
+                    self.navigationController?.popViewControllerAnimated(true)
+                }else
+                {
+                    self.view.makeToast(message: "acceptUserLink error")
                 }
             }
         }

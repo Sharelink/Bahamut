@@ -269,7 +269,7 @@
                                     <outlet property="userNickTextField" destination="PYT-Cs-ull" id="OqV-Ch-khi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="80A-tW-7eC" id="i9r-5O-2RD">
@@ -277,9 +277,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" text="sharelinker ask for link" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idq-eK-5tu">
-                                            <rect key="frame" x="63" y="15" width="208" height="26"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="63" y="28" width="162" height="20"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEG-RO-Wwy">
@@ -302,25 +302,44 @@
                                                 <constraint firstAttribute="width" constant="40" id="pfw-DE-omL"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS5-cZ-92g">
+                                            <rect key="frame" x="63" y="8" width="86" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="top" secondItem="i9r-5O-2RD" secondAttribute="topMargin" id="5cH-7Y-oxZ"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="centerY" secondItem="Idq-eK-5tu" secondAttribute="centerY" id="7Xt-c8-vaN"/>
+                                        <constraint firstItem="Idq-eK-5tu" firstAttribute="bottom" secondItem="Naa-aN-XCd" secondAttribute="bottom" id="B9y-9o-v60"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="tEG-RO-Wwy" secondAttribute="trailing" id="BaL-Lm-ZyE"/>
+                                        <constraint firstItem="vS5-cZ-92g" firstAttribute="top" secondItem="Naa-aN-XCd" secondAttribute="top" id="SQ9-4K-KZe"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="leading" secondItem="i9r-5O-2RD" secondAttribute="leadingMargin" constant="7" id="UIQ-gP-Dql"/>
+                                        <constraint firstItem="vS5-cZ-92g" firstAttribute="leading" secondItem="Naa-aN-XCd" secondAttribute="trailing" constant="8" id="Vas-dR-Xys"/>
+                                        <constraint firstItem="Naa-aN-XCd" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="Vva-Sj-EIe"/>
                                         <constraint firstItem="Idq-eK-5tu" firstAttribute="leading" secondItem="Naa-aN-XCd" secondAttribute="trailing" constant="8" symbolic="YES" id="WZN-dl-ydr"/>
                                         <constraint firstItem="tEG-RO-Wwy" firstAttribute="leading" secondItem="4P4-HF-ZE7" secondAttribute="trailing" constant="8" id="YZc-YX-cyC"/>
                                         <constraint firstItem="tEG-RO-Wwy" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="ki8-pS-EG0"/>
                                         <constraint firstItem="4P4-HF-ZE7" firstAttribute="centerY" secondItem="tEG-RO-Wwy" secondAttribute="centerY" id="q3t-kU-Ubh"/>
                                         <constraint firstItem="Idq-eK-5tu" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="uRu-vk-Eqn"/>
+                                        <constraint firstItem="Idq-eK-5tu" firstAttribute="top" secondItem="Naa-aN-XCd" secondAttribute="top" id="ztL-jw-DqG"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="7Xt-c8-vaN"/>
+                                            <exclude reference="uRu-vk-Eqn"/>
+                                            <exclude reference="ztL-jw-DqG"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatar" destination="Naa-aN-XCd" id="jCc-7b-3Ue"/>
-                                    <outlet property="userNickLabel" destination="Idq-eK-5tu" id="1Ms-pn-F7s"/>
+                                    <outlet property="messageLabel" destination="Idq-eK-5tu" id="2LM-g9-Kje"/>
+                                    <outlet property="userNickLabel" destination="vS5-cZ-92g" id="qtr-wR-MlT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="138" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjP-Sc-6TF" id="49C-wb-dN4">
@@ -366,6 +385,7 @@
                                         <constraint firstItem="boA-xx-LwI" firstAttribute="top" secondItem="V0E-F6-hu7" secondAttribute="top" id="A6o-nk-8hm"/>
                                         <constraint firstItem="wxx-5T-9w5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kFN-6r-SAC" secondAttribute="trailing" constant="7" id="Edc-aU-vkn"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="leading" secondItem="49C-wb-dN4" secondAttribute="leadingMargin" constant="7" id="JGv-jY-Gi0"/>
+                                        <constraint firstAttribute="topMargin" secondItem="zrv-Vh-Dze" secondAttribute="top" id="OoR-jB-nvT"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="top" secondItem="zrv-Vh-Dze" secondAttribute="top" id="SJF-WD-t9z"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="centerY" secondItem="49C-wb-dN4" secondAttribute="centerY" id="bXt-02-4Wr"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="leading" secondItem="zrv-Vh-Dze" secondAttribute="trailing" constant="8" id="hLv-vz-pfT"/>
@@ -765,12 +785,12 @@
         <image name="defaultAvatar" width="133" height="133"/>
         <image name="hand_thumbsup" width="128" height="128"/>
         <image name="mail_24" width="32" height="32"/>
-        <image name="movie17" width="512" height="512"/>
+        <image name="movie17" width="128" height="128"/>
         <image name="qr_code" width="32" height="32"/>
         <image name="share" width="128" height="128"/>
         <image name="tag_fill" width="32" height="32"/>
         <image name="user" width="32" height="32"/>
-        <image name="webcam" width="512" height="512"/>
+        <image name="webcam" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="N2o-I0-qzh"/>

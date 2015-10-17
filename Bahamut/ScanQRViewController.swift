@@ -89,9 +89,15 @@ extension UserService: QRStringDelegate
     {
         let userService = ServiceContainer.getService(UserService)
         let userId = userService.getSharelinkerIdFromQRString(qrString)
-        userService.askSharelinkForLink(userId){ isSuc in
-            sender.view.makeToast(message: "Request sended")
-            sender.startScan()
+        if userService.myLinkedUsersMap.keys.contains(userId)
+        {
+            userService.showUserProfileViewController(sender.navigationController!, userId: userId)
+        }else
+        {
+            userService.askSharelinkForLink(userId){ isSuc in
+                sender.view.makeToast(message: "Request sended")
+                sender.startScan()
+            }
         }
     }
     

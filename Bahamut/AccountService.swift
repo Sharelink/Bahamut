@@ -14,7 +14,8 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        
+        ShareLinkSDK.sharedInstance.reuse(BahamutConfig.userId, token: BahamutConfig.token, shareLinkApiServer: BahamutConfig.shareLinkApiServer, fileApiServer: BahamutConfig.fileApiServer)
+        ShareLinkSDK.sharedInstance.startClients()
     }
     
     @objc func userLogout(userId: String) {
@@ -29,15 +30,12 @@ class AccountService: ServiceProtocol
             message in
             
         }
+        ShareLinkSDK.sharedInstance.closeClients()
     }
     
     @objc func appStartInit()
     {
-        if BahamutConfig.isUserLogined
-        {
-            ShareLinkSDK.sharedInstance.reuse(BahamutConfig.userId, token: BahamutConfig.token, shareLinkApiServer: BahamutConfig.shareLinkApiServer, fileApiServer: BahamutConfig.fileApiServer)
-        }
-        
+
     }
     
     private func setLogined(validateResult:ValidateResult)

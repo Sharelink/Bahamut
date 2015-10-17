@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             ServiceContainer.instance.userLogin(BahamutConfig.userId)
         }
+        ChatViewController.instanceFromStoryBoard()
+        UserProfileViewController.instanceFromStoryBoard()
+        UIEditTextPropertyViewController.instanceFromStoryBoard()
         ShareSDK.registerApp("b2d92ccec2e0")
         return true
     }
@@ -37,10 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if BahamutConfig.isUserLogined
+        {
+            ServiceContainer.getService(MessageService).getMessageFromServer()
+            ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -56,12 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
     }()
-
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Bahamut", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
     
     func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask
     {
@@ -71,6 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return UIInterfaceOrientationMask.Portrait
     }
+
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("Bahamut", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
+    }()
     
     private var persistentStoreCoordinator: NSPersistentStoreCoordinator?
     
@@ -83,10 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let dbFileName = "\(BahamutConfig.userId).sqlite"
         print(dbFileName)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(dbFileName)
+        let currentPersistentStore = self.applicationDocumentsDirectory.URLByAppendingPathComponent(dbFileName)
         let failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: optionsDictionary)
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: currentPersistentStore, options: optionsDictionary)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -125,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func deinitManagedObjectContext()
     {
         saveContext()
-        self.persistentStoreCoordinator = nil
+        persistentStoreCoordinator = nil
         managedObjectContext = nil
     }
     

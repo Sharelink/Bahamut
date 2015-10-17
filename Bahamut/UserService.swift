@@ -11,15 +11,25 @@ import CoreFoundation
 import Alamofire
 import EVReflection
 
-let UserServiceFirstLinkMessage = "UserServiceFirstLinkMessage"
+//MARK: network entities
+class AULReturn : ShareLinkObject
+{
+    var newLink:UserLink!
+    var newUser:ShareLinkUser!
+}
+
+enum LinkMessageType:String
+{
+    case AskLink = "asklink"
+    case AcceptAskLink = "acceptlink"
+}
 
 class LinkMessage : ShareLinkObject
 {
     var id:String!
     var sharelinkerId:String!
     var sharelinkerNick:String!
-    var isAskingLink:NSNumber!
-    var isAccept:NSNumber!
+    var type:String!
     var message:String!
     var avatar:String!
     var time:String!
@@ -29,11 +39,16 @@ class LinkMessage : ShareLinkObject
     }
 }
 
+//MARK: service define
+let UserServiceFirstLinkMessage = "UserServiceFirstLinkMessage"
+let UserServiceNewLinkMessageCount = "UserServiceNewLinkMessageCount"
+
 class UserService: NSNotificationCenter,ServiceProtocol
 {
     static let userListUpdated = "userListUpdated"
     static let linkMessageUpdated = "linkMessageUpdated"
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
+    static let newLinkMessageUpdated = "newLinkMessageUpdated"
     
     @objc static var ServiceName:String{return "user service"}
     
@@ -78,6 +93,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     private func initLinkedUsers()
     {
         let users = getLinkedUsers()
+        myLinkedUsersMap.removeAll()
         for u in users
         {
             myLinkedUsersMap.updateValue(u, forKey: u.userId)
@@ -197,20 +213,35 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     func onNewLinkMessage(a:NSNotification)
     {
+        getNewLinkMessageFromServer()
+    }
+    
+    func getNewLinkMessageFromServer()
+    {
         let req = GetLinkMessagesRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[LinkMessage]>) -> Void in
             if result.isSuccess && result.returnObject != nil && result.returnObject.count > 0
             {
                 LinkMessage.saveObjectOfArray(result.returnObject)
-                let linkMsgs = PersistentManager.sharedInstance.getAllModelFromCache(LinkMessage)
-                self.askingLinkUserList = linkMsgs.filter{ $0.isAskingLink.boolValue }
-                self.linkMessageList = linkMsgs.filter{$0.isAccept.boolValue}
+                
+                var linkMsgs = PersistentManager.sharedInstance.getAllModelFromCache(LinkMessage)
+                linkMsgs.sortInPlace({ (a, b) -> Bool in
+                    a.time.dateOfString.compare(b.time.dateOfString) == .OrderedAscending
+                })
+                self.askingLinkUserList = linkMsgs.filter{ $0.type == LinkMessageType.AskLink.rawValue }
+                self.linkMessageList = linkMsgs.filter{$0.type == LinkMessageType.AcceptAskLink.rawValue }
                 let dreq = DeleteLinkMessagesRequest()
                 client.execute(dreq, callback: { (result:SLResult<ShareLinkObject>) -> Void in
                     
                 })
                 self.postNotificationName(UserService.linkMessageUpdated, object: self,userInfo: [UserServiceFirstLinkMessage:result.returnObject.first!])
+                self.postNotificationName(UserService.newLinkMessageUpdated, object: self,userInfo: [UserServiceNewLinkMessageCount:result.returnObject.count])
+                
+                if (result.returnObject.filter{ $0.type == LinkMessageType.AcceptAskLink.rawValue}).count > 0
+                {
+                    self.refreshMyLinkedUsers()
+                }
             }
         }
     }
@@ -230,30 +261,34 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let linkMsg = LinkMessage()
         linkMsg.id = id
+        self.linkMessageList.removeElement{ $0.id == id }
         PersistentManager.sharedInstance.removeModels([linkMsg])
         self.postNotificationName(UserService.linkMessageUpdated, object: self)
     }
     
     func acceptUserLink(userId:String,noteName:String!,callback:((isSuc:Bool) -> Void)! = nil)
     {
-        class AULReturn : ShareLinkObject
-        {
-            var newLink:UserLink!
-            var newUser:ShareLinkUser!
-        }
         let req = AcceptAskingLinkRequest()
         req.sharelinkerId = userId
         req.noteName = noteName
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
+            var suc = false
             if result.isSuccess{
-                result.returnObject.newLink.saveModel()
-                result.returnObject.newUser.saveModel()
-                PersistentManager.sharedInstance.refreshCache(UserLink)
-                PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
-                if let handler = callback
+                if let rs = result.returnObject
                 {
-                    handler(isSuc: true)
+                    rs.newLink.saveModel()
+                    rs.newUser.saveModel()
+                    PersistentManager.sharedInstance.refreshCache(UserLink)
+                    PersistentManager.sharedInstance.refreshCache(ShareLinkUser)
+                    suc = true
+                    self.initLinkedUsers()
+                    self.postNotificationName(UserService.userListUpdated, object: self)
                 }
+                
+            }
+            if let handler = callback
+            {
+                handler(isSuc: suc)
             }
         }
     }

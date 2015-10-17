@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 
+//MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController
 {
     private(set) var userService:UserService!
@@ -24,11 +25,23 @@ class ShareThingsListController: UITableViewController
         initRefresh()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
+        messageService.addObserver(self, selector: "newMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
         refresh()
     }
     
     deinit{
+        ServiceContainer.getService(MessageService).removeObserver(self)
         ChicagoClient.sharedInstance.removeObserver(self)
+    }
+    
+    
+    func newMessageReceived(aNotification:NSNotification)
+    {
+        if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
+        {
+            self.tabBarItem.badgeValue = "\(messages.count)"
+            messageService.getChatIdWithAudienceOfShareId(userService.myUserId, audienceId: <#T##String#>)
+        }
     }
     
     func chicagoClientStateChanged(aNotification:NSNotification)
@@ -53,6 +66,7 @@ class ShareThingsListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.tabBarItem.badgeValue = nil
         refreshFromServer()
     }
     
@@ -127,6 +141,7 @@ class ShareThingsListController: UITableViewController
         }
     }
     
+    //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return 1

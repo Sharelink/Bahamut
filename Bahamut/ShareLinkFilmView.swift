@@ -338,7 +338,11 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        playerController.reset()
+        if playerController != nil
+        {
+            
+            playerController.reset()
+        }
     }
     
     class SharelinkFilmPlayerLayer : UIView

@@ -80,7 +80,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         messageService = ServiceContainer.getService(MessageService)
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
-        messageService.addObserver(self, selector: "receiveNewMessage:", name: MessageServiceNewMessageReceived, object: self.chatId)
+        messageService.addObserver(self, selector: "receiveNewMessage:", name: MessageService.messageServiceNewMessageReceived, object: self.chatId)
     }
     
     deinit
@@ -170,7 +170,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
     {
         if let userInfo = a.userInfo
         {
-            if let msgs = userInfo[MessageServiceNewMessage] as? [MessageEntity]
+            if let msgs = userInfo[MessageServiceNewMessageEntities] as? [MessageEntity]
             {
                 var items = msgs.filter{$0.chatId == self.chatId}.map{ self.messageEntityToUUMsgItem($0) }
                 if items.count == 0

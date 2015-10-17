@@ -37,7 +37,7 @@ class MyQRViewController: UIViewController
         {
             if let lm = userInfo[UserServiceFirstLinkMessage] as? LinkMessage
             {
-                if lm.isAskingLink.boolValue
+                if lm.type == LinkMessageType.AskLink.rawValue
                 {
                     ServiceContainer.getService(UserService).showLinkConfirmViewController(self.navigationController!, linkMessage: lm)
                 }

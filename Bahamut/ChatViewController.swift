@@ -84,7 +84,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     @IBOutlet weak var bottomConstraint:NSLayoutConstraint!
     var IFView:UUInputFunctionView!
 
-    override  func viewDidLoad()
+    override func viewDidLoad()
     {
         super.viewDidLoad()
         self.addInputFunctionView()
@@ -95,8 +95,14 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     }
     
     deinit{
-        shareChat.removeObserver(self)
-        currentChatModel.removeObserver(self)
+        if shareChat != nil
+        {
+            shareChat.removeObserver(self)
+        }
+        if currentChatModel != nil
+        {
+            currentChatModel.removeObserver(self)
+        }
     }
     
     func chicagoClientStateChanged(aNotification:NSNotification)

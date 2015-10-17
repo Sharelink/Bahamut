@@ -11,11 +11,13 @@ import Foundation
 import UIKit
 import EVReflection
 
-let MessageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
-let MessageServiceNewMessage = "MessageServiceNewMessage"
+
+let MessageServiceNewMessageEntities = "MessageServiceNewMessageEntities"
 
 class MessageService:NSNotificationCenter,ServiceProtocol
 {
+    static let messageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
+    
     @objc static var ServiceName:String {return "MessageService"}
     @objc func appStartInit() {}
     
@@ -144,7 +146,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         }
     }
     
-    func recevieMessage(msgs:[Message])
+    private func recevieMessage(msgs:[Message])
     {
         var msgEntities = [MessageEntity]()
         for msg in msgs
@@ -152,7 +154,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
             let me = saveNewMessage(msg.msgId, chatId: msg.chatId, type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
             msgEntities.append(me)
         }
-        self.postNotificationName(MessageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessage:msgEntities])
+        self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
     }
     
     func getShareChatHub(shareId:String,shareSenderId:String) -> ShareChatHub
