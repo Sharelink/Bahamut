@@ -90,9 +90,9 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         var propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.nickName
-        propertySet.propertyLabel = "Nick Name"
+        propertySet.propertyLabel = "Nick"
         propertySet.propertyValue = myInfo.nickName
-        propertySet.valueRegex = "^[a-zA-Z0-9\\u4e00-\\u9fa5 ]{1,23}$"
+        propertySet.valueRegex = "^?{1,23}$"
         propertySet.illegalValueMessage = "At least 1 character,less than 23 character"
         textPropertyCells.append((propertySet:propertySet,editable:true))
         
@@ -105,7 +105,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime
         propertySet.propertyLabel = "Join"
-        propertySet.propertyValue = DateHelper.stringToDate(myInfo.createTime).toDateString()
+        propertySet.propertyValue = myInfo.createTimeOfDate.toDateString()
         textPropertyCells.append((propertySet:propertySet,editable:false))
         
         propertySet = UIEditTextPropertySet()
@@ -123,10 +123,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         initPropertySet()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        super.viewDidLoad()
     }
     
     @IBAction func logout(sender: AnyObject)

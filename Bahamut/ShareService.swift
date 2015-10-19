@@ -227,15 +227,13 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = GetShareOfShareIdsRequest()
         req.shareIds = shareIds
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
-            var modified:Bool = true
+            var modified:Bool = false
             var newValues:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.NotModified
-            {
-                modified = false
-            }else if result.statusCode == ReturnCode.OK
+            if result.statusCode == ReturnCode.OK
             {
                 newValues = result.returnObject ?? [ShareThing]()
                 ShareLinkObject.saveObjectOfArray(newValues)
+                modified = newValues.count > 0
             }
             if let update = updatedCallback
             {
@@ -280,7 +278,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = AddNewShareThingRequest()
         req.shareContent = newShare.shareContent
         req.title = newShare.title
-        req.tags = tags.map{ $0.getTagString()}.joinWithSeparator("#")
+        req.tags = tags.map{ $0.data ?? $0.tagName}.joinWithSeparator("#")
         req.shareType = newShare.shareType
         req.pShareId = newShare.pShareId
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()

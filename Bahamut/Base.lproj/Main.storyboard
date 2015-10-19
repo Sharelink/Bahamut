@@ -135,7 +135,7 @@
                                     <outlet property="voteButton" destination="BJe-8V-nOH" id="ZdR-aH-qe5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="default" indentationWidth="10" reuseIdentifier="RollMessage" rowHeight="72" id="Ev9-Ds-XeQ" customClass="UIShareMessage" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="RollMessage" rowHeight="72" id="Ev9-Ds-XeQ" customClass="UIShareMessage" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="443" width="600" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ev9-Ds-XeQ" id="IM0-Iu-fpj">

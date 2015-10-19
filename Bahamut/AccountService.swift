@@ -76,7 +76,8 @@ class AccountService: ServiceProtocol
         req.accessToken = registModel.accessToken
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ValidateResult>) -> Void in
+        let client = ShareLinkSDK.sharedInstance.getRegistClient()
+        client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
                 callback(isSuc:false,msg:"Regist Failed",validateResult: nil);

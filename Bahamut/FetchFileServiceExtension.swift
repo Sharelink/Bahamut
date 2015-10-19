@@ -33,7 +33,6 @@ extension FileService
         
         func progress(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {
-            print("bytesRead:\(bytesRead) , totalBytesRead:\(totalBytesRead) , totalBytesExpectedToRead:\(totalBytesExpectedToRead)")
             ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: Float(totalBytesRead * 100 / totalBytesExpectedToRead))
         }
         
@@ -56,18 +55,19 @@ class IdFileFetcher: FileFetcher
     var fileType:FileType!;
     func startFetch(fileId: String, delegate: ProgressTaskDelegate)
     {
-        let fileService = ServiceContainer.getService(FileService)
-        if let path = fileService.getFilePath(fileId, type: fileType){
-            print("\(fileId) already exists")
-            delegate.taskCompleted(fileId, result: path)
-        }else
-        {
-            print("downloading \(fileId)")
-            ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
-            fileService.fetch(fileId, fileType: fileType, callback: { (filePath) -> Void in
-                ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
-            })
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            let fileService = ServiceContainer.getService(FileService)
+            if let path = fileService.getFilePath(fileId, type: self.fileType){
+                delegate.taskCompleted(fileId, result: path)
+            }else
+            {
+                ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
+                fileService.fetch(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
+                    ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
+                })
+            }
         }
+        
         
     }
 }
@@ -76,7 +76,9 @@ class FilePathFileFetcher: FileFetcher
 {
     var fileType:FileType!;
     func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
-        delegate.taskCompleted(filepath, result: filepath)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            delegate.taskCompleted(filepath, result: filepath)
+        }
     }
     
     static let shareInstance:FileFetcher = {

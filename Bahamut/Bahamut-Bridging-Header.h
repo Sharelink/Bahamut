@@ -21,4 +21,6 @@
 
 #import "WeiboSDK.h"
 
+#import "Base64/MF_Base64Additions.h"
+
 #endif /* Bahamut_Bridging_Header_h */

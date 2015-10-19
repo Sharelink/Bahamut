@@ -55,9 +55,11 @@ class ShareThingsListController: UITableViewController
         {
             if let share = PersistentManager.sharedInstance.getModel(ShareThing.self, idValue: msg.shareId)
             {
-                if share.lastActiveTime.dateOfString.timeIntervalSince1970 < msg.time.timeIntervalSince1970
+                let oldTime = share.lastActiveTimeOfDate
+                let newTime = msg.time
+                if oldTime.timeIntervalSince1970 < newTime.timeIntervalSince1970
                 {
-                    share.lastActiveTime = msg.time.toDateString()
+                    share.lastActiveTime = msg.time.toDateTimeString()
                 }
             }else
             {
@@ -77,17 +79,21 @@ class ShareThingsListController: UITableViewController
         }
         PersistentManager.sharedInstance.saveAll()
         self.refresh()
-        shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
-            if haveChange
-            {
-                for s:ShareThing in newValues
+        if notReadyShare.count > 0
+        {
+            shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
+                if haveChange
                 {
-                    s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
+                    for s:ShareThing in newValues
+                    {
+                        s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
+                    }
+                    PersistentManager.sharedInstance.saveAll()
+                    self.refresh()
                 }
-                PersistentManager.sharedInstance.saveAll()
-                self.refresh()
-            }
-        })
+            })
+        }
+        
     }
     
     func serverShareUpdated(aNotification:NSNotification)

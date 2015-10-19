@@ -30,21 +30,38 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
             {
                 timeLine.hidden = !showTimeLine
             }
+            if self.isVideoFullScreen == false
+            {
+                self.timeLine.hidden = true
+            }
         }
     }
     private var timeLine: UIProgressView!{
         didSet{
             self.addSubview(timeLine)
-            timeLine.hidden = !showTimeLine
+            timeLine.hidden = true
         }
     }
     
     var refreshButton:UIButton!{
         didSet{
-            refreshButton.titleLabel?.text = "Load Video Error"
+            refreshButton.frame = CGRectMake(0, 0, 48, 48)
+            refreshButton.contentMode = .ScaleAspectFill
+            refreshButton.imageView?.image = UIImage(named: "refresh")
             refreshButton.hidden = true
             refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(refreshButton)
+        }
+    }
+    
+    var playButton:UIButton!{
+        didSet{
+            playButton.frame = CGRectMake(0, 0, 48, 48)
+            playButton.contentMode = .ScaleAspectFill
+            playButton.imageView?.image = UIImage(named: "playGray")
+            playButton.hidden = false
+            playButton.addTarget(self, action: "playButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(playButton)
         }
     }
     
@@ -103,6 +120,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         loaded = false
         loading = true
         refreshButton.hidden = true
+        playButton.hidden = true
         setProgressValue(0)
         fileFetcher.startFetch(filePath,delegate: self)
     }
@@ -110,6 +128,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
         self.loading = false
+        self.playButton.hidden = false
         self.setProgressValue(0)
         if let video = result as? String
         {
@@ -132,6 +151,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         self.loading = false
         self.setProgressValue(0)
         self.refreshButton.hidden = false
+        self.playButton.hidden = true
         self.playerController.reset()
     }
     
@@ -157,7 +177,8 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         self.playerController = Player()
         progress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         timeLine = UIProgressView()
-        refreshButton = UIButton(type: UIButtonType.InfoDark)
+        refreshButton = UIButton(type: .Custom)
+        playButton = UIButton(type: .Custom)
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
         initObserver()
     }
@@ -170,6 +191,11 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
         self.addGestureRecognizer(clickVideoGesture)
         self.addGestureRecognizer(doubleClickVideoGesture)
+    }
+    
+    func playButtonClick(_:UIButton)
+    {
+        playOrPausePlayer()
     }
     
     func refreshButtonClick(_:UIButton)
@@ -207,6 +233,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
 
     func playOrPausePlayer(_:UIGestureRecognizer! = nil)
     {
+        playButton.hidden = true
         if loaded
         {
             if playerController.playbackState == PlaybackState.Stopped
@@ -218,6 +245,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
             }else
             {
                 playerController.pause()
+                playButton.hidden = false
             }
         }else
         {
@@ -240,20 +268,6 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         isVideoFullScreen = !isVideoFullScreen
     }
     
-    private var minScreenFrame:CGRect!
-    private var originContainer:UIView!
-    private func scaleToMax()
-    {
-        if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
-        {
-            self.removeFromSuperview()
-            self.frame = wFrame
-            UIApplication.sharedApplication().keyWindow?.addSubview(self)
-            isMute = true
-            refreshUI()
-        }
-        
-    }
     
     var isMute:Bool = true{
         didSet{
@@ -273,11 +287,28 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         }
     }
     
+    private var minScreenFrame:CGRect!
+    private var originContainer:UIView!
+    private func scaleToMax()
+    {
+        if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
+        {
+            self.removeFromSuperview()
+            self.frame = wFrame
+            UIApplication.sharedApplication().keyWindow?.addSubview(self)
+            timeLine.hidden = !showTimeLine
+            refreshUI()
+        }
+        
+    }
+
+    
     private func scaleToMin()
     {
         if originContainer == nil {return}
         self.removeFromSuperview()
         self.frame = minScreenFrame
+        self.timeLine.hidden = true
         originContainer.addSubview(self)
         refreshUI()
     }
@@ -299,11 +330,19 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     
     func refreshUI()
     {
-        self.superview?.bringSubviewToFront(self)
-        progress.center = self.center
-        timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
-        playerController.view.frame = self.bounds
-        refreshButton.center = self.center
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.superview?.bringSubviewToFront(self)
+            self.progress.center = self.center
+            self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
+            self.playerController.view.frame = self.bounds
+            self.refreshButton.center = self.center
+            self.playButton.center = self.center
+            self.bringSubviewToFront(self.progress)
+            self.bringSubviewToFront(self.timeLine)
+            self.bringSubviewToFront(self.refreshButton)
+            self.bringSubviewToFront(self.playButton)
+        }
+        
     }
     
     func timerTime(_:NSTimer)
@@ -324,14 +363,16 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     
     func setProgressValue(value:Float)
     {
-        //progress.angle = Int(360 * value)
-        print(Int(360 * value))
-        if progress.angle > 0 && progress.angle <= 356
-        {
-            progress.hidden = false
-        }else{
-            progress.hidden = true
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            if self.progress.angle > 0 && self.progress.angle <= 356
+            {
+                self.progress.hidden = false
+            }else{
+                self.progress.hidden = true
+                self.progress.superview?.bringSubviewToFront(self.progress)
+            }
         }
+        
     }
     
 
@@ -340,7 +381,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         NSNotificationCenter.defaultCenter().removeObserver(self)
         if playerController != nil
         {
-            
+            playerController.path = nil
             playerController.reset()
         }
     }

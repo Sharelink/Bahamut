@@ -19,16 +19,28 @@ class UIShareMessage:UITableViewCell
     }()
     static let RollMessageCellIdentifier = "RollMessage"
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var noteNameLabel: UILabel!
+    @IBOutlet weak var noteNameLabel: UILabel!{
+        didSet{
+            noteNameLabel.userInteractionEnabled = true
+            noteNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
+            
+        }
+    }
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 3
+            avatarImageView.userInteractionEnabled = true
             avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }
     }
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!{
+        didSet{
+            
+        }
+    }
     var rootController:ShareThingsListController!{
         didSet{
+            self.userInteractionEnabled = true
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
         }
     }
@@ -38,6 +50,11 @@ class UIShareMessage:UITableViewCell
         {
             update()
         }
+    }
+    
+    func showUserProfile(_:UIGestureRecognizer)
+    {
+        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
     }
     
     func tapCell(_:UIGestureRecognizer)

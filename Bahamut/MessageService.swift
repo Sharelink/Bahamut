@@ -124,13 +124,14 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         msgEntity.shareId = shareId
         if type == .Text
         {
-            msgEntity.msgText = msgText!
+            msgEntity.msgText = msgText ?? ""
         }else if type == .Voice
         {
-            msgEntity.msgData = data!
+            msgEntity.msgData = data ?? NSData()
+            msgEntity.msgText = msgText ?? "0"
         }else if type == .Picture
         {
-            msgEntity.msgData = data!
+            msgEntity.msgData = data ?? NSData()
         }
         msgEntity.saveModified()
         return msgEntity

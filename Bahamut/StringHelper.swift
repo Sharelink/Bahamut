@@ -27,20 +27,6 @@ extension String {
     {
         return self.dataUsingEncoding(NSUTF8StringEncoding)
     }
-    
-    //Encode base64
-    func base64Encoded() -> String {
-        let plainData = self.dataUsingEncoding(NSUTF8StringEncoding)
-        let base64String = plainData?.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-        return base64String!.trim()
-    }
-    
-    //Decode base64
-    func base64Decoded() -> String {
-        let decodedData = NSData(base64EncodedString: self, options: .IgnoreUnknownCharacters)
-        let decodedString = NSString(data: decodedData!, encoding: NSUTF8StringEncoding)
-        return decodedString! as String
-    }
 }
 extension String
 {

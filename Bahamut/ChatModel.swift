@@ -241,7 +241,8 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         case MessageType.Voice.rawValue:
             let m = UUMsgVoiceItem()
             m.voice = entity.msgData
-            m.voiceTimeSec = Int(entity.msgText) ?? 0
+            let voiceTime = entity.msgText
+            m.voiceTimeSec = Int(voiceTime) ?? 0
             m.msgType = UUMessageType.Voice
             msgItem = m
         default:
