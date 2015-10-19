@@ -13,6 +13,7 @@ import Foundation
 import CoreData
 
 extension MessageEntity {
+    @NSManaged var shareId: String
     @NSManaged var chatId: String
     @NSManaged var isRead: NSNumber
     @NSManaged var msgData: NSData

@@ -61,14 +61,16 @@ public class SharelinkTagService : ServiceProtocol
         }
     }
     
-    func addSharelinkTag(tag:SharelinkTag,sucCallback:(()->Void)! = nil)
+    func addSharelinkTag(tag:SharelinkTag,sucCallback:((isSuc:Bool)->Void)! = nil)
     {
         let req = AddNewTagRequest()
         req.tagColor = tag.tagColor
         req.tagName = tag.tagName
         req.isFocus = tag.isFocus
+        req.data = tag.data
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<SharelinkTag>) -> Void in
+            var suc = false
             if result.statusCode == .OK
             {
                 if let newtag = result.returnObject
@@ -76,11 +78,12 @@ public class SharelinkTagService : ServiceProtocol
                     tag.tagId = newtag.tagId
                     tag.saveModel()
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
-                    if let callback = sucCallback
-                    {
-                        callback()
-                    }
+                    suc = true
                 }
+            }
+            if let callback = sucCallback
+            {
+                callback(isSuc: suc)
             }
         })
     }

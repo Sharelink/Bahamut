@@ -150,7 +150,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 msgText = m.voiceTimeSec.description
             }
             let msgId = "\(now.timeIntervalSince1970.hashValue.description)_\(arc4random())"
-            let msgEntity = messageService.saveNewMessage(msgId, chatId: chatId, type: msgType, time: now, senderId: userService.myUserId, msgText: msgText, data: msgData)
+            let msgEntity = messageService.saveNewMessage(msgId, chatId: chatId,shareId: shareId, type: msgType, time: now, senderId: userService.myUserId, msgText: msgText, data: msgData)
             msgEntity.isRead = true
             msgEntity.isSend = false
             msgEntity.sendFailed = false

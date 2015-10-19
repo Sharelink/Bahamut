@@ -52,9 +52,10 @@ class UIShareMessage:UITableViewCell
     
     private func update()
     {
+        let sender = rootController.userService.getUser(shareThingModel.userId)
         timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
-        noteNameLabel.text = shareThingModel.userNick
-        avatarImageView.image = PersistentManager.sharedInstance.getImage(rootController.userService.getUser(shareThingModel.userId)?.avatarId) ??
+        noteNameLabel.text = sender?.noteName ?? shareThingModel.userNick
+        avatarImageView.image = PersistentManager.sharedInstance.getImage(sender?.avatarId ?? shareThingModel.avatarId) ??
             PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
         messageLabel.text = "focus on \(shareThingModel.shareContent)"
     }
@@ -264,8 +265,8 @@ class UIShareThing: UITableViewCell
 extension ShareThing
 {
     
-    var notReadReply:UInt32{
-        return ServiceContainer.getService(MessageService).getShareIdNotReadMessageCount(self.shareId)
+    var notReadReply:Int{
+        return ServiceContainer.getService(MessageService).getShareNewMessageCount(self.shareId)
     }
     
     var userVotesDetail:String{
@@ -276,11 +277,6 @@ extension ShareThing
             return userNicks.joinWithSeparator(",")
         }
         return ""
-    }
-    
-    var replyButtonContent:String{
-        let messageCount = ServiceContainer.getService(MessageService).getShareIdNotReadMessageCount(self.shareId)
-        return "\(Int(messageCount))"
     }
     
     var postDateString:String{

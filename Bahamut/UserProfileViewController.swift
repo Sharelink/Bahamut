@@ -143,8 +143,13 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         newTag.tagName = tag.tagName
         newTag.tagColor = tag.tagColor
         newTag.isFocus = "\(true)"
-        tagService.addSharelinkTag(newTag) { () -> Void in
-            
+        newTag.data = tag.data
+        tagService.addSharelinkTag(newTag) { (suc) -> Void in
+            let alerttitle = suc ? "Focus \(tag.tagName) successful!" : "focus failed,check your network if is down"
+            let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Cancel){ _ in
+                })
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         
     }

@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             ServiceContainer.getService(MessageService).getMessageFromServer()
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
+            ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
         }
     }
 

@@ -80,9 +80,16 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         let service = ServiceContainer.getService(SharelinkTagService)
         if sender.editMode == .New
         {
-            service.addSharelinkTag(saveModel.tagModel){
-                self.items.append(saveModel)
-                self.uiCollectionView.reloadData()
+            service.addSharelinkTag(saveModel.tagModel){ (isSuc) -> Void in
+                if isSuc
+                {
+                    self.items.append(saveModel)
+                    self.uiCollectionView.reloadData()
+                    self.view.makeToast(message: "focus successful!")
+                }else
+                {
+                    self.view.makeToast(message: "focus tag error , please check your network")
+                }
             }
         }else{
             service.updateTag(saveModel.tagModel){

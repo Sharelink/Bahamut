@@ -11,34 +11,6 @@ import CoreFoundation
 import Alamofire
 import EVReflection
 
-//MARK: network entities
-class AULReturn : ShareLinkObject
-{
-    var newLink:UserLink!
-    var newUser:ShareLinkUser!
-}
-
-enum LinkMessageType:String
-{
-    case AskLink = "asklink"
-    case AcceptAskLink = "acceptlink"
-}
-
-class LinkMessage : ShareLinkObject
-{
-    var id:String!
-    var sharelinkerId:String!
-    var sharelinkerNick:String!
-    var type:String!
-    var message:String!
-    var avatar:String!
-    var time:String!
-    
-    override func getObjectUniqueIdName() -> String {
-        return "id"
-    }
-}
-
 //MARK: service define
 let UserServiceFirstLinkMessage = "UserServiceFirstLinkMessage"
 let UserServiceNewLinkMessageCount = "UserServiceNewLinkMessageCount"

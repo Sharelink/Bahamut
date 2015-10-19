@@ -26,6 +26,7 @@ class ShareThingsListController: UITableViewController
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
         messageService.addObserver(self, selector: "newMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
+        shareService.addObserver(self, selector: "serverShareUpdated:", name: ShareService.shareUpdated, object: nil)
         refresh()
     }
     
@@ -39,9 +40,59 @@ class ShareThingsListController: UITableViewController
     {
         if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
         {
-            self.tabBarItem.badgeValue = "\(messages.count)"
-            messageService.getChatIdWithAudienceOfShareId(userService.myUserId, audienceId: <#T##String#>)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                self.refreshShareLastActiveTime(messages)
+            })
         }
+    }
+    
+    private func refreshShareLastActiveTime(messages:[MessageEntity])
+    {
+        self.tabBarItem.badgeValue = "\(messages.count)"
+        var notReadyShare = [String]()
+        var notReadyShareThingMsg = [String:MessageEntity]()
+        for msg in messages
+        {
+            if let share = PersistentManager.sharedInstance.getModel(ShareThing.self, idValue: msg.shareId)
+            {
+                if share.lastActiveTime.dateOfString.timeIntervalSince1970 < msg.time.timeIntervalSince1970
+                {
+                    share.lastActiveTime = msg.time.toDateString()
+                }
+            }else
+            {
+                if notReadyShareThingMsg.keys.contains(msg.shareId) == false
+                {
+                    if notReadyShareThingMsg[msg.shareId]?.time.timeIntervalSince1970 < msg.time.timeIntervalSince1970
+                    {
+                        notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                    }
+                    notReadyShare.append(msg.shareId)
+                }else
+                {
+                    notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                }
+                
+            }
+        }
+        PersistentManager.sharedInstance.saveAll()
+        self.refresh()
+        shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
+            if haveChange
+            {
+                for s:ShareThing in newValues
+                {
+                    s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
+                }
+                PersistentManager.sharedInstance.saveAll()
+                self.refresh()
+            }
+        })
+    }
+    
+    func serverShareUpdated(aNotification:NSNotification)
+    {
+        tableView.reloadData()
     }
     
     func chicagoClientStateChanged(aNotification:NSNotification)
@@ -85,8 +136,8 @@ class ShareThingsListController: UITableViewController
     {
         self.shareThings.removeAll(keepCapacity: true)
         let newValues = self.shareService.getShareThings(0)
+        self.shareThings.insert(newValues, atIndex: 0)
         dispatch_async(dispatch_get_main_queue()){()->Void in
-            self.shareThings.insert(newValues, atIndex: 0)
             self.tableView.reloadData()
         }
     }
@@ -242,8 +293,15 @@ class ShareThingsListController: UITableViewController
         newTag.tagName = tag.tagName
         newTag.tagColor = tag.tagColor
         newTag.isFocus = "\(true)"
-        tagService.addSharelinkTag(newTag) { () -> Void in
-            
+        newTag.data = tag.data
+        tagService.addSharelinkTag(newTag){ (isSuc) -> Void in
+            if isSuc
+            {
+                self.view.makeToast(message: "focus successful!")
+            }else
+            {
+                self.view.makeToast(message: "focus tag error , please check your network")
+            }
         }
         
     }

@@ -113,6 +113,18 @@ class CoreDataHelper {
         }
     }
     
+    //MARK: Update
+    static func save()
+    {
+        do
+        {
+            try getEntityContext().save()
+        }catch
+        {
+            print("context save error")
+        }
+    }
+    
     static func getCells(entityName:String,predicate:NSPredicate?,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
     {
         let request = NSFetchRequest(entityName: entityName)

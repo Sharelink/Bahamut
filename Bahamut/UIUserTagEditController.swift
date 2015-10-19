@@ -42,7 +42,7 @@ class UIUserTagEditController: UIViewController
         }
     }
     
-    
+    private var tagData:String!
     @IBOutlet weak var focusSwitch: UISwitch!
     
     @IBOutlet weak var tagColorView: UIView!{
@@ -87,6 +87,7 @@ class UIUserTagEditController: UIViewController
         tagModel.tagModel.tagName = tagNameLabel.text
         tagModel.tagModel.tagColor = tagColorView.backgroundColor?.toHexString()
         tagModel.tagModel.isFocus = focusSwitch.on ? "true":"false"
+        tagModel.tagModel.data = tagData ?? tagModel.tagModel.tagName; //tagData is nil ,is's a text tag
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)

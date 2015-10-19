@@ -68,6 +68,11 @@ class PersistentManager
     {
         CoreDataHelper.deinitNSManagedObjectContext()
     }
+    
+    func saveAll()
+    {
+        CoreDataHelper.save()
+    }
 }
 
 

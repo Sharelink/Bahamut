@@ -11,6 +11,18 @@ import Foundation
 import UIKit
 import EVReflection
 
+//Static entities
+class ShareNewMessageRecord:ShareLinkObject
+{
+    var shareId:String!
+    var newMessageCount:NSNumber!
+    
+    override func getObjectUniqueIdName() -> String {
+        return "shareId"
+    }
+}
+
+//MARK:MessageService
 
 let MessageServiceNewMessageEntities = "MessageServiceNewMessageEntities"
 
@@ -47,7 +59,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     
     func getMessageFromServer()
     {
-        let req = GetNewShareMessagesRequest()
+        let req = GetNewMessagesRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
             if result.isSuccess
@@ -102,13 +114,14 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         return PersistentManager.sharedInstance.getMessage(chatId, limit: limit, beforeTime: beforeTime)
     }
     
-    func saveNewMessage(msgId:String,chatId:String,type:MessageType,time:NSDate,senderId:String,msgText:String?,data:NSData?) -> MessageEntity!
+    func saveNewMessage(msgId:String,chatId:String,shareId:String!,type:MessageType,time:NSDate,senderId:String,msgText:String?,data:NSData?) -> MessageEntity!
     {
         let msgEntity = PersistentManager.sharedInstance.getNewMessage(msgId)
         msgEntity.chatId = chatId
         msgEntity.type = type.rawValue
         msgEntity.time = time
         msgEntity.senderId = senderId
+        msgEntity.shareId = shareId
         if type == .Text
         {
             msgEntity.msgText = msgText!
@@ -125,7 +138,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     
     func sendMessage(chatId:String,msg:MessageEntity,shareId:String,audienceId:String)
     {
-        let req = SendShareMessageRequest()
+        let req = SendMessageRequest()
         req.time = msg.time
         req.type = msg.type
         req.chatId = chatId
@@ -148,12 +161,23 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     
     private func recevieMessage(msgs:[Message])
     {
+        let uService = ServiceContainer.getService(UserService)
         var msgEntities = [MessageEntity]()
         for msg in msgs
         {
-            let me = saveNewMessage(msg.msgId, chatId: msg.chatId, type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
+            let me = saveNewMessage(msg.msgId, chatId: msg.chatId,shareId: msg.shareId, type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
+            if let ce = PersistentManager.sharedInstance.getShareChat(me.chatId)
+            {
+                ce.newMessage = ce.newMessage.integerValue + 1
+            }else
+            {
+                let ce = createChatEntity(msg.chatId, audienceIds: [uService.myUserId,me.senderId], shareId: me.shareId)
+                ce.newMessage = 1
+                ce.saveModified()
+            }
             msgEntities.append(me)
         }
+        PersistentManager.sharedInstance.saveAll()
         self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
     }
     
@@ -164,9 +188,12 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         if shareChats.count == 0
         {
             let chatId = getChatIdWithAudienceOfShareId(shareId, audienceId: shareSenderId)
-            let newSCE = PersistentManager.sharedInstance.saveNewChat(shareId,chatId: chatId)
-            newSCE.addUser(uService.myUserId)
-            newSCE.saveModified()
+            var audienceIds = [uService.myUserId]
+            if uService.myUserId != shareSenderId
+            {
+                audienceIds.append(shareSenderId)
+            }
+            let newSCE = createChatEntity(chatId, audienceIds: audienceIds, shareId: shareId)
             shareChats.append(newSCE)
         }
         let chatModels = shareChats.map{return self.getChatModel($0.chatId)}.filter{$0 != nil}
@@ -179,8 +206,25 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         return sc
     }
     
-    func getShareIdNotReadMessageCount(shareId:String) -> UInt32
+    private func createChatEntity(chatId:String,audienceIds:[String],shareId:String) -> ShareChatEntity
     {
-        return 23
+        let newSCE = PersistentManager.sharedInstance.saveNewChat(shareId,chatId: chatId)
+        for audience in audienceIds
+        {
+            newSCE.addUser(audience)
+        }
+        newSCE.saveModified()
+        return newSCE
+    }
+    
+    func getShareNewMessageCount(shareId:String) -> Int
+    {
+        let shareChats = PersistentManager.sharedInstance.getShareChats(shareId)
+        var sum = 0
+        for sc in shareChats
+        {
+            sum += sc.newMessage.integerValue
+        }
+        return sum
     }
 }

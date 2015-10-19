@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: Sort shares
 class ShareThingSortObject: ShareLinkObject
 {
     override func getObjectUniqueIdName() -> String {
@@ -89,8 +90,11 @@ class ShareThingSortObjectList
     }
 }
 
-class ShareService: ServiceProtocol
+//MARK: ShareService
+
+class ShareService: NSNotificationCenter,ServiceProtocol
 {
+    static let shareUpdated = "newShareUpdated"
     @objc static var ServiceName:String{return "share service"}
     @objc func appStartInit()
     {
@@ -100,6 +104,15 @@ class ShareService: ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         initSortObjectList()
+        
+        let shareUpdatedNotifyRoute = ChicagoRoute()
+        shareUpdatedNotifyRoute.ExtName = "NotificationCenter"
+        shareUpdatedNotifyRoute.CmdName = "UsrNewSTMsg"
+        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "shareUpdatedMsgReceived:")
+    }
+    
+    func userLogout(userId: String) {
+        ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     private func initSortObjectList()
@@ -109,20 +122,27 @@ class ShareService: ServiceProtocol
     
     private var shareThingSortObjectList:ShareThingSortObjectList!
     
+    //MARK: Chicago Notify
+    func shareUpdatedMsgReceived(a:NSNotification)
+    {
+        self.getNewShareMessageFromServer()
+    }
+    
+    //MARK: Get Shares
     func getNewShareThings(updatedCallback:((haveChange:Bool)->Void)! = nil)
     {
         let req = GetShareThingsRequest()
         
         if let firstThing = self.shareThingSortObjectList.list.first
         {
-            req.newerThanThisTime = firstThing.lastActiveDate
-            req.page = 0
-            req.pageCount = 3
+            req.beginTime = firstThing.lastActiveDate
+            req.endTime = NSDate()
+            req.page = -1
         }else
         {
-            req.olderThanThisTime = NSDate()
-            req.page = 1
-            req.pageCount = 3
+            req.endTime = NSDate()
+            req.page = 0
+            req.pageCount = 20
         }
         
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
@@ -172,8 +192,8 @@ class ShareService: ServiceProtocol
             return
         }
         let req = GetShareThingsRequest()
-        req.olderThanThisTime = self.shareThingSortObjectList.list.last?.lastActiveDate
-        req.page = 1
+        req.endTime = self.shareThingSortObjectList.list.last?.lastActiveDate
+        req.page = 0
         req.pageCount = pageNum
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) -> Void in
             if result.statusCode == ReturnCode.NotModified
@@ -196,6 +216,86 @@ class ShareService: ServiceProtocol
         }
         
     }
+    
+    
+    func getShareThings(shareIds:[String],updatedCallback:((haveChange:Bool,newValues:[ShareThing]!)->Void)! = nil) -> [ShareThing]
+    {
+        //read from cache
+        let oldValues = PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: shareIds)
+        
+        //Access Network
+        let req = GetShareOfShareIdsRequest()
+        req.shareIds = shareIds
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
+            var modified:Bool = true
+            var newValues:[ShareThing]! = nil
+            if result.statusCode == ReturnCode.NotModified
+            {
+                modified = false
+            }else if result.statusCode == ReturnCode.OK
+            {
+                newValues = result.returnObject ?? [ShareThing]()
+                ShareLinkObject.saveObjectOfArray(newValues)
+            }
+            if let update = updatedCallback
+            {
+                update(haveChange: modified, newValues: newValues)
+            }
+        }
+        return oldValues
+    }
+    
+    //MARK: Share Messages
+    func getNewShareMessageFromServer()
+    {
+        let req = GetShareUpdatedMessageRequest()
+        
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+            if let msgs = result.returnObject
+            {
+                self.getShareThings(msgs.map{$0.shareId }, updatedCallback: { (haveChange, newValues) -> Void in
+                    self.postNotificationName(ShareService.shareUpdated, object: self)
+                    self.clearShareMessageBox()
+                })
+            }
+        }
+    }
+    
+    func clearShareMessageBox()
+    {
+        let req = ClearShareUpdatedMessageRequest()
+        
+        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+        }
+    }
+    
+    //MARK: Create Share
+    func reshare(shareId:String,message:String!)
+    {
+        
+    }
+    
+    func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(isSuc:Bool)->Void)
+    {
+        let req = AddNewShareThingRequest()
+        req.shareContent = newShare.shareContent
+        req.title = newShare.title
+        req.tags = tags.map{ $0.getTagString()}.joinWithSeparator("#")
+        req.shareType = newShare.shareType
+        req.pShareId = newShare.pShareId
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result:SLResult<ShareThing>) -> Void in
+            if result.isSuccess
+            {
+                newShare.lastActiveTime = DateHelper.toDateTimeString(NSDate())
+                newShare.shareId = result.returnObject.shareId
+                newShare.saveModel()
+            }
+            callback(isSuc: result.isSuccess)
+        }
+    }
+    
+    //MARK: Vote
     
     func unVoteShareThing(shareThingModel:ShareThing,updateCallback:(()->Void)! = nil)
     {
@@ -239,59 +339,6 @@ class ShareService: ServiceProtocol
             }
         }
     }
-    
-    func getShareThings(shareIds:[String],updatedCallback:((haveChange:Bool,newValues:[ShareThing]!)->Void)! = nil) -> [ShareThing]
-    {
-        let oldValues = [ShareThing]()
-        //TODO: read from cache
-        
-        //Access Network
-        let req = GetShareThingsRequest()
-        req.page = 1
-        req.pageCount = 0
-        req.shareIds = shareIds
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
-            var modified:Bool = true
-            var newValues:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.NotModified
-            {
-                modified = false
-            }else if result.statusCode == ReturnCode.OK
-            {
-                newValues = result.returnObject ?? [ShareThing]()
-                ShareLinkObject.saveObjectOfArray(newValues)
-            }
-            if let update = updatedCallback
-            {
-                update(haveChange: modified, newValues: newValues)
-            }
-        }
-        return oldValues
-    }
-    
-    func reshare(shareId:String,message:String!)
-    {
-        
-    }
-    
-    func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(isSuc:Bool)->Void)
-    {
-        let req = AddNewShareThingRequest()
-        req.shareContent = newShare.shareContent
-        req.title = newShare.title
-        req.tags = tags.map{ $0.getTagString()}.joinWithSeparator("#")
-        req.shareType = newShare.shareType
-        req.pShareId = newShare.pShareId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req) { (result:SLResult<ShareThing>) -> Void in
-            if result.isSuccess
-            {
-                newShare.lastActiveTime = DateHelper.toDateTimeString(NSDate())
-                newShare.shareId = result.returnObject.shareId
-                newShare.saveModel()
-            }
-            callback(isSuc: result.isSuccess)
-        }
-    }
+
     
 }
