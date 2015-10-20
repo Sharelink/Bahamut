@@ -192,7 +192,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     func onHeartBeatReturn(a:NSNotification)
     {
         ChicagoClient.lastHeartBeatTime = NSDate()
-        print(a.userInfo![ChicagoClientReturnJsonValue])
     }
 
     func sendChicagoMessage(chicagoRoute:ChicagoRoute,json:String)
@@ -224,8 +223,10 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
             let route = ChicagoProtocolUtil.getChicagoRouteFromData(data)
             let json = ChicagoProtocolUtil.getChicagoMessageJsonFromData(data)
             sock.readDataToLength(4, withTimeout: -1, tag: ChicagoClient.readHeadTag)
-            print(json)
-            self.postNotificationName(getAName(route), object: self, userInfo: [ChicagoClientReturnJsonValue : json!])
+            if clientState == .Connected
+            {
+                self.postNotificationName(getAName(route), object: self, userInfo: [ChicagoClientReturnJsonValue : json!])
+            }
         }
     }
     

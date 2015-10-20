@@ -92,7 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let dbFileName = "\(BahamutConfig.userId).sqlite"
-        print(dbFileName)
         let currentPersistentStore = self.applicationDocumentsDirectory.URLByAppendingPathComponent(dbFileName)
         let failureReason = "There was an error creating or loading the application's saved data."
         do {

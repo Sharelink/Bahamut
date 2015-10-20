@@ -91,7 +91,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         var propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = "Nick"
-        propertySet.propertyValue = myInfo.nickName
+        propertySet.propertyValue = myInfo.nickName ?? myInfo.noteName
         propertySet.valueRegex = "^?{1,23}$"
         propertySet.illegalValueMessage = "At least 1 character,less than 23 character"
         textPropertyCells.append((propertySet:propertySet,editable:true))

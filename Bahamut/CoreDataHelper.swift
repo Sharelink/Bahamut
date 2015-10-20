@@ -97,7 +97,7 @@ class CoreDataHelper {
     }
     
     //MARK: Query
-    static func getCellByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
+    static func getCellsByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
     {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
@@ -110,18 +110,6 @@ class CoreDataHelper {
         }catch let error as NSError{
             print(error.description)
             return [NSManagedObject]()
-        }
-    }
-    
-    //MARK: Update
-    static func save()
-    {
-        do
-        {
-            try getEntityContext().save()
-        }catch
-        {
-            print("context save error")
         }
     }
     
@@ -168,5 +156,17 @@ class CoreDataHelper {
     static func getCellById(entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
     {
         return getCellsById(entityName, idFieldName: idFieldName, idValue: idValue)?.first
+    }
+    
+    //MARK: Update
+    static func save()
+    {
+        do
+        {
+            try getEntityContext().save()
+        }catch
+        {
+            print("context save error")
+        }
     }
 }

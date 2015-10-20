@@ -10,8 +10,67 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
-public class ShareLinkFilmView: UIView,ProgressTaskDelegate
+//MARK: ShareLinkFilmView
+public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
 {
+    
+    //MARK: Inits
+    
+    convenience init()
+    {
+        self.init(frame: CGRectZero)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initControls()
+        initGestures()
+        setNoVideo()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("can't init from xib,please use addSubview() to load this view")
+    }
+    
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        if playerController != nil
+        {
+            playerController.path = nil
+            playerController.reset()
+        }
+    }
+    
+    func initControls()
+    {
+        self.playerController = Player()
+        fileProgress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+        timeLine = UIProgressView()
+        refreshButton = UIImageView()
+        playButton = UIImageView()
+        noFileImage = UIImageView()
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
+        initObserver()
+    }
+    
+    private func initGestures()
+    {
+        let clickVideoGesture = UITapGestureRecognizer(target: self, action: "playOrPausePlayer:")
+        let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
+        doubleClickVideoGesture.numberOfTapsRequired = 2
+        clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
+        self.addGestureRecognizer(clickVideoGesture)
+        self.addGestureRecognizer(doubleClickVideoGesture)
+    }
+    
+    
+    private func initObserver()
+    {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+    }
+    
+    //MARK: ui properties
     private var timer:NSTimer!{
         didSet{
             
@@ -24,18 +83,16 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         }
     }
     
-    public var showTimeLine:Bool = true{
+    private var playerController:Player!{
         didSet{
-            if timeLine != nil
-            {
-                timeLine.hidden = !showTimeLine
-            }
-            if self.isVideoFullScreen == false
-            {
-                self.timeLine.hidden = true
-            }
+            self.playerController.delegate = self
+            self.addSubview(playerController.view)
+            playerController.muted = isMute
+            playerController.playbackLoops = isPlaybackLoops
+            
         }
     }
+
     private var timeLine: UIProgressView!{
         didSet{
             self.addSubview(timeLine)
@@ -43,58 +100,70 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         }
     }
     
-    var refreshButton:UIButton!{
+    var refreshButton:UIImageView!{
         didSet{
+            refreshButton.userInteractionEnabled = true
             refreshButton.frame = CGRectMake(0, 0, 48, 48)
-            refreshButton.contentMode = .ScaleAspectFill
-            refreshButton.imageView?.image = UIImage(named: "refresh")
+            refreshButton.image = UIImage(named: "refresh")
             refreshButton.hidden = true
-            refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            refreshButton.center = self.center
+            refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "refreshButtonClick:"))
             self.addSubview(refreshButton)
         }
     }
     
-    var playButton:UIButton!{
+    var playButton:UIImageView!{
         didSet{
             playButton.frame = CGRectMake(0, 0, 48, 48)
-            playButton.contentMode = .ScaleAspectFill
-            playButton.imageView?.image = UIImage(named: "playGray")
+            playButton.image = UIImage(named: "playGray")
             playButton.hidden = false
-            playButton.addTarget(self, action: "playButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            playButton.center = self.center
             self.addSubview(playButton)
         }
     }
     
-    private var progress: KDCircularProgress!{
+    var noFileImage:UIImageView!{
+        didSet{
+            noFileImage.frame = CGRectMake(0, 0, 48, 48)
+            noFileImage.image = UIImage(named: "delete")
+            noFileImage.hidden = true
+            noFileImage.center = self.center
+            self.addSubview(noFileImage)
+        }
+    }
+    
+    private var fileProgress: KDCircularProgress!{
         didSet{
             
-            progress.startAngle = -90
-            progress.progressThickness = 0.2
-            progress.trackThickness = 0.7
-            progress.clockwise = true
-            progress.gradientRotateSpeed = 2
-            progress.roundedCorners = true
-            progress.glowMode = .Forward
-            progress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
-            
-            self.addSubview(progress)
+            fileProgress.startAngle = -90
+            fileProgress.progressThickness = 0.2
+            fileProgress.trackThickness = 0.7
+            fileProgress.clockwise = true
+            fileProgress.gradientRotateSpeed = 2
+            fileProgress.roundedCorners = true
+            fileProgress.glowMode = .Forward
+            fileProgress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
+            fileProgress.center = self.center
+            self.addSubview(fileProgress)
             setProgressValue(0)
         }
     }
     
-    public var autoPlay:Bool = false
-    public var autoLoad:Bool = false
-    public var canSwitchToFullScreen = true
-    
+    //MARK: film file
     public var filePath:String!
         {
         didSet{
             if filePath == nil
             {
                 setNoVideo()
-            }else if autoLoad
+            }else
             {
-                startLoadVideo()
+                noFileImage.hidden = true
+                playButton.hidden = false
+                if autoLoad
+                {
+                    startLoadVideo()
+                }
             }
         }
     }
@@ -105,6 +174,9 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         {
             playerController.reset()
         }
+        noFileImage.hidden = false
+        playButton.hidden = true
+        refreshButton.hidden = true
         self.backgroundColor = UIColor.blackColor()
     }
     
@@ -154,59 +226,13 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         self.playButton.hidden = true
         self.playerController.reset()
     }
-    
-    convenience init()
-    {
-        self.init(frame: CGRectZero)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initControls()
-        initGestures()
-        setNoVideo()
-    }
-    
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("can't init from xib,please use addSubview() to load this view")
-    }
-    
-    func initControls()
-    {
-        self.playerController = Player()
-        progress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-        timeLine = UIProgressView()
-        refreshButton = UIButton(type: .Custom)
-        playButton = UIButton(type: .Custom)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
-        initObserver()
-    }
-    
-    private func initGestures()
-    {
-        let clickVideoGesture = UITapGestureRecognizer(target: self, action: "playOrPausePlayer:")
-        let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
-        doubleClickVideoGesture.numberOfTapsRequired = 2
-        clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
-        self.addGestureRecognizer(clickVideoGesture)
-        self.addGestureRecognizer(doubleClickVideoGesture)
-    }
-    
-    func playButtonClick(_:UIButton)
-    {
-        playOrPausePlayer()
-    }
-    
+
+    //MARK: actions
     func refreshButtonClick(_:UIButton)
     {
         startLoadVideo()
     }
-    
-    private func initObserver()
-    {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
-    }
+
     
     func didChangeStatusBarOrientation(_: NSNotification)
     {
@@ -221,38 +247,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         }
         
     }
-    
-    private var playerController:Player!{
-        didSet{
-            self.addSubview(playerController.view)
-            playerController.muted = isMute
-            playerController.playbackLoops = isPlaybackLoops
-            
-        }
-    }
 
-    func playOrPausePlayer(_:UIGestureRecognizer! = nil)
-    {
-        playButton.hidden = true
-        if loaded
-        {
-            if playerController.playbackState == PlaybackState.Stopped
-            {
-                playerController.playFromBeginning()
-            }else if playerController.playbackState != PlaybackState.Playing
-            {
-                playerController.playFromCurrentTime()
-            }else
-            {
-                playerController.pause()
-                playButton.hidden = false
-            }
-        }else
-        {
-            startLoadVideo()
-        }
-        
-    }
     
     private var isVideoFullScreen:Bool = false{
         didSet{
@@ -268,24 +263,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
         isVideoFullScreen = !isVideoFullScreen
     }
     
-    
-    var isMute:Bool = true{
-        didSet{
-            if playerController != nil
-            {
-                playerController.muted = isMute
-            }
-        }
-    }
-    
-    var isPlaybackLoops:Bool = true{
-        didSet{
-            if playerController != nil
-            {
-                playerController.playbackLoops = isPlaybackLoops
-            }
-        }
-    }
+    //MARK: UI refresh
     
     private var minScreenFrame:CGRect!
     private var originContainer:UIView!
@@ -332,15 +310,17 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.superview?.bringSubviewToFront(self)
-            self.progress.center = self.center
+            self.fileProgress.center = self.center
             self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
             self.playerController.view.frame = self.bounds
             self.refreshButton.center = self.center
             self.playButton.center = self.center
-            self.bringSubviewToFront(self.progress)
+            self.noFileImage.center = self.center
+            self.bringSubviewToFront(self.fileProgress)
             self.bringSubviewToFront(self.timeLine)
             self.bringSubviewToFront(self.refreshButton)
             self.bringSubviewToFront(self.playButton)
+            self.bringSubviewToFront(self.noFileImage)
         }
         
     }
@@ -364,27 +344,117 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate
     func setProgressValue(value:Float)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            if self.progress.angle > 0 && self.progress.angle <= 356
+            self.fileProgress.angle = Int(value * 360)
+            if self.fileProgress.angle > 0 && self.fileProgress.angle <= 356
             {
-                self.progress.hidden = false
+                self.fileProgress.hidden = false
             }else{
-                self.progress.hidden = true
-                self.progress.superview?.bringSubviewToFront(self.progress)
+                self.fileProgress.hidden = true
+                self.fileProgress.superview?.bringSubviewToFront(self.fileProgress)
             }
         }
         
     }
-    
 
+    //MARK: player control
+
+    public var autoPlay:Bool = false
+    public var autoLoad:Bool = false
+    public var canSwitchToFullScreen = true
     
-    deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-        if playerController != nil
-        {
-            playerController.path = nil
-            playerController.reset()
+    public var showTimeLine:Bool = true{
+        didSet{
+            if timeLine != nil
+            {
+                timeLine.hidden = !showTimeLine
+            }
+            if self.isVideoFullScreen == false
+            {
+                self.timeLine.hidden = true
+            }
         }
     }
+    
+    public var isMute:Bool = true{
+        didSet{
+            if playerController != nil
+            {
+                playerController.muted = isMute
+            }
+        }
+    }
+    
+    public var isPlaybackLoops:Bool = true{
+        didSet{
+            if playerController != nil
+            {
+                playerController.playbackLoops = isPlaybackLoops
+            }
+        }
+    }
+    
+    func playOrPausePlayer(_:UIGestureRecognizer! = nil)
+    {
+        autoPlay = true
+        if loaded
+        {
+            if playerController.playbackState == PlaybackState.Stopped
+            {
+                playerController.playFromBeginning()
+            }else if playerController.playbackState != PlaybackState.Playing
+            {
+                playerController.playFromCurrentTime()
+            }else
+            {
+                playerController.pause()
+            }
+        }else
+        {
+            startLoadVideo()
+        }
+        
+    }
+    
+    //MARK: playerDelegate
+    public func playerBufferingStateDidChange(player: Player) {
+        if player.playbackState! == .Stopped && player.bufferingState == BufferingState.Ready && autoPlay
+        {
+            player.playFromBeginning()
+        }
+    }
+    
+    public func playerPlaybackDidEnd(player: Player)
+    {
+        
+    }
+    
+    public func playerPlaybackStateDidChange(player: Player)
+    {
+
+        switch player.playbackState!
+        {
+        case PlaybackState.Playing:
+            playButton.hidden = true
+        case PlaybackState.Stopped:fallthrough
+        case PlaybackState.Paused:
+            playButton.hidden = false
+        case .Failed:
+            playButton.hidden = true
+            refreshButton.hidden = false
+        }
+    }
+    
+    public func playerPlaybackWillStartFromBeginning(player: Player)
+    {
+        
+    }
+    
+    public func playerReady(player: Player)
+    {
+        
+    }
+    
+    //MARK: show player
     
     class SharelinkFilmPlayerLayer : UIView
     {

@@ -18,7 +18,8 @@ struct ColorSets
         UIColor.cyanColor(),
         UIColor.blueColor(),
         UIColor.purpleColor(),
-        UIColor.blackColor()
+        UIColor.blackColor(),
+        themeColor
     ]
     
     static let themeColor = UIColor(hexString: "#438ccb")

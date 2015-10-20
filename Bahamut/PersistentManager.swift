@@ -403,7 +403,7 @@ extension ShareLinkObject
 
 struct ModelEntityConstants
 {
-    static let idFielldName = "id"
+    static let idFieldName = "id"
     static let entityName = "ModelEntity"
 }
 
@@ -417,6 +417,10 @@ extension PersistentManager
     
     func getModel<T:ShareLinkObject>(type:T.Type,idValue:String) -> T?
     {
+        if String.isNullOrWhiteSpace(idValue)
+        {
+            return nil
+        }
         let typename = type.description()
         let cache = getCache(typename)
         
@@ -428,7 +432,7 @@ extension PersistentManager
         }else
         {
             //read from core data
-            if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
+            if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
             {
                 let jsonString = cellModel.serializableValue
                 let model = T(json: jsonString)
@@ -441,14 +445,28 @@ extension PersistentManager
     
     func getModels<T:ShareLinkObject>(type:T.Type ,idValues:[String]) -> [T]
     {
-        var result:[T] = [T]()
-        for id in idValues
+        let typename = type.description()
+        
+        let indexIdValues = idValues.map{"\(typename):\($0)"}
+        let cache = getCache(typename)
+        let notCacheIds = indexIdValues.filter{
+            cache.objectForKey($0) == nil
+        }
+
+        if let cells = CoreDataHelper.getCellsByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: notCacheIds)as? [ModelEntity]
         {
-            if let model = getModel(type, idValue: id)
+            for entity in cells
             {
-                result.append(model)
+                let jsonString = entity.serializableValue
+                let model = T(json: jsonString)
+                cache.setObject(model, forKey: "\(typename):\(model.getObjectUniqueIdValue())")
             }
         }
+        
+        let result = indexIdValues.map{
+            cache.objectForKey($0) as! T
+        }
+        
         return result
     }
     
@@ -457,7 +475,7 @@ extension PersistentManager
         let typename = type.description()
         let typesname = "[\(typename)]"
         let cache = getCache(typesname)
-        let predicate = NSPredicate(format: "\(ModelEntityConstants.idFielldName) LIKE %@", argumentArray: ["\(typename)*"])
+        let predicate = NSPredicate(format: "\(ModelEntityConstants.idFieldName) LIKE %@", argumentArray: ["\(typename)*"])
         let result = CoreDataHelper.getCells(ModelEntityConstants.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
@@ -489,7 +507,7 @@ extension PersistentManager
             let idValue = model.getObjectUniqueIdValue()
             return "\(typeName):\(idValue)"
         }
-        CoreDataHelper.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValues: idValues)
+        CoreDataHelper.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: idValues)
     }
     
     func saveModel(model:ShareLinkObject)
@@ -503,7 +521,7 @@ extension PersistentManager
         nsCache.setObject(model, forKey: indexIdValue)
         //save in coredata
         let jsonString = model.toJsonString()
-        if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFielldName, idValue: indexIdValue) as? ModelEntity
+        if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
         {
             cellModel.serializableValue = jsonString
         }else

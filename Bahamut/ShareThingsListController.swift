@@ -15,6 +15,9 @@ class ShareThingsListController: UITableViewController
     private(set) var userService:UserService!
     private(set) var fileService:FileService!
     private(set) var messageService:MessageService!
+    var shareService = ServiceContainer.getService(ShareService)
+    var shareThings:[[ShareThing]] = [[ShareThing]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userService = ServiceContainer.getService(UserService)
@@ -35,76 +38,6 @@ class ShareThingsListController: UITableViewController
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
-    
-    func newMessageReceived(aNotification:NSNotification)
-    {
-        if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
-        {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                self.refreshShareLastActiveTime(messages)
-            })
-        }
-    }
-    
-    private func refreshShareLastActiveTime(messages:[MessageEntity])
-    {
-        self.tabBarItem.badgeValue = "\(messages.count)"
-        var notReadyShare = [String]()
-        var notReadyShareThingMsg = [String:MessageEntity]()
-        for msg in messages
-        {
-            if let share = PersistentManager.sharedInstance.getModel(ShareThing.self, idValue: msg.shareId)
-            {
-                let oldTime = share.lastActiveTimeOfDate
-                let newTime = msg.time
-                if oldTime.timeIntervalSince1970 < newTime.timeIntervalSince1970
-                {
-                    share.lastActiveTime = msg.time.toDateTimeString()
-                }
-            }else
-            {
-                if notReadyShareThingMsg.keys.contains(msg.shareId) == false
-                {
-                    if notReadyShareThingMsg[msg.shareId]?.time.timeIntervalSince1970 < msg.time.timeIntervalSince1970
-                    {
-                        notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
-                    }
-                    notReadyShare.append(msg.shareId)
-                }else
-                {
-                    notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
-                }
-                
-            }
-        }
-        PersistentManager.sharedInstance.saveAll()
-        self.refresh()
-        if notReadyShare.count > 0
-        {
-            shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
-                if haveChange
-                {
-                    for s:ShareThing in newValues
-                    {
-                        s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
-                    }
-                    PersistentManager.sharedInstance.saveAll()
-                    self.refresh()
-                }
-            })
-        }
-        
-    }
-    
-    func serverShareUpdated(aNotification:NSNotification)
-    {
-        tableView.reloadData()
-    }
-    
-    func chicagoClientStateChanged(aNotification:NSNotification)
-    {
-        tableView.reloadData()
-    }
     
     private func initTableView()
     {
@@ -127,6 +60,7 @@ class ShareThingsListController: UITableViewController
         refreshFromServer()
     }
     
+    
     var isNetworkError:Bool = false{
         didSet{
             if tableView != nil
@@ -135,9 +69,91 @@ class ShareThingsListController: UITableViewController
             }
         }
     }
-    var shareService = ServiceContainer.getService(ShareService)
-    var shareThings:[[ShareThing]] = [[ShareThing]]()
     
+    //MARK: chicago client
+    
+    func chicagoClientStateChanged(aNotification:NSNotification)
+    {
+        tableView.reloadData()
+    }
+    
+    func reconnectChicagoClient(_:UIGestureRecognizer)
+    {
+        ChicagoClient.sharedInstance.reConnect()
+    }
+    
+    //MARK: message
+    func newMessageReceived(aNotification:NSNotification)
+    {
+        if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
+        {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                self.refreshShareLastActiveTime(messages)
+            })
+        }
+    }
+    
+    private func refreshShareLastActiveTime(messages:[MessageEntity])
+    {
+        self.tabBarItem.badgeValue = "\(messages.count)"
+        var notReadyShare = [String]()
+        var notReadyShareThingMsg = [String:MessageEntity]()
+        for msg in messages
+        {
+            if let share = shareService.getShareThing(msg.shareId)
+            {
+                let oldTime = share.lastActiveTimeOfDate
+                let newTime = msg.time
+                if oldTime.timeIntervalSince1970 < newTime.timeIntervalSince1970
+                {
+                    share.lastActiveTime = msg.time.toDateTimeString()
+                    share.saveModel()
+                }
+            }else
+            {
+                if notReadyShareThingMsg.keys.contains(msg.shareId) == false
+                {
+                    if notReadyShareThingMsg[msg.shareId]?.time.timeIntervalSince1970 < msg.time.timeIntervalSince1970
+                    {
+                        notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                    }
+                    notReadyShare.append(msg.shareId)
+                }else
+                {
+                    notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                }
+                
+            }
+        }
+        PersistentManager.sharedInstance.saveAll()
+        shareService.sortShareThingList()
+        self.refresh()
+        if notReadyShare.count > 0
+        {
+            shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
+                if haveChange
+                {
+                    for s:ShareThing in newValues
+                    {
+                        s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
+                        s.saveModel()
+                    }
+                    PersistentManager.sharedInstance.saveAll()
+                    self.shareService.sortShareThingList()
+                    self.refresh()
+                }
+            })
+        }
+        
+    }
+    
+    //Data refresh
+    
+    func serverShareUpdated(aNotification:NSNotification)
+    {
+        tableView.reloadData()
+    }
+
     func refresh()
     {
         self.shareThings.removeAll(keepCapacity: true)
@@ -159,21 +175,6 @@ class ShareThingsListController: UITableViewController
         }
     }
     
-    @IBAction func tag(sender: AnyObject)
-    {
-        let tagService = ServiceContainer.getService(SharelinkTagService)
-        view.makeToastActivity()
-        tagService.refreshMyAllSharelinkTags { () -> Void in
-            self.view.hideToastActivity()
-            let allTagModels = tagService.getMyAllTags()
-            tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
-        }
-    }
-    
-    @IBAction func userSetting(sender:AnyObject)
-    {
-        userService.showMyDetailView(self.navigationController!)
-    }
     
     func loadNextPage()
     {
@@ -197,6 +198,25 @@ class ShareThingsListController: UITableViewController
             
         }
     }
+    
+    //MARK: actions
+    
+    @IBAction func tag(sender: AnyObject)
+    {
+        let tagService = ServiceContainer.getService(SharelinkTagService)
+        view.makeToastActivity()
+        tagService.refreshMyAllSharelinkTags { () -> Void in
+            self.view.hideToastActivity()
+            let allTagModels = tagService.getMyAllTags()
+            tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
+        }
+    }
+    
+    @IBAction func userSetting(sender:AnyObject)
+    {
+        userService.showMyDetailView(self.navigationController!)
+    }
+
     
     //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -227,11 +247,7 @@ class ShareThingsListController: UITableViewController
             stateHeaderView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
         }
     }
-    
-    func reconnectChicagoClient(_:UIGestureRecognizer)
-    {
-        ChicagoClient.sharedInstance.reConnect()
-    }
+
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {

@@ -39,14 +39,7 @@ class ShareChatHub : NSNotificationCenter
     
     func removeModel(chatId:String)
     {
-        for var i = _chats.count; i>=0;i--
-        {
-            if _chats[i].chatId == chatId
-            {
-                _chats[i].removeObserver(self)
-                _chats.removeAtIndex(i)
-            }
-        }
+        _chats.removeElement{$0.chatId == chatId}
     }
     
     func getSortChats() -> [ChatModel]

@@ -92,6 +92,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.initBar()
         self.addRefreshViews()
         self.refreshMessageList()
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged", name: ChicagoClientStateChanged, object: nil)
     }
     
     deinit{
@@ -103,6 +104,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         {
             currentChatModel.removeObserver(self)
         }
+        ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     func chicagoClientStateChanged(aNotification:NSNotification)

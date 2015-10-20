@@ -145,6 +145,7 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var replyButton: UIButton!{
         didSet{
             replyButton.tintColor = UIColor.themeColor
+            replyButton.badgeValue = ""
         }
     }
     @IBOutlet weak var shareDesc: UILabel!
@@ -226,7 +227,7 @@ class UIShareThing: UITableViewCell
     func update()
     {
         shareDesc.text = shareThingModel.title
-        shareDateTime.text = shareThingModel.postDateString
+        shareDateTime.text = shareThingModel.shareTimeOfDate.toFriendlyString()
         updateBadge()
         updateVote()
         updateContent()
@@ -236,7 +237,7 @@ class UIShareThing: UITableViewCell
     
     private func updateBadge()
     {
-        let notReadmsg = shareThingModel.notReadReply
+        let notReadmsg = rootController.messageService.getShareNewMessageCount(shareThingModel.shareId)
         replyButton.badgeValue = "\(notReadmsg)"
     }
     
@@ -249,7 +250,20 @@ class UIShareThing: UITableViewCell
     private func updateVote()
     {
         voteButton.tintColor = voted ?  UIShareThing.voteButtonVotedColor : UIShareThing.voteOriginColor
-        userVoteDetail.text = shareThingModel.userVotesDetail.isEmpty ? "" : Constants.VotePrefixEmoji + shareThingModel.userVotesDetail
+        var voteString = ""
+        if let users = shareThingModel.voteUsers
+        { 
+            let userNicks = users.map{rootController.userService.getUserNoteName($0)!}
+            voteString =  userNicks.joinWithSeparator(",")
+        }
+        if String.isNullOrWhiteSpace(voteString)
+        {
+            userVoteDetail.hidden = true
+        }else
+        {
+            userVoteDetail.hidden = false
+            userVoteDetail.text = "\(Constants.VotePrefixEmoji)\(voteString)"
+        }
     }
     
     private func updateContent()
@@ -274,30 +288,6 @@ class UIShareThing: UITableViewCell
     func showAvatar(_:UIGestureRecognizer)
     {
         UUImageAvatarBrowser.showImage(avatarImageView)
-    }
-    
-}
-
-/// 添加UI需要的属性
-extension ShareThing
-{
-    
-    var notReadReply:Int{
-        return ServiceContainer.getService(MessageService).getShareNewMessageCount(self.shareId)
-    }
-    
-    var userVotesDetail:String{
-        if let users = self.voteUsers
-        {
-            let userIds = users.map{$0}
-            let userNicks = ServiceContainer.getService(UserService).getUsers(userIds).map{$0.noteName!}
-            return userNicks.joinWithSeparator(",")
-        }
-        return ""
-    }
-    
-    var postDateString:String{
-        return shareTimeOfDate.toFriendlyString()
     }
     
 }
