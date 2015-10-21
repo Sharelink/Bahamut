@@ -48,13 +48,14 @@ class UserService: NSNotificationCenter,ServiceProtocol
         linkMessageRoute.CmdName = "UsrNewLinkMsg"
         linkMessageRoute.ExtName = "NotificationCenter"
         ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
+        self.refreshMyLinkedUsers()
     }
     
     func userLogout(userId: String) {
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
-    var myUserModel:ShareLinkUser!
+    private(set) var myUserModel:ShareLinkUser!
     
     private(set) var askingLinkUserList:[LinkMessage]!
     private(set) var linkMessageList:[LinkMessage]!
@@ -75,10 +76,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     //MARK: get datas
     
-    func getUserNoteName(userId:String) -> String!
+    func getUserNoteName(userId:String) -> String
     {
         let user = getUser(userId)
-        return user?.noteName ?? user?.nickName
+        return user?.noteName ?? user?.nickName ?? ""
     }
     
     func getUserNickName(userId:String) -> String!
@@ -103,8 +104,15 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         
         //Read from cache
-        let user = myLinkedUsersMap[userId] ?? PersistentManager.sharedInstance.getModel(ShareLinkUser.self, idValue: userId)
-        
+        var user:ShareLinkUser! = nil
+        if let u = myLinkedUsersMap[userId]
+        {
+            user = u
+        }else if let u = PersistentManager.sharedInstance.getModel(ShareLinkUser.self, idValue: userId)
+        {
+            myLinkedUsersMap[userId] = u
+            user = u
+        }
         if serverNewestCallback == nil
         {
             return user
@@ -199,7 +207,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 
                 var linkMsgs = PersistentManager.sharedInstance.getAllModelFromCache(LinkMessage)
                 linkMsgs.sortInPlace({ (a, b) -> Bool in
-                    a.time.dateOfString.compare(b.time.dateOfString) == .OrderedAscending
+                    a.time.dateTimeOfString.compare(b.time.dateTimeOfString) == .OrderedAscending
                 })
                 self.askingLinkUserList = linkMsgs.filter{ $0.type == LinkMessageType.AskLink.rawValue }
                 self.linkMessageList = linkMsgs.filter{$0.type == LinkMessageType.AcceptAskLink.rawValue }

@@ -24,8 +24,8 @@ class SortableObjectList<T:Sortable>
     {
         setSortableItems(initList)
     }
-    
-    func sort()
+
+    private func sort()
     {
         list.sortInPlace { (a, b) -> Bool in
             return a.isOrderedBefore(b)

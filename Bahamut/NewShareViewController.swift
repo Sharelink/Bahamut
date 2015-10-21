@@ -472,9 +472,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 task.sharePosted = 1
                 msg = "Post Share Success"
             }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.view.makeToastActivityWithMessage(message: msg)
-            }
+            self.view.makeToast(message: msg)
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {
                 ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
@@ -505,7 +503,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 msg = "Post Share Error"
             }
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.view.makeToastActivityWithMessage(message: msg)
+                self.view.makeToast(message: msg)
             }
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {

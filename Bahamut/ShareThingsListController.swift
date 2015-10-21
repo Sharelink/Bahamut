@@ -16,7 +16,7 @@ class ShareThingsListController: UITableViewController
     private(set) var fileService:FileService!
     private(set) var messageService:MessageService!
     var shareService = ServiceContainer.getService(ShareService)
-    var shareThings:[[ShareThing]] = [[ShareThing]]()
+    var shareThings:[ShareThing] = [ShareThing]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,7 @@ class ShareThingsListController: UITableViewController
     {
         if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.refreshShareLastActiveTime(messages)
             })
         }
@@ -97,50 +97,52 @@ class ShareThingsListController: UITableViewController
     {
         self.tabBarItem.badgeValue = "\(messages.count)"
         var notReadyShare = [String]()
-        var notReadyShareThingMsg = [String:MessageEntity]()
+        var notReadyMsgDate = [String:NSDate]()
+        var readySortables = [String:ShareThingSortableObject]()
         for msg in messages
         {
             if let share = shareService.getShareThing(msg.shareId)
             {
-                let oldTime = share.lastActiveTimeOfDate
+                let shareSortable = share.getSortableObject()
+                let oldTime = shareSortable.lastActiveDate
                 let newTime = msg.time
                 if oldTime.timeIntervalSince1970 < newTime.timeIntervalSince1970
                 {
-                    share.lastActiveTime = msg.time.toDateTimeString()
-                    share.saveModel()
+                    shareSortable.compareValue = newTime
+                    shareSortable.saveModel()
                 }
+                readySortables.updateValue(shareSortable, forKey: share.shareId)
             }else
             {
-                if notReadyShareThingMsg.keys.contains(msg.shareId) == false
+                if let oldTime = notReadyMsgDate[msg.shareId]
                 {
-                    if notReadyShareThingMsg[msg.shareId]?.time.timeIntervalSince1970 < msg.time.timeIntervalSince1970
+                    if oldTime.timeIntervalSince1970 < msg.time.timeIntervalSince1970
                     {
-                        notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                        notReadyMsgDate.updateValue(msg.time, forKey: msg.shareId)
                     }
-                    notReadyShare.append(msg.shareId)
                 }else
                 {
-                    notReadyShareThingMsg.updateValue(msg, forKey: msg.shareId)
+                    notReadyShare.append(msg.shareId)
+                    notReadyMsgDate.updateValue(msg.time, forKey: msg.shareId)
                 }
                 
             }
         }
-        PersistentManager.sharedInstance.saveAll()
-        shareService.sortShareThingList()
-        self.refresh()
+        self.shareService.setSortableObjects(readySortables.values.map{$0})
         if notReadyShare.count > 0
         {
-            shareService.getShareThings(notReadyShare, updatedCallback: { (haveChange, newValues) -> Void in
-                if haveChange
+            shareService.getSharesWithShareIds(notReadyShare, callback: { (updatedShares) -> Void in
+                if let shares = updatedShares
                 {
-                    for s:ShareThing in newValues
+                    func shareToSortable(share:ShareThing) -> ShareThingSortableObject
                     {
-                        s.lastActiveTime = notReadyShareThingMsg[s.shareId]?.time.toDateString()
-                        s.saveModel()
+                        let shareSortable = share.getSortableObject()
+                        shareSortable.compareValue = notReadyMsgDate[share.shareId]
+                        shareSortable.saveModel()
+                        return shareSortable
                     }
-                    PersistentManager.sharedInstance.saveAll()
-                    self.shareService.sortShareThingList()
-                    self.refresh()
+                    let sortables = shares.map{shareToSortable($0)}
+                    self.shareService.setSortableObjects(sortables)
                 }
             })
         }
@@ -157,21 +159,22 @@ class ShareThingsListController: UITableViewController
     func refresh()
     {
         self.shareThings.removeAll(keepCapacity: true)
-        let newValues = self.shareService.getShareThings(0)
-        self.shareThings.insert(newValues, atIndex: 0)
+        let newValues = self.shareService.getShareThings(0,pageNum: 7)
+        self.shareThings.insertContentsOf(newValues, at: 0)
         dispatch_async(dispatch_get_main_queue()){()->Void in
             self.tableView.reloadData()
+            self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
         }
     }
     
     func refreshFromServer()
     {
-        self.shareService.getNewShareThings { (haveChange) -> Void in
-            if !haveChange{
+        self.shareService.getNewShareThings { (newShares) -> Void in
+            self.tableView.header.endRefreshing()
+            if newShares == nil{
                 return
             }
             self.refresh()
-            self.tableView.header.endRefreshing()
         }
     }
     
@@ -182,20 +185,20 @@ class ShareThingsListController: UITableViewController
         {
             return
         }
-        var startIndex = 0
-        for list in shareThings
+        let startIndex = shareThings.count
+        let shares = self.shareService.getShareThings(startIndex, pageNum: 10)
+        if shares.count > 0
         {
-            startIndex += list.count
-        }
-        self.shareService.getNextPageShareThings(startIndex, pageNum: 10) { (results) -> Void in
-            self.tableView.footer.endRefreshing()
-            if results.count > 0
-            {
-                self.shareThings.append(results)
-            }else{
-                self.tableView.footer.noticeNoMoreData()
-            }
-            
+            self.shareThings.insertContentsOf(shares, at: startIndex)
+        }else
+        {
+            self.shareService.getPreviousShare({ (previousShares) -> Void in
+                self.tableView.footer.endRefreshing()
+                if previousShares != nil && previousShares.count > 0
+                {
+                    self.shareThings.insertContentsOf(previousShares, at: startIndex)
+                }
+            })
         }
     }
     
@@ -226,11 +229,7 @@ class ShareThingsListController: UITableViewController
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if shareThings.count > section
-        {
-            return shareThings[section].count
-        }
-        return 0
+        return shareThings.count
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -273,7 +272,7 @@ class ShareThingsListController: UITableViewController
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
-        let shareThing = shareThings[indexPath.section][indexPath.row] as ShareThing
+        let shareThing = shareThings[indexPath.row] as ShareThing
         if shareThing.shareType == ShareType.messageType.rawValue
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage

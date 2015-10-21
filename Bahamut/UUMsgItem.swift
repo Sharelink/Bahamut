@@ -24,6 +24,7 @@ class UUMsgItem
         uimsg = UUMessage()
         dic = [NSObject : AnyObject]()
         msgFrom = .Me
+        avatar = ""
     }
     private(set) var dic:[NSObject : AnyObject]!
     private var frame:UUMessageFrame!
@@ -68,7 +69,7 @@ class UUMsgItem
     }
     
     var time:NSDate{
-        return DateHelper.stringToDate(timeString.substringToIndex(19))
+        return DateHelper.stringToDateTime(timeString.substringToIndex(19))
     }
     
     var avatar:String!{

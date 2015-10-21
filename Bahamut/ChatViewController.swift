@@ -23,7 +23,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
                 oldValue.removeObserver(self)
             }
             shareChat.addObserver(self, selector: "chatHubNewMessageChanged:", name: ShareChatHubNewMessageChanged, object: nil)
-            currentChatModel = shareChat.getSortChats().first
+            shareChat.addObserver(self, selector: "currentChatChanged:", name: ChatHubCurrentChatModelChanged, object: nil)
+            shareChat.addObserver(self, selector: "currentChatMessageChanged:", name: ChatHubCurrentChatMessageChanged, object: nil)
+            shareChat.currentChatModel = shareChat.getSortChats().first
             chatRoomBadgeValue = shareChat.newMessage
         }
     }
@@ -33,26 +35,21 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         chatRoomBadgeValue = shareChat.newMessage
     }
     
-    var head:MJRefreshHeader!
-    var currentChatModel:ChatModel!{
-        didSet{
-            if oldValue != nil
-            {
-                oldValue.removeObserver(self)
-            }
-            updateChatTitle()
-            refreshMessageList()
-            hideRommListContainer()
-            currentChatModel.clearNotReadMessageNotify()
-            currentChatModel.addObserver(self, selector: "currentChatNewMessageChanged:", name: ChatModelNewMessageChanged, object: nil)
-        }
-    }
-    
-    func currentChatNewMessageChanged(a:NSNotification)
+    func currentChatMessageChanged(a:NSNotification)
     {
         self.chatTableView.reloadData()
         self.chatTableViewScrollToBottom()
     }
+    
+    func currentChatChanged(a:NSNotification)
+    {
+        chatRoomBadgeValue = shareChat.newMessage
+        updateChatTitle()
+        refreshMessageList()
+        hideRommListContainer()
+    }
+    
+    var head:MJRefreshHeader!
     
     @IBOutlet weak var chatTitle: UINavigationItem!{
         didSet{
@@ -91,18 +88,13 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.initChatRoomListViewController()
         self.initBar()
         self.addRefreshViews()
-        self.refreshMessageList()
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged", name: ChicagoClientStateChanged, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
     }
     
     deinit{
         if shareChat != nil
         {
             shareChat.removeObserver(self)
-        }
-        if currentChatModel != nil
-        {
-            currentChatModel.removeObserver(self)
         }
         ChicagoClient.sharedInstance.removeObserver(self)
     }
@@ -135,17 +127,19 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         showRoomListContainer()
     }
     
-    override func viewDidAppear(animated:Bool)
-    {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillShowNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillHideNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"tableViewScrollToBottom:", name:UIKeyboardDidShowNotification, object:nil)
+        shareChat.inChatView = true
+        chatTableViewScrollToBottom()
     }
     
     override func viewWillDisappear(animated:Bool)
     {
-        super.viewWillDisappear(animated)   
+        super.viewWillDisappear(animated)
+        shareChat.inChatView = false
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -164,7 +158,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     func addRefreshViews()
     {
         let header = MJRefreshNormalHeader(){
-            let num = self.currentChatModel.loadPreviousMessage()
+            let num = self.shareChat.currentChatModel.loadPreviousMessage()
             if (num > 0) {
                 let indexPath =  NSIndexPath(forRow: num, inSection: 0)
                 let time = Double(NSEC_PER_SEC) / 10
@@ -197,7 +191,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         if chatTableView != nil
         {
-            self.currentChatModel.loadPreviousMessage()
+            self.shareChat.currentChatModel.loadPreviousMessage()
             self.chatTableView.reloadData()
             self.chatTableViewScrollToBottom()
         }
@@ -205,12 +199,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func updateChatTitle()
     {
-        if chatTitle != nil && currentChatModel != nil
+        if chatTitle != nil
         {
-            chatTitle.title = currentChatModel.chatTitle
-        }else
-        {
-            chatTitle.title = ""
+            chatTitle.title = shareChat?.currentChatModel?.chatTitle ?? ""
         }
     }
     
@@ -297,11 +288,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     //tableView Scroll to bottom
     func chatTableViewScrollToBottom()
     {
-        if self.currentChatModel == nil || self.currentChatModel.dataSource.count==0
+        if self.shareChat.currentChatModel == nil || self.shareChat.currentChatModel.dataSource.count==0
         {
             return
         }
-        let indexPath =  NSIndexPath(forRow:self.currentChatModel.dataSource.count - 1, inSection:0)
+        let indexPath =  NSIndexPath(forRow:self.shareChat.currentChatModel.dataSource.count - 1, inSection:0)
         chatTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
@@ -346,18 +337,18 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func dealTheFunctionData(msgItem:UUMsgItem)
     {
-        self.currentChatModel.addMessage(msgItem)
+        self.shareChat.currentChatModel.addMessage(msgItem)
         self.chatTableView.reloadData()
         self.chatTableViewScrollToBottom()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return currentChatModel == nil ? 0 : 1
+        return shareChat.currentChatModel == nil ? 0 : 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.currentChatModel.dataSource.count
+        return self.shareChat.currentChatModel.dataSource.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -367,13 +358,13 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             cell = UUMessageCell(style:UITableViewCellStyle.Default, reuseIdentifier:"UUMessageCellID")
             cell!.delegate = self
         }
-        cell!.messageFrame = (self.currentChatModel.dataSource[indexPath.row]).msgFrame
+        cell!.messageFrame = (self.shareChat.currentChatModel.dataSource[indexPath.row]).msgFrame
         return cell!
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        let cf = self.currentChatModel.dataSource[indexPath.row]
+        let cf = self.shareChat.currentChatModel.dataSource[indexPath.row]
         return cf.msgFrame.cellHeight
     }
     

@@ -12,10 +12,10 @@ import CoreData
 
 class CoreDataHelper {
     
-    static func initNSManagedObjectContext()
+    static func initNSManagedObjectContext(dbFileUrl:NSURL)
     {
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDel.initmanagedObjectContext()
+        appDel.initmanagedObjectContext(dbFileUrl)
     }
     
     static func deinitNSManagedObjectContext()

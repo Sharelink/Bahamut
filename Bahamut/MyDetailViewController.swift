@@ -13,10 +13,16 @@ extension UserService
 {
     func showMyDetailView(currentNavigationController:UINavigationController)
     {
-        let controller = MyDetailViewController.instanceFromStoryBoard()
-        controller.accountId = BahamutConfig.lastLoginAccountId
-        controller.myInfo = self.myUserModel
-        currentNavigationController.pushViewController(controller, animated: true)
+        if let myInfo = self.myUserModel
+        {
+            let controller = MyDetailViewController.instanceFromStoryBoard()
+            controller.accountId = BahamutConfig.lastLoginAccountId
+            controller.myInfo = myInfo
+            currentNavigationController.pushViewController(controller, animated: true)
+        }else
+        {
+            currentNavigationController.view.makeToast(message: "User Data Not Ready,Retry Later")
+        }
     }
 }
 

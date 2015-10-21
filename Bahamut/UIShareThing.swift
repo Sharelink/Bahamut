@@ -145,7 +145,6 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var replyButton: UIButton!{
         didSet{
             replyButton.tintColor = UIColor.themeColor
-            replyButton.badgeValue = ""
         }
     }
     @IBOutlet weak var shareDesc: UILabel!
@@ -253,7 +252,7 @@ class UIShareThing: UITableViewCell
         var voteString = ""
         if let users = shareThingModel.voteUsers
         { 
-            let userNicks = users.map{rootController.userService.getUserNoteName($0)!}
+            let userNicks = users.map{rootController.userService.getUserNoteName($0)}.filter{String.isNullOrWhiteSpace($0) == false }
             voteString =  userNicks.joinWithSeparator(",")
         }
         if String.isNullOrWhiteSpace(voteString)
@@ -291,4 +290,3 @@ class UIShareThing: UITableViewCell
     }
     
 }
-

@@ -69,14 +69,14 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
     
     func chatHubNewMessageChanged(a:NSNotification)
     {
-        self.roomListTableView.reloadData()
+        chatModels = shareChat.getSortChats()
     }
     
     @IBOutlet weak var roomListTableView: UITableView!{
         didSet{
             roomListTableView.dataSource = self
             roomListTableView.delegate = self
-            let bcgv = UIImageView(image: UIImage(named: "chat_room"))
+            let bcgv = UIImageView(image: PersistentManager.sharedInstance.getImage("chat_room"))
             bcgv.contentMode = .ScaleAspectFill
             roomListTableView.backgroundView = bcgv
             roomListTableView.separatorStyle = .None
@@ -105,7 +105,7 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         let model = chatModels[indexPath.row]
-        rootController.currentChatModel = model
+        shareChat.currentChatModel = model
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int

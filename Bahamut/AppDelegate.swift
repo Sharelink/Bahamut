@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ChatViewController.instanceFromStoryBoard()
         UserProfileViewController.instanceFromStoryBoard()
         UIEditTextPropertyViewController.instanceFromStoryBoard()
-        ShareSDK.registerApp("b2d92ccec2e0")
         return true
     }
 
@@ -84,15 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private var persistentStoreCoordinator: NSPersistentStoreCoordinator?
     
-    private func initPersistentStoreCoordinator() -> NSPersistentStoreCoordinator{
+    private func initPersistentStoreCoordinator(dbFileUrl:NSURL) -> NSPersistentStoreCoordinator{
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         
         let optionsDictionary = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(bool: true),NSInferMappingModelAutomaticallyOption:NSNumber(bool: true)]
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let dbFileName = "\(BahamutConfig.userId).sqlite"
-        let currentPersistentStore = self.applicationDocumentsDirectory.URLByAppendingPathComponent(dbFileName)
+        let currentPersistentStore = dbFileUrl
         let failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: currentPersistentStore, options: optionsDictionary)
@@ -114,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return coordinator
     }
     
-    func initmanagedObjectContext()
+    func initmanagedObjectContext(dbFileUrl:NSURL)
     {
         if !BahamutConfig.isUserLogined
         {
@@ -125,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("can not reinit")
             abort()
         }
-        self.persistentStoreCoordinator = initPersistentStoreCoordinator()
+        self.persistentStoreCoordinator = initPersistentStoreCoordinator(dbFileUrl)
         let coordinator = self.persistentStoreCoordinator
         managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator

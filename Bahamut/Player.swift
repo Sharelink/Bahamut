@@ -438,6 +438,7 @@ public class Player: UIViewController {
 extension Player {
 
     public func reset() {
+        self.setupPlayerItem(nil)
     }
 
 }

@@ -294,7 +294,6 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     public override func layoutSubviews()
     {
         self.frame = (superview?.bounds)!
-        refreshUI()
         if minScreenFrame == nil
         {
             self.minScreenFrame = self.frame

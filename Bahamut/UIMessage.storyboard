@@ -44,6 +44,7 @@
                             <constraint firstItem="Q2S-I9-L6F" firstAttribute="top" secondItem="7vp-Hu-p32" secondAttribute="bottom" constant="40" id="xhP-6U-GS7"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="Kpp-CH-8zA">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Zvb-5v-CvQ"/>

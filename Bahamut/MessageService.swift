@@ -11,20 +11,11 @@ import Foundation
 import UIKit
 import EVReflection
 
-//Static entities
-class ShareNewMessageRecord:ShareLinkObject
-{
-    var shareId:String!
-    var newMessageCount:NSNumber!
-    
-    override func getObjectUniqueIdName() -> String {
-        return "shareId"
-    }
-}
-
 //MARK:MessageService
 
 let MessageServiceNewMessageEntities = "MessageServiceNewMessageEntities"
+let NewCreatedChatModels = "NewCreatedChatModels"
+let NewChatModelsCreated = "NewChatModelsCreated"
 
 class MessageService:NSNotificationCenter,ServiceProtocol
 {
@@ -91,14 +82,14 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         cm.shareId = entity.shareId
         cm.chatId = entity.chatId
         cm.sharelinkers = entity.getUsers()
-        if cm.sharelinkers.count == 1{
-            let user = uService.getUser(cm.sharelinkers.first!)
+        if cm.sharelinkers.count >= 1{
+            let user = uService.getUser(cm.sharelinkers.last!)
             cm.chatTitle = user?.noteName
             cm.chatIcon = user?.avatarId
+            cm.audienceId = user?.userId
         }else{
             cm.chatTitle = "chat hub"
         }
-        cm.audienceId = cm.sharelinkers.first
         cm.shareId = entity.shareId
         cm.chatEntity = entity
         return cm
@@ -164,6 +155,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     {
         let uService = ServiceContainer.getService(UserService)
         var msgEntities = [MessageEntity]()
+        var newChatModels = [ChatModel]()
         for msg in msgs
         {
             let me = saveNewMessage(msg.msgId, chatId: msg.chatId,shareId: msg.shareId, type: MessageType(rawValue: msg.msgType)!, time: msg.timeOfDate, senderId: msg.senderId, msgText: msg.msg, data: msg.msgData)
@@ -175,11 +167,17 @@ class MessageService:NSNotificationCenter,ServiceProtocol
                 let ce = createChatEntity(msg.chatId, audienceIds: [uService.myUserId,me.senderId], shareId: me.shareId)
                 ce.newMessage = 1
                 ce.saveModified()
+                let model = getChatModelByEntity(ce)
+                newChatModels.append(model)
             }
             msgEntities.append(me)
         }
         PersistentManager.sharedInstance.saveAll()
         self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
+        if newChatModels.count > 0
+        {
+            self.postNotificationName(NewChatModelsCreated, object: self, userInfo: [NewCreatedChatModels:newChatModels])
+        }
     }
     
     func getShareChatHub(shareId:String,shareSenderId:String) -> ShareChatHub
@@ -188,7 +186,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         var shareChats = PersistentManager.sharedInstance.getShareChats(shareId)
         if shareChats.count == 0
         {
-            let chatId = getChatIdWithAudienceOfShareId(shareId, audienceId: shareSenderId)
+            let chatId = getChatIdWithAudienceOfShareId(shareId, audienceId: uService.myUserId)
             var audienceIds = [uService.myUserId]
             if uService.myUserId != shareSenderId
             {
@@ -201,9 +199,9 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         let sc = ShareChatHub()
         for cm in chatModels
         {
-            cm.audienceId = shareSenderId
             sc.addChatModel(cm)
         }
+        sc.shareId = shareId
         return sc
     }
     
@@ -224,7 +222,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         var sum = 0
         for sc in shareChats
         {
-            sum += sc.newMessage.integerValue
+            sum = sum + sc.newMessage.integerValue
         }
         return sum
     }

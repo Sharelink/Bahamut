@@ -30,9 +30,14 @@ extension ShareThing
 {
     func getSortableObject() -> ShareThingSortableObject
     {
+        if let obj = PersistentManager.sharedInstance.getModel(ShareThingSortableObject.self, idValue: self.shareId)
+        {
+            return obj
+        }
         let obj = ShareThingSortableObject()
         obj.shareId = self.shareId
-        obj.compareValue = self.lastActiveTimeOfDate
+        obj.compareValue = self.shareTimeOfDate
+        obj.saveModel()
         return obj
     }
 }
@@ -50,7 +55,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        initSortObjectList()
+        resetSortObjectList()
         
         let shareUpdatedNotifyRoute = ChicagoRoute()
         shareUpdatedNotifyRoute.ExtName = "NotificationCenter"
@@ -59,16 +64,54 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     func userLogout(userId: String) {
+        newShareTime = nil
+        oldShareTime = nil
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
-    private func initSortObjectList()
+    private var _newShareTime:NSDate!
+    private var newShareTime:NSDate!{
+        get{
+            if _newShareTime == nil
+            {
+                _newShareTime = NSUserDefaults.standardUserDefaults().valueForKey("newShareTime") as? NSDate
+            }
+            return _newShareTime
+        }
+        set{
+            _newShareTime = newValue
+            NSUserDefaults.standardUserDefaults().setValue(_newShareTime, forKey: "newShareTime")
+        }
+    }
+    
+    private var _oldShareTime:NSDate!
+    private var oldShareTime:NSDate!{
+        get{
+            if _oldShareTime == nil
+            {
+                _oldShareTime = NSUserDefaults.standardUserDefaults().valueForKey("oldShareTime") as? NSDate
+            }
+            return _oldShareTime
+        }
+        set{
+            _oldShareTime = newValue
+            NSUserDefaults.standardUserDefaults().setValue(_oldShareTime, forKey: "oldShareTime")
+        }
+    }
+    
+    private var shareThingSortObjectList:SortableObjectList<ShareThingSortableObject>!
+    
+    private func resetSortObjectList()
     {
+        PersistentManager.sharedInstance.refreshCache(ShareThingSortableObject.self)
         let initList = PersistentManager.sharedInstance.getAllModelFromCache(ShareThingSortableObject.self)
         shareThingSortObjectList = SortableObjectList<ShareThingSortableObject>(initList: initList)
     }
     
-    private var shareThingSortObjectList:SortableObjectList<ShareThingSortableObject>!
+    func setSortableObjects(objects:[ShareThingSortableObject])
+    {
+        self.shareThingSortObjectList.setSortableItems(objects)
+    }
     
     //MARK: Chicago Notify
     func shareUpdatedMsgReceived(a:NSNotification)
@@ -76,113 +119,96 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         self.getNewShareMessageFromServer()
     }
     
-    //MARK: Get Shares
-    func getNewShareThings(updatedCallback:((haveChange:Bool)->Void)! = nil)
+    //MARK: Get Shares From Server
+    func getNewShareThings(callback:((newShares:[ShareThing]!)->Void)! = nil)
     {
         let req = GetShareThingsRequest()
         
-        if let firstThing = self.shareThingSortObjectList.list.first
+        if let newestShareTime = self.newShareTime
         {
-            req.beginTime = firstThing.lastActiveDate
+            req.beginTime = newestShareTime
             req.endTime = NSDate()
             req.page = -1
         }else
         {
             req.endTime = NSDate()
             req.page = 0
-            req.pageCount = 20
+            req.pageCount = 7
         }
-        
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
-        client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
-            
-            var modified:Bool = true
-            
-            if result.statusCode == ReturnCode.NotModified
-            {
-                modified = false
-            }else if result.statusCode == ReturnCode.OK
-            {
-                if let newValues:[ShareThing] = result.returnObject
-                {
-                    if newValues.count > 0
-                    {
-                        let sortables = newValues.map{$0.getSortableObject()}
-                        self.shareThingSortObjectList.setSortableItems(sortables)
-                        ShareLinkObject.saveObjectOfArray(newValues)
-                        modified = true
-                    }
-                }
-            }
-            if let update = updatedCallback
-            {
-                update(haveChange:modified)
-            }
-        }
-        
+        requestShare(req,callback:callback)
     }
     
-    func getShareThings(startIndex:Int, pageNum:Int = 20) -> [ShareThing]
+    func getPreviousShare(callback:((previousShares:[ShareThing]!)->Void)! = nil)
     {
-        return PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: self.shareThingSortObjectList.getSortedShareId(startIndex, pageNum: pageNum))
-    }
-    
-    func getNextPageShareThings(startIndex:Int, pageNum:Int = 20, returnCallback:([ShareThing])->Void)
-    {
-        let result = PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: self.shareThingSortObjectList.getSortedShareId(startIndex, pageNum: pageNum))
-        if result.count > 0
+        if oldShareTime == nil
         {
-            returnCallback(result)
-            return
-        }
-        if self.shareThingSortObjectList.list.count == 0
-        {
-            returnCallback([ShareThing]())
             return
         }
         let req = GetShareThingsRequest()
-        req.endTime = self.shareThingSortObjectList.list.last?.lastActiveDate
+        req.endTime = oldShareTime
         req.page = 0
-        req.pageCount = pageNum
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareThing]>) -> Void in
-            if result.statusCode == ReturnCode.NotModified
-            {
-                returnCallback([ShareThing]())
-            }else if result.statusCode == ReturnCode.OK
+        req.pageCount = 7
+        requestShare(req,callback: callback)
+    }
+    
+    private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!)
+    {
+        let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
+        client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
+            
+            var shares:[ShareThing]! = nil
+            if result.statusCode == ReturnCode.OK
             {
                 if let newValues:[ShareThing] = result.returnObject
                 {
                     if newValues.count > 0
                     {
                         let sortables = newValues.map{$0.getSortableObject()}
-                        self.shareThingSortObjectList.setSortableItems(sortables)
+                        ShareLinkObject.saveObjectOfArray(sortables)
                         ShareLinkObject.saveObjectOfArray(newValues)
-                        returnCallback(newValues)
-                        return
+                        self.updateNewShareAndOldShareTime(newValues)
+                        self.setSortableObjects(sortables)
+                        shares = newValues
                     }
                 }
-                returnCallback([ShareThing]())
+            }
+            if let handler = callback
+            {
+                handler(reqShares: shares)
+            }
+        }
+    }
+    
+    private func updateNewShareAndOldShareTime(requestShares:[ShareThing])
+    {
+        var oldestTime = NSDate()
+        var newestTime = DateHelper.stringToDate("2015-07-07")
+        for s in requestShares
+        {
+            let shareTime = s.shareTimeOfDate
+            if shareTime.timeIntervalSince1970 > newestTime.timeIntervalSince1970
+            {
+                newestTime = shareTime
+            }
+            
+            if shareTime.timeIntervalSince1970 < oldestTime.timeIntervalSince1970
+            {
+                oldestTime = shareTime
             }
         }
         
-    }
-    
-    func getShareThing(shareId:String) -> ShareThing!
-    {
-        if let share = PersistentManager.sharedInstance.getModel(ShareThing.self, idValue: shareId)
+        if newShareTime == nil || newShareTime.timeIntervalSince1970 < newestTime.timeIntervalSince1970
         {
-            shareThingSortObjectList.setSortableItem(share.getSortableObject())
-            return share
+            newShareTime = newestTime
         }
-        return nil
+        
+        if oldShareTime == nil || oldShareTime.timeIntervalSince1970 > oldestTime.timeIntervalSince1970
+        {
+            oldShareTime = oldestTime
+        }
     }
     
-    func sortShareThingList()
-    {
-        shareThingSortObjectList.sort()
-    }
-    
-    func getShareThings(shareIds:[String],updatedCallback:((haveChange:Bool,newValues:[ShareThing]!)->Void)! = nil) -> [ShareThing]
+    func getSharesWithShareIds(shareIds:[String],callback:((updatedShares:[ShareThing]!)->Void)! = nil) -> [ShareThing]
     {
         //read from cache
         let oldValues = PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: shareIds)
@@ -191,22 +217,35 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = GetShareOfShareIdsRequest()
         req.shareIds = shareIds
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
-            var modified:Bool = false
-            var newValues:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.OK
+            var shares:[ShareThing]! = nil
+            if result.statusCode == ReturnCode.OK && result.returnObject != nil && result.returnObject.count > 0
             {
-                newValues = result.returnObject ?? [ShareThing]()
-                let sortables = newValues.map{$0.getSortableObject()}
-                self.shareThingSortObjectList.setSortableItems(sortables)
-                ShareLinkObject.saveObjectOfArray(newValues)
-                modified = newValues.count > 0
+                shares = result.returnObject!
+                ShareLinkObject.saveObjectOfArray(shares)
+                let sortables = shares.map{$0.getSortableObject()}
+                self.setSortableObjects(sortables)
             }
-            if let update = updatedCallback
+            if let update = callback
             {
-                update(haveChange: modified, newValues: newValues)
+                update(updatedShares: shares)
             }
         }
         return oldValues
+    }
+    
+    //Get shares from local
+    func getShareThings(startIndex:Int, pageNum:Int) -> [ShareThing]
+    {
+        return PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: self.shareThingSortObjectList.getSortedShareId(startIndex, pageNum: pageNum))
+    }
+    
+    func getShareThing(shareId:String) -> ShareThing!
+    {
+        if let share = PersistentManager.sharedInstance.getModel(ShareThing.self, idValue: shareId)
+        {
+            return share
+        }
+        return nil
     }
     
     //MARK: Share Messages
@@ -217,10 +256,26 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
             if let msgs = result.returnObject
             {
-                self.getShareThings(msgs.map{$0.shareId }, updatedCallback: { (haveChange, newValues) -> Void in
-                    self.postNotificationName(ShareService.shareUpdated, object: self)
-                    self.clearShareMessageBox()
-                })
+                if msgs.count == 0
+                {
+                    return
+                }
+                self.getSharesWithShareIds(msgs.map{$0.shareId }){ (reqShares) -> Void in
+                    if let shares = reqShares
+                    {
+                        var msgMap = [String:ShareUpdatedMessage]()
+                        for m in msgs{
+                            msgMap[m.shareId] = m
+                        }
+                        let _ = shares.map{
+                            let obj = $0.getSortableObject()
+                            obj.compareValue = DateHelper.stringToDateTime(msgMap[$0.shareId]?.time)
+                            obj.saveModel()
+                        }
+                        self.postNotificationName(ShareService.shareUpdated, object: self)
+                        self.clearShareMessageBox()
+                    }
+                }
             }
         }
     }
@@ -251,10 +306,10 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
             {
-                newShare.lastActiveTime = DateHelper.toDateTimeString(NSDate())
                 newShare.shareId = result.returnObject.shareId
-                self.shareThingSortObjectList.setSortableItem(newShare.getSortableObject())
                 newShare.saveModel()
+                newShare.getSortableObject()
+                self.postNotificationName(ShareService.shareUpdated, object: self)
             }
             callback(shareId: newShare.shareId)
         }
@@ -290,17 +345,19 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         }
     }
     
-    func voteShareThing(shareThingModel:ShareThing,updateCallback:(()->Void)! = nil)
+    func voteShareThing(share:ShareThing,updateCallback:(()->Void)! = nil)
     {
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = AddVoteRequest()
-        req.shareId = shareThingModel.shareId
+        req.shareId = share.shareId
         ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
-                shareThingModel.voteUsers.append(myUserId)
-                shareThingModel.lastActiveTime = DateHelper.toDateTimeString(NSDate())
-                shareThingModel.saveModel()
+                share.voteUsers.append(myUserId)
+                share.saveModel()
+                let sortableObj = share.getSortableObject()
+                sortableObj.compareValue = NSDate()
+                sortableObj.saveModel()
             }
             if let update = updateCallback
             {

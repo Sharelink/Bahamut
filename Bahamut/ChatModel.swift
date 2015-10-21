@@ -11,7 +11,8 @@ import ChatFramework
 import UIKit
 
 let ShareChatHubNewMessageChanged = "ShareChatHubNewMessageChanged"
-
+let ChatHubCurrentChatModelChanged = "CurrentChatModelChanged"
+let ChatHubCurrentChatMessageChanged = "CurrentChatMessageChanged"
 class ShareChatHub : NSNotificationCenter
 {
     var newMessage:Int{
@@ -23,8 +24,43 @@ class ShareChatHub : NSNotificationCenter
         return sum
     }
     var me:ShareLinkUser!
-    var shareThing:ShareThing!
+    var shareId:String!{
+        didSet{
+            ServiceContainer.getService(MessageService).addObserver(self, selector: "newChatModelCreated:", name: NewChatModelsCreated, object: nil)
+        }
+    }
     private var _chats:[ChatModel] = [ChatModel]()
+    var inChatView:Bool = false{
+        didSet{
+            if inChatView
+            {
+                currentChatModel.clearNotReadMessage()
+            }
+        }
+    }
+    var currentChatModel:ChatModel!{
+        didSet{
+            currentChatModel.loadPreviousMessage()
+            currentChatModel.clearNotReadMessage()
+            postNotificationName(ChatHubCurrentChatModelChanged, object: self)
+        }
+    }
+    
+    func newChatModelCreated(a:NSNotification)
+    {
+        if let newChatModels = a.userInfo?[NewCreatedChatModels] as? [ChatModel]
+        {
+            let models = newChatModels.filter{$0.shareId == shareId}
+            if models.count > 0
+            {
+                for m in models
+                {
+                    addChatModel(m)
+                }
+                postNotificationName(ShareChatHubNewMessageChanged, object: self)
+            }
+        }
+    }
     
     func addChatModel(chatModel:ChatModel)
     {
@@ -34,18 +70,30 @@ class ShareChatHub : NSNotificationCenter
     
     func chatModelChanged(a:NSNotification)
     {
-        postNotificationName(ShareChatHubNewMessageChanged, object: self)
+        if let cm = a.userInfo?[ChangedChatModel] as? ChatModel
+        {
+            if inChatView && cm.chatId == currentChatModel.chatId
+            {
+                cm.clearNotReadMessage()
+                postNotificationName(ChatHubCurrentChatMessageChanged, object: self)
+            }
+            postNotificationName(ShareChatHubNewMessageChanged, object: self)
+        }
+        
     }
     
     func removeModel(chatId:String)
     {
-        _chats.removeElement{$0.chatId == chatId}
+        _chats.removeElement{
+            $0.removeObserver(self)
+            return $0.chatId == chatId
+        }
     }
     
     func getSortChats() -> [ChatModel]
     {
         _chats.sortInPlace { (a, b) -> Bool in
-            return a.newMsgTime.compare(b.newMsgTime) == .OrderedAscending
+            return a.newMsgTime.compare(b.newMsgTime) == .OrderedDescending
         }
         return _chats
     }
@@ -56,10 +104,13 @@ class ShareChatHub : NSNotificationCenter
         {
             c.removeObserver(self)
         }
+        _chats.removeAll()
+        ServiceContainer.getService(MessageService).removeObserver(self)
     }
 }
 
 let ChatModelNewMessageChanged = "ChatModelNewMessageChanged"
+let ChangedChatModel = "ChangedChatModel"
 
 class ChatModel : NSNotificationCenter,UUMegItemDataSource
 {
@@ -110,7 +161,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             newMsg.senderId = userService.myUserId
         }
         let sendUser = userService.getUser(newMsg.senderId)
-        newMsg.avatar = PersistentManager.sharedInstance.getImageFilePath(sendUser?.avatarId)
+        newMsg.avatar = PersistentManager.sharedInstance.getImageFilePath(sendUser?.avatarId) ?? ""
         if showNick
         {
             newMsg.nick = sendUser?.noteName
@@ -152,11 +203,10 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         }
     }
     
-    func clearNotReadMessageNotify()
+    func clearNotReadMessage()
     {
         chatEntity.newMessage = 0
         chatEntity.saveModified()
-        postNotificationName(ChatModelNewMessageChanged, object: self)
     }
     
     func receiveNewMessage(a:NSNotification)
@@ -186,9 +236,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 }
                 newMsgTime = items.last?.time
                 msgItems.appendContentsOf(items)
-                chatEntity.newMessage = chatEntity.newMessage.integerValue + items.count
-                chatEntity.saveModified()
-                postNotificationName(ChatModelNewMessageChanged, object: self)
+                postNotificationName(ChatModelNewMessageChanged, object: self,userInfo: [ChangedChatModel:self])
             }
         }
     }
@@ -204,6 +252,13 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             msgEntities = messageService.getMessage(chatId, limit: 7, beforeTime: NSDate())
         }
         var items = msgEntities.map { messageEntityToUUMsgItem($0) }
+        if let firstMsgTime = items.first?.time
+        {
+            if firstMsgTime.timeIntervalSince1970 > self.newMsgTime.timeIntervalSince1970
+            {
+                self.newMsgTime = items.first?.time
+            }
+        }
         items = items.reverse()
         for var i:Int = items.count - 1; i >= 0; i--
         {
@@ -243,7 +298,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         }
         if let senderUser = userService.getUser(entity.senderId)
         {
-            msgItem.avatar = PersistentManager.sharedInstance.getImageFilePath(senderUser.avatarId)
+            msgItem.avatar = PersistentManager.sharedInstance.getImageFilePath(senderUser.avatarId) ?? ""
             if self.showNick
             {
                 msgItem.nick = senderUser.noteName

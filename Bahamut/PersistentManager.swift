@@ -19,6 +19,7 @@ class PersistentManager
     private(set) var fileCacheDirUrl:NSURL!
     private(set) var rootUrl:NSURL!
     private(set) var tmpUrl:NSURL!
+    private(set) var dbFileUrl:NSURL!
     
     init()
     {
@@ -36,9 +37,10 @@ class PersistentManager
         }
     }
     
-    func initManager(documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
+    func initManager(dbFileName:String,documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
-        CoreDataHelper.initNSManagedObjectContext()
+        dbFileUrl = self.rootUrl.URLByAppendingPathComponent(dbFileName)
+        CoreDataHelper.initNSManagedObjectContext(dbFileUrl)
         self.fileCacheDirUrl = fileCacheDirUrl
         self.documentsPathUrl = documentsPathUrl
         self.documentsPath = documentsPathUrl.path
@@ -67,6 +69,18 @@ class PersistentManager
     func reset()
     {
         CoreDataHelper.deinitNSManagedObjectContext()
+    }
+    
+    func deleteUserDb()
+    {
+        do
+        {
+            CoreDataHelper.deinitNSManagedObjectContext()
+            try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
+        }catch
+        {
+            print("deleteUserDb failed")
+        }
     }
     
     func saveAll()
@@ -424,19 +438,19 @@ extension PersistentManager
         let typename = type.description()
         let cache = getCache(typename)
         
-        let indexIdValue = "\(typename):\(idValue)"
         //get from cache
-        if let model = cache.objectForKey(indexIdValue) as? T
+        if let model = cache.objectForKey(idValue) as? T
         {
             return model
         }else
         {
             //read from core data
+            let indexIdValue = "\(typename):\(idValue)"
             if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
             {
                 let jsonString = cellModel.serializableValue
                 let model = T(json: jsonString)
-                cache.setObject(model, forKey: "\(typename):\(idValue)")
+                cache.setObject(model, forKey: idValue)
                 return model
             }
         }
@@ -446,28 +460,26 @@ extension PersistentManager
     func getModels<T:ShareLinkObject>(type:T.Type ,idValues:[String]) -> [T]
     {
         let typename = type.description()
-        
-        let indexIdValues = idValues.map{"\(typename):\($0)"}
         let cache = getCache(typename)
-        let notCacheIds = indexIdValues.filter{
+        let notCacheIds = idValues.filter{
             cache.objectForKey($0) == nil
-        }
-
+            }.map{"\(typename):\($0)"}
+        
         if let cells = CoreDataHelper.getCellsByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: notCacheIds)as? [ModelEntity]
         {
             for entity in cells
             {
                 let jsonString = entity.serializableValue
                 let model = T(json: jsonString)
-                cache.setObject(model, forKey: "\(typename):\(model.getObjectUniqueIdValue())")
+                cache.setObject(model, forKey: model.getObjectUniqueIdValue())
             }
         }
         
-        let result = indexIdValues.map{
-            cache.objectForKey($0) as! T
+        let result = idValues.map{
+            cache.objectForKey($0) as? T
         }
         
-        return result
+        return result.filter{$0 != nil}.map{$0!}
     }
     
     func getAllModel<T:ShareLinkObject>(type:T.Type) -> [T]
@@ -518,7 +530,7 @@ extension PersistentManager
         let nsCache = getCache(typeName)
         let idValue = model.getObjectUniqueIdValue()
         let indexIdValue = "\(typeName):\(idValue)"
-        nsCache.setObject(model, forKey: indexIdValue)
+        nsCache.setObject(model, forKey: idValue)
         //save in coredata
         let jsonString = model.toJsonString()
         if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity

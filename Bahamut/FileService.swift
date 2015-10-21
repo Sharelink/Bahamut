@@ -23,7 +23,7 @@ class FileService: ServiceProtocol {
     @objc func userLogout(userId: String) {
         PersistentManager.sharedInstance.clearTmpDir()
         PersistentManager.sharedInstance.clearCache()
-        PersistentManager.sharedInstance.reset()
+        PersistentManager.sharedInstance.deleteUserDb()
     }
     
     private func initUserFoldersWithUserId(userId:String)
@@ -33,7 +33,7 @@ class FileService: ServiceProtocol {
         initDocumentUrl(userId)
         initLocalStoreDir()
         initFileCacheDir()
-        PersistentManager.sharedInstance.initManager(rootUrl,fileCacheDirUrl: fileCachePathUrl)
+        PersistentManager.sharedInstance.initManager("\(userId).sqlite",documentsPathUrl: rootUrl,fileCacheDirUrl: fileCachePathUrl)
     }
     
     private func initDocumentUrl(userId:String)

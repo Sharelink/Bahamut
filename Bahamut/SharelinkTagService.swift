@@ -15,7 +15,7 @@ class SharelinkTagUseRecord: ShareLinkObject
     var lastUserDateStr:String!
     var times:NSNumber!
     func lastUseDate()->NSDate{
-        return DateHelper.stringToDate(lastUserDateStr) ?? NSDate(timeIntervalSince1970: 0)
+        return DateHelper.stringToDateTime(lastUserDateStr) ?? NSDate(timeIntervalSince1970: 0)
     }
     
     override func getObjectUniqueIdName() -> String {

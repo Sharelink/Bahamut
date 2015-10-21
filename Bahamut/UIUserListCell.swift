@@ -33,7 +33,7 @@ class UIUserListMessageCell: UITableViewCell
     private func update()
     {
         noteNameLabel.text = model.sharelinkerNick
-        timeLabel.text = DateHelper.stringToDate(model.time).toFriendlyString()
+        timeLabel.text = DateHelper.stringToDateTime(model.time).toFriendlyString()
         messageLabel.text = model.message
         ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
