@@ -16,13 +16,10 @@ class ShareThingSortableObject: Sortable
         return "shareId"
     }
     var shareId:String!
-    var lastActiveDate:NSDate{
-        return (self.compareValue as? NSDate) ?? NSDate()
-    }
     override func isOrderedBefore(b: Sortable) -> Bool {
-        let lastActiveDateA = self.lastActiveDate
-        let lastActiveDateB = (b as! ShareThingSortableObject).lastActiveDate
-        return lastActiveDateA.timeIntervalSince1970 > lastActiveDateB.timeIntervalSince1970
+        let intervalA = self.compareValue as? NSNumber ?? NSDate().timeIntervalSince1970
+        let intervalB = b.compareValue as? NSNumber ?? NSDate().timeIntervalSince1970
+        return intervalA.doubleValue > intervalB.doubleValue
     }
 }
 
@@ -36,8 +33,7 @@ extension ShareThing
         }
         let obj = ShareThingSortableObject()
         obj.shareId = self.shareId
-        obj.compareValue = self.shareTimeOfDate
-        obj.saveModel()
+        obj.compareValue = NSNumber(double: self.shareTimeOfDate.timeIntervalSince1970)
         return obj
     }
 }
@@ -108,9 +104,15 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         shareThingSortObjectList = SortableObjectList<ShareThingSortableObject>(initList: initList)
     }
     
+    let lock:NSRecursiveLock = NSRecursiveLock()
     func setSortableObjects(objects:[ShareThingSortableObject])
     {
-        self.shareThingSortObjectList.setSortableItems(objects)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.lock.lock()
+            self.shareThingSortObjectList.setSortableItems(objects)
+            self.postNotificationName(ShareService.shareUpdated, object: self)
+            self.lock.unlock()
+        }
     }
     
     //MARK: Chicago Notify
@@ -164,7 +166,6 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                     if newValues.count > 0
                     {
                         let sortables = newValues.map{$0.getSortableObject()}
-                        ShareLinkObject.saveObjectOfArray(sortables)
                         ShareLinkObject.saveObjectOfArray(newValues)
                         self.updateNewShareAndOldShareTime(newValues)
                         self.setSortableObjects(sortables)
@@ -267,12 +268,15 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                         for m in msgs{
                             msgMap[m.shareId] = m
                         }
-                        let _ = shares.map{
-                            let obj = $0.getSortableObject()
-                            obj.compareValue = DateHelper.stringToDateTime(msgMap[$0.shareId]?.time)
-                            obj.saveModel()
+                        func shareToSortable(share:ShareThing) -> ShareThingSortableObject
+                        {
+                            let obj = share.getSortableObject()
+                            let timeInterval = DateHelper.stringToDateTime(msgMap[share.shareId]?.time).timeIntervalSince1970
+                            obj.compareValue = NSNumber(double: timeInterval)
+                            return obj
                         }
-                        self.postNotificationName(ShareService.shareUpdated, object: self)
+                        let sortables = shares.map{shareToSortable($0)}
+                        self.setSortableObjects(sortables)
                         self.clearShareMessageBox()
                     }
                 }
@@ -308,8 +312,8 @@ class ShareService: NSNotificationCenter,ServiceProtocol
             {
                 newShare.shareId = result.returnObject.shareId
                 newShare.saveModel()
-                newShare.getSortableObject()
-                self.postNotificationName(ShareService.shareUpdated, object: self)
+                let sortableObject = newShare.getSortableObject()
+                self.setSortableObjects([sortableObject])
             }
             callback(shareId: newShare.shareId)
         }
@@ -356,8 +360,8 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                 share.voteUsers.append(myUserId)
                 share.saveModel()
                 let sortableObj = share.getSortableObject()
-                sortableObj.compareValue = NSDate()
-                sortableObj.saveModel()
+                sortableObj.compareValue = NSNumber(double: NSDate().timeIntervalSince1970)
+                self.setSortableObjects([sortableObj])
             }
             if let update = updateCallback
             {

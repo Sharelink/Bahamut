@@ -342,6 +342,8 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.chatTableViewScrollToBottom()
     }
     
+    
+    //MARK: chat table view delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return shareChat.currentChatModel == nil ? 0 : 1

@@ -223,6 +223,11 @@ class UIShareThing: UITableViewCell
         rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
     }
 
+    override func layoutSubviews() {
+        updateBadge()
+        super.layoutSubviews()
+    }
+    
     func update()
     {
         shareDesc.text = shareThingModel.title

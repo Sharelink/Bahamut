@@ -12,6 +12,7 @@ import MJRefresh
 //MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController
 {
+    
     private(set) var userService:UserService!
     private(set) var fileService:FileService!
     private(set) var messageService:MessageService!
@@ -104,12 +105,11 @@ class ShareThingsListController: UITableViewController
             if let share = shareService.getShareThing(msg.shareId)
             {
                 let shareSortable = share.getSortableObject()
-                let oldTime = shareSortable.lastActiveDate
+                let oldTime = shareSortable.compareValue as! NSNumber
                 let newTime = msg.time
-                if oldTime.timeIntervalSince1970 < newTime.timeIntervalSince1970
+                if oldTime.doubleValue < newTime.timeIntervalSince1970
                 {
-                    shareSortable.compareValue = newTime
-                    shareSortable.saveModel()
+                    shareSortable.compareValue = NSNumber(double: newTime.timeIntervalSince1970)
                 }
                 readySortables.updateValue(shareSortable, forKey: share.shareId)
             }else
@@ -137,8 +137,8 @@ class ShareThingsListController: UITableViewController
                     func shareToSortable(share:ShareThing) -> ShareThingSortableObject
                     {
                         let shareSortable = share.getSortableObject()
-                        shareSortable.compareValue = notReadyMsgDate[share.shareId]
-                        shareSortable.saveModel()
+                        let timeInterval = notReadyMsgDate[share.shareId]?.timeIntervalSince1970
+                        shareSortable.compareValue = NSNumber(double: timeInterval!)
                         return shareSortable
                     }
                     let sortables = shares.map{shareToSortable($0)}
@@ -153,7 +153,7 @@ class ShareThingsListController: UITableViewController
     
     func serverShareUpdated(aNotification:NSNotification)
     {
-        tableView.reloadData()
+        refresh()
     }
 
     func refresh()
@@ -190,6 +190,7 @@ class ShareThingsListController: UITableViewController
         if shares.count > 0
         {
             self.shareThings.insertContentsOf(shares, at: startIndex)
+            self.tableView.footer.endRefreshing()
         }else
         {
             self.shareService.getPreviousShare({ (previousShares) -> Void in
@@ -219,7 +220,6 @@ class ShareThingsListController: UITableViewController
     {
         userService.showMyDetailView(self.navigationController!)
     }
-
     
     //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int

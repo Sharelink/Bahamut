@@ -124,6 +124,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         messageService = ServiceContainer.getService(MessageService)
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
+        shareService = ServiceContainer.getService(ShareService)
         messageService.addObserver(self, selector: "receiveNewMessage:", name: MessageService.messageServiceNewMessageReceived, object: self.chatId)
     }
     
@@ -135,6 +136,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
     private var messageService:MessageService!
     private var userService:UserService!
     private var fileService:FileService!
+    private var shareService:ShareService!
     private var needSort:Bool = false
     var chatEntity:ShareChatEntity!
     var chatIcon:String!
@@ -200,6 +202,10 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             msgEntity.sendFailed = false
             msgEntity.saveModified()
             messageService.sendMessage(chatId, msg: msgEntity,shareId: shareId,audienceId: audienceId)
+            let sortableObject = shareService.getShareThing(shareId).getSortableObject()
+            sortableObject.compareValue = NSNumber(double:NSDate().timeIntervalSince1970)
+            sortableObject.saveModel()
+            shareService.setSortableObjects([sortableObject])
         }
     }
     

@@ -27,14 +27,15 @@ class SortableObjectList<T:Sortable>
 
     private func sort()
     {
-        list.sortInPlace { (a, b) -> Bool in
-            return a.isOrderedBefore(b)
+        let newList = list.sort { (a,b) -> Bool in
+            a.isOrderedBefore(b)
         }
+        list = newList
     }
     
     func setSortableItems(items:[T]!)
     {
-        if items == nil
+        if items == nil || items.count == 0
         {
             return
         }
@@ -45,7 +46,7 @@ class SortableObjectList<T:Sortable>
         self.sort()
     }
     
-    func setSortableItem(item:T)
+    private func setSortableItem(item:T)
     {
         for obj in list
         {
