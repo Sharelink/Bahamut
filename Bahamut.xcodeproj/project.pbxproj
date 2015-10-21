@@ -127,6 +127,7 @@
 		E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */; };
 		E7E6ABA41BA73ED800BC597D /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6ABA21BA73ED800BC597D /* HSL.swift */; };
 		E7E6ABA51BA73ED800BC597D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6ABA31BA73ED800BC597D /* UIColor.swift */; };
+		E7E84BB71BD5300600E33291 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E84BB61BD5300600E33291 /* MF_Base64Additions.m */; };
 		E7EACBFE1BC34F6A002A294D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EACBE21BC34F6A002A294D /* Message.swift */; };
 		E7EACBFF1BC34F6A002A294D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EACBE41BC34F6A002A294D /* File.swift */; };
 		E7EACC001BC34F6A002A294D /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EACBE61BC34F6A002A294D /* ShareLinkObject.swift */; };
@@ -148,6 +149,7 @@
 		E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F08F951B75F18C00B75C25 /* FileMgrEntities.swift */; };
 		E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F11CAE1BA9947C00CA7DB2 /* Common.swift */; };
 		E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */; };
+		E7F5D6C51BD5EAB1001DEEAA /* SortSharelinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F5D6C41BD5EAB1001DEEAA /* SortSharelinkObject.swift */; };
 		E7FD584D1BCB82B700E42C95 /* ChicagoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584C1BCB82B700E42C95 /* ChicagoClient.swift */; };
 		E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */; };
 		E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7FD58501BCBDB4D00E42C95 /* UIViews.xib */; };
@@ -313,6 +315,8 @@
 		E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITagCollectionViewController.swift; sourceTree = "<group>"; };
 		E7E6ABA21BA73ED800BC597D /* HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		E7E6ABA31BA73ED800BC597D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E7E84BB51BD5300600E33291 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		E7E84BB61BD5300600E33291 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 		E7EACBE21BC34F6A002A294D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Source/Message/Message.swift; sourceTree = "<group>"; };
 		E7EACBE41BC34F6A002A294D /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = File.swift; path = Source/File/File.swift; sourceTree = "<group>"; };
 		E7EACBE61BC34F6A002A294D /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareLinkObject.swift; path = Source/Base/ShareLinkObject.swift; sourceTree = "<group>"; };
@@ -336,6 +340,7 @@
 		E7F11CAE1BA9947C00CA7DB2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E7F14E121B6CE9F400706907 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
+		E7F5D6C41BD5EAB1001DEEAA /* SortSharelinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortSharelinkObject.swift; sourceTree = "<group>"; };
 		E7FD584C1BCB82B700E42C95 /* ChicagoClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChicagoClient.swift; sourceTree = "<group>"; };
 		E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutConfig.swift; sourceTree = "<group>"; };
 		E7FD58501BCBDB4D00E42C95 /* UIViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIViews.xib; sourceTree = "<group>"; };
@@ -478,6 +483,7 @@
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				E7E84BB41BD5300600E33291 /* Base64 */,
 				E7E6ABA11BA73ED800BC597D /* DynamicColor */,
 				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E7CC15151B6E0FBA001FDB0E /* StringHelper.swift */,
@@ -485,6 +491,7 @@
 				E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */,
 				E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */,
 				E7F11CAE1BA9947C00CA7DB2 /* Common.swift */,
+				E7F5D6C41BD5EAB1001DEEAA /* SortSharelinkObject.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -830,6 +837,15 @@
 			path = DynamicColor;
 			sourceTree = "<group>";
 		};
+		E7E84BB41BD5300600E33291 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				E7E84BB51BD5300600E33291 /* MF_Base64Additions.h */,
+				E7E84BB61BD5300600E33291 /* MF_Base64Additions.m */,
+			);
+			path = Base64;
+			sourceTree = "<group>";
+		};
 		E7EACBE31BC34F6A002A294D /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -1156,6 +1172,7 @@
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
 				E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */,
+				E7F5D6C51BD5EAB1001DEEAA /* SortSharelinkObject.swift in Sources */,
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
@@ -1182,6 +1199,7 @@
 				E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */,
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
 				E7A3AA9C1B9C332F0094B0D0 /* UIImagePlayerController.swift in Sources */,
+				E7E84BB71BD5300600E33291 /* MF_Base64Additions.m in Sources */,
 				E7EACBFE1BC34F6A002A294D /* Message.swift in Sources */,
 				E7EACC021BC34F6A002A294D /* ShareLinkSDKClient.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
