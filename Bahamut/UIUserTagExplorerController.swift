@@ -25,12 +25,11 @@ extension SharelinkTagService
     
     func showTagExplorerController(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
     {
-        
         let collectionController = UITagExplorerController.instanceFromStoryBoard()
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
         collectionController.explorerIdentifier = identifier
-        collectionController.items = tags
+        collectionController.items = [tags]
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
 }
@@ -63,27 +62,49 @@ class UITagExplorerViewCell: UIResourceItemCell
 
 class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
+    private(set) var tagService:SharelinkTagService!
     var explorerIdentifier:String!
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tagService = ServiceContainer.getService(SharelinkTagService)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.delegate = self
+        self.changeNavigationBarColor()
+        updateBarButtons()
+        initItems()
     }
     
+
+    @IBOutlet var doneButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
+    @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var editButton: UIBarButtonItem!
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         notifyItemSelectState()
     }
     
+    func initItems()
+    {
+        if self.items == nil
+        {
+            self.selectionMode = ResourceExplorerSelectMode.Negative
+            let allTags = tagService.getMyAllTags()
+            let tagItems = tagService.getUserTagsResourceItemModels(allTags)
+            self.items = [tagItems]
+        }
+        
+    }
+    
     func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {
-        let service = ServiceContainer.getService(SharelinkTagService)
         if sender.editMode == .New
         {
-            service.addSharelinkTag(saveModel.tagModel){ (isSuc) -> Void in
+            tagService.addSharelinkTag(saveModel.tagModel){ (isSuc) -> Void in
                 if isSuc
                 {
-                    self.items.append(saveModel)
+                    self.items[0].append(saveModel)
                     self.uiCollectionView.reloadData()
                     self.view.makeToast(message: "focus successful!")
                 }else
@@ -92,7 +113,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 }
             }
         }else{
-            service.updateTag(saveModel.tagModel){
+            tagService.updateTag(saveModel.tagModel){
                 self.uiCollectionView.reloadData()
             }
         }
@@ -105,7 +126,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        if let model = items[indexPath.row] as? UISharelinkTagItemModel
+        if let model = items[indexPath.section][indexPath.row] as? UISharelinkTagItemModel
         {
             let uiLabel = UILabel()
             uiLabel.font = UIFont.systemFontOfSize(17)
@@ -124,7 +145,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         }
     }
     
-    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
+    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void, sender: UIResourceExplorerController!)
     {
         let newTag = UISharelinkTagItemModel()
         newTag.tagModel = SharelinkTag()
@@ -154,6 +175,18 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         }
     }
     
+    private func updateBarButtons()
+    {
+        self.navigationItem.rightBarButtonItems?.removeAll()
+        if editing
+        {
+            self.navigationItem.rightBarButtonItems = [doneButton,deleteButton]
+        }else
+        {
+            self.navigationItem.rightBarButtonItems = [addButton,editButton]
+        }
+    }
+    
     @IBOutlet weak var uiCollectionView: UICollectionView!
     
     override func getCollectionView() -> UICollectionView {
@@ -172,14 +205,21 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         deleteItem(sender)
     }
     
+    @IBAction func finishEdit(sender: AnyObject) {
+        editing = !editing
+        updateBarButtons()
+    }
+    
     @IBAction func editTags(sender: AnyObject)
     {
         editItems(sender)
+        updateBarButtons()
+
     }
     
     static func instanceFromStoryBoard() -> UITagExplorerController
     {
-        return instanceFromStoryBoard("Component", identifier: "UITagExplorerController") as! UITagExplorerController
+        return instanceFromStoryBoard("Main", identifier: "UITagExplorerController") as! UITagExplorerController
     }
 }
 

@@ -69,7 +69,7 @@ extension FileService
     {
         let fileCollectionController = UIFileCollectionController.instanceFromStoryBoard()
         fileCollectionController.selectionMode = selectionMode
-        fileCollectionController.items = files
+        fileCollectionController.items = [files]
         fileCollectionController.delegate = delegate
         currentNavigationController.pushViewController(fileCollectionController, animated: true)
     }

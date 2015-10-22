@@ -296,16 +296,16 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
-    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel) -> Void, sender: UIResourceExplorerController!)
+    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void, sender: UIResourceExplorerController!)
     {
         
         class SaveVideo:NSObject,UICameraViewControllerDelegate
         {
-            init(handler:(itemModel: UIResrouceItemModel) -> Void)
+            init(handler:(itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void)
             {
                 completedHandler = handler
             }
-            var completedHandler:(itemModel: UIResrouceItemModel) -> Void
+            var completedHandler:(itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void
             @objc private func cameraCancelRecord(sender: UICameraViewController!)
             {
                 sender.view.makeToast(message: "Record Cancel")
@@ -319,7 +319,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                     let videoFileModel = UIFileCollectionCellModel()
                     videoFileModel.filePath = newFilePath
                     videoFileModel.fileType = .Video
-                    completedHandler(itemModel: videoFileModel)
+                    completedHandler(itemModel: videoFileModel,indexPath: NSIndexPath(forRow: 0, inSection: 0))
                     sender.view.makeToast(message: "Video Saved")
                 }else
                 {

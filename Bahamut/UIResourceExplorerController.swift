@@ -49,7 +49,7 @@ class UIResourceItemCell: UICollectionViewCell
 protocol UIResourceExplorerDelegate
 {
     optional func resourceExplorerItemsSelected(itemModels:[UIResrouceItemModel] ,sender:UIResourceExplorerController!)
-    optional func resourceExplorerAddItem(completedHandler:(itemModel:UIResrouceItemModel) -> Void,sender:UIResourceExplorerController!)
+    optional func resourceExplorerAddItem(completedHandler:(itemModel:UIResrouceItemModel,indexPath:NSIndexPath) -> Void,sender:UIResourceExplorerController!)
     optional func resourceExplorerDeleteItem(itemModels:[UIResrouceItemModel],sender:UIResourceExplorerController!)
     optional func resourceExplorerOpenItem(itemModel:UIResrouceItemModel,sender:UIResourceExplorerController!)
     
@@ -84,7 +84,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         fatalError("have to override this function")
     }
     
-    var items:[UIResrouceItemModel]!{
+    var items:[[UIResrouceItemModel]]!{
         didSet{
             if collectionView != nil
             {
@@ -102,9 +102,9 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         }
     }
     
-    private func addItemCompletedHandler(itemModel:UIResrouceItemModel)
+    private func addItemCompletedHandler(itemModel:UIResrouceItemModel,indexPath:NSIndexPath)
     {
-        items.append(itemModel)
+        items[indexPath.section].append(itemModel)
         collectionView.reloadData()
     }
     
@@ -118,10 +118,18 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     func deleteItem(sender: AnyObject) {
         if let deleteDelegate = self.delegate.resourceExplorerDeleteItem
         {
-            let willDeleteItems = items.filter{ $0.editModeSelected }
+            var willDeleteItems = [UIResrouceItemModel]()
+            for item in items
+            {
+                willDeleteItems.appendContentsOf(item.filter{$0.editModeSelected})
+            }
             deleteDelegate(willDeleteItems,sender: self)
         }
-        items = items.filter{ !$0.editModeSelected }
+        for var i = 0 ;i < items.count; i++
+        {
+            items[i] = items[i].filter{ !$0.editModeSelected }
+        }
+        
     }
     
     func editItems(sender: AnyObject)
@@ -133,7 +141,10 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             btn.title = "Finish"
             for item in items
             {
-                item.editModeSelected = false
+                for model in item
+                {
+                    model.editModeSelected = false
+                }
             }
             navigationController?.setToolbarHidden(false, animated: true)
             
@@ -142,9 +153,13 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             btn.title = "Edit"
             for item in items
             {
-                item.editModeSelected = false
-                let selected = item.selected
-                item.selected = selected
+                for model in item
+                {
+                    model.editModeSelected = false
+                    let selected = model.selected
+                    model.selected = selected
+                }
+                
             }
             navigationController?.setToolbarHidden(true, animated: true)
         }
@@ -162,29 +177,8 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        initAddItemButton()
     }
     
-    private func initAddItemButton()
-    {
-        if let buttons = navigationItem.rightBarButtonItems
-        {
-            var i = 0
-            for btn in buttons
-            {
-                if btn.tag == 0
-                {
-                    if nil == delegate?.resourceExplorerAddItem
-                    {
-                        navigationItem.rightBarButtonItems?.removeAtIndex(i)
-                        return
-                    }
-                }
-                i++
-            }
-        }
-        
-    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
@@ -201,7 +195,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.getCellReuseIdentifier(), forIndexPath: indexPath) as! UIResourceItemCell
-        cell.model = items[indexPath.row]
+        cell.model = items[indexPath.section][indexPath.row]
         cell.model.cell = cell
         cell.model.indexPath = indexPath
         
@@ -230,7 +224,10 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             let selected = model.selected
             for item in items
             {
-                item.selected = false
+                for model in item
+                {
+                    model.selected = false
+                }
             }
             model.selected = !selected
         }else if selectionMode == .Multiple
@@ -244,7 +241,12 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     {
         if let delegate = delegate?.resourceExplorerItemsSelected
         {
-            delegate(items.filter{$0.selected},sender: self)
+            var selectedItems = [UIResrouceItemModel]()
+            for item in items
+            {
+                selectedItems.appendContentsOf(item.filter{$0.selected})
+            }
+            delegate(selectedItems,sender: self)
         }
     }
     

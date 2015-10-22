@@ -271,122 +271,10 @@
             </objects>
             <point key="canvasLocation" x="1242.5" y="2165.5"/>
         </scene>
-        <!--My Tags-->
-        <scene sceneID="ypL-1e-3PJ">
-            <objects>
-                <viewController storyboardIdentifier="UITagExplorerController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RC0-xy-4Ps" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Oi3-Hp-7ne"/>
-                        <viewControllerLayoutGuide type="bottom" id="lj8-Fi-0wH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="o8A-WL-ews">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="epy-fL-wu3">
-                                <rect key="frame" x="20" y="20" width="560" height="528"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SrN-Qt-g4g">
-                                    <size key="itemSize" width="137" height="64"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="TagItemCell" id="Asb-zM-XqL" customClass="UITagExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="137" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDk-yz-k33">
-                                                    <rect key="frame" x="48" y="21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="gYd-28-Iyg">
-                                                    <rect key="frame" x="61" y="24" width="16" height="16"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="Auy-8T-l0j"/>
-                                                        <constraint firstAttribute="height" constant="16" id="KfM-aV-xcF"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="leading" secondItem="Asb-zM-XqL" secondAttribute="leadingMargin" constant="12" id="38N-0d-HQb"/>
-                                            <constraint firstItem="DDk-yz-k33" firstAttribute="leading" secondItem="gYd-28-Iyg" secondAttribute="trailing" constant="12" id="5zg-SI-QdL"/>
-                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="8Lo-wC-jkw"/>
-                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="centerY" secondItem="Asb-zM-XqL" secondAttribute="centerY" id="Nsy-4D-IuU"/>
-                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerY" secondItem="Asb-zM-XqL" secondAttribute="centerY" id="YUo-8h-Hbj"/>
-                                            <constraint firstItem="DDk-yz-k33" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="kuR-PF-eYt"/>
-                                            <constraint firstItem="gYd-28-Iyg" firstAttribute="centerX" secondItem="Asb-zM-XqL" secondAttribute="centerX" id="msq-Ep-cnB"/>
-                                        </constraints>
-                                        <size key="customSize" width="137" height="64"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="5zg-SI-QdL"/>
-                                                <exclude reference="kuR-PF-eYt"/>
-                                                <exclude reference="38N-0d-HQb"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <outlet property="tagNameLabel" destination="DDk-yz-k33" id="QLp-Lt-eLU"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="epy-fL-wu3" firstAttribute="trailing" secondItem="o8A-WL-ews" secondAttribute="trailingMargin" id="2DI-iY-AX7"/>
-                            <constraint firstItem="epy-fL-wu3" firstAttribute="leading" secondItem="o8A-WL-ews" secondAttribute="leadingMargin" id="JVd-5n-UJO"/>
-                            <constraint firstItem="epy-fL-wu3" firstAttribute="top" secondItem="o8A-WL-ews" secondAttribute="top" constant="20" symbolic="YES" id="Knr-5u-EdN"/>
-                            <constraint firstItem="lj8-Fi-0wH" firstAttribute="top" secondItem="epy-fL-wu3" secondAttribute="bottom" constant="8" symbolic="YES" id="MC1-5t-nMa"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="trash" id="Tgr-uT-z9X">
-                            <connections>
-                                <action selector="deleteTag:" destination="RC0-xy-4Ps" id="RFQ-6H-KWs"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="My Tags" id="dvA-mC-VAc">
-                        <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Lsz-Sq-Zoi">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="9xl-wz-i4J">
-                                <connections>
-                                    <action selector="addTag:" destination="RC0-xy-4Ps" id="BIf-2s-0e7"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="compose" id="5gp-wF-AfT">
-                                <connections>
-                                    <action selector="editTags:" destination="RC0-xy-4Ps" id="ay0-Eo-ZSA"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="uiCollectionView" destination="epy-fL-wu3" id="xsJ-X9-4hg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ok-Cc-FeT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-126" y="1680"/>
-        </scene>
         <!--Title-->
         <scene sceneID="nhT-4z-tHH">
             <objects>
-                <viewController storyboardIdentifier="userTagEditController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xkf-Mc-ucN" customClass="UIUserTagEditController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userTagEditController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xkf-Mc-ucN" customClass="UIUserTagEditController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hLQ-Zp-lIf"/>
                         <viewControllerLayoutGuide type="bottom" id="uu4-hu-aWg"/>
@@ -469,7 +357,7 @@
         <!--Title-->
         <scene sceneID="Ji5-qH-FXX">
             <objects>
-                <viewController storyboardIdentifier="editTextPropertyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dgN-AS-4e4" customClass="UIEditTextPropertyViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editTextPropertyViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dgN-AS-4e4" customClass="UIEditTextPropertyViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eV8-yn-yeE"/>
                         <viewControllerLayoutGuide type="bottom" id="JHm-XU-5eG"/>

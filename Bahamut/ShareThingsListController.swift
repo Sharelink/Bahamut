@@ -156,13 +156,17 @@ class ShareThingsListController: UITableViewController
         refresh()
     }
 
+    let refreshLock = NSRecursiveLock()
     func refresh()
     {
-        self.shareThings.removeAll(keepCapacity: true)
-        let newValues = self.shareService.getShareThings(0,pageNum: 7)
-        self.shareThings.insertContentsOf(newValues, at: 0)
+        
         dispatch_async(dispatch_get_main_queue()){()->Void in
+            self.refreshLock.lock()
+            self.shareThings.removeAll(keepCapacity: true)
+            let newValues = self.shareService.getShareThings(0,pageNum: 7)
+            self.shareThings.insertContentsOf(newValues, at: 0)
             self.tableView.reloadData()
+            self.refreshLock.unlock()
             self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
         }
     }
@@ -189,15 +193,21 @@ class ShareThingsListController: UITableViewController
         let shares = self.shareService.getShareThings(startIndex, pageNum: 10)
         if shares.count > 0
         {
+            self.refreshLock.lock()
             self.shareThings.insertContentsOf(shares, at: startIndex)
             self.tableView.footer.endRefreshing()
+            self.tableView.reloadData()
+            self.refreshLock.unlock()
         }else
         {
             self.shareService.getPreviousShare({ (previousShares) -> Void in
                 self.tableView.footer.endRefreshing()
                 if previousShares != nil && previousShares.count > 0
                 {
+                    self.refreshLock.lock()
                     self.shareThings.insertContentsOf(previousShares, at: startIndex)
+                    self.tableView.reloadData()
+                    self.refreshLock.unlock()
                 }
             })
         }
