@@ -52,7 +52,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     private var authenticationURL: String {
-        let url = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        let url = NSBundle.mainBundle().pathForResource("login", ofType: "html", inDirectory: "WebAssets/Sharelink")
         return url!
     }
     
@@ -155,6 +155,34 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     //MARK: develop mode
+    @IBAction func hideDevPanel(sender: AnyObject) {
+        dev_panel.hidden = true
+    }
+    
+    @IBAction func clearAllData(sender: AnyObject)
+    {
+        PersistentManager.sharedInstance.clearRootDir()
+    }
+    
+    @IBAction func use168Server(sender: AnyObject)
+    {
+        BahamutConfig.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
+        BahamutConfig.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
+        authenticate()
+    }
+    @IBAction func use67Server(sender: AnyObject)
+    {
+        BahamutConfig.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
+        BahamutConfig.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
+        authenticate()
+    }
+    
+    @IBAction func useRemoteServer(sender: AnyObject)
+    {
+        BahamutConfig.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
+        BahamutConfig.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+        authenticate()
+    }
     
     @IBOutlet weak var dev_panel: UIView!{
         didSet{
@@ -186,13 +214,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             }else{
                 self.view.makeToastActivityWithMessage(message: msg!)
             }
-            self.lockScreen()
         }
         
     }
     func hideToastActivity(){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.unlockScreen()
             self.view.hideToastActivity()
         }
 

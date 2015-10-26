@@ -37,6 +37,23 @@ class PersistentManager
         }
     }
     
+    func clearRootDir()
+    {
+        if let files = rootUrl.pathComponents
+        {
+            for file in files
+            {
+                do
+                {
+                    try NSFileManager.defaultManager().removeItemAtPath(file)
+                }catch{
+                    
+                }
+            }
+        }
+        
+    }
+    
     func initManager(dbFileName:String,documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
         dbFileUrl = self.rootUrl.URLByAppendingPathComponent(dbFileName)

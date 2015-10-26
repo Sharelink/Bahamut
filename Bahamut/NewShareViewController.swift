@@ -461,18 +461,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func taskCompleted(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
         {
-            var msg = result as! String
+            let msg = result as! String
             if msg == "file"
             {
                 task.uploadedFile = 1
-                msg = "Send File Success"
+                self.view.makeToast(message: "Send File Success")
             }else if msg.hasBegin("share:")
             {
                 task.shareId = msg.substringFromIndex(6)
                 task.sharePosted = 1
-                msg = "Post Share Success"
+                self.view.makeToast(message:"Post Share Success")
             }
-            self.view.makeToast(message: msg)
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {
                 ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
@@ -492,18 +491,15 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
         {
-            var msg = result as! String
+            let msg = result as! String
             if msg == "file"
             {
                 task.uploadedFile = -1
-                msg = "Send File Error"
+                self.view.makeToast(message:"Send File Error")
             }else if msg == "share"
             {
                 task.sharePosted = -1
-                msg = "Post Share Error"
-            }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.view.makeToast(message: msg)
+                self.view.makeToast(message: "Post Share Error")
             }
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {

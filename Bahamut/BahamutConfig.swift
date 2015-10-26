@@ -10,8 +10,8 @@ import Foundation
 
 class BahamutConfig
 {
-    static let loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
-    static let registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+    static var loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
+    static var registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
 }
 
 class BahamutSetting

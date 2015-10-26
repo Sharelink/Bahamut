@@ -686,15 +686,64 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0h-P8-kxU">
+                                        <rect key="frame" x="16" y="43" width="30" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="67"/>
+                                        <connections>
+                                            <action selector="use67Server:" destination="q7G-s6-dbS" eventType="touchUpInside" id="wnp-FR-hNd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO6-r8-lHT">
+                                        <rect key="frame" x="60" y="43" width="49" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="remote"/>
+                                        <connections>
+                                            <action selector="useRemoteServer:" destination="q7G-s6-dbS" eventType="touchUpInside" id="usz-pT-HHw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxX-Rk-1gl">
+                                        <rect key="frame" x="127" y="43" width="30" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="168"/>
+                                        <connections>
+                                            <action selector="use168Server:" destination="q7G-s6-dbS" eventType="touchUpInside" id="295-co-Xio"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-2G-I2X">
+                                        <rect key="frame" x="520" y="77" width="32" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="Hide"/>
+                                        <connections>
+                                            <action selector="hideDevPanel:" destination="q7G-s6-dbS" eventType="touchUpInside" id="85J-DP-fws"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0T-A6-Sdt">
+                                        <rect key="frame" x="444" y="77" width="68" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="ClearData"/>
+                                        <connections>
+                                            <action selector="clearAllData:" destination="q7G-s6-dbS" eventType="touchUpInside" id="BGh-BF-Ts0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="mxX-Rk-1gl" firstAttribute="top" secondItem="IO6-r8-lHT" secondAttribute="top" id="2jg-wB-v1J"/>
+                                    <constraint firstItem="IO6-r8-lHT" firstAttribute="top" secondItem="x0h-P8-kxU" secondAttribute="top" id="9r9-0d-zJH"/>
+                                    <constraint firstItem="IO6-r8-lHT" firstAttribute="leading" secondItem="x0h-P8-kxU" secondAttribute="trailing" constant="14" id="Dbw-B9-1JB"/>
+                                    <constraint firstItem="S2c-2G-I2X" firstAttribute="trailing" secondItem="UCy-Uk-G7g" secondAttribute="trailingMargin" id="EkC-OW-kR9"/>
                                     <constraint firstItem="rK3-Xs-3SC" firstAttribute="centerX" secondItem="UCy-Uk-G7g" secondAttribute="centerX" id="Gyd-ru-PIn"/>
                                     <constraint firstAttribute="width" constant="240" id="KKB-4W-aC5"/>
+                                    <constraint firstItem="x0h-P8-kxU" firstAttribute="centerY" secondItem="UCy-Uk-G7g" secondAttribute="centerY" id="QW2-1I-xax"/>
+                                    <constraint firstItem="S2c-2G-I2X" firstAttribute="bottom" secondItem="UCy-Uk-G7g" secondAttribute="bottomMargin" id="X6V-Yo-YGK"/>
                                     <constraint firstAttribute="height" constant="77" id="bBb-8g-6Jg"/>
                                     <constraint firstAttribute="height" constant="115" id="bId-G1-i49"/>
+                                    <constraint firstItem="mxX-Rk-1gl" firstAttribute="leading" secondItem="IO6-r8-lHT" secondAttribute="trailing" constant="18" id="dkb-sB-T03"/>
+                                    <constraint firstItem="a0T-A6-Sdt" firstAttribute="top" secondItem="S2c-2G-I2X" secondAttribute="top" id="mrB-7F-7za"/>
                                     <constraint firstItem="rK3-Xs-3SC" firstAttribute="top" secondItem="UCy-Uk-G7g" secondAttribute="topMargin" id="nI9-Zg-PTQ"/>
+                                    <constraint firstItem="S2c-2G-I2X" firstAttribute="leading" secondItem="a0T-A6-Sdt" secondAttribute="trailing" constant="8" id="opw-2b-1qn"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -710,6 +759,7 @@
                             <constraint firstItem="UCy-Uk-G7g" firstAttribute="top" secondItem="xFk-ZC-P8B" secondAttribute="bottom" constant="20" id="38G-TX-Bhh"/>
                             <constraint firstItem="UCy-Uk-G7g" firstAttribute="trailing" secondItem="TbV-48-Lna" secondAttribute="trailingMargin" id="KCU-B9-Wjn"/>
                             <constraint firstItem="BsZ-WV-6Gb" firstAttribute="top" secondItem="xFk-ZC-P8B" secondAttribute="bottom" id="Mc2-8S-ck1"/>
+                            <constraint firstItem="BsZ-WV-6Gb" firstAttribute="leading" secondItem="x0h-P8-kxU" secondAttribute="trailing" constant="-66" id="OlT-cz-XGy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UCy-Uk-G7g" secondAttribute="trailing" id="RET-ON-jPa"/>
                             <constraint firstAttribute="bottom" secondItem="UCy-Uk-G7g" secondAttribute="bottom" constant="20" symbolic="YES" id="WdK-cI-uar"/>
                             <constraint firstAttribute="leadingMargin" secondItem="UCy-Uk-G7g" secondAttribute="leading" id="Yld-cl-A5i"/>
