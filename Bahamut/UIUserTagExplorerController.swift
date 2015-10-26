@@ -63,7 +63,7 @@ class UITagExplorerViewCell: UIResourceItemCell
 class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
     private(set) var tagService:SharelinkTagService!
-    var explorerIdentifier:String!
+    var explorerIdentifier:String! = "one"
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     override func viewDidLoad() {
         super.viewDidLoad()

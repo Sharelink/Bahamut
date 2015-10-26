@@ -29,6 +29,12 @@ class LinkedUserListController: UITableViewController
         }
     }
     
+    var tabBarBadgeValue:Int = 0{
+        didSet{
+            self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
+        }
+    }
+    
     deinit
     {
         if userService != nil
@@ -82,13 +88,13 @@ class LinkedUserListController: UITableViewController
         uiview.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = uiview
         self.userService = ServiceContainer.getService(UserService)
+        self.tabBarBadgeValue = 0
         refresh()
-        headerGesture = UITapGestureRecognizer(target: self, action: "tapHeader:")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tabBarItem.badgeValue = nil
+        tabBarBadgeValue = 0
         tableView.reloadData()
     }
     
@@ -100,14 +106,6 @@ class LinkedUserListController: UITableViewController
     @IBAction func showMyQRCode(sender: AnyObject)
     {
         userService.showMyQRViewController(self.navigationController!,sharelinkUserId: userService.myUserId ,avataImage: nil)
-    }
-    
-    var headerGesture:UITapGestureRecognizer!
-    func tapHeader(tap:UITapGestureRecognizer)
-    {
-        //TODO:
-        
-        print("header")
     }
     
     var indexOfUserList:Int{
@@ -144,7 +142,6 @@ class LinkedUserListController: UITableViewController
         }else
         {
             label.text = userListModel[section - indexOfUserList].latinLetter
-            headerView.addGestureRecognizer(headerGesture)
         }
         label.sizeToFit()
         return headerView

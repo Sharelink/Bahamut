@@ -1,5 +1,5 @@
 //
-//  BahamutConfig.swift
+//  BahamutSetting.swift
 //  Bahamut
 //
 //  Created by AlexChow on 15/10/12.
@@ -9,6 +9,12 @@
 import Foundation
 
 class BahamutConfig
+{
+    static let loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
+    static let registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+}
+
+class BahamutSetting
 {
     static var shareLinkApiServer:String!{
         get{

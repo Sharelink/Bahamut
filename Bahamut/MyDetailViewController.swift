@@ -16,7 +16,7 @@ extension UserService
         if let myInfo = self.myUserModel
         {
             let controller = MyDetailViewController.instanceFromStoryBoard()
-            controller.accountId = BahamutConfig.lastLoginAccountId
+            controller.accountId = BahamutSetting.lastLoginAccountId
             controller.myInfo = myInfo
             currentNavigationController.pushViewController(controller, animated: true)
         }else

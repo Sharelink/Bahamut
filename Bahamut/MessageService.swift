@@ -31,9 +31,9 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         route.CmdName = "UsrNewMsg"
         ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
-        ChicagoClient.sharedInstance.connect(BahamutConfig.chicagoServerHost, port: BahamutConfig.chicagoServerHostPort)
+        ChicagoClient.sharedInstance.connect(BahamutSetting.chicagoServerHost, port: BahamutSetting.chicagoServerHostPort)
         ChicagoClient.sharedInstance.startHeartBeat()
-        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: ShareLinkSDK.appkey, apptoken: BahamutConfig.token)
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: ShareLinkSDK.appkey, apptoken: BahamutSetting.token)
     }
     
     func userLogout(userId: String) {

@@ -39,12 +39,17 @@ class ScreenLockProxy:NSObject
     
     func lockScreen(controller:UIViewController)
     {
-        controller.view.addSubview(lockScreenLayer)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            controller.view.addSubview(self.lockScreenLayer)
+        }
     }
     
     func unlockScreen(controller:UIViewController)
     {
-        lockScreenLayer.removeFromSuperview()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.lockScreenLayer.removeFromSuperview()
+        }
+        
     }
     
 }

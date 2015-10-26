@@ -12,7 +12,7 @@ struct ServiceConfig
 {
     static let Services:[(String,ServiceProtocol)] =
     [
-        (AccountService.ServiceName,AccountService()), //AccountService Must Be First One,it include init BahamutConfig function
+        (AccountService.ServiceName,AccountService()), //AccountService Must Be First One,it include init BahamutSetting function
         (FileService.ServiceName,FileService()), //FileService must second to init core data
         (MessageService.ServiceName,MessageService()),
         (ShareService.ServiceName,ShareService()),

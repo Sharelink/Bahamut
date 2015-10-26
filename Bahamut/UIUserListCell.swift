@@ -20,7 +20,13 @@ class UIUserListMessageCell: UITableViewCell
     
     var rootController:LinkedUserListController!
     @IBOutlet weak var noteNameLabel: UILabel!
-    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var avatar: UIImageView!{
+        didSet{
+            avatar.layer.cornerRadius = 3.0
+            avatar.userInteractionEnabled = true
+            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+        }
+    }
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
@@ -28,6 +34,12 @@ class UIUserListMessageCell: UITableViewCell
     @IBAction func Ok(sender: AnyObject)
     {
         rootController.userService.deleteLinkMessage(model.id)
+    }
+    
+    func showAvatar(_:UIGestureRecognizer)
+    {
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [model.avatar ?? ImageAssetsConstants.defaultAvatar],imageFileFetcher: imageFileFetcher)
     }
     
     private func update()
@@ -44,7 +56,13 @@ class UIUserListAskingLinkCell: UITableViewCell
     static let cellIdentifier:String = "UserAskLinkCell"
     var model:LinkMessage!
     var rootController:LinkedUserListController!
-    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var avatar: UIImageView!{
+        didSet{
+            avatar.layer.cornerRadius = 3.0
+            avatar.userInteractionEnabled = true
+            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+        }
+    }
     @IBOutlet weak var userNickLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
@@ -65,6 +83,12 @@ class UIUserListAskingLinkCell: UITableViewCell
                 self.rootController.view.makeToast(message: "acceptUserLink error")
             }
         }
+    }
+    
+    func showAvatar(_:UIGestureRecognizer)
+    {
+        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
+        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [model.avatar ?? ImageAssetsConstants.defaultAvatar],imageFileFetcher: imageFileFetcher)
     }
     
     private func update()

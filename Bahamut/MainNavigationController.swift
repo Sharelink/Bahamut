@@ -29,7 +29,7 @@ class MainNavigationController: UINavigationController
     
     func go()
     {
-        if BahamutConfig.isUserLogined
+        if BahamutSetting.isUserLogined
         {
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         }else

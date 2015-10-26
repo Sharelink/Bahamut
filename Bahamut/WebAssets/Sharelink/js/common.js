@@ -15,6 +15,11 @@ $(document).ready(function(){
     //设置表单初始值
     $("#username").val(getUrlParam("accountId"));
                   
+    var loginApi = getUrlParam("loginApi");
+    var registApi = getUrlParam("registApi");
+
+    $("#regist").href = $("#regist").href + "?loginApi=" + loginApi + "&registApi=" + registApi
+                  
 	//登陆表单验证
 	$("#loginForm").validate({
 		rules:{
@@ -46,12 +51,26 @@ $(document).ready(function(){
 
 		//表单提交
 		submitHandler:function(form){
+			//switch dev mode
+			if($("#username").val() == "bahamut-sl" && $("#password").val() == "sldebug"){
+            	controller.switchDevMode();
+            	return;
+            }
+                             
+			//hash password
+         	var originPsw = form.password.value;
+            var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(originPsw);
+			var hash = shaObj.getHash("HEX");
+			$("#password").val(hash);
+			var formData = $("#loginForm").serialize();
+			$("#password").val(originPsw);
 			controller.showToastActivity("Logining");
   			$.ajax({
   				cache:false,
                 type: "POST",
-                url:"http://192.168.1.67:8086/Account/AjaxLogin",
-                data:$("#loginForm").serialize(),
+                url:loginApi,
+                data:formData,
                 async:true,
                 error: function(request) {
 					controller.hideToastActivity();
@@ -123,11 +142,19 @@ $(document).ready(function(){
 		//表单提交
 		submitHandler:function(form){
 			controller.showToastActivity("Regsting");
+			//hash password
+         	var originPsw = form.password.value;
+            var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(originPsw);
+			var hash = shaObj.getHash("HEX");
+			$("#password").val(hash);
+			var formData = $("#registerForm").serialize();
+			$("#password").val(originPsw);
   			$.ajax({
   				cache:false,
                 type: "POST",
-                url:"http://192.168.1.67:8086/Account/AjaxRegist",
-                data:$("#registerForm").serialize(),
+                url:registApi,
+                data:formData,
                 async:true,
                 error: function(request) {
 					controller.hideToastActivity();

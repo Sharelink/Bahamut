@@ -57,10 +57,15 @@ class ShareThingsListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tabBarItem.badgeValue = nil
+        tabBarBadgeValue = 0
         refreshFromServer()
     }
     
+    var tabBarBadgeValue:Int = 0{
+        didSet{
+            self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
+        }
+    }
     
     var isNetworkError:Bool = false{
         didSet{
@@ -189,17 +194,18 @@ class ShareThingsListController: UITableViewController
         {
             return
         }
+        self.refreshLock.lock()
         let startIndex = shareThings.count
         let shares = self.shareService.getShareThings(startIndex, pageNum: 10)
         if shares.count > 0
         {
-            self.refreshLock.lock()
             self.shareThings.insertContentsOf(shares, at: startIndex)
             self.tableView.footer.endRefreshing()
             self.tableView.reloadData()
             self.refreshLock.unlock()
         }else
         {
+            self.refreshLock.unlock()
             self.shareService.getPreviousShare({ (previousShares) -> Void in
                 self.tableView.footer.endRefreshing()
                 if previousShares != nil && previousShares.count > 0
@@ -211,20 +217,10 @@ class ShareThingsListController: UITableViewController
                 }
             })
         }
+        
     }
     
     //MARK: actions
-    
-    @IBAction func tag(sender: AnyObject)
-    {
-        let tagService = ServiceContainer.getService(SharelinkTagService)
-        view.makeToastActivity()
-        tagService.refreshMyAllSharelinkTags { () -> Void in
-            self.view.hideToastActivity()
-            let allTagModels = tagService.getMyAllTags()
-            tagService.showTagExplorerController(self.navigationController!, tags: tagService.getUserTagsResourceItemModels(allTagModels))
-        }
-    }
     
     @IBAction func userSetting(sender:AnyObject)
     {

@@ -199,32 +199,42 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
-        self.loading = false
-        self.playButton.hidden = false
-        self.setProgressValue(0)
-        if let video = result as? String
-        {
-            self.playerController.path = video
-            self.loaded = true
-            self.refreshUI()
-        }else
-        {
-            taskFailed(fileIdentifier, result: result)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.loading = false
+            self.playButton.hidden = false
+            self.refreshButton.hidden = true
+            self.setProgressValue(0)
+            if let video = result as? String
+            {
+                self.playerController.path = video
+                self.loaded = true
+                self.refreshUI()
+            }else
+            {
+                self.taskFailed(fileIdentifier, result: result)
+            }
         }
+        
         
     }
     
     func taskProgress(fileIdentifier: String, persent: Float) {
-        self.setProgressValue(persent / 100)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            self.setProgressValue(persent / 100)
+        }
     }
     
     func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
-        self.loading = false
-        self.setProgressValue(0)
-        self.refreshButton.hidden = false
-        self.playButton.hidden = true
-        self.playerController.reset()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.loading = false
+            self.setProgressValue(0)
+            self.refreshButton.hidden = false
+            self.playButton.hidden = true
+            self.playerController.reset()
+        }
+        
     }
 
     //MARK: actions

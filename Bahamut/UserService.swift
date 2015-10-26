@@ -30,15 +30,18 @@ class UserService: NSNotificationCenter,ServiceProtocol
     }
     
     var myUserId:String{
-        return BahamutConfig.userId
+        return BahamutSetting.userId
     }
     
     @objc func userLoginInit(userId:String)
     {
         initLinkedUsers()
-        myUserModel = self.getUser(BahamutConfig.userId, serverNewestCallback: { (newestUser, msg) -> Void in
-            self.myUserModel = newestUser
-            self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
+        myUserModel = self.getUser(BahamutSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
+            if newestUser != nil
+            {
+                self.myUserModel = newestUser
+                self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
+            }
         })
         if myUserModel != nil
         {
@@ -229,7 +232,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     func generateSharelinkerQrString() -> String
     {
-        return "sharelinker://userId=\(BahamutConfig.userId)"
+        return "sharelinker://userId=\(BahamutSetting.userId)"
     }
     
     func getSharelinkerIdFromQRString(qr:String)-> String

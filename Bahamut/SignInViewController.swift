@@ -19,6 +19,7 @@ import JavaScriptCore
     func validateToken(result:String)
     func finishRegist(accountId:String)
     func alert(msg:String)
+    func switchDevMode()
 }
 
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
@@ -43,7 +44,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        loginAccountId = BahamutConfig.lastLoginAccountId
+        loginAccountId = BahamutSetting.lastLoginAccountId
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -123,7 +124,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         var url = authenticationURL
         if let aId = loginAccountId
         {
-            url = "\(url)?accountId=\(aId)"
+            url = "\(url)?accountId=\(aId)&loginApi=\(BahamutConfig.loginApi)&registApi=\(BahamutConfig.registAccountApi)"
+        }else
+        {
+            url = "\(url)?loginApi=\(BahamutConfig.loginApi)&registApi=\(BahamutConfig.registAccountApi)"
         }
         webViewUrl = url
     }
@@ -150,29 +154,55 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
     }
     
+    //MARK: develop mode
+    
+    @IBOutlet weak var dev_panel: UIView!{
+        didSet{
+            dev_panel.hidden = true
+        }
+    }
+    
     //MARK: implements jsProtocol
     func validateToken(result:String)
     {
-        var params = result.componentsSeparatedByString("#p")
-        self.validateToken(params[0], accountId: params[1], accessToken: params[2])
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            var params = result.componentsSeparatedByString("#p")
+            self.validateToken(params[0], accountId: params[1], accessToken: params[2])
+        }
+        
     }
     
     func makeToast(msg:String){
-        view.makeToast(message: msg)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.view.makeToast(message: msg)
+        }
     }
     
     func showToastActivity(msg:String? = nil){
-        if msg == nil
-        {
-            view.makeToastActivity()
-        }else{
-            view.makeToastActivityWithMessage(message: msg!)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            if msg == nil
+            {
+                self.view.makeToastActivity()
+            }else{
+                self.view.makeToastActivityWithMessage(message: msg!)
+            }
+            self.lockScreen()
         }
-        self.lockScreen()
+        
     }
     func hideToastActivity(){
-        self.unlockScreen()
-        view.hideToastActivity()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.unlockScreen()
+            self.view.hideToastActivity()
+        }
+
+    }
+    
+    func switchDevMode() {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.dev_panel.hidden = !self.dev_panel.hidden
+            self.view.bringSubviewToFront(self.dev_panel)
+        }
     }
     
 }

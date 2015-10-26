@@ -14,18 +14,18 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        ShareLinkSDK.sharedInstance.reuse(BahamutConfig.userId, token: BahamutConfig.token, shareLinkApiServer: BahamutConfig.shareLinkApiServer, fileApiServer: BahamutConfig.fileApiServer)
+        ShareLinkSDK.sharedInstance.reuse(BahamutSetting.userId, token: BahamutSetting.token, shareLinkApiServer: BahamutSetting.shareLinkApiServer, fileApiServer: BahamutSetting.fileApiServer)
         ShareLinkSDK.sharedInstance.startClients()
     }
     
     @objc func userLogout(userId: String) {
-        BahamutConfig.token = nil
-        BahamutConfig.isUserLogined = false
-        BahamutConfig.fileApiServer = nil
-        BahamutConfig.shareLinkApiServer = nil
-        BahamutConfig.chicagoServerHost = nil
-        BahamutConfig.chicagoServerHostPort = 0
-        BahamutConfig.userId = nil
+        BahamutSetting.token = nil
+        BahamutSetting.isUserLogined = false
+        BahamutSetting.fileApiServer = nil
+        BahamutSetting.shareLinkApiServer = nil
+        BahamutSetting.chicagoServerHost = nil
+        BahamutSetting.chicagoServerHostPort = 0
+        BahamutSetting.userId = nil
         ShareLinkSDK.sharedInstance.cancelToken(){
             message in
             
@@ -40,20 +40,20 @@ class AccountService: ServiceProtocol
     
     private func setLogined(validateResult:ValidateResult)
     {
-        BahamutConfig.token = validateResult.AppToken
-        BahamutConfig.isUserLogined = true
-        BahamutConfig.shareLinkApiServer = validateResult.APIServer
-        BahamutConfig.fileApiServer = validateResult.FileAPIServer
+        BahamutSetting.token = validateResult.AppToken
+        BahamutSetting.isUserLogined = true
+        BahamutSetting.shareLinkApiServer = validateResult.APIServer
+        BahamutSetting.fileApiServer = validateResult.FileAPIServer
         let chicagoStrs = validateResult.ChicagoServer.split(":")
-        BahamutConfig.chicagoServerHost = chicagoStrs[0]
-        BahamutConfig.chicagoServerHostPort = UInt16(chicagoStrs[1])!
-        BahamutConfig.userId = validateResult.UserId
+        BahamutSetting.chicagoServerHost = chicagoStrs[0]
+        BahamutSetting.chicagoServerHostPort = UInt16(chicagoStrs[1])!
+        BahamutSetting.userId = validateResult.UserId
         ServiceContainer.instance.userLogin(validateResult.UserId)
     }
 
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
-        BahamutConfig.lastLoginAccountId = accountId
+        BahamutSetting.lastLoginAccountId = accountId
         ShareLinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer,validateResult) -> Void in
             if isNewUser
             {

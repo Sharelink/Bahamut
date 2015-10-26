@@ -67,26 +67,34 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
     
     func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
-        self.setProgressValue(0)
-        if let image = result as? String
-        {
-            self.imageView.image = UIImage(contentsOfFile: image)
+        dispatch_async(dispatch_get_main_queue()){
+            self.setProgressValue(0)
+            if let image = result as? String
+            {
+                self.imageView.image = UIImage(contentsOfFile: image)
+            }
+            self.canScale = true
+            self.refreshUI()
         }
-        self.canScale = true
-        self.refreshUI()
     }
     
     func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
-        self.setProgressValue(0)
-        refreshButton.hidden = false
-        self.canScale = false
-        self.refreshUI()
+        dispatch_async(dispatch_get_main_queue()){
+            self.setProgressValue(0)
+            self.refreshButton.hidden = false
+            self.canScale = false
+            self.refreshUI()
+        }
+        
     }
     
     func taskProgress(fileIdentifier: String, persent: Float)
     {
-        self.setProgressValue(persent / 100)
+        dispatch_async(dispatch_get_main_queue()){
+            self.setProgressValue(persent / 100)
+        }
+        
     }
     
     private func initImageView()
@@ -134,6 +142,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
         progress.center = CGPoint(x: self.center.x, y: self.center.y)
         refreshButton.center = CGPoint(x: self.center.x, y: self.center.y)
         imageView.frame = bounds
+        imageView.layoutIfNeeded()
     }
     
     var isScale:Bool = false
