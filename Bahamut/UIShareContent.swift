@@ -18,7 +18,7 @@ protocol UIShareContentDelegate
 
 class UIShareContentTypeDelegateGenerator
 {
-    static func getDelegate(shareType:ShareType) -> UIShareContentDelegate!
+    static func getDelegate(shareType:SharelinkType) -> UIShareContentDelegate!
     {
         return getDelegate(shareType.rawValue)
     }
@@ -27,7 +27,7 @@ class UIShareContentTypeDelegateGenerator
     {
         switch(shareType)
         {
-            case ShareType.filmType.rawValue : return FilmContent()
+            case SharelinkType.filmType.rawValue : return FilmContent()
         default:return nil
         }
     }

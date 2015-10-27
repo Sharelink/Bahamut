@@ -20,6 +20,7 @@
 #import "WXApi.h"
 
 #import "WeiboSDK.h"
+#import "WeiboUser.h"
 
 #import "Base64/MF_Base64Additions.h"
 

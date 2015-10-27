@@ -72,7 +72,7 @@ $(document).ready(function(){
 					controller.hideToastActivity();
 					if (result.suc == true){
 						controller.alert("注册成功，请记住您的Sharelink ID:\n" + result.accountId);
-						controller.finishRegist(result.accountId);
+						controller.finishRegist(result.accountId+"#p"+result.accountName);
 					}else if (result.msg) {
 						controller.makeToast(result.msg);
 					}

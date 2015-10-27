@@ -32,7 +32,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
-            shareThingModel.shareType = ShareType.filmType.rawValue
+            shareThingModel.shareType = SharelinkType.filmType.rawValue
         }
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
@@ -64,7 +64,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
-            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareType.filmType)
+            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.filmType)
             let player = shareContentContainer.contentView as! ShareLinkFilmView
             player.fileFetcher = FilePathFileFetcher.shareInstance
             shareContentContainer.shareThing = shareThingModel
@@ -400,7 +400,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             let newShare = ShareThing()
             newShare.title = self.shareDescriptionTextArea.text
-            newShare.shareType = ShareType.filmType.rawValue
+            newShare.shareType = SharelinkType.filmType.rawValue
             newShare.shareContent = shareContent
             let tags = self.selectedTagController.tags
             clear()

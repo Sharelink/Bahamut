@@ -27,7 +27,7 @@ class MainNavigationController: UINavigationController
         go()
     }
     
-    func go()
+    private func go()
     {
         if BahamutSetting.isUserLogined
         {
@@ -48,8 +48,10 @@ class MainNavigationController: UINavigationController
         //let mainController = instanceFromStoryBoard();
         if let mainController = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController
         {
-            mainController.navigationController?.popToRootViewControllerAnimated(false)
-            mainController.go()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                mainController.navigationController?.popToRootViewControllerAnimated(false)
+                UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
+            })
         }
     }
 }

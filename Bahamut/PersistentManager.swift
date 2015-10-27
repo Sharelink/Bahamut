@@ -270,9 +270,31 @@ extension PersistentManager
         }
     }
     
+    func storeTempFile(data:NSData,fileType:FileType) -> String!
+    {
+        let path = createTmpFileName(fileType)
+        if storeFile(data, filePath: path)
+        {
+            return path
+        }
+        return nil
+    }
+    
     func storeFile(data:NSData, filePath:String) -> Bool
     {
         return NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
+    }
+    
+    func deleteFile(filePath:String) -> Bool
+    {
+        do
+        {
+            try NSFileManager.defaultManager().removeItemAtPath(filePath)
+            return true
+        }catch
+        {
+            return false
+        }
     }
     
     func bindFileIdAndPath(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?

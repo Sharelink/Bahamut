@@ -10,12 +10,22 @@ import Foundation
 
 class BahamutConfig
 {
+    static let shareSDKAppkey = "b96b8b48572e"
     static var loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
     static var registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
 }
 
 class BahamutSetting
 {
+    static var language:String!{
+        get{
+        return NSUserDefaults.standardUserDefaults().valueForKey("language") as? String
+        }
+        set{
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "language")
+        }
+    }
+    
     static var shareLinkApiServer:String!{
         get{
             return NSUserDefaults.standardUserDefaults().valueForKey("shareLinkApiServer") as? String

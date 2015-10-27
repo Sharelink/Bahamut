@@ -48,11 +48,41 @@ class MyQRViewController: UIViewController
     func showActionSheet(_:UITapGestureRecognizer)
     {
         let alert = UIAlertController(title: "Save QRCode", message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Share QRCode", style: .Destructive) { _ in
+            self.shareQrCode()
+            })
         alert.addAction(UIAlertAction(title: "Save QRCode To Album", style: .Destructive) { _ in
             self.saveQRImageToAlbum()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func shareQrCode()
+    {
+        let user = ServiceContainer.getService(UserService).myUserModel
+        let cgImage = CIContext().createCGImage((myQRImageView.image?.CIImage)!, fromRect: (myQRImageView.image?.CIImage?.extent)!)
+        let saveImage = UIImage(CGImage: cgImage)
+        let imgData = UIImageJPEGRepresentation(saveImage, 1.0)
+        
+        if let path = PersistentManager.sharedInstance.storeTempFile(imgData!, fileType: .Image)
+        {
+            let publishContent = ShareSDK.content("Scan this QRCode to linke with \(user.nickName) on Sharelink", defaultContent: nil, image: ShareSDK.imageWithPath(path), title: "Sharelink", url: "", description: nil, mediaType: SSPublishContentMediaTypeImage)
+            let container = ShareSDK.container()
+            container.setIPadContainerWithView(self.view, arrowDirect: .Down)
+            container.setIPhoneContainerWithViewController(self)
+            ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in 
+                if (state == SSResponseStateSuccess)
+                {
+                    NSLog("share success");
+                }
+                else if (state == SSResponseStateFail)
+                {
+                    NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
+                }
+            }
+        }
+        
     }
     
     func saveQRImageToAlbum()

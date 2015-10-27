@@ -279,7 +279,7 @@ class ShareThingsListController: UITableViewController
     {
         
         let shareThing = shareThings[indexPath.row] as ShareThing
-        if shareThing.shareType == ShareType.messageType.rawValue
+        if shareThing.shareType == SharelinkType.messageType.rawValue
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
             cell.rootController = self

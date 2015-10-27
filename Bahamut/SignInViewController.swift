@@ -34,12 +34,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             webPageView.delegate = self
         }
     }
-
-    func alert(msg: String) {
-        let alert = UIAlertController(title: "Sharelink", message: msg, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel){ _ in})
-        presentViewController(alert, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +80,14 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         self.view.makeToast(message: "Js Error")
     }
     
-    func finishRegist(accountId:String)
+    var registedAccountName:String!
+    func finishRegist(result:String)
     {
+        let arrs = result.split("#p")
+        let accountId = arrs[0]
+        let accountName = arrs[1]
         self.loginAccountId = accountId
+        self.registedAccountName = accountName
         authenticate()
     }
     
@@ -116,6 +115,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         registModel.accessToken = accessToken
         registModel.registUserServer = registApi
         registModel.accountId = accountId
+        registModel.userName = registedAccountName ?? "Sharelinker"
         ServiceContainer.getService(AccountService).showRegistNewUserController(self, registModel:registModel)
     }
     
@@ -191,6 +191,16 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     //MARK: implements jsProtocol
+    
+    
+    func alert(msg: String) {
+        let alert = UIAlertController(title: "Sharelink", message: msg, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel){ _ in})
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
     func validateToken(result:String)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

@@ -60,7 +60,23 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
     
     @IBAction func addMoreFriends(sender: AnyObject)
     {
+        let user = ServiceContainer.getService(UserService).myUserModel
+        let defaultIconPath = NSBundle.mainBundle().pathForResource("headImage", ofType: "png", inDirectory: "ChatAssets/photo")
+        let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
+        let publishContent = ShareSDK.content("\(user.nickName) Invite You Join Sharelink", defaultContent: "Invite You Join Sharelink", image: ShareSDK.imageWithPath(userHeadIconPath ?? defaultIconPath), title: "Sharelink", url: "http://app.sharelink.online", description: nil, mediaType: SSPublishContentMediaTypeApp)
         
+        let container = ShareSDK.container()
+        container.setIPadContainerWithBarButtonItem(sender as? UIBarButtonItem, arrowDirect: .Down)
+        ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
+            if (state == SSResponseStateSuccess)
+                    {
+                        NSLog("share success");
+                    }
+                    else if (state == SSResponseStateFail)
+                    {
+                        NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
+                    }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {

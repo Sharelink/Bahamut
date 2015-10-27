@@ -24,6 +24,7 @@ class RegistModel {
     var registUserServer:String!
     var accountId:String!
     var accessToken:String!
+    var userName:String!
 }
 
 class NewUserProfileViewController: UIViewController
@@ -39,6 +40,7 @@ class NewUserProfileViewController: UIViewController
         if let nvc = self.navigationController as? NewUserProfileViewNVController
         {
             self.registModel = nvc.registModel
+            self.nickNameTextfield.text = registModel.userName
         }
     }
 
@@ -46,29 +48,27 @@ class NewUserProfileViewController: UIViewController
     {
         model.nickName = nickNameTextfield.text
         model.motto = motto.text
+        setSignSuccessObserver()
+        self.view.makeToastActivityWithMessage(message: "Registing")
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
-            if isSuc
-            {
-                self.signCallback()
-            }else
+            self.view.hideToastActivity()
+            if !isSuc
             {
                 self.view.makeToast(message: msg)
             }
         }
     }
     
-    func signCallback()
+    func setSignSuccessObserver()
     {
         let service = ServiceContainer.getService(UserService)
         service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
-        view.makeToastActivityWithMessage(message: "Refreshing")
     }
     
     func initUsers(_:AnyObject)
     {
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
-        self.view.hideToastActivity()
         if service.myUserModel != nil
         {
             MainNavigationController.start()

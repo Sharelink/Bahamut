@@ -16,17 +16,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        initService()
+        loadUI()
+        configureShareSDK()
+        return true
+    }
+    
+    private func initService()
+    {
         ServiceContainer.instance.initContainer()
         if BahamutSetting.isUserLogined
         {
             ServiceContainer.instance.userLogin(BahamutSetting.userId)
         }
+    }
+    
+    private func loadUI()
+    {
         ChatViewController.instanceFromStoryBoard()
         UserProfileViewController.instanceFromStoryBoard()
         UIEditTextPropertyViewController.instanceFromStoryBoard()
-        return true
     }
 
+    private func configureShareSDK()
+    {
+        ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
+        
+        if(BahamutSetting.language == nil || BahamutSetting.language == "ch")
+        {
+            connectChinaApps()
+            connectGlobalApps()
+        }else{
+            connectGlobalApps()
+            connectChinaApps()
+        }
+        
+        //SMS Mail
+        ShareSDK.connectSMS()
+        ShareSDK.connectMail()
+        
+        ShareSDK.ssoEnabled(true)
+        
+    }
+    
+    private func connectGlobalApps()
+    {
+        //Facebook
+        ShareSDK.connectFacebookWithAppKey("107704292745179", appSecret: "38053202e1a5fe26c80c753071f0b573")
+        
+        //Twitter
+        ShareSDK.connectTwitterWithConsumerKey("", consumerSecret: "", redirectUri: "")
+        
+        //WhatsApp
+        ShareSDK.connectWhatsApp()
+    }
+    
+    private func connectChinaApps()
+    {
+        //微信登陆的时候需要初始化
+        ShareSDK.connectWeChatSessionWithAppId("wx661037d16f05eb0b", appSecret: "d4624c36b6795d1d99dcf0547af5443d", wechatCls: WXApi.classForCoder())
+        ShareSDK.connectWeChatTimelineWithAppId("wx661037d16f05eb0b", appSecret: "d4624c36b6795d1d99dcf0547af5443d", wechatCls: WXApi.classForCoder())
+        
+        //添加QQ应用  注册网址   http://mobile.qq.com/api/
+        ShareSDK.connectQQWithAppId("1104930500", qqApiCls: QQApiInterface.classForCoder())
+        
+        //Weibo
+        ShareSDK.connectSinaWeiboWithAppKey("179608154", appSecret: "b79d50fb87ded0d281492b3113f3f988", redirectUri: "http://auth.sharelink.online:8086/return",weiboSDKCls: WeiboSDK.classForCoder())
+        
+    }
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        return ShareSDK.handleOpenURL(url, wxDelegate: self)
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self)
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
