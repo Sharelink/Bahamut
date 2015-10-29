@@ -104,7 +104,7 @@ class UIUserListCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserCell"
     
-    var userModel:ShareLinkUser!{
+    var userModel:Sharelinker!{
         didSet{
             update()
         }

@@ -275,17 +275,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Scan QRCode" id="T9K-ON-62O">
                         <barButtonItem key="backBarButtonItem" title="Close" id="VfJ-wf-YxY"/>
-                        <barButtonItem key="rightBarButtonItem" image="add_link" id="BvE-OG-Q18">
-                            <connections>
-                                <action selector="addMoreFriends:" destination="O88-qi-Z5Q" id="9QQ-zB-pnf"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="addMoreFriendsButton" destination="BvE-OG-Q18" id="mgP-1f-8dm"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTP-5T-PuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -577,7 +569,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add_link" width="32" height="32"/>
         <image name="defaultAvatar" width="133" height="133"/>
         <image name="document-edit" width="64" height="64"/>
         <image name="next" width="64" height="64"/>

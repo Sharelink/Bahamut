@@ -28,7 +28,10 @@ class ServiceContainer
         
         for (_,service) in serviceDict
         {
-            service.appStartInit()
+            if let handler = service.appStartInit
+            {
+                handler()
+            }
         }
     }
     

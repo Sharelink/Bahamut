@@ -23,7 +23,7 @@ class ShareChatHub : NSNotificationCenter
         }
         return sum
     }
-    var me:ShareLinkUser!
+    var me:Sharelinker!
     var shareId:String!{
         didSet{
             ServiceContainer.getService(MessageService).addObserver(self, selector: "newChatModelCreated:", name: NewChatModelsCreated, object: nil)

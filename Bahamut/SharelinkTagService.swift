@@ -9,31 +9,44 @@
 import Foundation
 import UIKit
 
-class SharelinkTagUseRecord: ShareLinkObject
+class SharelinkTagSortableObject: Sortable
 {
-    var tagId:String!
-    var lastUserDateStr:String!
-    var times:NSNumber!
-    func lastUseDate()->NSDate{
-        return DateHelper.stringToDateTime(lastUserDateStr) ?? NSDate(timeIntervalSince1970: 0)
+    override func getObjectUniqueIdValue() -> String {
+        return self.tag.tagId
     }
-    
-    override func getObjectUniqueIdName() -> String {
-        return "tagId"
+    var tag:SharelinkTag!
+    override func isOrderedBefore(b: Sortable) -> Bool {
+        let intervalA = self.compareValue as? NSNumber ?? NSDate().timeIntervalSince1970
+        let intervalB = b.compareValue as? NSNumber ?? NSDate().timeIntervalSince1970
+        return intervalA.doubleValue > intervalB.doubleValue
     }
 }
 
-public class SharelinkTagService : ServiceProtocol
+extension SharelinkTag
 {
-    @objc static var ServiceName:String{return "SharelinkTagService"}
-    @objc func appStartInit() {
-        
-        
+    func getSortableObject() -> SharelinkTagSortableObject
+    {
+        if let obj = PersistentManager.sharedInstance.getModel(SharelinkTagSortableObject.self, idValue: self.tagId)
+        {
+            return obj
+        }
+        let obj = SharelinkTagSortableObject()
+        obj.tag = self
+        obj.compareValue = self.time == nil ? NSNumber(double: 0) : NSNumber(double: self.time.dateTimeOfAccurateString.timeIntervalSince1970)
+        return obj
     }
+}
+
+public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
+{
+    static let TagsUpdated:String = "TagsUpdated"
+    @objc static var ServiceName:String{return "SharelinkTagService"}
     
     @objc func userLoginInit(userId: String) {
         self.refreshMyAllSharelinkTags()
     }
+    
+    private(set) var tagOfMe:SharelinkTag!
     
     //MARK: My Tag
     func getMyAllTags() ->[SharelinkTag]
@@ -41,8 +54,20 @@ public class SharelinkTagService : ServiceProtocol
         return PersistentManager.sharedInstance.getAllModelFromCache(SharelinkTag)
     }
     
+    func getAllCustomTags() -> [SharelinkTag]
+    {
+        let alltags = getMyAllTags()
+        return alltags.filter{ $0.domain == SharelinkTagConstant.TAG_DOMAIN_CUSTOM}
+    }
+    
+    func getAllSystemTags() -> [SharelinkTag]
+    {
+        let alltags = getMyAllTags()
+        return alltags.filter{ $0.domain == SharelinkTagConstant.TAG_DOMAIN_SYSTEM}
+    }
+    
     //refresh all the tag entities
-    func refreshMyAllSharelinkTags(callback:(()->Void)! = nil)
+    func refreshMyAllSharelinkTags()
     {
         let req = GetMyAllTagsRequest()
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
@@ -51,13 +76,11 @@ public class SharelinkTagService : ServiceProtocol
             {
                 if let tags = result.returnObject
                 {
+                    self.tagOfMe = tags.filter{$0.isSystemTag() && $0.isSharelinkerTag() && $0.data == "me"}.first
                     ShareLinkObject.saveObjectOfArray(tags)
                     PersistentManager.sharedInstance.refreshCache(SharelinkTag)
+                    self.postNotificationName(SharelinkTagService.TagsUpdated, object: self)
                 }
-            }
-            if let handler = callback
-            {
-                handler()
             }
         }
     }
@@ -69,6 +92,8 @@ public class SharelinkTagService : ServiceProtocol
         req.tagName = tag.tagName
         req.isFocus = tag.isFocus
         req.data = tag.data
+        req.isShowToLinkers = tag.showToLinkers
+        req.type = tag.type
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<SharelinkTag>) -> Void in
             var suc = false
@@ -115,7 +140,8 @@ public class SharelinkTagService : ServiceProtocol
         req.tagName = tag.tagName
         req.tagColor = tag.tagColor
         req.isFocus = tag.isFocus
-        
+        req.isShowToLinkers = tag.showToLinkers
+        req.type = tag.type
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK

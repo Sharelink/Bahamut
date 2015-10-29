@@ -44,10 +44,6 @@ class ShareService: NSNotificationCenter,ServiceProtocol
 {
     static let shareUpdated = "newShareUpdated"
     @objc static var ServiceName:String{return "share service"}
-    @objc func appStartInit()
-    {
-        
-    }
     
     @objc func userLoginInit(userId:String)
     {
@@ -237,7 +233,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     //Get shares from local
     func getShareThings(startIndex:Int, pageNum:Int) -> [ShareThing]
     {
-        return PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: self.shareThingSortObjectList.getSortedShareId(startIndex, pageNum: pageNum))
+        return PersistentManager.sharedInstance.getModels(ShareThing.self, idValues: self.shareThingSortObjectList.getSortedObjects(startIndex, pageNum: pageNum).map{ $0.shareId })
     }
     
     func getShareThing(shareId:String) -> ShareThing!
@@ -303,7 +299,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = AddNewShareThingRequest()
         req.shareContent = newShare.shareContent
         req.title = newShare.title
-        req.tags = tags.map{ $0.data ?? $0.tagName}.joinWithSeparator("#")
+        req.tags = tags.map{ ($0.getTagString() as NSString).base64String() }.joinWithSeparator("#")
         req.shareType = newShare.shareType
         req.pShareId = newShare.pShareId
         let client = ShareLinkSDK.sharedInstance.getShareLinkClient()

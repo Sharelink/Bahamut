@@ -30,7 +30,7 @@ class RegistModel {
 class NewUserProfileViewController: UIViewController
 {
     var registModel:RegistModel!
-    let model:ShareLinkUser! = ShareLinkUser()
+    let model:Sharelinker! = Sharelinker()
     @IBOutlet weak var nickNameTextfield: UITextField!
     @IBOutlet weak var motto: UITextField!
     

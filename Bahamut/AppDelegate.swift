@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func connectGlobalApps()
     {
         //Facebook
-        ShareSDK.connectFacebookWithAppKey("107704292745179", appSecret: "38053202e1a5fe26c80c753071f0b573")
+        ShareSDK.connectFacebookWithAppKey("897418857006645", appSecret: "3c5fbcbc22201f96e1b5e93f7a0a69ff")
         
         //Twitter
         ShareSDK.connectTwitterWithConsumerKey("", consumerSecret: "", redirectUri: "")

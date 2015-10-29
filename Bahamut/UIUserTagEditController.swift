@@ -42,9 +42,15 @@ class UIUserTagEditController: UIViewController
         }
     }
     
+    @IBOutlet weak var tagTypeLabel: UILabel!{
+        didSet{
+            tagTypeLabel.hidden = true
+        }
+    }
     private var tagData:String!
     @IBOutlet weak var focusSwitch: UISwitch!
     
+    @IBOutlet weak var showToLinkerSwitch: UISwitch!
     @IBOutlet weak var tagColorView: UIView!{
         didSet{
             tagColorView.layer.cornerRadius = 3
@@ -61,6 +67,11 @@ class UIUserTagEditController: UIViewController
     
     var editMode:UIUserTagEditMode = .New
 
+    @IBAction func changeTagType(sender: AnyObject)
+    {
+        
+    }
+    
     func selectColor(_:UITapGestureRecognizer)
     {
         tagColorView.backgroundColor = UIColor.getRandomTextColor()
@@ -88,6 +99,8 @@ class UIUserTagEditController: UIViewController
         tagModel.tagModel.tagColor = tagColorView.backgroundColor?.toHexString()
         tagModel.tagModel.isFocus = focusSwitch.on ? "true":"false"
         tagModel.tagModel.data = tagData ?? tagModel.tagModel.tagName; //tagData is nil ,is's a text tag
+        tagModel.tagModel.showToLinkers = showToLinkerSwitch.on ? "true":"false"
+        tagModel.tagModel.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)

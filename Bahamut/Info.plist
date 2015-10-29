@@ -26,7 +26,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
-			<string>headImage</string>
+			<string></string>
 			<key>CFBundleURLName</key>
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
@@ -54,20 +54,39 @@
 				<string>QQ41DBE6C4</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>fb</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb897418857006645</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
-		<string>mqqopensdkapiV2</string>
 		<string>wechat</string>
-		<string>sinaweibo</string>
-		<string>weibosdk</string>
-		<string>weibosdk2.5</string>
+		<string>mqqopensdkapiV2</string>
 		<string>mqqapi</string>
 		<string>mqq</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqqopensdkapiV3</string>
+		<string>wtloginmqq2</string>
+		<string>sinaweibohd</string>
+		<string>sinaweibo</string>
+		<string>sinaweibosso</string>
+		<string>weibosdk</string>
+		<string>weibosdk2.5</string>
+		<string>sinaweibohdsso</string>
 		<string>fbauth2</string>
+		<string>whatsapp</string>
+		<string>line</string>
+		<string>instagram</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

@@ -17,6 +17,8 @@ struct ServiceConfig
         (MessageService.ServiceName,MessageService()),
         (ShareService.ServiceName,ShareService()),
         (UserService.ServiceName,UserService()),
-        (SharelinkTagService.ServiceName,SharelinkTagService())
+        (SharelinkTagService.ServiceName,SharelinkTagService()),
+        (NotificationService.ServiceName,NotificationService()),
+        (LocationService.ServiceName,LocationService())
     ]
 }

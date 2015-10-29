@@ -12,7 +12,7 @@ import Foundation
 protocol ServiceProtocol
 {
     static var ServiceName:String {get}
-    func appStartInit()
+    optional func appStartInit()
     optional func userLoginInit(userId:String)
     optional func userLogout(userId:String)
 }

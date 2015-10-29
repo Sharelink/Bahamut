@@ -10,13 +10,15 @@
 		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
 		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
-		E70BE29A1BCF831F00867EE1 /* AddMoreFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BE2991BCF831F00867EE1 /* AddMoreFriendsViewController.swift */; };
 		E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */; };
 		E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */; };
 		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
 		E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
+		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
+		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
+		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
 		E717CC391B725D5200B19D9D /* Bahamut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E717CC371B725D5200B19D9D /* Bahamut.xcdatamodeld */; };
 		E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */; };
 		E71C67031BDFD46B00F36BE4 /* WhatsAppConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71C67021BDFD46B00F36BE4 /* WhatsAppConnection.framework */; };
@@ -183,13 +185,15 @@
 		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
 		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
-		E70BE2991BCF831F00867EE1 /* AddMoreFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreFriendsViewController.swift; sourceTree = "<group>"; };
 		E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsConstants.swift; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E717CC381B725D5200B19D9D /* Bahamut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bahamut.xcdatamodel; sourceTree = "<group>"; };
 		E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDetailViewController.swift; sourceTree = "<group>"; };
 		E71C67021BDFD46B00F36BE4 /* WhatsAppConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhatsAppConnection.framework; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */,
 				E71C67031BDFD46B00F36BE4 /* WhatsAppConnection.framework in Frameworks */,
 				E7B615F31BCFCAFD00D0831C /* MessageUI.framework in Frameworks */,
 				E7B616231BCFCB6E00D0831C /* SMSConnection.framework in Frameworks */,
@@ -409,6 +414,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E71276601BE20BC600CCCB3F /* CoreLocation.framework */,
 				E7B615F21BCFCAFD00D0831C /* MessageUI.framework */,
 				E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */,
 				E7C4F2AA1BCFB08A0050997B /* AdSupport.framework */,
@@ -447,6 +453,8 @@
 				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
 				E790BD131B68069A00D5426B /* ShareService.swift */,
 				E736814F1B96A816004E8B56 /* SharelinkTagService.swift */,
+				E712765C1BE2099F00CCCB3F /* NotificationService.swift */,
+				E712765E1BE209AD00CCCB3F /* LocationService.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -516,7 +524,6 @@
 				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
 				E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */,
 				E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */,
-				E70BE2991BCF831F00867EE1 /* AddMoreFriendsViewController.swift */,
 			);
 			name = Sharelinker;
 			sourceTree = "<group>";
@@ -1136,6 +1143,7 @@
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E7EACC001BC34F6A002A294D /* ShareLinkObject.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
+				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
 				E7FFC0381BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E7EACC041BC34F6A002A294D /* UserTag.swift in Sources */,
 				E7FD584D1BCB82B700E42C95 /* ChicagoClient.swift in Sources */,
@@ -1219,8 +1227,8 @@
 				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
 				E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */,
 				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
-				E70BE29A1BCF831F00867EE1 /* AddMoreFriendsViewController.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
+				E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */,

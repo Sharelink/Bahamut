@@ -23,6 +23,7 @@ extension ShareService
     }
 }
 
+//MARK: NewShareViewController
 class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
 {
     static let tagsLimit = 7
@@ -35,12 +36,22 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             shareThingModel.shareType = SharelinkType.filmType.rawValue
         }
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
+        initMytags()
+    }
+    
+    var shareThingModel:ShareThing!{
+        didSet{
+            if shareContentContainer != nil
+            {
+                shareContentContainer.shareThing = shareThingModel
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerForKeyboardNotifications()
-        initMytags()
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -48,11 +59,16 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         removeObserverForKeyboardNotifications()
     }
     
+    deinit{
+        ServiceContainer.getService(SharelinkTagService).removeObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: outlets
     @IBOutlet weak var shareDescriptionTextArea: UITextView!{
         didSet{
             shareDescriptionTextArea.layer.cornerRadius = 7
@@ -68,37 +84,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let player = shareContentContainer.contentView as! ShareLinkFilmView
             player.fileFetcher = FilePathFileFetcher.shareInstance
             shareContentContainer.shareThing = shareThingModel
-        }
-    }
-    
-    func initMytags()
-    {
-        myTagController.tags = ServiceContainer.getService(SharelinkTagService).getMyAllTags()
-    }
-    
-    var myTagController:UITagCollectionViewController!
-        {
-        didSet{
-            myTagContainer = UIView()
-            myTagController.delegate = self
-            self.addChildViewController(myTagController)
-        }
-    }
-    
-    var selectedTagController:UITagCollectionViewController!{
-        didSet{
-            selectedTagController.delegate = self
-            self.addChildViewController(selectedTagController)
-        }
-    }
-    @IBOutlet weak var selectedTagViewContainer: UIView!{
-        didSet{
-            selectedTagViewContainer.userInteractionEnabled = true
-            selectedTagViewContainer.layer.cornerRadius = 7
-            selectedTagViewContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
-            selectedTagViewContainer.layer.borderWidth = 1
-            selectedTagController  = UITagCollectionViewController.instanceFromStoryBoard()
-            selectedTagViewContainer.addSubview(selectedTagController.view)
         }
     }
     
@@ -118,19 +103,57 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    @IBAction func selectTag(sender: AnyObject)
-    {
-        let btn = sender as! UIButton
-        
-        if myTagContainer.superview != nil
-        {
-            hideMyTagsCollection()
-            btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        }else{
-            showMyTagsCollection()
-            btn.setTitleColor(UIColor.themeColor, forState: .Normal)
+    @IBOutlet weak var selectedTagViewContainer: UIView!{
+        didSet{
+            selectedTagViewContainer.userInteractionEnabled = true
+            selectedTagViewContainer.layer.cornerRadius = 7
+            selectedTagViewContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
+            selectedTagViewContainer.layer.borderWidth = 1
+            selectedTagController  = UITagCollectionViewController.instanceFromStoryBoard()
+            selectedTagViewContainer.addSubview(selectedTagController.view)
         }
     }
+    
+    //MARK: my tags
+    
+    var myCustomTagSortableList:SortableObjectList<SharelinkTagSortableObject>!
+    
+    func initMytags()
+    {
+        let tagService = ServiceContainer.getService(SharelinkTagService)
+        tagService.addObserver(self, selector: "myTagUpdated", name: SharelinkTagService.TagsUpdated, object: nil)
+        myTagUpdated(nil)
+    }
+    
+    func myTagUpdated(_:NSNotification!)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let tagService = ServiceContainer.getService(SharelinkTagService)
+            let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag()}
+            
+            let myCustomTags = tagService.getAllCustomTags()
+            let myCustomTagSortables = myCustomTags.map{ $0.getSortableObject() }
+            self.myCustomTagSortableList = SortableObjectList<SharelinkTagSortableObject>(initList: myCustomTagSortables)
+            
+            let sortedCustomTags = self.myCustomTagSortableList.list.map{$0.tag!}
+            
+            var shareableTags = [SharelinkTag]()
+            shareableTags.appendContentsOf(mySystemTags)
+            shareableTags.appendContentsOf(sortedCustomTags)
+            self.myTagController.tags = shareableTags
+        }
+        
+    }
+    
+    var myTagController:UITagCollectionViewController!
+        {
+        didSet{
+            myTagContainer = UIView()
+            myTagController.delegate = self
+            self.addChildViewController(myTagController)
+        }
+    }
+    
     
     private var myTagContainer:UIView!{
         didSet{
@@ -140,12 +163,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             myTagContainer.backgroundColor = UIColor.whiteColor()
         }
     }
+    
     private func showMyTagsCollection()
     {
         self.view.addSubview(myTagContainer)
         myTagContainer.frame = selectedTagViewContainer.frame
         self.myTagContainer.addSubview(myTagController.view)
-        let height = CGFloat(126)
+        let height = CGFloat(selectedTagViewContainer.frame.origin.y - self.shareContentContainer.frame.origin.y + 23)
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.3)
         myTagContainer.frame = CGRectMake(self.selectedTagViewContainer.frame.origin.x, selectedTagViewContainer.frame.origin.y - height - 7,self.selectedTagViewContainer.bounds.width, height)
@@ -163,6 +187,30 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         myTagContainer.removeFromSuperview()
     }
     
+    //MARK: seletectd tags
+    var selectedTagController:UITagCollectionViewController!{
+        didSet{
+            selectedTagController.delegate = self
+            self.addChildViewController(selectedTagController)
+        }
+    }
+
+
+    @IBAction func selectTag(sender: AnyObject)
+    {
+        let btn = sender as! UIButton
+        
+        if myTagContainer.superview != nil
+        {
+            hideMyTagsCollection()
+            btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        }else{
+            showMyTagsCollection()
+            btn.setTitleColor(UIColor.themeColor, forState: .Normal)
+        }
+    }
+
+    
     func addTag()
     {
         if selectedTagController.tags != nil && selectedTagController.tags.count >= NewShareViewController.tagsLimit
@@ -177,6 +225,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 let newTag = SharelinkTag()
                 newTag.tagColor = UIColor.getRandomTextColor().toHexString()
                 newTag.tagName = newTagName
+                newTag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
+                newTag.data = newTagName
                 newTagNameTextfield.text = nil
                 if !selectedTagController.addTag(newTag)
                 {
@@ -193,7 +243,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if sender == myTagController
         {
             let tag = myTagController.tags[indexPath.row]
-            if !selectedTagController.addTag(tag)
+            if selectedTagController.addTag(tag)
+            {
+                let tagSortableObj = tag.getSortableObject()
+                tagSortableObj.compareValue = NSNumber(double: NSDate().timeIntervalSince1970)
+                tagSortableObj.saveModel()
+            }else
             {
                 self.view.makeToast(message: "tags has been ready")
             }
@@ -203,6 +258,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    //MARK: keyboard
     func removeObserverForKeyboardNotifications()
     {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -267,18 +323,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         return true
     }
     
-    var shareThingModel:ShareThing!{
-        didSet{
-            if shareContentContainer != nil
-            {
-                shareContentContainer.shareThing = shareThingModel
-            }
-        }
-    }
     
     func textViewDidChange(textView: UITextView) {
         shareThingModel.title = textView.text
     }
+
+    
     
     //MARK: select film delegate
     
@@ -396,13 +446,28 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBAction func share()
     {
+        if self.selectedTagController.tags == nil || self.selectedTagController.tags.count == 0
+        {
+            let alert = UIAlertController(title: "Share", message: "No tag added to share,only the sharelinker who focus on you can see this share", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
+                self.prepareShare()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil )
+        }else
+        {
+            prepareShare()
+        }
+    }
+    
+    private func prepareShare()
+    {
         if let shareContent = shareThingModel.shareContent
         {
             let newShare = ShareThing()
             newShare.title = self.shareDescriptionTextArea.text
             newShare.shareType = SharelinkType.filmType.rawValue
             newShare.shareContent = shareContent
-            let tags = self.selectedTagController.tags
             clear()
             let taskKey = NSNumber(double: NSDate().timeIntervalSince1970).integerValue.description
             let newShareTask = NewShareTask()
@@ -411,6 +476,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskKey, delegate: self)
             self.view.makeToastActivityWithMessage(message: "Sending Film")
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+                let tags = self.selectedTagController.tags ?? [SharelinkTag]()
                 self.postShare(newShare,tags:tags,taskKey: taskKey)
             }
             
@@ -437,9 +503,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                         ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: "file")
                     }
                 }
-                
                 newShare.shareContent = fileKey.fileId
-                sService.postNewShare(newShare, tags: self.selectedTagController.tags ,callback: { (shareId) -> Void in
+                sService.postNewShare(newShare, tags: tags ,callback: { (shareId) -> Void in
                     self.view.hideToastActivity()
                     if shareId != nil
                     {

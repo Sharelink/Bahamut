@@ -89,6 +89,15 @@ class UIFileCollectionController: UIResourceExplorerController
         return "FileItemCell"
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+
+        return CGSizeMake(64, 64)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return CGFloat(4)
+    }
+    
     @IBAction func ok(sender: AnyObject)
     {
         notifyItemSelectState()

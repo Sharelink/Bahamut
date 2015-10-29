@@ -72,11 +72,11 @@ class SortableObjectList<T:Sortable>
         return result
     }
     
-    func getSortedShareId(startIndex:Int,pageNum:Int) -> [String]
-    {
-        return getSortedObjects(startIndex, pageNum: pageNum).map{transform -> String in
-            return transform.getObjectUniqueIdValue()
-        }
-    }
+//    func getSortedShareId(startIndex:Int,pageNum:Int) -> [String]
+//    {
+//        return getSortedObjects(startIndex, pageNum: pageNum).map{transform -> String in
+//            return transform.getObjectUniqueIdValue()
+//        }
+//    }
 }
 

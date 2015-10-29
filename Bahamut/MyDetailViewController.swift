@@ -89,7 +89,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         static let createTime = "createtime"
     }
     
-    var myInfo:ShareLinkUser!
+    var myInfo:Sharelinker!
     var accountId:String!
     
     private func initPropertySet()

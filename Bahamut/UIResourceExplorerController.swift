@@ -28,6 +28,11 @@ class UIResrouceItemModel : NSObject
             }
         }
     }
+    
+    var canEdit:Bool{
+        return true
+    }
+    
     var editModeSelected:Bool =  false{
         didSet{
             if cell != nil{
@@ -70,7 +75,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
     
     func getCellReuseIdentifier() -> String{return "ResourceExplorerItemCell"}
     
-    private weak var collectionView: UICollectionView!{
+    private(set) weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self //need to bind the data source and the delegate
@@ -179,15 +184,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         super.viewWillAppear(animated)
     }
     
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        return CGSizeMake(64, 64)
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return CGFloat(4)
-    }
+    //MARK: collection delegate
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return items.count
@@ -213,13 +210,18 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         return cell
     }
     
+    //MARK: operate
+    
     func selectItem(recognizer:UITapGestureRecognizer)->Void
     {
         let cell = recognizer.view as! UIResourceItemCell
         let model = cell.model
         if editing
         {
-            model.editModeSelected = !model.editModeSelected
+            if model.canEdit
+            {
+                model.editModeSelected = !model.editModeSelected
+            }
         }else if selectionMode == .Negative
         {
             openItem(recognizer)

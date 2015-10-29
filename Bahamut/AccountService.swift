@@ -33,11 +33,6 @@ class AccountService: ServiceProtocol
         ShareLinkSDK.sharedInstance.closeClients()
     }
     
-    @objc func appStartInit()
-    {
-
-    }
-    
     private func setLogined(validateResult:ValidateResult)
     {
         BahamutSetting.token = validateResult.AppToken
@@ -68,7 +63,7 @@ class AccountService: ServiceProtocol
         }
     }
     
-    func registNewUser(registModel:RegistModel,newUser:ShareLinkUser,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
+    func registNewUser(registModel:RegistModel,newUser:Sharelinker,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
     {
         let req = RegistNewSharelinkUserRequest()
         req.nickName = newUser.nickName

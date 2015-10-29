@@ -20,7 +20,7 @@ extension UserService
         }
     }
     
-    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:ShareLinkUser)
+    func showUserProfileViewController(currentNavigationController:UINavigationController,userProfile:Sharelinker)
     {
         let controller = UserProfileViewController.instanceFromStoryBoard()
         controller.userProfileModel = userProfile
@@ -62,7 +62,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     }
     
     let fileService = ServiceContainer.getService(FileService)
-    var userProfileModel:ShareLinkUser!
+    var userProfileModel:Sharelinker!
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
     }

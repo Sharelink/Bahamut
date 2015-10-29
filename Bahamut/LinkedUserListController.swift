@@ -12,7 +12,7 @@ import UIKit
 class LinkedUserListController: UITableViewController
 {
 
-    var userListModel:[(latinLetter:String , items:[ShareLinkUser])] = [(latinLetter:String , items:[ShareLinkUser])](){
+    var userListModel:[(latinLetter:String , items:[Sharelinker])] = [(latinLetter:String , items:[Sharelinker])](){
         didSet{
             self.tableView.reloadData()
         }
@@ -100,12 +100,37 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func addNewLink(sender: AnyObject)
     {
-        userService.showScanQRViewController(self.navigationController!)
+        let user = ServiceContainer.getService(UserService).myUserModel
+        let defaultIconPath = NSBundle.mainBundle().pathForResource("headImage", ofType: "png", inDirectory: "ChatAssets/photo")
+        let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
+        let publishContent = ShareSDK.content("\(user.nickName) Invite You Join Sharelink", defaultContent: "Invite You Join Sharelink", image: ShareSDK.imageWithPath(userHeadIconPath ?? defaultIconPath), title: "Sharelink", url: "http://app.sharelink.online", description: nil, mediaType: SSPublishContentMediaTypeApp)
+        
+        let container = ShareSDK.container()
+        container.setIPadContainerWithBarButtonItem(sender as? UIBarButtonItem, arrowDirect: .Down)
+        ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
+            if (state == SSResponseStateSuccess)
+            {
+                NSLog("share success");
+            }
+            else if (state == SSResponseStateFail)
+            {
+                NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
+            }
+        }
     }
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {
-        userService.showMyQRViewController(self.navigationController!,sharelinkUserId: userService.myUserId ,avataImage: nil)
+        let alert = UIAlertController(title: "QRCode", message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Scan QRCode", style: .Destructive) { _ in
+            self.userService.showScanQRViewController(self.navigationController!)
+            })
+        alert.addAction(UIAlertAction(title: "My QRCode", style: .Destructive) { _ in
+            self.userService.showMyQRViewController(self.navigationController!,sharelinkUserId: self.userService.myUserId ,avataImage: nil)
+            })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
+        presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     var indexOfUserList:Int{
@@ -168,7 +193,7 @@ class LinkedUserListController: UITableViewController
         }else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListCell.cellIdentifier, forIndexPath: indexPath)
-            let userModel = userListModel[indexPath.section - indexOfUserList].items[indexPath.row] as ShareLinkUser
+            let userModel = userListModel[indexPath.section - indexOfUserList].items[indexPath.row] as Sharelinker
             
             if let userCell = cell as? UIUserListCell
             {

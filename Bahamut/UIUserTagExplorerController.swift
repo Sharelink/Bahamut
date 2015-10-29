@@ -23,13 +23,14 @@ extension SharelinkTagService
         })
     }
     
-    func showTagExplorerController(currentNavigationController:UINavigationController, tags:[UIResrouceItemModel],selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
+    func showTagExplorerController(currentNavigationController:UINavigationController, tags:[[UIResrouceItemModel]],tagHeaders:[String]!,selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
     {
         let collectionController = UITagExplorerController.instanceFromStoryBoard()
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
         collectionController.explorerIdentifier = identifier
-        collectionController.items = [tags]
+        collectionController.items = tags
+        collectionController.tagHeaders = tagHeaders
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
 }
@@ -37,6 +38,9 @@ extension SharelinkTagService
 class UISharelinkTagItemModel: UIResrouceItemModel
 {
     var tagModel:SharelinkTag!
+    override var canEdit:Bool{
+        return tagModel.isSystemTag() == false
+    }
 }
 
 class UITagExplorerViewCell: UIResourceItemCell
@@ -60,13 +64,18 @@ class UITagExplorerViewCell: UIResourceItemCell
     
 }
 
+let TagHeaderSystem = "Sharelink"
+let TagHeaderCustom = "Cutstom"
+
 class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
     private(set) var tagService:SharelinkTagService!
     var explorerIdentifier:String! = "one"
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
+    var tagHeaders:[String]!
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tagService = ServiceContainer.getService(SharelinkTagService)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.delegate = self
@@ -75,6 +84,9 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         initItems()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
@@ -89,10 +101,16 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     {
         if self.items == nil
         {
-            self.selectionMode = ResourceExplorerSelectMode.Negative
-            let allTags = tagService.getMyAllTags()
-            let tagItems = tagService.getUserTagsResourceItemModels(allTags)
-            self.items = [tagItems]
+            self.items = [[UIResrouceItemModel]]()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tagHeaders = [String]()
+                self.selectionMode = ResourceExplorerSelectMode.Negative
+                let customtags = self.tagService.getAllCustomTags()
+                let customTagItems = self.tagService.getUserTagsResourceItemModels(customtags)
+                self.items.append(customTagItems)
+                self.tagHeaders.append(TagHeaderCustom)
+                self.collectionView.reloadData()
+            })
         }
         
     }
@@ -119,12 +137,22 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         }
     }
     
+    //MARK: delegate
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView{
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "tagSectionHeader", forIndexPath: indexPath)
+        if let title = header.viewWithTag(1) as? UILabel
+        {
+            title.text = self.tagHeaders[indexPath.section]
+        }
+        return header
+    }
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
         return UIEdgeInsetsMake(3, 3, 3, 3);
     }
     
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         if let model = items[indexPath.section][indexPath.row] as? UISharelinkTagItemModel
         {
@@ -132,9 +160,14 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
             uiLabel.font = UIFont.systemFontOfSize(17)
             uiLabel.text = model.tagModel.tagName
             uiLabel.sizeToFit()
-            return CGSizeMake(uiLabel.bounds.width + 7, 26)
+            return CGSizeMake(uiLabel.bounds.width + 7 + 32, 32)
         }
         return CGSizeZero
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
+    {
+        return CGFloat(4)
     }
     
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
@@ -171,6 +204,13 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     {
         if let tagModel = itemModel as? UISharelinkTagItemModel
         {
+            if tagModel.tagModel.isSystemTag()
+            {
+                let alert = UIAlertController(title: "Sharelink", message: "It's a sharelink default tag!", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
             ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: tagModel,editMode:.Edit, delegate: self)
         }
     }
