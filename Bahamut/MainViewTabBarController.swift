@@ -21,6 +21,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ServiceContainer.getService(UserService).addObserver(self, selector: "askingLinkMsgSended:", name: UserService.askForlinkMessageSended, object: nil)
         self.view.backgroundColor = UIColor.whiteColor()
     }
 }

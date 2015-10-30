@@ -13,6 +13,7 @@ class BahamutConfig
     static let shareSDKAppkey = "b96b8b48572e"
     static var loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
     static var registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+    static let sharelinkOuterExecutorUrlPrefix = "http://sharelink.online/ExeSharelink?cmd="
 }
 
 class BahamutSetting

@@ -78,21 +78,35 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
 }
 
 extension UserService: QRStringDelegate
-{
+{    
     func QRdealString(sender:ScanQRViewController,qrString: String)
     {
-        let userService = ServiceContainer.getService(UserService)
-        let userId = userService.getSharelinkerIdFromQRString(qrString)
-        if userService.myLinkedUsersMap.keys.contains(userId)
+        if SharelinkCmd.isSharelinkCmdUrl(qrString)
         {
-            userService.showUserProfileViewController(sender.navigationController!, userId: userId)
-        }else
+            sender.dismissViewControllerAnimated(true, completion: { () -> Void in
+                let cmd = SharelinkCmd.getCmdFromUrl(qrString)
+                SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
+            })
+        }else if qrString.hasBegin("http://") || qrString.hasBegin("https://")
         {
-            userService.askSharelinkForLink(userId){ isSuc in
-                sender.view.makeToast(message: "Request sended")
-                sender.startScan()
+            if qrString.hasPrefix(BahamutConfig.sharelinkOuterExecutorUrlPrefix)
+            {
+                let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(BahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
+                if let cmd = SharelinkCmd.decodeSharelinkCmd(cmdEncoded)
+                {
+                    sender.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
+                    })
+                }
+            }else
+            {
+                let controller = sender.navigationController
+                sender.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    SimpleBrowser.openUrl(controller!, url: qrString)
+                })
             }
         }
+
     }
     
     func showScanQRViewController(currentNavigationController:UINavigationController)

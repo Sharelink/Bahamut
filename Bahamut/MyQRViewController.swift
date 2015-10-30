@@ -18,7 +18,7 @@ class MyQRViewController: UIViewController
         super.viewDidAppear(animated)
         myQRImageView.image = QRCode.generateImage(qrString, avatarImage: nil, avatarScale: 0.3)
         myQRImageView.userInteractionEnabled = true
-        myQRImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showActionSheet:"))
+        //myQRImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showActionSheet:"))
     }
     
     override func viewDidLoad() {
@@ -60,18 +60,27 @@ class MyQRViewController: UIViewController
     
     func shareQrCode()
     {
-        let user = ServiceContainer.getService(UserService).myUserModel
-        let cgImage = CIContext().createCGImage((myQRImageView.image?.CIImage)!, fromRect: (myQRImageView.image?.CIImage?.extent)!)
-        let saveImage = UIImage(CGImage: cgImage)
-        let imgData = UIImageJPEGRepresentation(saveImage, 1.0)
+        let userService = ServiceContainer.getService(UserService)
+        let linkMeCmd = userService.generateSharelinkLinkMeCmd()
+        let url = "\(BahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
         
-        if let path = PersistentManager.sharedInstance.storeTempFile(imgData!, fileType: .Image)
+        if let img = QRCode.generateImage(url, avatarImage: nil)
         {
-            let publishContent = ShareSDK.content("Scan this QRCode to linke with \(user.nickName) on Sharelink", defaultContent: nil, image: ShareSDK.imageWithPath(path), title: "Sharelink", url: "", description: nil, mediaType: SSPublishContentMediaTypeImage)
+            let imgData = UIImageJPEGRepresentation(img, 1.0)
+            
+            let contentMsg = "Scan this QRCode to link with \(userService.myUserModel.nickName) on Sharelink"
+            let title = "Sharelink"
+            
+            let contentWithUrl = "\(contentMsg)\n\(url)"
+            
+            let img = ShareSDK.imageWithData(imgData, fileName: nil, mimeType: nil)
+            
+            let publishContent = ShareSDK.content(contentWithUrl, defaultContent: nil, image: img, title: title, url: url, description: nil, mediaType: SSPublishContentMediaTypeImage)
+            
             let container = ShareSDK.container()
             container.setIPadContainerWithView(self.view, arrowDirect: .Down)
             container.setIPhoneContainerWithViewController(self)
-            ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in 
+            ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
                 if (state == SSResponseStateSuccess)
                 {
                     NSLog("share success");
@@ -82,7 +91,6 @@ class MyQRViewController: UIViewController
                 }
             }
         }
-        
     }
     
     func saveQRImageToAlbum()

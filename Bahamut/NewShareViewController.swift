@@ -132,14 +132,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag()}
             
             let myCustomTags = tagService.getAllCustomTags()
-            let myCustomTagSortables = myCustomTags.map{ $0.getSortableObject() }
-            self.myCustomTagSortableList = SortableObjectList<SharelinkTagSortableObject>(initList: myCustomTagSortables)
+            //let myCustomTagSortables = myCustomTags.map{ $0.getSortableObject() }
+            //self.myCustomTagSortableList = SortableObjectList<SharelinkTagSortableObject>(initList: myCustomTagSortables)
             
-            let sortedCustomTags = self.myCustomTagSortableList.list.map{$0.tag!}
+            //let sortedCustomTags = self.myCustomTagSortableList.list.map{$0.getTag()}
             
             var shareableTags = [SharelinkTag]()
             shareableTags.appendContentsOf(mySystemTags)
-            shareableTags.appendContentsOf(sortedCustomTags)
+            shareableTags.appendContentsOf(myCustomTags)
             self.myTagController.tags = shareableTags
         }
         

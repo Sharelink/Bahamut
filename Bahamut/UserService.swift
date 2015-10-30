@@ -14,13 +14,16 @@ import EVReflection
 //MARK: service define
 let UserServiceFirstLinkMessage = "UserServiceFirstLinkMessage"
 let UserServiceNewLinkMessageCount = "UserServiceNewLinkMessageCount"
+let AskForLinkSharelinkerId = "AskForLinkSharelinkerId"
 
-class UserService: NSNotificationCenter,ServiceProtocol
+class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelegate
 {
     static let userListUpdated = "userListUpdated"
     static let linkMessageUpdated = "linkMessageUpdated"
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let newLinkMessageUpdated = "newLinkMessageUpdated"
+    
+    static let askForlinkMessageSended = "askForlinkMessageSended"
     
     @objc static var ServiceName:String{return "user service"}
     
@@ -47,9 +50,12 @@ class UserService: NSNotificationCenter,ServiceProtocol
         linkMessageRoute.ExtName = "NotificationCenter"
         ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
         self.refreshMyLinkedUsers()
+        SharelinkCmdManager.sharedInstance.registHandler(self)
     }
     
     func userLogout(userId: String) {
+        ShareSDK.cancelAuthWithType(ShareTypeFacebook)
+        SharelinkCmdManager.sharedInstance.clearHandler()
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
@@ -223,17 +229,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
             }
         }
     }
-    
-    
-    func generateSharelinkerQrString() -> String
-    {
-        return "sharelinker://userId=\(BahamutSetting.userId)"
-    }
-    
-    func getSharelinkerIdFromQRString(qr:String)-> String
-    {
-        return qr.substringFromIndex("sharelinker://userId=".endIndex)
-    }
+
     
     func deleteLinkMessage(id:String)
     {
@@ -280,6 +276,32 @@ class UserService: NSNotificationCenter,ServiceProtocol
             callback(isSuc: result.isSuccess)
         }
         
+    }
+    
+    func generateSharelinkLinkMeCmd() -> String
+    {
+        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: BahamutSetting.userId)
+    }
+    
+    func generateSharelinkerQrString() -> String
+    {
+        return SharelinkCmd.generateSharelinkCmdUrl("linkMe", args: BahamutSetting.userId)
+    }
+    
+    //MARK: handle sharelinkMessage
+    func handleSharelinkCmd(method: String, args: [String],object:AnyObject?) {
+        switch method
+        {
+            case "linkMe":
+                let sharelinkerId = args[0]
+                askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
+                    if isSuc
+                    {
+                        self.postNotificationName(UserService.askForlinkMessageSended, object: self, userInfo: [AskForLinkSharelinkerId:sharelinkerId])
+                    }
+                })
+        default:break
+        }
     }
     
     //MARK: set user profile

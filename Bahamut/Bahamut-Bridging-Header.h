@@ -21,7 +21,4 @@
 
 #import "WXApi.h"
 
-#import "WeiboSDK.h"
-#import "WeiboUser.h"
-
 #endif /* Bahamut_Bridging_Header_h */

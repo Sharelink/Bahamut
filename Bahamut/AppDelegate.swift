@@ -64,9 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Facebook
         ShareSDK.connectFacebookWithAppKey("897418857006645", appSecret: "3c5fbcbc22201f96e1b5e93f7a0a69ff")
         
-        //Twitter
-        ShareSDK.connectTwitterWithConsumerKey("", consumerSecret: "", redirectUri: "")
-        
         //WhatsApp
         ShareSDK.connectWhatsApp()
     }
@@ -81,18 +78,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ShareSDK.connectQQWithAppId("1104930500", qqApiCls: QQApiInterface.classForCoder())
         
         //Weibo
-        ShareSDK.connectSinaWeiboWithAppKey("179608154", appSecret: "b79d50fb87ded0d281492b3113f3f988", redirectUri: "http://auth.sharelink.online:8086/return",weiboSDKCls: WeiboSDK.classForCoder())
+//        ShareSDK.connectSinaWeiboWithAppKey("179608154", appSecret: "b79d50fb87ded0d281492b3113f3f988", redirectUri: "https://api.weibo.com/oauth2/default.html",weiboSDKCls: WeiboSDK.classForCoder())
         
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        return ShareSDK.handleOpenURL(url, wxDelegate: self)
+        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        {
+            return handleSharelinkUrl(url)
+        }else
+        {
+            return ShareSDK.handleOpenURL(url, wxDelegate: self)
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self)
+        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        {
+            return handleSharelinkUrl(url)
+        }else
+        {
+            return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self)
+        }
     }
     
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return handleSharelinkUrl(url)
+    }
+    
+    
+    func handleSharelinkUrl(url:NSURL) -> Bool
+    {
+        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        {
+            let cmd = SharelinkCmd.getCmdFromUrl(url.absoluteString)
+            SharelinkCmdManager.sharedInstance.pushCmd(cmd)
+        }
+        return true
+    }
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

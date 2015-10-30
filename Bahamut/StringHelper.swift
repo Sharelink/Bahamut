@@ -110,6 +110,11 @@ extension String{
         return self.substringToIndex(self.startIndex.advancedBy(index))
     }
     
+    func substringWithRange(startIndex:Index,endIndex:Index) -> String
+    {
+        return self.substringWithRange(Range<String.Index>(start: startIndex, end: endIndex))
+    }
+    
     func substringWithRange(startIndex:Int,endIndex:Int) -> String
     {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex), end: self.startIndex.advancedBy(endIndex)))

@@ -92,28 +92,68 @@ class LinkedUserListController: UITableViewController
         refresh()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tabBarBadgeValue = 0
         tableView.reloadData()
     }
     
+    //MARK: new linker
     @IBAction func addNewLink(sender: AnyObject)
     {
-        let user = ServiceContainer.getService(UserService).myUserModel
+        let userService = ServiceContainer.getService(UserService)
+        let user = userService.myUserModel
         let defaultIconPath = NSBundle.mainBundle().pathForResource("headImage", ofType: "png", inDirectory: "ChatAssets/photo")
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
-        let publishContent = ShareSDK.content("\(user.nickName) Invite You Join Sharelink", defaultContent: "Invite You Join Sharelink", image: ShareSDK.imageWithPath(userHeadIconPath ?? defaultIconPath), title: "Sharelink", url: "http://app.sharelink.online", description: nil, mediaType: SSPublishContentMediaTypeApp)
+        let contentMsg = "\(user.nickName) want to link with you in Sharelink!"
+        let title = "Sharelink"
+        
+        let linkMeCmd = userService.generateSharelinkLinkMeCmd()
+        let url = "\(BahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
+        
+        let contentWithUrl = "\(contentMsg)\n\(url)"
+        
+        var img:ISSCAttachment!
+        if let qrImage = QRCode.generateImage(url, avatarImage: nil)
+        {
+            let imgData = UIImageJPEGRepresentation(qrImage, 1.0)
+            img = ShareSDK.imageWithData(imgData, fileName: nil, mimeType: nil)
+        }
+        if img == nil
+        {
+            img = ShareSDK.imageWithPath(userHeadIconPath ?? defaultIconPath)
+        }
+        let publishContent = ShareSDK.content(contentWithUrl, defaultContent: nil, image: img, title: title, url: url, description: nil, mediaType: SSPublishContentMediaTypeImage)
+        
+        publishContent.addWeixinSessionUnitWithType(5, content: contentMsg, title: title, url: url, thumbImage: nil, image: img, musicFileUrl: nil, extInfo: nil, fileData: nil, emoticonData: nil)
+        
+        publishContent.addWeixinTimelineUnitWithType(5, content: contentMsg, title: title, url: url, thumbImage: nil, image: img, musicFileUrl: nil, extInfo: nil, fileData: nil, emoticonData: nil)
+        
+        publishContent.addQQUnitWithType(3, content: contentMsg, title: title, url: url, image: img)
+        
+        publishContent.addSMSUnitWithContent(contentWithUrl)
+        
+        publishContent.addFacebookWithContent(contentWithUrl, image: img)
+        
+        publishContent.addMailUnitWithSubject(title, content: contentWithUrl, isHTML: false, attachments: nil, to: nil, cc: nil, bcc: nil)
+        
+        publishContent.addWhatsAppUnitWithContent(contentWithUrl, image: img, music: nil, video: nil)
         
         let container = ShareSDK.container()
-        container.setIPadContainerWithBarButtonItem(sender as? UIBarButtonItem, arrowDirect: .Down)
+        container.setIPadContainerWithView(self.view, arrowDirect: .Down)
+        container.setIPhoneContainerWithViewController(self)
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
-                NSLog("share success");
+                self.view.makeToast(message: "Share Success!")
             }
             else if (state == SSResponseStateFail)
             {
+                self.view.makeToast(message: "Share Failed.")
                 NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
             }
         }
@@ -132,6 +172,8 @@ class LinkedUserListController: UITableViewController
         presentViewController(alert, animated: true, completion: nil)
         
     }
+    
+    //MARK: table view delegate
     
     var indexOfUserList:Int{
         return linkMessageModel.count > 0 ? 1 : 0
