@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SharelinkSDK
 
 extension UserService
 {
@@ -54,7 +55,7 @@ class LinkConfirmViewController: UIViewController
                     self.navigationController?.popViewControllerAnimated(true)
                 }else
                 {
-                    self.view.makeToast(message: "acceptUserLink error")
+                    self.view.makeToast(message: NSLocalizedString("ACCEPT_USER_LINK_FAILED", comment: "Accept userLink error"))
                 }
             }
         }

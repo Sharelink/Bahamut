@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SharelinkSDK
 
 extension FileService
 {
@@ -38,11 +39,11 @@ extension FileService
             let fileSize = try fileManager.attributesOfItemAtPath(localfilePath)[NSFileSize] as! Int
             req.fileSize = fileSize
         }catch let err as NSError{
-            print(err)
+            NSLog(err.description)
             callback(fileKey: nil)
             return
         }
-        let client = ShareLinkSDK.sharedInstance.getFileClient()
+        let client = SharelinkSDK.sharedInstance.getFileClient()
         req.fileType = type
         
         client.execute(req) { (result:SLResult<SendFileKey>) -> Void in
@@ -79,7 +80,7 @@ extension FileService
         let sendFileKey = SendFileKey()
         sendFileKey.server = uploadTask.fileServerUrl
         sendFileKey.accessKey = uploadTask.fileId
-        let client = ShareLinkSDK.sharedInstance.getFileClient()
+        let client = SharelinkSDK.sharedInstance.getFileClient()
         let taskIdentifier = taskKey ?? accessKey
         func progressCallback(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {

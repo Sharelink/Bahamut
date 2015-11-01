@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import SharelinkSDK
 
 //MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController
@@ -36,6 +37,8 @@ class ShareThingsListController: UITableViewController
     
     deinit{
         ServiceContainer.getService(MessageService).removeObserver(self)
+        ServiceContainer.getService(ShareService).removeObserver(self)
+        ServiceContainer.getService(UserService).removeObserver(self)
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
@@ -101,7 +104,7 @@ class ShareThingsListController: UITableViewController
     
     private func refreshShareLastActiveTime(messages:[MessageEntity])
     {
-        self.tabBarItem.badgeValue = "\(messages.count)"
+        self.tabBarBadgeValue = messages.count
         var notReadyShare = [String]()
         var notReadyMsgDate = [String:NSDate]()
         var readySortables = [String:ShareThingSortableObject]()
@@ -298,11 +301,11 @@ class ShareThingsListController: UITableViewController
     //MARK: Add tag from share msg
     func showConfirmAddTagAlert(tag:SharelinkTag)
     {
-        let alert = UIAlertController(title: "I'm interest in \(tag.tagName)", message: "Are your sure to focus this tag?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes!", style: .Default){ _ in
+        let alert = UIAlertController(title: "\(tag.tagName)", message: String(format:NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""),tag.tagName!), preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: "Yes!"), style: .Default){ _ in
             self.addThisTapToMyFocus(tag)
             })
-        alert.addAction(UIAlertAction(title: "Ummm!", style: .Cancel){ _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: "Ummm!"), style: .Cancel){ _ in
             self.cancelAddTap(tag)
             })
         self.presentViewController(alert, animated: true, completion: nil)
@@ -324,10 +327,10 @@ class ShareThingsListController: UITableViewController
         tagService.addSharelinkTag(newTag){ (isSuc) -> Void in
             if isSuc
             {
-                self.view.makeToast(message: "focus successful!")
+                self.view.makeToast(message: NSLocalizedString("FOCUS_TAG_SUCCESS",comment:"focus successful!"))
             }else
             {
-                self.view.makeToast(message: "focus tag error , please check your network")
+                self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_FAILED", comment:"focus tag error , please check your network"))
             }
         }
         

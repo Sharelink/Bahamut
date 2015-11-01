@@ -143,7 +143,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         editing = !editing
         if editing
         {
-            btn.title = "Finish"
+            btn.title = NSLocalizedString("FINISH", comment: "Finish")
             for item in items
             {
                 for model in item
@@ -155,7 +155,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             
         }else
         {
-            btn.title = "Edit"
+            btn.title = NSLocalizedString("FINISH", comment: "Edit")
             for item in items
             {
                 for model in item

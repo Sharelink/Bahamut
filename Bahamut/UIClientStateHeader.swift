@@ -21,14 +21,14 @@ class UIClientStateHeader: UIView {
     {
         self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         indicator.startAnimating()
-        messageLabel.text = "Connecting"
+        messageLabel.text = NSLocalizedString("CONNECTING", comment: "Connecting")
     }
     
     func setConnectError()
     {
         self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         indicator.stopAnimating()
-        messageLabel.text = "Network Is Down!"
+        messageLabel.text = NSLocalizedString("CONNECT_ERROR", comment: "Network Is Down!")
     }
 
 }

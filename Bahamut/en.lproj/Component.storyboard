@@ -327,9 +327,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q00-Gx-RWn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-879" y="2339"/>
+            <point key="canvasLocation" x="-126" y="1680"/>
         </scene>
-        <!--Title-->
+        <!--Tag-->
         <scene sceneID="nhT-4z-tHH">
             <objects>
                 <viewController storyboardIdentifier="userTagEditController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xkf-Mc-ucN" customClass="UIUserTagEditController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -378,8 +378,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is show to my linkers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzd-lf-OWy">
-                                <rect key="frame" x="20" y="157" width="159" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Show To My Linkers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzd-lf-OWy">
+                                <rect key="frame" x="20" y="157" width="170" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -437,7 +437,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="Hzx-Y6-Pbn">
+                    <navigationItem key="navigationItem" title="Tag" id="Hzx-Y6-Pbn">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="LpJ-2x-P3D">
                             <connections>
                                 <action selector="save:" destination="xkf-Mc-ucN" id="Agi-Aa-AOc"/>
@@ -458,7 +458,7 @@
             </objects>
             <point key="canvasLocation" x="-126" y="2339"/>
         </scene>
-        <!--Title-->
+        <!--Property Title-->
         <scene sceneID="Ji5-qH-FXX">
             <objects>
                 <viewController storyboardIdentifier="editTextPropertyViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dgN-AS-4e4" customClass="UIEditTextPropertyViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -483,13 +483,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VL9-JV-4Ut">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Property Text Value" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VL9-JV-4Ut">
                                 <rect key="frame" x="20" y="107" width="560" height="128"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="vML-ZS-DgG"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -509,7 +508,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="hr8-cw-byV">
+                    <navigationItem key="navigationItem" title="Property Title" id="hr8-cw-byV">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="fco-j9-HpX">
                             <connections>
                                 <action selector="save:" destination="dgN-AS-4e4" id="T9B-fN-Saa"/>
@@ -596,8 +595,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
-                                            <rect key="frame" x="14" y="4" width="36" height="17"/>
+                                        <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
+                                            <rect key="frame" x="14" y="4" width="66" height="17"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

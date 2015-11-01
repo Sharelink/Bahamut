@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SharelinkSDK
 
 class SharelinkTagSortableObject: Sortable
 {
@@ -53,6 +54,9 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
         self.refreshMyAllSharelinkTags()
     }
     
+    func userLogout(userId: String) {
+    }
+    
     private(set) var tagOfMe:SharelinkTag!
     
     //MARK: My Tag
@@ -77,11 +81,18 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     func refreshMyAllSharelinkTags()
     {
         let req = GetMyAllTagsRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<[SharelinkTag]>) -> Void in
             if let tags = result.returnObject
             {
                 self.tagOfMe = tags.filter{$0.isSystemTag() && $0.isSharelinkerTag() && $0.data == "me"}.first
+                for tag in tags
+                {
+                    if tag.isSystemTag()
+                    {
+                        tag.tagName = NSLocalizedString(tag.tagName, comment: "") ?? tag.tagName
+                    }
+                }
                 ShareLinkObject.saveObjectOfArray(tags)
                 PersistentManager.sharedInstance.refreshCache(SharelinkTag)
                 self.postNotificationName(SharelinkTagService.TagsUpdated, object: self)
@@ -98,7 +109,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
         req.data = tag.data
         req.isShowToLinkers = tag.showToLinkers
         req.type = tag.type
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<SharelinkTag>) -> Void in
             var suc = false
             if let newtag = result.returnObject
@@ -119,7 +130,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     {
         let req = RemoveTagsRequest()
         req.tagIds = tags.map{$0.tagId}
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
@@ -143,7 +154,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
         req.isFocus = tag.isFocus
         req.isShowToLinkers = tag.showToLinkers
         req.type = tag.type
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
@@ -162,7 +173,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     {
         let req = GetLinkedUserTagsRequest()
         req.userId = userId
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<UserSharelinkTags>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<UserSharelinkTags>) -> Void in
             if result.statusCode == .OK
             {
                 if let newtag = result.returnObject

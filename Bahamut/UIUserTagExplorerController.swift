@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SharelinkSDK
 
 //MARK: UserService Extension
 extension SharelinkTagService
@@ -64,8 +65,8 @@ class UITagExplorerViewCell: UIResourceItemCell
     
 }
 
-let TagHeaderSystem = "Sharelink"
-let TagHeaderCustom = "Cutstom"
+let TagHeaderSystem = NSLocalizedString("TAG_HEADER_SYSTEM", comment:"Sharelink")
+let TagHeaderCustom = NSLocalizedString("TAG_HEADER_CUSTOM", comment:"Cutstom")
 
 class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
 {
@@ -124,10 +125,10 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 {
                     self.items[0].append(saveModel)
                     self.uiCollectionView.reloadData()
-                    self.view.makeToast(message: "focus successful!")
+                    self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "Focus successful!"))
                 }else
                 {
-                    self.view.makeToast(message: "focus tag error , please check your network")
+                    self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_FAILED", comment: "focus tag error , please check your network"))
                 }
             }
         }else{
@@ -183,7 +184,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         let newTag = UISharelinkTagItemModel()
         newTag.tagModel = SharelinkTag()
         newTag.tagModel.tagId = nil
-        newTag.tagModel.tagName = "newTag"
+        newTag.tagModel.tagName = NSLocalizedString("NEW_TAG", comment: "New Tag")
         newTag.tagModel.isFocus = "true"
         newTag.tagModel.tagColor = UIColor(hex: arc4random()).toHexString()
         ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
@@ -194,7 +195,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         if let models = itemModels as? [UISharelinkTagItemModel]
         {
             ServiceContainer.getService(SharelinkTagService).removeMyTags(models.map{$0.tagModel!}, sucCallback: { () -> Void in
-                self.view.makeToast(message: "Remove \(models.count) Tags", duration: 0, position: HRToastPositionCenter)
+                self.view.makeToast(message:String(format:NSLocalizedString("REMOVED_X_TAGS", comment: "Remove %@ Tags"), models.count) , duration: 0, position: HRToastPositionCenter)
                 
             })
         }
@@ -206,8 +207,8 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         {
             if tagModel.tagModel.isSystemTag()
             {
-                let alert = UIAlertController(title: "Sharelink", message: "It's a sharelink default tag!", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message:NSLocalizedString("A_DEFAULT_TAG", comment: "It's a sharelink default tag!"), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title:NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }

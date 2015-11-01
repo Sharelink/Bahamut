@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SharelinkSDK
 
 protocol UIEditTextPropertyViewControllerDelegate
 {
@@ -81,7 +82,7 @@ class UIEditTextPropertyViewController: UIViewController
             {
                 if String.isNullOrEmpty(propertyValueTextField.text) || !(propertyValueTextField.text! =~ model.valueRegex)
                 {
-                    self.view.makeToast(message: model.illegalValueMessage ?? "Illegal Value!")
+                    self.view.makeToast(message: model.illegalValueMessage ?? NSLocalizedString("ILLEGLE_VALUE", comment: "Illegal Value!"))
                     return
                 }
             }

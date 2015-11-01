@@ -40,21 +40,13 @@ class CoreDataHelper {
     //MARK: Delete
     static func deleteCellByIds(entityName:String, idFieldName:String, idValues:[String])
     {
-        let request = NSFetchRequest(entityName: entityName)
-        request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
-        request.returnsObjectsAsFaults = false
-        do{
-            let resultSet = try getEntityContext().executeFetchRequest(request)
-            let objects = resultSet.map{ item -> NSManagedObject in
-                return item as! NSManagedObject
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let objs = CoreDataHelper.getCellsByIds(entityName, idFieldName: idFieldName, idValues: idValues)
+            do{
+                try CoreDataHelper.deleteObjects(objs)
+            }catch let error as NSError{
+                NSLog(error.description)
             }
-            for obj in objects
-            {
-                getEntityContext().deleteObject(obj)
-            }
-            try getEntityContext().save()
-        }catch let error as NSError{
-            print(error.description)
         }
     }
     
@@ -91,8 +83,8 @@ class CoreDataHelper {
             }
             try context.save()
         }catch let ex as NSError{
-            print(ex.description)
-            print("delete entity:\(entityName) error")
+            NSLog(ex.description)
+            NSLog("delete entity:\(entityName) error")
         }
     }
     
@@ -108,7 +100,7 @@ class CoreDataHelper {
                 return item as! NSManagedObject
             }
         }catch let error as NSError{
-            print(error.description)
+            NSLog(error.description)
             return [NSManagedObject]()
         }
     }
@@ -166,7 +158,7 @@ class CoreDataHelper {
             try getEntityContext().save()
         }catch
         {
-            print("context save error")
+            NSLog("context save error")
         }
     }
 }

@@ -22,7 +22,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
     }
     var refreshButton:UIButton!{
         didSet{
-            refreshButton.titleLabel?.text = "Load Image Error"
+            refreshButton.titleLabel?.text = NSLocalizedString("LOAD_IMG_ERROR", comment: "Load Image Error")
             refreshButton.hidden = true
             refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(refreshButton)

@@ -10,20 +10,19 @@ import Foundation
 import CoreFoundation
 import Alamofire
 import EVReflection
+import SharelinkSDK
 
 //MARK: service define
-let UserServiceFirstLinkMessage = "UserServiceFirstLinkMessage"
+let UserServiceNewAskLinkMessage = "UserServiceNewAskLinkMessage"
 let UserServiceNewLinkMessageCount = "UserServiceNewLinkMessageCount"
 let AskForLinkSharelinkerId = "AskForLinkSharelinkerId"
 
-class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelegate
+class UserService: NSNotificationCenter,ServiceProtocol
 {
     static let userListUpdated = "userListUpdated"
     static let linkMessageUpdated = "linkMessageUpdated"
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let newLinkMessageUpdated = "newLinkMessageUpdated"
-    
-    static let askForlinkMessageSended = "askForlinkMessageSended"
     
     @objc static var ServiceName:String{return "user service"}
     
@@ -50,7 +49,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
         linkMessageRoute.ExtName = "NotificationCenter"
         ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
         self.refreshMyLinkedUsers()
-        SharelinkCmdManager.sharedInstance.registHandler(self)
+        self.refreshLinkMessage()
     }
     
     func userLogout(userId: String) {
@@ -60,8 +59,6 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     }
     
     private(set) var myUserModel:Sharelinker!
-    
-    private(set) var askingLinkUserList:[LinkMessage]!
     private(set) var linkMessageList:[LinkMessage]!
     
     private(set) var myLinkedUsers:[Sharelinker] = [Sharelinker]()
@@ -79,6 +76,11 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     }
     
     //MARK: get datas
+    
+    func isSharelinkerLinked(sharelinkerId:String) -> Bool
+    {
+        return myLinkedUsersMap.keys.contains(sharelinkerId)
+    }
     
     func getUserNoteName(userId:String) -> String
     {
@@ -125,7 +127,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
         //request server
         let req = GetSharelinkersRequest()
         req.userIds = [userId]
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result: SLResult<[Sharelinker]>) -> Void in
             var newestUser:Sharelinker!
             var msg:String! = nil
@@ -146,11 +148,12 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
         
         return user
     }
+
     
     func refreshMyLinkedUsers()
     {
         let req = GetUserLinksRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
         client.execute(req) { (result:SLResult<[UserLink]>) -> Void in
             
             if result.statusCode == ReturnCode.OK
@@ -195,6 +198,18 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     
     //MARK: add link and remove link
     
+    func refreshLinkMessage()
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            var linkMsgs = PersistentManager.sharedInstance.getAllModelFromCache(LinkMessage)
+            linkMsgs.sortInPlace({ (a, b) -> Bool in
+                a.time.dateTimeOfString.compare(b.time.dateTimeOfString) == .OrderedAscending
+            })
+            self.linkMessageList = linkMsgs
+            self.postNotificationName(UserService.linkMessageUpdated, object: self,userInfo: nil)
+        }
+    }
+    
     func onNewLinkMessage(a:NSNotification)
     {
         getNewLinkMessageFromServer()
@@ -203,29 +218,34 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     func getNewLinkMessageFromServer()
     {
         let req = GetLinkMessagesRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[LinkMessage]>) -> Void in
-            if result.isSuccess && result.returnObject != nil && result.returnObject.count > 0
+            if let msgs = result.returnObject
             {
-                LinkMessage.saveObjectOfArray(result.returnObject)
+                if msgs.count == 0
+                {
+                    return
+                }
+                LinkMessage.saveObjectOfArray(msgs)
+                self.refreshLinkMessage()
+                var uInfo:[NSObject:AnyObject] = [UserServiceNewLinkMessageCount:msgs.count]
+                let askingLinkMsg = msgs.filter{ $0.type == LinkMessageType.AskLink.rawValue }.first
+                if askingLinkMsg != nil
+                {
+                    uInfo.updateValue(askingLinkMsg!, forKey: UserServiceNewAskLinkMessage)
+                }
+                self.postNotificationName(UserService.newLinkMessageUpdated, object: self,userInfo: uInfo)
                 
-                var linkMsgs = PersistentManager.sharedInstance.getAllModelFromCache(LinkMessage)
-                linkMsgs.sortInPlace({ (a, b) -> Bool in
-                    a.time.dateTimeOfString.compare(b.time.dateTimeOfString) == .OrderedAscending
-                })
-                self.askingLinkUserList = linkMsgs.filter{ $0.type == LinkMessageType.AskLink.rawValue }
-                self.linkMessageList = linkMsgs.filter{$0.type == LinkMessageType.AcceptAskLink.rawValue }
+                if (msgs.filter{ $0.type == LinkMessageType.AcceptAskLink.rawValue}).count > 0
+                {
+                    self.refreshMyLinkedUsers()
+                }
+                
                 let dreq = DeleteLinkMessagesRequest()
                 client.execute(dreq, callback: { (result:SLResult<ShareLinkObject>) -> Void in
                     
                 })
-                self.postNotificationName(UserService.linkMessageUpdated, object: self,userInfo: [UserServiceFirstLinkMessage:result.returnObject.first!])
-                self.postNotificationName(UserService.newLinkMessageUpdated, object: self,userInfo: [UserServiceNewLinkMessageCount:result.returnObject.count])
-                
-                if (result.returnObject.filter{ $0.type == LinkMessageType.AcceptAskLink.rawValue}).count > 0
-                {
-                    self.refreshMyLinkedUsers()
-                }
+
             }
         }
     }
@@ -245,20 +265,17 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
         let req = AcceptAskingLinkRequest()
         req.sharelinkerId = userId
         req.noteName = noteName
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
             var suc = false
-            if result.isSuccess{
-                if let rs = result.returnObject
-                {
-                    rs.newLink.saveModel()
-                    rs.newUser.saveModel()
-                    PersistentManager.sharedInstance.refreshCache(UserLink)
-                    PersistentManager.sharedInstance.refreshCache(Sharelinker)
-                    suc = true
-                    self.initLinkedUsers()
-                    self.postNotificationName(UserService.userListUpdated, object: self)
-                }
-                
+            if let rs = result.returnObject
+            {
+                rs.newLink.saveModel()
+                rs.newUser.saveModel()
+                PersistentManager.sharedInstance.refreshCache(UserLink)
+                PersistentManager.sharedInstance.refreshCache(Sharelinker)
+                suc = true
+                self.initLinkedUsers()
+                self.postNotificationName(UserService.userListUpdated, object: self)
             }
             if let handler = callback
             {
@@ -271,8 +288,8 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     {
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
-        req.message = "\(myUserModel.nickName) want to add a link with you"
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ShareLinkObject>) -> Void in
+        req.message = String(format: NSLocalizedString("ASK_LINK_MSG",comment:""), myUserModel.nickName!)
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<ShareLinkObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }
         
@@ -280,28 +297,13 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     
     func generateSharelinkLinkMeCmd() -> String
     {
-        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: BahamutSetting.userId)
+        let expriedAt = NSDate(timeIntervalSinceNow: 7 * 24 * 3600)
+        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: BahamutSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
     }
     
     func generateSharelinkerQrString() -> String
     {
-        return SharelinkCmd.generateSharelinkCmdUrl("linkMe", args: BahamutSetting.userId)
-    }
-    
-    //MARK: handle sharelinkMessage
-    func handleSharelinkCmd(method: String, args: [String],object:AnyObject?) {
-        switch method
-        {
-            case "linkMe":
-                let sharelinkerId = args[0]
-                askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
-                    if isSuc
-                    {
-                        self.postNotificationName(UserService.askForlinkMessageSended, object: self, userInfo: [AskForLinkSharelinkerId:sharelinkerId])
-                    }
-                })
-        default:break
-        }
+        return SharelinkCmd.buildSharelinkCmdUrl(generateSharelinkLinkMeCmd())
     }
     
     //MARK: set user profile
@@ -310,7 +312,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     {
         let req = UpdateAvatarRequest()
         req.newAvatarId = newAvatarId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -333,7 +335,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     {
         let req = UpdateProfileVideoRequest()
         req.newProfileVideoId = newVideoId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -357,7 +359,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
         let req = UpdateLinkedUserNoteNameRequest()
         req.newNoteName = newNoteName
         req.userId = userId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -379,7 +381,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     {
         let req = UpdateSharelinkerProfileNickNameRequest()
         req.nickName = newNick
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -401,7 +403,7 @@ class UserService: NSNotificationCenter,ServiceProtocol,HandleSharelinkCmdDelega
     {
         let req = UpdateSharelinkerProfileMottoRequest()
         req.motto = newMotto
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil

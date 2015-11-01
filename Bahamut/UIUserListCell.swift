@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SharelinkSDK
 
 class UIUserListMessageCell: UITableViewCell
 {
@@ -80,7 +81,7 @@ class UIUserListAskingLinkCell: UITableViewCell
                 userService.deleteLinkMessage(self.model.id)
             }else
             {
-                self.rootController.view.makeToast(message: "acceptUserLink error")
+                self.rootController.view.makeToast(message: NSLocalizedString("ACCEPT_USER_LINK_FAILED", comment: ""))
             }
         }
     }
@@ -94,7 +95,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     private func update()
     {
         userNickLabel.text = "\(model.sharelinkerNick)"
-        messageLabel.text = "asking for a link"
+        messageLabel.text = String(format: NSLocalizedString("ASKING_FOR_A_LINK", comment: "asking for a link"),model.sharelinkerNick!)
         avatar.image = PersistentManager.sharedInstance.getImage(model.avatar)
     }
     

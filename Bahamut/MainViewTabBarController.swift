@@ -7,9 +7,38 @@
 //
 
 import UIKit
+import MBProgressHUD
+
+extension UIViewController
+{
+    func makeRootViewToast(msg:String)
+    {
+        if let vc = MainViewTabBarController.currentRootViewController
+        {
+            vc.view.makeToast(message: msg)
+        }
+    }
+    
+    func makeRootViewHUDToadt(msg:String)
+    {
+        if let vc = MainViewTabBarController.currentRootViewController
+        {
+            vc.view.makeToast(message: msg)
+        }
+    }
+}
 
 class MainViewTabBarController: UITabBarController ,OrientationsNavigationController
 {
+    private(set) static var currentTabBarViewController:MainViewTabBarController!
+    static var currentRootViewController:UIViewController!{
+        if let mc = currentTabBarViewController.selectedViewController?.presentingViewController as? MainNavigationController
+        {
+            return mc.presentedViewController
+        }
+        return nil
+    }
+    
     func supportedViewOrientations() -> UIInterfaceOrientationMask
     {
         if let pvc = self.selectedViewController as? OrientationsNavigationController
@@ -19,9 +48,14 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         return UIInterfaceOrientationMask.Portrait
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ServiceContainer.getService(UserService).addObserver(self, selector: "askingLinkMsgSended:", name: UserService.askForlinkMessageSended, object: nil)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MainViewTabBarController.currentTabBarViewController = self
         self.view.backgroundColor = UIColor.whiteColor()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MainViewTabBarController.currentTabBarViewController = nil
     }
 }

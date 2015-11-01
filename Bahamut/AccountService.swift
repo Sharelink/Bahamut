@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SharelinkSDK
 
 class AccountService: ServiceProtocol
 {
@@ -14,8 +15,8 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        ShareLinkSDK.sharedInstance.reuse(BahamutSetting.userId, token: BahamutSetting.token, shareLinkApiServer: BahamutSetting.shareLinkApiServer, fileApiServer: BahamutSetting.fileApiServer)
-        ShareLinkSDK.sharedInstance.startClients()
+        SharelinkSDK.sharedInstance.reuse(BahamutSetting.userId, token: BahamutSetting.token, shareLinkApiServer: BahamutSetting.shareLinkApiServer, fileApiServer: BahamutSetting.fileApiServer)
+        SharelinkSDK.sharedInstance.startClients()
     }
     
     @objc func userLogout(userId: String) {
@@ -26,11 +27,11 @@ class AccountService: ServiceProtocol
         BahamutSetting.chicagoServerHost = nil
         BahamutSetting.chicagoServerHostPort = 0
         BahamutSetting.userId = nil
-        ShareLinkSDK.sharedInstance.cancelToken(){
+        SharelinkSDK.sharedInstance.cancelToken(){
             message in
             
         }
-        ShareLinkSDK.sharedInstance.closeClients()
+        SharelinkSDK.sharedInstance.closeClients()
     }
     
     private func setLogined(validateResult:ValidateResult)
@@ -49,15 +50,15 @@ class AccountService: ServiceProtocol
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
         BahamutSetting.lastLoginAccountId = accountId
-        ShareLinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer,validateResult) -> Void in
+        SharelinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer,validateResult) -> Void in
             if isNewUser
             {
                 registCallback(registApiServer:registApiServer)
             }else if error == nil{
                 self.setLogined(validateResult)
-                callback(loginSuccess: true, message: "Validate AccessToken Success")
+                callback(loginSuccess: true, message: "")
             }else{
-                callback(loginSuccess: false, message: error)
+                callback(loginSuccess: false, message: NSLocalizedString("VALIDATE_ACCTOKEN_FAILED", comment: "Validate Access Token Failed"))
             }
             
         }
@@ -71,25 +72,25 @@ class AccountService: ServiceProtocol
         req.accessToken = registModel.accessToken
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
-        let client = ShareLinkSDK.sharedInstance.getRegistClient()
+        let client = SharelinkSDK.sharedInstance.getRegistClient()
         client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
-                callback(isSuc:false,msg:"Regist Failed",validateResult: nil);
+                callback(isSuc:false,msg: NSLocalizedString("REGIST_FAILED", comment: "Regist Failed"),validateResult: nil);
             }else if let validateResult = result.returnObject
             {
                 if validateResult.isValidateResultDataComplete()
                 {
-                    ShareLinkSDK.sharedInstance.useValidateData(validateResult)
+                    SharelinkSDK.sharedInstance.useValidateData(validateResult)
                     self.setLogined(validateResult)
-                    callback(isSuc: true, msg: "regist success",validateResult:validateResult)
+                    callback(isSuc: true, msg: NSLocalizedString("REGIST_SUC", comment: "Regist Success"),validateResult:validateResult)
                 }else
                 {
-                    callback(isSuc: false, msg: "Data Error",validateResult:nil)
+                    callback(isSuc: false, msg:NSLocalizedString("DATA_ERROR", comment: "Data Error"),validateResult:nil)
                 }
             }else
             {
-                callback(isSuc:false,msg:"Regist Failed",validateResult:nil);
+                callback(isSuc:false,msg:NSLocalizedString("REGIST_FAILED", comment: ""),validateResult:nil);
             }
         }
     }

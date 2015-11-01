@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SharelinkSDK
 
 extension AccountService
 {
@@ -49,7 +50,7 @@ class NewUserProfileViewController: UIViewController
         model.nickName = nickNameTextfield.text
         model.motto = motto.text
         setSignSuccessObserver()
-        self.view.makeToastActivityWithMessage(message: "Registing")
+        self.view.makeToastActivityWithMessage(message:NSLocalizedString("REGISTING", comment: "Registing"))
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             self.view.hideToastActivity()
             if !isSuc
@@ -74,7 +75,7 @@ class NewUserProfileViewController: UIViewController
             MainNavigationController.start()
         }else
         {
-            self.view.makeToast(message: "Server Failed")
+            self.view.makeToast(message:NSLocalizedString("SERVER_ERROR", comment: "Server Failed"))
         }
     }
     

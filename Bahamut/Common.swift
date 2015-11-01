@@ -44,18 +44,3 @@ extension UIColor
         return UIColor(hex: arc4random())
     }
 }
-
-extension Array
-{
-    mutating func removeElement(predict:(itemInArray:Element) -> Bool)
-    {
-        for var i = self.count - 1; i >= 0; i--
-        {
-            let a = self[i]
-            if predict(itemInArray: a)
-            {
-                self.removeAtIndex(i)
-            }
-        }
-    }
-}

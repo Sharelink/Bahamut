@@ -10,6 +10,7 @@ import UIKit
 import PBJVision
 import AVKit
 import AVFoundation
+import SharelinkSDK
 
 class UIFileCollectionCell: UIResourceItemCell
 {

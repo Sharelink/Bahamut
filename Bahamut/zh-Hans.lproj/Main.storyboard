@@ -7,7 +7,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Sharelink-->
+        <!--分享-->
         <scene sceneID="kSY-Pg-Hwm">
             <objects>
                 <tableViewController id="c5G-TY-KIz" customClass="ShareThingsListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtk-mP-E4X">
-                                            <rect key="frame" x="192" y="274" width="32" height="32"/>
+                                            <rect key="frame" x="192" y="232" width="32" height="32"/>
                                             <animations/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="mail_24"/>
@@ -42,7 +42,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJe-8V-nOH">
-                                            <rect key="frame" x="232" y="115" width="72" height="72"/>
+                                            <rect key="frame" x="232" y="73" width="72" height="72"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="72" id="9nb-Ok-DIF"/>
@@ -56,8 +56,8 @@
                                                 <action selector="vote" destination="Fkk-ck-SnS" eventType="touchUpInside" id="0db-4s-xMh"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👍周广杰" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWu-3l-Jzz">
-                                            <rect key="frame" x="64" y="314" width="160" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👍Sharelinker" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWu-3l-Jzz">
+                                            <rect key="frame" x="64" y="272" width="160" height="15"/>
                                             <animations/>
                                             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -65,7 +65,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="au0-Kj-9bh" customClass="UIShareContent" customModule="Bahamut" customModuleProvider="target">
-                                            <rect key="frame" x="64" y="107" width="160" height="160"/>
+                                            <rect key="frame" x="64" y="65" width="160" height="160"/>
                                             <animations/>
                                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -73,7 +73,7 @@
                                                 <constraint firstAttribute="width" constant="160" id="XwU-2w-4mf"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NoteName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQn-AD-BJA">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="备注名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQn-AD-BJA">
                                             <rect key="frame" x="64" y="8" width="82" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -81,7 +81,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHQ-Ql-CNB">
-                                            <rect key="frame" x="232" y="195" width="72" height="72"/>
+                                            <rect key="frame" x="232" y="153" width="72" height="72"/>
                                             <animations/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="share">
@@ -91,15 +91,15 @@
                                                 <action selector="shareToFriends" destination="Fkk-ck-SnS" eventType="touchUpInside" id="8GG-lS-3c1"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the title of the share,^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbz-VV-XeC">
-                                            <rect key="frame" x="64" y="37" width="240" height="62"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享的文字描述" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbz-VV-XeC">
+                                            <rect key="frame" x="64" y="37" width="240" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014年01月01日 " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVH-H0-9bE">
-                                            <rect key="frame" x="489" y="13" width="103" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-07-26" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVH-H0-9bE">
+                                            <rect key="frame" x="517" y="13" width="75" height="16"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -155,15 +155,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NoteName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rn-6m-efH">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="备注名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rn-6m-efH">
                                             <rect key="frame" x="64" y="11" width="82" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uI7-8B-ohW">
-                                            <rect key="frame" x="64" y="38" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="分享消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uI7-8B-ohW">
+                                            <rect key="frame" x="64" y="38" width="118" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -177,8 +177,8 @@
                                                 <constraint firstAttribute="width" constant="48" id="xlt-E7-hjL"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh9-hl-Kxl">
-                                            <rect key="frame" x="565" y="16" width="27" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="刚刚" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh9-hl-Kxl">
+                                            <rect key="frame" x="534" y="16" width="58" height="16"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -215,8 +215,8 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelink" id="jn5-6e-O46">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="WgG-Dt-AGc"/>
+                    <navigationItem key="navigationItem" title="分享" id="jn5-6e-O46">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="WgG-Dt-AGc"/>
                         <barButtonItem key="rightBarButtonItem" image="user" id="HHZ-7u-WLn">
                             <connections>
                                 <action selector="userSetting:" destination="c5G-TY-KIz" id="Dg6-a2-AMS"/>
@@ -230,7 +230,7 @@
             </objects>
             <point key="canvasLocation" x="-1438" y="2070"/>
         </scene>
-        <!--Sharelinker-->
+        <!--关联的分享人-->
         <scene sceneID="vir-N7-30o">
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -262,8 +262,8 @@
                                                 <constraint firstAttribute="width" constant="40" id="etf-6E-o6U"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" text="I Am A Sharelinker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYT-Cs-ull">
-                                            <rect key="frame" x="63" y="16" width="171" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" misplaced="YES" text="Sharelinker昵称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYT-Cs-ull">
+                                            <rect key="frame" x="63" y="16" width="152" height="26"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -288,32 +288,32 @@
                                     <outlet property="userNickTextField" destination="PYT-Cs-ull" id="OqV-Ch-khi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="80A-tW-7eC" id="i9r-5O-2RD">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" text="sharelinker ask for link" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idq-eK-5tu">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" misplaced="YES" text="链接消息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idq-eK-5tu">
                                             <rect key="frame" x="63" y="28" width="162" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEG-RO-Wwy">
-                                            <rect key="frame" x="543" y="13" width="49" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEG-RO-Wwy">
+                                            <rect key="frame" x="543" y="1" width="49" height="30"/>
                                             <animations/>
-                                            <state key="normal" title="Accept"/>
+                                            <state key="normal" title="接受"/>
                                             <connections>
                                                 <action selector="accept:" destination="80A-tW-7eC" eventType="touchUpInside" id="WTC-1y-yS3"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4P4-HF-ZE7">
-                                            <rect key="frame" x="491" y="13" width="44" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4P4-HF-ZE7">
+                                            <rect key="frame" x="486" y="1" width="44" height="30"/>
                                             <animations/>
-                                            <state key="normal" title="Ignore"/>
+                                            <state key="normal" title="忽略"/>
                                             <connections>
                                                 <action selector="ignore:" destination="80A-tW-7eC" eventType="touchUpInside" id="DhG-dQ-q6n"/>
                                             </connections>
@@ -322,10 +322,11 @@
                                             <rect key="frame" x="15" y="8" width="40" height="40"/>
                                             <animations/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="2Yt-tL-iYK"/>
                                                 <constraint firstAttribute="width" constant="40" id="pfw-DE-omL"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS5-cZ-92g">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="分享人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS5-cZ-92g">
                                             <rect key="frame" x="63" y="8" width="86" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -335,28 +336,18 @@
                                     </subviews>
                                     <animations/>
                                     <constraints>
+                                        <constraint firstAttribute="topMargin" secondItem="4P4-HF-ZE7" secondAttribute="top" constant="7" id="4fV-Gi-Be3"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="top" secondItem="i9r-5O-2RD" secondAttribute="topMargin" id="5cH-7Y-oxZ"/>
-                                        <constraint firstItem="Naa-aN-XCd" firstAttribute="centerY" secondItem="Idq-eK-5tu" secondAttribute="centerY" id="7Xt-c8-vaN"/>
                                         <constraint firstItem="Idq-eK-5tu" firstAttribute="bottom" secondItem="Naa-aN-XCd" secondAttribute="bottom" id="B9y-9o-v60"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="tEG-RO-Wwy" secondAttribute="trailing" id="BaL-Lm-ZyE"/>
                                         <constraint firstItem="vS5-cZ-92g" firstAttribute="top" secondItem="Naa-aN-XCd" secondAttribute="top" id="SQ9-4K-KZe"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="leading" secondItem="i9r-5O-2RD" secondAttribute="leadingMargin" constant="7" id="UIQ-gP-Dql"/>
+                                        <constraint firstItem="tEG-RO-Wwy" firstAttribute="top" secondItem="4P4-HF-ZE7" secondAttribute="top" id="UV4-R1-Znx"/>
                                         <constraint firstItem="vS5-cZ-92g" firstAttribute="leading" secondItem="Naa-aN-XCd" secondAttribute="trailing" constant="8" id="Vas-dR-Xys"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="Vva-Sj-EIe"/>
                                         <constraint firstItem="Idq-eK-5tu" firstAttribute="leading" secondItem="Naa-aN-XCd" secondAttribute="trailing" constant="8" symbolic="YES" id="WZN-dl-ydr"/>
-                                        <constraint firstItem="tEG-RO-Wwy" firstAttribute="leading" secondItem="4P4-HF-ZE7" secondAttribute="trailing" constant="8" id="YZc-YX-cyC"/>
-                                        <constraint firstItem="tEG-RO-Wwy" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="ki8-pS-EG0"/>
-                                        <constraint firstItem="4P4-HF-ZE7" firstAttribute="centerY" secondItem="tEG-RO-Wwy" secondAttribute="centerY" id="q3t-kU-Ubh"/>
-                                        <constraint firstItem="Idq-eK-5tu" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="uRu-vk-Eqn"/>
-                                        <constraint firstItem="Idq-eK-5tu" firstAttribute="top" secondItem="Naa-aN-XCd" secondAttribute="top" id="ztL-jw-DqG"/>
+                                        <constraint firstItem="tEG-RO-Wwy" firstAttribute="leading" secondItem="4P4-HF-ZE7" secondAttribute="trailing" constant="13" id="YZc-YX-cyC"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="7Xt-c8-vaN"/>
-                                            <exclude reference="uRu-vk-Eqn"/>
-                                            <exclude reference="ztL-jw-DqG"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
@@ -365,7 +356,7 @@
                                     <outlet property="userNickLabel" destination="vS5-cZ-92g" id="qtr-wR-MlT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="138" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjP-Sc-6TF" id="49C-wb-dN4">
@@ -376,25 +367,26 @@
                                             <rect key="frame" x="15" y="8" width="40" height="40"/>
                                             <animations/>
                                             <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="CNq-Cx-d7I"/>
                                                 <constraint firstAttribute="height" constant="40" id="Z2c-Hj-piz"/>
                                                 <constraint firstAttribute="width" constant="40" id="ire-IE-WTr"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0E-F6-hu7">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="分享人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0E-F6-hu7">
                                             <rect key="frame" x="63" y="8" width="86" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFN-6r-SAC">
-                                            <rect key="frame" x="63" y="28" width="40" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="链接消息内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFN-6r-SAC">
+                                            <rect key="frame" x="63" y="28" width="162" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boA-xx-LwI">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="昨天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boA-xx-LwI">
                                             <rect key="frame" x="532" y="8" width="60" height="16"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -404,7 +396,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-5T-9w5">
                                             <rect key="frame" x="562" y="23" width="30" height="30"/>
                                             <animations/>
-                                            <state key="normal" title="Ok"/>
+                                            <state key="normal" title="号"/>
                                             <connections>
                                                 <action selector="Ok:" destination="rjP-Sc-6TF" eventType="touchUpInside" id="ZfD-fR-0Gu"/>
                                             </connections>
@@ -442,8 +434,8 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinker" id="zwT-Iu-aIj">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Yk6-tG-t18">
+                    <navigationItem key="navigationItem" title="关联的分享人" id="zwT-Iu-aIj">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="Yk6-tG-t18">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem key="leftBarButtonItem" image="add_link" id="HAj-Bz-ITW">
@@ -486,7 +478,7 @@
             </objects>
             <point key="canvasLocation" x="-96" y="1335"/>
         </scene>
-        <!--New-->
+        <!--新的分享-->
         <scene sceneID="gOF-Sa-IGt">
             <objects>
                 <viewController storyboardIdentifier="newShareViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iK5-v5-9SH" customClass="NewShareViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -498,11 +490,11 @@
                         <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say something..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osp-x9-S0w">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="你的想法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osp-x9-S0w">
                                 <rect key="frame" x="20" y="8" width="127" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="wd7-kf-uru">
@@ -521,11 +513,11 @@
                                     </mask>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record something..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-vr-2m2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="拍摄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-vr-2m2">
                                 <rect key="frame" x="20" y="108" width="154" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25l-Re-LsY" customClass="UIShareContent" customModule="Bahamut" customModuleProvider="target">
@@ -558,16 +550,16 @@
                                     <constraint firstAttribute="width" constant="64" id="t7m-wB-SYG"/>
                                 </constraints>
                                 <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Record" image="webcam"/>
+                                <state key="normal" title="拍摄" image="webcam"/>
                                 <connections>
                                     <action selector="recordVideo" destination="iK5-v5-9SH" eventType="touchUpInside" id="G6v-oQ-Ae0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share's tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spg-gX-s4O">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="关联的主题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spg-gX-s4O">
                                 <rect key="frame" x="20" y="305" width="95" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyN-kc-vBY">
@@ -578,8 +570,8 @@
                                     <constraint firstAttribute="height" constant="63" id="EZL-ec-2bJ"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add special tag for share" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
-                                <rect key="frame" x="20" y="411" width="454" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="关联一个分享主题" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
+                                <rect key="frame" x="20" y="411" width="461" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Vzf-M9-FP7"/>
@@ -587,17 +579,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-JN-AFN">
-                                <rect key="frame" x="497" y="410" width="83" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-JN-AFN">
+                                <rect key="frame" x="504" y="410" width="76" height="32"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="83" id="FDD-6n-QzR"/>
                                     <constraint firstAttribute="height" constant="32" id="T8j-WE-Wih"/>
                                 </constraints>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title=" Tags" image="commerce">
+                                <state key="normal" title=" 主题库" image="commerce">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="FDD-6n-QzR"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="selectTag:" destination="iK5-v5-9SH" eventType="touchUpInside" id="uly-gf-Pz5"/>
                                 </connections>
@@ -634,8 +631,8 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="New" id="SJI-Bo-gRn">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="gqu-aL-wXb">
+                    <navigationItem key="navigationItem" title="新的分享" id="SJI-Bo-gRn">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="gqu-aL-wXb">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="check2" id="nmh-Wu-cl8">
@@ -679,7 +676,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCy-Uk-G7g">
                                 <rect key="frame" x="20" y="20" width="560" height="115"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dev Panel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rK3-Xs-3SC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="开发者面板" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rK3-Xs-3SC">
                                         <rect key="frame" x="242" y="8" width="77" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -710,18 +707,18 @@
                                             <action selector="use168Server:" destination="q7G-s6-dbS" eventType="touchUpInside" id="295-co-Xio"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-2G-I2X">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-2G-I2X">
                                         <rect key="frame" x="520" y="77" width="32" height="30"/>
                                         <animations/>
-                                        <state key="normal" title="Hide"/>
+                                        <state key="normal" title="隐藏"/>
                                         <connections>
                                             <action selector="hideDevPanel:" destination="q7G-s6-dbS" eventType="touchUpInside" id="85J-DP-fws"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0T-A6-Sdt">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0T-A6-Sdt">
                                         <rect key="frame" x="444" y="77" width="68" height="30"/>
                                         <animations/>
-                                        <state key="normal" title="ClearData"/>
+                                        <state key="normal" title="清除数据"/>
                                         <connections>
                                             <action selector="clearAllData:" destination="q7G-s6-dbS" eventType="touchUpInside" id="BGh-BF-Ts0"/>
                                         </connections>
@@ -776,7 +773,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="yKd-9L-X3Z">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="pqP-Jd-dcG"/>
+                        <barButtonItem key="backBarButtonItem" title="返回" id="pqP-Jd-dcG"/>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -916,11 +913,11 @@
             </objects>
             <point key="canvasLocation" x="165" y="-189"/>
         </scene>
-        <!--Tags-->
+        <!--Theme-->
         <scene sceneID="DoO-bx-Gbx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C54-eI-Wvc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tags" image="tag_fill" id="2jy-gC-u8c"/>
+                    <tabBarItem key="tabBarItem" title="Theme" image="tag_fill" id="2jy-gC-u8c"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="OWQ-Np-D3j">
@@ -938,7 +935,7 @@
             </objects>
             <point key="canvasLocation" x="-766" y="1335"/>
         </scene>
-        <!--My Tags-->
+        <!--关注的主题-->
         <scene sceneID="QIK-pk-T0u">
             <objects>
                 <viewController storyboardIdentifier="UITagExplorerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WWa-4s-vJi" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -986,7 +983,7 @@
                                                         <constraint firstAttribute="width" constant="16" id="zJ3-3r-Axs"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-hC-yeI">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-hC-yeI">
                                                     <rect key="frame" x="24" y="8" width="105" height="15"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1062,7 +1059,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="My Tags" id="xG8-WB-xEW">
+                    <navigationItem key="navigationItem" title="关注的主题" id="xG8-WB-xEW">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Uqd-Dh-S4S">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MBProgressHUD
+import SharelinkSDK
 
 protocol QRStringDelegate
 {

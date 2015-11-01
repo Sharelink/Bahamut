@@ -9,6 +9,7 @@
 import Foundation
 import ChatFramework
 import UIKit
+import SharelinkSDK
 
 let ShareChatHubNewMessageChanged = "ShareChatHubNewMessageChanged"
 let ChatHubCurrentChatModelChanged = "CurrentChatModelChanged"
@@ -300,7 +301,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             m.msgType = UUMessageType.Voice
             msgItem = m
         default:
-            print("messageEntityToUUMsgItem error")
+            NSLog("messageEntityToUUMsgItem error")
         }
         if let senderUser = userService.getUser(entity.senderId)
         {

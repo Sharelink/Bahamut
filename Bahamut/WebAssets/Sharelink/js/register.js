@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 		//表单提交
 		submitHandler:function(form){
-			controller.showToastActivity("Regsting");
+			controller.showToastActivity("REGISTING");
 			//hash password
          	var originPsw = form.password.value;
             var shaObj = new jsSHA("SHA-256", "TEXT");
@@ -66,12 +66,11 @@ $(document).ready(function(){
                 async:true,
                 error: function(request) {
 					controller.hideToastActivity();
-                    controller.makeToast("Connection error");
+                    controller.makeToast("CONNECT_ERROR");
                 },
                 success: function(result){
 					controller.hideToastActivity();
 					if (result.suc == true){
-						controller.alert("注册成功，请记住您的Sharelink ID:\n" + result.accountId);
 						controller.finishRegist(result.accountId+"#p"+result.accountName);
 					}else if (result.msg) {
 						controller.makeToast(result.msg);

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SharelinkSDK
 
 //MARK: sortable share thing
 
@@ -151,7 +152,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     
     private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!)
     {
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
         client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
             var shares:[ShareThing]! = nil
@@ -213,7 +214,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         //Access Network
         let req = GetShareOfShareIdsRequest()
         req.shareIds = shareIds
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
             var shares:[ShareThing]! = nil
             if result.statusCode == ReturnCode.OK && result.returnObject != nil && result.returnObject.count > 0
             {
@@ -250,7 +251,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     {
         let req = GetShareUpdatedMessageRequest()
         
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
             if let msgs = result.returnObject
             {
                 if msgs.count == 0
@@ -284,7 +285,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     {
         let req = ClearShareUpdatedMessageRequest()
         
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
         }
     }
     
@@ -302,7 +303,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.tags = tags.map{ ($0.getTagString() as NSString).base64String() }.joinWithSeparator("#")
         req.shareType = newShare.shareType
         req.pShareId = newShare.pShareId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
             {
@@ -320,7 +321,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = FinishNewShareThingRequest()
         req.shareId = shareId
         req.taskSuccess = isCompleted
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
         }
     }
@@ -332,7 +333,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = DeleteVoteRequest()
         req.shareId = shareThingModel.shareId
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 shareThingModel.voteUsers.removeElement{$0 == myUserId}
@@ -350,7 +351,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = AddVoteRequest()
         req.shareId = share.shareId
-        ShareLinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 share.voteUsers.append(myUserId)

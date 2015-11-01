@@ -8,6 +8,7 @@
 
 import UIKit
 import ChatFramework
+import SharelinkSDK
 
 class UIShareMessage:UITableViewCell
 {
@@ -70,11 +71,12 @@ class UIShareMessage:UITableViewCell
     private func update()
     {
         let sender = rootController.userService.getUser(shareThingModel.userId)
+        let noteName = sender?.noteName ?? sender?.nickName ?? ""
         timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
         noteNameLabel.text = sender?.noteName ?? shareThingModel.userNick
         avatarImageView.image = PersistentManager.sharedInstance.getImage(sender?.avatarId ?? shareThingModel.avatarId) ??
             PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
-        messageLabel.text = "focus on \(shareThingModel.shareContent)"
+        messageLabel.text = noteName + " \(NSLocalizedString("FOCUS_ON", comment: "")) \(shareThingModel.shareContent)"
     }
 }
 
@@ -151,12 +153,12 @@ class UIShareThing: UITableViewCell
     
     func swipeShareThingRight(gesture:UISwipeGestureRecognizer)
     {
-        print("swipe right")
+        NSLog("swipe right")
     }
     
     func swipeShareThingLeft(gesture:UISwipeGestureRecognizer)
     {
-        print("swipe left")
+        NSLog("swipe left")
     }
     
     private static var voteOriginColor:UIColor!
@@ -174,11 +176,11 @@ class UIShareThing: UITableViewCell
     {
         if voted
         {
-            let alert = UIAlertController(title: "Unvote this share?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default){ aa in
+            let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: UIAlertActionStyle.Default){ aa in
                 ServiceContainer.getService(ShareService).unVoteShareThing(self.shareThingModel,updateCallback: self.updateVote)
             })
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){ _ in })
+            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in })
             rootController.presentViewController(alert, animated: true, completion: nil)
         }else{
             
@@ -188,12 +190,12 @@ class UIShareThing: UITableViewCell
     
     @IBAction func shareToFriends()
     {
-        let alert = UIAlertController(title: "Share To Your Linkers", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Share", style: UIAlertActionStyle.Default){ aa in
+        let alert = UIAlertController(title: NSLocalizedString("RESHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("SHARE",comment:""), style: UIAlertActionStyle.Default){ aa in
             let textField = alert.textFields?.first
             self.reshare(textField?.text ?? nil)
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Say something to your linkers"
         }

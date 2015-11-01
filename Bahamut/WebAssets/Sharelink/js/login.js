@@ -55,7 +55,7 @@ $(document).ready(function(){
             	controller.switchDevMode();
             }else{
             	//hash password
-	         	controller.showToastActivity("Logining");
+	         	controller.showToastActivity("LOGINING");
                 var originPsw = form.password.value;
 	            var shaObj = new jsSHA("SHA-256", "TEXT");
 				shaObj.update(originPsw);
@@ -72,7 +72,7 @@ $(document).ready(function(){
 	                async:true,
 	                error: function(request) {
 						controller.hideToastActivity();
-	                    controller.makeToast("Connection error");
+	                    controller.makeToast("CONNECT_ERROR");
 	                },
 	                success: function(result){
 						controller.hideToastActivity();

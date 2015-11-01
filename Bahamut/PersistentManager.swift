@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SharelinkSDK
 
 class PersistentManager
 {
@@ -32,7 +33,7 @@ class PersistentManager
                 try NSFileManager.defaultManager().createDirectoryAtPath(tmpUrl.path!, withIntermediateDirectories: true, attributes: nil)
             }catch
             {
-                print("create tmp dir error")
+                NSLog("create tmp dir error")
             }
         }
     }
@@ -96,7 +97,7 @@ class PersistentManager
             try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
         }catch
         {
-            print("deleteUserDb failed")
+            NSLog("deleteUserDb failed")
         }
     }
     
@@ -117,7 +118,7 @@ extension NSManagedObject
             return true
         }catch let error as NSError
         {
-            print(error.description)
+            NSLog(error.description)
             return false
         }
     }
@@ -456,6 +457,8 @@ extension ShareLinkObject
 
 struct ModelEntityConstants
 {
+    static let modelArrCacheName = "[Sharelink.AllModel]"
+    
     static let idFieldName = "id"
     static let entityName = "ModelEntity"
 }
@@ -524,21 +527,20 @@ extension PersistentManager
     func getAllModel<T:ShareLinkObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
-        let typesname = "[\(typename)]"
-        let cache = getCache(typesname)
+        let cache = getCache(ModelEntityConstants.modelArrCacheName)
         let predicate = NSPredicate(format: "\(ModelEntityConstants.idFieldName) LIKE %@", argumentArray: ["\(typename)*"])
         let result = CoreDataHelper.getCells(ModelEntityConstants.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
         }
-        cache.setObject(result, forKey: typesname)
+        cache.setObject(result, forKey: typename)
         return result
     }
     
     func getAllModelFromCache<T:ShareLinkObject>(type:T.Type) -> [T]
     {
-        let typename = "[\(type.description())]"
-        let cache = getCache(typename)
+        let typename = type.description()
+        let cache = getCache(ModelEntityConstants.modelArrCacheName)
         if let result = cache.objectForKey(typename) as? [T]
         {
             return result
@@ -551,20 +553,34 @@ extension PersistentManager
         getAllModel(type)
     }
     
+    func clearArrCache<T:ShareLinkObject>(type:T.Type)
+    {
+        let typeName = type.description()
+        let arrCache = getCache(ModelEntityConstants.modelArrCacheName)
+        arrCache.removeObjectForKey(typeName)
+    }
+    
     func removeModels<T:ShareLinkObject>(models:[T])
     {
-        let typeName = T().classForCoder.description()
+        if models.count == 0
+        {
+            return
+        }
+        let typeName = models.first!.classForCoder.description()
+        let cache = getCache(typeName)
         let idValues = models.map { (model) -> String in
             let idValue = model.getObjectUniqueIdValue()
+            cache.removeObjectForKey(idValue)
             return "\(typeName):\(idValue)"
         }
         CoreDataHelper.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: idValues)
+        clearArrCache(T)
     }
     
     func saveModel(model:ShareLinkObject)
     {
         //save in cache
-        //print(model.classForCoder.description())
+        //NSLog(model.classForCoder.description())
         let typeName = model.classForCoder.description()
         let nsCache = getCache(typeName)
         let idValue = model.getObjectUniqueIdValue()

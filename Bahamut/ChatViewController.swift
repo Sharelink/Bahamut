@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import ChatFramework
+import SharelinkSDK
 
 class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate
 {
@@ -168,11 +169,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
                 }
             }else
             {
-                self.view.makeToast(message: "No More Message~")
+                self.view.makeToast(message: NSLocalizedString("NO_MORE_MESSAGE", comment: "No More Message~"))
             }
             self.head.endRefreshing()
         }
-        header.setTitle("Loading", forState: MJRefreshStatePulling)
+        header.setTitle(NSLocalizedString("LOADING",comment:"Loading"), forState: MJRefreshStatePulling)
         header.lastUpdatedTimeLabel?.hidden = true
         head = header
         chatTableView.header = head
@@ -307,7 +308,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         
         if String.isNullOrWhiteSpace(message)
         {
-            chatTableView.makeToast(message: "Can't Send White Space", duration: 1.0, position: HRToastPositionCenter)
+            chatTableView.makeToast(message: NSLocalizedString("SEND_WHITE_SPACE_ERROR", comment:"Can't Send White Space"), duration: 1.0, position: HRToastPositionCenter)
             funcView.TextViewInput.text = ""
             return
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SharelinkSDK
 
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}
@@ -46,7 +47,7 @@ class FileService: ServiceProtocol {
                 try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
             }catch
             {
-                print("create document dir error")
+                NSLog("create document dir error")
             }
         }
     }
@@ -75,7 +76,7 @@ class FileService: ServiceProtocol {
                     try fileManager.createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
                 }catch let error as NSError
                 {
-                    print(error.description)
+                    NSLog(error.description)
                 }
             }
         }
@@ -123,7 +124,7 @@ class FileService: ServiceProtocol {
             return true
         }catch let error as NSError
         {
-            print(error.description)
+            NSLog(error.description)
             return false
         }
     }

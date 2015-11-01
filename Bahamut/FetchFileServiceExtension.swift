@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SharelinkSDK
 
 extension FileService
 {
@@ -27,7 +28,7 @@ extension FileService
     
     func fetch(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
-        let client = ShareLinkSDK.sharedInstance.getFileClient()
+        let client = SharelinkSDK.sharedInstance.getFileClient()
         
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fileId, fileType: fileType)
         

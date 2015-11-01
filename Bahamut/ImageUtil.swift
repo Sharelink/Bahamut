@@ -27,7 +27,7 @@ class ImageUtil
             thumb = UIImage(CGImage: image)
         }catch let error as NSError
         {
-            print(error.description)
+            NSLog(error.description)
             thumb = UIImage(named:"file")
         }
         return thumb;

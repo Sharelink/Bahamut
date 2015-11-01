@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SharelinkSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -41,8 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureShareSDK()
     {
         ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
-        
-        if(BahamutSetting.language == nil || BahamutSetting.language == "ch")
+        let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
+        print(countryCode)
+        if(countryCode!.description == "CN")
         {
             connectChinaApps()
             connectGlobalApps()
@@ -138,6 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ServiceContainer.getService(MessageService).getMessageFromServer()
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
             ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
+            SharelinkCmdManager.sharedInstance.handleCmdQueue()
         }
     }
 

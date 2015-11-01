@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SharelinkSDK
 
 //MARK: LinkedUserListController
-class LinkedUserListController: UITableViewController
+class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
 {
 
     var userListModel:[(latinLetter:String , items:[Sharelinker])] = [(latinLetter:String , items:[Sharelinker])](){
@@ -26,6 +27,7 @@ class LinkedUserListController: UITableViewController
             userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
             userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
+            
         }
     }
     
@@ -34,15 +36,8 @@ class LinkedUserListController: UITableViewController
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
         }
     }
-    
-    deinit
-    {
-        if userService != nil
-        {
-            userService.removeObserver(self)
-        }
-    }
-    
+
+    //MARK: notify
     func myLinkedUsersUpdated(sender:AnyObject)
     {
         let newValues = userService.myLinkedUsers
@@ -57,7 +52,7 @@ class LinkedUserListController: UITableViewController
     {
         if let newMsgCnt = a.userInfo?[UserServiceNewLinkMessageCount] as? Int
         {
-            self.tabBarItem.badgeValue = "\(newMsgCnt)"
+            self.tabBarBadgeValue = newMsgCnt
         }
     }
     
@@ -79,6 +74,14 @@ class LinkedUserListController: UITableViewController
         myLinkedUsersUpdated(userService)
     }
     
+    deinit
+    {
+        if userService != nil
+        {
+            userService.removeObserver(self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
@@ -89,6 +92,7 @@ class LinkedUserListController: UITableViewController
         tableView.tableFooterView = uiview
         self.userService = ServiceContainer.getService(UserService)
         self.tabBarBadgeValue = 0
+        SharelinkCmdManager.sharedInstance.registHandler(self)
         refresh()
     }
     
@@ -102,14 +106,60 @@ class LinkedUserListController: UITableViewController
         tableView.reloadData()
     }
     
+    //MARK: handle sharelinkMessage
+    
+    func linkMe(method: String, args: [String],object:AnyObject?)
+    {
+        if args.count < 3
+        {
+            self.makeRootViewHUDToadt(NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
+            return
+        }
+        let sharelinkerId = args[0]
+        let sharelinkerNick = args[1]
+        let expriedAt = args[2].dateTimeOfString
+        if expriedAt.timeIntervalSince1970 < NSDate().timeIntervalSince1970
+        {
+            self.makeRootViewHUDToadt( NSLocalizedString("SHARELINK_CMD_TIMEOUT", comment: "Sharelink Command Timeout"))
+            return
+        }
+        if userService.isSharelinkerLinked(sharelinkerId)
+        {
+            userService.showUserProfileViewController(self.navigationController!, userId: sharelinkerId)
+        }else
+        {
+            let alert = UIAlertController(title: NSLocalizedString("SHARELINK", comment: ""), message:String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick), preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+                self.userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
+                    if isSuc
+                    {
+                        self.makeRootViewHUDToadt(NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
+                    }
+                })
+            }))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel){ action in
+                //cancel send request
+                })
+        }
+    }
+    
+    func handleSharelinkCmd(method: String, args: [String],object:AnyObject?) {
+        switch method
+        {
+            case "linkMe":linkMe(method, args: args, object: object)
+            default:break
+        }
+    }
+    
     //MARK: new linker
+    
     @IBAction func addNewLink(sender: AnyObject)
     {
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
         let defaultIconPath = NSBundle.mainBundle().pathForResource("headImage", ofType: "png", inDirectory: "ChatAssets/photo")
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
-        let contentMsg = "\(user.nickName) want to link with you in Sharelink!"
+        let contentMsg = String(format: NSLocalizedString("ASK_LINK_MSG", comment: "%@ want to link with you in Sharelink!"),user.nickName)
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
@@ -149,11 +199,11 @@ class LinkedUserListController: UITableViewController
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
-                self.view.makeToast(message: "Share Success!")
+                self.view.makeToast(message: NSLocalizedString("SHARE_SUC", comment: "Share Success!"))
             }
             else if (state == SSResponseStateFail)
             {
-                self.view.makeToast(message: "Share Failed.")
+                self.view.makeToast(message: NSLocalizedString("SHARE_FAILED", comment: "Share Failed."))
                 NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
             }
         }
@@ -161,14 +211,14 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {
-        let alert = UIAlertController(title: "QRCode", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Scan QRCode", style: .Destructive) { _ in
+        let alert = UIAlertController(title: NSLocalizedString("QRCODE", comment: "QRCode"), message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("SCAN_QRCODE", comment: "Scan QRCode"), style: .Destructive) { _ in
             self.userService.showScanQRViewController(self.navigationController!)
             })
-        alert.addAction(UIAlertAction(title: "My QRCode", style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:NSLocalizedString("MY_QRCODE", comment: "My QRCode"), style: .Destructive) { _ in
             self.userService.showMyQRViewController(self.navigationController!,sharelinkUserId: self.userService.myUserId ,avataImage: nil)
             })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
         
     }

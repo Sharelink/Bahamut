@@ -212,14 +212,13 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
                 self.navigationController?.popViewControllerAnimated(true)
             }else
             {
-                view.makeToast(message: "No Video Saved")
+                view.makeToast(message: NSLocalizedString("SAVE_VIDEO_ERROR", comment: "No Video Saved"))
             }
         }else
         {
             useVideoButton.enabled = false
             recordButton.hidden = true
-            view.makeToast(message: "Record Video Error")
-            print(error?.description)
+            view.makeToast(message:NSLocalizedString("RECORD_VIDEO_ERROR", comment:"Record Video Error"))
         }
     }
     

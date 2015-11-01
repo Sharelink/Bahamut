@@ -8,6 +8,7 @@
 
 import UIKit
 import ChatFramework
+import SharelinkSDK
 
 extension UserService
 {
@@ -21,7 +22,7 @@ extension UserService
             currentNavigationController.pushViewController(controller, animated: true)
         }else
         {
-            currentNavigationController.view.makeToast(message: "User Data Not Ready,Retry Later")
+            currentNavigationController.view.makeToast(message:NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
         }
     }
 }
@@ -96,33 +97,33 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         var propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.nickName
-        propertySet.propertyLabel = "Nick"
+        propertySet.propertyLabel = NSLocalizedString("NICK", comment: "Nick")
         propertySet.propertyValue = myInfo.nickName ?? myInfo.noteName
         propertySet.valueRegex = "^?{1,23}$"
-        propertySet.illegalValueMessage = "At least 1 character,less than 23 character"
+        propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
         textPropertyCells.append((propertySet:propertySet,editable:true))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.level
-        propertySet.propertyLabel = "Level"
+        propertySet.propertyLabel = NSLocalizedString("LEVEL", comment:"Level")
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
         textPropertyCells.append((propertySet:propertySet,editable:false))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime
-        propertySet.propertyLabel = "Join"
+        propertySet.propertyLabel = NSLocalizedString("JOIN", comment: "Join")
         propertySet.propertyValue = myInfo.createTimeOfDate.toDateString()
         textPropertyCells.append((propertySet:propertySet,editable:false))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "accountId"
-        propertySet.propertyLabel = "Sharelink ID"
+        propertySet.propertyLabel = NSLocalizedString("ACCOUNT_ID", comment: "Sharelink ID")
         propertySet.propertyValue = accountId
         textPropertyCells.insert((propertySet:propertySet,editable:false), atIndex: 2)
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.motto
-        propertySet.propertyLabel = "Motto"
+        propertySet.propertyLabel = NSLocalizedString("MOTTO", comment: "Motto")
         propertySet.propertyValue = myInfo.motto
         propertySet.isOneLineValue = false
         textPropertyCells.append((propertySet:propertySet,editable:true))
@@ -137,11 +138,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     @IBAction func logout(sender: AnyObject)
     {
-        let alert = UIAlertController(title: "Sure To Logout?", message: "it will clear all you message data with your sharelinkers", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Default) { _ in
+        let alert = UIAlertController(title: NSLocalizedString("LOGOUT_CONFIRM_TITLE", comment: "Sure To Logout?"),
+            message: NSLocalizedString("LOGOUT_CONFIRM_MSG", comment: "It will clear all you message data with your sharelinkers"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default) { _ in
             self.logout()
             })
-        alert.addAction(UIAlertAction(title: "No", style: .Cancel) { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel) { _ in
             self.cancelLogout()
             })
         presentViewController(alert, animated: true, completion: nil)
@@ -228,14 +230,14 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func tapAvatarCell(aTap:UITapGestureRecognizer)
     {
-        let alert = UIAlertController(title: "Change Avatar", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Take A New Photo", style: .Destructive) { _ in
+        let alert = UIAlertController(title: NSLocalizedString("CHANGE_AVATAR", comment: "Change Avatar"), message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("TAKE_NEW_PHOTO", comment: "Take A New Photo"), style: .Destructive) { _ in
             self.newPictureWithCamera()
             })
-        alert.addAction(UIAlertAction(title: "Select A Photo From Album", style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_PHOTO", comment: "Select A Photo From Album"), style: .Destructive) { _ in
             self.selectPictureFromAlbum()
             })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -274,7 +276,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 fService.requestFileId(localPath, type: FileType.Image){ fileKey in
                     if fileKey == nil
                     {
-                        self.view.makeToast(message: "Set Avatar failed")
+                        self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: "Set Avatar failed"))
                         return
                     }
                     fService.startSendFile(fileKey.accessKey)
@@ -287,13 +289,13 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                             self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
                         }else
                         {
-                            self.view.makeToast(message: "Set Avatar failed")
+                            self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
                         }
                     })
                 }
             }else
             {
-                self.view.makeToast(message: "Set Avatar failed")
+                self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
             }
         }
     }

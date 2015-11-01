@@ -10,6 +10,7 @@ import UIKit
 import EVReflection
 import Alamofire
 import JavaScriptCore
+import SharelinkSDK
 
 @objc protocol SignInViewControllerJSProtocol : JSExport
 {
@@ -77,7 +78,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func jsExceptionHandler(context:JSContext!,value:JSValue!) {
-        self.view.makeToast(message: "Js Error")
+        self.view.makeToast(message:NSLocalizedString("JS_ERROR", comment:"Js Error"))
     }
     
     var registedAccountName:String!
@@ -86,6 +87,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         let arrs = result.split("#p")
         let accountId = arrs[0]
         let accountName = arrs[1]
+        alert(String(format: NSLocalizedString("REGIST_SUC_MSG", comment: ""), accountId))
         self.loginAccountId = accountId
         self.registedAccountName = accountName
         authenticate()
@@ -94,7 +96,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        view.makeToastActivityWithMessage(message: "Login")
+        view.makeToastActivityWithMessage(message: NSLocalizedString("LOGINING", comment: "Logining"))
         accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
             self.view.hideToastActivity()
             if loginSuccess{
@@ -136,7 +138,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     {
         let service = ServiceContainer.getService(UserService)
         service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
-        view.makeToastActivityWithMessage(message: "Refreshing")
+        view.makeToastActivityWithMessage(message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
     }
     
     func initUsers(_:AnyObject)
@@ -150,8 +152,52 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }else
         {
             self.authenticate()
-            self.view.makeToast(message: "Server Failed")
+            self.view.makeToast(message:NSLocalizedString("SERVER_ERROR", comment: "Server Error"))
         }
+    }
+
+    
+    //MARK: implements jsProtocol
+    
+    func alert(msg: String) {
+        let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message: NSLocalizedString(msg, comment: ""), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title:NSLocalizedString("OK", comment: "Ok"), style: .Cancel){ _ in})
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func validateToken(result:String)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            var params = result.componentsSeparatedByString("#p")
+            self.validateToken(params[0], accountId: params[1], accessToken: params[2])
+        }
+        
+    }
+    
+    func makeToast(msg:String){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.view.makeToast(message: msg)
+        }
+    }
+    
+    func showToastActivity(msg:String? = nil){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            if msg == nil
+            {
+                self.view.makeToastActivity()
+            }else{
+                self.view.makeToastActivityWithMessage(message: NSLocalizedString(msg!, comment: ""))
+            }
+        }
+        
+    }
+    func hideToastActivity(){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.view.hideToastActivity()
+        }
+
     }
     
     //MARK: develop mode
@@ -188,50 +234,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         didSet{
             dev_panel.hidden = true
         }
-    }
-    
-    //MARK: implements jsProtocol
-    
-    
-    func alert(msg: String) {
-        let alert = UIAlertController(title: "Sharelink", message: msg, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel){ _ in})
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func validateToken(result:String)
-    {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            var params = result.componentsSeparatedByString("#p")
-            self.validateToken(params[0], accountId: params[1], accessToken: params[2])
-        }
-        
-    }
-    
-    func makeToast(msg:String){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.view.makeToast(message: msg)
-        }
-    }
-    
-    func showToastActivity(msg:String? = nil){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            if msg == nil
-            {
-                self.view.makeToastActivity()
-            }else{
-                self.view.makeToastActivityWithMessage(message: msg!)
-            }
-        }
-        
-    }
-    func hideToastActivity(){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.view.hideToastActivity()
-        }
-
     }
     
     func switchDevMode() {

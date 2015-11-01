@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SharelinkSDK
 
 @objc
 protocol UITagCollectionViewControllerDelegate

@@ -1,0 +1,160 @@
+/*
+ Localizable.strings
+ Bahamut
+ 
+ Created by AlexChow on 15/10/31.
+ Copyright © 2015年 GStudio. All rights reserved.
+ */
+//SharelinkSDK
+VALIDATE_DATA_ERROR = "数据有误";
+NETWORK_ERROR = "网络错误";
+NOT_LOGIN = "没有登录";
+LOGOUTED = "已经注销";
+
+JUST_NOW = "刚刚";
+X_MINUTES_AGO = "%@ 分钟前";
+X_HOURS_AGO = "%@ 小时前";
+X_DAYS_AGO = "%@ 天前";
+
+//Chat Framework
+HOLD_TO_TALK = "按住说话";
+RELEASE_TO_SEND = "释放发送";
+INPUT_CONTENTS_HERE = "输入消息";
+
+CANCEL = "取消";
+RELEASE_TO_CANCEL = "释放取消";
+SLIDE_UP_CANCEL = "向上滑动取消";
+SUCCESS = "成功";
+CAMERA = "相机";
+IMAGES = "图片";
+TOO_SHORT = "时间太短";
+SEND = "发送";
+TIPS = "提示";
+NO_CAMERA_TIPS = "找不到相机设备";
+SURE = "确定";
+VOICE_SEC = "%@' 秒";
+TIME_LIMIT = "时间限制";
+
+//Common
+YES = "是";
+UMMM = "不要";
+LOADING = "加载中";
+FINISH = "完成";
+EDIT = "编辑";
+CANCEL = "取消";
+CANCELED = "取消";
+SHARE = "分享";
+NO = "否";
+OK = "好";
+CONTINUE = "继续";
+LOGIN = "登录";
+LOGINING = "登录中";
+SERVER_ERROR = "服务器错误";
+SHARELINK = "Sharelink";
+RECORD_CANCELED = "录制取消";
+VIDEO_SAVED = "视频已经保存";
+SAVE_VIDEO_FAILED = "保存视频失败";
+UPDATING = "更新中";
+
+//system tags
+"Private" = "私密";
+"Here" = "这里";
+"Feedback" = "反馈";
+"Broadcast" = "系统广播";
+"Reshareless" = "不可转载";
+"Me" = "我";
+
+VALIDATE_ACCTOKEN_FAILED = "验证Token失败";
+NO_MORE_MESSAGE = "没有更多消息了";
+SEND_WHITE_SPACE_ERROR = "不能发送空白字符";
+SAVE_VIDEO_ERROR = "保存视频错误";
+RECORD_VIDEO_ERROR = "录制视频错误";
+CONNECTING = "连接中";
+CONNECT_ERROR = "网络错误";
+
+ILLEGLE_VALUE = "非法数据";
+LOAD_IMG_ERROR = "加载图片失败";
+CONFIRM_FOCUS_TAG = "你确定要关注 %@ 主题吗?";
+
+FOCUS_TAG_SUCCESS = "关注成功!";
+FOCUS_TAG_FAILED = "关注失败，请检查你的网络！";
+THEME = "主题";
+FOCUS = "关注";
+FOCUS_ON = "关注了";
+UNVOTE_SHARE_CONFIRM = "取消点赞?";
+
+RESHARE_CONFIRM = "Share To Your Linkers";
+
+//NewShareViewController
+TAG_LIMIT_MESSAGE = "不能再添加主题了!";
+TAG_ALREADY_SELECTED = "主题已添加!";
+TAG_IS_EMPTY = "输入一个主题!";
+
+FILES_WAS_DELETED = "%@ 个文件已经删除";
+NO_SELECT_TAG_TIPS = "没有关联主题，只有关注了你的人才能看到这次分享，是否继续？";
+SENDING_FILM = "视频发送中";
+NO_FILM_SELECTED = "需要录制或者选择一个视频!";
+SEND_FILM_SUC = "上传视频成功！";
+POST_SHARE_SUC = "分享成功！";
+SEND_FILM_FAILED = "上传视频失败";
+POST_SHARE_FAILED = "分享失败！";
+
+//SignInViewController
+REFRESHING = "刷新中";
+
+
+//UITagExplorerController
+TAG_HEADER_SYSTEM = "Sharelink";
+TAG_HEADER_CUSTOM = "自定义";
+NEW_TAG = "新主题";
+REMOVED_X_TAGS = "移除了 %@ 个主题";
+A_DEFAULT_TAG = "这是系统自带的主题!";
+
+//
+REGISTING = "注册中";
+REGIST_SUC_MSG = "注册成功，你的Sharelink ID是\n %@";
+
+//UserProfileViewController;
+CHANGE_PROFILE_VIDEO = "修改个人视频";
+REC_NEW_VIDEO = "录制新视频";
+SELECT_VIDEO = "选择一个视频";
+NOTE_NAME = "备注名";
+
+//
+ACCEPT_USER_LINK_FAILED = "添加好友失败";
+
+//
+USER_DATA_NOT_READY_RETRY = "用户数据没准备好，过一会重试";
+NICK = "昵称";
+NICK_REGEX_TIPS = "昵称必须是1到23个字符";
+LEVEL = "等级";
+JOIN = "注册时间";
+ACCOUNT_ID = "Sharelink ID";
+MOTTO = "签名";
+LOGOUT_CONFIRM_TITLE = "确定退出?";
+LOGOUT_CONFIRM_MSG = "你的所有聊天记录将会被清除，是否继续？";
+CHANGE_AVATAR = "修改头像";
+TAKE_NEW_PHOTO = "拍照";
+SELECT_PHOTO = "选择一个照片";
+SET_AVATAR_FAILED = "设置头像失败";
+
+//
+ASKING_FOR_A_LINK = "%@ 想与你建立连接。";
+
+//
+UNKNOW_SHARELINK_CMD = "非法命令";
+SHARELINK_CMD_TIMEOUT = "命令已经失效";
+SEND_LINK_REQUEST_TO = "发送建立连接请求给 %@";
+LINK_REQUEST_SENDED = "请求已发送";
+ASK_LINK_MSG = "%@ 想与你的Sharelink建立连接!";
+
+//
+SHARE_SUC = "分享成功!";
+SHARE_FAILED = "分享失败.";
+QRCODE = "二维码";
+SCAN_QRCODE = "扫一扫";
+MY_QRCODE = "我的二维码";
+
+REGIST_FAILED = "注册失败";
+REGIST_SUC = "注册成功";
+DATA_ERROR = "数据有误";

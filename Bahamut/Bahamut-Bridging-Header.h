@@ -12,8 +12,6 @@
 #import "UIBarButtomItem-Badge/UIButton+Badge.h"
 #import "UIBarButtomItem-Badge/UIbarButtonItem+Badge.h"
 
-#import "Base64/MF_Base64Additions.h"
-
 #import <ShareSDK/ShareSDK.h>
 
 #import <TencentOpenAPI/TencentOAuth.h>

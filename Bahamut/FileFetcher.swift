@@ -15,11 +15,7 @@ class ProgressTaskWatcher
         }()
     
     private var dict = [String:NSMutableSet]()
-    
-    private static let progressName = "progress"
-    private static let completedName = "completed"
-    private static let failedName = "failed"
-    
+
     class TaskRecord
     {
         var id:String!

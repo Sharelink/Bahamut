@@ -8,6 +8,7 @@
 
 import UIKit
 import ChatFramework
+import SharelinkSDK
 
 //MARK: UserService
 extension UserService
@@ -121,11 +122,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func showConfirmAddTagAlert(tag:SharelinkTag)
     {
-        let alert = UIAlertController(title: "I'm interest in \(tag.tagName)", message: "Are your sure to focus this tag?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes!", style: .Default){ _ in
+        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), tag.tagName), preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default){ _ in
             self.addThisTapToMyFocus(tag)
         })
-        alert.addAction(UIAlertAction(title: "Ummm!", style: .Cancel){ _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: ""), style: .Cancel){ _ in
             self.cancelAddTap(tag)
         })
         self.presentViewController(alert, animated: true, completion: nil)
@@ -145,9 +146,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         newTag.isFocus = "\(true)"
         newTag.data = tag.data
         tagService.addSharelinkTag(newTag) { (suc) -> Void in
-            let alerttitle = suc ? "Focus \(tag.tagName) successful!" : "focus failed,check your network if is down"
+            let alerttitle = suc ? NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "") : NSLocalizedString("FOCUS_TAG_FAILED", comment: "")
             let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Cancel){ _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Cancel){ _ in
                 })
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -200,14 +201,14 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     private func showEditProfileVideoActionSheet()
     {
-        let alert = UIAlertController(title: "Change Profile Video", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Record A New Video", style: .Destructive) { _ in
+        let alert = UIAlertController(title:NSLocalizedString("CHANGE_PROFILE_VIDEO", comment: "Change Profile Video"), message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title:NSLocalizedString("REC_NEW_VIDEO", comment: "Record A New Video"), style: .Destructive) { _ in
             self.recordVideo()
             })
-        alert.addAction(UIAlertAction(title: "Select A Video From Album", style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_VIDEO", comment: "Select A Video From Album"), style: .Destructive) { _ in
             self.seleteVideo()
             })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title:NSLocalizedString("CANCEL",comment:""), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -218,7 +219,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func cameraCancelRecord(sender: UICameraViewController!)
     {
-        view.makeToast(message: "Cancel")
+        view.makeToast(message: NSLocalizedString("CANCELED", comment: ""))
     }
     
     func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
@@ -229,11 +230,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath
-            self.view.makeToast(message: "Video Saved")
+            self.view.makeToast(message:NSLocalizedString("VIDEO_SAVED", comment: ""))
             saveProfileVideo()
         }else
         {
-            self.view.makeToast(message: "Save Video Failed")
+            self.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED",comment:""))
         }
     }
     
@@ -310,8 +311,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "note"
         propertySet.propertyValue = userProfileModel.noteName
-        propertySet.propertyLabel = "Note Name"
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: "Note Name", delegate: self)
+        propertySet.propertyLabel = NSLocalizedString("NOTE_NAME", comment: "Note Name")
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: NSLocalizedString("NOTE_NAME", comment: ""), delegate: self)
     }
     
     func avatarTapped(_:UITapGestureRecognizer)
@@ -324,7 +325,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let userService = ServiceContainer.getService(UserService)
         if propertyId == "note"
         {
-            self.view.makeToastActivityWithMessage(message: "Updating")
+            self.view.makeToastActivityWithMessage(message:NSLocalizedString("UPDATING", comment: ""))
             userService.setLinkerNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
                 self.view.hideToastActivity()
                 if isSuc

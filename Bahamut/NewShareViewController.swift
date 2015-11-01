@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SharelinkSDK
 
 //MARK: ShareService extension
 extension ShareService
@@ -36,7 +37,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             shareThingModel.shareType = SharelinkType.filmType.rawValue
         }
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
-        initMytags()
     }
     
     var shareThingModel:ShareThing!{
@@ -50,17 +50,16 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        initMytags()
         registerForKeyboardNotifications()
         
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        removeObserverForKeyboardNotifications()
-    }
-    
-    deinit{
         ServiceContainer.getService(SharelinkTagService).removeObserver(self)
+
+        removeObserverForKeyboardNotifications()
     }
     
     override func didReceiveMemoryWarning() {
@@ -215,7 +214,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         if selectedTagController.tags != nil && selectedTagController.tags.count >= NewShareViewController.tagsLimit
         {
-            selectedTagViewContainer.makeToast(message: "can't not add more tags!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
+            selectedTagViewContainer.makeToast(message:NSLocalizedString("TAG_LIMIT_MESSAGE", comment: "can't not add more tags!"), duration: HRToastDefaultDuration, position: HRToastPositionTop)
             return
         }
         if let newTagName = newTagNameTextfield.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
@@ -230,12 +229,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 newTagNameTextfield.text = nil
                 if !selectedTagController.addTag(newTag)
                 {
-                    selectedTagViewContainer.makeToast(message: "tag has been added!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
+                    selectedTagViewContainer.makeToast(message:NSLocalizedString("TAG_ALREADY_SELECTED", comment: "tag has been added!"), duration: HRToastDefaultDuration, position: HRToastPositionTop)
                 }
                 return
             }
         }
-        selectedTagViewContainer.makeToast(message: "there is nothing!", duration: HRToastDefaultDuration, position: HRToastPositionTop)
+        selectedTagViewContainer.makeToast(message:NSLocalizedString("TAG_IS_EMPTY", comment: "there is nothing!"), duration: HRToastDefaultDuration, position: HRToastPositionTop)
     }
     
     func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
@@ -248,9 +247,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 let tagSortableObj = tag.getSortableObject()
                 tagSortableObj.compareValue = NSNumber(double: NSDate().timeIntervalSince1970)
                 tagSortableObj.saveModel()
-            }else
-            {
-                self.view.makeToast(message: "tags has been ready")
             }
         }else if sender == selectedTagController
         {
@@ -358,7 +354,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             var completedHandler:(itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void
             @objc private func cameraCancelRecord(sender: UICameraViewController!)
             {
-                sender.view.makeToast(message: "Record Cancel")
+                sender.view.makeToast(message:NSLocalizedString("RECORD_CANCELED", comment:  "Record Cancel"))
             }
             
             @objc private func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!) {
@@ -370,10 +366,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                     videoFileModel.filePath = newFilePath
                     videoFileModel.fileType = .Video
                     completedHandler(itemModel: videoFileModel,indexPath: NSIndexPath(forRow: 0, inSection: 0))
-                    sender.view.makeToast(message: "Video Saved")
+                    sender.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
                 }else
                 {
-                    sender.view.makeToast(message: "Save Video Failed")
+                    sender.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"))
                 }
                 
             }
@@ -396,17 +392,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 try NSFileManager.defaultManager().removeItemAtPath(fileModel.filePath)
                 sum++
             }catch let error as NSError{
-                print(error.description)
+                NSLog(error.description)
             }
         }
-        sender.view.makeToast(message: "\(sum) files deleted", duration: HRToastDefaultDuration, position: HRToastPositionCenter)
+        sender.view.makeToast(message: String(format:(NSLocalizedString("FILES_WAS_DELETED", comment: "%@ files deleted")), sum), duration: HRToastDefaultDuration, position: HRToastPositionCenter)
     }
     
     //MARK: record film
     
     func cameraCancelRecord(sender: UICameraViewController!)
     {
-        view.makeToast(message: "Cancel")
+        view.makeToast(message: NSLocalizedString("CANCEL", comment: "Cancel"))
     }
     
     func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
@@ -417,10 +413,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             self.shareThingModel.shareContent = newFilePath
             self.shareContentContainer.shareThing = self.shareThingModel
-            self.view.makeToast(message: "Video Saved")
+            self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
         }else
         {
-            self.view.makeToast(message: "Save Video Failed")
+            self.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"))
         }
     }
     
@@ -448,11 +444,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         if self.selectedTagController.tags == nil || self.selectedTagController.tags.count == 0
         {
-            let alert = UIAlertController(title: "Share", message: "No tag added to share,only the sharelinker who focus on you can see this share", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
+            let alert = UIAlertController(title: NSLocalizedString("SHARE", comment:  ""), message: NSLocalizedString("NO_SELECT_TAG_TIPS", comment:  ""),preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("CONTINUE", comment:  ""), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
                 self.prepareShare()
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment:  ""), style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil )
         }else
         {
@@ -474,7 +470,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             newShareTask.id = taskKey
             newShareTask.saveModel()
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskKey, delegate: self)
-            self.view.makeToastActivityWithMessage(message: "Sending Film")
+            self.view.makeToastActivityWithMessage(message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
                 let tags = self.selectedTagController.tags ?? [SharelinkTag]()
                 self.postShare(newShare,tags:tags,taskKey: taskKey)
@@ -482,7 +478,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             
         }else
         {
-            self.view.makeToast(message: "must select or capture a film!")
+            self.view.makeToast(message:NSLocalizedString("NO_FILM_SELECTED", comment: "must select or capture a film!"))
         }
     }
     
@@ -530,12 +526,12 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             if msg == "file"
             {
                 task.uploadedFile = 1
-                self.view.makeToast(message: "Send File Success")
+                self.view.makeToast(message:NSLocalizedString("SEND_FILM_SUC", comment:  "Send Film Success"))
             }else if msg.hasBegin("share:")
             {
                 task.shareId = msg.substringFromIndex(6)
                 task.sharePosted = 1
-                self.view.makeToast(message:"Post Share Success")
+                self.view.makeToast(message:NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
             }
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {
@@ -560,11 +556,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             if msg == "file"
             {
                 task.uploadedFile = -1
-                self.view.makeToast(message:"Send File Error")
+                self.view.makeToast(message:NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
             }else if msg == "share"
             {
                 task.sharePosted = -1
-                self.view.makeToast(message: "Post Share Error")
+                self.view.makeToast(message:NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
             }
             if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
             {

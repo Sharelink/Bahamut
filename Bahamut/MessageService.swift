@@ -10,6 +10,7 @@
 import Foundation
 import UIKit
 import EVReflection
+import SharelinkSDK
 
 //MARK:MessageService
 
@@ -33,7 +34,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
         ChicagoClient.sharedInstance.connect(BahamutSetting.chicagoServerHost, port: BahamutSetting.chicagoServerHostPort)
         ChicagoClient.sharedInstance.startHeartBeat()
-        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: ShareLinkSDK.appkey, apptoken: BahamutSetting.token)
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: BahamutSetting.token)
     }
     
     func userLogout(userId: String) {
@@ -51,18 +52,19 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     func getMessageFromServer()
     {
         let req = GetNewMessagesRequest()
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
-            if result.isSuccess
+            if let msgs = result.returnObject
             {
-                if result.returnObject != nil && result.returnObject.count > 0
+                if msgs.count == 0
                 {
-                    self.recevieMessage(result.returnObject!)
-                    let dreq = NotifyNewMessagesReceivedRequest()
-                    client.execute(dreq, callback: { (result:SLResult<EVObject>) -> Void in
-                        
-                    })
+                    return
                 }
+                self.recevieMessage(msgs)
+                let dreq = NotifyNewMessagesReceivedRequest()
+                client.execute(dreq, callback: { (result:SLResult<EVObject>) -> Void in
+                    
+                })
             }
         }
     }
@@ -138,7 +140,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         req.messageData = msg.msgData
         req.audienceId = audienceId
         req.shareId = shareId
-        let client = ShareLinkSDK.sharedInstance.getShareLinkClient()
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<Message>) -> Void in
             if result.isSuccess
             {

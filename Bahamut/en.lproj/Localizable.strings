@@ -1,0 +1,161 @@
+/* 
+  Localizable.strings
+  Bahamut
+
+  Created by AlexChow on 15/10/31.
+  Copyright © 2015年 GStudio. All rights reserved.
+*/
+//SharelinkSDK
+VALIDATE_DATA_ERROR = "Validate Data Error";
+NETWORK_ERROR = "Network Error";
+NOT_LOGIN = "Not Login";
+LOGOUTED = "Logout";
+
+JUST_NOW = "New";
+X_MINUTES_AGO = "%@ minutes ago";
+X_HOURS_AGO = "%@ hours ago";
+X_DAYS_AGO = "%@ days ago";
+
+//Chat Framework
+HOLD_TO_TALK = "Hold to Talk";
+RELEASE_TO_SEND = "Release to Send";
+INPUT_CONTENTS_HERE = "Input the contents here";
+
+CANCEL = "Cancel";
+RELEASE_TO_CANCEL = "Release to cancel";
+SLIDE_UP_CANCEL = "Slide up to cancel";
+SUCCESS = "Success";
+CAMERA = "Camera";
+IMAGES = "Images";
+TOO_SHORT = "Too short";
+SEND = "send";
+TIPS = "Tip";
+NO_CAMERA_TIPS = "Your device don't have camera";
+SURE = "Sure";
+VOICE_SEC = "%@'s Voice";
+TIME_LIMIT = "Time Limit";
+
+//Common
+YES = "Yes";
+UMMM = "Ummm...";
+LOADING = "Loading";
+FINISH = "Finish";
+EDIT = "Edit";
+CANCEL = "Cancel";
+CANCELED = "Canceled";
+SHARE = "Share";
+NO = "No";
+OK = "Ok";
+CONTINUE = "Continue";
+LOGIN = "Login";
+LOGINING = "Logining";
+SERVER_ERROR = "Server Error";
+SHARELINK = "Sharelink";
+RECORD_CANCELED = "Record Canceled";
+VIDEO_SAVED = "Video Saved";
+SAVE_VIDEO_FAILED = "Save Video Failed";
+UPDATING = "Updating";
+
+//system tags
+"Private" = "Private";
+"Here" = "Here";
+"Feedback" = "Feedback";
+"Broadcast" = "Broadcast";
+"Reshareless" = "Reshareless";
+"Me" = "Me";
+
+VALIDATE_ACCTOKEN_FAILED = "Validate Access Token Failed";
+NO_MORE_MESSAGE = "No More Message~";
+SEND_WHITE_SPACE_ERROR = "Can't Send White Space";
+SAVE_VIDEO_ERROR = "Save Video Error";
+RECORD_VIDEO_ERROR = "Record Video Error";
+CONNECTING = "Connecting";
+CONNECT_ERROR = "Network Error!";
+
+ILLEGLE_VALUE = "Illegal Value!";
+LOAD_IMG_ERROR = "Load Image Error";
+CONFIRM_FOCUS_TAG = "Are your sure to focus %@?";
+
+FOCUS_TAG_SUCCESS = "Focus theme successful!";
+FOCUS_TAG_FAILED = "Focus theme error , please check your network";
+THEME = "Theme";
+FOCUS = "Focus";
+FOCUS_ON = "focus on";
+UNVOTE_SHARE_CONFIRM = "Unvote this share?";
+
+RESHARE_CONFIRM = "Share To Your Linkers";
+
+//NewShareViewController
+TAG_LIMIT_MESSAGE = "Can't not add more theme!";
+TAG_ALREADY_SELECTED = "Theme has been added!";
+TAG_IS_EMPTY = "Type a theme please!";
+
+FILES_WAS_DELETED = "%@ files deleted";
+NO_SELECT_TAG_TIPS = "No tag added to share,only the sharelinker who focus on you can see this share";
+SENDING_FILM = "Sending Film";
+NO_FILM_SELECTED = "Select or capture a film please!";
+SEND_FILM_SUC = "Send Film Success";
+POST_SHARE_SUC = "Post Share Success";
+SEND_FILM_FAILED = "Send File Failed";
+POST_SHARE_FAILED = "Post Share Error";
+
+//SignInViewController
+REFRESHING = "Refreshing";
+
+
+//UITagExplorerController
+TAG_HEADER_SYSTEM = "Sharelink";
+TAG_HEADER_CUSTOM = "Cutstom";
+NEW_TAG = "New Tag";
+REMOVED_X_TAGS = "Remove %@ Tags";
+A_DEFAULT_TAG = "It's a sharelink default tag!";
+
+//
+REGISTING = "Registing";
+REGIST_SUC_MSG = "Regist Successful,you Sharelink ID is\n %@";
+
+//UserProfileViewController;
+CHANGE_PROFILE_VIDEO = "Change Profile Video";
+REC_NEW_VIDEO = "Record A New Video";
+SELECT_VIDEO = "Select A Video From Album";
+NOTE_NAME = "Note Name";
+
+//
+ACCEPT_USER_LINK_FAILED = "Accept userLink error";
+
+//
+USER_DATA_NOT_READY_RETRY = "User Data Not Ready,Retry Later";
+NICK = "Nick";
+NICK_REGEX_TIPS = "At least 1 character,less than 23 character";
+LEVEL = "Level";
+JOIN = "Join";
+ACCOUNT_ID = "Sharelink ID";
+MOTTO = "Motto";
+LOGOUT_CONFIRM_TITLE = "Sure To Logout?";
+LOGOUT_CONFIRM_MSG = "It will clear all you message data with your sharelinkers";
+CHANGE_AVATAR = "Change Avatar";
+TAKE_NEW_PHOTO = "Take A New Photo";
+SELECT_PHOTO = "Select A Photo From Album";
+SET_AVATAR_FAILED = "Set Avatar failed";
+
+//
+ASKING_FOR_A_LINK = "%@ want to link with you";
+
+//
+UNKNOW_SHARELINK_CMD = "Unknow Sharelink Command";
+SHARELINK_CMD_TIMEOUT = "Sharelink Command Timeout";
+SEND_LINK_REQUEST_TO = "Send link request to %@";
+LINK_REQUEST_SENDED = "Ask for link sended";
+ASK_LINK_MSG = "%@ want to link with you in Sharelink!";
+
+//
+SHARE_SUC = "Share Success!";
+SHARE_FAILED = "Share Failed.";
+QRCODE = "QRCode";
+SCAN_QRCODE = "Scan QRCode";
+MY_QRCODE = "My QRCode";
+
+VALIDATE_ACCTOKEN_FAILED = "Validate Access Token Failed";
+REGIST_FAILED = "Regist Failed";
+REGIST_SUC = "Regist Success";
+DATA_ERROR = "Data Error";

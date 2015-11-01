@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SharelinkSDK
 
 protocol HandleSharelinkCmdDelegate
 {
@@ -38,7 +39,11 @@ class SharelinkCmd
         }
         if let data = NSData(base64UrlEncodedString: cmdEncoded)
         {
-            return data.base64UrlEncodedString()
+            if data.length < 4
+            {
+                return nil
+            }
+            return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
         }
         return nil
         
@@ -90,9 +95,14 @@ class SharelinkCmd
         return encodeSharelinkCmd(cmd)
     }
     
+    static func buildSharelinkCmdUrl(cmdEncoded:String) -> String
+    {
+        return "\(sharelinkUrlSchema)://\(cmdEncoded)"
+    }
+    
     static func generateSharelinkCmdUrl(method:String,args:CVarArgType...) -> String
     {
         let cmd = generateSharelinkCmdEncodedBase(method, args: args)
-        return "\(sharelinkUrlSchema)://\(cmd)"
+        return buildSharelinkCmdUrl(cmd)
     }
 }

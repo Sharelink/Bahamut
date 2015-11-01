@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ChatFramework
+import SharelinkSDK
 
 protocol UUMegItemDataSource
 {
