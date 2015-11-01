@@ -173,15 +173,18 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     {
         let req = GetLinkedUserTagsRequest()
         req.userId = userId
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<UserSharelinkTags>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[SharelinkTag]>) -> Void in
             if result.statusCode == .OK
             {
-                if let newtag = result.returnObject
+                if let utags = result.returnObject
                 {
-                    newtag.saveModel()
+                    let userTags = UserSharelinkTags()
+                    userTags.userId = userId
+                    userTags.tags = utags
+                    userTags.saveModel()
                     if let callback = updated
                     {
-                        callback(newtag.tags)
+                        callback(userTags.tags)
                     }
                 }
             }
