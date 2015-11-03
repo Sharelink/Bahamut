@@ -74,7 +74,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         if let label = cell.tagNameLabel
         {
             label.font = tagNameLabelFont
-            label.text = tags[indexPath.row].tagName
+            label.text = tags[indexPath.row].getShowName()
             label.textColor = color
         }
         
@@ -133,7 +133,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     {
         let label = UILabel()
         label.font = tagNameLabelFont
-        label.text = tags[indexPath.row].tagName
+        label.text = tags[indexPath.row].getShowName()
         label.sizeToFit()
         return CGSizeMake(label.bounds.width + 23, label.bounds.height)
     }

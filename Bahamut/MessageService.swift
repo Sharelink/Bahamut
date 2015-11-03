@@ -86,7 +86,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         cm.sharelinkers = entity.getUsers()
         if cm.sharelinkers.count >= 1{
             let user = uService.getUser(cm.sharelinkers.last!)
-            cm.chatTitle = user?.noteName
+            cm.chatTitle = user?.getNoteName()
             cm.chatIcon = user?.avatarId
             cm.audienceId = user?.userId
         }else{

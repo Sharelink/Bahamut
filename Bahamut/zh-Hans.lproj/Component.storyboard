@@ -357,7 +357,7 @@
                                     <constraint firstAttribute="width" constant="32" id="xLr-UL-dtO"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QuQ-kw-jNH">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="在这里输入主题名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QuQ-kw-jNH">
                                 <rect key="frame" x="62" y="75" width="478" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

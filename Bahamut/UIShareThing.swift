@@ -19,6 +19,7 @@ class UIShareMessage:UITableViewCell
         return formatter
     }()
     static let RollMessageCellIdentifier = "RollMessage"
+    var user:Sharelinker!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!{
         didSet{
@@ -36,7 +37,8 @@ class UIShareMessage:UITableViewCell
     }
     @IBOutlet weak var messageLabel: UILabel!{
         didSet{
-            
+            messageLabel.userInteractionEnabled = true
+            messageLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showMessageAlert:"))
         }
     }
     var rootController:ShareThingsListController!{
@@ -49,8 +51,16 @@ class UIShareMessage:UITableViewCell
         {
         didSet
         {
+            user = rootController.userService.getUser(shareThingModel.userId)
             update()
         }
+    }
+    
+    func showMessageAlert(_:UIGestureRecognizer)
+    {
+        let alert = UIAlertController(title: noteNameLabel.text, message: self.messageLabel.text, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
+        self.rootController.presentViewController(alert, animated: true, completion: nil)
     }
     
     func showUserProfile(_:UIGestureRecognizer)
@@ -60,7 +70,11 @@ class UIShareMessage:UITableViewCell
     
     func tapCell(_:UIGestureRecognizer)
     {
-        
+        if shareThingModel.isAddTagMessage() || shareThingModel.isFocusTagMessage()
+        {
+            let tag = SharelinkTag(json: shareThingModel.shareContent)
+            ServiceContainer.getService(SharelinkTagService).showConfirmAddTagAlert(self.rootController, tag: tag)
+        }
     }
     
     func showAvatar(_:UIGestureRecognizer)
@@ -70,13 +84,46 @@ class UIShareMessage:UITableViewCell
     
     private func update()
     {
-        let sender = rootController.userService.getUser(shareThingModel.userId)
-        let noteName = sender?.noteName ?? sender?.nickName ?? ""
+        updateName()
+        updateTime()
+        updateAvatar()
+        updateMessage()
+    }
+    
+    private func updateAvatar()
+    {
+        rootController.fileService.setAvatar(avatarImageView, iconFileId: user.avatarId ?? shareThingModel.avatarId)
+    }
+    
+    private func updateTime()
+    {
         timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
-        noteNameLabel.text = sender?.noteName ?? shareThingModel.userNick
-        avatarImageView.image = PersistentManager.sharedInstance.getImage(sender?.avatarId ?? shareThingModel.avatarId) ??
-            PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
-        messageLabel.text = noteName + " \(NSLocalizedString("FOCUS_ON", comment: "")) \(shareThingModel.shareContent)"
+    }
+    
+    private func updateName()
+    {
+        noteNameLabel.text = user.getNoteName()
+    }
+    
+    private func updateMessage()
+    {
+        var format = ""
+        var msgContent = ""
+        if shareThingModel.isAddTagMessage()
+        {
+            format =  NSLocalizedString("ADD_TAG", comment: "")
+        }else if (shareThingModel.isFocusTagMessage())
+        {
+            format =  NSLocalizedString("FOCUS_ON", comment: "")
+        }else
+        {
+            format = NSLocalizedString("UNKNOW_SHARE_TYPE", comment: "")
+        }
+        if shareThingModel.isAddTagMessage() || shareThingModel.isFocusTagMessage()
+        {
+            msgContent = SharelinkTag(json: shareThingModel.shareContent).getShowName()
+        }
+        messageLabel.text = String(format: format, msgContent)
     }
 }
 
@@ -90,11 +137,12 @@ class UIShareThing: UITableViewCell
     }
     
     var rootController:ShareThingsListController!
-    
+    var user:Sharelinker!
     var shareThingModel:ShareThing!
     {
         didSet
         {
+            user = rootController.userService.getUser(shareThingModel.userId)
             update()
         }
     }
@@ -107,6 +155,10 @@ class UIShareThing: UITableViewCell
     required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+    }
+    
+    deinit
+    {
     }
     
     @IBOutlet weak var avatarImageView: UIImageView!{
@@ -190,15 +242,25 @@ class UIShareThing: UITableViewCell
     
     @IBAction func shareToFriends()
     {
-        let alert = UIAlertController(title: NSLocalizedString("RESHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("SHARE",comment:""), style: UIAlertActionStyle.Default){ aa in
-            let textField = alert.textFields?.first
-            self.reshare(textField?.text ?? nil)
-        })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
-        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
-            textField.placeholder = "Say something to your linkers"
+        var alert:UIAlertController!
+        if shareThingModel.canReshare()
+        {
+            alert = UIAlertController(title: NSLocalizedString("RESHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("SHARE",comment:""), style: UIAlertActionStyle.Default){ aa in
+                let textField = alert.textFields?.first
+                //self.reshare(textField?.text ?? nil)
+                })
+            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
+            alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+                textField.placeholder = "Say something to your linkers"
+            }
+            
+        }else
+        {
+            alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
         }
+        
         rootController.presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -207,10 +269,14 @@ class UIShareThing: UITableViewCell
         
     }
     
-    private func reshare(message:String! = nil)
+    private func reshare(message:String!,tags:[SharelinkTag])
     {
-        let shareService = ServiceContainer.getService(ShareService)
-        shareService.reshare(self.shareThingModel.shareId, message: message)
+        if shareThingModel.canReshare()
+        {
+            let shareService = ServiceContainer.getService(ShareService)
+            shareService.reshare(self.shareThingModel.shareId, message: message,tags:tags)
+        }
+        
     }
     
     @IBAction func reply()
@@ -218,6 +284,7 @@ class UIShareThing: UITableViewCell
         let controller = ChatViewController.instanceFromStoryBoard()
         controller.shareChat = rootController.messageService.getShareChatHub(shareThingModel.shareId,shareSenderId: shareThingModel.userId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
+        self.replyButton.badgeValue = nil
     }
     
     func showUserProfile(_:UIGestureRecognizer)
@@ -232,7 +299,7 @@ class UIShareThing: UITableViewCell
     
     func update()
     {
-        shareDesc.text = shareThingModel.title
+        shareDesc.text = shareThingModel.message
         shareDateTime.text = shareThingModel.shareTimeOfDate.toFriendlyString()
         updateBadge()
         updateVote()
@@ -250,6 +317,10 @@ class UIShareThing: UITableViewCell
     var voted:Bool
     {
         let myUserId = rootController.userService.myUserId
+        if shareThingModel.voteUsers == nil
+        {
+            return false
+        }
         return self.shareThingModel.voteUsers.contains{$0 == myUserId}
     }
     
@@ -283,12 +354,12 @@ class UIShareThing: UITableViewCell
     
     private func updateUserNick()
     {
-        userNicknameLabel.text = rootController.userService.getUserNoteName(shareThingModel.userId) ?? (shareThingModel.userNick ?? "Sharelinker")
+        userNicknameLabel.text = user.getNoteName()
     }
     
     private func updateAvatar()
     {
-        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: rootController.userService.getUser(shareThingModel.userId)?.avatarId)
+        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: user.avatarId)
     }
     
     func showAvatar(_:UIGestureRecognizer)

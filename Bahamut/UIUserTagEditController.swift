@@ -82,26 +82,33 @@ class UIUserTagEditController: UIViewController
     {
         if tagNameLabel != nil
         {
-            tagNameLabel.text = tagModel.tagModel.tagName
+            tagNameLabel.text = tagModel.tag.getEditingName()
         }
         if tagColorView != nil
         {
-            tagColorView.backgroundColor = UIColor(hexString: tagModel.tagModel.tagColor)
+            tagColorView.backgroundColor = UIColor(hexString: tagModel.tag.tagColor)
         }
         if focusSwitch != nil
         {
-            focusSwitch.on = tagModel.tagModel.isFocus == "true"
+            focusSwitch.on = tagModel.tag.isFocus == "true"
         }
     }
     
     @IBAction func save(sender: AnyObject)
     {
-        tagModel.tagModel.tagName = tagNameLabel.text
-        tagModel.tagModel.tagColor = tagColorView.backgroundColor?.toHexString()
-        tagModel.tagModel.isFocus = focusSwitch.on ? "true":"false"
-        tagModel.tagModel.data = tagData ?? tagModel.tagModel.tagName; //tagData is nil ,is's a text tag
-        tagModel.tagModel.showToLinkers = showToLinkerSwitch.on ? "true":"false"
-        tagModel.tagModel.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
+        if String.isNullOrWhiteSpace(tagNameLabel.text)
+        {
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("TAG_NAME_NULL_ERR", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        tagModel.tag.tagName = tagNameLabel.text
+        tagModel.tag.tagColor = tagColorView.backgroundColor?.toHexString()
+        tagModel.tag.isFocus = focusSwitch.on ? "true":"false"
+        tagModel.tag.data = tagData ?? tagModel.tag.tagName;
+        tagModel.tag.showToLinkers = showToLinkerSwitch.on ? "true":"false"
+        tagModel.tag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)

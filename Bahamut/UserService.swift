@@ -12,18 +12,31 @@ import Alamofire
 import EVReflection
 import SharelinkSDK
 
+//
+extension Sharelinker
+{
+    func getNoteName() -> String
+    {
+        if self.userId == BahamutSetting.userId
+        {
+            return NSLocalizedString("ME", comment: "")
+        }
+        return self.noteName ?? self.nickName ?? "Sharelinker"
+    }
+}
+
 //MARK: service define
-let UserServiceNewAskLinkMessage = "UserServiceNewAskLinkMessage"
-let UserServiceNewLinkMessageCount = "UserServiceNewLinkMessageCount"
+let UserServiceNewLinkMessage = "UserServiceNewLinkMessage"
 let AskForLinkSharelinkerId = "AskForLinkSharelinkerId"
 
+//MARK: UserService
 class UserService: NSNotificationCenter,ServiceProtocol
 {
     static let userListUpdated = "userListUpdated"
     static let linkMessageUpdated = "linkMessageUpdated"
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let newLinkMessageUpdated = "newLinkMessageUpdated"
-    
+    static var lastRefreshLinkedUserTime:NSDate!
     @objc static var ServiceName:String{return "user service"}
     
     var myUserId:String{
@@ -85,12 +98,12 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func getUserNoteName(userId:String) -> String
     {
         let user = getUser(userId)
-        return user?.noteName ?? user?.nickName ?? ""
+        return user?.getNoteName() ?? "Sharelinker"
     }
     
-    func getUserNickName(userId:String) -> String!
+    func getUserNickName(userId:String) -> String
     {
-        return getUser(userId)?.nickName
+        return getUser(userId)?.nickName ?? "Sharelinker"
     }
     
     func getUsers(userIds:[String]) -> [Sharelinker]
@@ -172,8 +185,6 @@ class UserService: NSNotificationCenter,ServiceProtocol
                                 PersistentManager.sharedInstance.refreshCache(Sharelinker)
                                 self.initLinkedUsers()
                                 self.postNotificationName(UserService.userListUpdated, object: self)
-                                self.postNotificationName(UserService.linkMessageUpdated, object: self)
-                          
                             }
                         }
                     }
@@ -227,29 +238,28 @@ class UserService: NSNotificationCenter,ServiceProtocol
                     return
                 }
                 LinkMessage.saveObjectOfArray(msgs)
+                PersistentManager.sharedInstance.refreshCache(LinkMessage)
                 self.refreshLinkMessage()
-                var uInfo:[NSObject:AnyObject] = [UserServiceNewLinkMessageCount:msgs.count]
-                let askingLinkMsg = msgs.filter{ $0.type == LinkMessageType.AskLink.rawValue }.first
-                if askingLinkMsg != nil
-                {
-                    uInfo.updateValue(askingLinkMsg!, forKey: UserServiceNewAskLinkMessage)
-                }
+                let msgsCopy = msgs.filter{$0 != nil}
+                let uInfo = [UserServiceNewLinkMessage:msgsCopy]
                 self.postNotificationName(UserService.newLinkMessageUpdated, object: self,userInfo: uInfo)
-                
-                if (msgs.filter{ $0.type == LinkMessageType.AcceptAskLink.rawValue}).count > 0
+                self.notifyServerLinkMessageReceived()
+                if (msgs.contains{$0.isAcceptAskLinkMessage()})
                 {
                     self.refreshMyLinkedUsers()
                 }
-                
-                let dreq = DeleteLinkMessagesRequest()
-                client.execute(dreq, callback: { (result:SLResult<ShareLinkObject>) -> Void in
-                    
-                })
-
             }
         }
     }
 
+    private func notifyServerLinkMessageReceived()
+    {
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let dreq = DeleteLinkMessagesRequest()
+        client.execute(dreq, callback: { (result:SLResult<ShareLinkObject>) -> Void in
+            
+        })
+    }
     
     func deleteLinkMessage(id:String)
     {
@@ -267,15 +277,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
         req.noteName = noteName
         SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
             var suc = false
-            if let rs = result.returnObject
+            if let _ = result.returnObject
             {
-                rs.newLink.saveModel()
-                rs.newUser.saveModel()
-                PersistentManager.sharedInstance.refreshCache(UserLink)
-                PersistentManager.sharedInstance.refreshCache(Sharelinker)
                 suc = true
-                self.initLinkedUsers()
-                self.postNotificationName(UserService.userListUpdated, object: self)
+                self.refreshMyLinkedUsers()
             }
             if let handler = callback
             {

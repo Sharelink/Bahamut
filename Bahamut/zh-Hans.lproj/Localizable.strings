@@ -35,6 +35,21 @@ SURE = "确定";
 VOICE_SEC = "%@' 秒";
 TIME_LIMIT = "时间限制";
 
+Sunday = "星期日";
+Monday = "星期一";
+Tuesday = "星期二";
+Wednesday = "星期三";
+Thursday = "星期四";
+Friday = "星期五";
+Saturday = "星期六";
+Today = "今天";
+Tomorrow = "明天";
+Yesterday = "昨天";
+AM = "上午";
+PM = "下午";
+Night = "晚上";
+Dawn = "早上";
+
 //Common
 YES = "是";
 UMMM = "不要";
@@ -46,6 +61,7 @@ CANCELED = "取消";
 SHARE = "分享";
 NO = "否";
 OK = "好";
+I_SEE = "知道了";
 CONTINUE = "继续";
 LOGIN = "登录";
 LOGINING = "登录中";
@@ -55,6 +71,7 @@ RECORD_CANCELED = "录制取消";
 VIDEO_SAVED = "视频已经保存";
 SAVE_VIDEO_FAILED = "保存视频失败";
 UPDATING = "更新中";
+ME = "我";
 
 //system tags
 "Private" = "私密";
@@ -80,10 +97,15 @@ FOCUS_TAG_SUCCESS = "关注成功!";
 FOCUS_TAG_FAILED = "关注失败，请检查你的网络！";
 THEME = "主题";
 FOCUS = "关注";
-FOCUS_ON = "关注了";
+FOCUS_ON = "关注了主题 %@";
+ADD_TAG = "添加了主题 %@";
 UNVOTE_SHARE_CONFIRM = "取消点赞?";
 
+UNKNOW_SHARE_TYPE = "Sharelink:未知的分享类型!";
+
 RESHARE_CONFIRM = "Share To Your Linkers";
+
+RESHARELESS_TIPS = "分享人不允许转载!";
 
 //NewShareViewController
 TAG_LIMIT_MESSAGE = "不能再添加主题了!";
@@ -108,9 +130,12 @@ TAG_HEADER_SYSTEM = "Sharelink";
 TAG_HEADER_CUSTOM = "自定义";
 NEW_TAG = "新主题";
 REMOVED_X_TAGS = "移除了 %@ 个主题";
-A_DEFAULT_TAG = "这是系统自带的主题!";
+A_DEFAULT_TAG = "系统自带的主题!";
+A_SHARELINKER_TAG = "分享人主题不能修改!";
 
-//
+TAG_NAME_NULL_ERR = "主题必须有一个名字!";
+
+//SigninViewController
 REGISTING = "注册中";
 REGIST_SUC_MSG = "注册成功，你的Sharelink ID是\n %@";
 
@@ -120,10 +145,12 @@ REC_NEW_VIDEO = "录制新视频";
 SELECT_VIDEO = "选择一个视频";
 NOTE_NAME = "备注名";
 
-//
+//User List Controller
+LINK_MESSAGE = "好友消息";
 ACCEPT_USER_LINK_FAILED = "添加好友失败";
+USER_ACCEPT_YOUR_LINK = "接受了你的请求";
 
-//
+//MyDetailViewController
 USER_DATA_NOT_READY_RETRY = "用户数据没准备好，过一会重试";
 NICK = "昵称";
 NICK_REGEX_TIPS = "昵称必须是1到23个字符";
@@ -132,7 +159,8 @@ JOIN = "注册时间";
 ACCOUNT_ID = "Sharelink ID";
 MOTTO = "签名";
 LOGOUT_CONFIRM_TITLE = "确定退出?";
-LOGOUT_CONFIRM_MSG = "你的所有聊天记录将会被清除，是否继续？";
+USER_DATA_WILL_SAVED = "用户数据将会保留,以便下次登录使用";
+
 CHANGE_AVATAR = "修改头像";
 TAKE_NEW_PHOTO = "拍照";
 SELECT_PHOTO = "选择一个照片";
@@ -158,3 +186,12 @@ MY_QRCODE = "我的二维码";
 REGIST_FAILED = "注册失败";
 REGIST_SUC = "注册成功";
 DATA_ERROR = "数据有误";
+
+USER_NAME_EXISTS = "用户名已存在，请更换一个!";
+
+SERVER_ERROR = "服务器错误";
+ALLOC_TOKEN_FAILED = "Token服务器错误";
+NO_APP_INSTANCE = "App服务器错误";
+
+VALIDATE_INFO_INVALID = "非法登录数据";
+VALIDATE_FAILED = "用户不存在或密码错误";

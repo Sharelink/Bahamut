@@ -19,7 +19,7 @@ extension SharelinkTagService
         return tags.map({ (tag) -> UISharelinkTagItemModel in
             let model = UISharelinkTagItemModel()
             model.selected = selected
-            model.tagModel = tag
+            model.tag = tag
             return model
         })
     }
@@ -32,15 +32,16 @@ extension SharelinkTagService
         collectionController.explorerIdentifier = identifier
         collectionController.items = tags
         collectionController.tagHeaders = tagHeaders
+        collectionController.isMainTagExplorerController = false
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
 }
 
 class UISharelinkTagItemModel: UIResrouceItemModel
 {
-    var tagModel:SharelinkTag!
+    var tag:SharelinkTag!
     override var canEdit:Bool{
-        return tagModel.isSystemTag() == false
+        return tag.isSystemTag() == false
     }
 }
 
@@ -52,15 +53,20 @@ class UITagExplorerViewCell: UIResourceItemCell
     }
     override func update() {
         super.update()
-        if let tagModel = self.model as? UISharelinkTagItemModel
+        if let model = self.model as? UISharelinkTagItemModel
         {
             if tagNameLabel != nil
             {
-                tagNameLabel.text = tagModel.tagModel.tagName
+                tagNameLabel.text = model.tag.getShowName()
             }
-            self.backgroundColor = UIColor(hexString: tagModel.tagModel.tagColor)
+            if focusMark != nil
+            {
+                focusMark.hidden = "false" == model.tag.isFocus
+            }
+            self.backgroundColor = UIColor(hexString: model.tag.tagColor)
         }
     }
+    @IBOutlet weak var focusMark: UIImageView!
     @IBOutlet weak var tagNameLabel: UILabel!
     
 }
@@ -74,19 +80,20 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     var explorerIdentifier:String! = "one"
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     var tagHeaders:[String]!
+    var isMainTagExplorerController = true
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.items = [[UIResrouceItemModel]]()
         tagService = ServiceContainer.getService(SharelinkTagService)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.delegate = self
         self.changeNavigationBarColor()
         updateBarButtons()
-        initItems()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        initItems()
     }
 
     @IBOutlet var doneButton: UIBarButtonItem!
@@ -100,9 +107,9 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     func initItems()
     {
-        if self.items == nil
+        if isMainTagExplorerController
         {
-            self.items = [[UIResrouceItemModel]]()
+            self.items.removeAll()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tagHeaders = [String]()
                 self.selectionMode = ResourceExplorerSelectMode.Negative
@@ -120,7 +127,14 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     {
         if sender.editMode == .New
         {
-            tagService.addSharelinkTag(saveModel.tagModel){ (isSuc) -> Void in
+            if tagService.isTagExists(saveModel.tag.data)
+            {
+                let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_TAG_EXISTS", comment: ""), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE", style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            tagService.addSharelinkTag(saveModel.tag){ (isSuc) -> Void in
                 if isSuc
                 {
                     self.items[0].append(saveModel)
@@ -132,7 +146,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 }
             }
         }else{
-            tagService.updateTag(saveModel.tagModel){
+            tagService.updateTag(saveModel.tag){
                 self.uiCollectionView.reloadData()
             }
         }
@@ -159,7 +173,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         {
             let uiLabel = UILabel()
             uiLabel.font = UIFont.systemFontOfSize(17)
-            uiLabel.text = model.tagModel.tagName
+            uiLabel.text = model.tag.getShowName()
             uiLabel.sizeToFit()
             return CGSizeMake(uiLabel.bounds.width + 7 + 32, 32)
         }
@@ -181,38 +195,50 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void, sender: UIResourceExplorerController!)
     {
-        let newTag = UISharelinkTagItemModel()
-        newTag.tagModel = SharelinkTag()
-        newTag.tagModel.tagId = nil
-        newTag.tagModel.tagName = NSLocalizedString("NEW_TAG", comment: "New Tag")
-        newTag.tagModel.isFocus = "true"
-        newTag.tagModel.tagColor = UIColor(hex: arc4random()).toHexString()
-        ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: newTag,editMode:.New, delegate: self)
+        let model = UISharelinkTagItemModel()
+        model.tag = SharelinkTag()
+        model.tag.tagId = nil
+        model.tag.tagName = nil
+        model.tag.isFocus = "true"
+        model.tag.showToLinkers = "true"
+        model.tag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
+        model.tag.domain = SharelinkTagConstant.TAG_DOMAIN_CUSTOM
+        model.tag.tagColor = UIColor(hex: arc4random()).toHexString()
+        ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.New, delegate: self)
     }
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
     {
         if let models = itemModels as? [UISharelinkTagItemModel]
         {
-            ServiceContainer.getService(SharelinkTagService).removeMyTags(models.map{$0.tagModel!}, sucCallback: { () -> Void in
-                self.view.makeToast(message:String(format:NSLocalizedString("REMOVED_X_TAGS", comment: "Remove %@ Tags"), models.count) , duration: 0, position: HRToastPositionCenter)
-                
+            ServiceContainer.getService(SharelinkTagService).removeMyTags(models.map{$0.tag!}, sucCallback: { () -> Void in
+                let message = String(format:NSLocalizedString("REMOVED_X_TAGS", comment: "Remove %@ Tags"), "\(models.count)")
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             })
         }
     }
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!)
     {
-        if let tagModel = itemModel as? UISharelinkTagItemModel
+        if let model = itemModel as? UISharelinkTagItemModel
         {
-            if tagModel.tagModel.isSystemTag()
+            if model.tag.isSystemTag() || model.tag.isSharelinkerTag()
             {
-                let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message:NSLocalizedString("A_DEFAULT_TAG", comment: "It's a sharelink default tag!"), preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title:NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Cancel, handler: nil))
+                var alert:UIAlertController!
+                if model.tag.isSystemTag()
+                {
+                    alert = UIAlertController(title:nil, message:NSLocalizedString("A_DEFAULT_TAG", comment: "It's a sharelink default tag!"), preferredStyle: .Alert)
+                }else
+                {
+                    alert = UIAlertController(title:nil, message:NSLocalizedString("A_SHARELINKER_TAG", comment: ""), preferredStyle: .Alert)
+                }
+                alert.addAction(UIAlertAction(title:NSLocalizedString("I_SEE", comment: ""), style: UIAlertActionStyle.Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
-            ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: tagModel,editMode:.Edit, delegate: self)
+            ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.Edit, delegate: self)
         }
     }
     
@@ -226,6 +252,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         {
             self.navigationItem.rightBarButtonItems = [addButton,editButton]
         }
+        navigationController?.setToolbarHidden(true, animated: true)
     }
     
     @IBOutlet weak var uiCollectionView: UICollectionView!

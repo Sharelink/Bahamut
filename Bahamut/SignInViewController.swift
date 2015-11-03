@@ -126,10 +126,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         var url = authenticationURL
         if let aId = loginAccountId
         {
-            url = "\(url)?accountId=\(aId)&loginApi=\(BahamutConfig.loginApi)&registApi=\(BahamutConfig.registAccountApi)"
+            url = "\(url)?accountId=\(aId)&loginApi=\(BahamutSetting.loginApi)&registApi=\(BahamutSetting.registAccountApi)"
         }else
         {
-            url = "\(url)?loginApi=\(BahamutConfig.loginApi)&registApi=\(BahamutConfig.registAccountApi)"
+            url = "\(url)?loginApi=\(BahamutSetting.loginApi)&registApi=\(BahamutSetting.registAccountApi)"
         }
         webViewUrl = url
     }
@@ -161,7 +161,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func alert(msg: String) {
         let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message: NSLocalizedString(msg, comment: ""), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title:NSLocalizedString("OK", comment: "Ok"), style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title:NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in})
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -178,7 +178,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func makeToast(msg:String){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.view.makeToast(message: msg)
+            self.view.makeToast(message: NSLocalizedString(msg, comment: ""))
         }
     }
     
@@ -212,21 +212,21 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     @IBAction func use168Server(sender: AnyObject)
     {
-        BahamutConfig.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
-        BahamutConfig.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
+        BahamutSetting.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
+        BahamutSetting.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
         authenticate()
     }
     @IBAction func use67Server(sender: AnyObject)
     {
-        BahamutConfig.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
-        BahamutConfig.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
+        BahamutSetting.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
+        BahamutSetting.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
         authenticate()
     }
     
     @IBAction func useRemoteServer(sender: AnyObject)
     {
-        BahamutConfig.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
-        BahamutConfig.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+        BahamutSetting.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
+        BahamutSetting.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
         authenticate()
     }
     

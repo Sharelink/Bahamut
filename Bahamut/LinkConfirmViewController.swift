@@ -24,7 +24,6 @@ class LinkConfirmViewController: UIViewController
 {
     var linkMessage:LinkMessage!
     @IBOutlet weak var noteNameField: UITextField!
-    @IBOutlet weak var userNickLabel: UILabel!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,7 +32,6 @@ class LinkConfirmViewController: UIViewController
     
     private func update()
     {
-        userNickLabel.text = linkMessage.sharelinkerNick
         noteNameField.text = linkMessage.sharelinkerNick
     }
     

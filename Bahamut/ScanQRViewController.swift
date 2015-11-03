@@ -84,10 +84,9 @@ extension UserService: QRStringDelegate
     {
         if SharelinkCmd.isSharelinkCmdUrl(qrString)
         {
-            sender.dismissViewControllerAnimated(true, completion: { () -> Void in
-                let cmd = SharelinkCmd.getCmdFromUrl(qrString)
-                SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
-            })
+            sender.navigationController?.popViewControllerAnimated(true)
+            let cmd = SharelinkCmd.getCmdFromUrl(qrString)
+            SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
         }else if qrString.hasBegin("http://") || qrString.hasBegin("https://")
         {
             if qrString.hasPrefix(BahamutConfig.sharelinkOuterExecutorUrlPrefix)
@@ -95,16 +94,13 @@ extension UserService: QRStringDelegate
                 let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(BahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
                 if let cmd = SharelinkCmd.decodeSharelinkCmd(cmdEncoded)
                 {
-                    sender.dismissViewControllerAnimated(true, completion: { () -> Void in
-                        SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
-                    })
+                    sender.navigationController?.popViewControllerAnimated(true)
+                    SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
                 }
             }else
             {
-                let controller = sender.navigationController
-                sender.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    SimpleBrowser.openUrl(controller!, url: qrString)
-                })
+                sender.navigationController?.popViewControllerAnimated(true)
+                SimpleBrowser.openUrl(MainViewTabBarController.currentRootViewController, url: qrString)
             }
         }
 

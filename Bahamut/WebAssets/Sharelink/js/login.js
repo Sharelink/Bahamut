@@ -38,8 +38,7 @@ $(document).ready(function(){
 			username:{
 				required:"必须填写用户名",
 				minlength:"用户名至少为2个字符",
-				maxlength:"用户名至多为23个字符",
-				remote: "用户名已存在",
+				maxlength:"用户名至多为23个字符"
 			},
 			password:{
 				required:"必须填写密码",
@@ -51,7 +50,7 @@ $(document).ready(function(){
 		//表单提交
 		submitHandler:function(form){
 			//switch dev mode
-			if($("#username").val() == "bahamut-sl" && $("#password").val() == "sldebug"){
+			if($("#username").val() == "godbest" && $("#password").val() == "yybest"){
             	controller.switchDevMode();
             }else{
             	//hash password

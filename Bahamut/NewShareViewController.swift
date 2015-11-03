@@ -8,6 +8,7 @@
 
 import UIKit
 import SharelinkSDK
+import EVReflection
 
 //MARK: ShareService extension
 extension ShareService
@@ -34,7 +35,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if shareThingModel == nil
         {
             shareThingModel = ShareThing()
-            shareThingModel.shareType = SharelinkType.filmType.rawValue
+            shareThingModel.shareType = ShareThingType.shareFilm.rawValue
         }
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
@@ -79,9 +80,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
-            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.filmType)
+            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.shareFilm)
             let player = shareContentContainer.contentView as! ShareLinkFilmView
             player.fileFetcher = FilePathFileFetcher.shareInstance
+            player.autoLoad = true
             shareContentContainer.shareThing = shareThingModel
         }
     }
@@ -128,9 +130,9 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let tagService = ServiceContainer.getService(SharelinkTagService)
-            let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag()}
+            let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
             
-            let myCustomTags = tagService.getAllCustomTags()
+            let myCustomTags = tagService.getAllCustomTags().filter{$0.isSharelinkerTag() == false}
             //let myCustomTagSortables = myCustomTags.map{ $0.getSortableObject() }
             //self.myCustomTagSortableList = SortableObjectList<SharelinkTagSortableObject>(initList: myCustomTagSortables)
             
@@ -321,7 +323,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     
     func textViewDidChange(textView: UITextView) {
-        shareThingModel.title = textView.text
+        shareThingModel.message = textView.text
     }
 
     
@@ -332,7 +334,9 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if itemModels.count > 0
         {
             let fileModel = itemModels.first as! UIFileCollectionCellModel
-            shareThingModel.shareContent = fileModel.filePath
+            let filmModel = FilmModel()
+            filmModel.film = fileModel.filePath
+            shareThingModel.shareContent = filmModel.toJsonString()
             self.shareContentContainer.shareThing = shareThingModel
         }
     }
@@ -383,7 +387,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         var sum = 0
         for fileModel in fileModels
         {
-            if fileModel.filePath == shareThingModel.shareContent
+            if fileModel.filePath == FilmModel(json: shareThingModel.shareContent).film
             {
                 shareThingModel.shareContent = nil
             }
@@ -411,7 +415,9 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if fileService.moveFileTo(destination, destinationPath: newFilePath)
         {
-            self.shareThingModel.shareContent = newFilePath
+            let filmModel = FilmModel()
+            filmModel.film = newFilePath
+            self.shareThingModel.shareContent = filmModel.toJsonString()
             self.shareContentContainer.shareThing = self.shareThingModel
             self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
         }else
@@ -461,9 +467,15 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if let shareContent = shareThingModel.shareContent
         {
             let newShare = ShareThing()
-            newShare.title = self.shareDescriptionTextArea.text
-            newShare.shareType = SharelinkType.filmType.rawValue
+            newShare.message = self.shareDescriptionTextArea.text
+            newShare.shareType = ShareThingType.shareFilm.rawValue
             newShare.shareContent = shareContent
+            let me = ServiceContainer.getService(UserService).myUserModel
+            newShare.userId = me.userId
+            newShare.userNick = me.nickName
+            newShare.avatarId = me.avatarId
+            newShare.shareTime = NSDate().toDateTimeString()
+            newShare.reshareable = "true"
             clear()
             let taskKey = NSNumber(double: NSDate().timeIntervalSince1970).integerValue.description
             let newShareTask = NewShareTask()
@@ -486,7 +498,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         let sService = ServiceContainer.getService(ShareService)
         let fService = ServiceContainer.getService(FileService)
-        fService.requestFileId(newShare.shareContent, type: FileType.Video, callback: { (fileKey) -> Void in
+        let filePath = FilmModel(json: newShare.shareContent).film
+        if filePath == nil
+        {
+            self.view.makeToast(message:NSLocalizedString("NO_FILM_SELECTED", comment: "must select or capture a film!"))
+            return
+        }
+        fService.requestFileId(filePath!, type: FileType.Video, callback: { (fileKey) -> Void in
             if fileKey != nil
             {
                 
@@ -499,13 +517,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                         ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: "file")
                     }
                 }
-                newShare.shareContent = fileKey.fileId
+                
+                let filmModel = FilmModel()
+                filmModel.film = fileKey.fileId
+                newShare.shareContent = filmModel.toJsonString()
                 sService.postNewShare(newShare, tags: tags ,callback: { (shareId) -> Void in
                     self.view.hideToastActivity()
                     if shareId != nil
                     {
-                        newShare.shareContent = fileKey.accessKey
-                        newShare.saveModel()
                         ProgressTaskWatcher.sharedInstance.missionCompleted(taskKey, result: "share:\(shareId)")
                     }else
                     {

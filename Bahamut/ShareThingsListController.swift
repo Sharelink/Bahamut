@@ -22,6 +22,7 @@ class ShareThingsListController: UITableViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initTabBarBadgeValue()
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         messageService = ServiceContainer.getService(MessageService)
@@ -30,8 +31,8 @@ class ShareThingsListController: UITableViewController
         initRefresh()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
-        messageService.addObserver(self, selector: "newMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
-        shareService.addObserver(self, selector: "serverShareUpdated:", name: ShareService.shareUpdated, object: nil)
+        messageService.addObserver(self, selector: "newChatMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
+        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "shareUpdatedMsgReceived:")
         refresh()
     }
     
@@ -61,12 +62,21 @@ class ShareThingsListController: UITableViewController
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tabBarBadgeValue = 0
-        refreshFromServer()
+        if shareThings.count == 0
+        {
+            refreshFromServer()
+        }
     }
     
-    var tabBarBadgeValue:Int = 0{
+    func initTabBarBadgeValue()
+    {
+        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)ShareThingsListBadge")
+    }
+    
+    var tabBarBadgeValue:Int!{
         didSet{
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
+            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(BahamutSetting.lastLoginAccountId)ShareThingsListBadge")
         }
     }
     
@@ -80,6 +90,15 @@ class ShareThingsListController: UITableViewController
     }
     
     //MARK: chicago client
+    func shareUpdatedMsgReceived(a:NSNotification)
+    {
+        dispatch_after(1000 * 7, dispatch_get_main_queue()){
+            self.shareService.getNewShareMessageFromServer(){ msgs in
+                self.tabBarBadgeValue = self.tabBarBadgeValue + msgs.count
+                self.refresh()
+            }
+        }
+    }
     
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
@@ -92,7 +111,7 @@ class ShareThingsListController: UITableViewController
     }
     
     //MARK: message
-    func newMessageReceived(aNotification:NSNotification)
+    func newChatMessageReceived(aNotification:NSNotification)
     {
         if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
         {
@@ -104,7 +123,7 @@ class ShareThingsListController: UITableViewController
     
     private func refreshShareLastActiveTime(messages:[MessageEntity])
     {
-        self.tabBarBadgeValue = messages.count
+        self.tabBarBadgeValue = tabBarBadgeValue + messages.count
         var notReadyShare = [String]()
         var notReadyMsgDate = [String:NSDate]()
         var readySortables = [String:ShareThingSortableObject]()
@@ -137,6 +156,7 @@ class ShareThingsListController: UITableViewController
             }
         }
         self.shareService.setSortableObjects(readySortables.values.map{$0})
+        self.refresh()
         if notReadyShare.count > 0
         {
             shareService.getSharesWithShareIds(notReadyShare, callback: { (updatedShares) -> Void in
@@ -151,24 +171,19 @@ class ShareThingsListController: UITableViewController
                     }
                     let sortables = shares.map{shareToSortable($0)}
                     self.shareService.setSortableObjects(sortables)
+                    self.refresh()
                 }
             })
         }
         
     }
     
-    //Data refresh
-    
-    func serverShareUpdated(aNotification:NSNotification)
-    {
-        refresh()
-    }
+    //MARK: Data refresh
 
     let refreshLock = NSRecursiveLock()
     func refresh()
     {
-        
-        dispatch_async(dispatch_get_main_queue()){()->Void in
+        dispatch_async(dispatch_get_main_queue()){
             self.refreshLock.lock()
             self.shareThings.removeAll(keepCapacity: true)
             let newValues = self.shareService.getShareThings(0,pageNum: 7)
@@ -177,6 +192,7 @@ class ShareThingsListController: UITableViewController
             self.refreshLock.unlock()
             self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
         }
+        
     }
     
     func refreshFromServer()
@@ -282,56 +298,24 @@ class ShareThingsListController: UITableViewController
     {
         
         let shareThing = shareThings[indexPath.row] as ShareThing
-        if shareThing.shareType == SharelinkType.messageType.rawValue
+        if shareThing.isMessageShare()
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
             cell.rootController = self
             cell.shareThingModel = shareThing
             return cell
-        }else
+        }else if shareThing.isShareFilm()
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
             cell.rootController = self
             cell.shareThingModel = shareThing
             return cell
-        }
-        
-    }
-    
-    //MARK: Add tag from share msg
-    func showConfirmAddTagAlert(tag:SharelinkTag)
-    {
-        let alert = UIAlertController(title: "\(tag.tagName)", message: String(format:NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""),tag.tagName!), preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: "Yes!"), style: .Default){ _ in
-            self.addThisTapToMyFocus(tag)
-            })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: "Ummm!"), style: .Cancel){ _ in
-            self.cancelAddTap(tag)
-            })
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func cancelAddTap(tag:SharelinkTag)
-    {
-        
-    }
-    
-    func addThisTapToMyFocus(tag:SharelinkTag)
-    {
-        let tagService = ServiceContainer.getService(SharelinkTagService)
-        let newTag = SharelinkTag()
-        newTag.tagName = tag.tagName
-        newTag.tagColor = tag.tagColor
-        newTag.isFocus = "\(true)"
-        newTag.data = tag.data
-        tagService.addSharelinkTag(newTag){ (isSuc) -> Void in
-            if isSuc
-            {
-                self.view.makeToast(message: NSLocalizedString("FOCUS_TAG_SUCCESS",comment:"focus successful!"))
-            }else
-            {
-                self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_FAILED", comment:"focus tag error , please check your network"))
-            }
+        }else
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
+            cell.rootController = self
+            cell.shareThingModel = shareThing
+            return cell
         }
         
     }

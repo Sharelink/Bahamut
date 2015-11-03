@@ -40,26 +40,25 @@ extension ShareThing
 }
 
 //MARK: ShareService
+let shareUpdatedNotifyRoute:ChicagoRoute = {
+    let route = ChicagoRoute()
+    route.ExtName = "NotificationCenter"
+    route.CmdName = "UsrNewSTMsg"
+    return route
+}()
 
 class ShareService: NSNotificationCenter,ServiceProtocol
 {
-    static let shareUpdated = "newShareUpdated"
     @objc static var ServiceName:String{return "share service"}
     
     @objc func userLoginInit(userId:String)
     {
         resetSortObjectList()
-        
-        let shareUpdatedNotifyRoute = ChicagoRoute()
-        shareUpdatedNotifyRoute.ExtName = "NotificationCenter"
-        shareUpdatedNotifyRoute.CmdName = "UsrNewSTMsg"
-        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "shareUpdatedMsgReceived:")
     }
     
     func userLogout(userId: String) {
         newShareTime = nil
         oldShareTime = nil
-        ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     private var _newShareTime:NSDate!
@@ -104,18 +103,9 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     let lock:NSRecursiveLock = NSRecursiveLock()
     func setSortableObjects(objects:[ShareThingSortableObject])
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            self.lock.lock()
-            self.shareThingSortObjectList.setSortableItems(objects)
-            self.postNotificationName(ShareService.shareUpdated, object: self)
-            self.lock.unlock()
-        }
-    }
-    
-    //MARK: Chicago Notify
-    func shareUpdatedMsgReceived(a:NSNotification)
-    {
-        self.getNewShareMessageFromServer()
+        self.lock.lock()
+        self.shareThingSortObjectList.setSortableItems(objects)
+        self.lock.unlock()
     }
     
     //MARK: Get Shares From Server
@@ -135,6 +125,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
             req.pageCount = 7
         }
         requestShare(req,callback:callback)
+        
     }
     
     func getPreviousShare(callback:((previousShares:[ShareThing]!)->Void)! = nil)
@@ -247,7 +238,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Share Messages
-    func getNewShareMessageFromServer()
+    func getNewShareMessageFromServer(callback:(([ShareUpdatedMessage])->Void)! = nil)
     {
         let req = GetShareUpdatedMessageRequest()
         
@@ -274,6 +265,10 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                         }
                         let sortables = shares.map{shareToSortable($0)}
                         self.setSortableObjects(sortables)
+                        if let handler = callback
+                        {
+                            handler(msgs)
+                        }
                         self.clearShareMessageBox()
                     }
                 }
@@ -290,19 +285,22 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Create Share
-    func reshare(shareId:String,message:String!)
+    func reshare(shareId:String,message:String!,tags:[SharelinkTag])
     {
-        
+        let req = ReShareRequest()
+        req.pShareId = shareId
+        req.message = message
+        req.tags = tags
     }
     
     func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(shareId:String!)->Void)
     {
         let req = AddNewShareThingRequest()
         req.shareContent = newShare.shareContent
-        req.title = newShare.title
-        req.tags = tags.map{ ($0.getTagString() as NSString).base64String() }.joinWithSeparator("#")
+        req.message = newShare.message
+        req.tags = tags
         req.shareType = newShare.shareType
-        req.pShareId = newShare.pShareId
+        req.reshareable = tags.contains{$0.isResharelessTag()}
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess

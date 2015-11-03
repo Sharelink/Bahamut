@@ -24,7 +24,16 @@ class FileService: ServiceProtocol {
     @objc func userLogout(userId: String) {
         PersistentManager.sharedInstance.clearTmpDir()
         PersistentManager.sharedInstance.clearCache()
-        PersistentManager.sharedInstance.deleteUserDb()
+    }
+    
+    func clearLocalStoreFiles()
+    {
+        do{
+            try fileManager.removeItemAtURL(localStorePathUrl)
+        }catch
+        {
+            NSLog("clearLocalStoreFiles Failed")
+        }
     }
     
     private func initUserFoldersWithUserId(userId:String)

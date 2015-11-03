@@ -31,18 +31,24 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         }
     }
     
-    var tabBarBadgeValue:Int = 0{
+    func initTabBarBadgeValue()
+    {
+        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
+    }
+    
+    var tabBarBadgeValue:Int!{
         didSet{
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
+            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
         }
     }
 
     //MARK: notify
     func myLinkedUsersUpdated(sender:AnyObject)
     {
-        let newValues = userService.myLinkedUsers
-        let dict = userService.getUsersDivideWithLatinLetter(newValues)
         dispatch_async(dispatch_get_main_queue()){()->Void in
+            let newValues = self.userService.myLinkedUsers
+            let dict = self.userService.getUsersDivideWithLatinLetter(newValues)
             self.userListModel = dict
         }
         
@@ -50,9 +56,11 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
     
     func newLinkMessageUpdated(a:NSNotification)
     {
-        if let newMsgCnt = a.userInfo?[UserServiceNewLinkMessageCount] as? Int
+        if let newMsgs = a.userInfo?[UserServiceNewLinkMessage] as? [LinkMessage]
         {
-            self.tabBarBadgeValue = newMsgCnt
+            dispatch_async(dispatch_get_main_queue()){()->Void in
+                self.tabBarBadgeValue = self.tabBarBadgeValue + newMsgs.count
+            }
         }
     }
     
@@ -71,6 +79,7 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
     func refresh()
     {
         userService.refreshMyLinkedUsers()
+        userService.refreshLinkMessage()
         myLinkedUsersUpdated(userService)
     }
     
@@ -90,8 +99,8 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         let uiview = UIView()
         uiview.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = uiview
+        initTabBarBadgeValue()
         self.userService = ServiceContainer.getService(UserService)
-        self.tabBarBadgeValue = 0
         SharelinkCmdManager.sharedInstance.registHandler(self)
         refresh()
     }
@@ -125,7 +134,7 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         }
         if userService.isSharelinkerLinked(sharelinkerId)
         {
-            userService.showUserProfileViewController(self.navigationController!, userId: sharelinkerId)
+            userService.showUserProfileViewController(MainViewTabBarController.currentRootViewController.navigationController!, userId: sharelinkerId)
         }else
         {
             let alert = UIAlertController(title: NSLocalizedString("SHARELINK", comment: ""), message:String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick), preferredStyle: UIAlertControllerStyle.Alert)
@@ -140,6 +149,7 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
             alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel){ action in
                 //cancel send request
                 })
+            MainViewTabBarController.currentRootViewController.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -255,7 +265,7 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         
         if section == 0 && linkMessageModel.count > 0
         {
-            label.text = "Sharelinks"
+            label.text = NSLocalizedString("LINK_MESSAGE", comment: "")
         }else
         {
             label.text = userListModel[section - indexOfUserList].latinLetter

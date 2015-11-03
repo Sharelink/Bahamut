@@ -43,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
         let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
-        print(countryCode)
         if(countryCode!.description == "CN")
         {
             connectChinaApps()
@@ -140,6 +139,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ServiceContainer.getService(MessageService).getMessageFromServer()
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
             ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
+            if UserService.lastRefreshLinkedUserTime == nil || UserService.lastRefreshLinkedUserTime.timeIntervalSinceNow < -1000 * 3600 * 3
+            {
+                UserService.lastRefreshLinkedUserTime = NSDate()
+                ServiceContainer.getService(UserService).refreshMyLinkedUsers()
+            }
             SharelinkCmdManager.sharedInstance.handleCmdQueue()
         }
     }

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import SharelinkSDK
+import EVReflection
 
 protocol UIShareContentDelegate
 {
@@ -19,7 +20,7 @@ protocol UIShareContentDelegate
 
 class UIShareContentTypeDelegateGenerator
 {
-    static func getDelegate(shareType:SharelinkType) -> UIShareContentDelegate!
+    static func getDelegate(shareType:ShareThingType) -> UIShareContentDelegate!
     {
         return getDelegate(shareType.rawValue)
     }
@@ -28,10 +29,15 @@ class UIShareContentTypeDelegateGenerator
     {
         switch(shareType)
         {
-            case SharelinkType.filmType.rawValue : return FilmContent()
+            case ShareThingType.shareFilm.rawValue : return FilmContent()
         default:return nil
         }
     }
+}
+
+class FilmModel : EVObject
+{
+    var film:String!
 }
 
 class FilmContent: UIShareContentDelegate
@@ -39,13 +45,16 @@ class FilmContent: UIShareContentDelegate
     func refresh(sender: UIShareContent, share: ShareThing?)
     {
         let mediaPlayer = sender.contentView as! ShareLinkFilmView
-        if let moviePath = share?.shareContent
+        if let json = share?.shareContent
         {
-            mediaPlayer.filePath = moviePath
-        }else{
+            if let film  = FilmModel(json: json).film
+            {
+                mediaPlayer.filePath = film
+            }
+        }else
+        {
             mediaPlayer.filePath = nil
         }
-        
     }
     
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView

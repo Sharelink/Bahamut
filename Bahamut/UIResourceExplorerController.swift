@@ -15,7 +15,7 @@ import AVFoundation
 @objc
 class UIResrouceItemModel : NSObject
 {
-    var cell:UICollectionViewCell!{
+    var cell:UIResourceItemCell!{
         didSet{
             cell.highlighted = selected
         }
@@ -38,6 +38,14 @@ class UIResrouceItemModel : NSObject
             if cell != nil{
                 cell.highlighted = editModeSelected
             }
+        }
+    }
+    
+    func updateView()
+    {
+        if cell != nil
+        {
+            cell.update()
         }
     }
 }

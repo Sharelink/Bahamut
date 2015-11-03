@@ -35,6 +35,21 @@ SURE = "Sure";
 VOICE_SEC = "%@'s Voice";
 TIME_LIMIT = "Time Limit";
 
+Sunday = "Sunday";
+Monday = "Monday";
+Tuesday = "Tuesday";
+Wednesday = "Wednesday";
+Thursday = "Thursday";
+Friday = "Friday";
+Saturday = "Saturday";
+Today = "Today";
+Tomorrow = "Tomorrow";
+Yesterday = "Yesterday";
+AM = "AM";
+PM = "PM";
+Night = "Night";
+Dawn = "Dawn";
+
 //Common
 YES = "Yes";
 UMMM = "Ummm...";
@@ -46,6 +61,7 @@ CANCELED = "Canceled";
 SHARE = "Share";
 NO = "No";
 OK = "Ok";
+I_SEE = "I see";
 CONTINUE = "Continue";
 LOGIN = "Login";
 LOGINING = "Logining";
@@ -55,6 +71,7 @@ RECORD_CANCELED = "Record Canceled";
 VIDEO_SAVED = "Video Saved";
 SAVE_VIDEO_FAILED = "Save Video Failed";
 UPDATING = "Updating";
+ME = "Me";
 
 //system tags
 "Private" = "Private";
@@ -80,10 +97,15 @@ FOCUS_TAG_SUCCESS = "Focus theme successful!";
 FOCUS_TAG_FAILED = "Focus theme error , please check your network";
 THEME = "Theme";
 FOCUS = "Focus";
-FOCUS_ON = "focus on";
+FOCUS_ON = "focus on theme %@";
+ADD_TAG = "add theme %@";
 UNVOTE_SHARE_CONFIRM = "Unvote this share?";
 
+UNKNOW_SHARE_TYPE = "Sharelink:Unknow share!";
+
 RESHARE_CONFIRM = "Share To Your Linkers";
+
+RESHARELESS_TIPS = "This Share Is Not Allow Reshare!";
 
 //NewShareViewController
 TAG_LIMIT_MESSAGE = "Can't not add more theme!";
@@ -107,10 +129,13 @@ REFRESHING = "Refreshing";
 TAG_HEADER_SYSTEM = "Sharelink";
 TAG_HEADER_CUSTOM = "Cutstom";
 NEW_TAG = "New Tag";
-REMOVED_X_TAGS = "Remove %@ Tags";
+REMOVED_X_TAGS = "Removed %@ Tags";
 A_DEFAULT_TAG = "It's a sharelink default tag!";
+A_SHARELINKER_TAG = "It's a Sharelinker tag!";
 
-//
+TAG_NAME_NULL_ERR = "Theme must have a name!";
+
+//SigninViewController
 REGISTING = "Registing";
 REGIST_SUC_MSG = "Regist Successful,you Sharelink ID is\n %@";
 
@@ -120,10 +145,12 @@ REC_NEW_VIDEO = "Record A New Video";
 SELECT_VIDEO = "Select A Video From Album";
 NOTE_NAME = "Note Name";
 
-//
+//User List Controller
+LINK_MESSAGE = "Sharelinker Messages";
 ACCEPT_USER_LINK_FAILED = "Accept userLink error";
+USER_ACCEPT_YOUR_LINK = "Accept your link request";
 
-//
+//MyDetailViewController
 USER_DATA_NOT_READY_RETRY = "User Data Not Ready,Retry Later";
 NICK = "Nick";
 NICK_REGEX_TIPS = "At least 1 character,less than 23 character";
@@ -131,8 +158,9 @@ LEVEL = "Level";
 JOIN = "Join";
 ACCOUNT_ID = "Sharelink ID";
 MOTTO = "Motto";
-LOGOUT_CONFIRM_TITLE = "Sure To Logout?";
-LOGOUT_CONFIRM_MSG = "It will clear all you message data with your sharelinkers";
+LOGOUT_CONFIRM_TITLE = "Logout Sharelink?";
+USER_DATA_WILL_SAVED = "User data will saved for your login next time";
+
 CHANGE_AVATAR = "Change Avatar";
 TAKE_NEW_PHOTO = "Take A New Photo";
 SELECT_PHOTO = "Select A Photo From Album";
@@ -159,3 +187,13 @@ VALIDATE_ACCTOKEN_FAILED = "Validate Access Token Failed";
 REGIST_FAILED = "Regist Failed";
 REGIST_SUC = "Regist Success";
 DATA_ERROR = "Data Error";
+
+USER_NAME_EXISTS = "Username already exists,use another please!";
+
+SERVER_ERROR = "Server Error";
+ALLOC_TOKEN_FAILED = "Token Server Error";
+NO_APP_INSTANCE = "App Server Error";
+
+VALIDATE_INFO_INVALID = "Invalid Login Data";
+VALIDATE_FAILED = "User not exists or password incorrect";
+

@@ -935,7 +935,7 @@
             </objects>
             <point key="canvasLocation" x="-766" y="1335"/>
         </scene>
-        <!--My Tags-->
+        <!--Focus Themes-->
         <scene sceneID="QIK-pk-T0u">
             <objects>
                 <viewController storyboardIdentifier="UITagExplorerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WWa-4s-vJi" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -952,21 +952,30 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BlB-i7-CHM">
-                                    <size key="itemSize" width="137" height="31"/>
+                                    <size key="itemSize" width="137" height="38"/>
                                     <size key="headerReferenceSize" width="50" height="29"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="TagItemCell" id="HiK-DY-8FS" customClass="UITagExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="73" width="137" height="31"/>
+                                        <rect key="frame" x="0.0" y="73" width="137" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="31"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="137" height="38"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" translatesAutoresizingMaskIntoConstraints="NO" id="bey-u1-sQ1">
+                                                    <rect key="frame" x="113" y="11" width="16" height="16"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="FTr-h7-z9n"/>
+                                                        <constraint firstAttribute="width" constant="16" id="w6h-gf-AUA"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="check" translatesAutoresizingMaskIntoConstraints="NO" id="SWB-Yq-kw8">
-                                                    <rect key="frame" x="8" y="8" width="16" height="16"/>
+                                                    <rect key="frame" x="120" y="4" width="16" height="16"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -974,17 +983,8 @@
                                                         <constraint firstAttribute="width" constant="16" id="rBc-uc-Z5Q"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" translatesAutoresizingMaskIntoConstraints="NO" id="AGa-bV-aSq">
-                                                    <rect key="frame" x="8" y="8" width="16" height="16"/>
-                                                    <animations/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="Aaa-uz-Tzy"/>
-                                                        <constraint firstAttribute="width" constant="16" id="zJ3-3r-Axs"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-hC-yeI">
-                                                    <rect key="frame" x="24" y="8" width="105" height="15"/>
+                                                    <rect key="frame" x="8" y="8" width="121" height="22"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -996,26 +996,17 @@
                                         </view>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstItem="1BG-hC-yeI" firstAttribute="leading" secondItem="SWB-Yq-kw8" secondAttribute="trailing" constant="12" id="6uP-Fq-Vfj"/>
-                                            <constraint firstItem="SWB-Yq-kw8" firstAttribute="centerY" secondItem="HiK-DY-8FS" secondAttribute="centerY" id="GOi-bj-sjO"/>
-                                            <constraint firstItem="AGa-bV-aSq" firstAttribute="centerY" secondItem="HiK-DY-8FS" secondAttribute="centerY" id="Hah-Ke-YCG"/>
-                                            <constraint firstItem="SWB-Yq-kw8" firstAttribute="leading" secondItem="HiK-DY-8FS" secondAttribute="leadingMargin" id="VKs-YA-Cr2"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="SWB-Yq-kw8" secondAttribute="trailing" constant="-7" id="3BC-rX-bwi"/>
+                                            <constraint firstItem="SWB-Yq-kw8" firstAttribute="centerY" secondItem="HiK-DY-8FS" secondAttribute="centerY" constant="-7" id="GOi-bj-sjO"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="bey-u1-sQ1" secondAttribute="trailing" id="NZW-Aa-YJQ"/>
+                                            <constraint firstItem="bey-u1-sQ1" firstAttribute="centerY" secondItem="HiK-DY-8FS" secondAttribute="centerY" id="Q3A-jP-QLo"/>
+                                            <constraint firstItem="1BG-hC-yeI" firstAttribute="leading" secondItem="HiK-DY-8FS" secondAttribute="leadingMargin" id="SAd-bI-ecI"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="1BG-hC-yeI" secondAttribute="trailing" id="Vz0-ka-bQM"/>
                                             <constraint firstItem="1BG-hC-yeI" firstAttribute="top" secondItem="HiK-DY-8FS" secondAttribute="topMargin" id="dY8-7x-oBh"/>
-                                            <constraint firstItem="1BG-hC-yeI" firstAttribute="centerX" secondItem="HiK-DY-8FS" secondAttribute="centerX" id="fa2-eq-1jB"/>
-                                            <constraint firstItem="1BG-hC-yeI" firstAttribute="leading" secondItem="AGa-bV-aSq" secondAttribute="trailing" id="hSj-ib-nsm"/>
-                                            <constraint firstItem="SWB-Yq-kw8" firstAttribute="leading" secondItem="HiK-DY-8FS" secondAttribute="leadingMargin" constant="12" id="iBe-m9-UsL"/>
                                             <constraint firstItem="1BG-hC-yeI" firstAttribute="centerY" secondItem="HiK-DY-8FS" secondAttribute="centerY" id="qfD-Tp-LdE"/>
-                                            <constraint firstItem="AGa-bV-aSq" firstAttribute="leading" secondItem="HiK-DY-8FS" secondAttribute="leadingMargin" id="rAT-ft-9Ft"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="iBe-m9-UsL"/>
-                                                <exclude reference="6uP-Fq-Vfj"/>
-                                                <exclude reference="fa2-eq-1jB"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
+                                            <outlet property="focusMark" destination="bey-u1-sQ1" id="B2F-05-yXv"/>
                                             <outlet property="tagNameLabel" destination="1BG-hC-yeI" id="Gdc-MI-Usc"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1059,7 +1050,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="My Tags" id="xG8-WB-xEW">
+                    <navigationItem key="navigationItem" title="Focus Themes" id="xG8-WB-xEW">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Uqd-Dh-S4S">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>

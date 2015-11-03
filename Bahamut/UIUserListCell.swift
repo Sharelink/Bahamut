@@ -47,7 +47,7 @@ class UIUserListMessageCell: UITableViewCell
     {
         noteNameLabel.text = model.sharelinkerNick
         timeLabel.text = DateHelper.stringToDateTime(model.time).toFriendlyString()
-        messageLabel.text = model.message
+        messageLabel.text = model.isAcceptAskLinkMessage() ? NSLocalizedString("USER_ACCEPT_YOUR_LINK", comment: "") : model.message
         ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
 }
@@ -55,7 +55,11 @@ class UIUserListMessageCell: UITableViewCell
 class UIUserListAskingLinkCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserAskLinkCell"
-    var model:LinkMessage!
+    var model:LinkMessage!{
+        didSet{
+            update()
+        }
+    }
     var rootController:LinkedUserListController!
     @IBOutlet weak var avatar: UIImageView!{
         didSet{
@@ -74,16 +78,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     
     @IBAction func accept(sender: AnyObject)
     {
-        let userService = rootController.userService
-        userService.acceptUserLink(model.sharelinkerId, noteName: model.sharelinkerNick){ isSuc in
-            if isSuc
-            {
-                userService.deleteLinkMessage(self.model.id)
-            }else
-            {
-                self.rootController.view.makeToast(message: NSLocalizedString("ACCEPT_USER_LINK_FAILED", comment: ""))
-            }
-        }
+        rootController.userService.showLinkConfirmViewController(self.rootController.navigationController!, linkMessage: self.model)
     }
     
     func showAvatar(_:UIGestureRecognizer)
@@ -96,7 +91,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     {
         userNickLabel.text = "\(model.sharelinkerNick)"
         messageLabel.text = String(format: NSLocalizedString("ASKING_FOR_A_LINK", comment: "asking for a link"),model.sharelinkerNick!)
-        avatar.image = PersistentManager.sharedInstance.getImage(model.avatar)
+        ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
     
 }
@@ -143,7 +138,7 @@ class UIUserListCell: UITableViewCell
     
     func update()
     {
-        userNickTextField.text = userModel.noteName ?? userModel.nickName
+        userNickTextField.text = userModel.getNoteName()
         levelLabel.text = "Lv.\(userModel.level ?? 1)"
         updateAvatar()
     }

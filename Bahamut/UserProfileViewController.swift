@@ -27,8 +27,57 @@ extension UserService
         controller.userProfileModel = userProfile
         currentNavigationController.pushViewController(controller , animated: true)
     }
+
 }
 
+extension SharelinkTagService
+{
+    func showConfirmAddTagAlert(curentViewController:UIViewController,tag:SharelinkTag)
+    {
+        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), tag.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default){ _ in
+            self.addThisTapToMyFocus(curentViewController,tag: tag)
+            })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: ""), style: .Cancel){ _ in
+            self.cancelAddTag(tag)
+            })
+        curentViewController.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func cancelAddTag(tag:SharelinkTag)
+    {
+        
+    }
+    
+    func addThisTapToMyFocus(curentViewController:UIViewController,tag:SharelinkTag)
+    {
+        if self.isTagExists(tag.data)
+        {
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_TAG_EXISTS", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "I_SEE", style: .Cancel, handler: nil))
+            curentViewController.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let newTag = SharelinkTag()
+        newTag.tagName = tag.tagName
+        newTag.tagColor = tag.tagColor
+        newTag.isFocus = "true"
+        newTag.type = tag.type
+        newTag.showToLinkers = "true"
+        newTag.data = tag.data
+        self.addSharelinkTag(newTag) { (suc) -> Void in
+            let alerttitle = suc ? NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "") : NSLocalizedString("FOCUS_TAG_FAILED", comment: "")
+            let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in
+                })
+            curentViewController.presentViewController(alert, animated: true, completion: nil)
+        }
+        
+    }
+}
+
+//MARK:UserProfileViewController
 class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate
 {
 
@@ -80,6 +129,16 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
+    func bindTapActions()
+    {
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "avatarTapped:"))
+    }
+    
+    func avatarTapped(_:UITapGestureRecognizer)
+    {
+        UUImageAvatarBrowser.showImage(avatarImageView)
+    }
+    
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -101,6 +160,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
+    //MARK: focus tags
     var focusTagController:UITagCollectionViewController!{
         didSet{
             self.addChildViewController(focusTagController)
@@ -116,47 +176,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
         if sender == focusTagController
         {
-            showConfirmAddTagAlert(sender.tags[indexPath.row])
+            ServiceContainer.getService(SharelinkTagService).showConfirmAddTagAlert(self,tag: sender.tags[indexPath.row])
         }
-    }
-    
-    func showConfirmAddTagAlert(tag:SharelinkTag)
-    {
-        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), tag.tagName), preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default){ _ in
-            self.addThisTapToMyFocus(tag)
-        })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: ""), style: .Cancel){ _ in
-            self.cancelAddTap(tag)
-        })
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func cancelAddTap(tag:SharelinkTag)
-    {
-        
-    }
-    
-    func addThisTapToMyFocus(tag:SharelinkTag)
-    {
-        let tagService = ServiceContainer.getService(SharelinkTagService)
-        let newTag = SharelinkTag()
-        newTag.tagName = tag.tagName
-        newTag.tagColor = tag.tagColor
-        newTag.isFocus = "\(true)"
-        newTag.data = tag.data
-        tagService.addSharelinkTag(newTag) { (suc) -> Void in
-            let alerttitle = suc ? NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "") : NSLocalizedString("FOCUS_TAG_FAILED", comment: "")
-            let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Cancel){ _ in
-                })
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
     }
     
     @IBOutlet weak var focusTagViewContainer: UIView!{
@@ -167,12 +188,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             
         }
     }
+
     
-    func bindTapActions()
-    {
-        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "avatarTapped:"))
-    }
-    
+    //MARK: personal video
     func saveProfileVideo()
     {
         let fService = ServiceContainer.getService(FileService)
@@ -244,6 +262,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files,selectionMode:.Single, delegate: self)
     }
     
+    //MARK: delegate for video resource item
+    
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
         if itemModels.count > 0
         {
@@ -259,6 +279,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
+    //MARK: update
     func updateEditVideoButton()
     {
         editProfileVideoButton.hidden = !isMyProfile
@@ -270,11 +291,20 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         userMottoView.text = userProfileModel.motto
         updateAvatar()
         updatePersonalFilm()
+        updateNoteButton()
+    }
+    
+    private func updateNoteButton()
+    {
+        if userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
+        {
+            self.navigationItem.rightBarButtonItems?.removeAll()
+        }
     }
     
     func updateName()
     {
-        self.navigationItem.title = userProfileModel.noteName ?? userProfileModel.nickName
+        self.navigationItem.title = userProfileModel.getNoteName()
         userNickNameLabelView.text = userProfileModel.nickName
     }
     
@@ -313,11 +343,6 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         propertySet.propertyValue = userProfileModel.noteName
         propertySet.propertyLabel = NSLocalizedString("NOTE_NAME", comment: "Note Name")
         UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: NSLocalizedString("NOTE_NAME", comment: ""), delegate: self)
-    }
-    
-    func avatarTapped(_:UITapGestureRecognizer)
-    {
-        UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
     func editPropertySave(propertyId: String!, newValue: String!)

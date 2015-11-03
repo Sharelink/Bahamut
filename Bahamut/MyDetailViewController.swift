@@ -98,7 +98,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         var propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = NSLocalizedString("NICK", comment: "Nick")
-        propertySet.propertyValue = myInfo.nickName ?? myInfo.noteName
+        propertySet.propertyValue = myInfo.nickName
         propertySet.valueRegex = "^?{1,23}$"
         propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
         textPropertyCells.append((propertySet:propertySet,editable:true))
@@ -138,8 +138,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     @IBAction func logout(sender: AnyObject)
     {
-        let alert = UIAlertController(title: NSLocalizedString("LOGOUT_CONFIRM_TITLE", comment: "Sure To Logout?"),
-            message: NSLocalizedString("LOGOUT_CONFIRM_MSG", comment: "It will clear all you message data with your sharelinkers"), preferredStyle: .Alert)
+        let alert = UIAlertController(title: NSLocalizedString("LOGOUT_CONFIRM_TITLE", comment: "Sure To Logout Sharelink?"),
+            message: NSLocalizedString("USER_DATA_WILL_SAVED", comment:""), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default) { _ in
             self.logout()
             })
@@ -216,9 +216,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
         let tapCell = UITapGestureRecognizer(target: self, action: "tapAvatarCell:")
         cell.addGestureRecognizer(tapCell)
-        cell.avatarImageView?.image = PersistentManager.sharedInstance.getImage(myInfo.avatarId ?? ImageAssetsConstants.defaultAvatar)
+        ServiceContainer.getService(FileService).setAvatar(cell.avatarImageView, iconFileId: myInfo.avatarId)
         let tapIcon = UITapGestureRecognizer(target: self, action: "tapAvatar:")
         cell.avatarImageView?.addGestureRecognizer(tapIcon)
+        cell.avatarImageView.userInteractionEnabled = true
         avatarImageView = cell.avatarImageView
         return cell
     }
@@ -315,8 +316,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func tapTextProperty(aTap:UITapGestureRecognizer)
     {
         let cell = aTap.view as! MyDetailTextPropertyCell
-        let propertySet = cell.info!.propertySet
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertySet:propertySet, controllerTitle: propertySet.propertyLabel, delegate: self)
+        if cell.info!.editable
+        {
+            let propertySet = cell.info!.propertySet
+            UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!, propertySet:propertySet, controllerTitle: propertySet.propertyLabel, delegate: self)
+        }
     }
     
     func editPropertySave(propertyIdentifier: String!, newValue: String!)

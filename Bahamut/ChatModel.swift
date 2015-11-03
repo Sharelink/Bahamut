@@ -167,7 +167,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         newMsg.avatar = PersistentManager.sharedInstance.getImageFilePath(sendUser?.avatarId) ?? ""
         if showNick
         {
-            newMsg.nick = sendUser?.noteName
+            newMsg.nick = sendUser?.getNoteName()
         }
         let now = NSDate()
         newMsg.timeString = now.toAccurateDateTimeString()
@@ -308,7 +308,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             msgItem.avatar = PersistentManager.sharedInstance.getImageFilePath(senderUser.avatarId) ?? ""
             if self.showNick
             {
-                msgItem.nick = senderUser.noteName
+                msgItem.nick = senderUser.getNoteName()
             }
         }
         msgItem.senderId = entity.senderId

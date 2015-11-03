@@ -15,7 +15,7 @@ extension FileService
     func setAvatar(imageView:UIImageView,iconFileId:String!)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            
+            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
             if let fileId = iconFileId
             {
                 if let uiimage =  PersistentManager.sharedInstance.getImage( fileId )
@@ -23,25 +23,13 @@ extension FileService
                     imageView.image = uiimage
                 }else
                 {
-                    if let image = PersistentManager.sharedInstance.getImage(fileId)
-                    {
-                        imageView.image = image
-                    }else
-                    {
-                        self.fetch(fileId, fileType: FileType.Image, callback: { (filePath) -> Void in
-                            if filePath != nil
-                            {
-                                imageView.image = PersistentManager.sharedInstance.getImage(fileId)
-                            }else
-                            {
-                                imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
-                            }
-                        })
-                    }
+                    self.fetch(fileId, fileType: FileType.Image, callback: { (filePath) -> Void in
+                        if filePath != nil
+                        {
+                            imageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                        }
+                    })
                 }
-            }else
-            {
-                imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
             }
         }
     }

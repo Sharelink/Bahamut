@@ -44,10 +44,25 @@
 		E73CB0931BCAA7EC001BEEAC /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E79DED6A1BC7DD5C0051CE3C /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09C1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m */; };
 		E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09E1BCABC1C001BEEAC /* UIButton+Badge.m */; };
-		E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B31B81725000E0B6EB /* UIUserTag.swift */; };
 		E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */; };
 		E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B91B82058300E0B6EB /* UIUserTagExplorerController.swift */; };
 		E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */; };
+		E74334421BE8DDF5009C359A /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334311BE8DDF5009C359A /* chat_animation1.png */; };
+		E74334431BE8DDF5009C359A /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334321BE8DDF5009C359A /* chat_animation2.png */; };
+		E74334441BE8DDF5009C359A /* chat_animation3.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334331BE8DDF5009C359A /* chat_animation3.png */; };
+		E74334451BE8DDF5009C359A /* chat_animation_white1.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334341BE8DDF5009C359A /* chat_animation_white1.png */; };
+		E74334461BE8DDF5009C359A /* chat_animation_white2.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334351BE8DDF5009C359A /* chat_animation_white2.png */; };
+		E74334471BE8DDF5009C359A /* chat_animation_white3.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334361BE8DDF5009C359A /* chat_animation_white3.png */; };
+		E74334481BE8DDF5009C359A /* chat_ipunt_message.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334371BE8DDF5009C359A /* chat_ipunt_message.png */; };
+		E74334491BE8DDF5009C359A /* chat_message_back.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334381BE8DDF5009C359A /* chat_message_back.png */; };
+		E743344A1BE8DDF5009C359A /* Chat_record_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334391BE8DDF5009C359A /* Chat_record_circle.png */; };
+		E743344B1BE8DDF5009C359A /* chat_send_message.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343A1BE8DDF5009C359A /* chat_send_message.png */; };
+		E743344C1BE8DDF5009C359A /* Chat_take_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343B1BE8DDF5009C359A /* Chat_take_picture.png */; };
+		E743344D1BE8DDF5009C359A /* chat_voice_record.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343C1BE8DDF5009C359A /* chat_voice_record.png */; };
+		E743344E1BE8DDF5009C359A /* chatfrom_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343D1BE8DDF5009C359A /* chatfrom_bg_normal.png */; };
+		E743344F1BE8DDF5009C359A /* chatfrom_doctor_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343E1BE8DDF5009C359A /* chatfrom_doctor_icon.png */; };
+		E74334501BE8DDF5009C359A /* chatto_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E743343F1BE8DDF5009C359A /* chatto_bg_normal.png */; };
+		E74334511BE8DDF5009C359A /* headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334411BE8DDF5009C359A /* headImage.png */; };
 		E754AE2A1B7C749B0077EECC /* UICameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754AE291B7C749B0077EECC /* UICameraViewController.swift */; };
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; };
@@ -198,16 +213,30 @@
 		E73CB09C1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		E73CB09D1BCABC1C001BEEAC /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		E73CB09E1BCABC1C001BEEAC /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
-		E73E44B31B81725000E0B6EB /* UIUserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTag.swift; sourceTree = "<group>"; };
 		E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResourceExplorerController.swift; sourceTree = "<group>"; };
 		E73E44B91B82058300E0B6EB /* UIUserTagExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagExplorerController.swift; sourceTree = "<group>"; };
 		E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagEditController.swift; sourceTree = "<group>"; };
+		E74334311BE8DDF5009C359A /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
+		E74334321BE8DDF5009C359A /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
+		E74334331BE8DDF5009C359A /* chat_animation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation3.png; sourceTree = "<group>"; };
+		E74334341BE8DDF5009C359A /* chat_animation_white1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white1.png; sourceTree = "<group>"; };
+		E74334351BE8DDF5009C359A /* chat_animation_white2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white2.png; sourceTree = "<group>"; };
+		E74334361BE8DDF5009C359A /* chat_animation_white3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation_white3.png; sourceTree = "<group>"; };
+		E74334371BE8DDF5009C359A /* chat_ipunt_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_ipunt_message.png; sourceTree = "<group>"; };
+		E74334381BE8DDF5009C359A /* chat_message_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_back.png; sourceTree = "<group>"; };
+		E74334391BE8DDF5009C359A /* Chat_record_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat_record_circle.png; sourceTree = "<group>"; };
+		E743343A1BE8DDF5009C359A /* chat_send_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_send_message.png; sourceTree = "<group>"; };
+		E743343B1BE8DDF5009C359A /* Chat_take_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat_take_picture.png; sourceTree = "<group>"; };
+		E743343C1BE8DDF5009C359A /* chat_voice_record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_voice_record.png; sourceTree = "<group>"; };
+		E743343D1BE8DDF5009C359A /* chatfrom_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_bg_normal.png; sourceTree = "<group>"; };
+		E743343E1BE8DDF5009C359A /* chatfrom_doctor_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_doctor_icon.png; sourceTree = "<group>"; };
+		E743343F1BE8DDF5009C359A /* chatto_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatto_bg_normal.png; sourceTree = "<group>"; };
+		E74334411BE8DDF5009C359A /* headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headImage.png; sourceTree = "<group>"; };
 		E754AE291B7C749B0077EECC /* UICameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICameraViewController.swift; sourceTree = "<group>"; };
 		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFetcher.swift; sourceTree = "<group>"; };
-		E76C3C271BE6131F003869B5 /* SharelinkSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharelinkSDK.framework; path = "../ShareLinkSDK/build/Debug-iphoneos/SharelinkSDK.framework"; sourceTree = "<group>"; };
 		E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SharelinkSDK.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Debug-iphoneos/SharelinkSDK.framework"; sourceTree = "<absolute>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
@@ -349,7 +378,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E76C3C271BE6131F003869B5 /* SharelinkSDK.framework */,
+				E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */,
 				E72ACE6B1BE36E700010B244 /* MapKit.framework */,
 				E72ACE681BE36E700010B244 /* AudioToolbox.framework */,
 				E71276601BE20BC600CCCB3F /* CoreLocation.framework */,
@@ -432,6 +461,37 @@
 			path = "UIBarButtomItem-Badge";
 			sourceTree = "<group>";
 		};
+		E74334301BE8DDF5009C359A /* ChatAssets */ = {
+			isa = PBXGroup;
+			children = (
+				E74334311BE8DDF5009C359A /* chat_animation1.png */,
+				E74334321BE8DDF5009C359A /* chat_animation2.png */,
+				E74334331BE8DDF5009C359A /* chat_animation3.png */,
+				E74334341BE8DDF5009C359A /* chat_animation_white1.png */,
+				E74334351BE8DDF5009C359A /* chat_animation_white2.png */,
+				E74334361BE8DDF5009C359A /* chat_animation_white3.png */,
+				E74334371BE8DDF5009C359A /* chat_ipunt_message.png */,
+				E74334381BE8DDF5009C359A /* chat_message_back.png */,
+				E74334391BE8DDF5009C359A /* Chat_record_circle.png */,
+				E743343A1BE8DDF5009C359A /* chat_send_message.png */,
+				E743343B1BE8DDF5009C359A /* Chat_take_picture.png */,
+				E743343C1BE8DDF5009C359A /* chat_voice_record.png */,
+				E743343D1BE8DDF5009C359A /* chatfrom_bg_normal.png */,
+				E743343E1BE8DDF5009C359A /* chatfrom_doctor_icon.png */,
+				E743343F1BE8DDF5009C359A /* chatto_bg_normal.png */,
+				E74334401BE8DDF5009C359A /* photo */,
+			);
+			path = ChatAssets;
+			sourceTree = "<group>";
+		};
+		E74334401BE8DDF5009C359A /* photo */ = {
+			isa = PBXGroup;
+			children = (
+				E74334411BE8DDF5009C359A /* headImage.png */,
+			);
+			path = photo;
+			sourceTree = "<group>";
+		};
 		E75EE44F1B9A05E200783308 /* UIResource */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,7 +544,6 @@
 			isa = PBXGroup;
 			children = (
 				E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */,
-				E73E44B31B81725000E0B6EB /* UIUserTag.swift */,
 				E73E44B91B82058300E0B6EB /* UIUserTagExplorerController.swift */,
 				E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */,
 			);
@@ -598,7 +657,6 @@
 		E7A62FD71B6609A500F28D73 = {
 			isa = PBXGroup;
 			children = (
-				E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */,
 				E7A62FE11B6609A500F28D73 /* Products */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
 				7A86D96ED0EE82317F95B25D /* Pods */,
@@ -617,6 +675,7 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
+				E74334301BE8DDF5009C359A /* ChatAssets */,
 				E7B615F41BCFCB6E00D0831C /* ShareSDK */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E7B665011B6B8EA200032495 /* Assets */,
@@ -849,18 +908,34 @@
 			files = (
 				E71AF3151BE4EEF9000BBBF8 /* Component.storyboard in Resources */,
 				E71AF30A1BE4ECCD000BBBF8 /* UIMessage.storyboard in Resources */,
+				E74334501BE8DDF5009C359A /* chatto_bg_normal.png in Resources */,
 				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */,
 				E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */,
+				E74334511BE8DDF5009C359A /* headImage.png in Resources */,
+				E74334491BE8DDF5009C359A /* chat_message_back.png in Resources */,
+				E74334461BE8DDF5009C359A /* chat_animation_white2.png in Resources */,
+				E74334451BE8DDF5009C359A /* chat_animation_white1.png in Resources */,
 				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
+				E743344F1BE8DDF5009C359A /* chatfrom_doctor_icon.png in Resources */,
 				E71AF31C1BE4EFD9000BBBF8 /* UserAccount.storyboard in Resources */,
+				E74334431BE8DDF5009C359A /* chat_animation2.png in Resources */,
 				E7B616271BCFCB6E00D0831C /* ShareSDKLocalizable.strings in Resources */,
 				E71AF3251BE4FE11000BBBF8 /* Localizable.strings in Resources */,
+				E74334441BE8DDF5009C359A /* chat_animation3.png in Resources */,
+				E743344C1BE8DDF5009C359A /* Chat_take_picture.png in Resources */,
+				E743344D1BE8DDF5009C359A /* chat_voice_record.png in Resources */,
 				E7B6162C1BCFCB6E00D0831C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
+				E743344A1BE8DDF5009C359A /* Chat_record_circle.png in Resources */,
+				E74334481BE8DDF5009C359A /* chat_ipunt_message.png in Resources */,
 				E7B616291BCFCB6E00D0831C /* Resource.bundle in Resources */,
 				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
 				E7B616311BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle in Resources */,
+				E743344B1BE8DDF5009C359A /* chat_send_message.png in Resources */,
+				E74334471BE8DDF5009C359A /* chat_animation_white3.png in Resources */,
+				E74334421BE8DDF5009C359A /* chat_animation1.png in Resources */,
+				E743344E1BE8DDF5009C359A /* chatfrom_bg_normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,7 +1024,6 @@
 				E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */,
 				E7FFC03B1BCA064C00D651CA /* ShareChatEntity.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
-				E73E44B41B81725000E0B6EB /* UIUserTag.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
@@ -1177,7 +1251,7 @@
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1231,7 +1305,7 @@
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
