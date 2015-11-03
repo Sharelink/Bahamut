@@ -3,7 +3,7 @@ use_frameworks!
 
 pod 'Alamofire', '~> 2.0.0'
 
-pod 'EVReflection', '~> 2.6'
+pod 'EVReflection'
 
 pod 'PBJVision'
 
