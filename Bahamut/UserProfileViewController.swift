@@ -156,7 +156,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     {
         if profileVideoView == nil
         {
-            profileVideoView = ShareLinkFilmView(frame: profileVideoViewContainer.bounds)
+            let frame = profileVideoViewContainer.bounds
+            profileVideoView = ShareLinkFilmView(frame: frame)
+            profileVideoView.backgroundColor = UIColor.whiteColor()
+            profileVideoView.playerController.fillMode = AVLayerVideoGravityResizeAspectFill
         }
     }
     

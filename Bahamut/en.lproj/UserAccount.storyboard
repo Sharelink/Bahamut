@@ -396,6 +396,7 @@
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="32" id="nib-Ln-nmy"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="rbB-Ay-14x"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="document-edit"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -411,11 +412,11 @@
                                         <rect key="frame" x="87" y="191" width="118" height="33"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <color key="textColor" red="0.4061326475" green="0.57792840369999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal motto" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAb-tL-Fxc">
-                                        <rect key="frame" x="87" y="224" width="506" height="20"/>
+                                        <rect key="frame" x="87" y="224" width="513" height="20"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="highlightedColor"/>
@@ -436,7 +437,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kkx-R0-5We">
-                                        <rect key="frame" x="7" y="300" width="586" height="128"/>
+                                        <rect key="frame" x="7" y="300" width="593" height="128"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -446,7 +447,7 @@
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" constant="-7" id="0vs-vq-FSh"/>
+                                    <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" id="0vs-vq-FSh"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="leading" id="30X-V7-kmY"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="trailing" constant="8" symbolic="YES" id="FDJ-rj-nU3"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="Iw9-Q2-HML"/>

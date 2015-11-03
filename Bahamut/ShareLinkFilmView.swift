@@ -83,7 +83,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    private var playerController:Player!{
+    private(set) var playerController:Player!{
         didSet{
             self.playerController.delegate = self
             self.addSubview(playerController.view)
