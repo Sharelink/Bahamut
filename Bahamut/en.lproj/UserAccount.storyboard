@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Profile-->
+        <!--Regist Sharelink-->
         <scene sceneID="x7P-8Z-bJe">
             <objects>
                 <viewController storyboardIdentifier="NewUserProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KSz-HA-Lk6" customClass="NewUserProfileViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -69,7 +69,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="Profile" id="DDy-uQ-Due">
+                    <navigationItem key="navigationItem" title="Regist Sharelink" id="DDy-uQ-Due">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="NCw-i8-npl">
                             <connections>
                                 <action selector="saveProfile" destination="KSz-HA-Lk6" id="QRg-P5-378"/>
@@ -85,7 +85,7 @@
             </objects>
             <point key="canvasLocation" x="1667" y="3420"/>
         </scene>
-        <!--User Detail Page-->
+        <!--Me-->
         <scene sceneID="X02-cO-9Rn">
             <objects>
                 <viewController storyboardIdentifier="MyDetailViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="83i-Ku-Y1r" customClass="MyDetailViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -215,7 +215,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="User Detail Page" id="6TR-jo-dd1">
+                    <navigationItem key="navigationItem" title="Me" id="6TR-jo-dd1">
                         <barButtonItem key="backBarButtonItem" title="Back" id="iyU-Ad-waY">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
@@ -304,7 +304,7 @@
             </objects>
             <point key="canvasLocation" x="143" y="2709"/>
         </scene>
-        <!--Sharelinker-->
+        <!--New Sharelinker-->
         <scene sceneID="jqW-d8-p9k">
             <objects>
                 <viewController storyboardIdentifier="linkConfirmViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bcA-Mv-Uu5" customClass="LinkConfirmViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -342,7 +342,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinker" id="MPR-3r-vWs">
+                    <navigationItem key="navigationItem" title="New Sharelinker" id="MPR-3r-vWs">
                         <barButtonItem key="leftBarButtonItem" title="Ignore" id="36A-9D-hHV">
                             <connections>
                                 <action selector="ignore:" destination="bcA-Mv-Uu5" id="IpL-Pf-dVe"/>
@@ -437,7 +437,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kkx-R0-5We">
-                                        <rect key="frame" x="7" y="300" width="593" height="128"/>
+                                        <rect key="frame" x="7" y="300" width="586" height="128"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -449,9 +449,11 @@
                                 <constraints>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" id="0vs-vq-FSh"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="leading" id="30X-V7-kmY"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kkx-R0-5We" secondAttribute="trailing" id="F00-in-lWL"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="trailing" constant="8" symbolic="YES" id="FDJ-rj-nU3"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="Iw9-Q2-HML"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="PSs-af-SAu"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kkx-R0-5We" secondAttribute="trailing" constant="7" id="Pxp-Ei-V29"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="leading" secondItem="O9m-gS-Bgf" secondAttribute="leading" id="Q3b-XA-q7g"/>
                                     <constraint firstItem="Mcc-7E-wyR" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="leading" id="Ru6-qr-fJM"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="leading" secondItem="Mcc-7E-wyR" secondAttribute="leading" id="S2l-dr-rOu"/>
@@ -460,9 +462,11 @@
                                     <constraint firstItem="Mcc-7E-wyR" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="bottom" constant="8" id="cM6-4G-uvl"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="bottom" secondItem="lHT-sO-2xC" secondAttribute="bottom" id="cfc-QG-C1l"/>
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="top" secondItem="lHT-sO-2xC" secondAttribute="top" id="dKW-rJ-bOq"/>
+                                    <constraint firstItem="Kkx-R0-5We" firstAttribute="top" secondItem="Mcc-7E-wyR" secondAttribute="bottom" constant="8" id="dbl-hZ-wwG"/>
                                     <constraint firstItem="FeM-jc-wh6" firstAttribute="top" secondItem="lHT-sO-2xC" secondAttribute="bottom" constant="-32" id="jmd-ol-Jta"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="top" secondItem="Mcc-7E-wyR" secondAttribute="bottom" constant="8" id="mac-Ru-62V"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="top" id="nz8-iF-XSO"/>
+                                    <constraint firstItem="Kkx-R0-5We" firstAttribute="leading" secondItem="O9m-gS-Bgf" secondAttribute="leading" constant="7" id="p5Y-0l-VI7"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="trailing" secondItem="lAb-tL-Fxc" secondAttribute="trailing" id="sDr-Ky-D6N"/>
                                     <constraint firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="uRM-ie-zf9"/>
                                     <constraint firstAttribute="bottom" secondItem="lHT-sO-2xC" secondAttribute="bottom" constant="313" id="vbS-QV-anc"/>
@@ -470,6 +474,10 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="F00-in-lWL"/>
+                                        <exclude reference="S2l-dr-rOu"/>
+                                        <exclude reference="mac-Ru-62V"/>
+                                        <exclude reference="sDr-Ky-D6N"/>
                                         <exclude reference="dKW-rJ-bOq"/>
                                     </mask>
                                 </variation>

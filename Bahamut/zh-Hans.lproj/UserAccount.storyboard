@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--档案-->
+        <!--注册Sharelink-->
         <scene sceneID="x7P-8Z-bJe">
             <objects>
                 <viewController storyboardIdentifier="NewUserProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KSz-HA-Lk6" customClass="NewUserProfileViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -69,7 +69,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="档案" id="DDy-uQ-Due">
+                    <navigationItem key="navigationItem" title="注册Sharelink" id="DDy-uQ-Due">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="NCw-i8-npl">
                             <connections>
                                 <action selector="saveProfile" destination="KSz-HA-Lk6" id="QRg-P5-378"/>
@@ -304,7 +304,7 @@
             </objects>
             <point key="canvasLocation" x="143" y="2709"/>
         </scene>
-        <!--Sharelinker-->
+        <!--添加新朋友-->
         <scene sceneID="jqW-d8-p9k">
             <objects>
                 <viewController storyboardIdentifier="linkConfirmViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bcA-Mv-Uu5" customClass="LinkConfirmViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -353,7 +353,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinker" id="MPR-3r-vWs">
+                    <navigationItem key="navigationItem" title="添加新朋友" id="MPR-3r-vWs">
                         <barButtonItem key="leftBarButtonItem" title="忽略" id="36A-9D-hHV">
                             <connections>
                                 <action selector="ignore:" destination="bcA-Mv-Uu5" id="IpL-Pf-dVe"/>
@@ -464,8 +464,10 @@
                                     <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="Iw9-Q2-HML"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="PSs-af-SAu"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="leading" secondItem="O9m-gS-Bgf" secondAttribute="leading" id="Q3b-XA-q7g"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kkx-R0-5We" secondAttribute="trailing" constant="7" id="Qse-Pz-PuW"/>
                                     <constraint firstItem="Mcc-7E-wyR" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="leading" id="Ru6-qr-fJM"/>
                                     <constraint firstItem="Kkx-R0-5We" firstAttribute="leading" secondItem="Mcc-7E-wyR" secondAttribute="leading" id="S2l-dr-rOu"/>
+                                    <constraint firstItem="Kkx-R0-5We" firstAttribute="leading" secondItem="O9m-gS-Bgf" secondAttribute="leading" constant="7" id="SW2-Ja-qla"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="top" secondItem="O9m-gS-Bgf" secondAttribute="top" id="YdL-b3-cUG"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="centerX" secondItem="O9m-gS-Bgf" secondAttribute="centerX" id="aUx-Xk-teu"/>
                                     <constraint firstItem="Mcc-7E-wyR" firstAttribute="top" secondItem="FeM-jc-wh6" secondAttribute="bottom" constant="8" id="cM6-4G-uvl"/>
@@ -481,6 +483,8 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="S2l-dr-rOu"/>
+                                        <exclude reference="sDr-Ky-D6N"/>
                                         <exclude reference="dKW-rJ-bOq"/>
                                     </mask>
                                 </variation>

@@ -935,7 +935,7 @@
             </objects>
             <point key="canvasLocation" x="-766" y="1335"/>
         </scene>
-        <!--关注的主题-->
+        <!--我的主题-->
         <scene sceneID="QIK-pk-T0u">
             <objects>
                 <viewController storyboardIdentifier="UITagExplorerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WWa-4s-vJi" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -1068,7 +1068,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="关注的主题" id="xG8-WB-xEW">
+                    <navigationItem key="navigationItem" title="我的主题" id="xG8-WB-xEW">
                         <barButtonItem key="backBarButtonItem" systemItem="cancel" id="Uqd-Dh-S4S">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
