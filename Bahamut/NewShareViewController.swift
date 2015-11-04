@@ -16,10 +16,14 @@ extension ShareService
     func showReshareViewController(currentNavigationController:UINavigationController,reShareModel:ShareThing)
     {
         let controller = NewShareViewController.instanceFromStoryBoard()
+        controller.isReshare = true
         controller.shareThingModel = ShareThing()
         controller.shareThingModel.pShareId = reShareModel.shareId
+        controller.shareThingModel.shareId = reShareModel.shareId
         controller.shareThingModel.shareContent = reShareModel.shareContent
         controller.shareThingModel.shareType = reShareModel.shareType
+        controller.shareThingModel.forTags = reShareModel.forTags
+        controller.shareThingModel.message = reShareModel.message
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
     }
@@ -29,17 +33,9 @@ extension ShareService
 class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
 {
     static let tagsLimit = 7
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        changeNavigationBarColor()
-        if shareThingModel == nil
-        {
-            shareThingModel = ShareThing()
-            shareThingModel.shareType = ShareThingType.shareFilm.rawValue
-        }
-        myTagController = UITagCollectionViewController.instanceFromStoryBoard()
-    }
-    
+    var fileService:FileService!
+    var shareService:ShareService!
+    var isReshare:Bool = false
     var shareThingModel:ShareThing!{
         didSet{
             if shareContentContainer != nil
@@ -49,8 +45,25 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.shareService = ServiceContainer.getService(ShareService)
+        self.fileService = ServiceContainer.getService(FileService)
+        changeNavigationBarColor()
+        if shareThingModel == nil
+        {
+            shareThingModel = ShareThing()
+            shareThingModel.shareType = ShareThingType.shareFilm.rawValue
+        }
+        myTagController = UITagCollectionViewController.instanceFromStoryBoard()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if isReshare
+        {
+            initReshare()
+        }
         initMytags()
         registerForKeyboardNotifications()
         
@@ -63,18 +76,34 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         removeObserverForKeyboardNotifications()
     }
     
+    private func initReshare()
+    {
+        //filter share's tag without poster's personal tag
+        let tagDatas = shareThingModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkTagConstant.TAG_TYPE_SHARELINKER != $0.type }
+        for m in tagDatas
+        {
+            let tag = SharelinkTag()
+            tag.type = m.type
+            tag.tagName = m.name
+            tag.data = m.data
+            tag.tagColor = UIColor.getRandomTextColor().toHexString()
+            self.selectedTagController.addTag(tag)
+        }
+        self.shareMessageTextView.text = shareThingModel.message
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     //MARK: outlets
-    @IBOutlet weak var shareDescriptionTextArea: UITextView!{
+    @IBOutlet weak var shareMessageTextView: UITextView!{
         didSet{
-            shareDescriptionTextArea.layer.cornerRadius = 7
-            shareDescriptionTextArea.layer.borderColor = UIColor.lightGrayColor().CGColor
-            shareDescriptionTextArea.layer.borderWidth = 1
-            shareDescriptionTextArea.delegate = self
+            shareMessageTextView.layer.cornerRadius = 7
+            shareMessageTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
+            shareMessageTextView.layer.borderWidth = 1
+            shareMessageTextView.delegate = self
         }
     }
     
@@ -82,8 +111,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         didSet{
             shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.shareFilm)
             let player = shareContentContainer.contentView as! ShareLinkFilmView
-            player.fileFetcher = FilePathFileFetcher.shareInstance
-            player.autoLoad = true
+            if isReshare == false
+            {
+                player.fileFetcher = FilePathFileFetcher.shareInstance
+                player.autoLoad = true
+            }
             shareContentContainer.shareThing = shareThingModel
         }
     }
@@ -91,11 +123,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var recordNewFilmButton: UIButton!{
         didSet{
             recordNewFilmButton.tintColor = UIColor.themeColor
+            recordNewFilmButton.hidden = isReshare
         }
     }
     @IBOutlet weak var selectFilmButton: UIButton!{
         didSet{
             selectFilmButton.tintColor = UIColor.themeColor
+            selectFilmButton.hidden = isReshare
         }
     }
     @IBOutlet weak var newTagNameTextfield: UITextField!{
@@ -441,7 +475,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     func clear()
     {
-        self.shareDescriptionTextArea.text = ""
+        self.shareMessageTextView.text = ""
         shareThingModel.shareContent = nil
         self.shareContentContainer.shareThing = self.shareThingModel
     }
@@ -452,13 +486,36 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             let alert = UIAlertController(title: NSLocalizedString("SHARE", comment:  ""), message: NSLocalizedString("NO_SELECT_TAG_TIPS", comment:  ""),preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("CONTINUE", comment:  ""), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
-                self.prepareShare()
+                self.isReshare ? self.reshare() : self.prepareShare()
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment:  ""), style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil )
         }else
         {
-            prepareShare()
+            self.isReshare ? self.reshare() : self.prepareShare()
+        }
+    }
+    
+    private func reshare()
+    {
+        let tags = self.selectedTagController.tags ?? [SharelinkTag]()
+        self.view.makeToastActivityWithMessage(message: NSLocalizedString("SHARING", comment: "Sharing"))
+        self.shareService.reshare(self.shareThingModel.shareId, message: self.shareMessageTextView.text, tags: tags){ isSuc,msg in
+            self.view.hideToastActivity()
+            var alert:UIAlertController!
+            if isSuc{
+                alert = UIAlertController(title: NSLocalizedString("SHARE_SUCCESSED", comment: "Share Successed"), message: nil, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: { (action) -> Void in
+                    self.navigationController?.popViewControllerAnimated(true)
+                }))
+            }else
+            {
+                alert = UIAlertController(title: NSLocalizedString("SHARE_FAILED", comment: "Share Failed"), message: msg, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: { (action) -> Void in
+                    
+                }))
+            }
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -467,7 +524,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         if let shareContent = shareThingModel.shareContent
         {
             let newShare = ShareThing()
-            newShare.message = self.shareDescriptionTextArea.text
+            newShare.message = self.shareMessageTextView.text
             newShare.shareType = ShareThingType.shareFilm.rawValue
             newShare.shareContent = shareContent
             let me = ServiceContainer.getService(UserService).myUserModel
@@ -496,19 +553,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     private func postShare(newShare:ShareThing,tags:[SharelinkTag],taskKey:String)
     {
-        let sService = ServiceContainer.getService(ShareService)
-        let fService = ServiceContainer.getService(FileService)
         let filePath = FilmModel(json: newShare.shareContent).film
         if filePath == nil
         {
             self.view.makeToast(message:NSLocalizedString("NO_FILM_SELECTED", comment: "must select or capture a film!"))
             return
         }
-        fService.requestFileId(filePath!, type: FileType.Video, callback: { (fileKey) -> Void in
+        self.fileService.requestFileId(filePath!, type: FileType.Video, callback: { (fileKey) -> Void in
             if fileKey != nil
             {
                 
-                fService.startSendFile(fileKey.accessKey,taskKey: taskKey){ suc in
+                self.fileService.startSendFile(fileKey.accessKey,taskKey: taskKey){ suc in
                     if suc
                     {
                         ProgressTaskWatcher.sharedInstance.missionCompleted(taskKey, result: "file")
@@ -521,7 +576,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
                 let filmModel = FilmModel()
                 filmModel.film = fileKey.fileId
                 newShare.shareContent = filmModel.toJsonString()
-                sService.postNewShare(newShare, tags: tags ,callback: { (shareId) -> Void in
+                self.shareService.postNewShare(newShare, tags: tags ,callback: { (shareId) -> Void in
                     self.view.hideToastActivity()
                     if shareId != nil
                     {
@@ -558,10 +613,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             }
             if task.isTaskCompleted()
             {
-                ServiceContainer.getService(ShareService).postNewShareFinish(task.shareId, isCompleted: true)
+                self.shareService.postNewShareFinish(task.shareId, isCompleted: true)
             }else if task.isTaskFailed() && task.shareId != nil
             {
-                ServiceContainer.getService(ShareService).postNewShareFinish(task.shareId, isCompleted: false)
+                self.shareService.postNewShareFinish(task.shareId, isCompleted: false)
             }
             task.saveModel()
         }

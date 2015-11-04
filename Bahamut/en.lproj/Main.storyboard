@@ -513,8 +513,8 @@
                                     </mask>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record something..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-vr-2m2">
-                                <rect key="frame" x="20" y="108" width="154" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share's Film" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-vr-2m2">
+                                <rect key="frame" x="20" y="108" width="93" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -555,8 +555,8 @@
                                     <action selector="recordVideo" destination="iK5-v5-9SH" eventType="touchUpInside" id="G6v-oQ-Ae0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share's tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spg-gX-s4O">
-                                <rect key="frame" x="20" y="305" width="95" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share's themes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spg-gX-s4O">
+                                <rect key="frame" x="20" y="305" width="119" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -570,7 +570,7 @@
                                     <constraint firstAttribute="height" constant="63" id="EZL-ec-2bJ"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add special tag for share" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add custom theme for share" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYb-vu-ScZ">
                                 <rect key="frame" x="20" y="411" width="461" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -649,7 +649,7 @@
                         <outlet property="selectFilmButton" destination="g0g-WT-xPN" id="UAq-dV-3w5"/>
                         <outlet property="selectedTagViewContainer" destination="iyN-kc-vBY" id="xjU-9m-wXD"/>
                         <outlet property="shareContentContainer" destination="25l-Re-LsY" id="U3v-jC-cbC"/>
-                        <outlet property="shareDescriptionTextArea" destination="wd7-kf-uru" id="oT8-rq-nsy"/>
+                        <outlet property="shareMessageTextView" destination="wd7-kf-uru" id="oT8-rq-nsy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7v6-lN-KBq" userLabel="First Responder" sceneMemberID="firstResponder"/>

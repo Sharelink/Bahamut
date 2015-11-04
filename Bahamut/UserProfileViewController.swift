@@ -29,7 +29,7 @@ extension UserService
     }
 
 }
-
+//MARK: extension SharelinkTagService
 extension SharelinkTagService
 {
     func showConfirmAddTagAlert(curentViewController:UIViewController,tag:SharelinkTag)
@@ -54,7 +54,7 @@ extension SharelinkTagService
         if self.isTagExists(tag.data)
         {
             let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_TAG_EXISTS", comment: ""), preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "I_SEE", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: .Cancel, handler: nil))
             curentViewController.presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -81,12 +81,10 @@ extension SharelinkTagService
 class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate
 {
 
+    //MARK: properties
     private var profileVideoView:ShareLinkFilmView!{
         didSet{
             profileVideoViewContainer.addSubview(profileVideoView)
-            profileVideoView.autoLoad = true
-            profileVideoView.canSwitchToFullScreen = true
-            profileVideoView.isMute = false
             profileVideoViewContainer.sendSubviewToBack(profileVideoView)
         }
     }
@@ -116,6 +114,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
     }
+    
+    //MARK: init
     override func viewDidLoad() {
         super.viewDidLoad()
         initProfileVideoView()
@@ -160,6 +160,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             profileVideoView = ShareLinkFilmView(frame: frame)
             profileVideoView.backgroundColor = UIColor.whiteColor()
             profileVideoView.playerController.fillMode = AVLayerVideoGravityResizeAspectFill
+            profileVideoView.autoPlay = true
+            profileVideoView.autoLoad = true
+            profileVideoView.canSwitchToFullScreen = true
+            profileVideoView.isMute = false
         }
     }
     
@@ -320,7 +324,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
         if nil == userProfileModel.personalVideoId || userProfileModel.personalVideoId.isEmpty
         {
-            profileVideoView.filePath = FilmAssetsConstants.defaultPersonalFilm
+            profileVideoView.filePath = FilmAssetsConstants.SharelinkFilm
         }else
         {
             profileVideoView.filePath = userProfileModel.personalVideoId
@@ -354,6 +358,13 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if propertyId == "note"
         {
             self.view.makeToastActivityWithMessage(message:NSLocalizedString("UPDATING", comment: ""))
+            if SharelinkerCenterNoteName == newValue
+            {
+                let alert = UIAlertController(title: NSLocalizedString("INVALID_VALUE", comment: "Invalid Value"), message: NSLocalizedString("USE_ANOTHER_VALUE", comment: "Use another value please!"), preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
             userService.setLinkerNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
                 self.view.hideToastActivity()
                 if isSuc

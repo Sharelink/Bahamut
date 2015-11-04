@@ -96,6 +96,7 @@
 		E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEC1B6609A500F28D73 /* Main.storyboard */; };
 		E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEF1B6609A500F28D73 /* Images.xcassets */; };
 		E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */; };
+		E7A645351BE9E39E00204D1A /* SharelinkFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */; };
 		E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF239A1B7B651700076202 /* NewShareViewController.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E7B615F31BCFCAFD00D0831C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B615F21BCFCAFD00D0831C /* MessageUI.framework */; };
@@ -116,7 +117,6 @@
 		E7B616311BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E7B6161C1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle */; };
 		E7B616321BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B6161D1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework */; };
 		E7B616331BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B6161E1BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework */; };
-		E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */; };
 		E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B714251B7F36880085E3B6 /* ImageUtil.swift */; };
 		E7C4F2721BCFA4EF0050997B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; };
 		E7C4F2A31BCFB0470050997B /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A21BCFB0470050997B /* libicucore.tbd */; };
@@ -265,6 +265,7 @@
 		E7A62FE41B6609A500F28D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7A62FE51B6609A500F28D73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7A62FEF1B6609A500F28D73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = SharelinkFilm.mp4; path = SharelinkAssets/SharelinkFilm.mp4; sourceTree = "<group>"; };
 		E7AF239A1B7B651700076202 /* NewShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B615F21BCFCAFD00D0831C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -290,7 +291,6 @@
 		E7B6161C1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKFlatShareViewUI.bundle; sourceTree = "<group>"; };
 		E7B6161D1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKFlatShareViewUI.framework; sourceTree = "<group>"; };
 		E7B6161E1BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
-		E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultPersonalFilm.mp4; sourceTree = "<group>"; };
 		E7B714251B7F36880085E3B6 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		E7C4F2A21BCFB0470050997B /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		E7C4F2A41BCFB0570050997B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -796,7 +796,7 @@
 		E7B665011B6B8EA200032495 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E7B665021B6B8EF600032495 /* defaultPersonalFilm.mp4 */,
+				E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
@@ -909,7 +909,6 @@
 				E71AF3151BE4EEF9000BBBF8 /* Component.storyboard in Resources */,
 				E71AF30A1BE4ECCD000BBBF8 /* UIMessage.storyboard in Resources */,
 				E74334501BE8DDF5009C359A /* chatto_bg_normal.png in Resources */,
-				E7B665031B6B8EF600032495 /* defaultPersonalFilm.mp4 in Resources */,
 				E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */,
 				E74334511BE8DDF5009C359A /* headImage.png in Resources */,
 				E74334491BE8DDF5009C359A /* chat_message_back.png in Resources */,
@@ -918,6 +917,7 @@
 				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E743344F1BE8DDF5009C359A /* chatfrom_doctor_icon.png in Resources */,
+				E7A645351BE9E39E00204D1A /* SharelinkFilm.mp4 in Resources */,
 				E71AF31C1BE4EFD9000BBBF8 /* UserAccount.storyboard in Resources */,
 				E74334431BE8DDF5009C359A /* chat_animation2.png in Resources */,
 				E7B616271BCFCB6E00D0831C /* ShareSDKLocalizable.strings in Resources */,

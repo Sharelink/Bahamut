@@ -218,7 +218,7 @@ public class Player: UIViewController {
 
     public override func loadView() {
         self.playerView = PlayerView(frame: CGRectZero)
-        self.playerView.fillMode = AVLayerVideoGravityResizeAspect
+        self.playerView.fillMode = AVLayerVideoGravityResize
         self.playerView.playerLayer.hidden = true
         self.view = self.playerView
         self.playerView.player = self.player

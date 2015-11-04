@@ -285,7 +285,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Create Share
-    func reshare(shareId:String,message:String!,tags:[SharelinkTag])
+    func reshare(shareId:String,message:String!,tags:[SharelinkTag],callback:(Bool,String)->Void)
     {
         let req = ReShareRequest()
         req.pShareId = shareId
@@ -300,7 +300,6 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.message = newShare.message
         req.tags = tags
         req.shareType = newShare.shareType
-        req.reshareable = tags.contains{$0.isResharelessTag()}
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess

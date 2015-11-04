@@ -242,40 +242,20 @@ class UIShareThing: UITableViewCell
     
     @IBAction func shareToFriends()
     {
-        var alert:UIAlertController!
         if shareThingModel.canReshare()
         {
-            alert = UIAlertController(title: NSLocalizedString("RESHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("SHARE",comment:""), style: UIAlertActionStyle.Default){ aa in
-                let textField = alert.textFields?.first
-                //self.reshare(textField?.text ?? nil)
-                })
-            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in self.cancelShare()})
-            alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
-                textField.placeholder = "Say something to your linkers"
-            }
-            
+            rootController.shareService.showReshareViewController(self.rootController.navigationController!, reShareModel: shareThingModel)
         }else
         {
-            alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+            rootController.presentViewController(alert, animated: true, completion: nil)
         }
         
-        rootController.presentViewController(alert, animated: true, completion: nil)
     }
     
     private func cancelShare()
     {
-        
-    }
-    
-    private func reshare(message:String!,tags:[SharelinkTag])
-    {
-        if shareThingModel.canReshare()
-        {
-            let shareService = ServiceContainer.getService(ShareService)
-            shareService.reshare(self.shareThingModel.shareId, message: message,tags:tags)
-        }
         
     }
     

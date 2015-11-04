@@ -62,6 +62,8 @@ SHARE = "分享";
 NO = "否";
 OK = "好";
 I_SEE = "知道了";
+INVALID_VALUE = "设置无效";
+USE_ANOTHER_VALUE = "请使用另外的值!";
 CONTINUE = "继续";
 LOGIN = "登录";
 LOGINING = "登录中";
@@ -71,7 +73,10 @@ RECORD_CANCELED = "录制取消";
 VIDEO_SAVED = "视频已经保存";
 SAVE_VIDEO_FAILED = "保存视频失败";
 UPDATING = "更新中";
+
+//System
 ME = "我";
+"#<SharelinkCenter>#" = "Sharelinker服务中心";
 
 //system tags
 "Private" = "私密";
@@ -103,7 +108,7 @@ UNVOTE_SHARE_CONFIRM = "取消点赞?";
 
 UNKNOW_SHARE_TYPE = "Sharelink:未知的分享类型!";
 
-RESHARE_CONFIRM = "Share To Your Linkers";
+RESHARE_CONFIRM = "分享到你的Sharelink";
 
 RESHARELESS_TIPS = "分享人不允许转载!";
 
@@ -120,6 +125,10 @@ SEND_FILM_SUC = "上传视频成功！";
 POST_SHARE_SUC = "分享成功！";
 SEND_FILM_FAILED = "上传视频失败";
 POST_SHARE_FAILED = "分享失败！";
+
+SHARING = "分享中";
+SHARE_SUCCESSED = "成功分享！";
+SHARE_FAILED = "分享失败...";
 
 //SignInViewController
 REFRESHING = "刷新中";
@@ -144,6 +153,8 @@ CHANGE_PROFILE_VIDEO = "修改个人视频";
 REC_NEW_VIDEO = "录制新视频";
 SELECT_VIDEO = "选择一个视频";
 NOTE_NAME = "备注名";
+
+SAME_TAG_EXISTS = "你已经添加了这个主题!";
 
 //User List Controller
 LINK_MESSAGE = "好友消息";

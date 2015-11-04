@@ -63,6 +63,8 @@ NO = "No";
 OK = "Ok";
 I_SEE = "I see";
 CONTINUE = "Continue";
+INVALID_VALUE = "Invalid Value";
+USE_ANOTHER_VALUE = "Use another value please!";
 LOGIN = "Login";
 LOGINING = "Logining";
 SERVER_ERROR = "Server Error";
@@ -71,7 +73,10 @@ RECORD_CANCELED = "Record Canceled";
 VIDEO_SAVED = "Video Saved";
 SAVE_VIDEO_FAILED = "Save Video Failed";
 UPDATING = "Updating";
+
+//System
 ME = "Me";
+"#<SharelinkCenter>#" = "Sharelink Service Center";
 
 //system tags
 "Private" = "Private";
@@ -121,6 +126,10 @@ POST_SHARE_SUC = "Post Share Success";
 SEND_FILM_FAILED = "Send File Failed";
 POST_SHARE_FAILED = "Post Share Error";
 
+SHARING = "Sharing";
+SHARE_SUCCESSED = "Share Successed";
+SHARE_FAILED = "Share Failed";
+
 //SignInViewController
 REFRESHING = "Refreshing";
 
@@ -144,6 +153,8 @@ CHANGE_PROFILE_VIDEO = "Change Profile Video";
 REC_NEW_VIDEO = "Record A New Video";
 SELECT_VIDEO = "Select A Video From Album";
 NOTE_NAME = "Note Name";
+
+SAME_TAG_EXISTS = "This Theme already added!";
 
 //User List Controller
 LINK_MESSAGE = "Sharelinker Messages";

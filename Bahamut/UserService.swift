@@ -12,7 +12,8 @@ import Alamofire
 import EVReflection
 import SharelinkSDK
 
-//
+//special note name
+let SharelinkerCenterNoteName = "#<SharelinkCenter>#"
 extension Sharelinker
 {
     func getNoteName() -> String
@@ -20,6 +21,9 @@ extension Sharelinker
         if self.userId == BahamutSetting.userId
         {
             return NSLocalizedString("ME", comment: "")
+        }else if self.noteName == SharelinkerCenterNoteName
+        {
+            return NSLocalizedString(SharelinkerCenterNoteName, comment: "")
         }
         return self.noteName ?? self.nickName ?? "Sharelinker"
     }
