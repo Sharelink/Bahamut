@@ -61,6 +61,8 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         oldShareTime = nil
     }
     
+    var allShareLoaded:Bool = false
+    
     private var _newShareTime:NSDate!
     private var newShareTime:NSDate!{
         get{
@@ -143,6 +145,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     
     private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!)
     {
+        allShareLoaded = false
         let client = SharelinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
         client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
@@ -158,6 +161,9 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                         self.updateNewShareAndOldShareTime(newValues)
                         self.setSortableObjects(sortables)
                         shares = newValues
+                    }else
+                    {
+                        self.allShareLoaded = true
                     }
                 }
             }

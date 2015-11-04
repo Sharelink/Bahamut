@@ -50,6 +50,14 @@ PM = "PM";
 Night = "Night";
 Dawn = "Dawn";
 
+//MJRefresh
+RefreshHeaderIdleText = "Pull To Refresh";
+RefreshHeaderPullingText = "Release Will Refresh";
+RefreshHeaderRefreshingText = "Refreshing...";
+MJRefreshAutoFooterIdleText = "Slide Up To Load More";
+MJRefreshAutoFooterRefreshingText = "Loading...";
+RefreshAutoFooterNoMoreDataText = "No More Data!";
+
 //Common
 YES = "Yes";
 UMMM = "Ummm...";

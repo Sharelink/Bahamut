@@ -54,9 +54,20 @@ class ShareThingsListController: UITableViewController
     
     private func initRefresh()
     {
-        tableView.header = MJRefreshNormalHeader(){self.refreshFromServer()}
-        tableView.footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
+        let header = MJRefreshNormalHeader(){self.refreshFromServer()}
+        let footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
+        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: "下拉可以刷新"), forState: MJRefreshStateIdle)
+        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: "松开立即刷新"), forState: MJRefreshStatePulling)
+        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: "正在刷新数据中..."), forState: MJRefreshStateRefreshing)
+        
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: "点击或上拉加载更多"), forState: MJRefreshStateIdle)
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: "正在加载更多的数据..."), forState: MJRefreshStatePulling)
+        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: "已经全部加载完毕"), forState: MJRefreshStateNoMoreData)
+        
+        tableView.header = header
+        tableView.footer = footer
         tableView.footer.automaticallyHidden = true
+        header.lastUpdatedTimeLabel?.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -191,6 +202,7 @@ class ShareThingsListController: UITableViewController
             self.tableView.reloadData()
             self.refreshLock.unlock()
             self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
+            self.tableView.footer.resetNoMoreData()
         }
         
     }
@@ -233,6 +245,13 @@ class ShareThingsListController: UITableViewController
                     self.shareThings.insertContentsOf(previousShares, at: startIndex)
                     self.tableView.reloadData()
                     self.refreshLock.unlock()
+                }
+                if self.shareService.allShareLoaded
+                {
+                    self.tableView.footer.noticeNoMoreData()
+                }else
+                {
+                    self.tableView.footer.resetNoMoreData()
                 }
             })
         }

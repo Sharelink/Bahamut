@@ -50,6 +50,14 @@ PM = "下午";
 Night = "晚上";
 Dawn = "早上";
 
+//MJRefresh
+RefreshHeaderIdleText = "下拉加载最新分享";
+RefreshHeaderPullingText = "松开立即刷新";
+RefreshHeaderRefreshingText = "加载中...";
+MJRefreshAutoFooterIdleText = "点击或上拉加载更多";
+MJRefreshAutoFooterRefreshingText = "正在加载...";
+RefreshAutoFooterNoMoreDataText = "全部加载完毕！";
+
 //Common
 YES = "是";
 UMMM = "不要";
