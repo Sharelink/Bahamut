@@ -102,19 +102,27 @@ class FileService: ServiceProtocol {
         }
     }
 
+    private var fetchingLock = NSRecursiveLock()
     func setFetching(fileId:String)
     {
+        fetchingLock.lock()
         self.fetchingIdMap[fileId] = "true"
+        fetchingLock.unlock()
     }
     
     func fetchingFinished(fileId:String)
     {
+        fetchingLock.lock()
         self.fetchingIdMap.removeValueForKey(fileId)
+        fetchingLock.unlock()
     }
     
     func isFetching(fileId:String) -> Bool
     {
-        return fetchingIdMap.keys.contains(fileId)
+        fetchingLock.lock()
+        let flag = fetchingIdMap.keys.contains(fileId)
+        fetchingLock.unlock()
+        return flag
     }
     
     func setUploading(fileId:String)

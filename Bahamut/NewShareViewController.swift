@@ -110,13 +110,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
             shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.shareFilm)
+            shareContentContainer.shareThing = shareThingModel
             let player = shareContentContainer.contentView as! ShareLinkFilmView
             if isReshare == false
             {
                 player.fileFetcher = FilePathFileFetcher.shareInstance
                 player.autoLoad = true
             }
-            shareContentContainer.shareThing = shareThingModel
         }
     }
     
@@ -447,7 +447,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let filmModel = FilmModel()
             filmModel.film = newFilePath
             self.shareThingModel.shareContent = filmModel.toJsonString()
-            self.shareContentContainer.shareThing = self.shareThingModel
+            self.shareContentContainer.update()
             self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
         }else
         {

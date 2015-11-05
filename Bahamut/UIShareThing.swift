@@ -142,6 +142,8 @@ class UIShareThing: UITableViewCell
         didSet
         {
             user = rootController.userService.getUser(shareThingModel.userId)
+            shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
+            shareContent.shareThing = shareThingModel
             update()
         }
     }
@@ -338,11 +340,7 @@ class UIShareThing: UITableViewCell
     
     private func updateContent()
     {
-        if shareContent.delegate == nil
-        {
-            shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
-        }
-        shareContent.shareThing = shareThingModel
+        shareContent.update()
     }
     
     private func updateUserNick()

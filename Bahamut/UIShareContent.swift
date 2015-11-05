@@ -66,26 +66,24 @@ class FilmContent: UIShareContentDelegate
 
 class UIShareContent: UIView
 {
-    var delegate:UIShareContentDelegate!{
+    var delegate:UIShareContentDelegate!
+    
+    var shareThing:ShareThing!{
         didSet{
+            if contentView != nil
+            {
+                contentView.removeFromSuperview()
+            }
             contentView = delegate.getContentView(self, share: shareThing)
             self.addSubview(contentView)
         }
     }
     
-    var shareThing:ShareThing!{
-        didSet{
-            update()
-        }
-    }
-    
-    private func update()
+    func update()
     {
         if delegate != nil && contentView != nil
         {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.delegate.refresh(self, share: self.shareThing)
-            })
+            self.delegate.refresh(self, share: self.shareThing)
         }
     }
     
