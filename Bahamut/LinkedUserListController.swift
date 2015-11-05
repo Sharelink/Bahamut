@@ -137,19 +137,18 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
             userService.showUserProfileViewController(MainViewTabBarController.currentRootViewController.navigationController!, userId: sharelinkerId)
         }else
         {
-            let alert = UIAlertController(title: NSLocalizedString("SHARELINK", comment: ""), message:String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+            let yes = UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
                 self.userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
                     if isSuc
                     {
                         self.makeRootViewHUDToadt(NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
                     }
                 })
-            }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel){ action in
-                //cancel send request
-                })
-            MainViewTabBarController.currentRootViewController.presentViewController(alert, animated: true, completion: nil)
+            })
+            let no = UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel,handler:nil)
+            let title = NSLocalizedString("SHARELINK", comment: "")
+            let msg = String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick)
+            self.showAlert(title, msg:msg, actions: [yes,no])
         }
     }
     

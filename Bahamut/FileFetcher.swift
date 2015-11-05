@@ -36,19 +36,9 @@ class ProgressTaskWatcher
         list?.addObject(record)
     }
     
-    func removeTaskObserver(taskIdentifier:String,delegate:ProgressTaskDelegate)
+    private func removeTaskObserver(taskIdentifier:String)
     {
-        
-        if let list = dict[taskIdentifier]
-        {
-            for var i = list.count; i >= 0; i--
-            {
-                let record = TaskRecord()
-                record.delegate = delegate
-                record.id = taskIdentifier
-                list.removeObject(record)
-            }
-        }
+        dict.removeValueForKey(taskIdentifier)
     }
     
     func setProgress(taskIdentifier:String,persent:Float)
@@ -78,6 +68,7 @@ class ProgressTaskWatcher
                 }
             })
         }
+        self.removeTaskObserver(taskIdentifier)
     }
     
     func missionFailed(taskIdentifier:String,result:AnyObject!)
@@ -94,6 +85,7 @@ class ProgressTaskWatcher
                 }
             })
         }
+        self.removeTaskObserver(taskIdentifier)
     }
 }
 

@@ -85,6 +85,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     private(set) var playerController:Player!{
         didSet{
+            playerController.reset()
             self.playerController.delegate = self
             self.addSubview(playerController.view)
             playerController.muted = isMute

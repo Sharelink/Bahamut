@@ -94,6 +94,11 @@ ME = "我";
 "Reshareless" = "不可转载";
 "Me" = "我";
 
+LEVEL_RULE_TITLE = "等级规则";
+LEVEL_RULE_DESC = "1.一次分享可以获得1积分\n2.分享被赞一次可以获得1积分\n3.分享被转载可以获得2个积分\n4.你的积分越高，等级就越高";
+
+SHARELINK_SCORE = "Sharelink积分";
+
 VALIDATE_ACCTOKEN_FAILED = "验证Token失败";
 NO_MORE_MESSAGE = "没有更多消息了";
 SEND_WHITE_SPACE_ERROR = "不能发送空白字符";
@@ -160,6 +165,7 @@ REGIST_SUC_MSG = "注册成功，你的Sharelink ID是\n %@";
 CHANGE_PROFILE_VIDEO = "修改个人视频";
 REC_NEW_VIDEO = "录制新视频";
 SELECT_VIDEO = "选择一个视频";
+USE_DEFAULT_VIDEO = "使用默认视频";
 NOTE_NAME = "备注名";
 
 SAME_TAG_EXISTS = "你已经添加了这个主题!";
@@ -183,6 +189,9 @@ USER_DATA_WILL_SAVED = "用户数据将会保留,以便下次登录使用";
 CHANGE_AVATAR = "修改头像";
 TAKE_NEW_PHOTO = "拍照";
 SELECT_PHOTO = "选择一个照片";
+SET_PROFILE_VIDEO_SUC = "设置个人视频成功";
+SET_PROFILE_VIDEO_FAILED = "设置个人视频失败";
+SET_AVATAR_SUC = "设置头像成功";
 SET_AVATAR_FAILED = "设置头像失败";
 
 //

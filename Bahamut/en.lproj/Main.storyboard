@@ -105,10 +105,16 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1UF-Pm-Xmt">
+                                            <rect key="frame" x="489" y="11" width="20" height="20"/>
+                                            <animations/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
                                         <constraint firstItem="b0c-LK-ojG" firstAttribute="leading" secondItem="SHG-GU-H1A" secondAttribute="leadingMargin" id="1EP-Ft-0fC"/>
+                                        <constraint firstItem="tVH-H0-9bE" firstAttribute="leading" secondItem="1UF-Pm-Xmt" secondAttribute="trailing" constant="8" symbolic="YES" id="3UW-Fi-0FX"/>
+                                        <constraint firstItem="1UF-Pm-Xmt" firstAttribute="centerY" secondItem="tVH-H0-9bE" secondAttribute="centerY" id="4LH-60-8eY"/>
                                         <constraint firstItem="UWu-3l-Jzz" firstAttribute="trailing" secondItem="au0-Kj-9bh" secondAttribute="trailing" id="5Pe-Dl-4Bi"/>
                                         <constraint firstItem="dtk-mP-E4X" firstAttribute="top" secondItem="au0-Kj-9bh" secondAttribute="bottom" constant="7" id="8Jg-ke-2hz"/>
                                         <constraint firstItem="UWu-3l-Jzz" firstAttribute="top" secondItem="dtk-mP-E4X" secondAttribute="bottom" constant="8" symbolic="YES" id="CiK-DY-ygN"/>
@@ -139,6 +145,7 @@
                                 <connections>
                                     <outlet property="avatarImageView" destination="b0c-LK-ojG" id="SCh-vH-ZMe"/>
                                     <outlet property="replyButton" destination="dtk-mP-E4X" id="CgY-fc-Xaj"/>
+                                    <outlet property="sendingIndicator" destination="1UF-Pm-Xmt" id="fEA-cx-UPg"/>
                                     <outlet property="shareButton" destination="hHQ-Ql-CNB" id="n3I-Ox-UdF"/>
                                     <outlet property="shareContent" destination="au0-Kj-9bh" id="0jh-LW-P2U"/>
                                     <outlet property="shareDateTime" destination="tVH-H0-9bE" id="wfE-S7-y4r"/>

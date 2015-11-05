@@ -237,7 +237,7 @@ class ShareThingsListController: UITableViewController
         }else
         {
             self.refreshLock.unlock()
-            self.shareService.getPreviousShare({ (previousShares) -> Void in
+            let loading = self.shareService.getPreviousShare({ (previousShares) -> Void in
                 self.tableView.footer.endRefreshing()
                 if previousShares != nil && previousShares.count > 0
                 {
@@ -254,6 +254,10 @@ class ShareThingsListController: UITableViewController
                     self.tableView.footer.resetNoMoreData()
                 }
             })
+            if loading == false
+            {
+                self.tableView.footer.endRefreshing()
+            }
         }
         
     }

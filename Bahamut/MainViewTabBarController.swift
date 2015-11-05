@@ -9,13 +9,18 @@
 import UIKit
 import MBProgressHUD
 
+let ALERT_ACTION_OK = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)]
+let ALERT_ACTION_I_SEE = [UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style:.Cancel, handler: nil)]
+
 extension UIViewController
 {
     func makeRootViewToast(msg:String)
     {
         if let vc = MainViewTabBarController.currentRootViewController
         {
-            vc.view.makeToast(message: msg)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.view.makeToast(message: msg)
+            })
         }
     }
     
@@ -23,7 +28,29 @@ extension UIViewController
     {
         if let vc = MainViewTabBarController.currentRootViewController
         {
-            vc.view.makeToast(message: msg)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.view.makeToast(message: msg)
+            })
+        }
+    }
+    
+    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)])
+    {
+        let controller = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        for ac in actions
+        {
+            controller.addAction(ac)
+        }
+        showAlert(controller)
+    }
+    
+    func showAlert(alertController:UIAlertController)
+    {
+        if let vc = MainViewTabBarController.currentRootViewController
+        {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.presentViewController(alertController, animated: true, completion: nil)
+            })
         }
     }
 }

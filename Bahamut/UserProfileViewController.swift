@@ -78,7 +78,7 @@ extension SharelinkTagService
 }
 
 //MARK:UserProfileViewController
-class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate
+class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
 {
 
     //MARK: properties
@@ -198,25 +198,45 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
 
     
     //MARK: personal video
+    
+    private var taskFileMap = [String:SendFileKey]()
+    
     func saveProfileVideo()
     {
         let fService = ServiceContainer.getService(FileService)
-        fService.requestFileId(profileVideoView.filePath, type: FileType.Video, callback: { (fileKey) -> Void in
-            self.view.hideToastActivity()
-            if fileKey != nil
+        fService.sendFile(profileVideoView.filePath, type: FileType.Video) { (taskId, fileKey) -> Void in
+            if let tk = taskId
             {
-                fService.startSendFile(fileKey.accessKey)
-                let uService = ServiceContainer.getService(UserService)
-                uService.setMyProfileVideo(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
-                    if isSuc
-                    {
-                        self.userProfileModel.personalVideoId = fileKey.accessKey
-                        self.userProfileModel.saveModel()
-                        self.updatePersonalFilm()
-                    }
-                })
+                self.taskFileMap[tk] = fileKey
+                ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+            }else
+            {
+                self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
             }
-        })
+        }
+        
+    }
+    
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+        let uService = ServiceContainer.getService(UserService)
+        if let fileKey = taskFileMap.removeValueForKey(taskIdentifier)
+        {
+            uService.setMyProfileVideo(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                if isSuc
+                {
+                    self.userProfileModel.personalVideoId = fileKey.accessKey
+                    self.userProfileModel.saveModel()
+                    self.updatePersonalFilm()
+                    self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_SUC", comment: ""))
+                }
+            })
+        }
+        
+    }
+    
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
+        self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
+        taskFileMap.removeValueForKey(taskIdentifier)
     }
     
     @IBAction func editProfileVideo()
@@ -233,8 +253,17 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_VIDEO", comment: "Select A Video From Album"), style: .Destructive) { _ in
             self.seleteVideo()
             })
+        alert.addAction(UIAlertAction(title:NSLocalizedString("USE_DEFAULT_VIDEO", comment: "Use Default Video"), style: .Destructive) { _ in
+            self.useDefaultVideo()
+            })
         alert.addAction(UIAlertAction(title:NSLocalizedString("CANCEL",comment:""), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func useDefaultVideo()
+    {
+        ServiceContainer.getService(UserService).setMyProfileVideo("")
+        self.profileVideoView.filePath = FilmAssetsConstants.SharelinkFilm
     }
     
     private func recordVideo()
@@ -322,7 +351,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             return
         }
         profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
-        if nil == userProfileModel.personalVideoId || userProfileModel.personalVideoId.isEmpty
+        if String.isNullOrWhiteSpace(userProfileModel.personalVideoId)
         {
             profileVideoView.filePath = FilmAssetsConstants.SharelinkFilm
         }else

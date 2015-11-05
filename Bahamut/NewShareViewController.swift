@@ -167,11 +167,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
             
             let myCustomTags = tagService.getAllCustomTags().filter{$0.isSharelinkerTag() == false}
-            //let myCustomTagSortables = myCustomTags.map{ $0.getSortableObject() }
-            //self.myCustomTagSortableList = SortableObjectList<SharelinkTagSortableObject>(initList: myCustomTagSortables)
-            
-            //let sortedCustomTags = self.myCustomTagSortableList.list.map{$0.getTag()}
-            
             var shareableTags = [SharelinkTag]()
             shareableTags.appendContentsOf(mySystemTags)
             shareableTags.appendContentsOf(myCustomTags)
@@ -534,15 +529,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             newShare.shareTime = NSDate().toDateTimeString()
             newShare.reshareable = "true"
             clear()
-            let taskKey = NSNumber(double: NSDate().timeIntervalSince1970).integerValue.description
-            let newShareTask = NewShareTask()
-            newShareTask.id = taskKey
-            newShareTask.saveModel()
-            ProgressTaskWatcher.sharedInstance.addTaskObserver(taskKey, delegate: self)
+            
             self.view.makeToastActivityWithMessage(message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
                 let tags = self.selectedTagController.tags ?? [SharelinkTag]()
-                self.postShare(newShare,tags:tags,taskKey: taskKey)
+                self.postShare(newShare,tags:tags)
             }
             
         }else
@@ -551,96 +542,59 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    private func postShare(newShare:ShareThing,tags:[SharelinkTag],taskKey:String)
+    private func postShare(newShare:ShareThing,tags:[SharelinkTag])
     {
         let filePath = FilmModel(json: newShare.shareContent).film
-        if filePath == nil
-        {
-            self.view.makeToast(message:NSLocalizedString("NO_FILM_SELECTED", comment: "must select or capture a film!"))
-            return
-        }
-        self.fileService.requestFileId(filePath!, type: FileType.Video, callback: { (fileKey) -> Void in
-            if fileKey != nil
+        self.fileService.sendFile(filePath!, type: FileType.Video) { (taskId, fileKey) -> Void in
+            self.view.hideToastActivity()
+            if let taskKey = taskId
             {
-                
-                self.fileService.startSendFile(fileKey.accessKey,taskKey: taskKey){ suc in
-                    if suc
-                    {
-                        ProgressTaskWatcher.sharedInstance.missionCompleted(taskKey, result: "file")
-                    }else
-                    {
-                        ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: "file")
-                    }
-                }
-                
                 let filmModel = FilmModel()
                 filmModel.film = fileKey.fileId
                 newShare.shareContent = filmModel.toJsonString()
-                self.shareService.postNewShare(newShare, tags: tags ,callback: { (shareId) -> Void in
-                    self.view.hideToastActivity()
-                    if shareId != nil
-                    {
-                        ProgressTaskWatcher.sharedInstance.missionCompleted(taskKey, result: "share:\(shareId)")
-                    }else
-                    {
-                        ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: "share")
-                    }
-                })
+                let newShareTask = NewShareTask()
+                newShareTask.id = taskKey
+                newShareTask.shareTags = tags
+                newShareTask.share = newShare
+                newShareTask.sendFileKey = fileKey
+                newShareTask.saveModel()
+                ProgressTaskWatcher.sharedInstance.addTaskObserver(taskKey, delegate: self)
             }else
             {
-                ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: "file")
+                self.view.makeToast(message:NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
             }
-        })
+        }
     }
     
     func taskCompleted(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
         {
-            let msg = result as! String
-            if msg == "file"
-            {
-                task.uploadedFile = 1
-                self.view.makeToast(message:NSLocalizedString("SEND_FILM_SUC", comment:  "Send Film Success"))
-            }else if msg.hasBegin("share:")
-            {
-                task.shareId = msg.substringFromIndex(6)
-                task.sharePosted = 1
-                self.view.makeToast(message:NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
-            }
-            if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
-            {
-                ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
-            }
-            if task.isTaskCompleted()
-            {
-                self.shareService.postNewShareFinish(task.shareId, isCompleted: true)
-            }else if task.isTaskFailed() && task.shareId != nil
-            {
-                self.shareService.postNewShareFinish(task.shareId, isCompleted: false)
-            }
-            task.saveModel()
+            self.shareService.postNewShare(task.share, tags: task.shareTags ,callback: { (shareId) -> Void in
+                if shareId != nil
+                {
+                    self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
+                        if isSuc
+                        {
+                            self.view.makeToast(message:NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
+                            NewShareTask.deleteObjectArray([task])
+                        }else
+                        {
+                            self.view.makeToast(message:NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                        }
+                    }
+                }else
+                {
+                    self.view.makeToast(message:NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                }
+            })
         }
-        
     }
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
         {
-            let msg = result as! String
-            if msg == "file"
-            {
-                task.uploadedFile = -1
-                self.view.makeToast(message:NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
-            }else if msg == "share"
-            {
-                task.sharePosted = -1
-                self.view.makeToast(message:NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
-            }
-            if task.uploadedFile.integerValue != 0 && task.sharePosted.integerValue != 0
-            {
-                ProgressTaskWatcher.sharedInstance.removeTaskObserver(taskIdentifier, delegate: self)
-            }
-            task.saveModel()
+            self.view.makeToast(message:NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
+            NewShareTask.deleteObjectArray([task])
         }
     }
     
@@ -655,17 +609,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
 class NewShareTask : ShareLinkObject
 {
     var id:String!
-    var uploadedFile:NSNumber = 0
-    var sharePosted:NSNumber = 0
-    var shareId:String!
-    
-    func isTaskCompleted() -> Bool
-    {
-        return (uploadedFile.integerValue > 0 && sharePosted.integerValue > 0)
-    }
-    
-    func isTaskFailed() -> Bool
-    {
-        return uploadedFile.integerValue < 0 || sharePosted.integerValue < 0
-    }
+    var share:ShareThing!
+    var shareTags:[SharelinkTag]!
+    var sendFileKey:SendFileKey!
 }

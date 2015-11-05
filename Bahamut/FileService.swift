@@ -12,18 +12,29 @@ import SharelinkSDK
 
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}
+    
+    private(set) var fileManager:NSFileManager!
+    private(set) var documentsPathUrl:NSURL!
+    private(set) var localStorePathUrl:NSURL!
+    private(set) var fileCachePathUrl:NSURL!
+    private(set) var rootUrl:NSURL!
+    private var fetchingIdMap = [String:String]()
+    private var uploadingIdMap = [String:String]()
+    
     @objc func appStartInit() {
-        
         
     }
     
     @objc func userLoginInit(userId: String) {
         initUserFoldersWithUserId(userId)
+        fetchingIdMap.removeAll()
+        uploadingIdMap.removeAll()
     }
     
     @objc func userLogout(userId: String) {
         PersistentManager.sharedInstance.clearTmpDir()
         PersistentManager.sharedInstance.clearCache()
+        PersistentManager.sharedInstance.reset()
     }
     
     func clearLocalStoreFiles()
@@ -90,12 +101,27 @@ class FileService: ServiceProtocol {
             }
         }
     }
+
+    func setFetching(fileId:String)
+    {
+        self.fetchingIdMap[fileId] = "true"
+    }
     
-    private(set) var fileManager:NSFileManager!
-    private(set) var documentsPathUrl:NSURL!
-    private(set) var localStorePathUrl:NSURL!
-    private(set) var fileCachePathUrl:NSURL!
-    private(set) var rootUrl:NSURL!
+    func fetchingFinished(fileId:String)
+    {
+        self.fetchingIdMap.removeValueForKey(fileId)
+    }
+    
+    func isFetching(fileId:String) -> Bool
+    {
+        return fetchingIdMap.keys.contains(fileId)
+    }
+    
+    func setUploading(fileId:String)
+    {
+        
+    }
+
     
     func getFilePath(fileId:String!,type:FileType!) -> String!
     {

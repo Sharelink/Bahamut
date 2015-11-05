@@ -45,15 +45,13 @@ class FilmContent: UIShareContentDelegate
     func refresh(sender: UIShareContent, share: ShareThing?)
     {
         let mediaPlayer = sender.contentView as! ShareLinkFilmView
+        mediaPlayer.filePath = nil
         if let json = share?.shareContent
         {
             if let film  = FilmModel(json: json).film
             {
                 mediaPlayer.filePath = film
             }
-        }else
-        {
-            mediaPlayer.filePath = nil
         }
     }
     
@@ -85,7 +83,9 @@ class UIShareContent: UIView
     {
         if delegate != nil && contentView != nil
         {
-            delegate.refresh(self, share: shareThing)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.delegate.refresh(self, share: self.shareThing)
+            })
         }
     }
     

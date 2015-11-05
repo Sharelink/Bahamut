@@ -47,8 +47,7 @@ class UIShareMessage:UITableViewCell
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
         }
     }
-    var shareThingModel:ShareThing!
-        {
+    var shareThingModel:ShareThing!{
         didSet
         {
             user = rootController.userService.getUser(shareThingModel.userId)
@@ -160,6 +159,7 @@ class UIShareThing: UITableViewCell
     deinit
     {
     }
+    @IBOutlet weak var sendingIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
@@ -286,6 +286,19 @@ class UIShareThing: UITableViewCell
         updateContent()
         updateAvatar()
         updateUserNick()
+        updateSending()
+    }
+    
+    private func updateSending()
+    {
+        if rootController.shareService.sendingShareId.keys.contains(self.shareThingModel.shareId)
+        {
+            self.sendingIndicator.hidden = false
+            self.sendingIndicator.startAnimating()
+        }else
+        {
+            self.sendingIndicator.hidden = true
+        }
     }
     
     private func updateBadge()

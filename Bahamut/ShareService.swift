@@ -62,6 +62,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     var allShareLoaded:Bool = false
+    private(set) var sendingShareId = [String:String]()
     
     private var _newShareTime:NSDate!
     private var newShareTime:NSDate!{
@@ -130,24 +131,24 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         
     }
     
-    func getPreviousShare(callback:((previousShares:[ShareThing]!)->Void)! = nil)
+    func getPreviousShare(callback:((previousShares:[ShareThing]!)->Void)! = nil) -> Bool
     {
         if oldShareTime == nil
         {
-            return
+            return false
         }
         let req = GetShareThingsRequest()
         req.endTime = oldShareTime
         req.page = 0
         req.pageCount = 7
-        requestShare(req,callback: callback)
+        return requestShare(req,callback: callback)
     }
     
-    private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!)
+    private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!) -> Bool
     {
         allShareLoaded = false
         let client = SharelinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
-        client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
+        return client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
             var shares:[ShareThing]! = nil
             if result.statusCode == ReturnCode.OK
@@ -291,12 +292,26 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Create Share
-    func reshare(shareId:String,message:String!,tags:[SharelinkTag],callback:(Bool,String)->Void)
+    func reshare(shareId:String,message:String!,tags:[SharelinkTag],callback:(suc:Bool,shareId:String!)->Void)
     {
         let req = ReShareRequest()
         req.pShareId = shareId
         req.message = message
         req.tags = tags
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result:SLResult<ShareThing>) -> Void in
+            if result.isSuccess
+            {
+                let newShare = result.returnObject
+                newShare.saveModel()
+                let sortableObject = newShare.getSortableObject()
+                self.setSortableObjects([sortableObject])
+                callback(suc: true,shareId: newShare.shareId)
+            }else
+            {
+                callback(suc: false,shareId: nil)
+            }
+        }
     }
     
     func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(shareId:String!)->Void)
@@ -314,18 +329,27 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                 newShare.saveModel()
                 let sortableObject = newShare.getSortableObject()
                 self.setSortableObjects([sortableObject])
+                self.sendingShareId[newShare.shareId] = "true"
             }
             callback(shareId: newShare.shareId)
         }
     }
     
-    func postNewShareFinish(shareId:String,isCompleted:Bool)
+    func postNewShareFinish(shareId:String,isCompleted:Bool,callback:(isSuc:Bool)->Void)
     {
         let req = FinishNewShareThingRequest()
         req.shareId = shareId
         req.taskSuccess = isCompleted
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
+            if result.isSuccess
+            {
+                self.sendingShareId.removeValueForKey(shareId)
+                callback(isSuc: true)
+            }else
+            {
+                callback(isSuc: false)
+            }
         }
     }
     

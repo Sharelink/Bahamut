@@ -28,6 +28,11 @@ extension FileService
     
     func fetch(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
+        if isFetching(fileId)
+        {
+           return
+        }
+        setFetching(fileId)
         let client = SharelinkSDK.sharedInstance.getFileClient()
         
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fileId, fileType: fileType)
@@ -38,6 +43,7 @@ extension FileService
         }
         
         client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
+            self.fetchingFinished(fileId)
             if error == nil
             {
                 callback(filePath:absoluteFilePath)
@@ -64,7 +70,6 @@ class IdFileFetcher: FileFetcher
             {
                 ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
                 fileService.fetch(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
-                    ProgressTaskWatcher.sharedInstance.removeTaskObserver(fileId, delegate: delegate)
                 })
             }
         }

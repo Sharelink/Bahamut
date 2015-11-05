@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import SharelinkSDK
 
+
+let FileServiceUploadTask = "FileServiceUploadTask"
 extension FileService
 {
     private func addUploadTask(fileId:String,filePath:String) -> UploadTask?
@@ -32,7 +34,31 @@ extension FileService
         return uploadTask
     }
     
-    func requestFileId(localfilePath:String,type:FileType,callback:(fileKey:SendFileKey!) -> Void)
+    func sendFile(localFilePath:String,type:FileType,callback:(taskId:String!,fileKey:SendFileKey!)->Void)
+    {
+        let taskKey = NSNumber(double: NSDate().timeIntervalSince1970).integerValue.description
+        self.requestFileId(localFilePath, type: type, callback: { (fileKey) -> Void in
+            if fileKey != nil
+            {
+                callback(taskId: taskKey, fileKey: fileKey)
+                self.startSendFile(fileKey.accessKey,taskKey: taskKey){ suc in
+                    if suc
+                    {
+                        ProgressTaskWatcher.sharedInstance.missionCompleted(taskKey, result: FileServiceUploadTask)
+                    }else
+                    {
+                        ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: FileServiceUploadTask)
+                    }
+                }
+            }else
+            {
+                callback(taskId: nil, fileKey: nil)
+                ProgressTaskWatcher.sharedInstance.missionFailed(taskKey, result: FileServiceUploadTask)
+            }
+        })
+    }
+    
+    private func requestFileId(localfilePath:String,type:FileType,callback:(fileKey:SendFileKey!) -> Void)
     {
         let req = NewSendFileKeyRequest()
         do{
@@ -74,7 +100,7 @@ extension FileService
         }
     }
     
-    func startSendFile(accessKey:String,taskKey:String! = nil,fileUploadedCallback:((isSuc:Bool) -> Void)! = nil)
+    private func startSendFile(accessKey:String,taskKey:String! = nil,fileUploadedCallback:((isSuc:Bool) -> Void)! = nil)
     {
         let uploadTask = getUploadTask(accessKey)
         let sendFileKey = SendFileKey()

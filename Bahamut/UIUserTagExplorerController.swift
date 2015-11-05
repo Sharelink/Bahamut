@@ -114,9 +114,12 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 self.tagHeaders = [String]()
                 self.selectionMode = ResourceExplorerSelectMode.Negative
                 let customtags = self.tagService.getAllCustomTags()
-                let customTagItems = self.tagService.getUserTagsResourceItemModels(customtags)
-                self.items.append(customTagItems)
-                self.tagHeaders.append(TagHeaderCustom)
+                if customtags.count > 0
+                {
+                    let customTagItems = self.tagService.getUserTagsResourceItemModels(customtags)
+                    self.items.append(customTagItems)
+                    self.tagHeaders.append(TagHeaderCustom)
+                }
                 self.collectionView.reloadData()
             })
         }
@@ -153,6 +156,11 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     }
     
     //MARK: delegate
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return self.items.count
+    }
+    
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView{
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "tagSectionHeader", forIndexPath: indexPath)
         if let title = header.viewWithTag(1) as? UILabel

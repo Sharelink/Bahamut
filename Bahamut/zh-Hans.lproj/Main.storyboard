@@ -105,6 +105,10 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3lb-kN-PvV">
+                                            <rect key="frame" x="489" y="11" width="20" height="20"/>
+                                            <animations/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
@@ -115,6 +119,7 @@
                                         <constraint firstItem="qbz-VV-XeC" firstAttribute="trailing" secondItem="BJe-8V-nOH" secondAttribute="trailing" id="DLd-16-pYY"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="top" secondItem="BJe-8V-nOH" secondAttribute="bottom" constant="8" symbolic="YES" id="L1v-fK-iU7"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="leading" secondItem="BJe-8V-nOH" secondAttribute="leading" id="Mpb-43-DsO"/>
+                                        <constraint firstItem="tVH-H0-9bE" firstAttribute="leading" secondItem="3lb-kN-PvV" secondAttribute="trailing" constant="8" symbolic="YES" id="Opy-la-tM5"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="bottom" secondItem="au0-Kj-9bh" secondAttribute="bottom" id="QMD-V9-TbY"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="top" secondItem="SHG-GU-H1A" secondAttribute="topMargin" id="QfC-5q-o8O"/>
                                         <constraint firstItem="UWu-3l-Jzz" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="Rcv-qI-pLf"/>
@@ -130,6 +135,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="UWu-3l-Jzz" secondAttribute="bottom" priority="250" constant="14" id="pC3-EK-Woa"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="tVH-H0-9bE" secondAttribute="trailing" id="qLt-Nm-xZ0"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="sEO-Vt-geg"/>
+                                        <constraint firstItem="3lb-kN-PvV" firstAttribute="centerY" secondItem="tVH-H0-9bE" secondAttribute="centerY" id="snv-Px-EZa"/>
                                         <constraint firstItem="tVH-H0-9bE" firstAttribute="bottom" secondItem="wQn-AD-BJA" secondAttribute="bottom" id="uIc-lY-ZqL"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="width" secondItem="BJe-8V-nOH" secondAttribute="width" id="wUs-Hr-ZOO"/>
                                     </constraints>
@@ -139,6 +145,7 @@
                                 <connections>
                                     <outlet property="avatarImageView" destination="b0c-LK-ojG" id="SCh-vH-ZMe"/>
                                     <outlet property="replyButton" destination="dtk-mP-E4X" id="CgY-fc-Xaj"/>
+                                    <outlet property="sendingIndicator" destination="3lb-kN-PvV" id="9ea-P1-zV1"/>
                                     <outlet property="shareButton" destination="hHQ-Ql-CNB" id="n3I-Ox-UdF"/>
                                     <outlet property="shareContent" destination="au0-Kj-9bh" id="0jh-LW-P2U"/>
                                     <outlet property="shareDateTime" destination="tVH-H0-9bE" id="wfE-S7-y4r"/>

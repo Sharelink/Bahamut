@@ -106,10 +106,21 @@ class UIUserListCell: UITableViewCell
         }
     }
     
-    //var sharelinkTags:[SharelinkTag]!
-    
-    @IBOutlet weak var levelLabel: UILabel!
-    var rootController:LinkedUserListController!
+    @IBOutlet weak var levelLabel: UILabel!{
+        didSet{
+            levelLabel.userInteractionEnabled = true
+            levelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showLevelRule:"))
+        }
+    }
+    var rootController:LinkedUserListController!{
+        didSet{
+            if oldValue == nil
+            {
+                self.userInteractionEnabled = true
+                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
+            }
+        }
+    }
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 3.0
@@ -118,11 +129,14 @@ class UIUserListCell: UITableViewCell
         }
     }
     
-    @IBOutlet weak var userNickTextField: UILabel!{
-        didSet{
-            userNickTextField.userInteractionEnabled = true
-            userNickTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
-        }
+    @IBOutlet weak var userNickTextField: UILabel!
+    
+    func showLevelRule(_:UIGestureRecognizer)
+    {
+        let title = NSLocalizedString("LEVEL_RULE_TITLE", comment: "Level Rule")
+        let msg = NSLocalizedString("LEVEL_RULE_DESC", comment:
+            "1.One Share Worth 1 Point\n2.Your Share Be Vote One Time Worth 1 Point\n3Your Share Be Reshare Worth 2 Point\nYou Rank Caculate By Your Points")
+        self.rootController.showAlert(title, msg: msg, actions: ALERT_ACTION_I_SEE)
     }
     
     func showProfile(_:UIGestureRecognizer)

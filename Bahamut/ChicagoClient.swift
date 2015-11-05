@@ -181,6 +181,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
             let now = NSDate()
             if now.timeIntervalSinceDate(ChicagoClient.lastHeartBeatTime) > ChicagoClient.heartBeatInterval * 1.5
             {
+                NSLog("Chicago Server No Heart Beat Response")
                 clientState = .Disconnected
                 socket.disconnect()
             }else
@@ -192,7 +193,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func onHeartBeatReturn(a:NSNotification)
     {
-        NSLog("heart beat")
         ChicagoClient.lastHeartBeatTime = NSDate()
     }
 

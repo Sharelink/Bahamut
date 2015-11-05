@@ -80,12 +80,13 @@ class MyDetailAvatarCell:UITableViewCell
     }
 }
 
-class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate
+class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ProgressTaskDelegate
 {
     struct InfoIds
     {
         static let nickName = "nickname"
         static let level = "level"
+        static let levelScore = "levelScore"
         static let motto = "signtext"
         static let createTime = "createtime"
     }
@@ -107,6 +108,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.level
         propertySet.propertyLabel = NSLocalizedString("LEVEL", comment:"Level")
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
+        textPropertyCells.append((propertySet:propertySet,editable:false))
+        
+        propertySet = UIEditTextPropertySet()
+        propertySet.propertyIdentifier = InfoIds.levelScore
+        propertySet.propertyLabel = NSLocalizedString("SHARELINK_SCORE", comment:"Sharelink Score")
+        propertySet.propertyValue = "\(myInfo.levelScore ?? 1)"
         textPropertyCells.append((propertySet:propertySet,editable:false))
         
         propertySet = UIEditTextPropertySet()
@@ -163,6 +170,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
     }
     
+    //MARK: table view delegate
     func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
     {
         return 21
@@ -209,6 +217,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         
     }
     
+    //MARK: Avatar
     var avatarImageView:UIImageView!
     func getAvatarCell() -> MyDetailAvatarCell
     {
@@ -264,6 +273,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         self.presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
+    //MARK: upload avatar
+    private var taskFileMap = [String:SendFileKey]()
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
     {
         imagePickerController.dismissViewControllerAnimated(true)
@@ -274,33 +285,50 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             let localPath = fService.createLocalStoreFileName(FileType.Image)
             if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
             {
-                fService.requestFileId(localPath, type: FileType.Image){ fileKey in
-                    if fileKey == nil
+                fService.sendFile(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
+                    if let tId = taskId
                     {
-                        self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: "Set Avatar failed"))
-                        return
+                        self.taskFileMap[tId] = fileKey
+                        ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+                        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
+                        
+                    }else
+                    {
+                        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
                     }
-                    fService.startSendFile(fileKey.accessKey)
-                    let uService = ServiceContainer.getService(UserService)
-                    uService.setMyAvatar(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
-                        if isSuc
-                        {
-                            self.myInfo.avatarId = fileKey.accessKey
-                            self.myInfo.saveModel()
-                            self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
-                        }else
-                        {
-                            self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
-                        }
-                    })
-                }
+                    
+                })
             }else
             {
-                self.view.makeToast(message: NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
             }
         }
     }
     
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+        if let fileKey = taskFileMap.removeValueForKey(taskIdentifier)
+        {
+            let uService = ServiceContainer.getService(UserService)
+            uService.setMyAvatar(fileKey.fileId, setProfileCallback: { (isSuc, msg) -> Void in
+                if isSuc
+                {
+                    self.myInfo.avatarId = fileKey.accessKey
+                    self.myInfo.saveModel()
+                    self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
+                }else
+                {
+                    self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                }
+            })
+        }
+    }
+    
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
+        taskFileMap.removeValueForKey(taskIdentifier)
+        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+    }
+    
+    //MARK: Property Cell
     var textPropertyCells:[(propertySet:UIEditTextPropertySet!,editable:Bool)] = [(propertySet:UIEditTextPropertySet!,editable:Bool)]()
     
     func getTextPropertyCell(index:Int) -> MyDetailTextPropertyCell
