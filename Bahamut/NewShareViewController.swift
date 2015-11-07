@@ -30,31 +30,22 @@ extension ShareService
 }
 
 //MARK: NewShareViewController
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
+class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate,UIShareContentViewSetupDelegate
 {
     static let tagsLimit = 7
     var fileService:FileService!
     var shareService:ShareService!
     var isReshare:Bool = false
-    var shareThingModel:ShareThing!{
-        didSet{
-            if shareContentContainer != nil
-            {
-                shareContentContainer.shareThing = shareThingModel
-            }
-        }
-    }
+    var shareThingModel:ShareThing!
+    
+    private var viewKeyboardAdjustProxy:ControllerViewAdjustByKeyboardProxy!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.shareService = ServiceContainer.getService(ShareService)
         self.fileService = ServiceContainer.getService(FileService)
         changeNavigationBarColor()
-        if shareThingModel == nil
-        {
-            shareThingModel = ShareThing()
-            shareThingModel.shareType = ShareThingType.shareFilm.rawValue
-        }
+        viewKeyboardAdjustProxy = ControllerViewAdjustByKeyboardProxy(controller: self)
         myTagController = UITagCollectionViewController.instanceFromStoryBoard()
     }
     
@@ -64,16 +55,13 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             initReshare()
         }
-        initMytags()
-        registerForKeyboardNotifications()
+        viewKeyboardAdjustProxy.registerForKeyboardNotifications([newTagNameTextfield])
         
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        ServiceContainer.getService(SharelinkTagService).removeObserver(self)
-
-        removeObserverForKeyboardNotifications()
+        viewKeyboardAdjustProxy.removeObserverForKeyboardNotifications()
     }
     
     private func initReshare()
@@ -109,15 +97,37 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     @IBOutlet weak var shareContentContainer: UIShareContent!{
         didSet{
-            shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(.shareFilm)
-            shareContentContainer.shareThing = shareThingModel
-            let player = shareContentContainer.contentView as! ShareLinkFilmView
+            shareContentContainer.setupContentViewDelegate = self
+            if shareThingModel == nil
+            {
+                let st = ShareThing()
+                st.shareType = ShareThingType.shareFilm.rawValue
+                shareThingModel = st
+            }
+            refreshShareContent()
+        }
+    }
+    
+    func setupContentView(contentView: UIView, share: ShareThing)
+    {
+        if let player = contentView as? ShareLinkFilmView
+        {
             if isReshare == false
             {
                 player.fileFetcher = FilePathFileFetcher.shareInstance
-                player.autoLoad = true
+            }else
+            {
+                player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
             }
+            player.autoLoad = true
         }
+    }
+    
+    func refreshShareContent()
+    {
+        shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareThingType(rawValue: shareThingModel.shareType!)!)
+        shareContentContainer.share = shareThingModel
+        shareContentContainer.update()
     }
     
     @IBOutlet weak var recordNewFilmButton: UIButton!{
@@ -153,26 +163,16 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     var myCustomTagSortableList:SortableObjectList<SharelinkTagSortableObject>!
     
-    func initMytags()
+    func initMyTags()
     {
         let tagService = ServiceContainer.getService(SharelinkTagService)
-        tagService.addObserver(self, selector: "myTagUpdated", name: SharelinkTagService.TagsUpdated, object: nil)
-        myTagUpdated(nil)
-    }
-    
-    func myTagUpdated(_:NSNotification!)
-    {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let tagService = ServiceContainer.getService(SharelinkTagService)
-            let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
-            
-            let myCustomTags = tagService.getAllCustomTags().filter{$0.isSharelinkerTag() == false}
-            var shareableTags = [SharelinkTag]()
-            shareableTags.appendContentsOf(mySystemTags)
-            shareableTags.appendContentsOf(myCustomTags)
-            self.myTagController.tags = shareableTags
-        }
+        let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
         
+        let myCustomTags = tagService.getAllCustomTags().filter{$0.isSharelinkerTag() == false}
+        var shareableTags = [SharelinkTag]()
+        shareableTags.appendContentsOf(mySystemTags)
+        shareableTags.appendContentsOf(myCustomTags)
+        self.myTagController.tags = shareableTags
     }
     
     var myTagController:UITagCollectionViewController!
@@ -196,6 +196,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     private func showMyTagsCollection()
     {
+        initMyTags()
         self.view.addSubview(myTagContainer)
         myTagContainer.frame = selectedTagViewContainer.frame
         self.myTagContainer.addSubview(myTagController.view)
@@ -232,11 +233,17 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         
         if myTagContainer.superview != nil
         {
-            hideMyTagsCollection()
-            btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.hideMyTagsCollection()
+                btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            })
+            
         }else{
-            showMyTagsCollection()
-            btn.setTitleColor(UIColor.themeColor, forState: .Normal)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.showMyTagsCollection()
+                btn.setTitleColor(UIColor.themeColor, forState: .Normal)
+            })
+            
         }
     }
 
@@ -285,62 +292,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         }
     }
     
-    //MARK: keyboard
-    func removeObserverForKeyboardNotifications()
-    {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func registerForKeyboardNotifications()
-    {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    var offset:CGFloat = 0
-    func keyboardChanged(aNotification:NSNotification)
-    {
-        let info = aNotification.userInfo!
-        if !newTagNameTextfield.isFirstResponder()
-        {
-            return
-        }
-        if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
-        {
-            let tfFrame = newTagNameTextfield.frame
-            
-            if aNotification.name == UIKeyboardDidShowNotification
-            {
-                offset = tfFrame.origin.y + tfFrame.size.height + 7 - kbFrame.origin.y
-                if offset <= 0
-                {
-                    return
-                }
-                var animationDuration:NSTimeInterval
-                var animationCurve:UIViewAnimationCurve
-                let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! Int
-                animationCurve = UIViewAnimationCurve(rawValue: curve)!
-                animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-                UIView.beginAnimations(nil, context:nil)
-                UIView.setAnimationDuration(animationDuration)
-                UIView.setAnimationCurve(animationCurve)
-                
-                view.frame.origin.y = -offset
-                
-                view.layoutIfNeeded()
-                UIView.commitAnimations()
-            }else
-            {
-                if offset <= 0
-                {
-                    return
-                }
-                view.frame.origin.y = 0
-                view.layoutIfNeeded()
-            }
-        }
-    }
-    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if string == "\n"
         {
@@ -365,8 +316,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let fileModel = itemModels.first as! UIFileCollectionCellModel
             let filmModel = FilmModel()
             filmModel.film = fileModel.filePath
-            shareThingModel.shareContent = filmModel.toJsonString()
-            self.shareContentContainer.shareThing = shareThingModel
+            self.shareContentContainer.share.shareContent = filmModel.toJsonString()
+            self.shareContentContainer.update()
         }
     }
     
@@ -419,6 +370,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             if fileModel.filePath == FilmModel(json: shareThingModel.shareContent).film
             {
                 shareThingModel.shareContent = nil
+                shareContentContainer.update()
             }
             do
             {
@@ -446,7 +398,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             let filmModel = FilmModel()
             filmModel.film = newFilePath
-            self.shareThingModel.shareContent = filmModel.toJsonString()
+            self.shareContentContainer.share.shareContent = filmModel.toJsonString()
             self.shareContentContainer.update()
             self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
         }else
@@ -472,7 +424,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         self.shareMessageTextView.text = ""
         shareThingModel.shareContent = nil
-        self.shareContentContainer.shareThing = self.shareThingModel
+        self.shareContentContainer.update()
     }
     
     @IBAction func share()

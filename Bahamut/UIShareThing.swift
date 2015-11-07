@@ -126,7 +126,7 @@ class UIShareMessage:UITableViewCell
     }
 }
 
-class UIShareThing: UITableViewCell
+class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
 {
     static let ShareThingCellIdentifier = "ShareThing"
     struct Constants
@@ -143,7 +143,7 @@ class UIShareThing: UITableViewCell
         {
             user = rootController.userService.getUser(shareThingModel.userId)
             shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
-            shareContent.shareThing = shareThingModel
+            shareContent.share = shareThingModel
             update()
         }
     }
@@ -184,12 +184,25 @@ class UIShareThing: UITableViewCell
     @IBOutlet weak var shareDateTime: UILabel!
     @IBOutlet weak var shareContent: UIShareContent!{
         didSet{
+            shareContent.setupContentViewDelegate = self
             var gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingLeft:")
             gesture.direction = UISwipeGestureRecognizerDirection.Left
             self.addGestureRecognizer(gesture)
             gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingRight:")
             gesture.direction = UISwipeGestureRecognizerDirection.Right
             self.addGestureRecognizer(gesture)
+        }
+    }
+    
+    func setupContentView(contentView: UIView, share: ShareThing) {
+        if share.isShareFilm()
+        {
+            if let player = contentView as? ShareLinkFilmView
+            {
+                player.autoLoad = false
+                player.autoPlay = true
+                player.fileFetcher = rootController.fileService.getFileFetcherOfFileId(.Video)
+            }
         }
     }
     

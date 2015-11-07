@@ -15,7 +15,11 @@ protocol UIShareContentDelegate
 {
     func refresh(sender:UIShareContent,share:ShareThing?)
     func getContentView(sender: UIShareContent, share: ShareThing?) -> UIView
-    
+}
+
+protocol UIShareContentViewSetupDelegate
+{
+    func setupContentView(contentView:UIView, share:ShareThing)
 }
 
 class UIShareContentTypeDelegateGenerator
@@ -58,8 +62,6 @@ class FilmContent: UIShareContentDelegate
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
     {
         let player = ShareLinkFilmView(frame: sender.bounds)
-        player.autoLoad = false
-        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
         return player
     }
 }
@@ -67,14 +69,19 @@ class FilmContent: UIShareContentDelegate
 class UIShareContent: UIView
 {
     var delegate:UIShareContentDelegate!
+    var setupContentViewDelegate:UIShareContentViewSetupDelegate!
     
-    var shareThing:ShareThing!{
+    var share:ShareThing!{
         didSet{
             if contentView != nil
             {
                 contentView.removeFromSuperview()
             }
-            contentView = delegate.getContentView(self, share: shareThing)
+            contentView = delegate.getContentView(self, share: share)
+            if setupContentViewDelegate != nil
+            {
+                setupContentViewDelegate.setupContentView(contentView, share: share)
+            }
             self.addSubview(contentView)
         }
     }
@@ -83,7 +90,7 @@ class UIShareContent: UIView
     {
         if delegate != nil && contentView != nil
         {
-            self.delegate.refresh(self, share: self.shareThing)
+            self.delegate.refresh(self, share: self.share)
         }
     }
     

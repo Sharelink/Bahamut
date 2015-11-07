@@ -169,8 +169,10 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         vision.delegate = self
         vision.cameraMode = PBJCameraMode.Video
         vision.cameraOrientation = PBJCameraOrientation.Portrait
-        vision.focusMode = PBJFocusMode.ContinuousAutoFocus
         vision.outputFormat = PBJOutputFormat.Standard
+        vision.focusMode = .ContinuousAutoFocus
+        vision.exposureMode = .AutoExpose
+        vision.videoBitRate = PBJVideoBitRate640x480
         let useFrontCam = useFrontCamera
         useFrontCamera = useFrontCam
         vision.audioCaptureEnabled = true
