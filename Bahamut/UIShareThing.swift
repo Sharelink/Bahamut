@@ -91,7 +91,7 @@ class UIShareMessage:UITableViewCell
     
     private func updateAvatar()
     {
-        rootController.fileService.setAvatar(avatarImageView, iconFileId: user.avatarId ?? shareThingModel.avatarId)
+        rootController.fileService.setAvatar(avatarImageView, iconFileId: user?.avatarId ?? shareThingModel.avatarId)
     }
     
     private func updateTime()
@@ -131,7 +131,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     static let ShareThingCellIdentifier = "ShareThing"
     struct Constants
     {
-        static let VotePrefixEmoji = "👍"
+        static let VotePrefixEmoji = "💙"
 
     }
     
@@ -363,7 +363,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     
     private func updateAvatar()
     {
-        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: user.avatarId)
+        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: user?.avatarId ?? shareThingModel.avatarId)
     }
     
     func showAvatar(_:UIGestureRecognizer)

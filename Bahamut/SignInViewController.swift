@@ -47,7 +47,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     private var authenticationURL: String {
-        let url = NSBundle.mainBundle().pathForResource("login", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        let url = NSBundle.mainBundle().pathForResource("login_\(BahamutSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
         return url!
     }
     

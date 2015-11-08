@@ -102,12 +102,12 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func getUserNoteName(userId:String) -> String
     {
         let user = getUser(userId)
-        return user?.getNoteName() ?? "Sharelinker"
+        return user?.getNoteName() ?? ""
     }
     
     func getUserNickName(userId:String) -> String
     {
-        return getUser(userId)?.nickName ?? "Sharelinker"
+        return getUser(userId)?.nickName ?? ""
     }
     
     func getUsers(userIds:[String]) -> [Sharelinker]

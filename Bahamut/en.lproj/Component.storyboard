@@ -92,6 +92,7 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_check" id="2xs-gL-DFi">
+                                <inset key="imageInsets" minX="1" minY="1" maxX="1" maxY="1"/>
                                 <connections>
                                     <action selector="ok:" destination="NYT-uY-zWp" id="NHB-zN-Skl"/>
                                 </connections>

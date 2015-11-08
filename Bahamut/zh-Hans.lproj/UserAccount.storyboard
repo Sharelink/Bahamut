@@ -220,7 +220,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="shutdown" id="xUS-vf-tHa">
-                            <inset key="imageInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="logout:" destination="83i-Ku-Y1r" id="Dfd-Er-av1"/>
@@ -551,9 +550,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="defaultAvatar" width="133" height="133"/>
-        <image name="document-edit" width="64" height="64"/>
+        <image name="defaultAvatar" width="512" height="512"/>
+        <image name="document-edit" width="32" height="32"/>
         <image name="next" width="64" height="64"/>
-        <image name="shutdown" width="32" height="32"/>
+        <image name="shutdown" width="24" height="24"/>
     </resources>
 </document>

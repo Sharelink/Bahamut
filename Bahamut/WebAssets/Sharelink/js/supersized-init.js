@@ -17,12 +17,6 @@ jQuery(function($){
         fit_portrait       : 1,    // 纵向图像将不超过浏览器高度
         fit_landscape      : 0,    // 景观的图像将不超过宽度的浏览器
 
-        // 组件
-        slide_links        : 'blank',    // 个别环节为每张幻灯片（选项：假的，'民'，'名'，'空'）
-        slides             : [    // 幻灯片影像
-                                 {image : './images/1.jpg'}
-                       ]
-
     });
 
 });

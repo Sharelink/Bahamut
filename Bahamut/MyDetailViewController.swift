@@ -138,6 +138,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeNavigationBarColor()
         initPropertySet()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension

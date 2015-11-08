@@ -13,7 +13,7 @@ $(document).ready(function(){
     var registApi = getUrlParam("registApi");
     
     document.getElementById("login").onclick = function(){
-        window.location.href = "login.html?loginApi=" + loginApi + "&registApi=" + registApi;
+        window.location.href = "login_" + lang + ".html?loginApi=" + loginApi + "&registApi=" + registApi;
         return false;
     }
     
@@ -34,17 +34,15 @@ $(document).ready(function(){
 		//错误信息提示
 		messages:{
 			username:{
-				required:"必须填写用户名",
-				minlength:"用户名至少为2个字符",
-				maxlength:"用户名至多为23个字符",
-				remote: "用户名已存在",
+				required:localizableStrings.requireUsername,
+				minlength:localizableStrings.usernameMinLength,
+				maxlength:localizableStrings.usernameMaxLength
 			},
 			password:{
-				required:"必须填写密码",
-				minlength:"密码至少为3个字符",
-				maxlength:"密码至多为23个字符",
+				required:localizableStrings.requirePassword,
+				minlength:localizableStrings.passwordMinLength,
+				maxlength:localizableStrings.passwordMaxLength,
 			}
-		
 		},
 
 		//表单提交

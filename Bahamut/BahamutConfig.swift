@@ -16,6 +16,8 @@ class BahamutConfig
 
 class BahamutSetting
 {
+    static var lang:String = "en"
+    static var contry:String = "US"
     
     static var loginApi:String{
         get{

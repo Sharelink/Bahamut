@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        configContryAndLang()
         initService()
         loadUI()
         configureShareSDK()
@@ -42,8 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureShareSDK()
     {
         ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
-        let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
-        if(countryCode!.description == "CN")
+        if(BahamutSetting.contry == "CN")
         {
             connectChinaApps()
             connectGlobalApps()
@@ -58,6 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ShareSDK.ssoEnabled(true)
         
+    }
+    
+    private func configContryAndLang()
+    {
+        let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
+        BahamutSetting.contry = countryCode!.description
+        if(countryCode!.description == "CN")
+        {
+            BahamutSetting.lang = "ch"
+        }else{
+            BahamutSetting.lang = "en"
+        }
     }
     
     private func connectGlobalApps()
