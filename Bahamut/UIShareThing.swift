@@ -81,7 +81,7 @@ class UIShareMessage:UITableViewCell
         UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
-    private func update()
+    func update()
     {
         updateName()
         updateTime()
@@ -144,7 +144,6 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
             user = rootController.userService.getUser(shareThingModel.userId)
             shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
             shareContent.share = shareThingModel
-            update()
         }
     }
     

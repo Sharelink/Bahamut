@@ -42,6 +42,7 @@ class UIShareContentTypeDelegateGenerator
 class FilmModel : EVObject
 {
     var film:String!
+    var preview:String!
 }
 
 class FilmContent: UIShareContentDelegate
@@ -52,7 +53,16 @@ class FilmContent: UIShareContentDelegate
         mediaPlayer.filePath = nil
         if let json = share?.shareContent
         {
-            if let film  = FilmModel(json: json).film
+            let fm = FilmModel(json: json)
+            if let preview = fm.preview
+            {
+                if let thumb = ImageUtil.getThumbImageFromBase64String(preview)
+                {
+                    mediaPlayer.setThumb(thumb)
+                }
+            }
+            
+            if let film = fm.film
             {
                 mediaPlayer.filePath = film
             }

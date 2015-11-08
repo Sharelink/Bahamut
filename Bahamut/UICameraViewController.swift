@@ -172,7 +172,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         vision.outputFormat = PBJOutputFormat.Standard
         vision.focusMode = .ContinuousAutoFocus
         vision.exposureMode = .AutoExpose
-        vision.videoBitRate = PBJVideoBitRate640x480
+        vision.videoBitRate = PBJVideoBitRate480x360
         let useFrontCam = useFrontCamera
         useFrontCamera = useFrontCam
         vision.audioCaptureEnabled = true
@@ -210,7 +210,6 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
                 {
                     videoFileSaveTo(self,destination: videoSavedPath)
                 }
-                
                 self.navigationController?.popViewControllerAnimated(true)
             }else
             {

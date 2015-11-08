@@ -295,6 +295,12 @@ class ShareThingsListController: UITableViewController
         }
     }
 
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let shareCell = cell as? UIShareThing
+        {
+            shareCell.update()
+        }
+    }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {

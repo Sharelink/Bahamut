@@ -45,6 +45,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     func initControls()
     {
         self.playerController = Player()
+        self.thumbImageView = UIImageView()
         fileProgress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         timeLine = UIProgressView()
         refreshButton = UIImageView()
@@ -91,6 +92,13 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             playerController.muted = isMute
             playerController.playbackLoops = isPlaybackLoops
             
+        }
+    }
+    
+    private var thumbImageView:UIImageView!{
+        didSet{
+            thumbImageView.hidden = true
+            self.addSubview(thumbImageView)
         }
     }
 
@@ -148,6 +156,19 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             self.addSubview(fileProgress)
             setProgressValue(0)
         }
+    }
+    //MARK: thumb
+    public func setThumb(img:UIImage)
+    {
+        self.thumbImageView.image = img
+        self.thumbImageView.hidden = false
+        self.refreshUI()
+    }
+    
+    public func clearThumb()
+    {
+        self.thumbImageView.image = nil
+        self.thumbImageView.hidden = true
     }
     
     //MARK: film file
@@ -209,6 +230,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             {
                 self.playerController.path = video
                 self.loaded = true
+                self.clearThumb()
                 self.refreshUI()
             }else
             {
@@ -330,6 +352,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             self.fileProgress.center = self.center
             self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
             self.playerController.view.frame = self.bounds
+            self.thumbImageView.frame = self.bounds
             self.refreshButton.center = self.center
             self.playButton.center = self.center
             self.noFileImage.center = self.center

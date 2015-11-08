@@ -316,6 +316,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             let fileModel = itemModels.first as! UIFileCollectionCellModel
             let filmModel = FilmModel()
             filmModel.film = fileModel.filePath
+            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(fileModel.filePath)
             self.shareContentContainer.share.shareContent = filmModel.toJsonString()
             self.shareContentContainer.update()
         }
@@ -398,6 +399,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             let filmModel = FilmModel()
             filmModel.film = newFilePath
+            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(newFilePath)
             self.shareContentContainer.share.shareContent = filmModel.toJsonString()
             self.shareContentContainer.update()
             self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
@@ -424,6 +426,8 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     {
         self.shareMessageTextView.text = ""
         shareThingModel.shareContent = nil
+        shareThingModel.message = ""
+        self.shareContentContainer.share = shareThingModel
         self.shareContentContainer.update()
     }
     
@@ -496,12 +500,11 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     private func postShare(newShare:ShareThing,tags:[SharelinkTag])
     {
-        let filePath = FilmModel(json: newShare.shareContent).film
-        self.fileService.sendFile(filePath!, type: FileType.Video) { (taskId, fileKey) -> Void in
+        let filmModel = FilmModel(json: newShare.shareContent)
+        self.fileService.sendFile(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.view.hideToastActivity()
             if let taskKey = taskId
             {
-                let filmModel = FilmModel()
                 filmModel.film = fileKey.fileId
                 newShare.shareContent = filmModel.toJsonString()
                 let newShareTask = NewShareTask()

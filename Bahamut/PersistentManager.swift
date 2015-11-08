@@ -271,6 +271,16 @@ extension PersistentManager
         }
     }
     
+    func fileSizeOf(localfilePath:String) -> Int
+    {
+        do{
+            let fileSize = try NSFileManager.defaultManager().attributesOfItemAtPath(localfilePath)[NSFileSize] as! Int
+            return fileSize
+        }catch{
+            return -1
+        }
+    }
+    
     func storeTempFile(data:NSData,fileType:FileType) -> String!
     {
         let path = createTmpFileName(fileType)
