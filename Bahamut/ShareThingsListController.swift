@@ -64,9 +64,9 @@ class ShareThingsListController: UITableViewController
         footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: "正在加载更多的数据..."), forState: MJRefreshStatePulling)
         footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: "已经全部加载完毕"), forState: MJRefreshStateNoMoreData)
         
-        tableView.header = header
-        tableView.footer = footer
-        tableView.footer.automaticallyHidden = true
+        tableView.mj_header = header
+        tableView.mj_footer = footer
+        tableView.mj_footer.automaticallyHidden = true
         header.lastUpdatedTimeLabel?.hidden = true
     }
     
@@ -202,7 +202,7 @@ class ShareThingsListController: UITableViewController
             self.tableView.reloadData()
             self.refreshLock.unlock()
             self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
-            self.tableView.footer.resetNoMoreData()
+            self.tableView.mj_footer.resetNoMoreData()
         }
         
     }
@@ -210,7 +210,7 @@ class ShareThingsListController: UITableViewController
     func refreshFromServer()
     {
         self.shareService.getNewShareThings { (newShares) -> Void in
-            self.tableView.header.endRefreshing()
+            self.tableView.mj_header.endRefreshing()
             if newShares == nil{
                 return
             }
@@ -231,14 +231,14 @@ class ShareThingsListController: UITableViewController
         if shares.count > 0
         {
             self.shareThings.insertContentsOf(shares, at: startIndex)
-            self.tableView.footer.endRefreshing()
+            self.tableView.mj_footer.endRefreshing()
             self.tableView.reloadData()
             self.refreshLock.unlock()
         }else
         {
             self.refreshLock.unlock()
             let loading = self.shareService.getPreviousShare({ (previousShares) -> Void in
-                self.tableView.footer.endRefreshing()
+                self.tableView.mj_footer.endRefreshing()
                 if previousShares != nil && previousShares.count > 0
                 {
                     self.refreshLock.lock()
@@ -248,15 +248,15 @@ class ShareThingsListController: UITableViewController
                 }
                 if self.shareService.allShareLoaded
                 {
-                    self.tableView.footer.noticeNoMoreData()
+                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
                 }else
                 {
-                    self.tableView.footer.resetNoMoreData()
+                    self.tableView.mj_footer.resetNoMoreData()
                 }
             })
             if loading == false
             {
-                self.tableView.footer.endRefreshing()
+                self.tableView.mj_footer.endRefreshing()
             }
         }
         

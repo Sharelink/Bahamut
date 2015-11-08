@@ -148,9 +148,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if BahamutSetting.isUserLogined
         {
-            ServiceContainer.getService(MessageService).getMessageFromServer()
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
             ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
+            ServiceContainer.getService(MessageService).getMessageFromServer()
             if UserService.lastRefreshLinkedUserTime == nil || UserService.lastRefreshLinkedUserTime.timeIntervalSinceNow < -1000 * 3600 * 3
             {
                 UserService.lastRefreshLinkedUserTime = NSDate()

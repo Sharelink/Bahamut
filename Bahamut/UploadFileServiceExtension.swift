@@ -114,9 +114,9 @@ extension FileService
             ProgressTaskWatcher.sharedInstance.setProgress(taskIdentifier, persent: persent)
         }
         
-        client.sendFile(sendFileKey, filePath: uploadTask.localPath).progress(progressCallback).responseJSON{ (request, _, JSON) -> Void in
+        client.sendFile(sendFileKey, filePath: uploadTask.localPath).progress(progressCallback).responseJSON { (response) -> Void in
             var suc = false
-            if JSON.error == nil
+            if response.result.isSuccess
             {
                 ProgressTaskWatcher.sharedInstance.missionCompleted(taskIdentifier, result: accessKey)
                 CoreDataHelper.deleteObject(uploadTask)

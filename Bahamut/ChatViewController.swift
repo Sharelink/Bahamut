@@ -176,7 +176,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         header.setTitle(NSLocalizedString("LOADING",comment:"Loading"), forState: MJRefreshStatePulling)
         header.lastUpdatedTimeLabel?.hidden = true
         head = header
-        chatTableView.header = head
+        chatTableView.mj_header = head
     }
     
     func addInputFunctionView()

@@ -105,6 +105,10 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         notifyItemSelectState()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func initItems()
     {
         if isMainTagExplorerController

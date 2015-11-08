@@ -73,6 +73,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
         ShareSDK.cancelAuthWithType(ShareTypeFacebook)
         SharelinkCmdManager.sharedInstance.clearHandler()
         ChicagoClient.sharedInstance.removeObserver(self)
+        myUserModel = nil
+        linkMessageList.removeAll()
+        myLinkedUsers.removeAll()
+        myLinkedUsersMap.removeAll()
     }
     
     private(set) var myUserModel:Sharelinker!

@@ -10,7 +10,7 @@ import UIKit
 import SharelinkSDK
 
 //MARK: LinkedUserListController
-class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
+class LinkedUserListController: UITableViewController
 {
 
     var userListModel:[(latinLetter:String , items:[Sharelinker])] = [(latinLetter:String , items:[Sharelinker])](){
@@ -101,7 +101,6 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         tableView.tableFooterView = uiview
         initTabBarBadgeValue()
         self.userService = ServiceContainer.getService(UserService)
-        SharelinkCmdManager.sharedInstance.registHandler(self)
         refresh()
     }
     
@@ -113,51 +112,6 @@ class LinkedUserListController: UITableViewController,HandleSharelinkCmdDelegate
         super.viewDidAppear(animated)
         tabBarBadgeValue = 0
         tableView.reloadData()
-    }
-    
-    //MARK: handle sharelinkMessage
-    
-    func linkMe(method: String, args: [String],object:AnyObject?)
-    {
-        if args.count < 3
-        {
-            self.makeRootViewHUDToadt(NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
-            return
-        }
-        let sharelinkerId = args[0]
-        let sharelinkerNick = args[1]
-        let expriedAt = args[2].dateTimeOfString
-        if expriedAt.timeIntervalSince1970 < NSDate().timeIntervalSince1970
-        {
-            self.makeRootViewHUDToadt( NSLocalizedString("SHARELINK_CMD_TIMEOUT", comment: "Sharelink Command Timeout"))
-            return
-        }
-        if userService.isSharelinkerLinked(sharelinkerId)
-        {
-            userService.showUserProfileViewController(MainViewTabBarController.currentRootViewController.navigationController!, userId: sharelinkerId)
-        }else
-        {
-            let yes = UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
-                self.userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
-                    if isSuc
-                    {
-                        self.makeRootViewHUDToadt(NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
-                    }
-                })
-            })
-            let no = UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel,handler:nil)
-            let title = NSLocalizedString("SHARELINK", comment: "")
-            let msg = String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick)
-            self.showAlert(title, msg:msg, actions: [yes,no])
-        }
-    }
-    
-    func handleSharelinkCmd(method: String, args: [String],object:AnyObject?) {
-        switch method
-        {
-            case "linkMe":linkMe(method, args: args, object: object)
-            default:break
-        }
     }
     
     //MARK: new linker

@@ -28,9 +28,7 @@ class SharelinkCmdManager
         handlerCmdQueue.removeAll()
         for cmd in cmdCopy
         {
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.handleSharelinkCmd(cmd.0,object: cmd.1)
-            }
+            self.handleSharelinkCmd(cmd.0,object: cmd.1)
         }
     }
     

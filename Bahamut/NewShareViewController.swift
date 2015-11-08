@@ -64,6 +64,10 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         viewKeyboardAdjustProxy.removeObserverForKeyboardNotifications()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     private func initReshare()
     {
         //filter share's tag without poster's personal tag

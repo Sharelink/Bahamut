@@ -44,20 +44,37 @@ extension UIViewController
         showAlert(controller)
     }
     
-    func showAlert(alertController:UIAlertController)
+    func showAlert(alertController:UIAlertController) -> Bool
     {
         if let vc = MainViewTabBarController.currentRootViewController
         {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 vc.presentViewController(alertController, animated: true, completion: nil)
             })
+            return true
+        }else if let vc = MainViewTabBarController.currentNavicationController
+        {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.presentViewController(alertController, animated: true, completion: nil)
+            })
+            return true
         }
+        return false
     }
 }
 
 class MainViewTabBarController: UITabBarController ,OrientationsNavigationController
 {
     private(set) static var currentTabBarViewController:MainViewTabBarController!
+    
+    static var currentNavicationController:UINavigationController!{
+        if let mc = currentTabBarViewController.selectedViewController as? UINavigationController
+        {
+            return mc
+        }
+        return nil
+    }
+    
     static var currentRootViewController:UIViewController!{
         if let mc = currentTabBarViewController.selectedViewController?.presentingViewController as? MainNavigationController
         {
@@ -75,10 +92,14 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         return UIInterfaceOrientationMask.Portrait
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.whiteColor()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         MainViewTabBarController.currentTabBarViewController = self
-        self.view.backgroundColor = UIColor.whiteColor()
     }
     
     override func viewWillDisappear(animated: Bool) {
