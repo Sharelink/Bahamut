@@ -137,7 +137,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func signCallback()
     {
         let service = ServiceContainer.getService(UserService)
-        service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
+        service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
         view.makeToastActivityWithMessage(message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
     }
     

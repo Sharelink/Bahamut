@@ -60,6 +60,13 @@ class MessageService:NSNotificationCenter,ServiceProtocol
                 {
                     return
                 }
+                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.first?.shareId == nil
+                {
+                    //not this request response
+                    return
+                }
+                
                 self.recevieMessage(msgs)
                 let dreq = NotifyNewMessagesReceivedRequest()
                 client.execute(dreq, callback: { (result:SLResult<EVObject>) -> Void in

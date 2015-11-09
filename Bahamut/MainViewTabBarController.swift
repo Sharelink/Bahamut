@@ -24,9 +24,14 @@ extension UIViewController
         }
     }
     
-    func makeRootViewHUDToadt(msg:String)
+    func makeRootViewHUDToast(msg:String)
     {
         if let vc = MainViewTabBarController.currentRootViewController
+        {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.view.makeToast(message: msg)
+            })
+        }else if let vc = MainViewTabBarController.currentNavicationController
         {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 vc.view.makeToast(message: msg)

@@ -293,6 +293,14 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     
     func update()
     {
+        if user == nil
+        {
+            user = rootController.userService.getUser(shareThingModel.userId)
+        }
+        if user == nil
+        {
+            return
+        }
         shareDesc.text = shareThingModel.message
         shareDateTime.text = shareThingModel.shareTimeOfDate.toFriendlyString()
         updateBadge()

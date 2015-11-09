@@ -291,6 +291,12 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         clientState = .Disconnected
     }
     
+    func inBackground()
+    {
+        self.clientState = .Disconnected
+        socket.disconnect()
+    }
+    
     func close()
     {
         ChicagoClient.heartBeatTimer.invalidate()

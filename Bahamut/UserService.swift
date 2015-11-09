@@ -40,6 +40,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     static let linkMessageUpdated = "linkMessageUpdated"
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let newLinkMessageUpdated = "newLinkMessageUpdated"
+    static let baseUserDataInited = "baseUserDataInited"
     static var lastRefreshLinkedUserTime:NSDate!
     @objc static var ServiceName:String{return "user service"}
     
@@ -55,6 +56,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
             {
                 self.myUserModel = newestUser
                 self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
+                if self.myLinkedUsers.count > 0
+                {
+                    self.postNotificationName(UserService.baseUserDataInited, object: self)
+                }
             }
         })
         if myUserModel != nil
@@ -94,6 +99,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
             myLinkedUsersMap.updateValue(u, forKey: u.userId)
         }
         myLinkedUsers = myLinkedUsersMap.map{$0.1}
+        if myUserModel != nil && myLinkedUsers.count > 0
+        {
+            self.postNotificationName(UserService.baseUserDataInited, object: self)
+        }
     }
     
     //MARK: get datas
@@ -245,6 +254,13 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 {
                     return
                 }
+                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.first?.id == nil
+                {
+                    //not this request response
+                    return
+                }
+                
                 LinkMessage.saveObjectOfArray(msgs)
                 PersistentManager.sharedInstance.refreshCache(LinkMessage)
                 self.refreshLinkMessage()

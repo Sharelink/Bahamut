@@ -28,7 +28,7 @@ class UIClientStateHeader: UIView {
     {
         self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         indicator.stopAnimating()
-        messageLabel.text = NSLocalizedString("CONNECT_ERROR", comment: "Network Is Down!")
+        messageLabel.text = NSLocalizedString("CONNECT_ERROR_TAP_RETRY", comment: "Network Error,Tap Here Retry")
     }
 
 }

@@ -256,6 +256,13 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                 {
                     return
                 }
+                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.first?.shareId == nil
+                {
+                    //not this request response
+                    return
+                }
+                
                 self.getSharesWithShareIds(msgs.map{$0.shareId }){ (reqShares) -> Void in
                     if let shares = reqShares
                     {

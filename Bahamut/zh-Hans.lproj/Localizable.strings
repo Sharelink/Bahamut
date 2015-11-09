@@ -106,6 +106,7 @@ SAVE_VIDEO_ERROR = "保存视频错误";
 RECORD_VIDEO_ERROR = "录制视频错误";
 CONNECTING = "连接中";
 CONNECT_ERROR = "网络错误";
+CONNECT_ERROR_TAP_RETRY = "网络错误，点我重试!";
 
 ILLEGLE_VALUE = "非法数据";
 LOAD_IMG_ERROR = "加载图片失败";

@@ -50,7 +50,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     {
         if args.count < 3
         {
-            self.makeRootViewHUDToadt(NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
+            self.showAlert("Sharelink", msg: NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
             return
         }
         let sharelinkerId = args[0]
@@ -58,7 +58,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         let expriedAt = args[2].dateTimeOfString
         if expriedAt.timeIntervalSince1970 < NSDate().timeIntervalSince1970
         {
-            self.makeRootViewHUDToadt( NSLocalizedString("SHARELINK_CMD_TIMEOUT", comment: "Sharelink Command Timeout"))
+            self.showAlert("Sharelink", msg: NSLocalizedString("SHARELINK_CMD_TIMEOUT", comment: "Sharelink Command Timeout"))
             return
         }
         let userService = ServiceContainer.getService(UserService)
@@ -74,7 +74,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
                 userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
                     if isSuc
                     {
-                        self.makeRootViewHUDToadt(NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
+                        self.showAlert("Sharelink" ,msg:NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
                     }
                 })
             })
