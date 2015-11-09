@@ -149,8 +149,8 @@ REFRESHING = "Refreshing";
 
 
 //UITagExplorerController
-TAG_HEADER_SYSTEM = "Sharelink";
-TAG_HEADER_CUSTOM = "Cutstom";
+TAG_HEADER_SYSTEM = "Sharelink Theme";
+TAG_HEADER_CUSTOM = "Cutstom Theme";
 NEW_TAG = "New Tag";
 REMOVED_X_TAGS = "Removed %@ Tags";
 A_DEFAULT_TAG = "It's a sharelink default tag!";

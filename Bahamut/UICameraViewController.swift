@@ -142,7 +142,7 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
         cameraPreviewContainer.frame = self.view.bounds
         self.view.addSubview(cameraPreviewContainer)
         previewLayer.frame = cameraPreviewContainer.frame
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        previewLayer.videoGravity = AVLayerVideoGravityResize
         cameraPreviewContainer.layer.addSublayer(previewLayer)
         self.view.sendSubviewToBack(cameraPreviewContainer)
         initGesture()
@@ -165,19 +165,38 @@ class UICameraViewController: UIViewController , PBJVisionDelegate{
     
     func setup()
     {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
         let vision:PBJVision = PBJVision.sharedInstance()
         vision.delegate = self
         vision.cameraMode = PBJCameraMode.Video
         vision.cameraOrientation = PBJCameraOrientation.Portrait
         vision.outputFormat = PBJOutputFormat.Standard
         vision.focusMode = .ContinuousAutoFocus
-        vision.exposureMode = .AutoExpose
+        vision.exposureMode = .ContinuousAutoExposure
         vision.videoBitRate = PBJVideoBitRate480x360
+        vision.outputFormat = .Square
         let useFrontCam = useFrontCamera
         useFrontCamera = useFrontCam
         vision.audioCaptureEnabled = true
         vision.maximumCaptureDuration = CMTimeMakeWithSeconds(60, 24)
         vision.startPreview()
+    }
+    
+    func didChangeStatusBarOrientation(a: NSNotification)
+    {
+        let vision:PBJVision = PBJVision.sharedInstance()
+        switch UIApplication.sharedApplication().statusBarOrientation
+        {
+        case .PortraitUpsideDown:
+            vision.cameraOrientation = .PortraitUpsideDown
+        case .Portrait:
+            vision.cameraOrientation = .Portrait
+        case .LandscapeLeft:
+            vision.cameraOrientation = .LandscapeLeft
+        case .LandscapeRight:
+            vision.cameraOrientation = .LandscapeRight
+        default: break
+        }
     }
     
     func startOrResumeRecord()

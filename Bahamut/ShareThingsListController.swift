@@ -70,6 +70,22 @@ class ShareThingsListController: UITableViewController
         header.lastUpdatedTimeLabel?.hidden = true
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = true
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = false
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tabBarBadgeValue = 0

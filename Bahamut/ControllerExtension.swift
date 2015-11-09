@@ -163,7 +163,12 @@ protocol OrientationsNavigationController
 
 class UIOrientationsNavigationController: UINavigationController ,OrientationsNavigationController
 {
+    var lockOrientationPortrait:Bool = false
     func supportedViewOrientations() -> UIInterfaceOrientationMask {
+        if lockOrientationPortrait
+        {
+            return UIInterfaceOrientationMask.Portrait
+        }
         return UIInterfaceOrientationMask.All
     }
 }

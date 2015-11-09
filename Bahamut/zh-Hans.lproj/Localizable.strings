@@ -149,8 +149,8 @@ REFRESHING = "刷新中";
 
 
 //UITagExplorerController
-TAG_HEADER_SYSTEM = "Sharelink";
-TAG_HEADER_CUSTOM = "自定义";
+TAG_HEADER_SYSTEM = "Sharelink主题";
+TAG_HEADER_CUSTOM = "自定义主题";
 NEW_TAG = "新主题";
 REMOVED_X_TAGS = "移除了 %@ 个主题";
 A_DEFAULT_TAG = "系统自带的主题!";

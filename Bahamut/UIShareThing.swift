@@ -162,6 +162,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     }
     @IBOutlet weak var sendingIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var themeLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 3
@@ -200,6 +201,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
             {
                 player.autoLoad = false
                 player.autoPlay = true
+                player.playerController.fillMode = AVLayerVideoGravityResizeAspect
                 player.fileFetcher = rootController.fileService.getFileFetcherOfFileId(.Video)
             }
         }
@@ -309,6 +311,23 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         updateAvatar()
         updateUserNick()
         updateSending()
+        updateTheme()
+    }
+    
+    private func updateTheme()
+    {
+        if let firstTheme = shareThingModel?.forTags.first
+        {
+            let stm = SendTagModel(json: firstTheme)
+            let tag = SharelinkTag()
+            tag.tagName = stm.name
+            tag.type = stm.type
+            tag.data = stm.data
+            themeLabel.text = tag.getShowName()
+        }else
+        {
+            themeLabel.text = ""
+        }
     }
     
     private func updateSending()

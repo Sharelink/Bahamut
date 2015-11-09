@@ -144,6 +144,10 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
             tagService.addSharelinkTag(saveModel.tag){ (isSuc) -> Void in
                 if isSuc
                 {
+                    if self.items.count == 0
+                    {
+                        self.items.append([UIResrouceItemModel]())
+                    }
                     self.items[0].append(saveModel)
                     self.uiCollectionView.reloadData()
                     self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "Focus successful!"))

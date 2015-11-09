@@ -100,8 +100,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = NSLocalizedString("NICK", comment: "Nick")
         propertySet.propertyValue = myInfo.nickName
-        propertySet.valueRegex = "^?{1,23}$"
-        propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
+        //propertySet.valueRegex = "^?{1,23}$"
+        //propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
         textPropertyCells.append((propertySet:propertySet,editable:true))
         
         propertySet = UIEditTextPropertySet()

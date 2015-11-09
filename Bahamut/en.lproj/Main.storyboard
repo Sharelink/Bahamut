@@ -113,6 +113,13 @@
                                             <rect key="frame" x="489" y="11" width="20" height="20"/>
                                             <animations/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theme:Sport" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxn-eW-ChJ">
+                                            <rect key="frame" x="64" y="233" width="120" height="16"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <animations/>
                                     <constraints>
@@ -138,10 +145,13 @@
                                         <constraint firstItem="BJe-8V-nOH" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="trailing" constant="8" symbolic="YES" id="jHO-Er-MUX"/>
                                         <constraint firstItem="dtk-mP-E4X" firstAttribute="trailing" secondItem="au0-Kj-9bh" secondAttribute="trailing" id="kfM-f4-7ac"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="trailing" secondItem="BJe-8V-nOH" secondAttribute="trailing" id="nNg-N7-bVl"/>
+                                        <constraint firstItem="zxn-eW-ChJ" firstAttribute="top" secondItem="au0-Kj-9bh" secondAttribute="bottom" constant="8" id="nrh-VH-WNV"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="UWu-3l-Jzz" secondAttribute="bottom" priority="250" constant="7" id="pC3-EK-Woa"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="tVH-H0-9bE" secondAttribute="trailing" id="qLt-Nm-xZ0"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="sEO-Vt-geg"/>
+                                        <constraint firstItem="dtk-mP-E4X" firstAttribute="leading" secondItem="zxn-eW-ChJ" secondAttribute="trailing" constant="8" id="tgU-5l-ezp"/>
                                         <constraint firstItem="tVH-H0-9bE" firstAttribute="bottom" secondItem="wQn-AD-BJA" secondAttribute="bottom" id="uIc-lY-ZqL"/>
+                                        <constraint firstItem="zxn-eW-ChJ" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="uZ8-Ek-SV6"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="width" secondItem="BJe-8V-nOH" secondAttribute="width" id="wUs-Hr-ZOO"/>
                                     </constraints>
                                     <variation key="default">
@@ -160,6 +170,7 @@
                                     <outlet property="shareContent" destination="au0-Kj-9bh" id="0jh-LW-P2U"/>
                                     <outlet property="shareDateTime" destination="tVH-H0-9bE" id="wfE-S7-y4r"/>
                                     <outlet property="shareDesc" destination="qbz-VV-XeC" id="fVI-Su-2ST"/>
+                                    <outlet property="themeLabel" destination="zxn-eW-ChJ" id="JYl-3v-ai3"/>
                                     <outlet property="userNicknameLabel" destination="wQn-AD-BJA" id="iLO-Hq-qrK"/>
                                     <outlet property="userVoteDetail" destination="UWu-3l-Jzz" id="c7l-9R-mb7"/>
                                     <outlet property="voteButton" destination="BJe-8V-nOH" id="ZdR-aH-qe5"/>
@@ -834,7 +845,7 @@
         <!--New-->
         <scene sceneID="rrQ-OE-wcm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IPg-yr-IBk" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IPg-yr-IBk" customClass="UIOrientationsNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="New" image="new" id="TYP-e0-mwn"/>
                     <toolbarItems/>

@@ -113,6 +113,13 @@
                                             <rect key="frame" x="489" y="11" width="20" height="20"/>
                                             <animations/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SJ-v7-ZHK">
+                                            <rect key="frame" x="64" y="233" width="120" height="16"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <animations/>
                                     <constraints>
@@ -123,14 +130,17 @@
                                         <constraint firstItem="UWu-3l-Jzz" firstAttribute="top" secondItem="dtk-mP-E4X" secondAttribute="bottom" constant="8" symbolic="YES" id="CiK-DY-ygN"/>
                                         <constraint firstItem="qbz-VV-XeC" firstAttribute="trailing" secondItem="BJe-8V-nOH" secondAttribute="trailing" id="DLd-16-pYY"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="top" secondItem="BJe-8V-nOH" secondAttribute="bottom" constant="8" symbolic="YES" id="L1v-fK-iU7"/>
+                                        <constraint firstItem="0SJ-v7-ZHK" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="Lrs-zm-M5H"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="leading" secondItem="BJe-8V-nOH" secondAttribute="leading" id="Mpb-43-DsO"/>
                                         <constraint firstItem="tVH-H0-9bE" firstAttribute="leading" secondItem="3lb-kN-PvV" secondAttribute="trailing" constant="8" symbolic="YES" id="Opy-la-tM5"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="bottom" secondItem="au0-Kj-9bh" secondAttribute="bottom" id="QMD-V9-TbY"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="top" secondItem="SHG-GU-H1A" secondAttribute="topMargin" id="QfC-5q-o8O"/>
                                         <constraint firstItem="UWu-3l-Jzz" firstAttribute="leading" secondItem="au0-Kj-9bh" secondAttribute="leading" id="Rcv-qI-pLf"/>
+                                        <constraint firstItem="dtk-mP-E4X" firstAttribute="leading" secondItem="0SJ-v7-ZHK" secondAttribute="trailing" constant="8" id="Tk2-iN-AZg"/>
                                         <constraint firstItem="hHQ-Ql-CNB" firstAttribute="height" secondItem="BJe-8V-nOH" secondAttribute="height" id="Tot-4E-ltm"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="leading" secondItem="qbz-VV-XeC" secondAttribute="leading" id="Wbv-lO-80G"/>
                                         <constraint firstItem="qbz-VV-XeC" firstAttribute="top" secondItem="wQn-AD-BJA" secondAttribute="bottom" constant="8" symbolic="YES" id="X01-27-c0z"/>
+                                        <constraint firstItem="0SJ-v7-ZHK" firstAttribute="top" secondItem="au0-Kj-9bh" secondAttribute="bottom" constant="8" id="YoZ-B2-PG7"/>
                                         <constraint firstItem="au0-Kj-9bh" firstAttribute="top" secondItem="qbz-VV-XeC" secondAttribute="bottom" constant="8" symbolic="YES" id="cwL-QZ-xEp"/>
                                         <constraint firstItem="wQn-AD-BJA" firstAttribute="leading" secondItem="b0c-LK-ojG" secondAttribute="trailing" constant="8" symbolic="YES" id="fmJ-Fl-NkW"/>
                                         <constraint firstItem="b0c-LK-ojG" firstAttribute="top" secondItem="SHG-GU-H1A" secondAttribute="topMargin" id="g8r-MQ-12b"/>
@@ -160,6 +170,7 @@
                                     <outlet property="shareContent" destination="au0-Kj-9bh" id="0jh-LW-P2U"/>
                                     <outlet property="shareDateTime" destination="tVH-H0-9bE" id="wfE-S7-y4r"/>
                                     <outlet property="shareDesc" destination="qbz-VV-XeC" id="fVI-Su-2ST"/>
+                                    <outlet property="themeLabel" destination="0SJ-v7-ZHK" id="uqf-aK-DVo"/>
                                     <outlet property="userNicknameLabel" destination="wQn-AD-BJA" id="iLO-Hq-qrK"/>
                                     <outlet property="userVoteDetail" destination="UWu-3l-Jzz" id="c7l-9R-mb7"/>
                                     <outlet property="voteButton" destination="BJe-8V-nOH" id="ZdR-aH-qe5"/>
@@ -842,7 +853,7 @@
         <!--新-->
         <scene sceneID="rrQ-OE-wcm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IPg-yr-IBk" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IPg-yr-IBk" customClass="UIOrientationsNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="新" image="new" id="TYP-e0-mwn"/>
                     <toolbarItems/>

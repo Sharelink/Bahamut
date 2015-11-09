@@ -9,6 +9,7 @@
 import UIKit
 import SharelinkSDK
 import EVReflection
+import AVFoundation
 
 //MARK: ShareService extension
 extension ShareService
@@ -51,21 +52,29 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
         if isReshare
         {
             initReshare()
         }
         viewKeyboardAdjustProxy.registerForKeyboardNotifications([newTagNameTextfield])
-        
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = true
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         viewKeyboardAdjustProxy.removeObserverForKeyboardNotifications()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = false
+        }
     }
     
     private func initReshare()
@@ -123,6 +132,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             {
                 player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
             }
+            player.playerController.fillMode = AVLayerVideoGravityResizeAspect
             player.autoLoad = true
         }
     }
