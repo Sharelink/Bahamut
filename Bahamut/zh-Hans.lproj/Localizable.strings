@@ -77,6 +77,7 @@ LOGIN = "登录";
 LOGINING = "登录中";
 SERVER_ERROR = "服务器错误";
 SHARELINK = "Sharelink";
+SHARELINK_NAME = "Sharelink";
 RECORD_CANCELED = "录制取消";
 VIDEO_SAVED = "视频已经保存";
 SAVE_VIDEO_FAILED = "保存视频失败";
@@ -106,6 +107,7 @@ SAVE_VIDEO_ERROR = "保存视频错误";
 RECORD_VIDEO_ERROR = "录制视频错误";
 CONNECTING = "连接中";
 CONNECT_ERROR = "网络错误";
+CHICAGO_VALIDATE_FAILED = "服务器验证错误!";
 CONNECT_ERROR_TAP_RETRY = "网络错误，点我重试!";
 
 ILLEGLE_VALUE = "非法数据";

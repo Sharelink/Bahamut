@@ -312,13 +312,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="浏览" id="VqO-cN-DPb">
-                        <barButtonItem key="leftBarButtonItem" title="关闭" id="8SX-qj-A5P">
-                            <connections>
-                                <action selector="close:" destination="J3B-70-S1f" id="mPb-5c-bbf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="浏览" id="VqO-cN-DPb"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -637,6 +631,70 @@
             </objects>
             <point key="canvasLocation" x="566" y="3003"/>
         </scene>
+        <!--关于-->
+        <scene sceneID="vFN-CO-tGw">
+            <objects>
+                <viewController storyboardIdentifier="aboutViewController" title="关于" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hLQ-lq-XCx" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fdB-6Y-082"/>
+                        <viewControllerLayoutGuide type="bottom" id="PHa-ub-KZp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CMX-fs-zz6">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharelink" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-93-3Ha">
+                                <rect key="frame" x="20" y="8" width="56" height="56"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="56" id="7RG-3H-rIx"/>
+                                    <constraint firstAttribute="height" constant="56" id="jJe-zt-YqJ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKa-35-R8o">
+                                <rect key="frame" x="84" y="8" width="71" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGU-UY-XPh">
+                                <rect key="frame" x="84" y="34" width="105" height="30"/>
+                                <animations/>
+                                <state key="normal" title="去应用商店评价"/>
+                                <connections>
+                                    <action selector="showInAppStore:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="6Hq-kX-0zQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bs0-wW-q1N">
+                                <rect key="frame" x="20" y="72" width="295" height="30"/>
+                                <animations/>
+                                <state key="normal" title="官方邮箱: bahamut-sharelink@outlook.com"/>
+                                <connections>
+                                    <action selector="mailToBahamutSharelink:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="C1l-iE-lal"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bs0-wW-q1N" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="leading" id="Cuf-5o-smh"/>
+                            <constraint firstItem="vKa-35-R8o" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="top" id="MRW-zX-npJ"/>
+                            <constraint firstItem="cF2-93-3Ha" firstAttribute="top" secondItem="fdB-6Y-082" secondAttribute="bottom" constant="8" symbolic="YES" id="QJf-dC-84a"/>
+                            <constraint firstItem="zGU-UY-XPh" firstAttribute="bottom" secondItem="cF2-93-3Ha" secondAttribute="bottom" id="VfQ-Xi-sFT"/>
+                            <constraint firstItem="cF2-93-3Ha" firstAttribute="leading" secondItem="CMX-fs-zz6" secondAttribute="leadingMargin" id="bmm-OD-o2r"/>
+                            <constraint firstItem="bs0-wW-q1N" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="bottom" constant="8" symbolic="YES" id="jvW-Ub-4ff"/>
+                            <constraint firstItem="zGU-UY-XPh" firstAttribute="leading" secondItem="vKa-35-R8o" secondAttribute="leading" id="tAY-sC-ZIq"/>
+                            <constraint firstItem="vKa-35-R8o" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="trailing" constant="8" symbolic="YES" id="tgr-8s-Roo"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EkB-1P-Lxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218" y="3003"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bullet-blue" width="24" height="24"/>
@@ -644,5 +702,6 @@
         <image name="icon_check" width="32" height="32"/>
         <image name="next" width="64" height="64"/>
         <image name="plasmid" width="512" height="512"/>
+        <image name="sharelink" width="180" height="180"/>
     </resources>
 </document>

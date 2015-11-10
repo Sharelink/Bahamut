@@ -379,7 +379,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         return 0
     }
     
-    var stateHeaderView:UIClientStateHeader!
+    var stateHeaderView:UIClientStateHeader!{
+        didSet{
+            stateHeaderView.initHeader()
+        }
+    }
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState
@@ -387,14 +391,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         {
             if stateHeaderView == nil
             {
-                stateHeaderView = NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
-            }
-            if cstate == ChicagoClientState.Disconnected
-            {
-                stateHeaderView.setConnectError()
-            }else
-            {
-                stateHeaderView.startConnect()
+                stateHeaderView = UIClientStateHeader.instanceFromXib()
             }
             return stateHeaderView
         }

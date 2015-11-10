@@ -62,6 +62,7 @@ enum ChicagoClientState
     case Disconnected
     case Connecting
     case Validated
+    case ValidatFailed
 }
 
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
@@ -168,6 +169,9 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .Validated
                     ChicagoClient.lastHeartBeatTime = NSDate()
+                }else
+                {
+                    clientState = .ValidatFailed
                 }
             }
             
@@ -224,6 +228,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         {
             let route = ChicagoProtocolUtil.getChicagoRouteFromData(data)
             let json = ChicagoProtocolUtil.getChicagoMessageJsonFromData(data)
+            print("Chicago:\(json)")
             sock.readDataToLength(4, withTimeout: -1, tag: ChicagoClient.readHeadTag)
             if clientState == .Connected || clientState == .Validated
             {

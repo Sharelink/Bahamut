@@ -10,6 +10,9 @@ import Foundation
 
 class BahamutConfig
 {
+    static let sharelinkAppStoreId = "954270"
+    static let sharelinkName = NSLocalizedString("SHARELINK_NAME", comment: "")
+    static let sharelinkEmail = "bahamut-sharelink@outlook.com"
     static let shareSDKAppkey = "b96b8b48572e"
     static let sharelinkOuterExecutorUrlPrefix = "http://sharelink.online/ExeSharelink?cmd="
 }

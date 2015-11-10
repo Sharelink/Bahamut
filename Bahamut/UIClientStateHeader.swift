@@ -17,18 +17,73 @@ class UIClientStateHeader: UIView {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var messageLabel: UILabel!
     
-    func startConnect()
+    static func instanceFromXib() -> UIClientStateHeader
     {
-        self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
+        return NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
+    }
+
+    deinit{
+        ChicagoClient.sharedInstance.removeObserver(self)
+    }
+    
+    func initHeader()
+    {
+        startConnect()
+        refresh()
+        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
+    }
+    
+    func reconnectChicagoClient(_:UIGestureRecognizer)
+    {
+        if ChicagoClient.sharedInstance.clientState == .ValidatFailed
+        {
+            ChicagoClient.sharedInstance.start()
+        }else
+        {
+            ChicagoClient.sharedInstance.reConnect()
+        }
+    }
+    
+    private func refresh()
+    {
+        switch ChicagoClient.sharedInstance.clientState
+        {
+        case .ValidatFailed:
+            setValidateFailed()
+        case .Connecting:
+            startConnect()
+        default:
+            setConnectError()
+            
+        }
+    }
+    
+    func chicagoClientStateChanged(aNotification:NSNotification)
+    {
+        refresh()
+    }
+    
+    private func startConnect()
+    {
+        self.backgroundColor = UIColor.headerColor
         indicator.startAnimating()
         messageLabel.text = NSLocalizedString("CONNECTING", comment: "Connecting")
     }
     
-    func setConnectError()
+    private func setConnectError()
     {
-        self.backgroundColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
+        self.backgroundColor = UIColor.headerColor
         indicator.stopAnimating()
         messageLabel.text = NSLocalizedString("CONNECT_ERROR_TAP_RETRY", comment: "Network Error,Tap Here Retry")
+    }
+    
+    private func setValidateFailed()
+    {
+        self.backgroundColor = UIColor.headerColor
+        indicator.stopAnimating()
+        messageLabel.text = NSLocalizedString("CHICAGO_VALIDATE_FAILED", comment: "")
+        
     }
 
 }

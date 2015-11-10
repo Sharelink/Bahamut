@@ -26,19 +26,14 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
         }
     }
     
-    @IBAction func close(sender: AnyObject)
-    {
-        self.dismissViewControllerAnimated(true) { () -> Void in
-            
-        }
-    }
-    
     //"SimpleBrowser"
     static func openUrl(currentViewController:UIViewController,url:String)
     {
         let controller = instanceFromStoryBoard()
-        currentViewController.presentViewController(controller, animated: true) { () -> Void in
-            controller.url = url
+        if let nvController = currentViewController.navigationController
+        {
+            nvController.pushViewController(controller, animated: true)
+            controller.url = url;
         }
     }
     

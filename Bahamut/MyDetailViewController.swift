@@ -82,6 +82,7 @@ class MyDetailAvatarCell:UITableViewCell
 
 class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ProgressTaskDelegate
 {
+    static let aboutSharelinkReuseId = "aboutsharelink"
     struct InfoIds
     {
         static let nickName = "nickname"
@@ -142,6 +143,9 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         initPropertySet()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        let uiview = UIView()
+        uiview.backgroundColor = UIColor.footerColor
+        tableView.tableFooterView = uiview
     }
     
     @IBAction func logout(sender: AnyObject)
@@ -190,31 +194,49 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0
+        if indexPath.section == 0 && indexPath.row == 0
         {
             return 84
-        }else
-        {
-            return UITableViewAutomaticDimension
         }
+        return UITableViewAutomaticDimension
         
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        //user infos + about sharelink
+        return 2
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 + textPropertyCells.count
+        if section == 0
+        {
+            //Avatar(1) + textPropertyCells.count
+            return 1 + textPropertyCells.count
+        }else
+        {
+            return 1
+        }
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0
+        if indexPath.section == 0
         {
-            return getAvatarCell()
-        }else if indexPath.row > 0 && indexPath.row <= textPropertyCells.count
+            if indexPath.row == 0
+            {
+                return getAvatarCell()
+            }else if indexPath.row > 0 && indexPath.row <= textPropertyCells.count
+            {
+                return getTextPropertyCell(indexPath.row - 1)
+            }
+            let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier, forIndexPath: indexPath)
+            return cell
+        }else
         {
-            return getTextPropertyCell(indexPath.row - 1)
+            let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailViewController.aboutSharelinkReuseId,forIndexPath: indexPath)
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "aboutSharelink:"))
+            return cell
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier, forIndexPath: indexPath)
-        return cell
         
     }
     
@@ -327,6 +349,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         taskFileMap.removeValueForKey(taskIdentifier)
         self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+    }
+    
+    func aboutSharelink(_:UITapGestureRecognizer)
+    {
+        AboutViewController.showAbout(self)
     }
     
     //MARK: Property Cell

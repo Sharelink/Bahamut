@@ -313,13 +313,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Browser" id="VqO-cN-DPb">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="8SX-qj-A5P">
-                            <connections>
-                                <action selector="close:" destination="J3B-70-S1f" id="mPb-5c-bbf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Browser" id="VqO-cN-DPb"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -638,6 +632,70 @@
             </objects>
             <point key="canvasLocation" x="566" y="3003"/>
         </scene>
+        <!--About-->
+        <scene sceneID="dO3-5N-PUc">
+            <objects>
+                <viewController storyboardIdentifier="aboutViewController" title="About" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8DE-tZ-cFX" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V1V-6t-FOv"/>
+                        <viewControllerLayoutGuide type="bottom" id="BWm-BZ-ulX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dDk-sn-nUN">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharelink" translatesAutoresizingMaskIntoConstraints="NO" id="bce-Lq-eUc">
+                                <rect key="frame" x="20" y="8" width="56" height="56"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="1XV-zJ-QkF"/>
+                                    <constraint firstAttribute="width" constant="56" id="seb-AI-fXd"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftb-Tm-XNI">
+                                <rect key="frame" x="84" y="8" width="71" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNI-kn-rb4">
+                                <rect key="frame" x="84" y="34" width="142" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Vote me in app store"/>
+                                <connections>
+                                    <action selector="showInAppStore:" destination="8DE-tZ-cFX" eventType="touchUpInside" id="4t3-rQ-7T4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2F-Xo-rqh">
+                                <rect key="frame" x="20" y="72" width="272" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Email: bahamut-sharelink@outlook.com"/>
+                                <connections>
+                                    <action selector="mailToBahamutSharelink:" destination="8DE-tZ-cFX" eventType="touchUpInside" id="nfy-H0-52m"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ftb-Tm-XNI" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="trailing" constant="8" symbolic="YES" id="3UX-a1-sNq"/>
+                            <constraint firstItem="bce-Lq-eUc" firstAttribute="top" secondItem="V1V-6t-FOv" secondAttribute="bottom" constant="8" symbolic="YES" id="CSb-V3-2U5"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="bottom" constant="8" symbolic="YES" id="GMg-T4-3lh"/>
+                            <constraint firstItem="bce-Lq-eUc" firstAttribute="leading" secondItem="dDk-sn-nUN" secondAttribute="leadingMargin" id="JS0-Jp-jXh"/>
+                            <constraint firstItem="ftb-Tm-XNI" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="top" id="NAF-qS-ZMr"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="leading" id="gZg-Zq-0Aq"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="ftb-Tm-XNI" secondAttribute="leading" id="sqL-Iy-bWf"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="bottom" secondItem="bce-Lq-eUc" secondAttribute="bottom" id="xeJ-NO-BAL"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yWj-j3-LFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218" y="3003"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bullet-blue" width="24" height="24"/>
@@ -645,5 +703,6 @@
         <image name="icon_check" width="32" height="32"/>
         <image name="next" width="64" height="64"/>
         <image name="plasmid" width="512" height="512"/>
+        <image name="sharelink" width="180" height="180"/>
     </resources>
 </document>

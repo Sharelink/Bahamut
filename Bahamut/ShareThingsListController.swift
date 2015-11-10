@@ -132,11 +132,6 @@ class ShareThingsListController: UITableViewController
         tableView.reloadData()
     }
     
-    func reconnectChicagoClient(_:UIGestureRecognizer)
-    {
-        ChicagoClient.sharedInstance.reConnect()
-    }
-    
     //MARK: message
     func newChatMessageReceived(aNotification:NSNotification)
     {
@@ -307,7 +302,7 @@ class ShareThingsListController: UITableViewController
     
     var stateHeaderView:UIClientStateHeader!{
         didSet{
-            stateHeaderView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
+            stateHeaderView.initHeader()
         }
     }
 
@@ -325,14 +320,7 @@ class ShareThingsListController: UITableViewController
         {
             if stateHeaderView == nil
             {
-                stateHeaderView = NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
-            }
-            if cstate == ChicagoClientState.Disconnected
-            {
-                stateHeaderView.setConnectError()
-            }else
-            {
-                stateHeaderView.startConnect()
+                stateHeaderView = UIClientStateHeader.instanceFromXib()
             }
             return stateHeaderView
         }

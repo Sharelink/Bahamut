@@ -47,6 +47,7 @@
 		E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */; };
 		E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B91B82058300E0B6EB /* UIUserTagExplorerController.swift */; };
 		E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */; };
+		E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */; };
 		E74334421BE8DDF5009C359A /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334311BE8DDF5009C359A /* chat_animation1.png */; };
 		E74334431BE8DDF5009C359A /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334321BE8DDF5009C359A /* chat_animation2.png */; };
 		E74334441BE8DDF5009C359A /* chat_animation3.png in Resources */ = {isa = PBXBuildFile; fileRef = E74334331BE8DDF5009C359A /* chat_animation3.png */; };
@@ -216,6 +217,7 @@
 		E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResourceExplorerController.swift; sourceTree = "<group>"; };
 		E73E44B91B82058300E0B6EB /* UIUserTagExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagExplorerController.swift; sourceTree = "<group>"; };
 		E73E44BB1B823E9600E0B6EB /* UIUserTagEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserTagEditController.swift; sourceTree = "<group>"; };
+		E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		E74334311BE8DDF5009C359A /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
 		E74334321BE8DDF5009C359A /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
 		E74334331BE8DDF5009C359A /* chat_animation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation3.png; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 		E71E07871BE38DE000B1F69D /* ChicagoClient */ = {
 			isa = PBXGroup;
 			children = (
+				E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */,
 				E7FD584C1BCB82B700E42C95 /* ChicagoClient.swift */,
 			);
 			name = ChicagoClient;
@@ -779,7 +782,6 @@
 			children = (
 				E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */,
 				E754AE291B7C749B0077EECC /* UICameraViewController.swift */,
-				E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */,
 				E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */,
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
@@ -789,6 +791,7 @@
 				E7A3AA9B1B9C332F0094B0D0 /* UIImagePlayerController.swift */,
 				E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */,
 				E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */,
+				E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */,
 			);
 			name = UIComponent;
 			sourceTree = "<group>";
@@ -1018,6 +1021,7 @@
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
 				E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */,
+				E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */,
 				E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */,
 				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
