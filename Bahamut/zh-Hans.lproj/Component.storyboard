@@ -667,9 +667,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bs0-wW-q1N">
-                                <rect key="frame" x="20" y="72" width="295" height="30"/>
+                                <rect key="frame" x="20" y="72" width="265" height="30"/>
                                 <animations/>
-                                <state key="normal" title="官方邮箱: bahamut-sharelink@outlook.com"/>
+                                <state key="normal" title="邮箱: bahamut-sharelink@outlook.com"/>
                                 <connections>
                                     <action selector="mailToBahamutSharelink:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="C1l-iE-lal"/>
                                 </connections>
