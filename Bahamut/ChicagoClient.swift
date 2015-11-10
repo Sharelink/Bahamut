@@ -172,6 +172,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 }else
                 {
                     clientState = .ValidatFailed
+                    socket.disconnect()
                 }
             }
             
@@ -256,7 +257,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func onSocketDidDisconnect(sock: AsyncSocket!)
     {
-        if clientState == .Closed
+        if clientState == .Closed || clientState == .ValidatFailed
         {
             return
         }

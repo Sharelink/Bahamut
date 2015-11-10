@@ -39,10 +39,8 @@ class UIClientStateHeader: UIView {
         if ChicagoClient.sharedInstance.clientState == .ValidatFailed
         {
             ChicagoClient.sharedInstance.start()
-        }else
-        {
-            ChicagoClient.sharedInstance.reConnect()
         }
+        ChicagoClient.sharedInstance.reConnect()
     }
     
     private func refresh()
