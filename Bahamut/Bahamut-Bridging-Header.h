@@ -23,4 +23,10 @@
 
 #import "MobClickSocialAnalytics.h"
 
+#import <TAESDK/TaeSDK.h>
+#import <ALBBQuPaiPlugin/ALBBQuPaiPluginPluginServiceProtocol.h>
+#import <ALBBQuPaiPlugin/QPEffect.h>
+#import <ALBBQuPaiPlugin/QPEffectMusic.h>
+#import "TaeSDKExtension.h"
+
 #endif /* Bahamut_Bridging_Header_h */

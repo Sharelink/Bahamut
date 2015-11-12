@@ -10,13 +10,6 @@ import UIKit
 import PBJVision
 import AssetsLibrary
 
-@objc
-protocol UICameraViewControllerDelegate
-{
-    optional func cameraCancelRecord(sender:UICameraViewController!)
-    optional func cameraSaveRecordVideo(sender:UICameraViewController!, destination:String!)
-}
-
 class UICameraViewController: UIViewController , PBJVisionDelegate{
     var previewLayer:AVCaptureVideoPreviewLayer = PBJVision.sharedInstance().previewLayer
     var useFrontCamera:Bool{

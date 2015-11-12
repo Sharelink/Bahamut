@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         loadUI()
         configureUmeng()
         configureShareSDK()
+        initQuPai()
         return true
     }
     
@@ -31,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if BahamutSetting.isUserLogined
         {
             ServiceContainer.instance.userLogin(BahamutSetting.userId)
+        }
+    }
+    
+    private func initQuPai()
+    {
+        TaeSDK.sharedInstance().asyncInit({ () -> Void in
+            NSLog("TaeSDK Inited")
+        }) { (error) -> Void in
+            fatalError(error.description)
         }
     }
     

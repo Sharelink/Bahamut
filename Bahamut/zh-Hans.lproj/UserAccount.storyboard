@@ -32,7 +32,7 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="连接世界，分享世界" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vja-XT-z4B">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="连接我的世界，分享你的世界！" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vja-XT-z4B">
                                 <rect key="frame" x="62" y="50" width="518" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>

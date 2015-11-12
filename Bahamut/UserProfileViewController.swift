@@ -78,7 +78,7 @@ extension SharelinkTagService
 }
 
 //MARK:UserProfileViewController
-class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UICameraViewControllerDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
+class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,QupaiSDKDelegate,UIResourceExplorerDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate
 {
 
     //MARK: properties
@@ -274,19 +274,21 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     private func recordVideo()
     {
-        UICameraViewController.showCamera(self.navigationController!, delegate: self)
+        if let qpController = QuPaiRecordCamera().getQuPaiController(self)
+        {
+            self.presentViewController(qpController, animated: true, completion: nil)
+        }
     }
     
-    func cameraCancelRecord(sender: UICameraViewController!)
-    {
-        view.makeToast(message: NSLocalizedString("CANCELED", comment: ""))
-    }
-    
-    func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
-    {
+    func qupaiSDK(sdk: ALBBQuPaiPluginPluginServiceProtocol!, compeleteVideoPath videoPath: String!, thumbnailPath: String!) {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        if videoPath == nil
+        {
+            return
+        }
         let fileService = ServiceContainer.getService(FileService)
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
-        if fileService.moveFileTo(destination, destinationPath: newFilePath)
+        if fileService.moveFileTo(videoPath, destinationPath: newFilePath)
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath

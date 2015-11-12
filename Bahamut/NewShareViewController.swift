@@ -31,7 +31,7 @@ extension ShareService
 }
 
 //MARK: NewShareViewController
-class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate,UIShareContentViewSetupDelegate
+class NewShareViewController: UIViewController,UITextViewDelegate,UIResourceExplorerDelegate,UITextFieldDelegate,UITagCollectionViewControllerDelegate,ProgressTaskDelegate,UIShareContentViewSetupDelegate,QupaiSDKDelegate
 {
     static let tagsLimit = 7
     var fileService:FileService!
@@ -340,42 +340,6 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
-    func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void, sender: UIResourceExplorerController!)
-    {
-        
-        class SaveVideo:NSObject,UICameraViewControllerDelegate
-        {
-            init(handler:(itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void)
-            {
-                completedHandler = handler
-            }
-            var completedHandler:(itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void
-            @objc private func cameraCancelRecord(sender: UICameraViewController!)
-            {
-                sender.view.makeToast(message:NSLocalizedString("RECORD_CANCELED", comment:  "Record Cancel"))
-            }
-            
-            @objc private func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!) {
-                let fileService = ServiceContainer.getService(FileService)
-                let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
-                if fileService.moveFileTo(destination, destinationPath: newFilePath)
-                {
-                    let videoFileModel = UIFileCollectionCellModel()
-                    videoFileModel.filePath = newFilePath
-                    videoFileModel.fileType = .Video
-                    completedHandler(itemModel: videoFileModel,indexPath: NSIndexPath(forRow: 0, inSection: 0))
-                    sender.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
-                }else
-                {
-                    sender.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"))
-                }
-                
-            }
-        }
-        
-        UICameraViewController.showCamera(sender.navigationController!, delegate: SaveVideo(handler:completedHandler))
-    }
-    
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!) {
         let fileModels = itemModels as! [UIFileCollectionCellModel]
         var sum = 0
@@ -397,37 +361,64 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         sender.view.makeToast(message: String(format:(NSLocalizedString("FILES_WAS_DELETED", comment: "%@ files deleted")), sum), duration: HRToastDefaultDuration, position: HRToastPositionCenter)
     }
     
-    //MARK: record film
-    
-    func cameraCancelRecord(sender: UICameraViewController!)
+    //MARK: set share video
+    func setShareVideo(filePath:String)
     {
-        view.makeToast(message: NSLocalizedString("CANCEL", comment: "Cancel"))
+        let filmModel = FilmModel()
+        filmModel.film = filePath
+        filmModel.preview = ImageUtil.getVideoThumbImageBase64String(filePath)
+        self.shareContentContainer.share.shareContent = filmModel.toJsonString()
+        self.shareContentContainer.update()
     }
     
-    func cameraSaveRecordVideo(sender: UICameraViewController!, destination: String!)
+    //MARK: Save video
+    func saveVideo(videoSourcePath:String) -> String?
     {
         let fileService = ServiceContainer.getService(FileService)
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
-        if fileService.moveFileTo(destination, destinationPath: newFilePath)
+        if fileService.moveFileTo(videoSourcePath, destinationPath: newFilePath)
         {
-            let filmModel = FilmModel()
-            filmModel.film = newFilePath
-            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(newFilePath)
-            self.shareContentContainer.share.shareContent = filmModel.toJsonString()
-            self.shareContentContainer.update()
             self.view.makeToast(message: NSLocalizedString("VIDEO_SAVED", comment: "Video Saved"))
+            let size = PersistentManager.sharedInstance.fileSizeOf(newFilePath)
+            print(size)
+            return newFilePath
         }else
         {
             self.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"))
+            return nil
         }
     }
     
+    //MARK: qupai
+    func showQuPaiCamera()
+    {
+        if let qpController = QuPaiRecordCamera().getQuPaiController(self)
+        {
+            self.presentViewController(qpController, animated: true, completion: nil)
+        }
+    }
+    
+    func qupaiSDK(sdk: ALBBQuPaiPluginPluginServiceProtocol!, compeleteVideoPath videoPath: String!, thumbnailPath: String!)
+    {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        if videoPath != nil
+        {
+            if let newFilePath = saveVideo(videoPath)
+            {
+                setShareVideo(newFilePath)
+            }
+        }
+        
+    }
+    
+    //MARK: record video
     @IBAction func recordVideo()
     {
-        UICameraViewController.showCamera(self.navigationController!, delegate: self)
+        showQuPaiCamera()
         MobClick.event("RecordVideoButton")
     }
     
+    //MARK: select video
     @IBAction func selectVideo()
     {
         let files = ServiceContainer.getService(FileService).getFileModelsOfFileLocalStore(FileType.Video)
