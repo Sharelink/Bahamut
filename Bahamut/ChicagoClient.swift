@@ -261,11 +261,13 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         {
             return
         }
-        clientState = .Disconnected
         reConnectFailedTimes++
         if reConnectFailedTimes < 3
         {
             reConnect()
+        }else
+        {
+            clientState = .Disconnected
         }
     }
     
@@ -289,6 +291,10 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func reConnect()
     {
+        if clientState == .ValidatFailed || clientState == .Closed
+        {
+            ChicagoClient.sharedInstance.start()
+        }
         connect(self.host, port: self.port)
     }
     
@@ -299,7 +305,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func inBackground()
     {
-        self.clientState = .Disconnected
+        self.clientState = .Closed
         socket.disconnect()
     }
     

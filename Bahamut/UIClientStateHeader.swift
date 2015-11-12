@@ -35,10 +35,6 @@ class UIClientStateHeader: UIView {
     
     func reconnectChicagoClient(_:UIGestureRecognizer)
     {
-        if ChicagoClient.sharedInstance.clientState == .ValidatFailed
-        {
-            ChicagoClient.sharedInstance.start()
-        }
         ChicagoClient.sharedInstance.reConnect()
     }
     
