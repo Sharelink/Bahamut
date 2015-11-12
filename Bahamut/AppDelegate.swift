@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configContryAndLang()
         initService()
         loadUI()
+        configureUmeng()
         configureShareSDK()
         return true
     }
@@ -38,6 +39,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ChatViewController.instanceFromStoryBoard()
         UserProfileViewController.instanceFromStoryBoard()
         UIEditTextPropertyViewController.instanceFromStoryBoard()
+    }
+    
+    private func configureUmeng()
+    {
+        MobClick.startWithAppkey("5643e78367e58ec557005b9f", reportPolicy: BATCH, channelId: nil)
+        if let infoDic = NSBundle.mainBundle().infoDictionary
+        {
+            let version = infoDic["CFBundleShortVersionString"] as! String
+            MobClick.setAppVersion(version)
+        }
+        MobClick.setEncryptEnabled(true)
+        MobClick.setLogEnabled(true)
     }
 
     private func configureShareSDK()

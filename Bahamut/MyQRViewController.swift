@@ -25,8 +25,14 @@ class MyQRViewController: UIViewController
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView("MyQRCode")
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        MobClick.endLogPageView("MyQRCode")
     }
     
     static func instanceFromStoryBoard() -> MyQRViewController

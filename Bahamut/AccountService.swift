@@ -20,6 +20,7 @@ class AccountService: ServiceProtocol
     }
     
     @objc func userLogout(userId: String) {
+        MobClick.profileSignOff()
         BahamutSetting.token = nil
         BahamutSetting.isUserLogined = false
         BahamutSetting.fileApiServer = nil
@@ -57,6 +58,7 @@ class AccountService: ServiceProtocol
             }else if error == nil{
                 self.setLogined(validateResult)
                 callback(loginSuccess: true, message: "")
+                MobClick.profileSignInWithPUID(validateResult.UserId)
             }else{
                 callback(loginSuccess: false, message: NSLocalizedString("VALIDATE_ACCTOKEN_FAILED", comment: "Validate Access Token Failed"))
             }

@@ -135,6 +135,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"tableViewScrollToBottom:", name:UIKeyboardDidShowNotification, object:nil)
         shareChat.inChatView = true
         chatTableViewScrollToBottom()
+        MobClick.beginLogPageView("ChatView")
     }
     
     override func viewWillDisappear(animated:Bool)
@@ -142,6 +143,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         super.viewWillDisappear(animated)
         shareChat.inChatView = false
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        MobClick.endLogPageView("ChatView")
     }
     
     func initBar()
@@ -392,6 +394,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             if stateHeaderView == nil
             {
                 stateHeaderView = UIClientStateHeader.instanceFromXib()
+                stateHeaderView.refresh()
             }
             return stateHeaderView
         }

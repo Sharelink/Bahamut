@@ -62,10 +62,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             nc.lockOrientationPortrait = true
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        MobClick.beginLogPageView("New")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -75,6 +72,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             nc.lockOrientationPortrait = false
         }
+        MobClick.endLogPageView("New")
     }
     
     private func initReshare()
@@ -256,6 +254,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showMyTagsCollection()
                 btn.setTitleColor(UIColor.themeColor, forState: .Normal)
+                MobClick.event("SelectThemeButton")
             })
             
         }
@@ -426,12 +425,14 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
     @IBAction func recordVideo()
     {
         UICameraViewController.showCamera(self.navigationController!, delegate: self)
+        MobClick.event("RecordVideoButton")
     }
     
     @IBAction func selectVideo()
     {
         let files = ServiceContainer.getService(FileService).getFileModelsOfFileLocalStore(FileType.Video)
         ServiceContainer.getService(FileService).showFileCollectionControllerView(self.navigationController!, files: files,selectionMode:.Single, delegate: self)
+        MobClick.event("SelectVideoButton")
     }
     
     //MARK: post new share
@@ -459,6 +460,7 @@ class NewShareViewController: UIViewController,UICameraViewControllerDelegate,UI
         {
             self.isReshare ? self.reshare() : self.prepareShare()
         }
+        MobClick.event("PostNew")
     }
     
     private func reshare()

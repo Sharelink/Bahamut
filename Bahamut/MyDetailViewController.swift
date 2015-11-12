@@ -80,6 +80,7 @@ class MyDetailAvatarCell:UITableViewCell
     }
 }
 
+//MARK:MyDetailViewController
 class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ProgressTaskDelegate
 {
     static let aboutSharelinkReuseId = "aboutsharelink"
@@ -90,6 +91,16 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         static let levelScore = "levelScore"
         static let motto = "signtext"
         static let createTime = "createtime"
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView("MyDetailView")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView("MyDetailView")
     }
     
     var myInfo:Sharelinker!

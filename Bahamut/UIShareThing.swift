@@ -253,6 +253,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         }else{
             
             ServiceContainer.getService(ShareService).voteShareThing(shareThingModel,updateCallback: updateVote)
+            MobClick.event("Vote")
         }
     }
     
@@ -260,6 +261,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     {
         if shareThingModel.canReshare()
         {
+            MobClick.event("Reshare")
             rootController.shareService.showReshareViewController(self.rootController.navigationController!, reShareModel: shareThingModel)
         }else
         {

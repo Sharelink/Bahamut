@@ -21,6 +21,16 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
     var delegate:QRStringDelegate!
     private let scanner = QRCode()
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView("ScanQRCode")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView("ScanQRCode")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +41,13 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
             }
         }
         scanner.scanFrame = view.bounds
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // start scan
+        scanner.startScan()
     }
     
     func startScan()
@@ -57,13 +74,7 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // start scan
-        scanner.startScan()
-    }
+
     
     static func instanceFromStoryBoard() -> ScanQRViewController
     {

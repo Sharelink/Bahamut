@@ -19,4 +19,8 @@
 
 #import "WXApi.h"
 
+#import "MobClick.h"
+
+#import "MobClickSocialAnalytics.h"
+
 #endif /* Bahamut_Bridging_Header_h */

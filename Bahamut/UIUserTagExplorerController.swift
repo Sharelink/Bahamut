@@ -81,6 +81,13 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     var tagHeaders:[String]!
     var isMainTagExplorerController = true
+    
+    
+    @IBOutlet var doneButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
+    @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var editButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.items = [[UIResrouceItemModel]]()
@@ -94,12 +101,14 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         initItems()
+        MobClick.beginLogPageView("ThemeView")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView("ThemeView")
     }
 
-    @IBOutlet var doneButton: UIBarButtonItem!
-    @IBOutlet var deleteButton: UIBarButtonItem!
-    @IBOutlet var addButton: UIBarButtonItem!
-    @IBOutlet var editButton: UIBarButtonItem!
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         notifyItemSelectState()
@@ -129,6 +138,8 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         }
         
     }
+    
+    //MARK: UIUserTagEditControllerDelegate
     
     func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
     {

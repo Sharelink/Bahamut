@@ -106,6 +106,12 @@ class LinkedUserListController: UITableViewController
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        MobClick.beginLogPageView("SharelinkerList")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView("SharelinkerList")
     }
     
     override func viewDidAppear(animated: Bool) {

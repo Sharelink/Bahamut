@@ -29,7 +29,6 @@ class UIClientStateHeader: UIView {
     func initHeader()
     {
         startConnect()
-        refresh()
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
     }
@@ -43,7 +42,7 @@ class UIClientStateHeader: UIView {
         ChicagoClient.sharedInstance.reConnect()
     }
     
-    private func refresh()
+    func refresh()
     {
         switch ChicagoClient.sharedInstance.clientState
         {

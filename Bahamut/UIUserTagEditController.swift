@@ -116,6 +116,16 @@ class UIUserTagEditController: UIViewController
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView("EditThemeView")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView("EditThemeView")
+    }
+    
     static func instanceFromStoryBoard() -> UIUserTagEditController
     {
         return instanceFromStoryBoard("Component", identifier: "userTagEditController") as! UIUserTagEditController

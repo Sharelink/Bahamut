@@ -145,6 +145,12 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         bindTapActions()
         update()
         updateEditVideoButton()
+        MobClick.beginLogPageView("SharelinkerProfile")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.endLogPageView("SharelinkerProfile")
     }
     
     override func viewDidAppear(animated: Bool) {

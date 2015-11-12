@@ -76,6 +76,7 @@ class ShareThingsListController: UITableViewController
         {
             nc.lockOrientationPortrait = true
         }
+        MobClick.beginLogPageView("ShareThings")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -84,6 +85,7 @@ class ShareThingsListController: UITableViewController
         {
             nc.lockOrientationPortrait = false
         }
+        MobClick.endLogPageView("ShareThings")
     }
     
     override func viewDidAppear(animated: Bool) {

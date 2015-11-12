@@ -68,6 +68,7 @@
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
+		E76766291BF4237000CACE49 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E76766261BF4237000CACE49 /* libMobClickLibrary.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */; };
 		E76C3CB61BE62CCE003869B5 /* SharelinkSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */; };
 		E76C3CB71BE62CCE003869B5 /* SharelinkSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -238,6 +239,9 @@
 		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		E76766261BF4237000CACE49 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		E76766271BF4237000CACE49 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		E76766281BF4237000CACE49 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFetcher.swift; sourceTree = "<group>"; };
 		E76C3CB51BE62CCE003869B5 /* SharelinkSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SharelinkSDK.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Debug-iphoneos/SharelinkSDK.framework"; sourceTree = "<absolute>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 				E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */,
 				E7B616251BCFCB6E00D0831C /* WeChatConnection.framework in Frameworks */,
 				E7B616301BCFCB6E00D0831C /* ShareSDK.framework in Frameworks */,
+				E76766291BF4237000CACE49 /* libMobClickLibrary.a in Frameworks */,
 				E7B616281BCFCB6E00D0831C /* MOBFoundation.framework in Frameworks */,
 				E7C4F2A51BCFB0570050997B /* libz.tbd in Frameworks */,
 				E7C4F2A31BCFB0470050997B /* libicucore.tbd in Frameworks */,
@@ -522,6 +527,16 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		E76766251BF4234700CACE49 /* Umeng */ = {
+			isa = PBXGroup;
+			children = (
+				E76766261BF4237000CACE49 /* libMobClickLibrary.a */,
+				E76766271BF4237000CACE49 /* MobClick.h */,
+				E76766281BF4237000CACE49 /* MobClickSocialAnalytics.h */,
+			);
+			name = Umeng;
+			sourceTree = "<group>";
+		};
 		E76A45A91B9E8AE20059AA3D /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +693,7 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
+				E76766251BF4234700CACE49 /* Umeng */,
 				E74334301BE8DDF5009C359A /* ChatAssets */,
 				E7B615F41BCFCB6E00D0831C /* ShareSDK */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
@@ -1264,6 +1280,7 @@
 					"$(PROJECT_DIR)/ShareSDK/extends/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/Bahamut",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1318,6 +1335,7 @@
 					"$(PROJECT_DIR)/ShareSDK/extends/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/Bahamut",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
