@@ -441,6 +441,8 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E7294A431BF4DA8E005B7B3A /* ChatFramework.framework */,
+				E7294A3F1BF4DA8C005B7B3A /* SharelinkSDK.framework */,
 				E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */,
 				E72949AB1BF49A27005B7B3A /* MapKit.framework */,
 				E72949A91BF4936E005B7B3A /* Photos.framework */,
@@ -774,8 +776,6 @@
 		E7A62FD71B6609A500F28D73 = {
 			isa = PBXGroup;
 			children = (
-				E7294A431BF4DA8E005B7B3A /* ChatFramework.framework */,
-				E7294A3F1BF4DA8C005B7B3A /* SharelinkSDK.framework */,
 				E7A62FE11B6609A500F28D73 /* Products */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
 				7A86D96ED0EE82317F95B25D /* Pods */,

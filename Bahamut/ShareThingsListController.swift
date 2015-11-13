@@ -17,15 +17,17 @@ class ShareThingsListController: UITableViewController
     private(set) var userService:UserService!
     private(set) var fileService:FileService!
     private(set) var messageService:MessageService!
+    private(set) var notificationService:NotificationService!
     var shareService = ServiceContainer.getService(ShareService)
     var shareThings:[ShareThing] = [ShareThing]()
-    
+    var isShowing:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         initTabBarBadgeValue()
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         messageService = ServiceContainer.getService(MessageService)
+        notificationService = ServiceContainer.getService(NotificationService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         initTableView()
         initRefresh()
@@ -76,6 +78,7 @@ class ShareThingsListController: UITableViewController
         {
             nc.lockOrientationPortrait = true
         }
+        isShowing = true
         MobClick.beginLogPageView("ShareThings")
     }
     
@@ -85,6 +88,7 @@ class ShareThingsListController: UITableViewController
         {
             nc.lockOrientationPortrait = false
         }
+        isShowing = false
         MobClick.endLogPageView("ShareThings")
     }
     
@@ -123,8 +127,12 @@ class ShareThingsListController: UITableViewController
     {
         dispatch_after(1000 * 7, dispatch_get_main_queue()){
             self.shareService.getNewShareMessageFromServer(){ msgs in
-                self.tabBarBadgeValue = self.tabBarBadgeValue + msgs.count
+                if self.isShowing == false
+                {
+                    self.tabBarBadgeValue = self.tabBarBadgeValue + msgs.count
+                }
                 self.refresh()
+                self.notificationService.playHintSound()
             }
         }
     }
@@ -141,6 +149,7 @@ class ShareThingsListController: UITableViewController
         {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.refreshShareLastActiveTime(messages)
+                self.notificationService.playReceivedMessageSound()
             })
         }
     }

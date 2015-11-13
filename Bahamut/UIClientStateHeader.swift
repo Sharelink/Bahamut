@@ -46,6 +46,8 @@ class UIClientStateHeader: UIView {
             setValidateFailed()
         case .Connecting:
             startConnect()
+        case .Connected:
+            setConnected()
         default:
             setConnectError()
             
@@ -55,6 +57,13 @@ class UIClientStateHeader: UIView {
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
         refresh()
+    }
+    
+    private func setConnected()
+    {
+        self.backgroundColor = UIColor.headerColor
+        indicator.startAnimating()
+        messageLabel.text = NSLocalizedString("CONNECTED", comment: "Connected")
     }
     
     private func startConnect()

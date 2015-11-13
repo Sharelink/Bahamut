@@ -106,6 +106,7 @@ SEND_WHITE_SPACE_ERROR = "不能发送空白字符";
 SAVE_VIDEO_ERROR = "保存视频错误";
 RECORD_VIDEO_ERROR = "录制视频错误";
 CONNECTING = "连接中";
+CONNECTED = "已连接";
 CONNECT_ERROR = "网络错误";
 CHICAGO_VALIDATE_FAILED = "服务器验证错误!";
 CONNECT_ERROR_TAP_RETRY = "网络错误，点我重试!";

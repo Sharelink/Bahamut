@@ -31,6 +31,8 @@ class LinkedUserListController: UITableViewController
         }
     }
     
+    private(set) var notificationService:NotificationService!
+    
     func initTabBarBadgeValue()
     {
         tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
@@ -43,6 +45,8 @@ class LinkedUserListController: UITableViewController
         }
     }
 
+    var isShowing:Bool = false
+    
     //MARK: notify
     func myLinkedUsersUpdated(sender:AnyObject)
     {
@@ -59,7 +63,11 @@ class LinkedUserListController: UITableViewController
         if let newMsgs = a.userInfo?[UserServiceNewLinkMessage] as? [LinkMessage]
         {
             dispatch_async(dispatch_get_main_queue()){()->Void in
-                self.tabBarBadgeValue = self.tabBarBadgeValue + newMsgs.count
+                if self.isShowing == false
+                {
+                    self.tabBarBadgeValue = self.tabBarBadgeValue + newMsgs.count
+                }
+                self.notificationService.playHintSound()
             }
         }
     }
@@ -101,16 +109,19 @@ class LinkedUserListController: UITableViewController
         tableView.tableFooterView = uiview
         initTabBarBadgeValue()
         self.userService = ServiceContainer.getService(UserService)
+        self.notificationService = ServiceContainer.getService(NotificationService)
         refresh()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        isShowing = true
         MobClick.beginLogPageView("SharelinkerList")
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        isShowing = false
         MobClick.endLogPageView("SharelinkerList")
     }
     
