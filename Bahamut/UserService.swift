@@ -32,6 +32,12 @@ extension Sharelinker
 //MARK: service define
 let UserServiceNewLinkMessage = "UserServiceNewLinkMessage"
 let AskForLinkSharelinkerId = "AskForLinkSharelinkerId"
+let linkMessageRoute:ChicagoRoute = {
+    let linkMessageRoute = ChicagoRoute()
+    linkMessageRoute.CmdName = "UsrNewLinkMsg"
+    linkMessageRoute.ExtName = "NotificationCenter"
+    return linkMessageRoute
+}()
 
 //MARK: UserService
 class UserService: NSNotificationCenter,ServiceProtocol
@@ -50,28 +56,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        initLinkedUsers()
-        myUserModel = self.getUser(BahamutSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
-            if newestUser != nil
-            {
-                self.myUserModel = newestUser
-                self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
-                if self.myLinkedUsers.count > 0
-                {
-                    self.postNotificationName(UserService.baseUserDataInited, object: self)
-                }
-            }
-        })
-        if myUserModel != nil
-        {
-            self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
-        }
-        let linkMessageRoute = ChicagoRoute()
-        linkMessageRoute.CmdName = "UsrNewLinkMsg"
-        linkMessageRoute.ExtName = "NotificationCenter"
         ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
-        self.refreshMyLinkedUsers()
-        self.refreshLinkMessage()
+        initMyInfo()
     }
     
     func userLogout(userId: String) {
@@ -84,11 +70,30 @@ class UserService: NSNotificationCenter,ServiceProtocol
         myLinkedUsersMap.removeAll()
     }
     
-    private(set) var myUserModel:Sharelinker!
+    private(set) var myUserModel:Sharelinker!{
+        didSet{
+            if myUserModel != nil
+            {
+                self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
+            }
+        }
+    }
     private(set) var linkMessageList:[LinkMessage]!
     
     private(set) var myLinkedUsers:[Sharelinker] = [Sharelinker]()
     private(set) var myLinkedUsersMap:[String:Sharelinker] = [String:Sharelinker]()
+    
+    private func initMyInfo()
+    {
+        myUserModel = self.getUser(BahamutSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
+            if newestUser != nil
+            {
+                self.myUserModel = newestUser
+                self.refreshMyLinkedUsers()
+                self.refreshLinkMessage()
+            }
+        })
+    }
     
     private func initLinkedUsers()
     {

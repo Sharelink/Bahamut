@@ -53,9 +53,10 @@ class NewUserProfileViewController: UIViewController
         self.view.makeToastActivityWithMessage(message:NSLocalizedString("REGISTING", comment: "Registing"))
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             self.view.hideToastActivity()
-            if !isSuc
+            self.view.makeToast(message: msg)
+            if isSuc
             {
-                self.view.makeToast(message: msg)
+                self.view.makeToastActivityWithMessage(message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
             }
         }
     }
@@ -63,20 +64,15 @@ class NewUserProfileViewController: UIViewController
     func setSignSuccessObserver()
     {
         let service = ServiceContainer.getService(UserService)
-        service.addObserver(self, selector: "initUsers:", name: UserService.myUserInfoRefreshed, object: service)
+        service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
     }
     
     func initUsers(_:AnyObject)
     {
+        self.view.hideToastActivity()
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
-        if service.myUserModel != nil
-        {
-            MainNavigationController.start()
-        }else
-        {
-            self.view.makeToast(message:NSLocalizedString("SERVER_ERROR", comment: "Server Failed"))
-        }
+        MainNavigationController.start()
     }
     
     static func instanceFromStoryBoard()->NewUserProfileViewNVController{

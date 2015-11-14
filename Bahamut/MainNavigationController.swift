@@ -95,13 +95,8 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     static func start()
     {
-        //let mainController = instanceFromStoryBoard();
-        if let mainController = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController
-        {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                mainController.navigationController?.popToRootViewControllerAnimated(false)
-                UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
-            })
-        }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
+        })
     }
 }

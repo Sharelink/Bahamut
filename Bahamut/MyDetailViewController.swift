@@ -14,16 +14,19 @@ extension UserService
 {
     func showMyDetailView(currentNavigationController:UINavigationController)
     {
-        if let myInfo = self.myUserModel
-        {
-            let controller = MyDetailViewController.instanceFromStoryBoard()
-            controller.accountId = BahamutSetting.lastLoginAccountId
-            controller.myInfo = myInfo
-            currentNavigationController.pushViewController(controller, animated: true)
-        }else
-        {
-            currentNavigationController.view.makeToast(message:NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            if let myInfo = self.myUserModel
+            {
+                let controller = MyDetailViewController.instanceFromStoryBoard()
+                controller.accountId = BahamutSetting.lastLoginAccountId
+                controller.myInfo = myInfo
+                currentNavigationController.pushViewController(controller, animated: true)
+            }else
+            {
+                currentNavigationController.view.makeToast(message:NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
+            }
         }
+        
     }
 }
 
@@ -169,7 +172,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel) { _ in
             self.cancelLogout()
             })
-        presentViewController(alert, animated: true, completion: nil)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func cancelLogout()
@@ -180,10 +183,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func logout()
     {
         ServiceContainer.instance.userLogout()
-        self.dismissViewControllerAnimated(true) { () -> Void in
-            MainNavigationController.start()
-        }
-        
+        MainNavigationController.start()
     }
     
     //MARK: table view delegate

@@ -146,14 +146,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
         self.view.hideToastActivity()
-        if service.myUserModel != nil
-        {
-            self.performSegueWithIdentifier(SegueConstants.ShowMainView, sender: self)
-        }else
-        {
-            self.authenticate()
-            self.view.makeToast(message:NSLocalizedString("SERVER_ERROR", comment: "Server Error"))
-        }
+        MainNavigationController.start()
     }
 
     
