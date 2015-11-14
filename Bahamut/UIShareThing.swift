@@ -111,10 +111,15 @@ class UIShareMessage:UITableViewCell
         if shareThingModel.isAddTagMessage()
         {
             format =  NSLocalizedString("ADD_TAG", comment: "")
-        }else if (shareThingModel.isFocusTagMessage())
+        }else if shareThingModel.isFocusTagMessage()
         {
             format =  NSLocalizedString("FOCUS_ON", comment: "")
-        }else
+        }else if shareThingModel.isTextMessage()
+        {
+            format = "%@"
+            msgContent = shareThingModel.message
+        }
+        else
         {
             format = NSLocalizedString("UNKNOW_SHARE_TYPE", comment: "")
         }

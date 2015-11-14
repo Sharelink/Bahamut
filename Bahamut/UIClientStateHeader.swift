@@ -40,6 +40,14 @@ class UIClientStateHeader: UIView {
     
     func refresh()
     {
+        if ChicagoClient.sharedInstance.clientState == .Closed
+        {
+            self.hidden = true
+        }else
+        {
+            self.hidden = false
+        }
+
         switch ChicagoClient.sharedInstance.clientState
         {
         case .ValidatFailed:
