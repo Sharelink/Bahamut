@@ -165,7 +165,12 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     deinit
     {
     }
-    @IBOutlet weak var sendingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sendingIndicator: UIActivityIndicatorView!{
+        didSet{
+            sendingIndicator.stopAnimating()
+            sendingIndicator.hidden = true
+        }
+    }
     
     @IBOutlet weak var themeLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!{
@@ -346,6 +351,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         }else
         {
             self.sendingIndicator.hidden = true
+            self.sendingIndicator.stopAnimating()
         }
     }
     

@@ -31,21 +31,28 @@ class LinkedUserListController: UITableViewController
         }
     }
     
-    private(set) var notificationService:NotificationService!
-    
-    func initTabBarBadgeValue()
-    {
-        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
-    }
-    
     var tabBarBadgeValue:Int!{
         didSet{
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
             NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
         }
     }
-
-    var isShowing:Bool = false
+    private var userGuide:UserGuide!
+    private var isShowing:Bool = false
+    
+    private(set) var notificationService:NotificationService!
+    
+    private func initTabBarBadgeValue()
+    {
+        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
+    }
+    
+    private func initUserGuide()
+    {
+        self.userGuide = UserGuide()
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "User")
+        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+    }
     
     //MARK: notify
     func myLinkedUsersUpdated(sender:AnyObject)
@@ -102,6 +109,7 @@ class LinkedUserListController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
+        self.initUserGuide()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         let uiview = UIView()
@@ -127,6 +135,7 @@ class LinkedUserListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.userGuide.showGuideControllerPresentFirstTime()
         tabBarBadgeValue = 0
         tableView.reloadData()
     }

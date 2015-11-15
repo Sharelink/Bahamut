@@ -92,6 +92,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     private(set) var reConnectFailedTimes:Int = 0
     private(set) var clientState:ChicagoClientState = .Closed{
         didSet{
+            NSLog("Chicago State:\(clientState)")
             self.postNotificationName(ChicagoClientStateChanged, object: self)
         }
     }
@@ -173,6 +174,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .ValidatFailed
                     socket.disconnect()
+                    NSLog("Chicago:Validate Failed")
                 }
             }
             
@@ -229,7 +231,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         {
             let route = ChicagoProtocolUtil.getChicagoRouteFromData(data)
             let json = ChicagoProtocolUtil.getChicagoMessageJsonFromData(data)
-            print("Chicago:\(json)")
             sock.readDataToLength(4, withTimeout: -1, tag: ChicagoClient.readHeadTag)
             if clientState == .Connected || clientState == .Validated
             {
@@ -282,10 +283,12 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         do
         {
             clientState = .Connecting
+            NSLog("Chicago:Connecting")
             try socket.connectToHost(host, onPort: port)
-        }catch
+        }catch let error as NSError
         {
             clientState = .Disconnected
+            NSLog("Chicago:Connect Error:\(error.description)")
         }
     }
     

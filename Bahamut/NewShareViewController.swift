@@ -39,10 +39,12 @@ class NewShareViewController: UIViewController,UITextViewDelegate,UIResourceExpl
     var isReshare:Bool = false
     var shareThingModel:ShareThing!
     
+    private var userGuide:UserGuide!
     private var viewKeyboardAdjustProxy:ControllerViewAdjustByKeyboardProxy!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initUserGuide()
         self.shareService = ServiceContainer.getService(ShareService)
         self.fileService = ServiceContainer.getService(FileService)
         changeNavigationBarColor()
@@ -73,6 +75,18 @@ class NewShareViewController: UIViewController,UITextViewDelegate,UIResourceExpl
             nc.lockOrientationPortrait = false
         }
         MobClick.endLogPageView("New")
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.userGuide.showGuideControllerPresentFirstTime()
+    }
+    
+    private func initUserGuide()
+    {
+        self.userGuide = UserGuide()
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "New")
+        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
     }
     
     private func initReshare()

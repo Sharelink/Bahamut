@@ -118,6 +118,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         registModel.registUserServer = registApi
         registModel.accountId = accountId
         registModel.userName = registedAccountName ?? "Sharelinker"
+        registModel.region = BahamutSetting.contry.lowercaseString
         ServiceContainer.getService(AccountService).showRegistNewUserController(self, registModel:registModel)
     }
     

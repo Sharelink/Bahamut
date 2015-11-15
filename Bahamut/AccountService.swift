@@ -74,6 +74,7 @@ class AccountService: ServiceProtocol
         req.accessToken = registModel.accessToken
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
+        req.region = registModel.region
         let client = SharelinkSDK.sharedInstance.getRegistClient()
         client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure

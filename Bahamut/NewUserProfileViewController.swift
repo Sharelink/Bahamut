@@ -26,6 +26,7 @@ class RegistModel {
     var accountId:String!
     var accessToken:String!
     var userName:String!
+    var region:String!
 }
 
 class NewUserProfileViewController: UIViewController

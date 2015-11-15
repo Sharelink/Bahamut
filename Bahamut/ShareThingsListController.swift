@@ -18,12 +18,14 @@ class ShareThingsListController: UITableViewController
     private(set) var fileService:FileService!
     private(set) var messageService:MessageService!
     private(set) var notificationService:NotificationService!
-    var shareService = ServiceContainer.getService(ShareService)
-    var shareThings:[ShareThing] = [ShareThing]()
-    var isShowing:Bool = false
+    private(set) var shareService = ServiceContainer.getService(ShareService)
+    private var shareThings:[ShareThing] = [ShareThing]()
+    private var isShowing:Bool = false
+    private var userGuide:UserGuide!
     override func viewDidLoad() {
         super.viewDidLoad()
         initTabBarBadgeValue()
+        initUserGuide()
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         messageService = ServiceContainer.getService(MessageService)
@@ -45,6 +47,12 @@ class ShareThingsListController: UITableViewController
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
+    private func initUserGuide()
+    {
+        self.userGuide = UserGuide()
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "Share")
+        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+    }
     
     private func initTableView()
     {
@@ -94,6 +102,7 @@ class ShareThingsListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        userGuide.showGuideControllerPresentFirstTime()
         tabBarBadgeValue = 0
         if shareThings.count == 0
         {

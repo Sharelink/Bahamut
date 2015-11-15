@@ -101,7 +101,7 @@ LEVEL_RULE_DESC = "1.One Share Worth 1 Point\n2.Your Share Be Vote One Time Wort
 SHARELINK_SCORE = "Sharelink Score";
 
 VALIDATE_ACCTOKEN_FAILED = "Validate Access Token Failed";
-NO_MORE_MESSAGE = "No More Message~";
+NO_MORE_MESSAGE = "No More Message!";
 SEND_WHITE_SPACE_ERROR = "Can't Send White Space";
 SAVE_VIDEO_ERROR = "Save Video Error";
 RECORD_VIDEO_ERROR = "Record Video Error";

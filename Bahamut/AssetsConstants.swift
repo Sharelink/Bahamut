@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct FilmAssetsConstants
 {
@@ -17,4 +18,23 @@ struct  ImageAssetsConstants
 {
     static let defaultAvatar = "defaultAvatar"
     static let defaultViewImage = "defaultView"
+}
+
+class UserGuideAssetsConstants
+{
+    class func getViewGuideImages(lang:String,viewName:String) -> [UIImage]
+    {
+        var imgs:[UIImage] = [UIImage]()
+        var i = 0
+        repeat
+        {
+            let imgName = "\(lang)_\(viewName)ViewGuide_\(i).jpg"
+            if let img = UIImage(named: imgName){
+                imgs.append(img)
+            }else{
+                return imgs
+            }
+            i++
+        }while(true)
+    }
 }

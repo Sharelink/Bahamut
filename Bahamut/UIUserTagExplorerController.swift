@@ -81,7 +81,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
     var tagHeaders:[String]!
     var isMainTagExplorerController = true
-    
+    private var userGuide:UserGuide!
     
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
@@ -90,6 +90,10 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if isMainTagExplorerController
+        {
+            self.initUserGuide()
+        }
         self.items = [[UIResrouceItemModel]]()
         tagService = ServiceContainer.getService(SharelinkTagService)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -116,9 +120,20 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if isMainTagExplorerController
+        {
+            self.userGuide.showGuideControllerPresentFirstTime()
+        }
     }
     
-    func initItems()
+    private func initUserGuide()
+    {
+        self.userGuide = UserGuide()
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "Theme")
+        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+    }
+    
+    private func initItems()
     {
         if isMainTagExplorerController
         {
@@ -155,12 +170,19 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
             tagService.addSharelinkTag(saveModel.tag){ (isSuc) -> Void in
                 if isSuc
                 {
-                    if self.items.count == 0
+                    if self.isMainTagExplorerController
                     {
-                        self.items.append([UIResrouceItemModel]())
+                        self.initItems()
+                    }else
+                    {
+                        if self.items.count == 0
+                        {
+                            self.items.append([UIResrouceItemModel]())
+                        }
+                        self.items[0].append(saveModel)
+                        self.uiCollectionView.reloadData()
                     }
-                    self.items[0].append(saveModel)
-                    self.uiCollectionView.reloadData()
+                    
                     self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "Focus successful!"))
                 }else
                 {
