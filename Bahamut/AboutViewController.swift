@@ -45,7 +45,6 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    //"SimpleBrowser"
     static func showAbout(currentViewController:UIViewController)
     {
         let controller = instanceFromStoryBoard()

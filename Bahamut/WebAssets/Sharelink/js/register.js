@@ -9,7 +9,9 @@ $(document).ready(function(){
 
 	var loginApi = getUrlParam("loginApi");
     var registApi = getUrlParam("registApi");
-    
+    document.getElementById("privacy").onclick = function(){
+    	controller.showPrivacy();
+    };
     document.getElementById("login").onclick = function(){
         window.location.href = "login_" + lang + ".html?loginApi=" + loginApi + "&registApi=" + registApi;
         return false;

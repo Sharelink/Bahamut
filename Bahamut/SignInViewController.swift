@@ -21,6 +21,7 @@ import SharelinkSDK
     func finishRegist(accountId:String)
     func alert(msg:String)
     func switchDevMode()
+    func showPrivacy()
 }
 
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
@@ -40,9 +41,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         super.viewDidLoad()
         changeNavigationBarColor()
         loginAccountId = BahamutSetting.lastLoginAccountId
-    }
-    
-    override func viewWillAppear(animated: Bool) {
         authenticate()
     }
     
@@ -187,11 +185,15 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
         
     }
+    
     func hideToastActivity(){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.view.hideToastActivity()
         }
-
+    }
+    
+    func showPrivacy() {
+        SimpleBrowser.openUrl(self.navigationController!, url: BahamutConfig.sharelinkPrivacyPage)
     }
     
     //MARK: develop mode

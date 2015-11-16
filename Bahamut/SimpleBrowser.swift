@@ -14,26 +14,45 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     @IBOutlet weak var webView: UIWebView!{
         didSet{
             webView.delegate = self
+            if url != nil{
+                loadUrl()
+            }
         }
     }
     
     var url:String!{
         didSet{
-            if url != nil
+            if url != nil && webView != nil
             {
-                webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+                loadUrl()
             }
         }
     }
     
-    //"SimpleBrowser"
-    static func openUrl(currentViewController:UIViewController,url:String)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    @IBAction func back(sender: AnyObject)
     {
-        let controller = instanceFromStoryBoard()
-        if let nvController = currentViewController.navigationController
-        {
-            nvController.pushViewController(controller, animated: true)
-            controller.url = url;
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    private func loadUrl()
+    {
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+    }
+    
+    //"SimpleBrowser"
+    static func openUrl(currentViewController:UINavigationController,url:String)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let controller = instanceFromStoryBoard()
+            let navController = UINavigationController(rootViewController: controller)
+            navController.changeNavigationBarColor()
+            currentViewController.presentViewController(navController, animated: true, completion: {
+                controller.url = url;
+            })
         }
     }
     

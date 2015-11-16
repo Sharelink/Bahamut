@@ -10,7 +10,6 @@ $(document).ready(function(){
     $("#username").val(getUrlParam("accountId"));
     var loginApi = getUrlParam("loginApi");
     var registApi = getUrlParam("registApi");
-
     document.getElementById("newaccount").onclick = function(){
         window.location.href = "register_" + lang + ".html?loginApi=" + loginApi + "&registApi=" + registApi;
         return false;

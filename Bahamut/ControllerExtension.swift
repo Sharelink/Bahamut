@@ -234,8 +234,14 @@ extension UIViewController
     func changeNavigationBarColor()
     {
         let navBcgColor = UIColor.themeColor
-        self.navigationController?.navigationBar.tintColor = navBcgColor
+        self.navigationController?.navigationBar.barTintColor = navBcgColor
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        if let nav = self as? UINavigationController
+        {
+            nav.navigationBar.barTintColor = navBcgColor
+            nav.navigationBar.tintColor = UIColor.whiteColor()
+        }
     }
 }
 

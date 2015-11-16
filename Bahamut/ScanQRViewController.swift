@@ -110,8 +110,10 @@ extension UserService: QRStringDelegate
                 }
             }else
             {
-                sender.navigationController?.popViewControllerAnimated(true)
-                SimpleBrowser.openUrl(MainViewTabBarController.currentRootViewController, url: qrString)
+                sender.navigationController?.popViewControllerAnimated(false)
+                dispatch_after(1000*2, dispatch_get_main_queue(), { () -> Void in
+                    SimpleBrowser.openUrl(MainViewTabBarController.currentNavicationController, url: qrString)
+                })
             }
         }
 
