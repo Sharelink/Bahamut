@@ -357,6 +357,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func start()
     {
+        socket.disconnect()
         clientState = .Disconnected
     }
     
