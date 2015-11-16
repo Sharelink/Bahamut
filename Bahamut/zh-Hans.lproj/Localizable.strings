@@ -208,6 +208,9 @@ SEND_LINK_REQUEST_TO = "发送建立连接请求给 %@";
 LINK_REQUEST_SENDED = "请求已发送";
 ASK_LINK_MSG = "%@ 想与你的Sharelink建立连接!";
 
+//notification format
+NEW_MSG_NOTIFICATION = "你有一条新的消息!";
+
 //
 SHARE_SUC = "分享成功!";
 SHARE_FAILED = "分享失败.";

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configContryAndLang()
         initService()
         loadUI()
+        configureUMessage(launchOptions)
         configureUmeng()
         configureShareSDK()
         initQuPai()
@@ -51,9 +52,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIEditTextPropertyViewController.instanceFromStoryBoard()
     }
     
+    private func configureUMessage(launchOptions: [NSObject: AnyObject]?)
+    {
+        UMessage.startWithAppkey(BahamutConfig.umengAppkey, launchOptions: launchOptions)
+        UMessage.setAutoAlert(false)
+        //register remoteNotification types
+        let action1 = UIMutableUserNotificationAction()
+        action1.identifier = "action1_identifier"
+        action1.title="Accept";
+        action1.activationMode = UIUserNotificationActivationMode.Foreground //当点击的时候启动程序
+        
+        let action2 = UIMutableUserNotificationAction()  //第二按钮
+        action2.identifier = "action2_identifier"
+        action2.title="Reject"
+        action2.activationMode = UIUserNotificationActivationMode.Background //当点击的时候不启动程序，在后台处理
+        action2.authenticationRequired = true //需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+        action2.destructive = true;
+        
+        let categorys = UIMutableUserNotificationCategory()
+        categorys.identifier = "category1" //这组动作的唯一标示
+        categorys.setActions([action1,action2], forContext: .Default)
+        
+        let userSettings = UIUserNotificationSettings(forTypes: [.Sound,.Badge,.Alert], categories: [categorys])
+        UMessage.registerRemoteNotificationAndUserNotificationSettings(userSettings)
+    }
+    
     private func configureUmeng()
     {
-        MobClick.startWithAppkey("5643e78367e58ec557005b9f", reportPolicy: BATCH, channelId: nil)
+        MobClick.startWithAppkey(BahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
         if let infoDic = NSBundle.mainBundle().infoDictionary
         {
             let version = infoDic["CFBundleShortVersionString"] as! String
@@ -98,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func connectGlobalApps()
     {
         //Facebook
-        ShareSDK.connectFacebookWithAppKey("897418857006645", appSecret: "3c5fbcbc22201f96e1b5e93f7a0a69ff")
+        ShareSDK.connectFacebookWithAppKey(BahamutConfig.facebookAppkey, appSecret: BahamutConfig.facebookAppScrect)
         
         //WhatsApp
         ShareSDK.connectWhatsApp()
@@ -107,15 +133,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func connectChinaApps()
     {
         //微信登陆的时候需要初始化
-        ShareSDK.connectWeChatSessionWithAppId("wx661037d16f05eb0b", appSecret: "d4624c36b6795d1d99dcf0547af5443d", wechatCls: WXApi.classForCoder())
-        ShareSDK.connectWeChatTimelineWithAppId("wx661037d16f05eb0b", appSecret: "d4624c36b6795d1d99dcf0547af5443d", wechatCls: WXApi.classForCoder())
+        ShareSDK.connectWeChatSessionWithAppId(BahamutConfig.wechatAppkey, appSecret: BahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
+        ShareSDK.connectWeChatTimelineWithAppId(BahamutConfig.wechatAppkey, appSecret: BahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
         
         //添加QQ应用  注册网址   http://mobile.qq.com/api/
-        ShareSDK.connectQQWithAppId("1104930500", qqApiCls: QQApiInterface.classForCoder())
+        ShareSDK.connectQQWithAppId(BahamutConfig.qqAppkey, qqApiCls: QQApiInterface.classForCoder())
         
         //Weibo
-//        ShareSDK.connectSinaWeiboWithAppKey("179608154", appSecret: "b79d50fb87ded0d281492b3113f3f988", redirectUri: "https://api.weibo.com/oauth2/default.html",weiboSDKCls: WeiboSDK.classForCoder())
+//        ShareSDK.connectSinaWeiboWithAppKey(BahamutConfig.weiboAppkey, appSecret: BahamutConfig.weiboAppScrect, redirectUri: "https://api.weibo.com/oauth2/default.html",weiboSDKCls: WeiboSDK.classForCoder())
         
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        UMessage.registerDeviceToken(deviceToken)
+        BahamutSetting.deviceToken = deviceToken.description
+            .stringByReplacingOccurrencesOfString("<", withString: "")
+            .stringByReplacingOccurrencesOfString(">", withString: "")
+            .stringByReplacingOccurrencesOfString(" ", withString: "")
+        ChicagoClient.sharedInstance.registDeviceToken(BahamutSetting.deviceToken)
+        NSLog("deviceToken:%@",BahamutSetting.deviceToken)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+        UMessage.didReceiveRemoteNotification(userInfo)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        NSLog("%@", error.description)
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
@@ -274,6 +319,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext () {
+        if managedObjectContext == nil
+        {
+            return
+        }
         if managedObjectContext.hasChanges {
             do {
                 try managedObjectContext.save()

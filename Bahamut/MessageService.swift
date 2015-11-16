@@ -39,7 +39,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     
     func userLogout(userId: String) {
         ChicagoClient.sharedInstance.removeObserver(self)
-        ChicagoClient.sharedInstance.close()
+        ChicagoClient.sharedInstance.logout()
     }
     
     static let messageListUpdated = "messageListUpdated"

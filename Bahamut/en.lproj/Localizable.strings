@@ -208,6 +208,9 @@ SEND_LINK_REQUEST_TO = "Send link request to %@";
 LINK_REQUEST_SENDED = "Ask for link sended";
 ASK_LINK_MSG = "%@ want to link with you in Sharelink!";
 
+//notification format
+NEW_MSG_NOTIFICATION = "You have a new message!";
+
 //
 SHARE_SUC = "Share Success!";
 SHARE_FAILED = "Share Failed.";

@@ -20,8 +20,8 @@
 #import "WXApi.h"
 
 #import "MobClick.h"
-
 #import "MobClickSocialAnalytics.h"
+#import "UMessage.h"
 
 #import <TAESDK/TaeSDK.h>
 #import <ALBBQuPaiPlugin/ALBBQuPaiPluginPluginServiceProtocol.h>

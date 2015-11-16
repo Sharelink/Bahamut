@@ -68,24 +68,52 @@ enum ChicagoClientState
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
 {
     private static let heartBeatJson = "{}"
-    private static let heartBeatRoute = ChicagoRoute()
+    private static let heartBeatRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "HeartBeat"
+        route.CmdName = "Beat"
+        return route
+    }()
+    
     private static var heartBeatTimer:NSTimer!
     private static var lastHeartBeatTime:NSDate!
     private static var heartBeatInterval:NSTimeInterval = 23
     
-    private static let validationRoute = ChicagoRoute()
+    private static let validationRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "SharelinkerValidation"
+        route.CmdName = "Login"
+        return route
+    }()
+    
+    private static let logoutRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "SharelinkerValidation"
+        route.CmdName = "Logout"
+        return route
+    }()
+    
+    private static let registDeviceTokenRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "NotificationCenter"
+        route.CmdName = "RegistDeviceToken"
+        return route
+    }()
+    
     class ValidationInfo: EVObject
     {
         var UserId:String!
         var AppToken:String!
         var Appkey:String!
-        
     }
     private var socket:AsyncSocket!
     
     private(set) var validationInfo:ValidationInfo!
     private(set) var appToken:String!
     private(set) var userId:String!
+    
+    private var deviceTokenSended:Bool = false
+    private var sendDeviceTokenLock = NSRecursiveLock()
     
     private(set) var host:String!
     private(set) var port:UInt16 = 0
@@ -105,16 +133,12 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     override init() {
         super.init()
-        ChicagoClient.heartBeatRoute.ExtName = "HeartBeat"
-        ChicagoClient.heartBeatRoute.CmdName = "Beat"
-        
-        ChicagoClient.validationRoute.ExtName = "SharelinkerValidation"
-        ChicagoClient.validationRoute.CmdName = "Login"
         
         socket = AsyncSocket()
         socket.setDelegate(self)
         
         self.addChicagoObserver(ChicagoClient.validationRoute, observer: self, selector: "onValidationReturn:")
+        self.addChicagoObserver(ChicagoClient.logoutRoute, observer: self, selector: "onLogoutReturn:")
         self.addChicagoObserver(ChicagoClient.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
     }
     
@@ -130,13 +154,17 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     private func sendMessage(data:NSData) -> Int
     {
+        if self.clientState != .Connected && self.clientState != .Validated
+        {
+            return -1
+        }
         var dataLength = Int32(data.length)
         let packageLengthData = NSData(bytes: &dataLength, length: 4)
         let package = NSMutableData()
         package.appendData(packageLengthData)
         package.appendData(data)
         let tag = incTag()
-        socket.writeData(package, withTimeout: -1, tag: tag)
+        socket.writeData(package, withTimeout: 7, tag: tag)
         return tag
     }
     
@@ -156,6 +184,30 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         sendChicagoMessage(ChicagoClient.validationRoute, json: validationInfo.toJsonString())
     }
     
+    func registDeviceToken(deviceToken:String!)
+    {
+        sendDeviceTokenLock.lock()
+        if String.isNullOrWhiteSpace(deviceToken) || deviceTokenSended || clientState != .Validated
+        {
+            return
+        }else
+        {
+            deviceTokenSended = true
+            sendChicagoMessage(ChicagoClient.registDeviceTokenRoute, json: "{ \"DeviceToken\":\"\(deviceToken)\" }")
+        }
+        sendDeviceTokenLock.unlock()
+    }
+    
+    func logout()
+    {
+        sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
+    }
+    
+    func onLogoutReturn(a:NSNotification)
+    {
+        close()
+    }
+    
     func onValidationReturn(a:NSNotification)
     {
         class ValidationReturn:EVObject
@@ -170,6 +222,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .Validated
                     ChicagoClient.lastHeartBeatTime = NSDate()
+                    self.registDeviceToken(BahamutSetting.deviceToken)
                 }else
                 {
                     clientState = .ValidatFailed
@@ -258,6 +311,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func onSocketDidDisconnect(sock: AsyncSocket!)
     {
+        deviceTokenSended = false
         if clientState == .Closed || clientState == .ValidatFailed
         {
             return

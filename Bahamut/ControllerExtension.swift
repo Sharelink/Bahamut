@@ -81,7 +81,7 @@ public class UserGuide:NSObject
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
             self.showingIndex = -1
-            self.viewController.presentViewController(imgController, animated: false, completion: {
+            self.viewController.presentViewController(imgController, animated: true, completion: {
                 self.showNextImage()
             })
         }
