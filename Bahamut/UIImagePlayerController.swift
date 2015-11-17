@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+
 
 class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
 {

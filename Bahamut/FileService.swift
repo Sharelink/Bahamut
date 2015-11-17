@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Alamofire
-import SharelinkSDK
+
 
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}

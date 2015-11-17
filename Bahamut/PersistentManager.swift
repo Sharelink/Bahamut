@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
-import SharelinkSDK
+
 
 class PersistentManager
 {

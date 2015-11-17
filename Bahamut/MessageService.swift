@@ -10,7 +10,6 @@
 import Foundation
 import UIKit
 import EVReflection
-import SharelinkSDK
 
 //MARK:MessageService
 

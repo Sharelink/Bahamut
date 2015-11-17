@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import SharelinkSDK
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

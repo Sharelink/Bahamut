@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SharelinkSDK
+
 
 protocol UIEditTextPropertyViewControllerDelegate
 {

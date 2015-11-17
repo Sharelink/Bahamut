@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SharelinkSDK
+
 import ChatFramework
 
 class UIUserListMessageCell: UITableViewCell

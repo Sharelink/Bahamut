@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Alamofire
-import SharelinkSDK
+
+
 
 
 let FileServiceUploadTask = "FileServiceUploadTask"

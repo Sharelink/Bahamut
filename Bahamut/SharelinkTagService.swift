@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SharelinkSDK
+
 //MARK: sortable
 class SharelinkTagSortableObject: Sortable
 {

@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import SharelinkSDK
+
 
 class ShareChatEntity: NSManagedObject {
 

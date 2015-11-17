@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SharelinkSDK
+
 
 //MARK: LinkedUserListController
 class LinkedUserListController: UITableViewController

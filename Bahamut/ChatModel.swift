@@ -9,7 +9,7 @@
 import Foundation
 import ChatFramework
 import UIKit
-import SharelinkSDK
+
 
 let ShareChatHubNewMessageChanged = "ShareChatHubNewMessageChanged"
 let ChatHubCurrentChatModelChanged = "CurrentChatModelChanged"

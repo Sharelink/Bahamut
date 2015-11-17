@@ -8,7 +8,6 @@
 
 import UIKit
 import MJRefresh
-import SharelinkSDK
 
 //MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController

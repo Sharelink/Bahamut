@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import MJRefresh
 import ChatFramework
-import SharelinkSDK
+import MJRefresh
 
 class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate
 {

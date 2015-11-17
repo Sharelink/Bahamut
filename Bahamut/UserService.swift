@@ -8,9 +8,9 @@
 
 import Foundation
 import CoreFoundation
-import Alamofire
-import EVReflection
-import SharelinkSDK
+
+
+
 
 //special note name
 let SharelinkerCenterNoteName = "#<SharelinkCenter>#"

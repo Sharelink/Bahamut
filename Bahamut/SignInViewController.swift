@@ -7,10 +7,8 @@
 //
 
 import UIKit
-import EVReflection
-import Alamofire
 import JavaScriptCore
-import SharelinkSDK
+
 
 @objc protocol SignInViewControllerJSProtocol : JSExport
 {

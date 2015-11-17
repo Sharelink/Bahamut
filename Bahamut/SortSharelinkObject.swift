@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SharelinkSDK
+
 //MARK: Sort
 class Sortable : ShareLinkObject
 {

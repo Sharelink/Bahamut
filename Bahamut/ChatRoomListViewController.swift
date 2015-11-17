@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SharelinkSDK
+
 
 class ChatRoomListCell: UITableViewCell
 {

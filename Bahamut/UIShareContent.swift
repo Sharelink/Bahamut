@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import SharelinkSDK
 import EVReflection
 
 protocol UIShareContentDelegate

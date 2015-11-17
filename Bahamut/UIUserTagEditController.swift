@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SharelinkSDK
+
 
 //MARK: UserService extension
 extension UserService

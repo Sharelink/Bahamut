@@ -8,7 +8,7 @@
 
 import UIKit
 import ChatFramework
-import SharelinkSDK
+
 
 class UIShareMessage:UITableViewCell
 {

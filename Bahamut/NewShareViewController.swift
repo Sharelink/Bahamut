@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SharelinkSDK
-import EVReflection
 import AVFoundation
-
+import EVReflection
+import Alamofire
 //MARK: ShareService extension
 extension ShareService
 {
