@@ -260,7 +260,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                     return
                 }
                 //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
-                if msgs.first?.id == nil
+                if msgs.first?.id == nil || msgs.first?.sharelinkerId == nil || msgs.first?.type == nil
                 {
                     //not this request response
                     return

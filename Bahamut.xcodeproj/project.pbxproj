@@ -1482,9 +1482,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;
+				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/ShareSDK/extends/QQSDK",
-					"$(PROJECT_DIR)/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Connection",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Core",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/QQConnectSDK",
@@ -1495,12 +1494,11 @@
 				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/ShareSDK/extends/SinaWeiboSDK",
-					"$(PROJECT_DIR)/ShareSDK/extends/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
@@ -1539,9 +1537,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;
+				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/ShareSDK/extends/QQSDK",
-					"$(PROJECT_DIR)/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Connection",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Core",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/QQConnectSDK",
@@ -1552,12 +1549,11 @@
 				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/ShareSDK/extends/SinaWeiboSDK",
-					"$(PROJECT_DIR)/ShareSDK/extends/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",

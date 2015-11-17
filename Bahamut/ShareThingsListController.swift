@@ -158,8 +158,11 @@ class ShareThingsListController: UITableViewController
         {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.refreshShareLastActiveTime(messages)
-                self.notificationService.playReceivedMessageSound()
             })
+            if messages.count > 0
+            {
+                self.notificationService.playReceivedMessageSound()
+            }
         }
     }
     

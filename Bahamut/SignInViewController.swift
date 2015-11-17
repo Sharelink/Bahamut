@@ -142,6 +142,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func initUsers(_:AnyObject)
     {
+        let notiService = ServiceContainer.getService(NotificationService)
+        notiService.setMute(false)
+        notiService.setVibration(true)
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
         self.view.hideToastActivity()

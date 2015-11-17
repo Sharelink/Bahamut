@@ -202,13 +202,17 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         return self.items.count
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView{
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "tagSectionHeader", forIndexPath: indexPath)
-        if let title = header.viewWithTag(1) as? UILabel
-        {
-            title.text = self.tagHeaders[indexPath.section]
-        }
-        return header
+//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView{
+//        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "tagSectionHeader", forIndexPath: indexPath)
+//        if let title = header.viewWithTag(1) as? UILabel
+//        {
+//            title.text = self.tagHeaders[indexPath.section]
+//        }
+//        return header
+//    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets

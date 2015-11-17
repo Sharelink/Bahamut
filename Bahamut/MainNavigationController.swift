@@ -33,6 +33,10 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         if BahamutSetting.isUserLogined
         {
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
+            //login get message
+            ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
+            ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
+            ServiceContainer.getService(MessageService).getMessageFromServer()
         }else
         {
             performSegueWithIdentifier(SegueIdentifier.ShowSignView, sender: self)
