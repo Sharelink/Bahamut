@@ -200,7 +200,12 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func logout()
     {
-        sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
+        ChicagoClient.heartBeatTimer.invalidate()
+        ChicagoClient.heartBeatTimer = nil
+        if sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
+        {
+            self.clientState = .Closed
+        }
     }
     
     func onLogoutReturn(a:NSNotification)
@@ -256,10 +261,10 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         ChicagoClient.lastHeartBeatTime = NSDate()
     }
 
-    func sendChicagoMessage(chicagoRoute:ChicagoRoute,json:String)
+    func sendChicagoMessage(chicagoRoute:ChicagoRoute,json:String) -> Bool
     {
         let package = ChicagoProtocolUtil.getDataWithChicagoRouteAndJson(chicagoRoute, jsonString: json)
-        sendMessage(package)
+        return sendMessage(package) > 0
     }
     
     private func getAName(route:ChicagoRoute) -> String
