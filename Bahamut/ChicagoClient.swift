@@ -62,6 +62,7 @@ enum ChicagoClientState
     case Connecting
     case Validated
     case ValidatFailed
+    case UserLogout
 }
 
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
@@ -153,7 +154,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     private func sendMessage(data:NSData) -> Int
     {
-        if self.clientState != .Connected && self.clientState != .Validated
+        if self.clientState != .Connected && self.clientState != .Validated && self.clientState != .UserLogout
         {
             return -1
         }
@@ -201,6 +202,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     {
         ChicagoClient.heartBeatTimer.invalidate()
         ChicagoClient.heartBeatTimer = nil
+        self.clientState = .UserLogout
         if sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
         {
             self.clientState = .Closed
