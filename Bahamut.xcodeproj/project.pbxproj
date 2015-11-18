@@ -64,6 +64,9 @@
 		E71E07811BE38DE000B1F69D /* SharelinkCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07801BE38DE000B1F69D /* SharelinkCmd.swift */; };
 		E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */; };
 		E71E07861BE38DE000B1F69D /* SharelinkCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07851BE38DE000B1F69D /* SharelinkCmdManager.swift */; };
+		E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */; };
+		E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E723871F1BFC1C0900247A35 /* NewShareFilmCell.swift */; };
+		E72387231BFC437600247A35 /* UIShareMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72387221BFC437600247A35 /* UIShareMessage.swift */; };
 		E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */; };
 		E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */; };
 		E72949251BF48648005B7B3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949241BF48648005B7B3A /* Foundation.framework */; };
@@ -134,7 +137,6 @@
 		E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FEF1B6609A500F28D73 /* Images.xcassets */; };
 		E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */; };
 		E7A645351BE9E39E00204D1A /* SharelinkFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */; };
-		E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF239A1B7B651700076202 /* NewShareViewController.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E7B615F31BCFCAFD00D0831C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B615F21BCFCAFD00D0831C /* MessageUI.framework */; };
 		E7B6161F1BCFCB6E00D0831C /* FacebookConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B615F61BCFCB6E00D0831C /* FacebookConnection.framework */; };
@@ -183,7 +185,8 @@
 		E7CB5D291BFB0FC700098DD4 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D171BFB0FC700098DD4 /* Vote.swift */; };
 		E7CB5D2E1BFB15B300098DD4 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; };
 		E7CB5D2F1BFB15B300098DD4 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */; };
+		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
+		E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D331BFB958700098DD4 /* NewShareController.swift */; };
 		E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
 		E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */; };
@@ -288,6 +291,9 @@
 		E71E07801BE38DE000B1F69D /* SharelinkCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmd.swift; sourceTree = "<group>"; };
 		E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBrowser.swift; sourceTree = "<group>"; };
 		E71E07851BE38DE000B1F69D /* SharelinkCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmdManager.swift; sourceTree = "<group>"; };
+		E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareMessageCell.swift; sourceTree = "<group>"; };
+		E723871F1BFC1C0900247A35 /* NewShareFilmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareFilmCell.swift; sourceTree = "<group>"; };
+		E72387221BFC437600247A35 /* UIShareMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareMessage.swift; sourceTree = "<group>"; };
 		E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFileCollectionController.swift; sourceTree = "<group>"; };
 		E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		E72949241BF48648005B7B3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -364,7 +370,6 @@
 		E7A62FE51B6609A500F28D73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7A62FEF1B6609A500F28D73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = SharelinkFilm.mp4; path = SharelinkAssets/SharelinkFilm.mp4; sourceTree = "<group>"; };
-		E7AF239A1B7B651700076202 /* NewShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B615F21BCFCAFD00D0831C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E7B615F61BCFCB6E00D0831C /* FacebookConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookConnection.framework; sourceTree = "<group>"; };
@@ -418,7 +423,8 @@
 		E7CB5D151BFB0FC700098DD4 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		E7CB5D171BFB0FC700098DD4 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Release-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
-		E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
+		E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareThemeCell.swift; sourceTree = "<group>"; };
+		E7CB5D331BFB958700098DD4 /* NewShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareController.swift; sourceTree = "<group>"; };
 		E7D5A2341B7CC0D800F34CE0 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		E7D8DCD91BA5C8CA00DB6C11 /* UITagCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITagCollectionViewController.swift; sourceTree = "<group>"; };
@@ -642,6 +648,27 @@
 			name = ChicagoClient;
 			sourceTree = "<group>";
 		};
+		E723871C1BFC196100247A35 /* NewShare */ = {
+			isa = PBXGroup;
+			children = (
+				E7CB5D331BFB958700098DD4 /* NewShareController.swift */,
+				E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */,
+				E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */,
+				E723871F1BFC1C0900247A35 /* NewShareFilmCell.swift */,
+			);
+			name = NewShare;
+			sourceTree = "<group>";
+		};
+		E72387211BFC435F00247A35 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				E790BCEA1B67414300D5426B /* UIShareThing.swift */,
+				E790BCF51B676EAB00D5426B /* UIShareContent.swift */,
+				E72387221BFC437600247A35 /* UIShareMessage.swift */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
 		E72949801BF48FB3005B7B3A /* QupaiComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,10 +826,9 @@
 		E790BCEF1B674BEF00D5426B /* UIShare */ = {
 			isa = PBXGroup;
 			children = (
+				E72387211BFC435F00247A35 /* Share */,
+				E723871C1BFC196100247A35 /* NewShare */,
 				E790BCE81B6740C100D5426B /* ShareThingsListController.swift */,
-				E790BCEA1B67414300D5426B /* UIShareThing.swift */,
-				E790BCF51B676EAB00D5426B /* UIShareContent.swift */,
-				E7AF239A1B7B651700076202 /* NewShareViewController.swift */,
 			);
 			name = UIShare;
 			sourceTree = "<group>";
@@ -1013,7 +1039,6 @@
 			isa = PBXGroup;
 			children = (
 				E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */,
-				E7D5A2321B7CBE6E00F34CE0 /* HRToast+UIView.swift */,
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
 				E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */,
@@ -1387,6 +1412,7 @@
 				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
 				E7CB5D261BFB0FC700098DD4 /* DateHelper.swift in Sources */,
+				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
@@ -1397,6 +1423,7 @@
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
+				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
 				E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */,
@@ -1404,15 +1431,15 @@
 				E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */,
 				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
-				E7AF239B1B7B651700076202 /* NewShareViewController.swift in Sources */,
 				E7FFC03B1BCA064C00D651CA /* ShareChatEntity.swift in Sources */,
+				E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */,
+				E72387231BFC437600247A35 /* UIShareMessage.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
 				E7CB5D1E1BFB0FC700098DD4 /* Message.swift in Sources */,
 				E7CB5D1D1BFB0FC700098DD4 /* File.swift in Sources */,
-				E7D5A2331B7CBE6E00F34CE0 /* HRToast+UIView.swift in Sources */,
 				E7F5D6C51BD5EAB1001DEEAA /* SortSharelinkObject.swift in Sources */,
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
@@ -1462,6 +1489,7 @@
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
 				E7CB5D1F1BFB0FC700098DD4 /* SharelinkSDK.swift in Sources */,
 				E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */,
+				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E7CB5D201BFB0FC700098DD4 /* ShareThing.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,

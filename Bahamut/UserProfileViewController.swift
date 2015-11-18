@@ -217,7 +217,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                 ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
             }else
             {
-                self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
+                self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
             }
         }
         
@@ -233,7 +233,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                     self.userProfileModel.personalVideoId = fileKey.accessKey
                     self.userProfileModel.saveModel()
                     self.updatePersonalFilm()
-                    self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_SUC", comment: ""))
+                    self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_SUC", comment: ""))
                 }
             })
         }
@@ -241,7 +241,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     }
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
-        self.makeRootViewToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
+        self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
         taskFileMap.removeValueForKey(taskIdentifier)
     }
     
@@ -292,11 +292,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath
-            self.view.makeToast(message:NSLocalizedString("VIDEO_SAVED", comment: ""))
+            self.showToast( NSLocalizedString("VIDEO_SAVED", comment: ""))
             saveProfileVideo()
         }else
         {
-            self.view.makeToast(message: NSLocalizedString("SAVE_VIDEO_FAILED",comment:""))
+            self.showToast( NSLocalizedString("SAVE_VIDEO_FAILED",comment:""))
         }
     }
     
@@ -394,7 +394,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let userService = ServiceContainer.getService(UserService)
         if propertyId == "note"
         {
-            self.view.makeToastActivityWithMessage(message:NSLocalizedString("UPDATING", comment: ""))
+            self.makeToastActivityWithMessage("",message:NSLocalizedString("UPDATING", comment: ""))
             if SharelinkerCenterNoteName == newValue
             {
                 let alert = UIAlertController(title: NSLocalizedString("INVALID_VALUE", comment: "Invalid Value"), message: NSLocalizedString("USE_ANOTHER_VALUE", comment: "Use another value please!"), preferredStyle: UIAlertControllerStyle.Alert)
@@ -403,7 +403,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                 return
             }
             userService.setLinkerNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
-                self.view.hideToastActivity()
+                self.hideToastActivity()
                 if isSuc
                 {
                     self.userProfileModel.noteName = newValue

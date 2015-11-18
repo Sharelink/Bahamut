@@ -14,7 +14,7 @@ import JavaScriptCore
 {
     func makeToast(msg:String)
     func showToastActivity(msg:String?)
-    func hideToastActivity()
+    func hideActivity()
     func validateToken(result:String)
     func finishRegist(accountId:String)
     func alert(msg:String)
@@ -74,7 +74,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func jsExceptionHandler(context:JSContext!,value:JSValue!) {
-        self.view.makeToast(message:NSLocalizedString("JS_ERROR", comment:"Js Error"))
+        self.showToast( NSLocalizedString("JS_ERROR", comment:"Js Error"))
     }
     
     var registedAccountName:String!
@@ -92,13 +92,13 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        view.makeToastActivityWithMessage(message: NSLocalizedString("LOGINING", comment: "Logining"))
+        self.makeToastActivityWithMessage("",message: NSLocalizedString("LOGINING", comment: "Logining"))
         accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
-            self.view.hideToastActivity()
+            self.hideToastActivity()
             if loginSuccess{
                 self.signCallback()
             }else{
-                self.view.makeToast(message: message)
+                self.showToast( message)
                 self.authenticate()
             }
             
@@ -135,7 +135,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     {
         let service = ServiceContainer.getService(UserService)
         service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
-        view.makeToastActivityWithMessage(message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
+        makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
     }
     
     func initUsers(_:AnyObject)
@@ -145,7 +145,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         notiService.setVibration(true)
         let service = ServiceContainer.getService(UserService)
         service.removeObserver(self)
-        self.view.hideToastActivity()
+        self.hideToastActivity()
         MainNavigationController.start()
     }
 
@@ -171,7 +171,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func makeToast(msg:String){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.view.makeToast(message: NSLocalizedString(msg, comment: ""))
+            self.showToast( NSLocalizedString(msg, comment: ""))
         }
     }
     
@@ -179,17 +179,17 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if msg == nil
             {
-                self.view.makeToastActivity()
+                self.makeToastActivity()
             }else{
-                self.view.makeToastActivityWithMessage(message: NSLocalizedString(msg!, comment: ""))
+                self.makeToastActivityWithMessage("",message: NSLocalizedString(msg!, comment: ""))
             }
         }
         
     }
     
-    func hideToastActivity(){
+    func hideActivity(){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.view.hideToastActivity()
+            self.hideToastActivity()
         }
     }
     

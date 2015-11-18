@@ -13,7 +13,7 @@ class NotificationService: ServiceProtocol
 {
     @objc static var ServiceName:String{return "NotificationService"}
     
-    private(set) var openSound:Bool = true
+    private(set) var isMute:Bool = true
     private(set) var openVibration:Bool = true
     private var userId:String!
     
@@ -25,15 +25,15 @@ class NotificationService: ServiceProtocol
     
     @objc func userLoginInit(userId: String)
     {
-        openSound = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):openSound")
+        isMute = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):isMute")
         openVibration = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):openVibration")
         self.userId = userId
     }
     
     func setMute(isMute:Bool)
     {
-        NSUserDefaults.standardUserDefaults().setBool(isMute, forKey: "\(userId):openSound")
-        openSound = !isMute
+        NSUserDefaults.standardUserDefaults().setBool(isMute, forKey: "\(userId):isMute")
+        self.isMute = isMute
     }
     
     func setVibration(isOpen:Bool)
@@ -49,7 +49,7 @@ class NotificationService: ServiceProtocol
     
     func playReceivedMessageSound()
     {
-        if openSound
+        if self.isMute == false
         {
             AudioServicesPlayAlertSound(1007)
         }
@@ -57,7 +57,7 @@ class NotificationService: ServiceProtocol
     
     func playHintSound()
     {
-        if openSound
+        if self.isMute == false
         {
             AudioServicesPlayAlertSound(1000)
         }

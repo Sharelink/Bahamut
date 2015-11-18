@@ -188,11 +188,11 @@ class LinkedUserListController: UITableViewController
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
-                self.view.makeToast(message: NSLocalizedString("SHARE_SUC", comment: "Share Success!"))
+                self.showToast( NSLocalizedString("SHARE_SUC", comment: "Share Success!"))
             }
             else if (state == SSResponseStateFail)
             {
-                self.view.makeToast(message: NSLocalizedString("SHARE_FAILED", comment: "Share Failed."))
+                self.showToast( NSLocalizedString("SHARE_FAILED", comment: "Share Failed."))
                 NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
             }
         }

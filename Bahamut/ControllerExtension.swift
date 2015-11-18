@@ -200,35 +200,6 @@ public class ControllerViewAdjustByKeyboardProxy : NSObject
     }
 }
 
-//MARK: ScreenLock
-//TODO: complete this
-class ScreenLockProxy:NSObject
-{
-    var lockScreenLayer = UIView(){
-        didSet{
-            let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            lockScreenLayer.frame = (appDel.window?.frame)!
-            lockScreenLayer.backgroundColor = UIColor.clearColor()
-        }
-    }
-    
-    static let sharedInstance:ScreenLockProxy = {
-        return ScreenLockProxy()
-    }()
-    
-    func lockScreen(controller:UIViewController)
-    {
-        //controller.view.addSubview(self.lockScreenLayer)
-    }
-    
-    func unlockScreen(controller:UIViewController)
-    {
-        //self.lockScreenLayer.removeFromSuperview()
-        
-    }
-    
-}
-
 extension UIViewController
 {
     func changeNavigationBarColor()
@@ -242,19 +213,6 @@ extension UIViewController
             nav.navigationBar.barTintColor = navBcgColor
             nav.navigationBar.tintColor = UIColor.whiteColor()
         }
-    }
-}
-
-extension UIViewController
-{
-    func lockScreen()
-    {
-        ScreenLockProxy.sharedInstance.lockScreen(self)
-    }
-    
-    func unlockScreen()
-    {
-        ScreenLockProxy.sharedInstance.unlockScreen(self)
     }
 }
 

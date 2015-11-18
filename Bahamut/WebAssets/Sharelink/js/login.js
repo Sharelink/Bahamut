@@ -66,18 +66,18 @@ $(document).ready(function(){
 	                data:formData,
 	                async:true,
 	                error: function(request) {
-						controller.hideToastActivity();
-	                    controller.makeToast("CONNECT_ERROR");
+						controller.hideActivity();
+	                    controller.alert("CONNECT_ERROR");
 	                },
 	                success: function(result){
-						controller.hideToastActivity();
+						controller.hideActivity();
 						if (result.LoginSuccessed == "true"){
 							var serverUrl = result.AppServiceUrl;
 							var accountId = result.AccountID;
 							var accessToken = result.AccessToken;
 							controller.validateToken(serverUrl + "#p" + accountId + "#p" + accessToken);
 						}else if (result.msg) {
-							controller.makeToast(result.msg);
+							controller.alert(result.msg);
 						}
 					}
 				});

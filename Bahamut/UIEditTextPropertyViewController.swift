@@ -82,7 +82,7 @@ class UIEditTextPropertyViewController: UIViewController
             {
                 if String.isNullOrEmpty(propertyValueTextField.text) || !(propertyValueTextField.text! =~ model.valueRegex)
                 {
-                    self.view.makeToast(message: model.illegalValueMessage ?? NSLocalizedString("ILLEGLE_VALUE", comment: "Illegal Value!"))
+                    self.showToast( model.illegalValueMessage ?? NSLocalizedString("ILLEGLE_VALUE", comment: "Illegal Value!"))
                     return
                 }
             }

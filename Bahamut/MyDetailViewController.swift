@@ -23,7 +23,7 @@ extension UserService
                 currentNavigationController.pushViewController(controller, animated: true)
             }else
             {
-                currentNavigationController.view.makeToast(message:NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
+                currentNavigationController.showToast( NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
             }
         }
         
@@ -324,17 +324,17 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     {
                         self.taskFileMap[tId] = fileKey
                         ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
-                        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
+                        self.showCheckMark(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
                         
                     }else
                     {
-                        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                        self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
                     }
                     
                 })
             }else
             {
-                self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
             }
         }
     }
@@ -351,7 +351,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
                 }else
                 {
-                    self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                    self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
                 }
             })
         }
@@ -359,7 +359,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         taskFileMap.removeValueForKey(taskIdentifier)
-        self.makeRootViewToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+        self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
     }
     
     func aboutSharelink(_:UITapGestureRecognizer)
@@ -407,7 +407,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                         self.tableView.reloadData()
                     }else
                     {
-                        self.view.makeToast(message: msg)
+                        self.showToast( msg)
                     }
                     
                 }
@@ -420,7 +420,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                         self.tableView.reloadData()
                     }else
                     {
-                        self.view.makeToast(message: msg)
+                        self.showToast( msg)
                     }
                 }
         default: break

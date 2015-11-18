@@ -353,6 +353,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
+                self.myUserModel.avatarId = newAvatarId
+                self.myUserModel.saveModel()
             }else
             {
                 msg = result.originResult.description
@@ -376,6 +378,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
+                self.myUserModel.personalVideoId = newVideoId
+                self.myUserModel.saveModel()
             }else
             {
                 msg = result.originResult.description

@@ -183,10 +183,10 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                         self.uiCollectionView.reloadData()
                     }
                     
-                    self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "Focus successful!"))
+                    self.showToast( NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "Focus successful!"))
                 }else
                 {
-                    self.view.makeToast(message:NSLocalizedString("FOCUS_TAG_FAILED", comment: "focus tag error , please check your network"))
+                    self.showToast( NSLocalizedString("FOCUS_TAG_FAILED", comment: "focus tag error , please check your network"))
                 }
             }
         }else{
@@ -256,7 +256,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         model.tag.showToLinkers = "true"
         model.tag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
         model.tag.domain = SharelinkTagConstant.TAG_DOMAIN_CUSTOM
-        model.tag.tagColor = UIColor(hex: arc4random()).toHexString()
+        model.tag.tagColor = UIColor.getRandomTextColor().toHexString()
         ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.New, delegate: self)
     }
     
@@ -279,16 +279,13 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         {
             if model.tag.isSystemTag() || model.tag.isSharelinkerTag()
             {
-                var alert:UIAlertController!
                 if model.tag.isSystemTag()
                 {
-                    alert = UIAlertController(title:nil, message:NSLocalizedString("A_DEFAULT_TAG", comment: "It's a sharelink default tag!"), preferredStyle: .Alert)
+                    self.showToast(NSLocalizedString("A_DEFAULT_TAG", comment: "It's a sharelink default tag!"))
                 }else
                 {
-                    alert = UIAlertController(title:nil, message:NSLocalizedString("A_SHARELINKER_TAG", comment: ""), preferredStyle: .Alert)
+                    self.showToast(NSLocalizedString("A_SHARELINKER_TAG", comment: ""))
                 }
-                alert.addAction(UIAlertAction(title:NSLocalizedString("I_SEE", comment: ""), style: UIAlertActionStyle.Cancel, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
             ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.Edit, delegate: self)

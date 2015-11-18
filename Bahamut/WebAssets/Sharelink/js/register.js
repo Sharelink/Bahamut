@@ -63,15 +63,15 @@ $(document).ready(function(){
                 data:formData,
                 async:true,
                 error: function(request) {
-					controller.hideToastActivity();
-                    controller.makeToast("CONNECT_ERROR");
+					controller.hideActivity();
+                    controller.alert("CONNECT_ERROR");
                 },
                 success: function(result){
-					controller.hideToastActivity();
+					controller.hideActivity();
 					if (result.suc == true){
 						controller.finishRegist(result.accountId+"#p"+result.accountName);
 					}else if (result.msg) {
-						controller.makeToast(result.msg);
+						controller.alert(result.msg);
 					}
 				}
 			});

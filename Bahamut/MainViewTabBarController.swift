@@ -7,35 +7,72 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 let ALERT_ACTION_OK = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)]
 let ALERT_ACTION_I_SEE = [UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style:.Cancel, handler: nil)]
 
-extension UIViewController
+
+var toastActivityMap = [UIViewController:MBProgressHUD]()
+extension UIViewController:MBProgressHUDDelegate
 {
-    func makeRootViewToast(msg:String)
+    func hideToastActivity()
     {
-        if let vc = MainViewTabBarController.currentRootViewController
+        if let hud = toastActivityMap.removeValueForKey(self)
         {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                vc.view.makeToast(message: msg)
-            })
+            hud.hide(true)
         }
     }
     
-    func makeRootViewHUDToast(msg:String)
+    public func hudWasHidden(hud: MBProgressHUD!) {
+        hud.removeFromSuperview()
+    }
+    
+    func makeToastActivity()
     {
-        if let vc = MainViewTabBarController.currentRootViewController
-        {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                vc.view.makeToast(message: msg)
-            })
-        }else if let vc = MainViewTabBarController.currentNavicationController
-        {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                vc.view.makeToast(message: msg)
-            })
-        }
+        self.makeToastActivityWithMessage("", message: "")
+    }
+    
+    func makeToastActivityWithMessage(title:String!,message:String!)
+    {
+        let HUD = MBProgressHUD(view: self.navigationController!.view)
+        self.navigationController!.view.addSubview(HUD)
+        
+        HUD.delegate = self
+        HUD.labelText = title
+        HUD.detailsLabelText = message
+        HUD.square = true
+        HUD.show(true)
+        toastActivityMap[self] = HUD
+    }
+    
+    func showToast(msg:String)
+    {
+        let hud = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDMode.Text
+        hud.labelText = msg
+        hud.margin = 10;
+        hud.delegate = self
+        hud.removeFromSuperViewOnHide = true
+        hud.hide(true, afterDelay: 1)
+    }
+    
+    func showCheckMark(msg:String)
+    {
+        let HUD = MBProgressHUD(view: self.navigationController!.view)
+        self.navigationController?.view.addSubview(HUD)
+        
+        HUD.customView = UIImageView(image: UIImage(named: "Checkmark"))
+        
+        // Set custom view mode
+        HUD.mode = MBProgressHUDMode.CustomView
+        
+        HUD.delegate = self
+        HUD.labelText = msg
+        HUD.square = true
+        HUD.show(true)
+        HUD.hide(true, afterDelay: 1)
     }
     
     func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)])

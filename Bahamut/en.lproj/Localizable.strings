@@ -119,8 +119,8 @@ FOCUS_TAG_SUCCESS = "Focus theme successful!";
 FOCUS_TAG_FAILED = "Focus theme error , please check your network";
 THEME = "Theme";
 FOCUS = "Focus";
-FOCUS_ON = "focus on theme %@";
-ADD_TAG = "add theme %@";
+FOCUS_ON = "Focus on theme %@";
+ADD_TAG = "Add theme %@";
 UNVOTE_SHARE_CONFIRM = "Unvote this share?";
 
 UNKNOW_SHARE_TYPE = "Sharelink:Unknow share!";
@@ -135,7 +135,7 @@ TAG_ALREADY_SELECTED = "Theme has been added!";
 TAG_IS_EMPTY = "Type a theme please!";
 
 FILES_WAS_DELETED = "%@ files deleted";
-NO_SELECT_TAG_TIPS = "No tag added to share,only the sharelinker who focus on you can see this share";
+NO_SELECT_TAG_TIPS = "No theme added to share,only the sharelinkers who focus on you can see this share";
 SENDING_FILM = "Sending Film";
 NO_FILM_SELECTED = "Select or capture a film please!";
 SEND_FILM_SUC = "Send Film Success";
@@ -154,10 +154,10 @@ REFRESHING = "Refreshing";
 //UITagExplorerController
 TAG_HEADER_SYSTEM = "Sharelink Theme";
 TAG_HEADER_CUSTOM = "Cutstom Theme";
-NEW_TAG = "New Tag";
-REMOVED_X_TAGS = "Removed %@ Tags";
-A_DEFAULT_TAG = "It's a sharelink default tag!";
-A_SHARELINKER_TAG = "It's a Sharelinker tag!";
+NEW_TAG = "New Theme";
+REMOVED_X_TAGS = "Removed %@ Themes";
+A_DEFAULT_TAG = "It's a Sharelink default theme!";
+A_SHARELINKER_TAG = "It's a Sharelinker theme!";
 
 TAG_NAME_NULL_ERR = "Theme must have a name!";
 
@@ -218,17 +218,17 @@ QRCODE = "QRCode";
 SCAN_QRCODE = "Scan QRCode";
 MY_QRCODE = "My QRCode";
 
-VALIDATE_ACCTOKEN_FAILED = "Validate Access Token Failed";
+VALIDATE_ACCTOKEN_FAILED = "Invalid Access Token";
 REGIST_FAILED = "Regist Failed";
 REGIST_SUC = "Regist Success";
 DATA_ERROR = "Data Error";
 
-USER_NAME_EXISTS = "Username already exists,use another please!";
+USER_NAME_EXISTS = "Username already exists,replace another please!";
 
 SERVER_ERROR = "Server Error";
 ALLOC_TOKEN_FAILED = "Token Server Error";
 NO_APP_INSTANCE = "App Server Error";
 
 VALIDATE_INFO_INVALID = "Invalid Login Data";
-VALIDATE_FAILED = "User not exists or password incorrect";
+VALIDATE_FAILED = "Username or password incorrect";
 

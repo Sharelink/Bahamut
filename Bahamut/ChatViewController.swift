@@ -170,7 +170,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
                 }
             }else
             {
-                self.view.makeToast(message: NSLocalizedString("NO_MORE_MESSAGE", comment: "No More Message~"))
+                self.showToast( NSLocalizedString("NO_MORE_MESSAGE", comment: "No More Message~"))
             }
             self.head.endRefreshing()
         }
@@ -309,7 +309,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         
         if String.isNullOrWhiteSpace(message)
         {
-            chatTableView.makeToast(message: NSLocalizedString("SEND_WHITE_SPACE_ERROR", comment:"Can't Send White Space"), duration: 1.0, position: HRToastPositionCenter)
+            self.showAlert(NSLocalizedString("SEND_WHITE_SPACE_ERROR", comment:"Can't Send White Space"), msg: nil)
             funcView.TextViewInput.text = ""
             return
         }

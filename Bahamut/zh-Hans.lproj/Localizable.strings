@@ -113,7 +113,7 @@ CONNECT_ERROR_TAP_RETRY = "网络错误，点我重试!";
 
 ILLEGLE_VALUE = "非法数据";
 LOAD_IMG_ERROR = "加载图片失败";
-CONFIRM_FOCUS_TAG = "你确定要关注 %@ 主题吗?";
+CONFIRM_FOCUS_TAG = "关注主题:%@ ?";
 
 FOCUS_TAG_SUCCESS = "关注成功!";
 FOCUS_TAG_FAILED = "关注失败，请检查你的网络！";
@@ -172,7 +172,7 @@ SELECT_VIDEO = "选择一个视频";
 USE_DEFAULT_VIDEO = "使用默认视频";
 NOTE_NAME = "备注名";
 
-SAME_TAG_EXISTS = "你已经添加了这个主题!";
+SAME_TAG_EXISTS = "你已经关注了这个主题!";
 
 //User List Controller
 LINK_MESSAGE = "好友消息";
