@@ -17,6 +17,14 @@ let MessageServiceNewMessageEntities = "MessageServiceNewMessageEntities"
 let NewCreatedChatModels = "NewCreatedChatModels"
 let NewChatModelsCreated = "NewChatModelsCreated"
 
+extension Message
+{
+    func isInvalidData() -> Bool
+    {
+        return msgId == nil || shareId == nil || senderId == nil || msgType == nil || chatId == nil || data == nil || msg == nil || time == nil
+    }
+}
+
 class MessageService:NSNotificationCenter,ServiceProtocol
 {
     static let messageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
@@ -55,14 +63,8 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
             if let msgs = result.returnObject
             {
-                if msgs.count == 0
+                if msgs.count == 0 || msgs.first!.isInvalidData() //isInvalidData():AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
                 {
-                    return
-                }
-                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
-                if msgs.first?.shareId == nil || msgs.first?.senderId == nil || msgs.first?.msgType == nil
-                {
-                    //not this request response
                     return
                 }
                 

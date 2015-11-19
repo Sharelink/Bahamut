@@ -39,6 +39,14 @@ extension ShareThing
     }
 }
 
+extension ShareUpdatedMessage
+{
+    func isInvalidData() -> Bool
+    {
+        return shareId == nil || time == nil
+    }
+}
+
 //MARK: ShareService
 let shareUpdatedNotifyRoute:ChicagoRoute = {
     let route = ChicagoRoute()
@@ -252,14 +260,8 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
             if let msgs = result.returnObject
             {
-                if msgs.count == 0
+                if msgs.count == 0 || msgs.first!.isInvalidData() //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
                 {
-                    return
-                }
-                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
-                if msgs.first?.shareId == nil
-                {
-                    //not this request response
                     return
                 }
                 

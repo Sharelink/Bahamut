@@ -39,6 +39,15 @@ let linkMessageRoute:ChicagoRoute = {
     return linkMessageRoute
 }()
 
+//MARK: validate linkmessage
+extension LinkMessage
+{
+    func isInvalidData() -> Bool
+    {
+        return id == nil || sharelinkerId == nil || type == nil || message == nil || time == nil
+    }
+}
+
 //MARK: UserService
 class UserService: NSNotificationCenter,ServiceProtocol
 {
@@ -255,14 +264,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
         client.execute(req) { (result:SLResult<[LinkMessage]>) -> Void in
             if let msgs = result.returnObject
             {
-                if msgs.count == 0
+                if msgs.count == 0 || msgs.first!.isInvalidData() //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
                 {
-                    return
-                }
-                //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
-                if msgs.first?.id == nil || msgs.first?.sharelinkerId == nil || msgs.first?.type == nil
-                {
-                    //not this request response
                     return
                 }
                 
