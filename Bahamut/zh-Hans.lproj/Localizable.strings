@@ -180,7 +180,7 @@ ACCEPT_USER_LINK_FAILED = "添加好友失败";
 USER_ACCEPT_YOUR_LINK = "接受了你的请求";
 
 //MyDetailViewController
-USER_DATA_NOT_READY_RETRY = "用户数据没准备好，过一会重试";
+USER_DATA_NOT_READY_RETRY = "用户数据没准备好，请稍后重试";
 NICK = "昵称";
 NICK_REGEX_TIPS = "昵称必须是1到23个字符";
 LEVEL = "等级";
@@ -189,6 +189,8 @@ ACCOUNT_ID = "Sharelink ID";
 MOTTO = "签名";
 LOGOUT_CONFIRM_TITLE = "确定退出?";
 USER_DATA_WILL_SAVED = "用户数据将会保留,以便下次登录使用";
+CONFIRM_CLEAR_CACHE_TITLE = "确定清除所有缓存文件?";
+CLEAR_CACHE_SUCCESS = "清除缓存成功!";
 
 CHANGE_AVATAR = "修改头像";
 TAKE_NEW_PHOTO = "拍照";

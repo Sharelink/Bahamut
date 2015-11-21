@@ -82,10 +82,7 @@ class LinkedUserListController: UITableViewController
     func linkMessageUpdated(sender:AnyObject)
     {
         dispatch_async(dispatch_get_main_queue()){()->Void in
-            if let newValues = self.userService.linkMessageList
-            {
-                self.linkMessageModel = newValues
-            }
+            self.linkMessageModel = self.userService.linkMessageList
             self.tableView.reloadData()
         }
         

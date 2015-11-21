@@ -106,6 +106,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         didSet{
             self.addSubview(timeLine)
             timeLine.hidden = true
+            timeLine.backgroundColor = UIColor.clearColor()
         }
     }
     

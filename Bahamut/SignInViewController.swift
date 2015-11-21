@@ -204,6 +204,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     @IBAction func clearAllData(sender: AnyObject)
     {
+        PersistentManager.sharedInstance.clearCache()
         PersistentManager.sharedInstance.clearRootDir()
     }
     

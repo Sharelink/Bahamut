@@ -24,8 +24,13 @@ class PersistentManager
     
     init()
     {
-        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent("Sharelink")
         tmpUrl = rootUrl.URLByAppendingPathComponent("tmp")
+        createTmpDir()
+    }
+    
+    func createTmpDir()
+    {
         if NSFileManager.defaultManager().fileExistsAtPath(tmpUrl.path!) == false
         {
             do
@@ -40,17 +45,15 @@ class PersistentManager
     
     func clearRootDir()
     {
-        if let files = rootUrl.pathComponents
+        do
         {
-            for file in files
+            if let rootpath = rootUrl.path
             {
-                do
-                {
-                    try NSFileManager.defaultManager().removeItemAtPath(file)
-                }catch{
-                    
-                }
+                try NSFileManager.defaultManager().removeItemAtPath(rootpath)
+                NSLog("Root Dir Removed")
             }
+        }catch{
+            NSLog("Root Dir Remove Error")
         }
         
     }
@@ -241,22 +244,10 @@ extension PersistentManager
         do
         {
             try NSFileManager.defaultManager().removeItemAtPath(documentsPathUrl.path!)
-            clearFileCacheDir()
             clearTmpDir()
         }catch
         {
             
-        }
-    }
-    
-    func clearFileCacheDir()
-    {
-        do
-        {
-            try NSFileManager.defaultManager().removeItemAtPath(fileCacheDirUrl.path!)
-        }catch
-        {
-            NSLog("clearTmpDir error")
         }
     }
     
@@ -269,6 +260,12 @@ extension PersistentManager
         {
             NSLog("clearTmpDir error")
         }
+    }
+    
+    func resetTmpDir()
+    {
+        clearTmpDir()
+        createTmpDir()
     }
     
     func fileSizeOf(localfilePath:String) -> Int
@@ -590,7 +587,6 @@ extension PersistentManager
     func saveModel(model:ShareLinkObject)
     {
         //save in cache
-        //NSLog(model.classForCoder.description())
         let typeName = model.classForCoder.description()
         let nsCache = getCache(typeName)
         let idValue = model.getObjectUniqueIdValue()

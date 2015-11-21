@@ -44,7 +44,7 @@ extension FileService
         
         client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             self.fetchingFinished(fileId)
-            if error == nil
+            if error == nil && response?.statusCode == ReturnCode.OK.rawValue
             {
                 callback(filePath:absoluteFilePath)
                 ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: absoluteFilePath)

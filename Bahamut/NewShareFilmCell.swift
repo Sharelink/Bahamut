@@ -46,12 +46,12 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
     {
         if let player = contentView as? ShareLinkFilmView
         {
-            if isReshare == false
-            {
-                player.fileFetcher = FilePathFileFetcher.shareInstance
-            }else
+            if isReshare
             {
                 player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
+            }else
+            {
+                player.fileFetcher = FilePathFileFetcher.shareInstance
             }
             player.playerController.fillMode = AVLayerVideoGravityResizeAspect
             player.autoLoad = true

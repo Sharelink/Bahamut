@@ -12,7 +12,7 @@ import ChatFramework
 
 extension UserService
 {
-    func showMyDetailView(currentNavigationController:UINavigationController)
+    func showMyDetailView(currentViewController:UIViewController)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if let myInfo = self.myUserModel
@@ -20,10 +20,10 @@ extension UserService
                 let controller = MyDetailViewController.instanceFromStoryBoard()
                 controller.accountId = BahamutSetting.lastLoginAccountId
                 controller.myInfo = myInfo
-                currentNavigationController.pushViewController(controller, animated: true)
+                currentViewController.navigationController?.pushViewController(controller, animated: true)
             }else
             {
-                currentNavigationController.showToast( NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
+                currentViewController.showToast( NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
             }
         }
         
@@ -87,6 +87,7 @@ class MyDetailAvatarCell:UITableViewCell
 class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ProgressTaskDelegate
 {
     static let aboutSharelinkReuseId = "aboutsharelink"
+    static let clearCacheCellReuseId = "clearCache"
     struct InfoIds
     {
         static let nickName = "nickname"
@@ -158,7 +159,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         let uiview = UIView()
-        uiview.backgroundColor = UIColor.footerColor
+        tableView.backgroundColor = UIColor.footerColor
         tableView.tableFooterView = uiview
     }
     
@@ -187,8 +188,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     //MARK: table view delegate
-    func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
-    {
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 21
     }
     
@@ -214,8 +215,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //user infos + about sharelink
-        return 2
+        //user infos + about sharelink + clear tmp file
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -242,13 +243,32 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             }
             let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier, forIndexPath: indexPath)
             return cell
+        }else if indexPath.section == 1
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailViewController.clearCacheCellReuseId,forIndexPath: indexPath)
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clearTempDir:"))
+            return cell
         }else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailViewController.aboutSharelinkReuseId,forIndexPath: indexPath)
             cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "aboutSharelink:"))
             return cell
         }
-        
+    }
+    
+    //MARK: Clear User Tmp Dir
+    func clearTempDir(_:UITapGestureRecognizer)
+    {
+        let actions =
+        [
+            UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+                ServiceContainer.getService(FileService).clearFileCacheFiles()
+                PersistentManager.sharedInstance.resetTmpDir()
+                self.showAlert(NSLocalizedString("CLEAR_CACHE_SUCCESS", comment: ""), msg: "")
+            }),
+            UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil)
+        ]
+        showAlert(NSLocalizedString("CONFIRM_CLEAR_CACHE_TITLE", comment: "Sure To Clear Cache Files?"), msg: nil, actions: actions)
     }
     
     //MARK: Avatar
@@ -402,12 +422,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 userService.setProfileNick(newValue){ isSuc,msg in
                     if isSuc
                     {
-                        self.myInfo.nickName = newValue
-                        self.myInfo.saveModel()
                         self.tableView.reloadData()
                     }else
                     {
-                        self.showToast( msg)
+                        self.showToast(msg)
                     }
                     
                 }
@@ -415,12 +433,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 userService.setProfileMotto(newValue){ isSuc,msg in
                     if isSuc
                     {
-                        self.myInfo.motto = newValue
-                        self.myInfo.saveModel()
                         self.tableView.reloadData()
                     }else
                     {
-                        self.showToast( msg)
+                        self.showToast(msg)
                     }
                 }
         default: break

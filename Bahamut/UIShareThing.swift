@@ -9,7 +9,7 @@
 import UIKit
 import ChatFramework
 
-class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
+class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
 {
     static let ShareThingCellIdentifier = "ShareThing"
     struct Constants
@@ -17,16 +17,14 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         static let VotePrefixEmoji = "💙"
 
     }
-    
-    var rootController:ShareThingsListController!
-    var user:Sharelinker!
-    var shareThingModel:ShareThing!
+
+    override var shareModel:ShareThing!
     {
         didSet
         {
-            user = rootController.userService.getUser(shareThingModel.userId)
-            shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareThingModel.shareType)
-            shareContent.share = shareThingModel
+            postUser = rootController.userService.getUser(shareModel.userId)
+            shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareModel.shareType)
+            shareContent.share = shareModel
         }
     }
     
@@ -134,23 +132,23 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         {
             let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: UIAlertActionStyle.Default){ aa in
-                ServiceContainer.getService(ShareService).unVoteShareThing(self.shareThingModel,updateCallback: self.updateVote)
+                ServiceContainer.getService(ShareService).unVoteShareThing(self.shareModel,updateCallback: self.updateVote)
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in })
             rootController.presentViewController(alert, animated: true, completion: nil)
         }else{
             
-            ServiceContainer.getService(ShareService).voteShareThing(shareThingModel,updateCallback: updateVote)
+            ServiceContainer.getService(ShareService).voteShareThing(shareModel,updateCallback: updateVote)
             MobClick.event("Vote")
         }
     }
     
     @IBAction func shareToFriends()
     {
-        if shareThingModel.canReshare()
+        if shareModel.canReshare()
         {
             MobClick.event("Reshare")
-            rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: shareThingModel)
+            rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: shareModel)
         }else
         {
             let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
@@ -168,14 +166,14 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     @IBAction func reply()
     {
         let controller = ChatViewController.instanceFromStoryBoard()
-        controller.shareChat = rootController.messageService.getShareChatHub(shareThingModel.shareId,shareSenderId: shareThingModel.userId)
+        controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
         self.replyButton.badgeValue = nil
     }
     
     func showUserProfile(_:UIGestureRecognizer)
     {
-        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
+        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareModel.userId)
     }
 
     override func layoutSubviews() {
@@ -183,30 +181,22 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
         super.layoutSubviews()
     }
     
-    func update()
+    override func update()
     {
-        if user == nil
-        {
-            user = rootController.userService.getUser(shareThingModel.userId)
-        }
-        if user == nil
-        {
-            return
-        }
-        shareDesc.text = shareThingModel.message
-        shareDateTime.text = shareThingModel.shareTimeOfDate.toFriendlyString()
+        shareDesc.text = shareModel.message
         updateBadge()
         updateVote()
         updateContent()
-        updateAvatar()
-        updateUserNick()
         updateSending()
         updateTheme()
+        updateAvatar(self.avatarImageView)
+        updateUserNoteName(self.userNicknameLabel)
+        updateTime(self.shareDateTime)
     }
     
     private func updateTheme()
     {
-        if let firstTheme = shareThingModel?.forTags.first
+        if let firstTheme = shareModel?.forTags.first
         {
             let stm = SendTagModel(json: firstTheme)
             let tag = SharelinkTag()
@@ -222,7 +212,7 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     
     private func updateSending()
     {
-        if rootController.shareService.sendingShareId.keys.contains(self.shareThingModel.shareId)
+        if rootController.shareService.sendingShareId.keys.contains(self.shareModel.shareId)
         {
             self.sendingIndicator.hidden = false
             self.sendingIndicator.startAnimating()
@@ -235,25 +225,25 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     
     private func updateBadge()
     {
-        let notReadmsg = rootController.messageService.getShareNewMessageCount(shareThingModel.shareId)
+        let notReadmsg = rootController.messageService.getShareNewMessageCount(shareModel.shareId)
         replyButton.badgeValue = "\(notReadmsg)"
     }
     
     var voted:Bool
     {
         let myUserId = rootController.userService.myUserId
-        if shareThingModel.voteUsers == nil
+        if shareModel.voteUsers == nil
         {
             return false
         }
-        return self.shareThingModel.voteUsers.contains{$0 == myUserId}
+        return self.shareModel.voteUsers.contains{$0 == myUserId}
     }
     
     private func updateVote()
     {
         voteButton.tintColor = voted ?  UIShareThing.voteButtonVotedColor : UIShareThing.voteOriginColor
         var voteString = ""
-        if let users = shareThingModel.voteUsers
+        if let users = shareModel.voteUsers
         { 
             let userNicks = users.map{rootController.userService.getUserNoteName($0)}.filter{String.isNullOrWhiteSpace($0) == false }
             voteString =  userNicks.joinWithSeparator(",")
@@ -271,16 +261,6 @@ class UIShareThing: UITableViewCell,UIShareContentViewSetupDelegate
     private func updateContent()
     {
         shareContent.update()
-    }
-    
-    private func updateUserNick()
-    {
-        userNicknameLabel.text = user.getNoteName()
-    }
-    
-    private func updateAvatar()
-    {
-        rootController.fileService.setAvatar(self.avatarImageView, iconFileId: user?.avatarId ?? shareThingModel.avatarId)
     }
     
     func showAvatar(_:UIGestureRecognizer)

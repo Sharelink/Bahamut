@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ChatFramework
 
-class UIShareMessage:UITableViewCell
+class UIShareMessage:UIShareCell
 {
     static let dateFomatter:NSDateFormatter = {
         var formatter = NSDateFormatter()
@@ -19,7 +19,6 @@ class UIShareMessage:UITableViewCell
         return formatter
     }()
     static let RollMessageCellIdentifier = "RollMessage"
-    var user:Sharelinker!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!{
         didSet{
@@ -37,30 +36,16 @@ class UIShareMessage:UITableViewCell
     }
     @IBOutlet weak var messageLabel: UILabel!
     
-    var rootController:ShareThingsListController!{
-        didSet{
-            self.userInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
-        }
-    }
-    var shareThingModel:ShareThing!{
-        didSet
-        {
-            user = rootController.userService.getUser(shareThingModel.userId)
-            update()
-        }
-    }
-    
     func showUserProfile(_:UIGestureRecognizer)
     {
-        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareThingModel.userId)
+        rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.shareModel.userId)
     }
     
-    func tapCell(_:UIGestureRecognizer)
+    override func tapCell(_:UIGestureRecognizer)
     {
-        if shareThingModel.isAddTagMessage() || shareThingModel.isFocusTagMessage()
+        if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {
-            let tag = SharelinkTag(json: shareThingModel.shareContent)
+            let tag = SharelinkTag(json: shareModel.shareContent)
             ServiceContainer.getService(SharelinkTagService).showConfirmAddTagAlert(self.rootController, tag: tag)
         }
     }
@@ -70,51 +55,41 @@ class UIShareMessage:UITableViewCell
         UUImageAvatarBrowser.showImage(avatarImageView)
     }
     
-    func update()
+    override func update()
     {
-        updateName()
-        updateTime()
-        updateAvatar()
+        updateUserNoteName(self.noteNameLabel)
+        updateAvatar(self.avatarImageView)
+        updateTime(self.timeLabel)
         updateMessage()
-    }
-    
-    private func updateAvatar()
-    {
-        rootController.fileService.setAvatar(avatarImageView, iconFileId: user?.avatarId ?? shareThingModel.avatarId)
-    }
-    
-    private func updateTime()
-    {
-        timeLabel.text = shareThingModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
     }
     
     private func updateName()
     {
-        noteNameLabel.text = user.getNoteName()
+        noteNameLabel.text = postUser?.getNoteName() ?? "Sharelinker"
     }
     
     private func updateMessage()
     {
         var format = ""
         var msgContent = ""
-        if shareThingModel.isAddTagMessage()
+        if shareModel.isAddTagMessage()
         {
             format =  NSLocalizedString("ADD_TAG", comment: "")
-        }else if shareThingModel.isFocusTagMessage()
+        }else if shareModel.isFocusTagMessage()
         {
             format =  NSLocalizedString("FOCUS_ON", comment: "")
-        }else if shareThingModel.isTextMessage()
+        }else if shareModel.isTextMessage()
         {
             format = "%@"
-            msgContent = shareThingModel.message
+            msgContent = shareModel.message
         }
         else
         {
             format = NSLocalizedString("UNKNOW_SHARE_TYPE", comment: "")
         }
-        if shareThingModel.isAddTagMessage() || shareThingModel.isFocusTagMessage()
+        if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {
-            msgContent = SharelinkTag(json: shareThingModel.shareContent).getShowName()
+            msgContent = SharelinkTag(json: shareModel.shareContent).getShowName()
         }
         messageLabel.text = String(format: format, msgContent)
     }

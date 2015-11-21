@@ -189,6 +189,8 @@ ACCOUNT_ID = "Sharelink ID";
 MOTTO = "Motto";
 LOGOUT_CONFIRM_TITLE = "Logout Sharelink?";
 USER_DATA_WILL_SAVED = "User data will saved for your login next time";
+CONFIRM_CLEAR_CACHE_TITLE = "Sure To Clear Cache Files?";
+CLEAR_CACHE_SUCCESS = "Clear Cache Successful!";
 
 CHANGE_AVATAR = "Change Avatar";
 TAKE_NEW_PHOTO = "Take A New Photo";

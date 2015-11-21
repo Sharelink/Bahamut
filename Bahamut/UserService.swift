@@ -87,7 +87,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
             }
         }
     }
-    private(set) var linkMessageList:[LinkMessage]!
+    private(set) var linkMessageList:[LinkMessage] = [LinkMessage]()
     
     private(set) var myLinkedUsers:[Sharelinker] = [Sharelinker]()
     private(set) var myLinkedUsersMap:[String:Sharelinker] = [String:Sharelinker]()
@@ -247,7 +247,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
             linkMsgs.sortInPlace({ (a, b) -> Bool in
                 a.time.dateTimeOfString.compare(b.time.dateTimeOfString) == .OrderedAscending
             })
-            self.linkMessageList = linkMsgs
+            self.linkMessageList.removeAll()
+            self.linkMessageList.appendContentsOf(linkMsgs)
             self.postNotificationName(UserService.linkMessageUpdated, object: self,userInfo: nil)
         }
     }
@@ -343,6 +344,31 @@ class UserService: NSNotificationCenter,ServiceProtocol
         return SharelinkCmd.buildSharelinkCmdUrl(generateSharelinkLinkMeCmd())
     }
     
+    
+    //MARK: set linker note
+    func setLinkerNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    {
+        let req = UpdateLinkedUserNoteNameRequest()
+        req.newNoteName = newNoteName
+        req.userId = userId
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+            var isSuc:Bool = false
+            var msg:String! = nil
+            if result.statusCode == ReturnCode.OK
+            {
+                isSuc = true
+            }else
+            {
+                msg = result.originResult.description
+            }
+            if let callback = setProfileCallback
+            {
+                callback(isSuc: isSuc, msg: msg)
+            }
+        }
+    }
+    
     //MARK: set user profile
     
     func setMyAvatar(newAvatarId:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
@@ -358,6 +384,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 isSuc = true
                 self.myUserModel.avatarId = newAvatarId
                 self.myUserModel.saveModel()
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.avatarId = newAvatarId
+                self.myLinkedUsersMap[self.myUserId]?.avatarId = newAvatarId
             }else
             {
                 msg = result.originResult.description
@@ -383,6 +411,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 isSuc = true
                 self.myUserModel.personalVideoId = newVideoId
                 self.myUserModel.saveModel()
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.personalVideoId = newVideoId
+                self.myLinkedUsersMap[self.myUserId]?.personalVideoId = newVideoId
             }else
             {
                 msg = result.originResult.description
@@ -394,29 +424,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
             self.postNotificationName(UserService.myUserInfoRefreshed, object: self)
         }
     }
-    
-    func setLinkerNoteName(userId:String,newNoteName:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
-    {
-        let req = UpdateLinkedUserNoteNameRequest()
-        req.newNoteName = newNoteName
-        req.userId = userId
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
-            var isSuc:Bool = false
-            var msg:String! = nil
-            if result.statusCode == ReturnCode.OK
-            {
-                isSuc = true
-            }else
-            {
-                msg = result.originResult.description
-            }
-            if let callback = setProfileCallback
-            {
-                callback(isSuc: isSuc, msg: msg)
-            }
-        }
-    }
+
     
     func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
     {
@@ -429,6 +437,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
+                self.myUserModel.nickName = newNick
+                self.myUserModel.saveModel()
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.nickName = newNick
+                self.myLinkedUsersMap[self.myUserId]?.nickName = newNick
             }else
             {
                 msg = result.originResult.description
@@ -451,6 +463,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
+                self.myUserModel.motto = newMotto
+                self.myUserModel.saveModel()
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.motto = newMotto
+                self.myLinkedUsersMap[self.myUserId]?.motto = newMotto
             }else
             {
                 msg = result.originResult.description

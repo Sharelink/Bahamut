@@ -46,6 +46,12 @@ class FileService: ServiceProtocol {
         }
     }
     
+    func clearFileCacheFiles()
+    {
+        PersistentManager.sharedInstance.deleteFile(fileCachePathUrl.path!)
+        initFileCacheDir()
+    }
+    
     private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()

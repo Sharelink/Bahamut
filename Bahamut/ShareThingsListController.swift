@@ -8,6 +8,49 @@
 
 import UIKit
 import MJRefresh
+//MARK: UIShareCell
+class UIShareCell : UITableViewCell
+{
+    var rootController:ShareThingsListController!{
+        didSet{
+            self.userInteractionEnabled = true
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
+        }
+    }
+    var shareModel:ShareThing!{
+        didSet{
+            postUser = rootController.userService.getUser(shareModel.userId)
+            update()
+        }
+    }
+    
+    var postUser:Sharelinker?
+    
+    func update()
+    {
+        
+    }
+    
+    func updateTime(timeLabel:UILabel)
+    {
+        timeLabel.text = shareModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
+    }
+    
+    func updateUserNoteName(noteLable:UILabel)
+    {
+        noteLable.text = postUser?.getNoteName() ?? "Sharelinker"
+    }
+    
+    func updateAvatar(avatarImageView:UIImageView)
+    {
+        rootController.fileService.setAvatar(avatarImageView, iconFileId: postUser?.avatarId ?? shareModel.avatarId)
+    }
+    
+    func tapCell(_:UITapGestureRecognizer)
+    {
+        
+    }
+}
 
 //MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController
@@ -299,7 +342,7 @@ class ShareThingsListController: UITableViewController
     
     @IBAction func userSetting(sender:AnyObject)
     {
-        userService.showMyDetailView(self.navigationController!)
+        userService.showMyDetailView(self)
     }
     
     //MARK: tableView delegate
@@ -332,6 +375,7 @@ class ShareThingsListController: UITableViewController
         if let shareCell = cell as? UIShareThing
         {
             shareCell.update()
+            shareCell.setNeedsLayout()
         }
     }
 
@@ -353,25 +397,20 @@ class ShareThingsListController: UITableViewController
     {
         
         let shareThing = shareThings[indexPath.row] as ShareThing
+        var cell:UIShareCell!
         if shareThing.isMessageShare()
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
-            cell.rootController = self
-            cell.shareThingModel = shareThing
-            return cell
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
         }else if shareThing.isShareFilm()
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
-            cell.rootController = self
-            cell.shareThingModel = shareThing
-            return cell
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
         }else
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
-            cell.rootController = self
-            cell.shareThingModel = shareThing
-            return cell
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
         }
+        cell.rootController = self
+        cell.shareModel = shareThing
+        return cell
         
     }
     
