@@ -130,23 +130,17 @@ class FileService: ServiceProtocol {
         return flag
     }
     
-    func setUploading(fileId:String)
-    {
-        
-    }
-
-    
     func getFilePath(fileId:String!,type:FileType!) -> String!
     {
         if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
         {
             return path
-        }else if let path = PersistentManager.sharedInstance.getFile(fileId)?.getObsoluteFilePath()
+        }else if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
         {
             return path
         }else
         {
-            return PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
+            return PersistentManager.sharedInstance.getStorageFileEntity(fileId)?.getObsoluteFilePath() ?? nil
         }
     }
     

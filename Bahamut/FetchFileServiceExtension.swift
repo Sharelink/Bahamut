@@ -36,20 +36,23 @@ extension FileService
         let client = SharelinkSDK.sharedInstance.getFileClient()
         
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fileId, fileType: fileType)
+        let tmpFilePath = PersistentManager.sharedInstance.createTmpFileName(fileType)
         
         func progress(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
         {
             ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: Float(totalBytesRead * 100 / totalBytesExpectedToRead))
         }
         
-        client.downloadFile(fileId,filePath: absoluteFilePath).progress(progress).response{ (request, response, result, error) -> Void in
+        client.downloadFile(fileId,filePath: tmpFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             self.fetchingFinished(fileId)
-            if error == nil && response?.statusCode == ReturnCode.OK.rawValue
+            if error == nil && response?.statusCode == ReturnCode.OK.rawValue && PersistentManager.sharedInstance.fileSizeOf(tmpFilePath) > 0
             {
+                PersistentManager.sharedInstance.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
                 callback(filePath:absoluteFilePath)
                 ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: absoluteFilePath)
             }else
             {
+                PersistentManager.sharedInstance.deleteFile(tmpFilePath)
                 callback(filePath:nil)
                 ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
             }

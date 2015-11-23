@@ -278,6 +278,19 @@ extension PersistentManager
         }
     }
     
+    func moveFile(sourcePath:String,destinationPath:String) -> Bool
+    {
+        do
+        {
+            try NSFileManager.defaultManager().moveItemAtPath(sourcePath, toPath: destinationPath)
+            return true
+        }catch let err as NSError
+        {
+            NSLog("Move file error:%@", err.description)
+            return false
+        }
+    }
+    
     func storeTempFile(data:NSData,fileType:FileType) -> String!
     {
         let path = createTmpFileName(fileType)
@@ -302,6 +315,16 @@ extension PersistentManager
         }catch
         {
             return false
+        }
+    }
+    
+    func deleteStorageFile(fileId:String)
+    {
+        if let entity = getStorageFileEntity(fileId)
+        {
+            let filePath = entity.getObsoluteFilePath()
+            CoreDataHelper.deleteObject(entity)
+            deleteFile(filePath)
         }
     }
     
@@ -330,7 +353,7 @@ extension PersistentManager
         let absolutePath = documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
         if NSFileManager.defaultManager().fileExistsAtPath(absolutePath)
         {
-            if let fileEntity = getFile(fileId)
+            if let fileEntity = getStorageFileEntity(fileId)
             {
                 fileEntity.localPath = relativePath
                 fileEntity.saveModified()
@@ -351,7 +374,7 @@ extension PersistentManager
         return documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
     }
     
-    func getFile(fileId:String!) -> FileInfoEntity?
+    func getStorageFileEntity(fileId:String!) -> FileInfoEntity?
     {
         if fileId == nil || fileId.isEmpty
         {
@@ -407,7 +430,7 @@ extension PersistentManager
         if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
         {
             return path
-        }else if let entify = getFile(fileId)
+        }else if let entify = getStorageFileEntity(fileId)
         {
             return getAbsoluteFilePath(entify.localPath)
         }
