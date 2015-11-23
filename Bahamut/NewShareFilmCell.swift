@@ -13,6 +13,7 @@ import MBProgressHUD
 
 class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,UIShareContentViewSetupDelegate
 {
+    static let thumbQuality:CGFloat = 0.5
     static let reuseableId = "NewShareFilmCell"
     @IBOutlet weak var shareContentContainer: UIShareContent!
     
@@ -73,7 +74,7 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
             let fileModel = itemModels.first as! UIFileCollectionCellModel
             let filmModel = FilmModel()
             filmModel.film = fileModel.filePath
-            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(fileModel.filePath)
+            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(fileModel.filePath,compressionQuality: NewShareFilmCell.thumbQuality)
             self.shareContentContainer.share.shareContent = filmModel.toJsonString()
             self.shareContentContainer.update()
         }
@@ -110,7 +111,7 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
     {
         let filmModel = FilmModel()
         filmModel.film = filePath
-        filmModel.preview = ImageUtil.getVideoThumbImageBase64String(filePath)
+        filmModel.preview = ImageUtil.getVideoThumbImageBase64String(filePath,compressionQuality: NewShareFilmCell.thumbQuality)
         self.shareContentContainer.share.shareContent = filmModel.toJsonString()
         self.shareContentContainer.update()
     }

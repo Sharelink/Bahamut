@@ -43,18 +43,18 @@ class ImageUtil
         }
     }
     
-    class func getVideoThumbImageData(videoURL:String) -> NSData?
+    class func getVideoThumbImageData(videoURL:String,compressionQuality: CGFloat) -> NSData?
     {
         if let thumb:UIImage = generateThumb(videoURL)
         {
-            return UIImageJPEGRepresentation(thumb, 0.7)
+            return UIImageJPEGRepresentation(thumb, compressionQuality)
         }
         return nil
     }
     
-    class func getVideoThumbImageBase64String(videoURL:String) -> String?
+    class func getVideoThumbImageBase64String(videoURL:String,compressionQuality: CGFloat) -> String?
     {
-        if let thumbData = getVideoThumbImageData(videoURL)
+        if let thumbData = getVideoThumbImageData(videoURL, compressionQuality: compressionQuality)
         {
             return thumbData.base64UrlEncodedString()
         }

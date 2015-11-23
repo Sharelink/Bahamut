@@ -8,6 +8,48 @@
 
 import Foundation
 
+//MARK: FileFetcher
+protocol FileFetcher
+{
+    func startFetch(resourceUri:String,delegate:ProgressTaskDelegate)
+}
+
+class IdFileFetcher: FileFetcher
+{
+    var fileType:FileType!;
+    func startFetch(fileId: String, delegate: ProgressTaskDelegate)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            let fileService = ServiceContainer.getService(FileService)
+            if let path = fileService.getFilePath(fileId, type: self.fileType){
+                delegate.taskCompleted(fileId, result: path)
+            }else
+            {
+                ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
+                fileService.fetch(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
+                })
+            }
+        }
+        
+        
+    }
+}
+
+class FilePathFileFetcher: FileFetcher
+{
+    var fileType:FileType!;
+    func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            delegate.taskCompleted(filepath, result: filepath)
+        }
+    }
+    
+    static let shareInstance:FileFetcher = {
+        return FilePathFileFetcher()
+    }()
+}
+
+//MARK: File Service Fetch Extension
 
 extension FileService
 {
@@ -60,37 +102,3 @@ extension FileService
     }
 }
 
-class IdFileFetcher: FileFetcher
-{
-    var fileType:FileType!;
-    func startFetch(fileId: String, delegate: ProgressTaskDelegate)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            let fileService = ServiceContainer.getService(FileService)
-            if let path = fileService.getFilePath(fileId, type: self.fileType){
-                delegate.taskCompleted(fileId, result: path)
-            }else
-            {
-                ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
-                fileService.fetch(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
-                })
-            }
-        }
-        
-        
-    }
-}
-
-class FilePathFileFetcher: FileFetcher
-{
-    var fileType:FileType!;
-    func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            delegate.taskCompleted(filepath, result: filepath)
-        }
-    }
-    
-    static let shareInstance:FileFetcher = {
-        return FilePathFileFetcher()
-        }()
-}

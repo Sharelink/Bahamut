@@ -89,10 +89,6 @@ class ProgressTaskWatcher
     }
 }
 
-protocol FileFetcher
-{
-    func startFetch(resourceUri:String,delegate:ProgressTaskDelegate)
-}
 
 @objc
 protocol ProgressTaskDelegate

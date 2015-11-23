@@ -109,7 +109,7 @@
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
 		E76766291BF4237000CACE49 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E76766261BF4237000CACE49 /* libMobClickLibrary.a */; settings = {ATTRIBUTES = (Required, ); }; };
-		E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */; };
+		E76A45AB1B9E8B090059AA3D /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* ProgressTaskWatcher.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -342,7 +342,7 @@
 		E76766261BF4237000CACE49 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		E76766271BF4237000CACE49 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		E76766281BF4237000CACE49 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
-		E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFetcher.swift; sourceTree = "<group>"; };
+		E76A45AA1B9E8B090059AA3D /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -719,14 +719,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		E72B26C51B71EB8B008E81D6 /* UICustomSegue */ = {
-			isa = PBXGroup;
-			children = (
-				E72B26C61B71EC0B008E81D6 /* StartSegue.swift */,
-			);
-			name = UICustomSegue;
-			sourceTree = "<group>";
-		};
 		E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,12 +776,12 @@
 			name = Umeng;
 			sourceTree = "<group>";
 		};
-		E76A45A91B9E8AE20059AA3D /* Protocol */ = {
+		E76A45A91B9E8AE20059AA3D /* ProgressTaskWatcher */ = {
 			isa = PBXGroup;
 			children = (
-				E76A45AA1B9E8B090059AA3D /* FileFetcher.swift */,
+				E76A45AA1B9E8B090059AA3D /* ProgressTaskWatcher.swift */,
 			);
-			name = Protocol;
+			name = ProgressTaskWatcher;
 			sourceTree = "<group>";
 		};
 		E786084D1BA1DEB600E2BECA /* Sharelinker */ = {
@@ -895,21 +887,20 @@
 		E79E3E3A1B6B591800B27085 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E7F225FE1BC646F00034B745 /* UIMessage */,
-				E76A45A91B9E8AE20059AA3D /* Protocol */,
 				E75EE44F1B9A05E200783308 /* UIResource */,
+				E7F225FE1BC646F00034B745 /* UIMessage */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
-				E72B26C51B71EB8B008E81D6 /* UICustomSegue */,
 				E7B664FD1B6B78EA00032495 /* UIComponent */,
 				E790BCEF1B674BEF00D5426B /* UIShare */,
 				E790BCEE1B6748FB00D5426B /* UIAccount */,
 				E790BCFB1B677D8000D5426B /* UIReply */,
 				E79E3E341B6B567F00B27085 /* UIUser */,
 				E790BD081B67EFA000D5426B /* Service */,
-				E7657C3D1B68C30A00FF97FD /* Util */,
+				E76A45A91B9E8AE20059AA3D /* ProgressTaskWatcher */,
 				E71E07871BE38DE000B1F69D /* ChicagoClient */,
 				E71E07841BE38DE000B1F69D /* SharelinkCmd */,
 				E79E3E391B6B572700B27085 /* Persistents */,
+				E7657C3D1B68C30A00FF97FD /* Util */,
 				E7A62FE51B6609A500F28D73 /* AppDelegate.swift */,
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
 				E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */,
@@ -1040,6 +1031,7 @@
 			children = (
 				E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */,
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
+				E72B26C61B71EC0B008E81D6 /* StartSegue.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
 				E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */,
 				E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */,
@@ -1492,7 +1484,7 @@
 				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E7CB5D201BFB0FC700098DD4 /* ShareThing.swift in Sources */,
-				E76A45AB1B9E8B090059AA3D /* FileFetcher.swift in Sources */,
+				E76A45AB1B9E8B090059AA3D /* ProgressTaskWatcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */,
 				E7CB5D1A1BFB0FC700098DD4 /* ShareLinkObject.swift in Sources */,
 			);

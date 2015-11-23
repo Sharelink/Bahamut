@@ -179,6 +179,10 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     
     func removeMyTags(tags:[SharelinkTag],sucCallback:(()->Void)! = nil)
     {
+        if tags.count == 0
+        {
+            return
+        }
         let req = RemoveTagsRequest()
         req.tagIds = tags.map{$0.tagId}
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()

@@ -135,11 +135,19 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
     }
 
+    func resetShare(type:String)
+    {
+        shareModel.shareType = type
+        shareModel.message = ""
+        shareModel.shareContent = ""
+    }
     
     //MARK: post new share
     
     func clear()
     {
+        shareModel.message = ""
+        shareModel.shareContent = ""
         shareMessageCell.clear()
         shareThemeCell.clear()
         shareContentCell.clear()
@@ -279,7 +287,7 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let rowHights = [128,211,168]
+        let rowHights = [98,211,168]
         return CGFloat(rowHights[indexPath.row])
     }
     

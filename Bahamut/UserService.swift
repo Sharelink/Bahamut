@@ -384,7 +384,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 isSuc = true
                 self.myUserModel.avatarId = newAvatarId
                 self.myUserModel.saveModel()
-                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.avatarId = newAvatarId
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first?.avatarId = newAvatarId
                 self.myLinkedUsersMap[self.myUserId]?.avatarId = newAvatarId
             }else
             {
@@ -411,7 +411,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 isSuc = true
                 self.myUserModel.personalVideoId = newVideoId
                 self.myUserModel.saveModel()
-                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.personalVideoId = newVideoId
+                self.myLinkedUsers.filter{$0.userId == self.myUserId}.first?.personalVideoId = newVideoId
                 self.myLinkedUsersMap[self.myUserId]?.personalVideoId = newVideoId
             }else
             {
@@ -426,14 +426,13 @@ class UserService: NSNotificationCenter,ServiceProtocol
     }
 
     
-    func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    func setProfileNick(newNick:String,setProfileCallback:((isSuc:Bool)->Void)! = nil)
     {
         let req = UpdateSharelinkerProfileNickNameRequest()
         req.nickName = newNick
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
-            var msg:String! = nil
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
@@ -441,25 +440,21 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 self.myUserModel.saveModel()
                 self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.nickName = newNick
                 self.myLinkedUsersMap[self.myUserId]?.nickName = newNick
-            }else
-            {
-                msg = result.originResult.description
             }
             if let callback = setProfileCallback
             {
-                callback(isSuc: isSuc, msg: msg)
+                callback(isSuc: isSuc)
             }
         }
     }
     
-    func setProfileMotto(newMotto:String,setProfileCallback:((isSuc:Bool,msg:String!)->Void)! = nil)
+    func setProfileMotto(newMotto:String,setProfileCallback:((isSuc:Bool)->Void)! = nil)
     {
         let req = UpdateSharelinkerProfileMottoRequest()
         req.motto = newMotto
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
             var isSuc:Bool = false
-            var msg:String! = nil
             if result.statusCode == ReturnCode.OK
             {
                 isSuc = true
@@ -467,13 +462,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 self.myUserModel.saveModel()
                 self.myLinkedUsers.filter{$0.userId == self.myUserId}.first!.motto = newMotto
                 self.myLinkedUsersMap[self.myUserId]?.motto = newMotto
-            }else
-            {
-                msg = result.originResult.description
             }
             if let callback = setProfileCallback
             {
-                callback(isSuc: isSuc, msg: msg)
+                callback(isSuc: isSuc)
             }
         }
     }

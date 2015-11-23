@@ -516,24 +516,23 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareMessageCell" rowHeight="128" id="4vs-Dp-BDQ" customClass="NewShareMessageCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="128"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareMessageCell" rowHeight="91" id="4vs-Dp-BDQ" customClass="NewShareMessageCell" customModule="Bahamut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4vs-Dp-BDQ" id="XMc-wH-sUU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say Something..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35a-Yj-Iu8">
-                                            <rect key="frame" x="8" y="8" width="129" height="21"/>
+                                            <rect key="frame" x="15" y="15" width="129" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="kmA-rd-aZd">
-                                            <rect key="frame" x="8" y="37" width="584" height="83"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="75"/>
                                             <animations/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="77" id="afy-0a-gvy"/>
                                             </constraints>
@@ -548,21 +547,34 @@
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="35a-Yj-Iu8" firstAttribute="leading" secondItem="XMc-wH-sUU" secondAttribute="leadingMargin" id="Atb-Jt-xd5"/>
+                                        <constraint firstItem="kmA-rd-aZd" firstAttribute="top" secondItem="35a-Yj-Iu8" secondAttribute="top" id="6d7-gY-eP9"/>
+                                        <constraint firstItem="35a-Yj-Iu8" firstAttribute="leading" secondItem="XMc-wH-sUU" secondAttribute="leadingMargin" constant="7" id="Atb-Jt-xd5"/>
                                         <constraint firstItem="kmA-rd-aZd" firstAttribute="leading" secondItem="35a-Yj-Iu8" secondAttribute="leading" id="EGr-Uf-EJE"/>
+                                        <constraint firstItem="kmA-rd-aZd" firstAttribute="leading" secondItem="XMc-wH-sUU" secondAttribute="leadingMargin" id="M2c-75-Phb"/>
+                                        <constraint firstItem="35a-Yj-Iu8" firstAttribute="top" secondItem="kmA-rd-aZd" secondAttribute="top" constant="7" id="R9T-Ue-kwr"/>
                                         <constraint firstItem="35a-Yj-Iu8" firstAttribute="top" secondItem="XMc-wH-sUU" secondAttribute="topMargin" id="Ss1-jh-TEh"/>
+                                        <constraint firstAttribute="topMargin" secondItem="kmA-rd-aZd" secondAttribute="top" id="Zib-sm-f4h"/>
                                         <constraint firstItem="kmA-rd-aZd" firstAttribute="trailing" secondItem="XMc-wH-sUU" secondAttribute="trailingMargin" id="deO-ia-YuE"/>
                                         <constraint firstItem="kmA-rd-aZd" firstAttribute="bottom" secondItem="XMc-wH-sUU" secondAttribute="bottomMargin" id="fB1-XV-B9x"/>
                                         <constraint firstItem="kmA-rd-aZd" firstAttribute="top" secondItem="35a-Yj-Iu8" secondAttribute="bottom" constant="8" symbolic="YES" id="tDz-Pa-XcB"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="6d7-gY-eP9"/>
+                                            <exclude reference="EGr-Uf-EJE"/>
+                                            <exclude reference="tDz-Pa-XcB"/>
+                                            <exclude reference="Ss1-jh-TEh"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
+                                    <outlet property="messageTextPlaceHolder" destination="35a-Yj-Iu8" id="wkV-6L-Mwq"/>
                                     <outlet property="shareMessageTextView" destination="kmA-rd-aZd" id="c7P-eX-GwQ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareFilmCell" rowHeight="211" id="V3G-UE-PsS" customClass="NewShareFilmCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="156" width="600" height="211"/>
+                                <rect key="frame" x="0.0" y="119" width="600" height="211"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V3G-UE-PsS" id="aoK-Jv-dYG">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="211"/>
@@ -632,7 +644,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareThemeCell" rowHeight="168" id="lhf-AV-JNL" customClass="NewShareThemeCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="367" width="600" height="168"/>
+                                <rect key="frame" x="0.0" y="330" width="600" height="168"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lhf-AV-JNL" id="PSr-gv-4Lf">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="168"/>

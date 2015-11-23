@@ -977,24 +977,23 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareMessageCell" rowHeight="128" id="DSD-wS-cSo" customClass="NewShareMessageCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="128"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareMessageCell" rowHeight="91" id="DSD-wS-cSo" customClass="NewShareMessageCell" customModule="Bahamut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DSD-wS-cSo" id="sR9-ae-hGk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你的想法" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Qp-90p">
-                                            <rect key="frame" x="8" y="8" width="68" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="写下你的想法..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Qp-90p">
+                                            <rect key="frame" x="15" y="15" width="116" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dqx-il-sAN">
-                                            <rect key="frame" x="8" y="37" width="584" height="83"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="75"/>
                                             <animations/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="77" id="yl0-eP-9vb"/>
                                             </constraints>
@@ -1009,21 +1008,34 @@
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="Hut-Qp-90p" firstAttribute="leading" secondItem="sR9-ae-hGk" secondAttribute="leadingMargin" id="BBA-Hi-yWB"/>
+                                        <constraint firstItem="dqx-il-sAN" firstAttribute="top" secondItem="Hut-Qp-90p" secondAttribute="top" id="86p-hj-nAp"/>
+                                        <constraint firstItem="Hut-Qp-90p" firstAttribute="leading" secondItem="sR9-ae-hGk" secondAttribute="leadingMargin" constant="7" id="BBA-Hi-yWB"/>
                                         <constraint firstItem="dqx-il-sAN" firstAttribute="trailing" secondItem="sR9-ae-hGk" secondAttribute="trailingMargin" id="DbS-aN-ezB"/>
+                                        <constraint firstItem="Hut-Qp-90p" firstAttribute="top" secondItem="dqx-il-sAN" secondAttribute="top" constant="7" id="E3J-fr-nxf"/>
                                         <constraint firstItem="Hut-Qp-90p" firstAttribute="top" secondItem="sR9-ae-hGk" secondAttribute="topMargin" id="SIi-fK-Awj"/>
                                         <constraint firstItem="dqx-il-sAN" firstAttribute="top" secondItem="Hut-Qp-90p" secondAttribute="bottom" constant="8" symbolic="YES" id="Snl-Ly-GQV"/>
+                                        <constraint firstItem="dqx-il-sAN" firstAttribute="leading" secondItem="sR9-ae-hGk" secondAttribute="leadingMargin" id="XZz-Br-4Sf"/>
                                         <constraint firstItem="dqx-il-sAN" firstAttribute="bottom" secondItem="sR9-ae-hGk" secondAttribute="bottomMargin" id="afv-On-X4m"/>
+                                        <constraint firstAttribute="topMargin" secondItem="dqx-il-sAN" secondAttribute="top" id="jZ7-a5-HQK"/>
                                         <constraint firstItem="dqx-il-sAN" firstAttribute="leading" secondItem="Hut-Qp-90p" secondAttribute="leading" id="pEy-uX-llX"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="86p-hj-nAp"/>
+                                            <exclude reference="Snl-Ly-GQV"/>
+                                            <exclude reference="pEy-uX-llX"/>
+                                            <exclude reference="SIi-fK-Awj"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
+                                    <outlet property="messageTextPlaceHolder" destination="Hut-Qp-90p" id="D9b-sP-fFw"/>
                                     <outlet property="shareMessageTextView" destination="dqx-il-sAN" id="rke-pp-PJv"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareFilmCell" rowHeight="211" id="uoo-kD-O12" customClass="NewShareFilmCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="156" width="600" height="211"/>
+                                <rect key="frame" x="0.0" y="119" width="600" height="211"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uoo-kD-O12" id="ipE-O6-BV2">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="211"/>
@@ -1093,7 +1105,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewShareThemeCell" rowHeight="168" id="Orw-ds-51j" customClass="NewShareThemeCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="367" width="600" height="168"/>
+                                <rect key="frame" x="0.0" y="330" width="600" height="168"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Orw-ds-51j" id="SqK-SR-kkp">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="168"/>

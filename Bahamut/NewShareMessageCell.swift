@@ -21,9 +21,24 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
             shareMessageTextView.delegate = self
         }
     }
+    @IBOutlet weak var messageTextPlaceHolder: UILabel!{
+        didSet{
+            updateMsgTxtPlaceHolder()
+        }
+    }
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(textView: UITextView)
+    {
         shareModel.message = textView.text
+        updateMsgTxtPlaceHolder()
+    }
+    
+    private func updateMsgTxtPlaceHolder()
+    {
+        if messageTextPlaceHolder != nil && shareMessageTextView != nil
+        {
+            messageTextPlaceHolder.hidden = !String.isNullOrEmpty(shareMessageTextView?.text ?? nil)
+        }
     }
     
     override func clear() {

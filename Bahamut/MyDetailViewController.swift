@@ -419,24 +419,26 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         {
             
             case InfoIds.nickName:
-                userService.setProfileNick(newValue){ isSuc,msg in
+                userService.setProfileNick(newValue){ isSuc in
                     if isSuc
                     {
                         self.tableView.reloadData()
+                        self.showCheckMark(String(format: NSLocalizedString("MODIFY_KEY_SUC", comment: ""), NSLocalizedString("NICK", comment: "")))
                     }else
                     {
-                        self.showToast(msg)
+                        self.showToast(String(format: NSLocalizedString("SET_KEY_FAILED", comment: ""), NSLocalizedString("NICK", comment: "")))
                     }
                     
                 }
             case InfoIds.motto:
-                userService.setProfileMotto(newValue){ isSuc,msg in
+                userService.setProfileMotto(newValue){ isSuc in
                     if isSuc
                     {
                         self.tableView.reloadData()
+                        self.showCheckMark(String(format: NSLocalizedString("MODIFY_KEY_SUC", comment: ""), NSLocalizedString("MOTTO", comment: "")))
                     }else
                     {
-                        self.showToast(msg)
+                        self.showToast(String(format: NSLocalizedString("SET_KEY_FAILED", comment: ""), NSLocalizedString("MOTTO", comment: "")))
                     }
                 }
         default: break
