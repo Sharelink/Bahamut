@@ -11,12 +11,19 @@
 		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
 		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
-		E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */; };
-		E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */; };
+		E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */; };
+		E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */; };
 		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
 		E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
+		E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
+		E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF351C048C390096C437 /* UploadBaseExtension.swift */; };
+		E70FEF381C04C6990096C437 /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF371C04C6990096C437 /* AliOSSFile.swift */; };
+		E70FEF3A1C04C6F20096C437 /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF391C04C6F20096C437 /* BahamutFire.swift */; };
+		E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
+		E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
+		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
 		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
 		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
 		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
@@ -230,12 +237,19 @@
 		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
 		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
-		E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileServiceExtension.swift; sourceTree = "<group>"; };
-		E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchFileServiceExtension.swift; sourceTree = "<group>"; };
+		E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBahamutFireExtension.swift; sourceTree = "<group>"; };
+		E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchBahamutFireExtension.swift; sourceTree = "<group>"; };
 		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsConstants.swift; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
+		E70FEF351C048C390096C437 /* UploadBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBaseExtension.swift; sourceTree = "<group>"; };
+		E70FEF371C04C6990096C437 /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
+		E70FEF391C04C6F20096C437 /* BahamutFire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFire.swift; sourceTree = "<group>"; };
+		E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
+		E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
+		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
 		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -555,12 +569,43 @@
 		E70C48B31BA122B600F805C3 /* FileService */ = {
 			isa = PBXGroup;
 			children = (
+				E70FEF411C04E1360096C437 /* AliOSS */,
+				E70FEF401C04E1200096C437 /* BahamutFire */,
 				E72F00761B6C94F8007E9E29 /* FileService.swift */,
-				E70C48B41BA122DC00F805C3 /* UploadFileServiceExtension.swift */,
-				E70C48B61BA122F000F805C3 /* FetchFileServiceExtension.swift */,
 				E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */,
+				E70FEF351C048C390096C437 /* UploadBaseExtension.swift */,
+				E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */,
 			);
 			name = FileService;
+			sourceTree = "<group>";
+		};
+		E70FEF3D1C04CE620096C437 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E790BD091B67EFE600D5426B /* ServiceProtocol.swift */,
+				E790BD0B1B67F12000D5426B /* ServiceContainer.swift */,
+				E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		E70FEF401C04E1200096C437 /* BahamutFire */ = {
+			isa = PBXGroup;
+			children = (
+				E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */,
+				E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */,
+			);
+			name = BahamutFire;
+			sourceTree = "<group>";
+		};
+		E70FEF411C04E1360096C437 /* AliOSS */ = {
+			isa = PBXGroup;
+			children = (
+				E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */,
+				E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */,
+				E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */,
+			);
+			name = AliOSS;
 			sourceTree = "<group>";
 		};
 		E71788521BF82B72005916B5 /* ChatAssets */ = {
@@ -704,21 +749,6 @@
 			name = OneSDK;
 			sourceTree = "<group>";
 		};
-		E72B26C41B71E159008E81D6 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				E795C6DE1BC93A63003B9EDC /* Message */,
-				E70C48B31BA122B600F805C3 /* FileService */,
-				E79E3E371B6B56A900B27085 /* UserService.swift */,
-				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
-				E790BD131B68069A00D5426B /* ShareService.swift */,
-				E736814F1B96A816004E8B56 /* SharelinkTagService.swift */,
-				E712765C1BE2099F00CCCB3F /* NotificationService.swift */,
-				E712765E1BE209AD00CCCB3F /* LocationService.swift */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */ = {
 			isa = PBXGroup;
 			children = (
@@ -836,10 +866,15 @@
 		E790BD081B67EFA000D5426B /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				E72B26C41B71E159008E81D6 /* Models */,
-				E790BD091B67EFE600D5426B /* ServiceProtocol.swift */,
-				E790BD0B1B67F12000D5426B /* ServiceContainer.swift */,
-				E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */,
+				E70FEF3D1C04CE620096C437 /* Base */,
+				E795C6DE1BC93A63003B9EDC /* Message */,
+				E70C48B31BA122B600F805C3 /* FileService */,
+				E79E3E371B6B56A900B27085 /* UserService.swift */,
+				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
+				E790BD131B68069A00D5426B /* ShareService.swift */,
+				E736814F1B96A816004E8B56 /* SharelinkTagService.swift */,
+				E712765C1BE2099F00CCCB3F /* NotificationService.swift */,
+				E712765E1BE209AD00CCCB3F /* LocationService.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1106,6 +1141,8 @@
 			isa = PBXGroup;
 			children = (
 				E7CB5D041BFB0FC700098DD4 /* File.swift */,
+				E70FEF371C04C6990096C437 /* AliOSSFile.swift */,
+				E70FEF391C04C6F20096C437 /* BahamutFire.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -1394,6 +1431,7 @@
 				E7CB5D1B1BFB0FC700098DD4 /* ShareLinkSDKClient.swift in Sources */,
 				E7FFC0381BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E7FD584D1BCB82B700E42C95 /* ChicagoClient.swift in Sources */,
+				E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */,
 				E7CB5D191BFB0FC700098DD4 /* Account.swift in Sources */,
 				E71E07811BE38DE000B1F69D /* SharelinkCmd.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
@@ -1409,7 +1447,10 @@
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
 				E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */,
+				E70FEF3A1C04C6F20096C437 /* BahamutFire.swift in Sources */,
 				E7CB5D231BFB0FC700098DD4 /* UserTag.swift in Sources */,
+				E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */,
+				E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */,
 				E7FFC03A1BCA064C00D651CA /* ShareChatEntity+CoreDataProperties.swift in Sources */,
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
@@ -1444,10 +1485,12 @@
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
 				E7E6ABA41BA73ED800BC597D /* HSL.swift in Sources */,
+				E70FEF381C04C6990096C437 /* AliOSSFile.swift in Sources */,
+				E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */,
 				E7CB5D241BFB0FC700098DD4 /* ArrayUtil.swift in Sources */,
 				E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */,
 				E7CB5D221BFB0FC700098DD4 /* UserLink.swift in Sources */,
-				E70C48B71BA122F000F805C3 /* FetchFileServiceExtension.swift in Sources */,
+				E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */,
 				E7CB5D281BFB0FC700098DD4 /* StringHelper.swift in Sources */,
 				E7CB5D211BFB0FC700098DD4 /* ShareLinkUser.swift in Sources */,
 				E7FFC0391BCA064C00D651CA /* MessageEntity.swift in Sources */,
@@ -1471,11 +1514,12 @@
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
 				E795C6E01BC94DA9003B9EDC /* UUMsgItem.swift in Sources */,
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
+				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
 				E7CB5D251BFB0FC700098DD4 /* MF_Base64Additions.m in Sources */,
 				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
-				E70C48B51BA122DC00F805C3 /* UploadFileServiceExtension.swift in Sources */,
+				E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */,
 				E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */,
 				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,

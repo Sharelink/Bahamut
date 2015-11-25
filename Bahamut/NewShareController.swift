@@ -35,7 +35,7 @@ class NewShareTask : ShareLinkObject
     var id:String!
     var share:ShareThing!
     var shareTags:[SharelinkTag]!
-    var sendFileKey:SendFileKey!
+    var sendFileKey:FileAccessInfo!
 }
 
 //MARK: NewShareCellBase
@@ -225,22 +225,19 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
     private func postShare(newShare:ShareThing,tags:[SharelinkTag])
     {
         let filmModel = FilmModel(json: newShare.shareContent)
-        self.fileService.sendFile(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
+        self.fileService.sendBahamutFire(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.hideToastActivity()
-            if let taskKey = taskId
+            ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+            if let fk = fileKey
             {
-                filmModel.film = fileKey.fileId
+                filmModel.film = fk.fileId
                 newShare.shareContent = filmModel.toJsonString()
                 let newShareTask = NewShareTask()
-                newShareTask.id = taskKey
+                newShareTask.id = taskId
                 newShareTask.shareTags = tags
                 newShareTask.share = newShare
-                newShareTask.sendFileKey = fileKey
+                newShareTask.sendFileKey = fk
                 newShareTask.saveModel()
-                ProgressTaskWatcher.sharedInstance.addTaskObserver(taskKey, delegate: self)
-            }else
-            {
-                self.showToast(NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
             }
         }
     }

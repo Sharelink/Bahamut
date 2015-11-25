@@ -174,7 +174,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             }
             self.head.endRefreshing()
         }
-        header.setTitle(NSLocalizedString("LOADING",comment:"Loading"), forState: MJRefreshStatePulling)
+        header.setTitle(NSLocalizedString("LOADING",comment:"Loading"), forState: .Pulling)
         header.lastUpdatedTimeLabel?.hidden = true
         head = header
         chatTableView.mj_header = head

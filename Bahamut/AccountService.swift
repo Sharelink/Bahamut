@@ -16,6 +16,7 @@ class AccountService: ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         SharelinkSDK.sharedInstance.reuse(BahamutSetting.userId, token: BahamutSetting.token, shareLinkApiServer: BahamutSetting.shareLinkApiServer, fileApiServer: BahamutSetting.fileApiServer)
+        SharelinkSDK.setAppVersion(BahamutConfig.SharelinkVersion)
         SharelinkSDK.sharedInstance.startClients()
     }
     

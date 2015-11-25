@@ -7,8 +7,38 @@
 //
 
 import Foundation
+//MARK: FileFetcher
+protocol FileFetcher
+{
+    func startFetch(resourceUri:String,delegate:ProgressTaskDelegate)
+}
 
+//MARK: FilePathFileFetcher
+class FilePathFileFetcher: FileFetcher
+{
+    var fileType:FileType!;
+    func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            delegate.taskCompleted(filepath, result: filepath)
+        }
+    }
+    
+    static let shareInstance:FileFetcher = {
+        return FilePathFileFetcher()
+    }()
+}
 
+extension FileService
+{
+    func getFileFetcherOfFilePath(fileType:FileType) -> FileFetcher
+    {
+        let fetcher = FilePathFileFetcher()
+        fetcher.fileType = fileType
+        return fetcher
+    }
+}
+
+//MARK: FileService
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "file service"}
     
@@ -26,6 +56,7 @@ class FileService: ServiceProtocol {
     
     @objc func userLoginInit(userId: String) {
         initUserFoldersWithUserId(userId)
+        initAliOSSManager()
         fetchingIdMap.removeAll()
         uploadingIdMap.removeAll()
     }

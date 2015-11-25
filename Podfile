@@ -12,3 +12,5 @@ pod 'MBProgressHUD', '~> 0.9.1'
 pod 'CocoaAsyncSocket'
 
 pod 'AlamofireJsonToObjects'
+
+pod 'AliyunOSSiOS', '~> 2.1.1'

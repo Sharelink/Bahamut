@@ -328,7 +328,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     //MARK: upload avatar
-    private var taskFileMap = [String:SendFileKey]()
+    private var taskFileMap = [String:FileAccessInfo]()
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
     {
         imagePickerController.dismissViewControllerAnimated(true)
@@ -339,18 +339,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             let localPath = fService.createLocalStoreFileName(FileType.Image)
             if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
             {
-                fService.sendFile(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
-                    if let tId = taskId
+                fService.sendBahamutFire(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
+                    ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+                    if let fk = fileKey
                     {
-                        self.taskFileMap[tId] = fileKey
-                        ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
-                        self.showCheckMark(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
-                        
-                    }else
-                    {
-                        self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                        self.taskFileMap[taskId] = fk
                     }
-                    
                 })
             }else
             {
@@ -369,6 +363,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     self.myInfo.avatarId = fileKey.accessKey
                     self.myInfo.saveModel()
                     self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
+                    self.showCheckMark(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
                 }else
                 {
                     self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))

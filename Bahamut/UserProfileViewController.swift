@@ -205,19 +205,16 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     //MARK: personal video
     
-    private var taskFileMap = [String:SendFileKey]()
+    private var taskFileMap = [String:FileAccessInfo]()
     
     func saveProfileVideo()
     {
         let fService = ServiceContainer.getService(FileService)
-        fService.sendFile(profileVideoView.filePath, type: FileType.Video) { (taskId, fileKey) -> Void in
-            if let tk = taskId
+        fService.sendBahamutFire(profileVideoView.filePath, type: FileType.Video) { (taskId, fileKey) -> Void in
+            ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+            if let fk = fileKey
             {
-                self.taskFileMap[tk] = fileKey
-                ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
-            }else
-            {
-                self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
+                self.taskFileMap[taskId] = fk
             }
         }
         

@@ -9,6 +9,8 @@
 #ifndef Bahamut_Bridging_Header_h
 #define Bahamut_Bridging_Header_h
 
+#import "CommonCrypto/CommonDigest.h"
+
 #import "SharelinkSDK.h"
 
 #import "UIBarButtomItem-Badge/UIButton+Badge.h"

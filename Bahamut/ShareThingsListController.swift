@@ -108,13 +108,13 @@ class ShareThingsListController: UITableViewController
     {
         let header = MJRefreshNormalHeader(){self.refreshFromServer()}
         let footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
-        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: "下拉可以刷新"), forState: MJRefreshStateIdle)
-        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: "松开立即刷新"), forState: MJRefreshStatePulling)
-        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: "正在刷新数据中..."), forState: MJRefreshStateRefreshing)
+        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: "下拉可以刷新"), forState: .Idle)
+        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: "松开立即刷新"), forState: .Pulling)
+        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: "正在刷新数据中..."), forState: .Refreshing)
         
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: "点击或上拉加载更多"), forState: MJRefreshStateIdle)
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: "正在加载更多的数据..."), forState: MJRefreshStatePulling)
-        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: "已经全部加载完毕"), forState: MJRefreshStateNoMoreData)
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: "点击或上拉加载更多"), forState: .Idle)
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: "正在加载更多的数据..."), forState: .Pulling)
+        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: "已经全部加载完毕"), forState: .NoMoreData)
         
         tableView.mj_header = header
         tableView.mj_footer = footer
