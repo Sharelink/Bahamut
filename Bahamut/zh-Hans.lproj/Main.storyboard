@@ -266,7 +266,7 @@
             </objects>
             <point key="canvasLocation" x="-1438" y="2070"/>
         </scene>
-        <!--关联的分享人-->
+        <!--朋友-->
         <scene sceneID="vir-N7-30o">
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -470,7 +470,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="关联的分享人" id="zwT-Iu-aIj">
+                    <navigationItem key="navigationItem" title="朋友" id="zwT-Iu-aIj">
                         <barButtonItem key="backBarButtonItem" title="返回" id="Yk6-tG-t18">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
