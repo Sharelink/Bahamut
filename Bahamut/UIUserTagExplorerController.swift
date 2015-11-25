@@ -129,8 +129,8 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "Theme")
-        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Theme")
+        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
     }
     
     private func initItems()

@@ -34,7 +34,7 @@ class LinkedUserListController: UITableViewController
     var tabBarBadgeValue:Int!{
         didSet{
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
-            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
+            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(SharelinkSetting.lastLoginAccountId)LinkedUserListBadge")
         }
     }
     private var userGuide:UserGuide!
@@ -44,14 +44,14 @@ class LinkedUserListController: UITableViewController
     
     private func initTabBarBadgeValue()
     {
-        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)LinkedUserListBadge")
+        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(SharelinkSetting.lastLoginAccountId)LinkedUserListBadge")
     }
     
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "User")
-        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "User")
+        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
     }
     
     //MARK: notify

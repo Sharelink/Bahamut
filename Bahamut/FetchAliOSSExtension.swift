@@ -8,6 +8,18 @@
 
 import Foundation
 
+extension FileAccessInfo
+{
+    func isServerTypeAliOss() -> Bool
+    {
+        if let st = self.serverType
+        {
+            return "alioss" == st
+        }
+        return false
+    }
+}
+
 extension FileService
 {
     

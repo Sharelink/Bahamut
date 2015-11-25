@@ -118,7 +118,6 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
     
     private func showMyThemesCollection()
     {
-        initMyThemes()
         self.rootView.addSubview(myThemeContainer)
         myThemeContainer.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, selectedThemeContainer.bounds.width, 0)
         self.myThemeContainer.addSubview(myThemeController.view)
@@ -128,6 +127,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
         myThemeContainer.frame = CGRectMake(selectedThemeContainer.frame.origin.x , self.frame.origin.y - height ,self.selectedThemeContainer.bounds.width, height)
         self.rootView.layoutIfNeeded()
         UIView.commitAnimations()
+        initMyThemes()
     }
     
     private func hideMyThemesCollection()

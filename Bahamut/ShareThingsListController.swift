@@ -92,8 +92,8 @@ class ShareThingsListController: UITableViewController
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "Share")
-        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Share")
+        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
     }
     
     private func initTableView()
@@ -154,13 +154,13 @@ class ShareThingsListController: UITableViewController
     
     func initTabBarBadgeValue()
     {
-        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(BahamutSetting.lastLoginAccountId)ShareThingsListBadge")
+        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(SharelinkSetting.lastLoginAccountId)ShareThingsListBadge")
     }
     
     var tabBarBadgeValue:Int!{
         didSet{
             self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
-            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(BahamutSetting.lastLoginAccountId)ShareThingsListBadge")
+            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(SharelinkSetting.lastLoginAccountId)ShareThingsListBadge")
         }
     }
     

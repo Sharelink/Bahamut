@@ -38,12 +38,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        loginAccountId = BahamutSetting.lastLoginAccountId
+        loginAccountId = SharelinkSetting.lastLoginAccountId
         authenticate()
     }
     
     private var authenticationURL: String {
-        let url = NSBundle.mainBundle().pathForResource("login_\(BahamutSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        let url = NSBundle.mainBundle().pathForResource("login_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
         return url!
     }
     
@@ -114,7 +114,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         registModel.registUserServer = registApi
         registModel.accountId = accountId
         registModel.userName = registedAccountName ?? "Sharelinker"
-        registModel.region = BahamutSetting.contry.lowercaseString
+        registModel.region = SharelinkSetting.contry.lowercaseString
         ServiceContainer.getService(AccountService).showRegistNewUserController(self, registModel:registModel)
     }
     
@@ -123,10 +123,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         var url = authenticationURL
         if let aId = loginAccountId
         {
-            url = "\(url)?accountId=\(aId)&loginApi=\(BahamutSetting.loginApi)&registApi=\(BahamutSetting.registAccountApi)"
+            url = "\(url)?accountId=\(aId)&loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
         }else
         {
-            url = "\(url)?loginApi=\(BahamutSetting.loginApi)&registApi=\(BahamutSetting.registAccountApi)"
+            url = "\(url)?loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
         }
         webViewUrl = url
     }
@@ -210,21 +210,21 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     @IBAction func use168Server(sender: AnyObject)
     {
-        BahamutSetting.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
-        BahamutSetting.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
+        SharelinkSetting.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
+        SharelinkSetting.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
         authenticate()
     }
     @IBAction func use67Server(sender: AnyObject)
     {
-        BahamutSetting.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
-        BahamutSetting.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
+        SharelinkSetting.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
+        SharelinkSetting.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
         authenticate()
     }
     
     @IBAction func useRemoteServer(sender: AnyObject)
     {
-        BahamutSetting.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
-        BahamutSetting.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+        SharelinkSetting.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
+        SharelinkSetting.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
         authenticate()
     }
     

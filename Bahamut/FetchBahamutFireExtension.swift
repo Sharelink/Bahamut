@@ -12,14 +12,7 @@ import Foundation
 //MARK: File Service Fetch Extension
 extension FileService
 {
-    
-    func getFileFetcherOfFileId(fileType:FileType) -> FileFetcher
-    {
-        let fetcher = IdFileFetcher()
-        fetcher.fileType = fileType
-        return fetcher
-    }
-    
+
     func fetchBahamutFire(fireInfo:FileAccessInfo,fileType:FileType,callback:(filePath:String!) -> Void)
     {
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fireInfo.fileId, fileType: fileType)

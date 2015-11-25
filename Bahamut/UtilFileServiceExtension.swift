@@ -48,7 +48,9 @@ extension FileService
                     self.fetchFile(fileId, fileType: FileType.Image, callback: { (filePath) -> Void in
                         if filePath != nil
                         {
-                            imageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                imageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                            })
                         }
                     })
                 }

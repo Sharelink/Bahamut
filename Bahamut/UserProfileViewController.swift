@@ -210,7 +210,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     func saveProfileVideo()
     {
         let fService = ServiceContainer.getService(FileService)
-        fService.sendBahamutFire(profileVideoView.filePath, type: FileType.Video) { (taskId, fileKey) -> Void in
+        fService.sendFileToAliOSS(profileVideoView.filePath, type: FileType.Video) { (taskId, fileKey) -> Void in
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
             if let fk = fileKey
             {

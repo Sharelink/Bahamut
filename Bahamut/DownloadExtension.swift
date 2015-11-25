@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+//MARK: Id File Fetcher
 class IdFileFetcher: FileFetcher
 {
     var fileType:FileType!;
@@ -32,6 +32,19 @@ class IdFileFetcher: FileFetcher
 
 extension FileService
 {
+    
+    func getFileFetcherOfFileId(fileType:FileType) -> FileFetcher
+    {
+        let fetcher = IdFileFetcher()
+        fetcher.fileType = fileType
+        return fetcher
+    }
+    
+}
+
+//MARK: Download FileService Extension
+extension FileService
+{
     func fetchFile(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
         if isFetching(fileId)
@@ -41,7 +54,7 @@ extension FileService
         setFetching(fileId)
         if let fa = PersistentManager.sharedInstance.getModel(FileAccessInfo.self, idValue: fileId)
         {
-            if fa.expireAt == nil || fa.expireAt.dateTimeOfString.timeIntervalSinceNow > 0
+            if String.isNullOrWhiteSpace(fa.expireAt) || fa.expireAt.dateTimeOfString.timeIntervalSinceNow > 0
             {
                 startFetch(fa,fileTyp: fileType,callback: callback)
                 return
@@ -53,6 +66,7 @@ extension FileService
         bahamutFireClient.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
             if let fa = result.returnObject
             {
+                fa.saveModel()
                 self.startFetch(fa,fileTyp: fileType,callback: callback)
             }else
             {
@@ -66,7 +80,7 @@ extension FileService
     
     private func startFetch(fa:FileAccessInfo,fileTyp:FileType,callback:(filePath:String!) -> Void)
     {
-        if "alioss" == fa.type
+        if fa.isServerTypeAliOss()
         {
             self.fetchFromAliOSS(fa, fileType: fileTyp, callback: callback)
         }else

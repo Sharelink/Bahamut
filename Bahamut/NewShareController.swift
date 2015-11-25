@@ -131,8 +131,8 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(BahamutSetting.lang, viewName: "New")
-        self.userGuide.initGuide(self, userId: BahamutSetting.userId, guideImgs: guideImgs)
+        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "New")
+        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
     }
 
     func resetShare(type:String)
@@ -225,7 +225,7 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
     private func postShare(newShare:ShareThing,tags:[SharelinkTag])
     {
         let filmModel = FilmModel(json: newShare.shareContent)
-        self.fileService.sendBahamutFire(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
+        self.fileService.sendFileToAliOSS(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.hideToastActivity()
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
             if let fk = fileKey

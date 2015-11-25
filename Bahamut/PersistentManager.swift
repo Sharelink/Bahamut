@@ -408,7 +408,9 @@ extension PersistentManager
     func createCacheFileName(fileId:String,fileType:FileType) -> String
     {
         let localStoreFileDir = fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
-        return localStoreFileDir.URLByAppendingPathComponent("/\(fileId)\(fileType.FileSuffix)").path!
+        let fileName = "\(fileId)\(fileType.FileSuffix)"
+        let dirPath = localStoreFileDir.path!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
+        return "\(dirPath)/\(fileName)"
     }
     
     func getFilePathFromCachePath(fileId:String,type:FileType!) -> String!

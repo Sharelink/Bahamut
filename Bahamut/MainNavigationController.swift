@@ -30,7 +30,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     private func go()
     {
-        if BahamutSetting.isUserLogined
+        if SharelinkSetting.isUserLogined
         {
             performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
             //login get message

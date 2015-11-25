@@ -10,7 +10,7 @@ import Foundation
 
 extension FileService
 {
-    func sendBahamutFire(localFilePath:String,type:FileType,callback:(taskId:String,fileKey:FileAccessInfo!)->Void)
+    private func sendBahamutFire(localFilePath:String,type:FileType,callback:(taskId:String,fileKey:FileAccessInfo!)->Void)
     {
         if let req = generateBahamutFireFileIdReq(localFilePath, type: type)
         {

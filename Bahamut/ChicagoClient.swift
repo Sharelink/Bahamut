@@ -228,7 +228,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .Validated
                     ChicagoClient.lastHeartBeatTime = NSDate()
-                    self.registDeviceToken(BahamutSetting.deviceToken)
+                    self.registDeviceToken(SharelinkSetting.deviceToken)
                 }else
                 {
                     clientState = .ValidatFailed

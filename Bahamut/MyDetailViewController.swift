@@ -18,7 +18,7 @@ extension UserService
             if let myInfo = self.myUserModel
             {
                 let controller = MyDetailViewController.instanceFromStoryBoard()
-                controller.accountId = BahamutSetting.lastLoginAccountId
+                controller.accountId = SharelinkSetting.lastLoginAccountId
                 controller.myInfo = myInfo
                 currentViewController.navigationController?.pushViewController(controller, animated: true)
             }else
@@ -339,7 +339,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             let localPath = fService.createLocalStoreFileName(FileType.Image)
             if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
             {
-                fService.sendBahamutFire(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
+                fService.sendFileToAliOSS(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
                     ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
                     if let fk = fileKey
                     {
@@ -364,9 +364,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     self.myInfo.saveModel()
                     self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
                     self.showCheckMark(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
-                }else
-                {
-                    self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
                 }
             })
         }

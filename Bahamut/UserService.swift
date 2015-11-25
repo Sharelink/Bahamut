@@ -18,7 +18,7 @@ extension Sharelinker
 {
     func getNoteName() -> String
     {
-        if self.userId == BahamutSetting.userId
+        if self.userId == SharelinkSetting.userId
         {
             return NSLocalizedString("ME", comment: "")
         }else if self.noteName == SharelinkerCenterNoteName
@@ -60,7 +60,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     @objc static var ServiceName:String{return "user service"}
     
     var myUserId:String{
-        return BahamutSetting.userId
+        return SharelinkSetting.userId
     }
     
     @objc func userLoginInit(userId:String)
@@ -94,7 +94,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     private func initMyInfo()
     {
-        myUserModel = self.getUser(BahamutSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
+        myUserModel = self.getUser(SharelinkSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
             if newestUser != nil
             {
                 self.myUserModel = newestUser
@@ -336,7 +336,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func generateSharelinkLinkMeCmd() -> String
     {
         let expriedAt = NSDate(timeIntervalSinceNow: 7 * 24 * 3600)
-        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: BahamutSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
+        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: SharelinkSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
     }
     
     func generateSharelinkerQrString() -> String

@@ -12,8 +12,6 @@ import AliyunOSSiOS
 //MARK: AliOSSManager
 public class AliOSSManager
 {
-    private let accessKey = "euexLczuTS9gIRsS"
-    private let secretKey = "aWBX0zW505pfwz7cawHfU0nbHSWtjy"
     private var ossClientMap = [String:OSSClient]()
     private var ossClientConfig:OSSClientConfiguration!
     private var credential:OSSPlainTextAKSKPairCredentialProvider!
@@ -24,7 +22,7 @@ public class AliOSSManager
         conf.timeoutIntervalForRequest = 30
         conf.timeoutIntervalForResource = 24 * 60 * 60
         self.ossClientConfig = conf
-        self.credential = OSSPlainTextAKSKPairCredentialProvider(plainTextAccessKey: accessKey, secretKey: secretKey)
+        self.credential = OSSPlainTextAKSKPairCredentialProvider(plainTextAccessKey: BahamutConfig.AliOssAccessKey, secretKey: BahamutConfig.AliOssSecretKey)
     }
     
     static var sharedInstance:AliOSSManager = {
@@ -72,7 +70,7 @@ public class AliOSSManager
             {
                 NSLog("OSS Upload Success")
             }else{
-                NSLog("OSS Upload Failed")
+                NSLog("OSS Upload Failed %@",task.error.description)
             }
             taskCompleted(isSuc: task.error == nil)
             return nil
@@ -85,11 +83,12 @@ public class AliOSSManager
         req.bucketName = bucket
         req.objectKey = objkey
         req.downloadToFileURL = NSURL(fileURLWithPath: filePath)
-        func uploadProgress(bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
+        func downloadProgress(bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
         {
             let persent = Float( totalByteWritten * 100 / totalBytesExpectedToWrite)
             progress(persent: persent)
         }
+        req.downloadProgress = downloadProgress
         let ossClient = getOSSClient(serverEndpoint)
         let task = ossClient.getObject(req)
         task.continueWithBlock { (task) -> AnyObject! in

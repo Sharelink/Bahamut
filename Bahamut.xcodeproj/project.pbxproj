@@ -68,6 +68,7 @@
 		E71AF3251BE4FE11000BBBF8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E71AF3271BE4FE11000BBBF8 /* Localizable.strings */; };
 		E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */; };
 		E71C67031BDFD46B00F36BE4 /* WhatsAppConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71C67021BDFD46B00F36BE4 /* WhatsAppConnection.framework */; };
+		E71D24BC1C063ECD00E0C31C /* SharelinkSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */; };
 		E71E07811BE38DE000B1F69D /* SharelinkCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07801BE38DE000B1F69D /* SharelinkCmd.swift */; };
 		E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */; };
 		E71E07861BE38DE000B1F69D /* SharelinkCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71E07851BE38DE000B1F69D /* SharelinkCmdManager.swift */; };
@@ -302,6 +303,7 @@
 		E71AF3331BE500E0000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UserAccount.storyboard"; sourceTree = "<group>"; };
 		E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDetailViewController.swift; sourceTree = "<group>"; };
 		E71C67021BDFD46B00F36BE4 /* WhatsAppConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhatsAppConnection.framework; sourceTree = "<group>"; };
+		E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkSetting.swift; sourceTree = "<group>"; };
 		E71E07801BE38DE000B1F69D /* SharelinkCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmd.swift; sourceTree = "<group>"; };
 		E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBrowser.swift; sourceTree = "<group>"; };
 		E71E07851BE38DE000B1F69D /* SharelinkCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmdManager.swift; sourceTree = "<group>"; };
@@ -940,6 +942,7 @@
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
 				E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
+				E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1439,6 +1442,7 @@
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E73681501B96A816004E8B56 /* SharelinkTagService.swift in Sources */,
 				E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */,
+				E71D24BC1C063ECD00E0C31C /* SharelinkSetting.swift in Sources */,
 				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
 				E7CB5D261BFB0FC700098DD4 /* DateHelper.swift in Sources */,

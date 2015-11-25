@@ -30,9 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initService()
     {
         ServiceContainer.instance.initContainer()
-        if BahamutSetting.isUserLogined
+        if SharelinkSetting.isUserLogined
         {
-            ServiceContainer.instance.userLogin(BahamutSetting.userId)
+            ServiceContainer.instance.userLogin(SharelinkSetting.userId)
         }
     }
     
@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureShareSDK()
     {
         ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
-        if(BahamutSetting.contry == "CN")
+        if(SharelinkSetting.contry == "CN")
         {
             connectChinaApps()
             connectGlobalApps()
@@ -112,12 +112,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configContryAndLang()
     {
         let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
-        BahamutSetting.contry = countryCode!.description
+        SharelinkSetting.contry = countryCode!.description
         if(countryCode!.description == "CN")
         {
-            BahamutSetting.lang = "ch"
+            SharelinkSetting.lang = "ch"
         }else{
-            BahamutSetting.lang = "en"
+            SharelinkSetting.lang = "en"
         }
     }
     
@@ -146,12 +146,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         UMessage.registerDeviceToken(deviceToken)
-        BahamutSetting.deviceToken = deviceToken.description
+        SharelinkSetting.deviceToken = deviceToken.description
             .stringByReplacingOccurrencesOfString("<", withString: "")
             .stringByReplacingOccurrencesOfString(">", withString: "")
             .stringByReplacingOccurrencesOfString(" ", withString: "")
-        ChicagoClient.sharedInstance.registDeviceToken(BahamutSetting.deviceToken)
-        NSLog("deviceToken:%@",BahamutSetting.deviceToken)
+        ChicagoClient.sharedInstance.registDeviceToken(SharelinkSetting.deviceToken)
+        NSLog("deviceToken:%@",SharelinkSetting.deviceToken)
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
@@ -215,7 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if BahamutSetting.isUserLogined
+        if SharelinkSetting.isUserLogined
         {
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
             ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
@@ -292,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initmanagedObjectContext(dbFileUrl:NSURL)
     {
-        if !BahamutSetting.isUserLogined
+        if !SharelinkSetting.isUserLogined
         {
             NSLog("user not login")
             abort()
