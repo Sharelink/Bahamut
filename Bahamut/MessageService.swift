@@ -21,14 +21,14 @@ extension Message
 {
     func isInvalidData() -> Bool
     {
-        return msgId == nil || shareId == nil || senderId == nil || msgType == nil || chatId == nil || data == nil || msg == nil || time == nil
+        return msgId == nil || shareId == nil || senderId == nil || msgType == nil || chatId == nil || msg == nil || time == nil
     }
 }
 
 class MessageService:NSNotificationCenter,ServiceProtocol
 {
     static let messageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
-    
+    private(set) var chattingShareId:String!
     @objc static var ServiceName:String {return "MessageService"}
     @objc func appStartInit() {}
     
@@ -51,6 +51,25 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     
     static let messageListUpdated = "messageListUpdated"
     
+    func setChatAtShare(shareId:String)
+    {
+        self.chattingShareId = shareId
+    }
+    
+    func isChatingAtShare(shareId:String) -> Bool
+    {
+        if String.isNullOrEmpty(shareId)
+        {
+            return false
+        }
+        return shareId == self.chattingShareId
+    }
+    
+    func leaveChatRoom()
+    {
+        self.chattingShareId = nil
+    }
+    
     func newMessage(a:NSNotification)
     {
         getMessageFromServer()
@@ -61,9 +80,10 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         let req = GetNewMessagesRequest()
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
-            if let msgs = result.returnObject
+            if var msgs = result.returnObject
             {
-                if msgs.count == 0 || msgs.first!.isInvalidData() //isInvalidData():AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                msgs = msgs.filter{!$0.isInvalidData()} //isInvalidData():AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.count == 0
                 {
                     return
                 }

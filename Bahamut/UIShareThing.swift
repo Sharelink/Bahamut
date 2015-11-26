@@ -169,6 +169,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
         self.rootController.navigationController?.pushViewController(controller, animated: true)
         self.replyButton.badgeValue = nil
+        MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: notReadmsg)
     }
     
     func showUserProfile(_:UIGestureRecognizer)
@@ -192,6 +193,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         updateAvatar(self.avatarImageView)
         updateUserNoteName(self.userNicknameLabel)
         updateTime(self.shareDateTime)
+        self.layoutIfNeeded()
     }
     
     private func updateTheme()
@@ -223,9 +225,10 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         }
     }
     
+    var notReadmsg = 0
     private func updateBadge()
     {
-        let notReadmsg = rootController.messageService.getShareNewMessageCount(shareModel.shareId)
+        notReadmsg = rootController.messageService.getShareNewMessageCount(shareModel.shareId)
         replyButton.badgeValue = "\(notReadmsg)"
     }
     

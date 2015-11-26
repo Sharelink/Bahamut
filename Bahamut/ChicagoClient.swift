@@ -54,15 +54,17 @@ class ChicagoProtocolUtil
 let ChicagoClientReturnJsonValue = "ChicagoReturnJsonValue"
 let ChicagoClientStateChanged = "ChicagoClientStateChanged"
 
-enum ChicagoClientState
+let ChicagoClientBeforeChangedState = "ChicagoClientBeforeChangedState"
+
+enum ChicagoClientState : Int
 {
-    case Closed
-    case Connected
-    case Disconnected
-    case Connecting
-    case Validated
-    case ValidatFailed
-    case UserLogout
+    case Closed = 1
+    case Connected = 2
+    case Disconnected = 3
+    case Connecting = 4
+    case Validated = 5
+    case ValidatFailed = 6
+    case UserLogout = 7
 }
 
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
@@ -121,7 +123,9 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     private(set) var clientState:ChicagoClientState = .Closed{
         didSet{
             NSLog("Chicago State:\(clientState)")
-            self.postNotificationName(ChicagoClientStateChanged, object: self)
+            var userInfo = [NSObject:AnyObject]()
+            userInfo.updateValue(oldValue.rawValue, forKey: ChicagoClientBeforeChangedState)
+            self.postNotificationName(ChicagoClientStateChanged, object: self,userInfo: userInfo)
         }
     }
     static let readHeadTag = 1

@@ -88,6 +88,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.initChatRoomListViewController()
         self.initBar()
         self.addRefreshViews()
+        messageService = ServiceContainer.getService(MessageService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
     }
     
@@ -101,7 +102,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
-        chatTableView.reloadData()
+        let newValue = ChicagoClient.sharedInstance.clientState.rawValue
+        if ChicagoClient.sharedInstance.clientState == .Connecting || newValue >= ChicagoClientState.Validated.rawValue
+        {
+            chatTableView.reloadData()
+        }
     }
     
     private func initChatRoomListViewController()
@@ -134,6 +139,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"tableViewScrollToBottom:", name:UIKeyboardDidShowNotification, object:nil)
         shareChat.inChatView = true
         chatTableViewScrollToBottom()
+        messageService.setChatAtShare(shareChat.shareId)
         MobClick.beginLogPageView("ChatView")
     }
     
@@ -141,6 +147,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         super.viewWillDisappear(animated)
         shareChat.inChatView = false
+        messageService.leaveChatRoom()
         NSNotificationCenter.defaultCenter().removeObserver(self)
         MobClick.endLogPageView("ChatView")
     }

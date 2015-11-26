@@ -26,26 +26,13 @@ class LinkedUserListController: UITableViewController
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
             userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
-            userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
-            
         }
     }
     
-    var tabBarBadgeValue:Int!{
-        didSet{
-            self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
-            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(SharelinkSetting.lastLoginAccountId)LinkedUserListBadge")
-        }
-    }
     private var userGuide:UserGuide!
     private var isShowing:Bool = false
     
     private(set) var notificationService:NotificationService!
-    
-    private func initTabBarBadgeValue()
-    {
-        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(SharelinkSetting.lastLoginAccountId)LinkedUserListBadge")
-    }
     
     private func initUserGuide()
     {
@@ -63,20 +50,6 @@ class LinkedUserListController: UITableViewController
             self.userListModel = dict
         }
         
-    }
-    
-    func newLinkMessageUpdated(a:NSNotification)
-    {
-        if let newMsgs = a.userInfo?[UserServiceNewLinkMessage] as? [LinkMessage]
-        {
-            dispatch_async(dispatch_get_main_queue()){()->Void in
-                if self.isShowing == false
-                {
-                    self.tabBarBadgeValue = self.tabBarBadgeValue + newMsgs.count
-                }
-                self.notificationService.playHintSound()
-            }
-        }
     }
     
     func linkMessageUpdated(sender:AnyObject)
@@ -112,7 +85,6 @@ class LinkedUserListController: UITableViewController
         let uiview = UIView()
         uiview.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = uiview
-        initTabBarBadgeValue()
         self.userService = ServiceContainer.getService(UserService)
         self.notificationService = ServiceContainer.getService(NotificationService)
         refresh()
@@ -133,7 +105,6 @@ class LinkedUserListController: UITableViewController
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.userGuide.showGuideControllerPresentFirstTime()
-        tabBarBadgeValue = 0
         tableView.reloadData()
     }
     

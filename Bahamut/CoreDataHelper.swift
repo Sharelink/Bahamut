@@ -67,7 +67,7 @@ class CoreDataHelper {
         {
             context.deleteObject(obj)
         }
-        try context.save()
+        saveEntityContext()
     }
     
     static func deleteAll(entityName:String)
@@ -81,7 +81,7 @@ class CoreDataHelper {
             {
                 context.deleteObject(obj)
             }
-            try context.save()
+            saveEntityContext()
         }catch let ex as NSError{
             NSLog(ex.description)
             NSLog("delete entity:\(entityName) error")
@@ -151,14 +151,9 @@ class CoreDataHelper {
     }
     
     //MARK: Update
-    static func save()
+    static func saveEntityContext()
     {
-        do
-        {
-            try getEntityContext().save()
-        }catch
-        {
-            NSLog("context save error")
-        }
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        app.saveContext()
     }
 }

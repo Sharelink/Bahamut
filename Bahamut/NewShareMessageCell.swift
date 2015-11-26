@@ -19,6 +19,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
             shareMessageTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
             shareMessageTextView.layer.borderWidth = 1
             shareMessageTextView.delegate = self
+            updateMsgTxtPlaceHolder()
         }
     }
     @IBOutlet weak var messageTextPlaceHolder: UILabel!{
@@ -47,6 +48,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
     
     private func initReshareMessageCell(){
         self.shareMessageTextView.text = shareModel.message
+        updateMsgTxtPlaceHolder()
     }
     
     override func initCell(){

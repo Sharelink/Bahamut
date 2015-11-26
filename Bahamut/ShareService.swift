@@ -55,18 +55,25 @@ let shareUpdatedNotifyRoute:ChicagoRoute = {
     return route
 }()
 
+let NewShareMessages = "NewShareMessages"
+let UpdatedShares = "UpdatedShares"
+
 class ShareService: NSNotificationCenter,ServiceProtocol
 {
+    static let newShareMessagesUpdated = "newShareMessagesUpdated"
+    static let shareUpdated = "shareUpdated"
     @objc static var ServiceName:String{return "share service"}
     
     @objc func userLoginInit(userId:String)
     {
         resetSortObjectList()
+        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "newShareMessagesNotify:")
     }
     
     func userLogout(userId: String) {
         newShareTime = nil
         oldShareTime = nil
+        ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     var allShareLoaded:Bool = false
@@ -119,6 +126,12 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         self.lock.unlock()
     }
     
+    //MARK: chicago client
+    func newShareMessagesNotify(a:NSNotification)
+    {
+        self.getNewShareMessageFromServer()
+    }
+    
     //MARK: Get Shares From Server
     func getNewShareThings(callback:((newShares:[ShareThing]!)->Void)! = nil)
     {
@@ -166,7 +179,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                     if newValues.count > 0
                     {
                         let sortables = newValues.map{$0.getSortableObject()}
-                        ShareLinkObject.saveObjectOfArray(newValues)
+                        ShareThing.saveObjectOfArray(newValues)
                         self.updateNewShareAndOldShareTime(newValues)
                         self.setSortableObjects(sortables)
                         shares = newValues
@@ -225,7 +238,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
             if result.statusCode == ReturnCode.OK && result.returnObject != nil && result.returnObject.count > 0
             {
                 shares = result.returnObject!
-                ShareLinkObject.saveObjectOfArray(shares)
+                ShareThing.saveObjectOfArray(shares)
                 let sortables = shares.map{$0.getSortableObject()}
                 self.setSortableObjects(sortables)
             }
@@ -253,18 +266,19 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Share Messages
-    func getNewShareMessageFromServer(callback:(([ShareUpdatedMessage])->Void)! = nil)
+    func getNewShareMessageFromServer()
     {
         let req = GetShareUpdatedMessageRequest()
         
         SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
-            if let msgs = result.returnObject
+            if var msgs = result.returnObject
             {
-                if msgs.count == 0 || msgs.first!.isInvalidData() //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                msgs = msgs.filter{!$0.isInvalidData()} //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.count == 0
                 {
                     return
                 }
-                
+                self.postNotificationName(ShareService.newShareMessagesUpdated, object: self, userInfo: [NewShareMessages:msgs])
                 self.getSharesWithShareIds(msgs.map{$0.shareId }){ (reqShares) -> Void in
                     if let shares = reqShares
                     {
@@ -281,10 +295,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                         }
                         let sortables = shares.map{shareToSortable($0)}
                         self.setSortableObjects(sortables)
-                        if let handler = callback
-                        {
-                            handler(msgs)
-                        }
+                        self.postNotificationName(ShareService.shareUpdated, object: self, userInfo: [UpdatedShares:shares])
                         self.clearShareMessageBox()
                     }
                 }

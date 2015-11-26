@@ -9,9 +9,6 @@
 import Foundation
 import CoreFoundation
 
-
-
-
 //special note name
 let SharelinkerCenterNoteName = "#<SharelinkCenter>#"
 extension Sharelinker
@@ -44,7 +41,7 @@ extension LinkMessage
 {
     func isInvalidData() -> Bool
     {
-        return id == nil || sharelinkerId == nil || type == nil || message == nil || time == nil
+        return id == nil || sharelinkerId == nil || type == nil
     }
 }
 
@@ -53,8 +50,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
 {
     static let userListUpdated = "userListUpdated"
     static let linkMessageUpdated = "linkMessageUpdated"
-    static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let newLinkMessageUpdated = "newLinkMessageUpdated"
+    static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let baseUserDataInited = "baseUserDataInited"
     static var lastRefreshLinkedUserTime:NSDate!
     @objc static var ServiceName:String{return "user service"}
@@ -263,9 +260,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = GetLinkMessagesRequest()
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[LinkMessage]>) -> Void in
-            if let msgs = result.returnObject
+            if var msgs = result.returnObject
             {
-                if msgs.count == 0 || msgs.first!.isInvalidData() //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                msgs = msgs.filter{!$0.isInvalidData()} //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
+                if msgs.count == 0
                 {
                     return
                 }
@@ -276,7 +274,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 let msgsCopy = msgs.filter{$0 != nil}
                 let uInfo = [UserServiceNewLinkMessage:msgsCopy]
                 self.postNotificationName(UserService.newLinkMessageUpdated, object: self,userInfo: uInfo)
-                self.notifyServerLinkMessageReceived()
+                self.clearServerLinkMessages()
                 if (msgs.contains{$0.isAcceptAskLinkMessage()})
                 {
                     self.refreshMyLinkedUsers()
@@ -285,7 +283,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         }
     }
 
-    private func notifyServerLinkMessageReceived()
+    private func clearServerLinkMessages()
     {
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         let dreq = DeleteLinkMessagesRequest()

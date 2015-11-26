@@ -139,7 +139,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
                         tag.tagName = NSLocalizedString(tag.tagName, comment: "") ?? tag.tagName
                     }
                 }
-                ShareLinkObject.saveObjectOfArray(tags)
+                SharelinkTag.saveObjectOfArray(tags)
                 PersistentManager.sharedInstance.refreshCache(SharelinkTag)
                 self.postNotificationName(SharelinkTagService.TagsUpdated, object: self)
             }

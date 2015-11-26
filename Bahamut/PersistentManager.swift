@@ -106,7 +106,7 @@ class PersistentManager
     
     func saveAll()
     {
-        CoreDataHelper.save()
+        CoreDataHelper.saveEntityContext()
     }
 }
 
@@ -473,7 +473,7 @@ extension ShareLinkObject
         PersistentManager.sharedInstance.saveModel(self)
     }
     
-    static func saveObjectOfArray(arr:[ShareLinkObject])
+    static func saveObjectOfArray<T:ShareLinkObject>(arr:[T])
     {
         for item in arr
         {
@@ -609,16 +609,18 @@ extension PersistentManager
         clearArrCache(T)
     }
     
-    func saveModel(model:ShareLinkObject)
+    func saveModel<T:ShareLinkObject>(model:T)
     {
         //save in cache
         let typeName = model.classForCoder.description()
-        let nsCache = getCache(typeName)
+        let nsCache = self.getCache(typeName)
         let idValue = model.getObjectUniqueIdValue()
         let indexIdValue = "\(typeName):\(idValue)"
         nsCache.setObject(model, forKey: idValue)
         //save in coredata
-        let jsonString = model.toJsonString()
+        var jsonString = model.toJsonString()
+        jsonString = jsonString.stringByReplacingOccurrencesOfString("\n", withString: "", options: .LiteralSearch, range: nil)
+        jsonString = jsonString.stringByReplacingOccurrencesOfString(" ", withString: "", options: .LiteralSearch, range: nil)
         if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
         {
             cellModel.serializableValue = jsonString
@@ -629,10 +631,6 @@ extension PersistentManager
             cellModel?.id = indexIdValue
             cellModel?.modelType = typeName
         }
-        do  {
-            try CoreDataHelper.getEntityContext().save()
-        }catch{
-            
-        }
+        CoreDataHelper.saveEntityContext()
     }
 }

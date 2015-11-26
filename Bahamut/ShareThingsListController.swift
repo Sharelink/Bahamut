@@ -66,7 +66,6 @@ class ShareThingsListController: UITableViewController
     private var userGuide:UserGuide!
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTabBarBadgeValue()
         initUserGuide()
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
@@ -78,7 +77,7 @@ class ShareThingsListController: UITableViewController
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
-        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "shareUpdatedMsgReceived:")
+        shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
         refresh()
     }
     
@@ -145,22 +144,9 @@ class ShareThingsListController: UITableViewController
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         userGuide.showGuideControllerPresentFirstTime()
-        tabBarBadgeValue = 0
         if shareThings.count == 0
         {
             refreshFromServer()
-        }
-    }
-    
-    func initTabBarBadgeValue()
-    {
-        tabBarBadgeValue = NSUserDefaults.standardUserDefaults().integerForKey("\(SharelinkSetting.lastLoginAccountId)ShareThingsListBadge")
-    }
-    
-    var tabBarBadgeValue:Int!{
-        didSet{
-            self.navigationController?.tabBarItem.badgeValue = tabBarBadgeValue > 0 ? "\(tabBarBadgeValue)" : nil
-            NSUserDefaults.standardUserDefaults().setInteger(tabBarBadgeValue, forKey: "\(SharelinkSetting.lastLoginAccountId)ShareThingsListBadge")
         }
     }
     
@@ -174,26 +160,23 @@ class ShareThingsListController: UITableViewController
     }
     
     //MARK: chicago client
-    func shareUpdatedMsgReceived(a:NSNotification)
+    func chicagoClientStateChanged(aNotification:NSNotification)
     {
-        dispatch_after(1000 * 7, dispatch_get_main_queue()){
-            self.shareService.getNewShareMessageFromServer(){ msgs in
-                if self.isShowing == false
-                {
-                    self.tabBarBadgeValue = self.tabBarBadgeValue + msgs.count
-                }
-                self.refresh()
-                self.notificationService.playHintSound()
-            }
+        let newValue = ChicagoClient.sharedInstance.clientState.rawValue
+        if ChicagoClient.sharedInstance.clientState == .Connecting || newValue >= ChicagoClientState.Validated.rawValue
+        {
+            tableView.reloadData()
         }
     }
     
-    func chicagoClientStateChanged(aNotification:NSNotification)
+    //MARK: message
+    func shareUpdatedReceived(a:NSNotification)
     {
-        tableView.reloadData()
+        dispatch_after(1000, dispatch_get_main_queue()){
+            self.refresh()
+        }
     }
     
-    //MARK: message
     func newChatMessageReceived(aNotification:NSNotification)
     {
         if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
@@ -201,16 +184,11 @@ class ShareThingsListController: UITableViewController
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.refreshShareLastActiveTime(messages)
             })
-            if messages.count > 0
-            {
-                self.notificationService.playReceivedMessageSound()
-            }
         }
     }
     
     private func refreshShareLastActiveTime(messages:[MessageEntity])
     {
-        self.tabBarBadgeValue = tabBarBadgeValue + messages.count
         var notReadyShare = [String]()
         var notReadyMsgDate = [String:NSDate]()
         var readySortables = [String:ShareThingSortableObject]()
