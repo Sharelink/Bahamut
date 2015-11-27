@@ -242,3 +242,4 @@ CHG_PSW_SUC = "密码修改成功!";
 CHG_PSW_FAIL = "密码修改失败, 请检查旧密码是否正确.";
 CHANGE_PSW = "修改密码";
 CONFIRM_PSW = "修改新密码为";
+OLD_NEW_PSW_SAME = "新旧密码相同";

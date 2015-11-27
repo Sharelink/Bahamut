@@ -19,7 +19,11 @@ class ChangePasswordViewController: UIViewController
         {
             self.showAlert(NSLocalizedString("OLD_PSW_NULL", comment: ""), msg: nil)
             return
-        }else if newPsw =~ "^[A-Za-z0-9_\\@\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,23}$"
+        }else if oldPsw == newPsw
+        {
+            showAlert(NSLocalizedString("OLD_NEW_PSW_SAME", comment: "Password Not Changed"), msg: nil, actions: ALERT_ACTION_I_SEE)
+        }
+        else if newPsw =~ "^[A-Za-z0-9_\\@\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,23}$"
         {
             showAlert(NSLocalizedString("CONFIRM_PSW", comment: "Change Password To"), msg: newPsw, actions: [
                 UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
@@ -29,7 +33,7 @@ class ChangePasswordViewController: UIViewController
                         if isSuc
                         {
                             self.showAlert(NSLocalizedString("CHG_PSW_SUC", comment: ""), msg: nil)
-                            self.navigationController?.popToRootViewControllerAnimated(true)
+                            self.navigationController?.popViewControllerAnimated(true)
                         }else
                         {
                             self.showAlert(NSLocalizedString("CHG_PSW_FAIL", comment: ""), msg: nil)

@@ -243,3 +243,4 @@ CHG_PSW_SUC = "Change Password Successful!";
 CHG_PSW_FAIL = "Change Password Fail, Please Check Your Old Password Is Match.";
 CHANGE_PSW = "Change Password";
 CONFIRM_PSW = "Change Password To";
+OLD_NEW_PSW_SAME = "Password Not Changed";
