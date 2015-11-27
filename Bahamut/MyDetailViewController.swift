@@ -33,7 +33,7 @@ extension UserService
 class MyDetailTextPropertyCell:UITableViewCell
 {
     static let reuseIdentifier = "MyDetailTextPropertyCell"
-    var info:(propertySet:UIEditTextPropertySet!,editable:Bool)!{
+    var info:MyDetailCellModel!{
         didSet{
             if propertyNameLabel != nil
             {
@@ -83,6 +83,13 @@ class MyDetailAvatarCell:UITableViewCell
     }
 }
 
+
+struct MyDetailCellModel {
+    var propertySet:UIEditTextPropertySet!
+    var editable:Bool = false
+    var selector:Selector!
+}
+
 //MARK:MyDetailViewController
 class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextPropertyViewControllerDelegate,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ProgressTaskDelegate
 {
@@ -95,6 +102,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         static let levelScore = "levelScore"
         static let motto = "signtext"
         static let createTime = "createtime"
+        static let changePsw = "changePsw"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,38 +126,44 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyValue = myInfo.nickName
         //propertySet.valueRegex = "^?{1,23}$"
         //propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
-        textPropertyCells.append((propertySet:propertySet,editable:true))
+        textPropertyCells.append(MyDetailCellModel(propertySet: propertySet, editable: true, selector: "tapTextProperty:"))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.level
         propertySet.propertyLabel = NSLocalizedString("LEVEL", comment:"Level")
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
-        textPropertyCells.append((propertySet:propertySet,editable:false))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.levelScore
         propertySet.propertyLabel = NSLocalizedString("SHARELINK_SCORE", comment:"Sharelink Score")
         propertySet.propertyValue = "\(myInfo.levelScore ?? 1)"
-        textPropertyCells.append((propertySet:propertySet,editable:false))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime
         propertySet.propertyLabel = NSLocalizedString("JOIN", comment: "Join")
         propertySet.propertyValue = myInfo.createTimeOfDate.toDateString()
-        textPropertyCells.append((propertySet:propertySet,editable:false))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "accountId"
         propertySet.propertyLabel = NSLocalizedString("ACCOUNT_ID", comment: "Sharelink ID")
         propertySet.propertyValue = accountId
-        textPropertyCells.insert((propertySet:propertySet,editable:false), atIndex: 2)
+        textPropertyCells.insert(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil), atIndex: 2)
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.motto
         propertySet.propertyLabel = NSLocalizedString("MOTTO", comment: "Motto")
         propertySet.propertyValue = myInfo.motto
         propertySet.isOneLineValue = false
-        textPropertyCells.append((propertySet:propertySet,editable:true))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "tapTextProperty:"))
+        
+        propertySet = UIEditTextPropertySet()
+        propertySet.propertyIdentifier = InfoIds.changePsw
+        propertySet.propertyLabel = NSLocalizedString("CHANGE_PSW", comment: "Change Password")
+        propertySet.propertyValue = ""
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "changePassword:"))
     }
     
     override func viewDidLoad() {
@@ -254,6 +268,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "aboutSharelink:"))
             return cell
         }
+    }
+    
+    //MARK: change password
+    func changePassword(_:UITapGestureRecognizer)
+    {
+        self.navigationController?.pushViewController(ChangePasswordViewController.instanceFromStoryBoard(), animated: true)
     }
     
     //MARK: Clear User Tmp Dir
@@ -378,16 +398,20 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         AboutViewController.showAbout(self)
     }
+
     
     //MARK: Property Cell
-    var textPropertyCells:[(propertySet:UIEditTextPropertySet!,editable:Bool)] = [(propertySet:UIEditTextPropertySet!,editable:Bool)]()
+    var textPropertyCells:[MyDetailCellModel] = [MyDetailCellModel]()
     
     func getTextPropertyCell(index:Int) -> MyDetailTextPropertyCell
     {
         let info = textPropertyCells[index]
         
         let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailTextPropertyCell.reuseIdentifier) as! MyDetailTextPropertyCell
-        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapTextProperty:"))
+        if info.selector != nil
+        {
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: info.selector))
+        }
         cell.info = info
         return cell
     }

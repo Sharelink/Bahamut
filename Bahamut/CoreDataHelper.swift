@@ -10,24 +10,41 @@ import Foundation
 import UIKit
 import CoreData
 
+//MARK: NSManagedObject saveModified
+extension NSManagedObject
+{
+    func saveModified()
+    {
+        CoreDataHelper.saveContextDelay()
+    }
+}
+
+//MARK: CoreDataHelper
 class CoreDataHelper {
-    
+    private static var changeTimes = 0
+    private static let contextLock = NSRecursiveLock()
     static func initNSManagedObjectContext(dbFileUrl:NSURL)
     {
+        contextLock.lock()
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDel.initmanagedObjectContext(dbFileUrl)
+        contextLock.unlock()
     }
     
     static func deinitNSManagedObjectContext()
     {
+        contextLock.lock()
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDel.deinitManagedObjectContext()
+        contextLock.unlock()
     }
     
     static func getEntityContext()-> NSManagedObjectContext
     {
+        contextLock.lock()
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context: NSManagedObjectContext = appDel.managedObjectContext
+        contextLock.unlock()
         return context
     }
     
@@ -67,7 +84,7 @@ class CoreDataHelper {
         {
             context.deleteObject(obj)
         }
-        saveEntityContext()
+        saveContextDelay()
     }
     
     static func deleteAll(entityName:String)
@@ -81,7 +98,7 @@ class CoreDataHelper {
             {
                 context.deleteObject(obj)
             }
-            saveEntityContext()
+            saveContextDelay()
         }catch let ex as NSError{
             NSLog(ex.description)
             NSLog("delete entity:\(entityName) error")
@@ -151,9 +168,29 @@ class CoreDataHelper {
     }
     
     //MARK: Update
-    static func saveEntityContext()
+    static func saveContextDelay()
     {
+        var saveFlag = false
+        contextLock.lock()
+        changeTimes++
+        if changeTimes >= 23
+        {
+            saveFlag = true
+            changeTimes = 0
+        }
+        contextLock.unlock()
+        if saveFlag
+        {
+            saveNow()
+        }
+    }
+    
+    static func saveNow()
+    {
+        contextLock.lock()
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         app.saveContext()
+        NSLog("Core Data Saved")
+        contextLock.unlock()
     }
 }

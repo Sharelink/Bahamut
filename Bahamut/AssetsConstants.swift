@@ -18,6 +18,7 @@ struct  ImageAssetsConstants
 {
     static let defaultAvatar = "defaultAvatar"
     static let defaultViewImage = "defaultView"
+    static let defaultAvatarPath = NSBundle.mainBundle().pathForResource("defaultAvatar", ofType: "png")!
 }
 
 class UserGuideAssetsConstants

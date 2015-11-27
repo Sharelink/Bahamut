@@ -104,26 +104,9 @@ class PersistentManager
         }
     }
     
-    func saveAll()
+    func saveNow()
     {
-        CoreDataHelper.saveEntityContext()
-    }
-}
-
-
-extension NSManagedObject
-{
-    func saveModified() -> Bool
-    {
-        do
-        {
-            try CoreDataHelper.getEntityContext().save()
-            return true
-        }catch let error as NSError
-        {
-            NSLog(error.description)
-            return false
-        }
+        CoreDataHelper.saveNow()
     }
 }
 
@@ -619,8 +602,7 @@ extension PersistentManager
         nsCache.setObject(model, forKey: idValue)
         //save in coredata
         var jsonString = model.toJsonString()
-        jsonString = jsonString.stringByReplacingOccurrencesOfString("\n", withString: "", options: .LiteralSearch, range: nil)
-        jsonString = jsonString.stringByReplacingOccurrencesOfString(" ", withString: "", options: .LiteralSearch, range: nil)
+        jsonString = jsonString.split("\n").map{$0.trim()}.joinWithSeparator("")
         if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
         {
             cellModel.serializableValue = jsonString
@@ -631,6 +613,6 @@ extension PersistentManager
             cellModel?.id = indexIdValue
             cellModel?.modelType = typeName
         }
-        CoreDataHelper.saveEntityContext()
+        CoreDataHelper.saveContextDelay()
     }
 }

@@ -114,7 +114,6 @@ class LinkedUserListController: UITableViewController
     {
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
-        let defaultIconPath = NSBundle.mainBundle().pathForResource("headImage", ofType: "png", inDirectory: "ChatAssets/photo")
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
         let contentMsg = String(format: NSLocalizedString("ASK_LINK_MSG", comment: "%@ want to link with you in Sharelink!"),user.nickName)
         let title = "Sharelink"
@@ -132,7 +131,7 @@ class LinkedUserListController: UITableViewController
         }
         if img == nil
         {
-            img = ShareSDK.imageWithPath(userHeadIconPath ?? defaultIconPath)
+            img = ShareSDK.imageWithPath(userHeadIconPath ?? ImageAssetsConstants.defaultAvatarPath)
         }
         let publishContent = ShareSDK.content(contentWithUrl, defaultContent: nil, image: img, title: title, url: url, description: nil, mediaType: SSPublishContentMediaTypeImage)
         

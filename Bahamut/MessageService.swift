@@ -202,7 +202,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
             }
             msgEntities.append(me)
         }
-        PersistentManager.sharedInstance.saveAll()
+        PersistentManager.sharedInstance.saveNow()
         self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
         if newChatModels.count > 0
         {

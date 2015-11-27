@@ -102,7 +102,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyDetailTextPropertyCell" id="Els-0e-zQf" customClass="MyDetailTextPropertyCell" customModule="Bahamut" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyDetailTextPropertyCell" id="Els-0e-zQf" customClass="MyDetailTextPropertyCell" customModule="Bahamut" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Els-0e-zQf" id="sht-e3-59Q">
@@ -124,7 +124,7 @@
                                                         <constraint firstAttribute="height" constant="23" id="gBb-qf-bA9"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Property Value" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYq-JH-DOt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Property Value" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYq-JH-DOt">
                                                     <rect key="frame" x="163" y="12" width="107" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -138,10 +138,18 @@
                                                 <constraint firstItem="aYq-JH-DOt" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="9sU-dd-dHa"/>
                                                 <constraint firstItem="aYq-JH-DOt" firstAttribute="leading" secondItem="U4F-nx-4Hc" secondAttribute="trailing" constant="7" id="EPU-TW-hGc"/>
                                                 <constraint firstItem="60z-PS-4Jc" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="M0d-N4-7RK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="aYq-JH-DOt" secondAttribute="bottom" constant="3" id="Rvp-dP-F2G"/>
                                                 <constraint firstItem="60z-PS-4Jc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aYq-JH-DOt" secondAttribute="trailing" id="VRT-Ji-XEB"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="60z-PS-4Jc" secondAttribute="trailing" id="mWL-fH-eNT"/>
+                                                <constraint firstItem="aYq-JH-DOt" firstAttribute="top" secondItem="sht-e3-59Q" secondAttribute="topMargin" constant="4" id="sY9-NG-7PB"/>
                                                 <constraint firstItem="U4F-nx-4Hc" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="yNN-9I-ITD"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Rvp-dP-F2G"/>
+                                                    <exclude reference="sY9-NG-7PB"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
@@ -348,6 +356,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHa-wC-1wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="143" y="2709"/>
+        </scene>
+        <!--Change Password-->
+        <scene sceneID="l9J-pk-2AS">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PJg-gZ-Xly" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zwG-wI-B7F"/>
+                        <viewControllerLayoutGuide type="bottom" id="pTj-QI-BxZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vwU-LX-eCA">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yza-YN-uh3">
+                                <rect key="frame" x="20" y="45" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Old Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mAv-ew-Jfq">
+                                <rect key="frame" x="20" y="7" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="mAv-ew-Jfq" secondAttribute="trailing" id="LrI-Br-t2O"/>
+                            <constraint firstItem="yza-YN-uh3" firstAttribute="leading" secondItem="vwU-LX-eCA" secondAttribute="leadingMargin" id="QFg-Du-480"/>
+                            <constraint firstItem="mAv-ew-Jfq" firstAttribute="leading" secondItem="vwU-LX-eCA" secondAttribute="leadingMargin" id="Y2T-VB-tCY"/>
+                            <constraint firstItem="yza-YN-uh3" firstAttribute="trailing" secondItem="mAv-ew-Jfq" secondAttribute="trailing" id="h4r-sC-N2e"/>
+                            <constraint firstItem="yza-YN-uh3" firstAttribute="leading" secondItem="mAv-ew-Jfq" secondAttribute="leading" id="mNf-t8-6Ck"/>
+                            <constraint firstItem="yza-YN-uh3" firstAttribute="top" secondItem="mAv-ew-Jfq" secondAttribute="bottom" constant="8" id="pXn-5I-Pke"/>
+                            <constraint firstItem="mAv-ew-Jfq" firstAttribute="top" secondItem="zwG-wI-B7F" secondAttribute="bottom" constant="7" id="wF7-VM-2DY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Change Password" id="Vri-CY-kef">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="h2G-mY-W0d">
+                            <connections>
+                                <action selector="changePassword:" destination="PJg-gZ-Xly" id="D15-J8-2SG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="newPasswordTextField" destination="yza-YN-uh3" id="qFX-uG-n3a"/>
+                        <outlet property="oldPasswordTextField" destination="mAv-ew-Jfq" id="0Bt-fs-z36"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R6R-ZO-4dP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="861" y="2046"/>
         </scene>
         <!--New Sharelinker-->
         <scene sceneID="jqW-d8-p9k">

@@ -25,7 +25,7 @@ $(document).ready(function(){
 			},
 			password:{
 				required:true,
-				minlength:3, 
+				minlength:6, 
 				maxlength:23,
 			}
 		},

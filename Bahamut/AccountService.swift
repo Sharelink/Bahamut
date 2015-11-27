@@ -76,7 +76,7 @@ class AccountService: ServiceProtocol
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
         req.region = registModel.region
-        let client = SharelinkSDK.sharedInstance.getRegistClient()
+        let client = SharelinkSDK.sharedInstance.getBahamutClient()
         client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
@@ -95,6 +95,23 @@ class AccountService: ServiceProtocol
             }else
             {
                 callback(isSuc:false,msg:NSLocalizedString("REGIST_FAILED", comment: ""),validateResult:nil);
+            }
+        }
+    }
+    
+    func changePassword(oldPsw:String,newPsw:String,callback:(isSuc:Bool)->Void)
+    {
+        let req = ChangeAccountPasswordRequest()
+        req.oldPassword = oldPsw.sha256
+        req.newPassword = newPsw.sha256
+        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        client.execute(req) { (result) -> Void in
+            if result.isSuccess && String.isNullOrWhiteSpace(result.value) == false && result.value!.lowercaseString == "true"
+            {
+                callback(isSuc: true)
+            }else
+            {
+                callback(isSuc: false)
             }
         }
     }

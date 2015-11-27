@@ -47,6 +47,11 @@ extension FileService
 {
     func fetchFile(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
+        if String.isNullOrWhiteSpace(fileId)
+        {
+            callback(filePath: nil)
+            return
+        }
         if isFetching(fileId)
         {
             return

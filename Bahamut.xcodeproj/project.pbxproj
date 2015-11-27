@@ -15,6 +15,8 @@
 		E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */; };
 		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
 		E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */; };
+		E70D11431C085BE900DC6C9A /* defaultAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E70D11421C085BE900DC6C9A /* defaultAvatar.png */; };
+		E70D11471C0865B500DC6C9A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
 		E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
@@ -42,7 +44,6 @@
 		E71788701BF82B72005916B5 /* chatfrom_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E717885F1BF82B72005916B5 /* chatfrom_bg_normal.png */; };
 		E71788711BF82B72005916B5 /* chatfrom_doctor_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788601BF82B72005916B5 /* chatfrom_doctor_icon.png */; };
 		E71788721BF82B72005916B5 /* chatto_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788611BF82B72005916B5 /* chatto_bg_normal.png */; };
-		E71788731BF82B72005916B5 /* headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788631BF82B72005916B5 /* headImage.png */; };
 		E717889A1BF85FAD005916B5 /* ch_NewViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788881BF85FAD005916B5 /* ch_NewViewGuide_0.jpg */; };
 		E717889B1BF85FAD005916B5 /* ch_NewViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788891BF85FAD005916B5 /* ch_NewViewGuide_1.jpg */; };
 		E717889C1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E717888A1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg */; };
@@ -242,6 +243,8 @@
 		E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchBahamutFireExtension.swift; sourceTree = "<group>"; };
 		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsConstants.swift; sourceTree = "<group>"; };
+		E70D11421C085BE900DC6C9A /* defaultAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultAvatar.png; path = SharelinkAssets/defaultAvatar.png; sourceTree = "<group>"; };
+		E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
@@ -269,7 +272,6 @@
 		E717885F1BF82B72005916B5 /* chatfrom_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_bg_normal.png; sourceTree = "<group>"; };
 		E71788601BF82B72005916B5 /* chatfrom_doctor_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatfrom_doctor_icon.png; sourceTree = "<group>"; };
 		E71788611BF82B72005916B5 /* chatto_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatto_bg_normal.png; sourceTree = "<group>"; };
-		E71788631BF82B72005916B5 /* headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headImage.png; sourceTree = "<group>"; };
 		E71788881BF85FAD005916B5 /* ch_NewViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_0.jpg; sourceTree = "<group>"; };
 		E71788891BF85FAD005916B5 /* ch_NewViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_1.jpg; sourceTree = "<group>"; };
 		E717888A1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ShareViewGuide_0.jpg; sourceTree = "<group>"; };
@@ -628,17 +630,8 @@
 				E717885F1BF82B72005916B5 /* chatfrom_bg_normal.png */,
 				E71788601BF82B72005916B5 /* chatfrom_doctor_icon.png */,
 				E71788611BF82B72005916B5 /* chatto_bg_normal.png */,
-				E71788621BF82B72005916B5 /* photo */,
 			);
 			path = ChatAssets;
-			sourceTree = "<group>";
-		};
-		E71788621BF82B72005916B5 /* photo */ = {
-			isa = PBXGroup;
-			children = (
-				E71788631BF82B72005916B5 /* headImage.png */,
-			);
-			path = photo;
 			sourceTree = "<group>";
 		};
 		E71788741BF82C54005916B5 /* Libs */ = {
@@ -825,6 +818,7 @@
 				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
 				E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */,
 				E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */,
+				E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */,
 			);
 			name = Sharelinker;
 			sourceTree = "<group>";
@@ -969,11 +963,9 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
-				E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */,
 				E71788741BF82C54005916B5 /* Libs */,
-				E7B665011B6B8EA200032495 /* Assets */,
 				E79E3E3A1B6B591800B27085 /* Source */,
-				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
+				E7B665011B6B8EA200032495 /* Assets */,
 				E7A62FE31B6609A500F28D73 /* Supporting Files */,
 			);
 			path = Bahamut;
@@ -982,6 +974,7 @@
 		E7A62FE31B6609A500F28D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */,
 				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
 				E71AF3271BE4FE11000BBBF8 /* Localizable.strings */,
@@ -1089,7 +1082,9 @@
 				E71788751BF83572005916B5 /* GuideAssets */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E71788521BF82B72005916B5 /* ChatAssets */,
+				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */,
+				E70D11421C085BE900DC6C9A /* defaultAvatar.png */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
@@ -1318,6 +1313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D11431C085BE900DC6C9A /* defaultAvatar.png in Resources */,
 				E71788AA1BF85FAD005916B5 /* en_UserViewGuide_0.jpg in Resources */,
 				E717886D1BF82B72005916B5 /* chat_send_message.png in Resources */,
 				E71AF3151BE4EEF9000BBBF8 /* Component.storyboard in Resources */,
@@ -1326,7 +1322,6 @@
 				E717889A1BF85FAD005916B5 /* ch_NewViewGuide_0.jpg in Resources */,
 				E71788691BF82B72005916B5 /* chat_animation_white3.png in Resources */,
 				E71788A91BF85FAD005916B5 /* en_ThemeViewGuide_1.jpg in Resources */,
-				E71788731BF82B72005916B5 /* headImage.png in Resources */,
 				E717889E1BF85FAD005916B5 /* ch_ShareViewGuide_2.jpg in Resources */,
 				E71788681BF82B72005916B5 /* chat_animation_white2.png in Resources */,
 				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
@@ -1450,6 +1445,7 @@
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
+				E70D11471C0865B500DC6C9A /* ChangePasswordViewController.swift in Sources */,
 				E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */,
 				E70FEF3A1C04C6F20096C437 /* BahamutFire.swift in Sources */,
 				E7CB5D231BFB0FC700098DD4 /* UserTag.swift in Sources */,

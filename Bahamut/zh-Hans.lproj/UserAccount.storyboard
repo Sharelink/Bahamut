@@ -102,7 +102,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyDetailTextPropertyCell" id="Els-0e-zQf" customClass="MyDetailTextPropertyCell" customModule="Bahamut" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyDetailTextPropertyCell" id="Els-0e-zQf" customClass="MyDetailTextPropertyCell" customModule="Bahamut" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Els-0e-zQf" id="sht-e3-59Q">
@@ -135,13 +135,21 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="U4F-nx-4Hc" firstAttribute="leading" secondItem="sht-e3-59Q" secondAttribute="leadingMargin" constant="7" id="6JH-k3-B2H"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="aYq-JH-DOt" secondAttribute="bottom" constant="3" id="9lq-r2-cNY"/>
                                                 <constraint firstItem="aYq-JH-DOt" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="9sU-dd-dHa"/>
                                                 <constraint firstItem="aYq-JH-DOt" firstAttribute="leading" secondItem="U4F-nx-4Hc" secondAttribute="trailing" constant="7" id="EPU-TW-hGc"/>
                                                 <constraint firstItem="60z-PS-4Jc" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="M0d-N4-7RK"/>
                                                 <constraint firstItem="60z-PS-4Jc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aYq-JH-DOt" secondAttribute="trailing" id="VRT-Ji-XEB"/>
+                                                <constraint firstItem="aYq-JH-DOt" firstAttribute="top" secondItem="sht-e3-59Q" secondAttribute="topMargin" constant="4" id="cL4-Vc-xse"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="60z-PS-4Jc" secondAttribute="trailing" id="mWL-fH-eNT"/>
                                                 <constraint firstItem="U4F-nx-4Hc" firstAttribute="centerY" secondItem="sht-e3-59Q" secondAttribute="centerY" id="yNN-9I-ITD"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="9lq-r2-cNY"/>
+                                                    <exclude reference="cL4-Vc-xse"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
@@ -593,6 +601,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VT8-KH-zM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="862" y="3420"/>
+        </scene>
+        <!--更换密码-->
+        <scene sceneID="mF8-uA-EI7">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dk9-7E-Zjl" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sR2-gS-nX7"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ugr-4z-rfl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pr1-hL-85j">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="旧密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-GP-zuk">
+                                <rect key="frame" x="20" y="5" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="新密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZSh-c4-OEO">
+                                <rect key="frame" x="20" y="43" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZSh-c4-OEO" firstAttribute="trailing" secondItem="3gB-GP-zuk" secondAttribute="trailing" id="8ok-Oi-7zg"/>
+                            <constraint firstItem="3gB-GP-zuk" firstAttribute="top" secondItem="sR2-gS-nX7" secondAttribute="bottom" constant="5" id="9tt-yE-G6Y"/>
+                            <constraint firstItem="ZSh-c4-OEO" firstAttribute="leading" secondItem="3gB-GP-zuk" secondAttribute="leading" id="EEg-iw-HFh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3gB-GP-zuk" secondAttribute="trailing" id="EMD-cb-Y1f"/>
+                            <constraint firstItem="ZSh-c4-OEO" firstAttribute="top" secondItem="3gB-GP-zuk" secondAttribute="bottom" constant="8" id="Xyf-cR-rct"/>
+                            <constraint firstItem="3gB-GP-zuk" firstAttribute="leading" secondItem="pr1-hL-85j" secondAttribute="leadingMargin" id="d2z-Ds-9YJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="更换密码" id="aNJ-Fa-NQz">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="ATh-3d-Oyj">
+                            <connections>
+                                <action selector="changePassword:" destination="Dk9-7E-Zjl" id="QUh-Bq-bKA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="newPasswordTextField" destination="ZSh-c4-OEO" id="5Wb-lX-doO"/>
+                        <outlet property="oldPasswordTextField" destination="3gB-GP-zuk" id="nzP-eT-2gb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zxc-Yo-81b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="861" y="2046"/>
         </scene>
     </scenes>
     <resources>

@@ -75,7 +75,10 @@ class UUMsgItem
     
     var avatar:String!{
         didSet{
-            if avatar != nil
+            if String.isNullOrWhiteSpace(avatar)
+            {
+                dic.updateValue(ImageAssetsConstants.defaultAvatarPath, forKey: "strIcon")
+            }else
             {
                 dic.updateValue(avatar, forKey: "strIcon")
             }

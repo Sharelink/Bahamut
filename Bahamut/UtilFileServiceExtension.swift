@@ -34,11 +34,11 @@ extension FileService
 //MARK: Set avatar Util
 extension FileService
 {
-    func setAvatar(imageView:UIImageView,iconFileId:String!)
+    func setAvatar(imageView:UIImageView,iconFileId fileId:String!)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
-            if let fileId = iconFileId
+            if String.isNullOrWhiteSpace(fileId) == false
             {
                 if let uiimage =  PersistentManager.sharedInstance.getImage( fileId )
                 {

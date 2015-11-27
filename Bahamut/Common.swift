@@ -76,7 +76,24 @@ extension String {
         
         let hash = NSMutableString();
         for i in 0 ..< digestLen {
-            hash.appendFormat("x", result[i]);
+            hash.appendFormat("%02x", result[i]);
+        }
+        result.destroy();
+        
+        return String(format: hash as String)
+    }
+    
+    var sha256 : String{
+        let str = self.cStringUsingEncoding(NSUTF8StringEncoding)
+        let strLen = CC_LONG(self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        let digestLen = Int(CC_SHA256_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<CUnsignedChar>.alloc(digestLen);
+        
+        CC_SHA256(str!, strLen, result)
+        
+        let hash = NSMutableString();
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i]);
         }
         result.destroy();
         

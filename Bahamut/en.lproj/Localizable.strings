@@ -236,3 +236,10 @@ NO_APP_INSTANCE = "App Server Error";
 VALIDATE_INFO_INVALID = "Invalid Login Data";
 VALIDATE_FAILED = "Username or password incorrect";
 
+OLD_PSW_NULL = "Old Password Can't Be Null";
+WRONG_PSW_FORMAT = "Invalid Password";
+PSW_FORMAT = "Password must be a 6-23 string and limit in number,letter and special symbols";
+CHG_PSW_SUC = "Change Password Successful!";
+CHG_PSW_FAIL = "Change Password Fail, Please Check Your Old Password Is Match.";
+CHANGE_PSW = "Change Password";
+CONFIRM_PSW = "Change Password To";

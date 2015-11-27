@@ -234,3 +234,11 @@ NO_APP_INSTANCE = "App服务器错误";
 
 VALIDATE_INFO_INVALID = "非法登录数据";
 VALIDATE_FAILED = "用户不存在或密码错误";
+
+OLD_PSW_NULL = "旧密码不能为空";
+WRONG_PSW_FORMAT = "密码格式错误";
+PSW_FORMAT = "密码由6到23个数字、字母和特殊字符组成";
+CHG_PSW_SUC = "密码修改成功!";
+CHG_PSW_FAIL = "密码修改失败, 请检查旧密码是否正确.";
+CHANGE_PSW = "修改密码";
+CONFIRM_PSW = "修改新密码为";
