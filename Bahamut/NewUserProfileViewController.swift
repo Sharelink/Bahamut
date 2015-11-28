@@ -54,10 +54,12 @@ class NewUserProfileViewController: UIViewController
         self.makeToastActivityWithMessage("",message:NSLocalizedString("REGISTING", comment: "Registing"))
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             self.hideToastActivity()
-            self.showToast( msg)
             if isSuc
             {
                 self.makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
+            }else
+            {
+                self.showToast( msg)
             }
         }
     }
@@ -65,6 +67,7 @@ class NewUserProfileViewController: UIViewController
     func setSignSuccessObserver()
     {
         let service = ServiceContainer.getService(UserService)
+        ServiceContainer.getService(UserService).myLinkedUsersMap.keys
         service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
     }
     
