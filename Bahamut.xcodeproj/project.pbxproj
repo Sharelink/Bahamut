@@ -21,8 +21,6 @@
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
 		E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
 		E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF351C048C390096C437 /* UploadBaseExtension.swift */; };
-		E70FEF381C04C6990096C437 /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF371C04C6990096C437 /* AliOSSFile.swift */; };
-		E70FEF3A1C04C6F20096C437 /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF391C04C6F20096C437 /* BahamutFire.swift */; };
 		E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
 		E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
 		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
@@ -98,7 +96,6 @@
 		E72949A71BF49209005B7B3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949A61BF49209005B7B3A /* CoreMedia.framework */; };
 		E72949AA1BF4936E005B7B3A /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949A91BF4936E005B7B3A /* Photos.framework */; };
 		E72949B21BF4A0ED005B7B3A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */; };
-		E72949B51BF4A679005B7B3A /* TaeSDKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E72949B41BF4A679005B7B3A /* TaeSDKExtension.m */; };
 		E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */; };
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
 		E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
@@ -116,8 +113,29 @@
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
 		E7566BBA1BF997020069B901 /* libUMessage_Sdk_1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7566BB81BF997020069B901 /* libUMessage_Sdk_1.2.0.a */; };
 		E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */; };
+		E762342E1C0BF30D0083E281 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341A1C0BF30D0083E281 /* Account.swift */; };
+		E762342F1C0BF30D0083E281 /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */; };
+		E76234301C0BF30D0083E281 /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */; };
+		E76234311C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */; };
+		E76234321C0BF30D0083E281 /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234201C0BF30D0083E281 /* AliOSSFile.swift */; };
+		E76234331C0BF30D0083E281 /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234211C0BF30D0083E281 /* BahamutFire.swift */; };
+		E76234341C0BF30D0083E281 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234221C0BF30D0083E281 /* File.swift */; };
+		E76234351C0BF30D0083E281 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234241C0BF30D0083E281 /* Message.swift */; };
+		E76234361C0BF30D0083E281 /* SharelinkSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234251C0BF30D0083E281 /* SharelinkSDK.swift */; };
+		E76234371C0BF30D0083E281 /* ShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234271C0BF30D0083E281 /* ShareThing.swift */; };
+		E76234381C0BF30D0083E281 /* ShareLinkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234291C0BF30D0083E281 /* ShareLinkUser.swift */; };
+		E76234391C0BF30D0083E281 /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762342A1C0BF30D0083E281 /* UserLink.swift */; };
+		E762343A1C0BF30D0083E281 /* UserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762342B1C0BF30D0083E281 /* UserTag.swift */; };
+		E762343B1C0BF30D0083E281 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762342D1C0BF30D0083E281 /* Vote.swift */; };
+		E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762344D1C0BF5530083E281 /* ArrayUtil.swift */; };
+		E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E76234501C0BF5530083E281 /* MF_Base64Additions.m */; };
+		E76234571C0BF5530083E281 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234511C0BF5530083E281 /* DateHelper.swift */; };
+		E76234581C0BF5530083E281 /* IDUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234521C0BF5530083E281 /* IDUtil.swift */; };
+		E76234591C0BF5530083E281 /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234531C0BF5530083E281 /* RegexUtil.swift */; };
+		E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
+		E76234601C0BF6D90083E281 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E762345D1C0BF6D90083E281 /* libMobClickLibrary.a */; };
+		E76234631C0BF7310083E281 /* TaeSDKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E76234621C0BF7310083E281 /* TaeSDKExtension.m */; };
 		E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7657C401B6918DE00FF97FD /* MainNavigationController.swift */; };
-		E76766291BF4237000CACE49 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E76766261BF4237000CACE49 /* libMobClickLibrary.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		E76A45AB1B9E8B090059AA3D /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A45AA1B9E8B090059AA3D /* ProgressTaskWatcher.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
@@ -174,24 +192,6 @@
 		E7C4F2AD1BCFB0950050997B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */; };
 		E7CB5CEB1BFAFEE900098DD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */; };
 		E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
-		E7CB5D181BFB0FC700098DD4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7CB5CFA1BFB0FC700098DD4 /* Info.plist */; };
-		E7CB5D191BFB0FC700098DD4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5CFE1BFB0FC700098DD4 /* Account.swift */; };
-		E7CB5D1A1BFB0FC700098DD4 /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D001BFB0FC700098DD4 /* ShareLinkObject.swift */; };
-		E7CB5D1B1BFB0FC700098DD4 /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D011BFB0FC700098DD4 /* ShareLinkSDKClient.swift */; };
-		E7CB5D1C1BFB0FC700098DD4 /* ShareLinkSDKRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D021BFB0FC700098DD4 /* ShareLinkSDKRequestBase.swift */; };
-		E7CB5D1D1BFB0FC700098DD4 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D041BFB0FC700098DD4 /* File.swift */; };
-		E7CB5D1E1BFB0FC700098DD4 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D061BFB0FC700098DD4 /* Message.swift */; };
-		E7CB5D1F1BFB0FC700098DD4 /* SharelinkSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D071BFB0FC700098DD4 /* SharelinkSDK.swift */; };
-		E7CB5D201BFB0FC700098DD4 /* ShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D091BFB0FC700098DD4 /* ShareThing.swift */; };
-		E7CB5D211BFB0FC700098DD4 /* ShareLinkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D0B1BFB0FC700098DD4 /* ShareLinkUser.swift */; };
-		E7CB5D221BFB0FC700098DD4 /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D0C1BFB0FC700098DD4 /* UserLink.swift */; };
-		E7CB5D231BFB0FC700098DD4 /* UserTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D0D1BFB0FC700098DD4 /* UserTag.swift */; };
-		E7CB5D241BFB0FC700098DD4 /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D0F1BFB0FC700098DD4 /* ArrayUtil.swift */; };
-		E7CB5D251BFB0FC700098DD4 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D121BFB0FC700098DD4 /* MF_Base64Additions.m */; };
-		E7CB5D261BFB0FC700098DD4 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D131BFB0FC700098DD4 /* DateHelper.swift */; };
-		E7CB5D271BFB0FC700098DD4 /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D141BFB0FC700098DD4 /* RegexUtil.swift */; };
-		E7CB5D281BFB0FC700098DD4 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D151BFB0FC700098DD4 /* StringHelper.swift */; };
-		E7CB5D291BFB0FC700098DD4 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D171BFB0FC700098DD4 /* Vote.swift */; };
 		E7CB5D2E1BFB15B300098DD4 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; };
 		E7CB5D2F1BFB15B300098DD4 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
@@ -249,8 +249,6 @@
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
 		E70FEF351C048C390096C437 /* UploadBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBaseExtension.swift; sourceTree = "<group>"; };
-		E70FEF371C04C6990096C437 /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
-		E70FEF391C04C6F20096C437 /* BahamutFire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFire.swift; sourceTree = "<group>"; };
 		E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
 		E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
 		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
@@ -334,8 +332,6 @@
 		E72949A61BF49209005B7B3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E72949A91BF4936E005B7B3A /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		E72949B31BF4A542005B7B3A /* TaeSDKExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaeSDKExtension.h; sourceTree = "<group>"; };
-		E72949B41BF4A679005B7B3A /* TaeSDKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaeSDKExtension.m; sourceTree = "<group>"; };
 		E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuPaiRecordCameraViewController.swift; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
 		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
@@ -356,10 +352,35 @@
 		E7566BB81BF997020069B901 /* libUMessage_Sdk_1.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.2.0.a; sourceTree = "<group>"; };
 		E7566BB91BF997020069B901 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceFromStoryBoard.swift; sourceTree = "<group>"; };
+		E762341A1C0BF30D0083E281 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkObject.swift; sourceTree = "<group>"; };
+		E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
+		E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKRequestBase.swift; sourceTree = "<group>"; };
+		E76234201C0BF30D0083E281 /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
+		E76234211C0BF30D0083E281 /* BahamutFire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFire.swift; sourceTree = "<group>"; };
+		E76234221C0BF30D0083E281 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		E76234241C0BF30D0083E281 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E76234251C0BF30D0083E281 /* SharelinkSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkSDK.swift; sourceTree = "<group>"; };
+		E76234271C0BF30D0083E281 /* ShareThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareThing.swift; sourceTree = "<group>"; };
+		E76234291C0BF30D0083E281 /* ShareLinkUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkUser.swift; sourceTree = "<group>"; };
+		E762342A1C0BF30D0083E281 /* UserLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLink.swift; sourceTree = "<group>"; };
+		E762342B1C0BF30D0083E281 /* UserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTag.swift; sourceTree = "<group>"; };
+		E762342D1C0BF30D0083E281 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		E762344B1C0BF5080083E281 /* SharelinkSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharelinkSDK.h; sourceTree = "<group>"; };
+		E762344D1C0BF5530083E281 /* ArrayUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtil.swift; sourceTree = "<group>"; };
+		E762344F1C0BF5530083E281 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		E76234501C0BF5530083E281 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
+		E76234511C0BF5530083E281 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		E76234521C0BF5530083E281 /* IDUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDUtil.swift; sourceTree = "<group>"; };
+		E76234531C0BF5530083E281 /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
+		E76234541C0BF5530083E281 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
+		E762345B1C0BF56C0083E281 /* BahamutCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BahamutCommon.h; sourceTree = "<group>"; };
+		E762345D1C0BF6D90083E281 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		E762345E1C0BF6D90083E281 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		E762345F1C0BF6D90083E281 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		E76234611C0BF7310083E281 /* TaeSDKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TaeSDKExtension.h; path = QuPaiSDK/TaeSDKExtension.h; sourceTree = "<group>"; };
+		E76234621C0BF7310083E281 /* TaeSDKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TaeSDKExtension.m; path = QuPaiSDK/TaeSDKExtension.m; sourceTree = "<group>"; };
 		E7657C401B6918DE00FF97FD /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
-		E76766261BF4237000CACE49 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		E76766271BF4237000CACE49 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
-		E76766281BF4237000CACE49 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		E76A45AA1B9E8B090059AA3D /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
@@ -420,26 +441,6 @@
 		E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bahamut.entitlements; sourceTree = "<group>"; };
 		E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		E7CB5CFA1BFB0FC700098DD4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E7CB5CFB1BFB0FC700098DD4 /* SharelinkSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharelinkSDK.h; sourceTree = "<group>"; };
-		E7CB5CFE1BFB0FC700098DD4 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		E7CB5D001BFB0FC700098DD4 /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkObject.swift; sourceTree = "<group>"; };
-		E7CB5D011BFB0FC700098DD4 /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
-		E7CB5D021BFB0FC700098DD4 /* ShareLinkSDKRequestBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKRequestBase.swift; sourceTree = "<group>"; };
-		E7CB5D041BFB0FC700098DD4 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		E7CB5D061BFB0FC700098DD4 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		E7CB5D071BFB0FC700098DD4 /* SharelinkSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkSDK.swift; sourceTree = "<group>"; };
-		E7CB5D091BFB0FC700098DD4 /* ShareThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareThing.swift; sourceTree = "<group>"; };
-		E7CB5D0B1BFB0FC700098DD4 /* ShareLinkUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkUser.swift; sourceTree = "<group>"; };
-		E7CB5D0C1BFB0FC700098DD4 /* UserLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLink.swift; sourceTree = "<group>"; };
-		E7CB5D0D1BFB0FC700098DD4 /* UserTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTag.swift; sourceTree = "<group>"; };
-		E7CB5D0F1BFB0FC700098DD4 /* ArrayUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtil.swift; sourceTree = "<group>"; };
-		E7CB5D111BFB0FC700098DD4 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
-		E7CB5D121BFB0FC700098DD4 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
-		E7CB5D131BFB0FC700098DD4 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		E7CB5D141BFB0FC700098DD4 /* RegexUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtil.swift; sourceTree = "<group>"; };
-		E7CB5D151BFB0FC700098DD4 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
-		E7CB5D171BFB0FC700098DD4 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Release-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareThemeCell.swift; sourceTree = "<group>"; };
 		E7CB5D331BFB958700098DD4 /* NewShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareController.swift; sourceTree = "<group>"; };
@@ -499,6 +500,7 @@
 				E7B616201BCFCB6E00D0831C /* MailConnection.framework in Frameworks */,
 				E729498D1BF48FE6005B7B3A /* ALBBFullSecurityGuard.framework in Frameworks */,
 				E72949911BF48FE6005B7B3A /* ALBBRpcPlugin.framework in Frameworks */,
+				E76234601C0BF6D90083E281 /* libMobClickLibrary.a in Frameworks */,
 				E7C4F2AD1BCFB0950050997B /* libsqlite3.tbd in Frameworks */,
 				E7C4F2AB1BCFB08A0050997B /* AdSupport.framework in Frameworks */,
 				E7B616331BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework in Frameworks */,
@@ -511,7 +513,6 @@
 				E7CB5D2E1BFB15B300098DD4 /* ChatFramework.framework in Frameworks */,
 				E7B616251BCFCB6E00D0831C /* WeChatConnection.framework in Frameworks */,
 				E7B616301BCFCB6E00D0831C /* ShareSDK.framework in Frameworks */,
-				E76766291BF4237000CACE49 /* libMobClickLibrary.a in Frameworks */,
 				E7B616281BCFCB6E00D0831C /* MOBFoundation.framework in Frameworks */,
 				E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */,
 				E72949961BF48FE6005B7B3A /* UTMini.framework in Frameworks */,
@@ -637,9 +638,9 @@
 		E71788741BF82C54005916B5 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				E762345C1C0BF6D90083E281 /* Umeng */,
 				E7566BB71BF997020069B901 /* UMessage_Sdk_1.2.0 */,
 				E7B615F41BCFCB6E00D0831C /* ShareSDK */,
-				E76766251BF4234700CACE49 /* Umeng */,
 				E72949801BF48FB3005B7B3A /* QupaiComponent */,
 			);
 			name = Libs;
@@ -714,8 +715,8 @@
 			children = (
 				E72949A81BF4929C005B7B3A /* OneSDK */,
 				E72949811BF48FE6005B7B3A /* QuPaiSDK */,
-				E72949B31BF4A542005B7B3A /* TaeSDKExtension.h */,
-				E72949B41BF4A679005B7B3A /* TaeSDKExtension.m */,
+				E76234611C0BF7310083E281 /* TaeSDKExtension.h */,
+				E76234621C0BF7310083E281 /* TaeSDKExtension.m */,
 			);
 			name = QupaiComponent;
 			sourceTree = "<group>";
@@ -777,11 +778,123 @@
 			name = UIResource;
 			sourceTree = "<group>";
 		};
+		E76234181C0BF30D0083E281 /* SharelinkSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E762341B1C0BF30D0083E281 /* Base */,
+				E762342C1C0BF30D0083E281 /* Vote */,
+				E76234281C0BF30D0083E281 /* User */,
+				E76234261C0BF30D0083E281 /* ShareThing */,
+				E76234231C0BF30D0083E281 /* Message */,
+				E762341F1C0BF30D0083E281 /* File */,
+				E76234191C0BF30D0083E281 /* Account */,
+				E76234251C0BF30D0083E281 /* SharelinkSDK.swift */,
+				E762344B1C0BF5080083E281 /* SharelinkSDK.h */,
+			);
+			name = SharelinkSDK;
+			path = Bahamut/SharelinkSDK;
+			sourceTree = "<group>";
+		};
+		E76234191C0BF30D0083E281 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				E762341A1C0BF30D0083E281 /* Account.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		E762341B1C0BF30D0083E281 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */,
+				E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */,
+				E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E762341F1C0BF30D0083E281 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				E76234201C0BF30D0083E281 /* AliOSSFile.swift */,
+				E76234211C0BF30D0083E281 /* BahamutFire.swift */,
+				E76234221C0BF30D0083E281 /* File.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		E76234231C0BF30D0083E281 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				E76234241C0BF30D0083E281 /* Message.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		E76234261C0BF30D0083E281 /* ShareThing */ = {
+			isa = PBXGroup;
+			children = (
+				E76234271C0BF30D0083E281 /* ShareThing.swift */,
+			);
+			path = ShareThing;
+			sourceTree = "<group>";
+		};
+		E76234281C0BF30D0083E281 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				E76234291C0BF30D0083E281 /* ShareLinkUser.swift */,
+				E762342A1C0BF30D0083E281 /* UserLink.swift */,
+				E762342B1C0BF30D0083E281 /* UserTag.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		E762342C1C0BF30D0083E281 /* Vote */ = {
+			isa = PBXGroup;
+			children = (
+				E762342D1C0BF30D0083E281 /* Vote.swift */,
+			);
+			path = Vote;
+			sourceTree = "<group>";
+		};
+		E762344C1C0BF5530083E281 /* BahamutCommon */ = {
+			isa = PBXGroup;
+			children = (
+				E762344E1C0BF5530083E281 /* Base64 */,
+				E76234511C0BF5530083E281 /* DateHelper.swift */,
+				E762344D1C0BF5530083E281 /* ArrayUtil.swift */,
+				E76234521C0BF5530083E281 /* IDUtil.swift */,
+				E76234531C0BF5530083E281 /* RegexUtil.swift */,
+				E76234541C0BF5530083E281 /* StringHelper.swift */,
+				E762345B1C0BF56C0083E281 /* BahamutCommon.h */,
+			);
+			name = BahamutCommon;
+			path = Bahamut/BahamutCommon;
+			sourceTree = "<group>";
+		};
+		E762344E1C0BF5530083E281 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				E762344F1C0BF5530083E281 /* MF_Base64Additions.h */,
+				E76234501C0BF5530083E281 /* MF_Base64Additions.m */,
+			);
+			path = Base64;
+			sourceTree = "<group>";
+		};
+		E762345C1C0BF6D90083E281 /* Umeng */ = {
+			isa = PBXGroup;
+			children = (
+				E762345D1C0BF6D90083E281 /* libMobClickLibrary.a */,
+				E762345E1C0BF6D90083E281 /* MobClick.h */,
+				E762345F1C0BF6D90083E281 /* MobClickSocialAnalytics.h */,
+			);
+			path = Umeng;
+			sourceTree = "<group>";
+		};
 		E7657C3D1B68C30A00FF97FD /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				E7E6ABA11BA73ED800BC597D /* DynamicColor */,
-				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E7B714251B7F36880085E3B6 /* ImageUtil.swift */,
 				E75EE4501B9A0DAF00783308 /* InstanceFromStoryBoard.swift */,
 				E7A3AA991B9C2B050094B0D0 /* ControllerExtension.swift */,
@@ -789,16 +902,6 @@
 				E7F5D6C41BD5EAB1001DEEAA /* SortSharelinkObject.swift */,
 			);
 			name = Util;
-			sourceTree = "<group>";
-		};
-		E76766251BF4234700CACE49 /* Umeng */ = {
-			isa = PBXGroup;
-			children = (
-				E76766261BF4237000CACE49 /* libMobClickLibrary.a */,
-				E76766271BF4237000CACE49 /* MobClick.h */,
-				E76766281BF4237000CACE49 /* MobClickSocialAnalytics.h */,
-			);
-			name = Umeng;
 			sourceTree = "<group>";
 		};
 		E76A45A91B9E8AE20059AA3D /* ProgressTaskWatcher */ = {
@@ -944,11 +1047,12 @@
 		E7A62FD71B6609A500F28D73 = {
 			isa = PBXGroup;
 			children = (
-				E7A62FE11B6609A500F28D73 /* Products */,
-				E7CB5CF91BFB0FC700098DD4 /* SharelinkSDK */,
+				E762344C1C0BF5530083E281 /* BahamutCommon */,
+				E76234181C0BF30D0083E281 /* SharelinkSDK */,
 				E7A62FE21B6609A500F28D73 /* Bahamut */,
 				7A86D96ED0EE82317F95B25D /* Pods */,
 				D1311D6FD64F106598012550 /* Frameworks */,
+				E7A62FE11B6609A500F28D73 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1061,6 +1165,7 @@
 			isa = PBXGroup;
 			children = (
 				E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */,
+				E78608551BA1E28A00E2BECA /* QRCode.swift */,
 				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E72B26C61B71EC0B008E81D6 /* StartSegue.swift */,
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
@@ -1088,116 +1193,6 @@
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
-			sourceTree = "<group>";
-		};
-		E7CB5CF91BFB0FC700098DD4 /* SharelinkSDK */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5CFA1BFB0FC700098DD4 /* Info.plist */,
-				E7CB5CFB1BFB0FC700098DD4 /* SharelinkSDK.h */,
-				E7CB5CFC1BFB0FC700098DD4 /* Source */,
-			);
-			name = SharelinkSDK;
-			path = ../SharelinkSDK/SharelinkSDK;
-			sourceTree = "<group>";
-		};
-		E7CB5CFC1BFB0FC700098DD4 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5CFD1BFB0FC700098DD4 /* Account */,
-				E7CB5CFF1BFB0FC700098DD4 /* Base */,
-				E7CB5D031BFB0FC700098DD4 /* File */,
-				E7CB5D051BFB0FC700098DD4 /* Message */,
-				E7CB5D071BFB0FC700098DD4 /* SharelinkSDK.swift */,
-				E7CB5D081BFB0FC700098DD4 /* ShareThing */,
-				E7CB5D0A1BFB0FC700098DD4 /* User */,
-				E7CB5D0E1BFB0FC700098DD4 /* Util */,
-				E7CB5D161BFB0FC700098DD4 /* Vote */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		E7CB5CFD1BFB0FC700098DD4 /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5CFE1BFB0FC700098DD4 /* Account.swift */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		E7CB5CFF1BFB0FC700098DD4 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D001BFB0FC700098DD4 /* ShareLinkObject.swift */,
-				E7CB5D011BFB0FC700098DD4 /* ShareLinkSDKClient.swift */,
-				E7CB5D021BFB0FC700098DD4 /* ShareLinkSDKRequestBase.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		E7CB5D031BFB0FC700098DD4 /* File */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D041BFB0FC700098DD4 /* File.swift */,
-				E70FEF371C04C6990096C437 /* AliOSSFile.swift */,
-				E70FEF391C04C6F20096C437 /* BahamutFire.swift */,
-			);
-			path = File;
-			sourceTree = "<group>";
-		};
-		E7CB5D051BFB0FC700098DD4 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D061BFB0FC700098DD4 /* Message.swift */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
-		E7CB5D081BFB0FC700098DD4 /* ShareThing */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D091BFB0FC700098DD4 /* ShareThing.swift */,
-			);
-			path = ShareThing;
-			sourceTree = "<group>";
-		};
-		E7CB5D0A1BFB0FC700098DD4 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D0B1BFB0FC700098DD4 /* ShareLinkUser.swift */,
-				E7CB5D0C1BFB0FC700098DD4 /* UserLink.swift */,
-				E7CB5D0D1BFB0FC700098DD4 /* UserTag.swift */,
-			);
-			path = User;
-			sourceTree = "<group>";
-		};
-		E7CB5D0E1BFB0FC700098DD4 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D0F1BFB0FC700098DD4 /* ArrayUtil.swift */,
-				E7CB5D101BFB0FC700098DD4 /* Base64 */,
-				E7CB5D131BFB0FC700098DD4 /* DateHelper.swift */,
-				E7CB5D141BFB0FC700098DD4 /* RegexUtil.swift */,
-				E7CB5D151BFB0FC700098DD4 /* StringHelper.swift */,
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
-		E7CB5D101BFB0FC700098DD4 /* Base64 */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D111BFB0FC700098DD4 /* MF_Base64Additions.h */,
-				E7CB5D121BFB0FC700098DD4 /* MF_Base64Additions.m */,
-			);
-			path = Base64;
-			sourceTree = "<group>";
-		};
-		E7CB5D161BFB0FC700098DD4 /* Vote */ = {
-			isa = PBXGroup;
-			children = (
-				E7CB5D171BFB0FC700098DD4 /* Vote.swift */,
-			);
-			path = Vote;
 			sourceTree = "<group>";
 		};
 		E7E6ABA11BA73ED800BC597D /* DynamicColor */ = {
@@ -1325,7 +1320,6 @@
 				E717889E1BF85FAD005916B5 /* ch_ShareViewGuide_2.jpg in Resources */,
 				E71788681BF82B72005916B5 /* chat_animation_white2.png in Resources */,
 				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
-				E7CB5D181BFB0FC700098DD4 /* Info.plist in Resources */,
 				E71788A51BF85FAD005916B5 /* en_ShareViewGuide_0.jpg in Resources */,
 				E7A62FEE1B6609A500F28D73 /* Main.storyboard in Resources */,
 				E7A645351BE9E39E00204D1A /* SharelinkFilm.mp4 in Resources */,
@@ -1426,42 +1420,45 @@
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
-				E7CB5D1B1BFB0FC700098DD4 /* ShareLinkSDKClient.swift in Sources */,
+				E76234591C0BF5530083E281 /* RegexUtil.swift in Sources */,
 				E7FFC0381BCA064C00D651CA /* MessageEntity+CoreDataProperties.swift in Sources */,
+				E76234351C0BF30D0083E281 /* Message.swift in Sources */,
 				E7FD584D1BCB82B700E42C95 /* ChicagoClient.swift in Sources */,
+				E762342E1C0BF30D0083E281 /* Account.swift in Sources */,
+				E762343A1C0BF30D0083E281 /* UserTag.swift in Sources */,
 				E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */,
-				E7CB5D191BFB0FC700098DD4 /* Account.swift in Sources */,
 				E71E07811BE38DE000B1F69D /* SharelinkCmd.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */,
+				E76234331C0BF30D0083E281 /* BahamutFire.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E73681501B96A816004E8B56 /* SharelinkTagService.swift in Sources */,
 				E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */,
 				E71D24BC1C063ECD00E0C31C /* SharelinkSetting.swift in Sources */,
 				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
-				E7CB5D261BFB0FC700098DD4 /* DateHelper.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
 				E70D11471C0865B500DC6C9A /* ChangePasswordViewController.swift in Sources */,
 				E7F11CAF1BA9947C00CA7DB2 /* Common.swift in Sources */,
-				E70FEF3A1C04C6F20096C437 /* BahamutFire.swift in Sources */,
-				E7CB5D231BFB0FC700098DD4 /* UserTag.swift in Sources */,
 				E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */,
 				E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */,
 				E7FFC03A1BCA064C00D651CA /* ShareChatEntity+CoreDataProperties.swift in Sources */,
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
+				E762342F1C0BF30D0083E281 /* ShareLinkObject.swift in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
+				E76234631C0BF7310083E281 /* TaeSDKExtension.m in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
 				E7B714261B7F36880085E3B6 /* ImageUtil.swift in Sources */,
 				E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */,
 				E75EE4511B9A0DAF00783308 /* InstanceFromStoryBoard.swift in Sources */,
+				E76234341C0BF30D0083E281 /* File.swift in Sources */,
 				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
 				E7FFC03B1BCA064C00D651CA /* ShareChatEntity.swift in Sources */,
@@ -1471,66 +1468,64 @@
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E7EBE8671B732FEB00C02F1F /* PersistentManager.swift in Sources */,
-				E7CB5D1E1BFB0FC700098DD4 /* Message.swift in Sources */,
-				E7CB5D1D1BFB0FC700098DD4 /* File.swift in Sources */,
 				E7F5D6C51BD5EAB1001DEEAA /* SortSharelinkObject.swift in Sources */,
 				E7F08F941B75F18B00B75C25 /* ModelEntity.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
+				E76234301C0BF30D0083E281 /* ShareLinkSDKClient.swift in Sources */,
 				E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */,
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
+				E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */,
+				E76234571C0BF5530083E281 /* DateHelper.swift in Sources */,
 				E7A3AA9A1B9C2B050094B0D0 /* ControllerExtension.swift in Sources */,
+				E76234371C0BF30D0083E281 /* ShareThing.swift in Sources */,
 				E717CC391B725D5200B19D9D /* Bahamut.xcdatamodeld in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
 				E7E6ABA41BA73ED800BC597D /* HSL.swift in Sources */,
-				E70FEF381C04C6990096C437 /* AliOSSFile.swift in Sources */,
 				E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */,
-				E7CB5D241BFB0FC700098DD4 /* ArrayUtil.swift in Sources */,
 				E7F08F961B75F18C00B75C25 /* FileMgrEntities.swift in Sources */,
-				E7CB5D221BFB0FC700098DD4 /* UserLink.swift in Sources */,
 				E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */,
-				E7CB5D281BFB0FC700098DD4 /* StringHelper.swift in Sources */,
-				E7CB5D211BFB0FC700098DD4 /* ShareLinkUser.swift in Sources */,
+				E76234361C0BF30D0083E281 /* SharelinkSDK.swift in Sources */,
 				E7FFC0391BCA064C00D651CA /* MessageEntity.swift in Sources */,
 				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
-				E7CB5D1C1BFB0FC700098DD4 /* ShareLinkSDKRequestBase.swift in Sources */,
 				E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */,
 				E71E07861BE38DE000B1F69D /* SharelinkCmdManager.swift in Sources */,
 				E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */,
-				E7CB5D291BFB0FC700098DD4 /* Vote.swift in Sources */,
+				E76234391C0BF30D0083E281 /* UserLink.swift in Sources */,
 				E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */,
+				E762343B1C0BF30D0083E281 /* Vote.swift in Sources */,
 				E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */,
 				E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */,
-				E7CB5D271BFB0FC700098DD4 /* RegexUtil.swift in Sources */,
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
+				E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */,
 				E7A3AA9C1B9C332F0094B0D0 /* UIImagePlayerController.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
+				E76234381C0BF30D0083E281 /* ShareLinkUser.swift in Sources */,
 				E7F14E131B6CE9F400706907 /* CoreDataHelper.swift in Sources */,
-				E72949B51BF4A679005B7B3A /* TaeSDKExtension.m in Sources */,
 				E7E6ABA51BA73ED800BC597D /* UIColor.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
 				E795C6E01BC94DA9003B9EDC /* UUMsgItem.swift in Sources */,
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
-				E7CB5D251BFB0FC700098DD4 /* MF_Base64Additions.m in Sources */,
 				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
+				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */,
 				E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */,
 				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
+				E76234321C0BF30D0083E281 /* AliOSSFile.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
-				E7CB5D1F1BFB0FC700098DD4 /* SharelinkSDK.swift in Sources */,
 				E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */,
 				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
-				E7CB5D201BFB0FC700098DD4 /* ShareThing.swift in Sources */,
+				E76234311C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift in Sources */,
+				E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */,
 				E76A45AB1B9E8B090059AA3D /* ProgressTaskWatcher.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */,
-				E7CB5D1A1BFB0FC700098DD4 /* ShareLinkObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1730,6 +1725,7 @@
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
 					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Umeng",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1785,6 +1781,7 @@
 					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
 					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Umeng",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
