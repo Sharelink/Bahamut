@@ -449,14 +449,14 @@ extension PersistentManager
 }
 
 //MARK: Model Enity
-extension SharelinkObject
+extension BahamutObject
 {
     func saveModel()
     {
         PersistentManager.sharedInstance.saveModel(self)
     }
     
-    static func saveObjectOfArray<T:SharelinkObject>(arr:[T])
+    static func saveObjectOfArray<T:BahamutObject>(arr:[T])
     {
         for item in arr
         {
@@ -464,7 +464,7 @@ extension SharelinkObject
         }
     }
     
-    static func deleteObjectArray(arr:[SharelinkObject])
+    static func deleteObjectArray(arr:[BahamutObject])
     {
         PersistentManager.sharedInstance.removeModels(arr)
     }
@@ -486,7 +486,7 @@ extension PersistentManager
         clearCache()
     }
     
-    func getModel<T:SharelinkObject>(type:T.Type,idValue:String) -> T?
+    func getModel<T:BahamutObject>(type:T.Type,idValue:String) -> T?
     {
         if String.isNullOrWhiteSpace(idValue)
         {
@@ -514,7 +514,7 @@ extension PersistentManager
         return nil
     }
     
-    func getModels<T:SharelinkObject>(type:T.Type ,idValues:[String]) -> [T]
+    func getModels<T:BahamutObject>(type:T.Type ,idValues:[String]) -> [T]
     {
         let typename = type.description()
         let cache = getCache(typename)
@@ -539,7 +539,7 @@ extension PersistentManager
         return result.filter{$0 != nil}.map{$0!}
     }
     
-    func getAllModel<T:SharelinkObject>(type:T.Type) -> [T]
+    func getAllModel<T:BahamutObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
         let cache = getCache(ModelEntityConstants.modelArrCacheName)
@@ -552,7 +552,7 @@ extension PersistentManager
         return result
     }
     
-    func getAllModelFromCache<T:SharelinkObject>(type:T.Type) -> [T]
+    func getAllModelFromCache<T:BahamutObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
         let cache = getCache(ModelEntityConstants.modelArrCacheName)
@@ -563,19 +563,19 @@ extension PersistentManager
         return getAllModel(type)
     }
     
-    func refreshCache<T:SharelinkObject>(type:T.Type)
+    func refreshCache<T:BahamutObject>(type:T.Type)
     {
         getAllModel(type)
     }
     
-    func clearArrCache<T:SharelinkObject>(type:T.Type)
+    func clearArrCache<T:BahamutObject>(type:T.Type)
     {
         let typeName = type.description()
         let arrCache = getCache(ModelEntityConstants.modelArrCacheName)
         arrCache.removeObjectForKey(typeName)
     }
     
-    func removeModels<T:SharelinkObject>(models:[T])
+    func removeModels<T:BahamutObject>(models:[T])
     {
         if models.count == 0
         {
@@ -592,7 +592,7 @@ extension PersistentManager
         clearArrCache(T)
     }
     
-    func saveModel<T:SharelinkObject>(model:T)
+    func saveModel<T:BahamutObject>(model:T)
     {
         //save in cache
         let typeName = model.classForCoder.description()

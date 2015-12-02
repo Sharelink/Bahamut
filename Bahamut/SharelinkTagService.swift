@@ -186,7 +186,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
         let req = RemoveTagsRequest()
         req.tagIds = tags.map{$0.tagId}
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req, callback: { (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 PersistentManager.sharedInstance.removeModels(tags)
@@ -210,7 +210,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
         req.type = tag.type
         req.data = tag.data
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req, callback: { (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 tag.saveModel()

@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: Entities
-public class Account : SharelinkObject
+public class Account : BahamutObject
 {
     public var accountName:String!
     public var accountId:String!

@@ -110,7 +110,6 @@
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
 		E7566BBA1BF997020069B901 /* libUMessage_Sdk_1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7566BB81BF997020069B901 /* libUMessage_Sdk_1.2.0.a */; };
 		E762342E1C0BF30D0083E281 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341A1C0BF30D0083E281 /* Account.swift */; };
-		E762342F1C0BF30D0083E281 /* ShareLinkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */; };
 		E76234301C0BF30D0083E281 /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */; };
 		E76234311C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */; };
 		E76234321C0BF30D0083E281 /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234201C0BF30D0083E281 /* AliOSSFile.swift */; };
@@ -159,6 +158,7 @@
 		E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBB1C0EAB000072A1D7 /* UserGuide.swift */; };
 		E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
+		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -373,7 +373,6 @@
 		E7566BB81BF997020069B901 /* libUMessage_Sdk_1.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.2.0.a; sourceTree = "<group>"; };
 		E7566BB91BF997020069B901 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		E762341A1C0BF30D0083E281 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkObject.swift; sourceTree = "<group>"; };
 		E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
 		E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKRequestBase.swift; sourceTree = "<group>"; };
 		E76234201C0BF30D0083E281 /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
@@ -432,6 +431,7 @@
 		E76DEBBB1C0EAB000072A1D7 /* UserGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuide.swift; sourceTree = "<group>"; };
 		E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastHelper.swift; sourceTree = "<group>"; };
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
+		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -840,7 +840,6 @@
 		E762341B1C0BF30D0083E281 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				E762341C1C0BF30D0083E281 /* ShareLinkObject.swift */,
 				E762341D1C0BF30D0083E281 /* ShareLinkSDKClient.swift */,
 				E762341E1C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift */,
 			);
@@ -901,6 +900,7 @@
 				E76234531C0BF5530083E281 /* RegexUtil.swift */,
 				E76234541C0BF5530083E281 /* StringHelper.swift */,
 				E762345B1C0BF56C0083E281 /* BahamutCommon.h */,
+				E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */,
 			);
 			path = BahamutCommon;
 			sourceTree = "<group>";
@@ -1610,7 +1610,6 @@
 				E76DEBAB1C0E9F390072A1D7 /* ShareChatEntity.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
-				E762342F1C0BF30D0083E281 /* ShareLinkObject.swift in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
@@ -1630,6 +1629,7 @@
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E76DEB931C0E9C140072A1D7 /* ColorUtil.swift in Sources */,
 				E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */,
+				E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
 				E76234301C0BF30D0083E281 /* ShareLinkSDKClient.swift in Sources */,
 				E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */,

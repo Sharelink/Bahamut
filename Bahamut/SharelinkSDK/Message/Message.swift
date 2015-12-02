@@ -18,7 +18,7 @@ public enum MessageType:String
     case Picture = "pic"
 }
 
-public class Message: SharelinkObject
+public class Message: BahamutObject
 {
     public var msgId:String!
     public var senderId:String!

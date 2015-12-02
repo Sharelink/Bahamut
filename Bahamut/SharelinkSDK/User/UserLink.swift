@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: Entities
-public class AULReturn : SharelinkObject
+public class AULReturn : BahamutObject
 {
     public var newLink:UserLink!
     public var newUser:Sharelinker!
@@ -21,7 +21,7 @@ public enum LinkMessageType:String
     case AcceptAskLink = "acceptlink"
 }
 
-public class LinkMessage : SharelinkObject
+public class LinkMessage : BahamutObject
 {
     public var id:String!
     public var sharelinkerId:String!
@@ -49,7 +49,7 @@ public extension LinkMessage
     }
 }
 
-public class UserLink: SharelinkObject
+public class UserLink: BahamutObject
 {
     public var linkId:String!
     public var masterUserId:String!

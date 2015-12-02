@@ -288,7 +288,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         let dreq = DeleteLinkMessagesRequest()
-        client.execute(dreq, callback: { (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(dreq, callback: { (result:SLResult<BahamutObject>) -> Void in
             
         })
     }
@@ -326,7 +326,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
         req.message = String(format: NSLocalizedString("ASK_LINK_MSG",comment:""), myUserModel.nickName!)
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<SharelinkObject>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }
         
@@ -351,7 +351,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         req.newNoteName = newNoteName
         req.userId = userId
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
             if result.statusCode == ReturnCode.OK
@@ -375,7 +375,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = UpdateAvatarRequest()
         req.newAvatarId = newAvatarId
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
             if result.statusCode == ReturnCode.OK
@@ -402,7 +402,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = UpdateProfileVideoRequest()
         req.newProfileVideoId = newVideoId
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
             if result.statusCode == ReturnCode.OK
@@ -430,7 +430,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = UpdateSharelinkerProfileNickNameRequest()
         req.nickName = newNick
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             if result.statusCode == ReturnCode.OK
             {
@@ -452,7 +452,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = UpdateSharelinkerProfileMottoRequest()
         req.motto = newMotto
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
-        client.execute(req){ (result:SLResult<SharelinkObject>) -> Void in
+        client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             if result.statusCode == ReturnCode.OK
             {

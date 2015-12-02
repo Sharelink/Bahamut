@@ -1,16 +1,16 @@
 //
-//  SharelinkObject.swift
-//  SharelinkSDK
+//  BahamutObject.swift
+//  Bahamut
 //
-//  Created by AlexChow on 15/8/3.
-//  Copyright (c) 2015年 GStudio. All rights reserved.
+//  Created by AlexChow on 15/12/2.
+//  Copyright © 2015年 GStudio. All rights reserved.
 //
 
 import Foundation
 import EVReflection
 
-//MARK:SharelinkObject
-public class SharelinkObject : EVObject
+//MARK:BahamutObject
+public class BahamutObject : EVObject
 {
     public func getObjectUniqueIdName() -> String
     {
@@ -25,7 +25,7 @@ public class SharelinkObject : EVObject
 
 
 //MARK: Sort
-class Sortable : SharelinkObject
+class Sortable : BahamutObject
 {
     var compareValue:AnyObject!
     func isOrderedBefore(b:Sortable) -> Bool

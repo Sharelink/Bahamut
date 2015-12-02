@@ -90,14 +90,14 @@ public extension SharelinkTag
     }
 }
 
-public class SendTagModel:SharelinkObject
+public class SendTagModel:BahamutObject
 {
     public var name:String!
     public var type:String!
     public var data:String!
 }
 
-public class SharelinkTag : SharelinkObject
+public class SharelinkTag : BahamutObject
 {
     public var tagId:String!
     public var tagName:String!
@@ -123,7 +123,7 @@ public class SharelinkTag : SharelinkObject
     }
 }
 
-public class UserSharelinkTags : SharelinkObject
+public class UserSharelinkTags : BahamutObject
 {
     public var userId:String!
     public var tags:[SharelinkTag]!

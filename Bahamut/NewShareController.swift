@@ -30,7 +30,7 @@ extension ShareService
 
 //MARK: new share task entity
 
-class NewShareTask : SharelinkObject
+class NewShareTask : BahamutObject
 {
     var id:String!
     var share:ShareThing!

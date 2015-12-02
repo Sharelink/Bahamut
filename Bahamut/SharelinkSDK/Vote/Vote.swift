@@ -11,7 +11,7 @@ import EVReflection
 import Alamofire
 
 //MARK: Entities
-public class Vote: SharelinkObject
+public class Vote: BahamutObject
 {
     public var voteId:String!
     public var shareId:String!

@@ -10,7 +10,7 @@ import Foundation
 import EVReflection
 import Alamofire
 
-public class FileAccessInfo : SharelinkObject
+public class FileAccessInfo : BahamutObject
 {
     public override func getObjectUniqueIdName() -> String {
         return "fileId"
@@ -23,7 +23,7 @@ public class FileAccessInfo : SharelinkObject
     public var serverType:String!
 }
 
-public class SendFileResult : SharelinkObject
+public class SendFileResult : BahamutObject
 {
     public var isFinished:Bool!
     public var message:String!

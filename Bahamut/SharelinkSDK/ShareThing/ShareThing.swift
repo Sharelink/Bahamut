@@ -61,7 +61,7 @@ public extension ShareThing
     }
 }
 
-public class ShareThing: SharelinkObject
+public class ShareThing: BahamutObject
 {
     public var shareId:String!
     public var pShareId:String!
@@ -89,7 +89,7 @@ public class ShareThing: SharelinkObject
     }
 }
 
-public class ShareUpdatedMessage : SharelinkObject
+public class ShareUpdatedMessage : BahamutObject
 {
     public var shareId:String!
     public var time:String!
