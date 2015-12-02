@@ -8,11 +8,8 @@
 
 import Foundation
 import UIKit
-
 import MBProgressHUD
 
-let ALERT_ACTION_OK = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)]
-let ALERT_ACTION_I_SEE = [UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style:.Cancel, handler: nil)]
 var toastActivityMap = [UIViewController:MBProgressHUD]()
 extension UIViewController:MBProgressHUDDelegate
 {
@@ -87,16 +84,6 @@ extension UIViewController:MBProgressHUDDelegate
             HUD.show(true)
             HUD.hide(true, afterDelay: 1)
         }
-    }
-    
-    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)])
-    {
-        let controller = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        for ac in actions
-        {
-            controller.addAction(ac)
-        }
-        showAlert(controller)
     }
     
     func showAlert(presentRootController:UIViewController,alertController:UIAlertController)

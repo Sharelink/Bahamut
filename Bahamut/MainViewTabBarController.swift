@@ -8,9 +8,21 @@
 
 import UIKit
 
-
+let ALERT_ACTION_OK = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)]
+let ALERT_ACTION_I_SEE = [UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style:.Cancel, handler: nil)]
 extension UIViewController
 {
+    
+    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)])
+    {
+        let controller = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        for ac in actions
+        {
+            controller.addAction(ac)
+        }
+        showAlert(controller)
+    }
+    
     func showAlert(alertController:UIAlertController) -> Bool
     {
         if let vc = MainViewTabBarController.currentRootViewController
