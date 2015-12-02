@@ -159,6 +159,7 @@
 		E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
+		E76DEC001C0F23EB0072A1D7 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -432,6 +433,7 @@
 		E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastHelper.swift; sourceTree = "<group>"; };
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
 		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
+		E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -979,6 +981,7 @@
 				E76DEB9A1C0E9F380072A1D7 /* Bahamut.xcdatamodeld */,
 				E76DEBA31C0E9F380072A1D7 /* CoreDataManager.swift */,
 				E76DEBA41C0E9F380072A1D7 /* PersistentManager.swift */,
+				E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */,
 			);
 			path = Persistents;
 			sourceTree = "<group>";
@@ -1637,6 +1640,7 @@
 				E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */,
 				E76234571C0BF5530083E281 /* DateHelper.swift in Sources */,
 				E76234851C0C34770083E281 /* UrlShareContent.swift in Sources */,
+				E76DEC001C0F23EB0072A1D7 /* FileType.swift in Sources */,
 				E76234371C0BF30D0083E281 /* ShareThing.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
@@ -1879,6 +1883,7 @@
 				PRODUCT_MODULE_NAME = Bahamut;
 				PROVISIONING_PROFILE = "f3e4b13d-51fa-4a9f-ad69-a27233c990d0";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1923,6 +1928,7 @@
 				PRODUCT_MODULE_NAME = Bahamut;
 				PROVISIONING_PROFILE = "b0e87e21-ed12-49d8-b470-7a59867b7b00";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
