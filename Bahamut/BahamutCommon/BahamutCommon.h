@@ -10,5 +10,6 @@
 #define BahamutCommon_h
 
 #import "MF_Base64Additions.h"
+#import "CommonCrypto/CommonDigest.h"
 
 #endif /* BahamutCommon_h */
