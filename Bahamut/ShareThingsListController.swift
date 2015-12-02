@@ -379,7 +379,7 @@ class ShareThingsListController: UITableViewController
         if shareThing.isMessageShare()
         {
             cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
-        }else if shareThing.isShareFilm()
+        }else if shareThing.isUserShare()
         {
             cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
         }else

@@ -380,7 +380,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = DeleteVoteRequest()
         req.shareId = shareThingModel.shareId
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<SharelinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 shareThingModel.voteUsers.removeElement{$0 == myUserId}
@@ -398,10 +398,15 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = AddVoteRequest()
         req.shareId = share.shareId
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<ShareLinkObject>) -> Void in
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<SharelinkObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
-                share.voteUsers.append(myUserId)
+                if share.voteUsers == nil{
+                    share.voteUsers = [myUserId]
+                }else
+                {
+                    share.voteUsers.append(myUserId)
+                }
                 share.saveModel()
                 let sortableObj = share.getSortableObject()
                 sortableObj.compareValue = NSNumber(double: NSDate().timeIntervalSince1970)

@@ -61,7 +61,7 @@ class PersistentManager
     func initManager(dbFileName:String,documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
     {
         dbFileUrl = self.rootUrl.URLByAppendingPathComponent(dbFileName)
-        CoreDataHelper.initNSManagedObjectContext(dbFileUrl)
+        CoreDataManager.sharedInstance.initmanagedObjectContext(dbFileUrl)
         self.fileCacheDirUrl = fileCacheDirUrl
         self.documentsPathUrl = documentsPathUrl
         self.documentsPath = documentsPathUrl.path
@@ -89,14 +89,14 @@ class PersistentManager
 
     func reset()
     {
-        CoreDataHelper.deinitNSManagedObjectContext()
+        CoreDataManager.sharedInstance.deinitManagedObjectContext()
     }
     
     func deleteUserDb()
     {
         do
         {
-            CoreDataHelper.deinitNSManagedObjectContext()
+            CoreDataManager.sharedInstance.deinitManagedObjectContext()
             try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
         }catch
         {
@@ -106,7 +106,7 @@ class PersistentManager
     
     func saveNow()
     {
-        CoreDataHelper.saveNow()
+        CoreDataManager.sharedInstance.saveNow()
     }
 }
 
@@ -126,13 +126,13 @@ extension PersistentManager
 {
     func clearMessageEntities()
     {
-        CoreDataHelper.deleteAll(ChatConstrants.chatEntityName)
-        CoreDataHelper.deleteAll(ChatConstrants.messageEntityName)
+        CoreDataManager.sharedInstance.deleteAll(ChatConstrants.chatEntityName)
+        CoreDataManager.sharedInstance.deleteAll(ChatConstrants.messageEntityName)
     }
     
     func getShareChats(shareId:String) -> [ShareChatEntity]
     {
-        if let result = CoreDataHelper.getCellsById(ChatConstrants.chatEntityName, idFieldName: ChatConstrants.chatEntityShareIdFieldName, idValue: shareId) as? [ShareChatEntity]
+        if let result = CoreDataManager.sharedInstance.getCellsById(ChatConstrants.chatEntityName, idFieldName: ChatConstrants.chatEntityShareIdFieldName, idValue: shareId) as? [ShareChatEntity]
         {
             return result
         }else
@@ -143,7 +143,7 @@ extension PersistentManager
     
     func getShareChat(chatId:String) -> ShareChatEntity!
     {
-        if let result = CoreDataHelper.getCellById(ChatConstrants.chatEntityName,idFieldName: ChatConstrants.chatEntityChatIdFieldName, idValue: chatId) as? ShareChatEntity
+        if let result = CoreDataManager.sharedInstance.getCellById(ChatConstrants.chatEntityName,idFieldName: ChatConstrants.chatEntityChatIdFieldName, idValue: chatId) as? ShareChatEntity
         {
             return result
         }
@@ -154,7 +154,7 @@ extension PersistentManager
     {
         let sortDesc = NSSortDescriptor(key: "time", ascending: false)
         let predict = NSPredicate(format: "\(ChatConstrants.messageEntityChatIdFieldName) = %@ and time < %@", argumentArray: [chatId,beforeTime ?? NSDate()])
-        if let result = CoreDataHelper.getCells(ChatConstrants.messageEntityName, predicate: predict, limit: limit, sortDescriptors: [sortDesc]) as? [MessageEntity]
+        if let result = CoreDataManager.sharedInstance.getCells(ChatConstrants.messageEntityName, predicate: predict, limit: limit, sortDescriptors: [sortDesc]) as? [MessageEntity]
         {
             return result
         }
@@ -163,7 +163,7 @@ extension PersistentManager
     
     func getMessage(msgId:String) -> MessageEntity!
     {
-        if let result = CoreDataHelper.getCellById(ChatConstrants.messageEntityName,idFieldName: ChatConstrants.messageEntityMessageIdFieldName, idValue: msgId) as? MessageEntity
+        if let result = CoreDataManager.sharedInstance.getCellById(ChatConstrants.messageEntityName,idFieldName: ChatConstrants.messageEntityMessageIdFieldName, idValue: msgId) as? MessageEntity
         {
             return result
         }
@@ -174,7 +174,7 @@ extension PersistentManager
     {
         if getMessage(msgId) == nil
         {
-            if let newEntity = CoreDataHelper.insertNewCell(ChatConstrants.messageEntityName) as? MessageEntity
+            if let newEntity = CoreDataManager.sharedInstance.insertNewCell(ChatConstrants.messageEntityName) as? MessageEntity
             {
                 newEntity.msgId = msgId
                 return newEntity
@@ -187,7 +187,7 @@ extension PersistentManager
     {
         if getShareChat(chatId) == nil
         {
-            if let newEntity = CoreDataHelper.insertNewCell(ChatConstrants.chatEntityName) as? ShareChatEntity
+            if let newEntity = CoreDataManager.sharedInstance.insertNewCell(ChatConstrants.chatEntityName) as? ShareChatEntity
             {
                 newEntity.chatId = chatId
                 newEntity.shareId = shareId
@@ -222,8 +222,8 @@ extension PersistentManager
 {
     func clearAllFileManageData()
     {
-        CoreDataHelper.deleteAll(FilePersistentsConstrants.fileEntityName)
-        CoreDataHelper.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
+        CoreDataManager.sharedInstance.deleteAll(FilePersistentsConstrants.fileEntityName)
+        CoreDataManager.sharedInstance.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
         do
         {
             try NSFileManager.defaultManager().removeItemAtPath(documentsPathUrl.path!)
@@ -306,7 +306,7 @@ extension PersistentManager
         if let entity = getStorageFileEntity(fileId)
         {
             let filePath = entity.getObsoluteFilePath()
-            CoreDataHelper.deleteObject(entity)
+            CoreDataManager.sharedInstance.deleteObject(entity)
             deleteFile(filePath)
         }
     }
@@ -341,7 +341,7 @@ extension PersistentManager
                 fileEntity.localPath = relativePath
                 fileEntity.saveModified()
                 return fileEntity
-            }else if let fileEntity = CoreDataHelper.insertNewCell(FilePersistentsConstrants.fileEntityName) as? FileInfoEntity
+            }else if let fileEntity = CoreDataManager.sharedInstance.insertNewCell(FilePersistentsConstrants.fileEntityName) as? FileInfoEntity
             {
                 fileEntity.localPath = relativePath
                 fileEntity.fileId = fileId
@@ -367,7 +367,7 @@ extension PersistentManager
         if let fileEntity = cache.objectForKey(fileId) as? FileInfoEntity
         {
             return fileEntity
-        }else if let fileEntity = CoreDataHelper.getCellById(FilePersistentsConstrants.fileEntityName,
+        }else if let fileEntity = CoreDataManager.sharedInstance.getCellById(FilePersistentsConstrants.fileEntityName,
             idFieldName: FilePersistentsConstrants.fileEntityIdFieldName, idValue: fileId) as? FileInfoEntity
         {
             return fileEntity
@@ -449,14 +449,14 @@ extension PersistentManager
 }
 
 //MARK: Model Enity
-extension ShareLinkObject
+extension SharelinkObject
 {
     func saveModel()
     {
         PersistentManager.sharedInstance.saveModel(self)
     }
     
-    static func saveObjectOfArray<T:ShareLinkObject>(arr:[T])
+    static func saveObjectOfArray<T:SharelinkObject>(arr:[T])
     {
         for item in arr
         {
@@ -464,7 +464,7 @@ extension ShareLinkObject
         }
     }
     
-    static func deleteObjectArray(arr:[ShareLinkObject])
+    static func deleteObjectArray(arr:[SharelinkObject])
     {
         PersistentManager.sharedInstance.removeModels(arr)
     }
@@ -482,11 +482,11 @@ extension PersistentManager
 {
     func clearAllModelData()
     {
-        CoreDataHelper.deleteAll(ModelEntityConstants.entityName)
+        CoreDataManager.sharedInstance.deleteAll(ModelEntityConstants.entityName)
         clearCache()
     }
     
-    func getModel<T:ShareLinkObject>(type:T.Type,idValue:String) -> T?
+    func getModel<T:SharelinkObject>(type:T.Type,idValue:String) -> T?
     {
         if String.isNullOrWhiteSpace(idValue)
         {
@@ -503,7 +503,7 @@ extension PersistentManager
         {
             //read from core data
             let indexIdValue = "\(typename):\(idValue)"
-            if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
+            if let cellModel = CoreDataManager.sharedInstance.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
             {
                 let jsonString = cellModel.serializableValue
                 let model = T(json: jsonString)
@@ -514,7 +514,7 @@ extension PersistentManager
         return nil
     }
     
-    func getModels<T:ShareLinkObject>(type:T.Type ,idValues:[String]) -> [T]
+    func getModels<T:SharelinkObject>(type:T.Type ,idValues:[String]) -> [T]
     {
         let typename = type.description()
         let cache = getCache(typename)
@@ -522,7 +522,7 @@ extension PersistentManager
             cache.objectForKey($0) == nil
             }.map{"\(typename):\($0)"}
         
-        if let cells = CoreDataHelper.getCellsByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: notCacheIds)as? [ModelEntity]
+        if let cells = CoreDataManager.sharedInstance.getCellsByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: notCacheIds)as? [ModelEntity]
         {
             for entity in cells
             {
@@ -539,12 +539,12 @@ extension PersistentManager
         return result.filter{$0 != nil}.map{$0!}
     }
     
-    func getAllModel<T:ShareLinkObject>(type:T.Type) -> [T]
+    func getAllModel<T:SharelinkObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
         let cache = getCache(ModelEntityConstants.modelArrCacheName)
         let predicate = NSPredicate(format: "\(ModelEntityConstants.idFieldName) LIKE %@", argumentArray: ["\(typename)*"])
-        let result = CoreDataHelper.getCells(ModelEntityConstants.entityName,predicate: predicate).map{ obj -> T in
+        let result = CoreDataManager.sharedInstance.getCells(ModelEntityConstants.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)
         }
@@ -552,7 +552,7 @@ extension PersistentManager
         return result
     }
     
-    func getAllModelFromCache<T:ShareLinkObject>(type:T.Type) -> [T]
+    func getAllModelFromCache<T:SharelinkObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
         let cache = getCache(ModelEntityConstants.modelArrCacheName)
@@ -563,19 +563,19 @@ extension PersistentManager
         return getAllModel(type)
     }
     
-    func refreshCache<T:ShareLinkObject>(type:T.Type)
+    func refreshCache<T:SharelinkObject>(type:T.Type)
     {
         getAllModel(type)
     }
     
-    func clearArrCache<T:ShareLinkObject>(type:T.Type)
+    func clearArrCache<T:SharelinkObject>(type:T.Type)
     {
         let typeName = type.description()
         let arrCache = getCache(ModelEntityConstants.modelArrCacheName)
         arrCache.removeObjectForKey(typeName)
     }
     
-    func removeModels<T:ShareLinkObject>(models:[T])
+    func removeModels<T:SharelinkObject>(models:[T])
     {
         if models.count == 0
         {
@@ -588,11 +588,11 @@ extension PersistentManager
             cache.removeObjectForKey(idValue)
             return "\(typeName):\(idValue)"
         }
-        CoreDataHelper.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: idValues)
+        CoreDataManager.sharedInstance.deleteCellByIds(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValues: idValues)
         clearArrCache(T)
     }
     
-    func saveModel<T:ShareLinkObject>(model:T)
+    func saveModel<T:SharelinkObject>(model:T)
     {
         //save in cache
         let typeName = model.classForCoder.description()
@@ -603,16 +603,16 @@ extension PersistentManager
         //save in coredata
         var jsonString = model.toJsonString()
         jsonString = jsonString.split("\n").map{$0.trim()}.joinWithSeparator("")
-        if let cellModel = CoreDataHelper.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
+        if let cellModel = CoreDataManager.sharedInstance.getCellById(ModelEntityConstants.entityName, idFieldName: ModelEntityConstants.idFieldName, idValue: indexIdValue) as? ModelEntity
         {
             cellModel.serializableValue = jsonString
         }else
         {
-            let cellModel = CoreDataHelper.insertNewCell(ModelEntityConstants.entityName) as? ModelEntity
+            let cellModel = CoreDataManager.sharedInstance.insertNewCell(ModelEntityConstants.entityName) as? ModelEntity
             cellModel?.serializableValue = jsonString
             cellModel?.id = indexIdValue
             cellModel?.modelType = typeName
         }
-        CoreDataHelper.saveContextDelay()
+        CoreDataManager.sharedInstance.saveContextDelay()
     }
 }

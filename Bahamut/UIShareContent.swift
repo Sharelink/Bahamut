@@ -21,60 +21,6 @@ protocol UIShareContentViewSetupDelegate
     func setupContentView(contentView:UIView, share:ShareThing)
 }
 
-class UIShareContentTypeDelegateGenerator
-{
-    static func getDelegate(shareType:ShareThingType) -> UIShareContentDelegate!
-    {
-        return getDelegate(shareType.rawValue)
-    }
-    
-    static func getDelegate(shareType:String) -> UIShareContentDelegate!
-    {
-        switch(shareType)
-        {
-            case ShareThingType.shareFilm.rawValue : return FilmContent()
-        default:return nil
-        }
-    }
-}
-
-class FilmModel : EVObject
-{
-    var film:String!
-    var preview:String!
-}
-
-class FilmContent: UIShareContentDelegate
-{
-    func refresh(sender: UIShareContent, share: ShareThing?)
-    {
-        let mediaPlayer = sender.contentView as! ShareLinkFilmView
-        mediaPlayer.filePath = nil
-        if let json = share?.shareContent
-        {
-            let fm = FilmModel(json: json)
-            if let preview = fm.preview
-            {
-                if let thumb = ImageUtil.getThumbImageFromBase64String(preview)
-                {
-                    mediaPlayer.setThumb(thumb)
-                }
-            }
-            
-            if let film = fm.film
-            {
-                mediaPlayer.filePath = film
-            }
-        }
-    }
-    
-    func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
-    {
-        let player = ShareLinkFilmView(frame: sender.bounds)
-        return player
-    }
-}
-
 class UIShareContent: UIView
 {
     var delegate:UIShareContentDelegate!
@@ -97,6 +43,7 @@ class UIShareContent: UIView
     
     func update()
     {
+        self.backgroundColor = UIColor.clearColor()
         if delegate != nil && contentView != nil
         {
             self.delegate.refresh(self, share: self.share)

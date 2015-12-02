@@ -26,7 +26,7 @@ struct ColorSets
     static let headerColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
     static let footerColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
     
-    static let themeColor = UIColor(hexString: "#438ccb")
+    static var themeColor = UIColor(hexString: "#438ccb")
 }
 
 

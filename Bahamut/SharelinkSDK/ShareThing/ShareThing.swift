@@ -15,6 +15,7 @@ public enum ShareThingType:String
 {
     case shareTypePrefix = "share:"
     case shareFilm = "share:film"
+    case shareUrl = "share:url"
     case messageTypePrefix = "message:"
     case addTagMessage = "message:add_tag"
     case focusTagMessage = "message:focus_tag"
@@ -60,7 +61,7 @@ public extension ShareThing
     }
 }
 
-public class ShareThing: ShareLinkObject
+public class ShareThing: SharelinkObject
 {
     public var shareId:String!
     public var pShareId:String!
@@ -88,7 +89,7 @@ public class ShareThing: ShareLinkObject
     }
 }
 
-public class ShareUpdatedMessage : ShareLinkObject
+public class ShareUpdatedMessage : SharelinkObject
 {
     public var shareId:String!
     public var time:String!

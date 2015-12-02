@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: Entities
-public class Sharelinker : ShareLinkObject
+public class Sharelinker : SharelinkObject
 {
     public var userId:String!
     public var nickName:String!

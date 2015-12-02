@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: Entities
-public class Account : ShareLinkObject
+public class Account : SharelinkObject
 {
     public var accountName:String!
     public var accountId:String!

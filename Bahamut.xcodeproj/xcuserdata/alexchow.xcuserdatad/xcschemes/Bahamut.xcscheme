@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E76234681C0C1D8B0083E281"
+               BuildableName = "BahamutTests.xctest"
+               BlueprintName = "BahamutTests"
+               ReferencedContainer = "container:Bahamut.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E76234761C0C1DB10083E281"
+               BuildableName = "BahamutUITests.xctest"
+               BlueprintName = "BahamutUITests"
+               ReferencedContainer = "container:Bahamut.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -27,7 +27,7 @@ extension FileService
         if isSuc
         {
             let uploadTask = self.getUploadTask(fileKey.fileId)
-            CoreDataHelper.deleteObject(uploadTask)
+            CoreDataManager.sharedInstance.deleteObject(uploadTask)
             ProgressTaskWatcher.sharedInstance.missionCompleted(taskId, result: FileServiceUploadTask)
         }else
         {
@@ -53,7 +53,7 @@ extension FileService
     
     private func getUploadTask(fileId:String) -> UploadTask!
     {
-        if let uploadTask = CoreDataHelper.getCellById(FilePersistentsConstrants.uploadTaskEntityName, idFieldName: FilePersistentsConstrants.uploadTaskEntityIdFieldName, idValue: fileId) as? UploadTask
+        if let uploadTask = CoreDataManager.sharedInstance.getCellById(FilePersistentsConstrants.uploadTaskEntityName, idFieldName: FilePersistentsConstrants.uploadTaskEntityIdFieldName, idValue: fileId) as? UploadTask
         {
             return uploadTask
         }
@@ -68,7 +68,7 @@ extension FileService
         }
         if let _ = PersistentManager.sharedInstance.bindFileIdAndPath(sendFileKey.accessKey,fileExistsPath: filePath)
         {
-            let uploadTask = CoreDataHelper.insertNewCell(FilePersistentsConstrants.uploadTaskEntityName) as! UploadTask
+            let uploadTask = CoreDataManager.sharedInstance.insertNewCell(FilePersistentsConstrants.uploadTaskEntityName) as! UploadTask
             uploadTask.status = SendFileStatus.UploadTaskReady
             uploadTask.localPath = filePath
             uploadTask.fileId = sendFileKey.fileId
