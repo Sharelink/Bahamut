@@ -10,6 +10,45 @@ import Foundation
 
 public extension NSDate
 {
+    func addYears(years:Int) -> NSDate
+    {
+        return addDays(years * 365)
+    }
+    
+    func addMonthes(monthes:Int) -> NSDate
+    {
+        return addDays(monthes * 30)
+    }
+    
+    func addWeeks(weeks:Int) -> NSDate
+    {
+        return addDays(weeks * 7)
+    }
+    
+    func addDays(days:Int) -> NSDate
+    {
+        return addHours(days * 24)
+    }
+    
+    func addHours(hours:Int) -> NSDate
+    {
+        return self.addMinutes(hours * 60)
+    }
+    
+    func addMinutes(minutes:Int) -> NSDate
+    {
+        return self.addSeconds(NSTimeInterval(minutes * 60))
+    }
+    
+    func addSeconds(seconds:NSTimeInterval) -> NSDate
+    {
+        let copy = NSDate(timeIntervalSinceNow: self.timeIntervalSinceNow)
+        return copy.dateByAddingTimeInterval(seconds)
+    }
+}
+
+public extension NSDate
+{
     public func toFriendlyString(formatter:NSDateFormatter! = nil) -> String
     {
         let interval = -self.timeIntervalSinceNow

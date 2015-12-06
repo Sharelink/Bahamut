@@ -285,7 +285,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
         let fileService = ServiceContainer.getService(FileService)
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
-        if fileService.moveFileTo(videoPath, destinationPath: newFilePath)
+        if PersistentManager.sharedInstance.moveFileTo(videoPath, destinationPath: newFilePath)
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath

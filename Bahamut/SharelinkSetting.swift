@@ -8,6 +8,11 @@
 
 import Foundation
 
+class SharelinkConfig
+{
+    static let appName = "Sharelink"
+}
+
 class SharelinkSetting
 {
     static var lang:String = "en"

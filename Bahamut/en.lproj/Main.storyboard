@@ -318,7 +318,7 @@
                                     <outlet property="userNickTextField" destination="PYT-Cs-ull" id="OqV-Ch-khi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserAskLinkCell" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserAskLinkCell" editingAccessoryType="checkmark" rowHeight="58" id="80A-tW-7eC" customClass="UIUserListAskingLinkCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="80A-tW-7eC" id="i9r-5O-2RD">
@@ -386,7 +386,7 @@
                                     <outlet property="userNickLabel" destination="vS5-cZ-92g" id="qtr-wR-MlT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="UIUserListMessageCell" editingAccessoryType="checkmark" rowHeight="58" id="rjP-Sc-6TF" customClass="UIUserListMessageCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="138" width="600" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjP-Sc-6TF" id="49C-wb-dN4">
@@ -893,7 +893,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-B4-iBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-568" y="-189"/>
+            <point key="canvasLocation" x="-494" y="-189"/>
         </scene>
         <!--New-->
         <scene sceneID="rrQ-OE-wcm">

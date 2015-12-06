@@ -142,7 +142,7 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
     func saveVideo(videoSourcePath:String) -> String?
     {
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
-        if fileService.moveFileTo(videoSourcePath, destinationPath: newFilePath)
+        if PersistentManager.sharedInstance.moveFileTo(videoSourcePath, destinationPath: newFilePath)
         {
             self.rootController.showCheckMark(NSLocalizedString("VIDEO_SAVED", comment: "Video Saved") )
             let size = PersistentManager.sharedInstance.fileSizeOf(newFilePath)

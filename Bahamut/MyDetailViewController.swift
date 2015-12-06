@@ -282,7 +282,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         let actions =
         [
             UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
-                ServiceContainer.getService(FileService).clearFileCacheFiles()
+                PersistentManager.sharedInstance.clearFileCacheFiles()
                 PersistentManager.sharedInstance.resetTmpDir()
                 self.showAlert(NSLocalizedString("CLEAR_CACHE_SUCCESS", comment: ""), msg: "")
             }),

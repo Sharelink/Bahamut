@@ -10,8 +10,10 @@ import UIKit
 import ChatFramework
 import MJRefresh
 
+//MARK:ChatViewController
 class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate
 {
+    //MARK: properties
     var shareChat:ShareChatHub!{
         didSet{
             if chatRoomListViewController != nil
@@ -30,25 +32,6 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         }
     }
     
-    func chatHubNewMessageChanged(a:NSNotification)
-    {
-        chatRoomBadgeValue = shareChat.newMessage
-    }
-    
-    func currentChatMessageChanged(a:NSNotification)
-    {
-        self.chatTableView.reloadData()
-        self.chatTableViewScrollToBottom()
-    }
-    
-    func currentChatChanged(a:NSNotification)
-    {
-        chatRoomBadgeValue = shareChat.newMessage
-        updateChatTitle()
-        refreshMessageList()
-        hideRommListContainer()
-    }
-    
     var head:MJRefreshHeader!
     
     @IBOutlet weak var chatTitle: UINavigationItem!{
@@ -64,14 +47,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     var chatRoomBadgeValue:Int!{
         didSet{
-            if chatRoomItemBadgeButton != nil
-            {
-                chatRoomItemBadgeButton.badgeValue =  chatRoomBadgeValue == 0 ? "" : "\(chatRoomBadgeValue)"
-            }
+            navigationItem.rightBarButtonItem?.badgeValue = "\(chatRoomBadgeValue)"
+            navigationItem.rightBarButtonItem?.badgeValue = "7"
         }
     }
-    var chatRoomItemBadgeButton:UIButton!
-    var chatRoomItem: UIBarButtonItem!
+
     @IBOutlet weak var chatTableView:UITableView!{
         didSet{
             chatTableView.dataSource = self
@@ -81,55 +61,22 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     @IBOutlet weak var bottomConstraint:NSLayoutConstraint!
     var IFView:UUInputFunctionView!
 
+    //MARK: life process
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.addInputFunctionView()
         self.initChatRoomListViewController()
-        self.initBar()
         self.addRefreshViews()
         messageService = ServiceContainer.getService(MessageService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+        self.initBarBadge()
     }
     
-    deinit{
-        if shareChat != nil
-        {
-            shareChat.removeObserver(self)
-        }
-        ChicagoClient.sharedInstance.removeObserver(self)
-    }
     
-    func chicagoClientStateChanged(aNotification:NSNotification)
-    {
-        let newValue = ChicagoClient.sharedInstance.clientState.rawValue
-        if ChicagoClient.sharedInstance.clientState == .Connecting || newValue >= ChicagoClientState.Validated.rawValue
-        {
-            chatTableView.reloadData()
-        }
-    }
-    
-    private func initChatRoomListViewController()
-    {
-        chatRoomListViewController = self.childViewControllers.filter{$0 is ChatRoomListViewController}.first as! ChatRoomListViewController
-        chatRoomListViewController.rootController = self
-        chatRoomListViewController.shareChat = self.shareChat
-        self.view.bringSubviewToFront(roomsContainer)
-    }
-    
-    private func initGesture()
-    {
-        
-    }
-    
-    func swipeRight(_:UIGestureRecognizer)
-    {
-        hideRommListContainer()
-    }
-    
-    func swipeLeft(_:UIGestureRecognizer)
-    {
-        showRoomListContainer()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        chatRoomBadgeValue = self.shareChat.newMessage
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -152,17 +99,77 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         MobClick.endLogPageView("ChatView")
     }
     
-    func initBar()
-    {
-        chatRoomItemBadgeButton = UIButton(type: .System)
-        let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: "clickChatRoomItem:")
-        item.customView = UIImageView(image: UIImage(named: "internet-group-chat"))
-        item.customView?.addSubview(chatRoomItemBadgeButton)
-        item.customView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clickChatRoomItem:"))
-        chatRoomItem = item
-        self.navigationItem.rightBarButtonItem = chatRoomItem
-        chatRoomBadgeValue = self.shareChat.newMessage
+    deinit{
+        if shareChat != nil
+        {
+            shareChat.removeObserver(self)
+        }
+        ChicagoClient.sharedInstance.removeObserver(self)
     }
+    
+    //MARK: notifications
+    func chatHubNewMessageChanged(a:NSNotification)
+    {
+        chatRoomBadgeValue = shareChat.newMessage
+    }
+    
+    func currentChatMessageChanged(a:NSNotification)
+    {
+        self.chatTableView.reloadData()
+        self.chatTableViewScrollToBottom()
+    }
+    
+    func currentChatChanged(a:NSNotification)
+    {
+        chatRoomBadgeValue = shareChat.newMessage
+        updateChatTitle()
+        refreshMessageList()
+        hideRommListContainer()
+    }
+    
+    func chicagoClientStateChanged(aNotification:NSNotification)
+    {
+        let newValue = ChicagoClient.sharedInstance.clientState.rawValue
+        if ChicagoClient.sharedInstance.clientState == .Connecting || newValue >= ChicagoClientState.Validated.rawValue
+        {
+            chatTableView.reloadData()
+        }
+    }
+    
+    //MARK: inits
+    private func initChatRoomListViewController()
+    {
+        chatRoomListViewController = self.childViewControllers.filter{$0 is ChatRoomListViewController}.first as! ChatRoomListViewController
+        chatRoomListViewController.rootController = self
+        chatRoomListViewController.shareChat = self.shareChat
+        self.view.bringSubviewToFront(roomsContainer)
+    }
+    
+    private func initGesture()
+    {
+        
+    }
+    
+    func initBarBadge()
+    {
+        let item = UIBarButtonItem(image: UIImage(named: "chatting_users"), style: .Plain, target: self, action: "clickChatRoomItem:")
+        navigationItem.rightBarButtonItem = item
+        navigationItem.rightBarButtonItem?.badgeValue = "1"
+        item.badgeBGColor = UIColor.redColor()
+        item.badge.layer.cornerRadius = 10
+    }
+    
+    //MARK: actions
+    func swipeRight(_:UIGestureRecognizer)
+    {
+        hideRommListContainer()
+    }
+    
+    func swipeLeft(_:UIGestureRecognizer)
+    {
+        showRoomListContainer()
+    }
+
 
     func addRefreshViews()
     {
@@ -212,6 +219,12 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         {
             chatTitle.title = shareChat?.currentChatModel?.chatTitle ?? ""
         }
+    }
+    
+    @IBAction func back(sender: AnyObject) {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
     }
     
     func clickChatRoomItem(sender: AnyObject)

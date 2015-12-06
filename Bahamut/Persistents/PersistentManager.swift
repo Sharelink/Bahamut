@@ -15,18 +15,42 @@ class PersistentManager
 {
     static let sharedInstance: PersistentManager = {return PersistentManager()}()
     private var nsCacheDict = [String:NSCache]()
-    private(set) var documentsPathUrl:NSURL!
-    private(set) var documentsPath:String!
     private(set) var fileCacheDirUrl:NSURL!
     private(set) var rootUrl:NSURL!
     private(set) var tmpUrl:NSURL!
     private(set) var dbFileUrl:NSURL!
     
-    init()
+    func appInit(appName:String)
     {
-        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent("Sharelink")
+        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(appName)
         tmpUrl = rootUrl.URLByAppendingPathComponent("tmp")
         createTmpDir()
+    }
+    
+    func initManager(dbFileName:String,userDocumentDir:NSURL)
+    {
+        dbFileUrl = self.rootUrl.URLByAppendingPathComponent(dbFileName)
+        CoreDataManager.sharedInstance.initmanagedObjectContext(dbFileUrl)
+        self.fileCacheDirUrl = userDocumentDir.URLByAppendingPathComponent("caches")
+        initFileDir(fileCacheDirUrl)
+    }
+    
+    func initFileDir(parentDirUrl:NSURL)
+    {
+        for item in FileType.allValues
+        {
+            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")
+            if NSFileManager.defaultManager().fileExistsAtPath(dir.path!) == false
+            {
+                do
+                {
+                    try NSFileManager.defaultManager().createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
+                }catch let error as NSError
+                {
+                    NSLog(error.description)
+                }
+            }
+        }
     }
     
     func createTmpDir()
@@ -58,15 +82,13 @@ class PersistentManager
         
     }
     
-    func initManager(dbFileName:String,documentsPathUrl:NSURL,fileCacheDirUrl:NSURL)
+    func clearFileCacheFiles()
     {
-        dbFileUrl = self.rootUrl.URLByAppendingPathComponent(dbFileName)
-        CoreDataManager.sharedInstance.initmanagedObjectContext(dbFileUrl)
-        self.fileCacheDirUrl = fileCacheDirUrl
-        self.documentsPathUrl = documentsPathUrl
-        self.documentsPath = documentsPathUrl.path
+        deleteFile(fileCacheDirUrl.path!)
+        initFileDir(fileCacheDirUrl)
     }
     
+    //MARK: model cache
     func getCache(typename:String) -> NSCache
     {
         if let typeCache = nsCacheDict[typename]
@@ -87,6 +109,7 @@ class PersistentManager
         }
     }
 
+    //MARK: db context
     func reset()
     {
         CoreDataManager.sharedInstance.deinitManagedObjectContext()
@@ -220,13 +243,26 @@ extension FileInfoEntity
 
 extension PersistentManager
 {
+    
+    func moveFileTo(srcPath:String,destinationPath:String) -> Bool
+    {
+        do{
+            try NSFileManager.defaultManager().moveItemAtPath(srcPath, toPath: destinationPath)
+            return true
+        }catch let error as NSError
+        {
+            NSLog(error.description)
+            return false
+        }
+    }
+    
     func clearAllFileManageData()
     {
         CoreDataManager.sharedInstance.deleteAll(FilePersistentsConstrants.fileEntityName)
         CoreDataManager.sharedInstance.deleteAll(FilePersistentsConstrants.uploadTaskEntityName)
         do
         {
-            try NSFileManager.defaultManager().removeItemAtPath(documentsPathUrl.path!)
+            try NSFileManager.defaultManager().removeItemAtPath(rootUrl.path!)
             clearTmpDir()
         }catch
         {
@@ -325,7 +361,7 @@ extension PersistentManager
     func bindFileIdAndPath(fileId:String,fileExistsPath:String) -> FileInfoEntity?
     {
         var relativePath:String!
-        if let index = fileExistsPath.rangeOfString(documentsPath)?.last
+        if let index = fileExistsPath.rangeOfString(rootUrl.path!)?.last
         {
             let i = index.advancedBy(2) //advance 2 to trim '/' operator
             relativePath = fileExistsPath.substringFromIndex(i)
@@ -333,7 +369,7 @@ extension PersistentManager
         {
             relativePath = fileExistsPath
         }
-        let absolutePath = documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
+        let absolutePath = rootUrl.URLByAppendingPathComponent(relativePath).path!
         if NSFileManager.defaultManager().fileExistsAtPath(absolutePath)
         {
             if let fileEntity = getStorageFileEntity(fileId)
@@ -354,7 +390,7 @@ extension PersistentManager
     
     func getAbsoluteFilePath(relativePath:String) -> String
     {
-        return documentsPathUrl.URLByAppendingPathComponent(relativePath).path!
+        return rootUrl.URLByAppendingPathComponent(relativePath).path!
     }
     
     func getStorageFileEntity(fileId:String!) -> FileInfoEntity?
@@ -573,6 +609,11 @@ extension PersistentManager
         let typeName = type.description()
         let arrCache = getCache(ModelEntityConstants.modelArrCacheName)
         arrCache.removeObjectForKey(typeName)
+    }
+    
+    func removeModel<T:BahamutObject>(model:T)
+    {
+        removeModels([model])
     }
     
     func removeModels<T:BahamutObject>(models:[T])

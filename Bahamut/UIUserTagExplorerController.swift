@@ -235,7 +235,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
     {
-        return CGFloat(4)
+        return CGFloat(3)
     }
     
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)

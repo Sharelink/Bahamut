@@ -167,9 +167,14 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
     {
         let controller = ChatViewController.instanceFromStoryBoard()
         controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
-        self.rootController.navigationController?.pushViewController(controller, animated: true)
+        let navController = UINavigationController(rootViewController: controller)
+        controller.changeNavigationBarColor()
         self.replyButton.badgeValue = nil
         MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: notReadmsg)
+        self.rootController.presentViewController(navController, animated: true) { () -> Void in
+            
+        }
+        
     }
     
     func showUserProfile(_:UIGestureRecognizer)

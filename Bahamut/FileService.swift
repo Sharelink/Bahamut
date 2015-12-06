@@ -45,13 +45,11 @@ class FileService: ServiceProtocol {
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
     private(set) var localStorePathUrl:NSURL!
-    private(set) var fileCachePathUrl:NSURL!
-    private(set) var rootUrl:NSURL!
     private var fetchingIdMap = [String:String]()
     private var uploadingIdMap = [String:String]()
     
     @objc func appStartInit() {
-        
+        PersistentManager.sharedInstance.appInit(SharelinkConfig.appName)
     }
     
     @objc func userLoginInit(userId: String) {
@@ -76,26 +74,19 @@ class FileService: ServiceProtocol {
             NSLog("clearLocalStoreFiles Failed")
         }
     }
-    
-    func clearFileCacheFiles()
-    {
-        PersistentManager.sharedInstance.deleteFile(fileCachePathUrl.path!)
-        initFileCacheDir()
-    }
+
     
     private func initUserFoldersWithUserId(userId:String)
     {
         fileManager = NSFileManager.defaultManager()
-        rootUrl = PersistentManager.sharedInstance.rootUrl
         initDocumentUrl(userId)
         initLocalStoreDir()
-        initFileCacheDir()
-        PersistentManager.sharedInstance.initManager("\(userId).sqlite",documentsPathUrl: rootUrl,fileCacheDirUrl: fileCachePathUrl)
+        PersistentManager.sharedInstance.initManager("\(userId).sqlite",userDocumentDir: self.documentsPathUrl)
     }
     
     private func initDocumentUrl(userId:String)
     {
-        documentsPathUrl = rootUrl.URLByAppendingPathComponent(userId)
+        documentsPathUrl = PersistentManager.sharedInstance.rootUrl.URLByAppendingPathComponent(userId)
         if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
         {
             do
@@ -111,31 +102,7 @@ class FileService: ServiceProtocol {
     private func initLocalStoreDir()
     {
         localStorePathUrl = documentsPathUrl.URLByAppendingPathComponent("localStore")
-        initFileDir(localStorePathUrl)
-    }
-    
-    private func initFileCacheDir()
-    {
-        fileCachePathUrl = documentsPathUrl.URLByAppendingPathComponent("caches")
-        initFileDir(fileCachePathUrl)
-    }
-    
-    private func initFileDir(parentDirUrl:NSURL)
-    {
-        for item in FileType.allValues
-        {
-            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")
-            if fileManager.fileExistsAtPath(dir.path!) == false
-            {
-                do
-                {
-                    try fileManager.createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
-                }catch let error as NSError
-                {
-                    NSLog(error.description)
-                }
-            }
-        }
+        PersistentManager.sharedInstance.initFileDir(localStorePathUrl)
     }
 
     private var fetchingLock = NSRecursiveLock()
@@ -188,18 +155,6 @@ class FileService: ServiceProtocol {
     func createLocalStoreFileName(fileType:FileType) -> String
     {
         return getLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
-    }
-    
-    func moveFileTo(srcPath:String,destinationPath:String) -> Bool
-    {
-        do{
-            try fileManager.moveItemAtPath(srcPath, toPath: destinationPath)
-            return true
-        }catch let error as NSError
-        {
-            NSLog(error.description)
-            return false
-        }
     }
     
     func getLocalStoreDirFileURLs(fileType:FileType) -> [NSURL]

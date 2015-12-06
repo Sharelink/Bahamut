@@ -10,9 +10,18 @@ import Foundation
 
 class IdUtil
 {
+    static var seed:Int = 0
+    static let seedLock = NSRecursiveLock()
     static func generateUniqueId() -> String
     {
-        let code = "\(NSDate().toAccurateDateTimeString())_\(random())"
+        seedLock.lock()
+        let s = seed++
+        if seed == Int.max
+        {
+            seed = 0
+        }
+        seedLock.unlock()
+        let code = "\(NSDate().toAccurateDateTimeString())_\(s)"
         return code.md5
     }
 }
