@@ -10,14 +10,14 @@ import UIKit
 
 extension UIView
 {
-    func shakeAnimationForView()
+    func shakeAnimationForView(repeatTimes:Float = 3)
     {
-        UIAnimationHelper.shakeAnimationForView(self)
+        UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes)
     }
 }
 
 class UIAnimationHelper: UIViewController {
-    static func shakeAnimationForView(view:UIView){
+    static func shakeAnimationForView(view:UIView,repeatTimes:Float){
         
         // 获取到当前的View
         
@@ -53,7 +53,7 @@ class UIAnimationHelper: UIViewController {
         animation.duration = 0.05
         
         // 设置次数
-        animation.repeatCount = 3
+        animation.repeatCount = repeatTimes
         
         // 添加上动画
         viewLayer.addAnimation(animation, forKey: nil)

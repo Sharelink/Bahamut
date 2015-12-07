@@ -38,16 +38,15 @@ extension UIViewController:MBProgressHUDDelegate
     
     func makeToastActivityWithMessage(title:String!,message:String!)
     {
+        let HUD = MBProgressHUD(view: self.navigationController!.view)
+        HUD.delegate = self
+        HUD.labelText = title
+        HUD.detailsLabelText = message
+        HUD.square = true
+        HUD.show(true)
+        toastActivityMap[self] = HUD
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let HUD = MBProgressHUD(view: self.navigationController!.view)
             self.navigationController!.view.addSubview(HUD)
-            
-            HUD.delegate = self
-            HUD.labelText = title
-            HUD.detailsLabelText = message
-            HUD.square = true
-            HUD.show(true)
-            toastActivityMap[self] = HUD
         })
         
     }

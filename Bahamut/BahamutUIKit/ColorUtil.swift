@@ -27,6 +27,8 @@ struct ColorSets
     static let footerColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
     
     static var themeColor = UIColor(hexString: "#438ccb")
+    static var navicationBarColor = UIColor(hexString: "#438ccb")
+    static var navicationBarTintColor = UIColor.whiteColor()
 }
 
 
@@ -42,6 +44,14 @@ extension UIColor
     
     static var themeColor:UIColor{
         return ColorSets.themeColor
+    }
+    
+    static var navicationBarColor:UIColor{
+        return ColorSets.navicationBarColor
+    }
+    
+    static var navicationBarTintColor:UIColor{
+        return ColorSets.navicationBarTintColor
     }
     
     static func getRandomTextColor() -> UIColor
