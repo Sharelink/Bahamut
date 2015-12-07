@@ -205,6 +205,7 @@
 		E7B616311BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E7B6161C1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle */; };
 		E7B616321BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B6161D1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework */; };
 		E7B616331BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B6161E1BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework */; };
+		E7BB955C1C15AA0900130E2F /* Sharelink.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7BB955B1C15AA0900130E2F /* Sharelink.xib */; };
 		E7C4F2A31BCFB0470050997B /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A21BCFB0470050997B /* libicucore.tbd */; };
 		E7C4F2A51BCFB0570050997B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A41BCFB0570050997B /* libz.tbd */; };
 		E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A61BCFB0660050997B /* libstdc++.tbd */; };
@@ -482,6 +483,7 @@
 		E7B6161C1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKFlatShareViewUI.bundle; sourceTree = "<group>"; };
 		E7B6161D1BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKFlatShareViewUI.framework; sourceTree = "<group>"; };
 		E7B6161E1BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
+		E7BB955B1C15AA0900130E2F /* Sharelink.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Sharelink.xib; sourceTree = "<group>"; };
 		E7C4F2A21BCFB0470050997B /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		E7C4F2A41BCFB0570050997B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E7C4F2A61BCFB0660050997B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -811,6 +813,7 @@
 				E71AF31E1BE4EFD9000BBBF8 /* UserAccount.storyboard */,
 				E7FD58501BCBDB4D00E42C95 /* UIViews.xib */,
 				E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */,
+				E7BB955B1C15AA0900130E2F /* Sharelink.xib */,
 			);
 			name = UIResource;
 			sourceTree = "<group>";
@@ -1497,6 +1500,7 @@
 				E71788A71BF85FAD005916B5 /* en_ShareViewGuide_2.jpg in Resources */,
 				E71788651BF82B72005916B5 /* chat_animation2.png in Resources */,
 				E71788721BF82B72005916B5 /* chatto_bg_normal.png in Resources */,
+				E7BB955C1C15AA0900130E2F /* Sharelink.xib in Resources */,
 				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
 				E71788A61BF85FAD005916B5 /* en_ShareViewGuide_1.jpg in Resources */,
 				E7B616311BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle in Resources */,
