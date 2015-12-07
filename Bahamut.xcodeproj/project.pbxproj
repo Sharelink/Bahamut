@@ -160,6 +160,8 @@
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
 		E76DEC001C0F23EB0072A1D7 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */; };
+		E77D43421C15D346008E350A /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D43411C15D346008E350A /* ChatFramework.framework */; };
+		E77D43431C15D346008E350A /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E77D43411C15D346008E350A /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -214,8 +216,6 @@
 		E7C4F2AD1BCFB0950050997B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */; };
 		E7CB5CEB1BFAFEE900098DD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */; };
 		E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
-		E7CB5D2E1BFB15B300098DD4 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; };
-		E7CB5D2F1BFB15B300098DD4 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
 		E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D331BFB958700098DD4 /* NewShareController.swift */; };
 		E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
@@ -246,13 +246,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E7CB5D301BFB15B300098DD4 /* Embed Frameworks */ = {
+		E77D43441C15D346008E350A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E7CB5D2F1BFB15B300098DD4 /* ChatFramework.framework in Embed Frameworks */,
+				E77D43431C15D346008E350A /* ChatFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +435,7 @@
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
 		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
 		E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		E77D43411C15D346008E350A /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Debug-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -562,8 +563,8 @@
 				E7C4F2A91BCFB0850050997B /* ImageIO.framework in Frameworks */,
 				E72949941BF48FE6005B7B3A /* TAESDK.framework in Frameworks */,
 				E7B616261BCFCB6E00D0831C /* AGCommon.framework in Frameworks */,
+				E77D43421C15D346008E350A /* ChatFramework.framework in Frameworks */,
 				E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */,
-				E7CB5D2E1BFB15B300098DD4 /* ChatFramework.framework in Frameworks */,
 				E7B616251BCFCB6E00D0831C /* WeChatConnection.framework in Frameworks */,
 				E7B616301BCFCB6E00D0831C /* ShareSDK.framework in Frameworks */,
 				E7B616281BCFCB6E00D0831C /* MOBFoundation.framework in Frameworks */,
@@ -594,6 +595,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E77D43411C15D346008E350A /* ChatFramework.framework */,
 				E7CB5D2A1BFB150300098DD4 /* ChatFramework.framework */,
 				E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */,
 				E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */,
@@ -1364,7 +1366,7 @@
 				E7A62FDE1B6609A500F28D73 /* Resources */,
 				D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */,
 				5E5B533462BB1C9FCE028608 /* Copy Pods Resources */,
-				E7CB5D301BFB15B300098DD4 /* Embed Frameworks */,
+				E77D43441C15D346008E350A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

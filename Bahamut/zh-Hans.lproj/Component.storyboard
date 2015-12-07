@@ -530,6 +530,9 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="appImageView" destination="cF2-93-3Ha" id="Hr9-1x-5IH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkB-1P-Lxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -540,7 +543,7 @@
         <image name="bullet-blue" width="24" height="24"/>
         <image name="check" width="512" height="512"/>
         <image name="icon_check" width="32" height="32"/>
-        <image name="next" width="64" height="64"/>
-        <image name="sharelink" width="180" height="180"/>
+        <image name="next" width="72" height="72"/>
+        <image name="sharelink" width="512" height="512"/>
     </resources>
 </document>

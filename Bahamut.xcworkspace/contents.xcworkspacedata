@@ -10,4 +10,7 @@
    <FileRef
       location = "group:/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Bahamut.xcodeproj">
+   </FileRef>
 </Workspace>

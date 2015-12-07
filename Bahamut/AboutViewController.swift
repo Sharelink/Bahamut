@@ -15,6 +15,7 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
         super.viewWillAppear(animated)
         MobClick.beginLogPageView("AboutView")
     }
+
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
@@ -26,6 +27,11 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
         self.changeNavigationBarColor()
     }
     
+    @IBOutlet weak var appImageView: UIImageView!{
+        didSet{
+            appImageView.layer.cornerRadius = 7
+        }
+    }
     @IBAction func showInAppStore(sender: AnyObject)
     {
         let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(BahamutConfig.sharelinkAppStoreId)"

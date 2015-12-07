@@ -48,7 +48,6 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     var chatRoomBadgeValue:Int!{
         didSet{
             navigationItem.rightBarButtonItem?.badgeValue = "\(chatRoomBadgeValue)"
-            navigationItem.rightBarButtonItem?.badgeValue = "7"
         }
     }
 
