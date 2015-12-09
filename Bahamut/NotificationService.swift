@@ -28,6 +28,7 @@ class NotificationService: ServiceProtocol
         isMute = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):isMute")
         openVibration = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):openVibration")
         self.userId = userId
+        self.setServiceReady()
     }
     
     func setMute(isMute:Bool)

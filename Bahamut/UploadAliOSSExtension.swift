@@ -39,7 +39,7 @@ extension FileService
     private func generateAliOSSUploadRequest(localfilePath:String,type:FileType) -> ShareLinkSDKRequestBase!
     {
         let req = NewAliOSSFileAccessInfoRequest()
-        let fileSize = PersistentManager.sharedInstance.fileSizeOf(localfilePath)
+        let fileSize = PersistentFileHelper.fileSizeOf(localfilePath)
         if fileSize > 0
         {
             req.fileSize = fileSize

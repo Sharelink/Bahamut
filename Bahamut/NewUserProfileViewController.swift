@@ -12,12 +12,12 @@ import UIKit
 extension AccountService
 {
     
-    func showRegistNewUserController(currentController:UIViewController,registModel:RegistModel)
+    func showRegistNewUserController(nvController:UINavigationController,registModel:RegistModel)
     {
-        let profileViewNvController = NewUserProfileViewController.instanceFromStoryBoard()
-        profileViewNvController.registModel = registModel
-        currentController.presentViewController(profileViewNvController, animated: false) { () -> Void in
-        }
+        let profileViewController = NewUserProfileViewController.instanceFromStoryBoard()
+        let pnvController = UINavigationController(rootViewController: profileViewController)
+        profileViewController.registModel = registModel
+        nvController.presentViewController(pnvController, animated: true, completion: nil)
     }
 }
 
@@ -39,18 +39,17 @@ class NewUserProfileViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        if let nvc = self.navigationController as? NewUserProfileViewNVController
-        {
-            self.registModel = nvc.registModel
-            self.nickNameTextfield.text = registModel.userName
-        }
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.nickNameTextfield.text = registModel.userName
+    }
+    
     @IBAction func saveProfile()
     {
         model.nickName = nickNameTextfield.text
         model.motto = motto.text
-        setSignSuccessObserver()
         self.makeToastActivityWithMessage("",message:NSLocalizedString("REGISTING", comment: "Registing"))
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             self.hideToastActivity()
@@ -59,32 +58,13 @@ class NewUserProfileViewController: UIViewController
                 self.makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
             }else
             {
+                ServiceContainer.instance.removeObserver(self)
                 self.showToast( msg)
             }
         }
     }
     
-    func setSignSuccessObserver()
-    {
-        let service = ServiceContainer.getService(UserService)
-        ServiceContainer.getService(UserService).myLinkedUsersMap.keys
-        service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
+    static func instanceFromStoryBoard()->NewUserProfileViewController{
+        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewController") as! NewUserProfileViewController
     }
-    
-    func initUsers(_:AnyObject)
-    {
-        self.hideToastActivity()
-        let service = ServiceContainer.getService(UserService)
-        service.removeObserver(self)
-        MainNavigationController.start()
-    }
-    
-    static func instanceFromStoryBoard()->NewUserProfileViewNVController{
-        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewNVController") as! NewUserProfileViewNVController
-    }
-}
-
-class NewUserProfileViewNVController: UINavigationController
-{
-    var registModel:RegistModel!
 }

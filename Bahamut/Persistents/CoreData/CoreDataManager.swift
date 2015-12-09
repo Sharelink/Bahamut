@@ -10,23 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
-//MARK: NSManagedObject saveModified
-extension NSManagedObject
-{
-    func saveModified()
-    {
-        CoreDataManager.sharedInstance.saveContextDelay()
-    }
-}
-
 //MARK: CoreDataManager
 class CoreDataManager {
     private var changeTimes = 0
     private let contextLock = NSRecursiveLock()
     
-    static var sharedInstance:CoreDataManager = {
-       return CoreDataManager()
-    }()
+    private var coreDataModelId = "Bahamut"
+    private var dbFileUrl:NSURL!
 
     func getEntityContext()-> NSManagedObjectContext
     {
@@ -182,18 +172,22 @@ class CoreDataManager {
     }
     
     //MARK: Base Managed Core Data Object
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Bahamut", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
+    var managedObjectModel: NSManagedObjectModel!
+    
+    private func initManagedObjectModel(){
+        if managedObjectModel == nil{
+            // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+            let modelURL = NSBundle.mainBundle().URLForResource(self.coreDataModelId, withExtension: "momd")!
+            managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
+        }
+    }
     
     private var persistentStoreCoordinator: NSPersistentStoreCoordinator?
     
-    private func initPersistentStoreCoordinator(dbFileUrl:NSURL) -> NSPersistentStoreCoordinator{
+    private func initPersistentStoreCoordinator() -> NSPersistentStoreCoordinator{
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
-        
+        initManagedObjectModel()
         let optionsDictionary = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(bool: true),NSInferMappingModelAutomaticallyOption:NSNumber(bool: true)]
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -219,17 +213,19 @@ class CoreDataManager {
         return coordinator
     }
     
-    func initmanagedObjectContext(dbFileUrl:NSURL)
+    func initManager(coreDataModelId:String,dbFileUrl:NSURL)
     {
         contextLock.lock()
-        self.persistentStoreCoordinator = initPersistentStoreCoordinator(dbFileUrl)
+        self.coreDataModelId = coreDataModelId
+        self.dbFileUrl = dbFileUrl
+        self.persistentStoreCoordinator = initPersistentStoreCoordinator()
         let coordinator = self.persistentStoreCoordinator
         managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         contextLock.unlock()
     }
     
-    func deinitManagedObjectContext()
+    func deinitManager()
     {
         contextLock.lock()
         saveContext()
@@ -258,5 +254,19 @@ class CoreDataManager {
                 abort()
             }
         }
+    }
+    
+    //MARK: - Destroy db file
+    func destroyDbFile()
+    {
+        deinitManager()
+        contextLock.lock()
+        do{
+            try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
+        }catch let err as NSError{
+            NSLog(err.debugDescription)
+            NSLog("Destroy Db File Error:\(dbFileUrl.path)")
+        }
+        contextLock.unlock()
     }
 }

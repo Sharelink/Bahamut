@@ -42,6 +42,8 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)
         ChicagoClient.sharedInstance.startHeartBeat()
         ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: SharelinkSetting.token)
+        self.setServiceReady()
+        self.getMessageFromServer()
     }
     
     func userLogout(userId: String) {
@@ -154,7 +156,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         {
             msgEntity.msgData = data ?? NSData()
         }
-        msgEntity.saveModified()
+        PersistentManager.sharedInstance.saveMessageChanges()
         return msgEntity
     }
     
@@ -173,7 +175,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
             if result.isSuccess
             {
                 msg.isSend = true
-                msg.saveModified()
+                PersistentManager.sharedInstance.saveMessageChanges()
             }else
             {
                 msg.sendFailed = NSNumber(bool: true)
@@ -196,13 +198,13 @@ class MessageService:NSNotificationCenter,ServiceProtocol
             {
                 let ce = createChatEntity(msg.chatId, audienceIds: [uService.myUserId,me.senderId], shareId: me.shareId)
                 ce.newMessage = 1
-                ce.saveModified()
+                PersistentManager.sharedInstance.saveMessageChanges()
                 let model = getChatModelByEntity(ce)
                 newChatModels.append(model)
             }
             msgEntities.append(me)
         }
-        PersistentManager.sharedInstance.saveNow()
+        PersistentManager.sharedInstance.saveMessageChanges()
         self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
         if newChatModels.count > 0
         {
@@ -242,7 +244,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         {
             newSCE.addUser(audience)
         }
-        newSCE.saveModified()
+        PersistentManager.sharedInstance.saveMessageChanges()
         return newSCE
     }
     

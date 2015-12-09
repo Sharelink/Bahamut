@@ -8,73 +8,6 @@
 
 import Foundation
 
-public extension NSDate
-{
-    func addYears(years:Int) -> NSDate
-    {
-        return addDays(years * 365)
-    }
-    
-    func addMonthes(monthes:Int) -> NSDate
-    {
-        return addDays(monthes * 30)
-    }
-    
-    func addWeeks(weeks:Int) -> NSDate
-    {
-        return addDays(weeks * 7)
-    }
-    
-    func addDays(days:Int) -> NSDate
-    {
-        return addHours(days * 24)
-    }
-    
-    func addHours(hours:Int) -> NSDate
-    {
-        return self.addMinutes(hours * 60)
-    }
-    
-    func addMinutes(minutes:Int) -> NSDate
-    {
-        return self.addSeconds(NSTimeInterval(minutes * 60))
-    }
-    
-    func addSeconds(seconds:NSTimeInterval) -> NSDate
-    {
-        let copy = NSDate(timeIntervalSinceNow: self.timeIntervalSinceNow)
-        return copy.dateByAddingTimeInterval(seconds)
-    }
-}
-
-public extension NSDate
-{
-    public func toFriendlyString(formatter:NSDateFormatter! = nil) -> String
-    {
-        let interval = -self.timeIntervalSinceNow
-        if interval < 60
-        {
-            return NSLocalizedString("JUST_NOW", comment: "new")
-        }
-        else if interval < 3600
-        {
-            return String(format: NSLocalizedString("X_MINUTES_AGO", comment: "%@ minutes ago"),"\(Int(interval/60))")
-        }else if interval < 3600 * 24
-        {
-            return String(format: NSLocalizedString("X_HOURS_AGO", comment: "%@ hours ago"),"\(Int(interval/3600))")
-        }else if interval < 3600 * 24 * 7
-        {
-            return String(format: NSLocalizedString("X_DAYS_AGO", comment: "%@ days ago"),"\(Int(interval/3600/24))")
-        }else if formatter == nil
-        {
-            return self.toLocalDateString()
-        }else
-        {
-            return formatter.stringFromDate(self)
-        }
-    }
-}
-
 public class DateHelper
 {
     
@@ -203,5 +136,124 @@ public extension NSDate
     public func toLocalDateTimeString() -> String
     {
         return DateHelper.toLocalDateTimeString(self)
+    }
+}
+
+public extension NSDate
+{
+    func addYears(years:Int) -> NSDate
+    {
+        return addDays(years * 365)
+    }
+    
+    func addMonthes(monthes:Int) -> NSDate
+    {
+        return addDays(monthes * 30)
+    }
+    
+    func addWeeks(weeks:Int) -> NSDate
+    {
+        return addDays(weeks * 7)
+    }
+    
+    func addDays(days:Int) -> NSDate
+    {
+        return addHours(days * 24)
+    }
+    
+    func addHours(hours:Int) -> NSDate
+    {
+        return self.addMinutes(hours * 60)
+    }
+    
+    func addMinutes(minutes:Int) -> NSDate
+    {
+        return self.addSeconds(NSTimeInterval(minutes * 60))
+    }
+    
+    func addSeconds(seconds:NSTimeInterval) -> NSDate
+    {
+        let copy = NSDate(timeIntervalSinceNow: self.timeIntervalSinceNow)
+        return copy.dateByAddingTimeInterval(seconds)
+    }
+}
+
+public extension NSDate
+{
+    public func toFriendlyString(formatter:NSDateFormatter! = nil) -> String
+    {
+        let interval = -self.timeIntervalSinceNow
+        if interval < 60
+        {
+            return NSLocalizedString("JUST_NOW", comment: "new")
+        }
+        else if interval < 3600
+        {
+            return String(format: NSLocalizedString("X_MINUTES_AGO", comment: "%@ minutes ago"),"\(Int(interval/60))")
+        }else if interval < 3600 * 24
+        {
+            return String(format: NSLocalizedString("X_HOURS_AGO", comment: "%@ hours ago"),"\(Int(interval/3600))")
+        }else if interval < 3600 * 24 * 7
+        {
+            return String(format: NSLocalizedString("X_DAYS_AGO", comment: "%@ days ago"),"\(Int(interval/3600/24))")
+        }else if formatter == nil
+        {
+            return self.toLocalDateString()
+        }else
+        {
+            return formatter.stringFromDate(self)
+        }
+    }
+}
+
+public extension NSDate
+{
+    var hourOfDate:Int{
+        return currentTimeZoneComponents.hour
+    }
+    
+    var minuteOfDate:Int{
+        return currentTimeZoneComponents.minute
+    }
+    
+    var secondOfDate:Int{
+        return currentTimeZoneComponents.second
+    }
+    
+    var yearOfDate:Int{
+        return currentTimeZoneComponents.year
+    }
+    
+    var monthOfDate:Int{
+        return currentTimeZoneComponents.month
+    }
+    
+    var dayOfDate:Int{
+        return currentTimeZoneComponents.day
+    }
+    
+    var weekDayOfDate:Int{
+        return currentTimeZoneComponents.weekday
+    }
+    
+    var shortWeekdayOfDate:String{
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone()
+        formatter.dateFormat = "EEE"
+        let timeStr = formatter.stringFromDate(self)
+        return timeStr
+    }
+    
+    var weekdayOfDate:String{
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone()
+        formatter.dateFormat = "EEEE"
+        let timeStr = formatter.stringFromDate(self)
+        return timeStr
+    }
+    
+    var currentTimeZoneComponents:NSDateComponents
+    {
+        return NSCalendar.autoupdatingCurrentCalendar().componentsInTimeZone(NSTimeZone.systemTimeZone(), fromDate: self)
     }
 }

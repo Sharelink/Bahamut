@@ -357,7 +357,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
             let fService = ServiceContainer.getService(FileService)
             let imageData = UIImageJPEGRepresentation(image, 0.7)
             let localPath = fService.createLocalStoreFileName(FileType.Image)
-            if PersistentManager.sharedInstance.storeFile(imageData!, filePath: localPath)
+            if PersistentFileHelper.storeFile(imageData!, filePath: localPath)
             {
                 fService.sendFileToAliOSS(localPath, type: FileType.Image, callback: { (taskId, fileKey) -> Void in
                     ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)

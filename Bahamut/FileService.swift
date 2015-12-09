@@ -54,15 +54,17 @@ class FileService: ServiceProtocol {
     
     @objc func userLoginInit(userId: String) {
         initUserFoldersWithUserId(userId)
+        initPersistentsExtensions(userId)
         initAliOSSManager()
         fetchingIdMap.removeAll()
         uploadingIdMap.removeAll()
+        self.setServiceReady()
     }
     
     @objc func userLogout(userId: String) {
         PersistentManager.sharedInstance.clearTmpDir()
         PersistentManager.sharedInstance.clearCache()
-        PersistentManager.sharedInstance.reset()
+        PersistentManager.sharedInstance.release()
     }
     
     func clearLocalStoreFiles()
@@ -81,8 +83,17 @@ class FileService: ServiceProtocol {
         fileManager = NSFileManager.defaultManager()
         initDocumentUrl(userId)
         initLocalStoreDir()
-        PersistentManager.sharedInstance.initManager("\(userId).sqlite",userDocumentDir: self.documentsPathUrl)
     }
+    
+    private func initPersistentsExtensions(userId:String)
+    {
+        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl)
+        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"))
+        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"))
+        
+        UpdateCoreDataHelper.getUpdater(userId).update(userId)
+    }
+    
     
     private func initDocumentUrl(userId:String)
     {

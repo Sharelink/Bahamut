@@ -9,7 +9,6 @@
 import UIKit
 import JavaScriptCore
 
-
 @objc protocol SignInViewControllerJSProtocol : JSExport
 {
     func makeToast(msg:String)
@@ -24,9 +23,6 @@ import JavaScriptCore
 
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
 {
-    struct SegueConstants {
-        static let ShowMainView = "ShowMainView"
-    }
     
     @IBOutlet weak var webPageView: UIWebView!{
         didSet{
@@ -96,7 +92,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
             self.hideToastActivity()
             if loginSuccess{
-                self.signCallback()
+                self.makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
             }else{
                 self.showToast( message)
                 self.authenticate()
@@ -115,7 +111,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         registModel.accountId = accountId
         registModel.userName = registedAccountName ?? "Sharelinker"
         registModel.region = SharelinkSetting.contry.lowercaseString
-        ServiceContainer.getService(AccountService).showRegistNewUserController(self, registModel:registModel)
+        ServiceContainer.getService(AccountService).showRegistNewUserController(self.navigationController!, registModel:registModel)
     }
     
     private func authenticate()
@@ -131,27 +127,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         webViewUrl = url
     }
     
-    func signCallback()
-    {
-        let service = ServiceContainer.getService(UserService)
-        service.addObserver(self, selector: "initUsers:", name: UserService.baseUserDataInited, object: service)
-        makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
-    }
-    
-    func initUsers(_:AnyObject)
-    {
-        let notiService = ServiceContainer.getService(NotificationService)
-        notiService.setMute(false)
-        notiService.setVibration(true)
-        let service = ServiceContainer.getService(UserService)
-        service.removeObserver(self)
-        self.hideToastActivity()
-        MainNavigationController.start()
-    }
-
-    
     //MARK: implements jsProtocol
-    
     func alert(msg: String) {
         let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message: NSLocalizedString(msg, comment: ""), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title:NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in})

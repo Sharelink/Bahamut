@@ -112,8 +112,10 @@ class UserService: NSNotificationCenter,ServiceProtocol
         myLinkedUsers = myLinkedUsersMap.map{$0.1}
         if myUserModel != nil && myLinkedUsers.count > 0
         {
-            PersistentManager.sharedInstance.saveNow()
+            PersistentManager.sharedInstance.saveModelChanges()
             self.postNotificationName(UserService.baseUserDataInited, object: self)
+            self.setServiceReady()
+            self.getNewLinkMessageFromServer()
         }
     }
     

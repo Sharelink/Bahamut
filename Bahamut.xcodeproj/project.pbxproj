@@ -11,6 +11,27 @@
 		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
 		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
+		E70A5AD91C174870001C0A47 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABE1C174870001C0A47 /* FileType.swift */; };
+		E70A5ADA1C174870001C0A47 /* PersistentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABF1C174870001C0A47 /* PersistentBase.swift */; };
+		E70A5ADB1C174870001C0A47 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC01C174870001C0A47 /* PersistentManager.swift */; };
+		E70A5ADC1C174870001C0A47 /* Bahamut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC21C174870001C0A47 /* Bahamut.xcdatamodeld */; };
+		E70A5ADD1C174870001C0A47 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC41C174870001C0A47 /* CoreDataManager.swift */; };
+		E70A5ADE1C174870001C0A47 /* iCloudDocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC61C174870001C0A47 /* iCloudDocumentManager.swift */; };
+		E70A5ADF1C174870001C0A47 /* BahamutLocalFile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC81C174870001C0A47 /* BahamutLocalFile.xcdatamodeld */; };
+		E70A5AE01C174870001C0A47 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACA1C174870001C0A47 /* FileMgrEntities.swift */; };
+		E70A5AE11C174870001C0A47 /* LocalFilesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACB1C174870001C0A47 /* LocalFilesExtension.swift */; };
+		E70A5AE21C174870001C0A47 /* BahamutMessage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACD1C174870001C0A47 /* BahamutMessage.xcdatamodeld */; };
+		E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACF1C174870001C0A47 /* MessageEntity+CoreDataProperties.swift */; };
+		E70A5AE41C174870001C0A47 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD01C174870001C0A47 /* MessageEntity.swift */; };
+		E70A5AE51C174870001C0A47 /* MessageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD11C174870001C0A47 /* MessageExtension.swift */; };
+		E70A5AE61C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD21C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift */; };
+		E70A5AE71C174870001C0A47 /* ShareChatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD31C174870001C0A47 /* ShareChatEntity.swift */; };
+		E70A5AE81C174870001C0A47 /* BahamutModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD51C174870001C0A47 /* BahamutModel.xcdatamodeld */; };
+		E70A5AE91C174870001C0A47 /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD71C174870001C0A47 /* ModelEntity.swift */; };
+		E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD81C174870001C0A47 /* ModelExtension.swift */; };
+		E70A5AEC1C175BB3001C0A47 /* PersistentFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */; };
+		E70A5AEF1C1772E9001C0A47 /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */; };
+		E70A5AF11C177342001C0A47 /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */; };
 		E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */; };
 		E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */; };
 		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
@@ -141,15 +162,6 @@
 		E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB8F1C0E9C140072A1D7 /* HSL.swift */; };
 		E76DEB961C0E9C140072A1D7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB901C0E9C140072A1D7 /* UIColor.swift */; };
 		E76DEB971C0E9C140072A1D7 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */; };
-		E76DEBA51C0E9F390072A1D7 /* Bahamut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB9A1C0E9F380072A1D7 /* Bahamut.xcdatamodeld */; };
-		E76DEBA61C0E9F390072A1D7 /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB9D1C0E9F380072A1D7 /* FileMgrEntities.swift */; };
-		E76DEBA71C0E9F390072A1D7 /* MessageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB9E1C0E9F380072A1D7 /* MessageEntity+CoreDataProperties.swift */; };
-		E76DEBA81C0E9F390072A1D7 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB9F1C0E9F380072A1D7 /* MessageEntity.swift */; };
-		E76DEBA91C0E9F390072A1D7 /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBA01C0E9F380072A1D7 /* ModelEntity.swift */; };
-		E76DEBAA1C0E9F390072A1D7 /* ShareChatEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBA11C0E9F380072A1D7 /* ShareChatEntity+CoreDataProperties.swift */; };
-		E76DEBAB1C0E9F390072A1D7 /* ShareChatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBA21C0E9F380072A1D7 /* ShareChatEntity.swift */; };
-		E76DEBAC1C0E9F390072A1D7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBA31C0E9F380072A1D7 /* CoreDataManager.swift */; };
-		E76DEBAD1C0E9F390072A1D7 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBA41C0E9F380072A1D7 /* PersistentManager.swift */; };
 		E76DEBB31C0EA0300072A1D7 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */; };
 		E76DEBB41C0EA0300072A1D7 /* SharelinkCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB11C0EA0300072A1D7 /* SharelinkCmd.swift */; };
 		E76DEBB51C0EA0300072A1D7 /* SharelinkCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB21C0EA0300072A1D7 /* SharelinkCmdManager.swift */; };
@@ -159,7 +171,6 @@
 		E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
-		E76DEC001C0F23EB0072A1D7 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */; };
 		E77D43421C15D346008E350A /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D43411C15D346008E350A /* ChatFramework.framework */; };
 		E77D43431C15D346008E350A /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E77D43411C15D346008E350A /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
@@ -265,6 +276,27 @@
 		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
 		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		E70A5ABE1C174870001C0A47 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		E70A5ABF1C174870001C0A47 /* PersistentBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentBase.swift; sourceTree = "<group>"; };
+		E70A5AC01C174870001C0A47 /* PersistentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
+		E70A5AC31C174870001C0A47 /* Bahamut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bahamut.xcdatamodel; sourceTree = "<group>"; };
+		E70A5AC41C174870001C0A47 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		E70A5AC61C174870001C0A47 /* iCloudDocumentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDocumentManager.swift; sourceTree = "<group>"; };
+		E70A5AC91C174870001C0A47 /* BahamutLocalFile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BahamutLocalFile.xcdatamodel; sourceTree = "<group>"; };
+		E70A5ACA1C174870001C0A47 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
+		E70A5ACB1C174870001C0A47 /* LocalFilesExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFilesExtension.swift; sourceTree = "<group>"; };
+		E70A5ACE1C174870001C0A47 /* BahamutMessage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BahamutMessage.xcdatamodel; sourceTree = "<group>"; };
+		E70A5ACF1C174870001C0A47 /* MessageEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MessageEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E70A5AD01C174870001C0A47 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
+		E70A5AD11C174870001C0A47 /* MessageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageExtension.swift; sourceTree = "<group>"; };
+		E70A5AD21C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShareChatEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E70A5AD31C174870001C0A47 /* ShareChatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareChatEntity.swift; sourceTree = "<group>"; };
+		E70A5AD61C174870001C0A47 /* BahamutModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BahamutModel.xcdatamodel; sourceTree = "<group>"; };
+		E70A5AD71C174870001C0A47 /* ModelEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
+		E70A5AD81C174870001C0A47 /* ModelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelExtension.swift; sourceTree = "<group>"; };
+		E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentFileHelper.swift; sourceTree = "<group>"; };
+		E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreData1.swift; sourceTree = "<group>"; };
+		E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreDataHelper.swift; sourceTree = "<group>"; };
 		E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBahamutFireExtension.swift; sourceTree = "<group>"; };
 		E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchBahamutFireExtension.swift; sourceTree = "<group>"; };
 		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
@@ -416,15 +448,6 @@
 		E76DEB8F1C0E9C140072A1D7 /* HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		E76DEB901C0E9C140072A1D7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
-		E76DEB9B1C0E9F380072A1D7 /* Bahamut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bahamut.xcdatamodel; sourceTree = "<group>"; };
-		E76DEB9D1C0E9F380072A1D7 /* FileMgrEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMgrEntities.swift; sourceTree = "<group>"; };
-		E76DEB9E1C0E9F380072A1D7 /* MessageEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MessageEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E76DEB9F1C0E9F380072A1D7 /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
-		E76DEBA01C0E9F380072A1D7 /* ModelEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
-		E76DEBA11C0E9F380072A1D7 /* ShareChatEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShareChatEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E76DEBA21C0E9F380072A1D7 /* ShareChatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareChatEntity.swift; sourceTree = "<group>"; };
-		E76DEBA31C0E9F380072A1D7 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		E76DEBA41C0E9F380072A1D7 /* PersistentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
 		E76DEBB11C0EA0300072A1D7 /* SharelinkCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmd.swift; sourceTree = "<group>"; };
 		E76DEBB21C0EA0300072A1D7 /* SharelinkCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkCmdManager.swift; sourceTree = "<group>"; };
@@ -434,7 +457,6 @@
 		E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastHelper.swift; sourceTree = "<group>"; };
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
 		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
-		E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		E77D43411C15D346008E350A /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Debug-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
@@ -626,9 +648,93 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E70A5ABC1C174870001C0A47 /* Persistents */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5ABD1C174870001C0A47 /* Base */,
+				E70A5AC11C174870001C0A47 /* CoreData */,
+				E70A5AC51C174870001C0A47 /* iClound */,
+				E70A5AC71C174870001C0A47 /* LocalFile */,
+				E70A5ACC1C174870001C0A47 /* Message */,
+				E70A5AD41C174870001C0A47 /* Model */,
+			);
+			path = Persistents;
+			sourceTree = "<group>";
+		};
+		E70A5ABD1C174870001C0A47 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5ABE1C174870001C0A47 /* FileType.swift */,
+				E70A5ABF1C174870001C0A47 /* PersistentBase.swift */,
+				E70A5AC01C174870001C0A47 /* PersistentManager.swift */,
+				E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E70A5AC11C174870001C0A47 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5AC21C174870001C0A47 /* Bahamut.xcdatamodeld */,
+				E70A5AC41C174870001C0A47 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E70A5AC51C174870001C0A47 /* iClound */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5AC61C174870001C0A47 /* iCloudDocumentManager.swift */,
+			);
+			path = iClound;
+			sourceTree = "<group>";
+		};
+		E70A5AC71C174870001C0A47 /* LocalFile */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5AC81C174870001C0A47 /* BahamutLocalFile.xcdatamodeld */,
+				E70A5ACA1C174870001C0A47 /* FileMgrEntities.swift */,
+				E70A5ACB1C174870001C0A47 /* LocalFilesExtension.swift */,
+			);
+			path = LocalFile;
+			sourceTree = "<group>";
+		};
+		E70A5ACC1C174870001C0A47 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5ACD1C174870001C0A47 /* BahamutMessage.xcdatamodeld */,
+				E70A5ACF1C174870001C0A47 /* MessageEntity+CoreDataProperties.swift */,
+				E70A5AD01C174870001C0A47 /* MessageEntity.swift */,
+				E70A5AD11C174870001C0A47 /* MessageExtension.swift */,
+				E70A5AD21C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift */,
+				E70A5AD31C174870001C0A47 /* ShareChatEntity.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		E70A5AD41C174870001C0A47 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5AD51C174870001C0A47 /* BahamutModel.xcdatamodeld */,
+				E70A5AD71C174870001C0A47 /* ModelEntity.swift */,
+				E70A5AD81C174870001C0A47 /* ModelExtension.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E70A5AED1C1772BF001C0A47 /* UpdateCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */,
+				E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */,
+			);
+			name = UpdateCoreData;
+			sourceTree = "<group>";
+		};
 		E70C48B31BA122B600F805C3 /* FileService */ = {
 			isa = PBXGroup;
 			children = (
+				E70A5AED1C1772BF001C0A47 /* UpdateCoreData */,
 				E70FEF411C04E1360096C437 /* AliOSS */,
 				E70FEF401C04E1200096C437 /* BahamutFire */,
 				E72F00761B6C94F8007E9E29 /* FileService.swift */,
@@ -979,31 +1085,6 @@
 			path = DynamicColor;
 			sourceTree = "<group>";
 		};
-		E76DEB991C0E9F380072A1D7 /* Persistents */ = {
-			isa = PBXGroup;
-			children = (
-				E76DEB9C1C0E9F380072A1D7 /* CoreDataEntities */,
-				E76DEB9A1C0E9F380072A1D7 /* Bahamut.xcdatamodeld */,
-				E76DEBA31C0E9F380072A1D7 /* CoreDataManager.swift */,
-				E76DEBA41C0E9F380072A1D7 /* PersistentManager.swift */,
-				E76DEBFF1C0F23EB0072A1D7 /* FileType.swift */,
-			);
-			path = Persistents;
-			sourceTree = "<group>";
-		};
-		E76DEB9C1C0E9F380072A1D7 /* CoreDataEntities */ = {
-			isa = PBXGroup;
-			children = (
-				E76DEB9D1C0E9F380072A1D7 /* FileMgrEntities.swift */,
-				E76DEB9E1C0E9F380072A1D7 /* MessageEntity+CoreDataProperties.swift */,
-				E76DEB9F1C0E9F380072A1D7 /* MessageEntity.swift */,
-				E76DEBA01C0E9F380072A1D7 /* ModelEntity.swift */,
-				E76DEBA11C0E9F380072A1D7 /* ShareChatEntity+CoreDataProperties.swift */,
-				E76DEBA21C0E9F380072A1D7 /* ShareChatEntity.swift */,
-			);
-			path = CoreDataEntities;
-			sourceTree = "<group>";
-		};
 		E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -1172,7 +1253,7 @@
 		E7A62FE21B6609A500F28D73 /* Bahamut */ = {
 			isa = PBXGroup;
 			children = (
-				E76DEB991C0E9F380072A1D7 /* Persistents */,
+				E70A5ABC1C174870001C0A47 /* Persistents */,
 				E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */,
 				E76DEBB01C0EA0300072A1D7 /* SharelinkCommand */,
 				E76DEB8B1C0E99B10072A1D7 /* BahamutUIKit */,
@@ -1584,6 +1665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70A5AE71C174870001C0A47 /* ShareChatEntity.swift in Sources */,
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
@@ -1598,14 +1680,16 @@
 				E76234331C0BF30D0083E281 /* BahamutFire.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */,
+				E70A5AE41C174870001C0A47 /* MessageEntity.swift in Sources */,
 				E73681501B96A816004E8B56 /* SharelinkTagService.swift in Sources */,
 				E78608561BA1E28A00E2BECA /* QRCode.swift in Sources */,
+				E70A5AE91C174870001C0A47 /* ModelEntity.swift in Sources */,
 				E71D24BC1C063ECD00E0C31C /* SharelinkSetting.swift in Sources */,
 				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
+				E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
-				E76DEBAD1C0E9F390072A1D7 /* PersistentManager.swift in Sources */,
 				E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
@@ -1616,26 +1700,35 @@
 				E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */,
 				E76DEBB31C0EA0300072A1D7 /* ProgressTaskWatcher.swift in Sources */,
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
-				E76DEBAB1C0E9F390072A1D7 /* ShareChatEntity.swift in Sources */,
+				E70A5ADE1C174870001C0A47 /* iCloudDocumentManager.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* UITagCollectionViewController.swift in Sources */,
+				E70A5AF11C177342001C0A47 /* UpdateCoreDataHelper.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* UIUserTagEditController.swift in Sources */,
+				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
+				E70A5ADF1C174870001C0A47 /* BahamutLocalFile.xcdatamodeld in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E76234631C0BF7310083E281 /* TaeSDKExtension.m in Sources */,
 				E76DEBB41C0EA0300072A1D7 /* SharelinkCmd.swift in Sources */,
+				E70A5ADA1C174870001C0A47 /* PersistentBase.swift in Sources */,
+				E70A5AE11C174870001C0A47 /* LocalFilesExtension.swift in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
 				E76DEB971C0E9C140072A1D7 /* ImageUtil.swift in Sources */,
+				E70A5AE81C174870001C0A47 /* BahamutModel.xcdatamodeld in Sources */,
 				E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */,
 				E76234341C0BF30D0083E281 /* File.swift in Sources */,
 				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
+				E70A5AEC1C175BB3001C0A47 /* PersistentFileHelper.swift in Sources */,
 				E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */,
+				E70A5ADB1C174870001C0A47 /* PersistentManager.swift in Sources */,
 				E72387231BFC437600247A35 /* UIShareMessage.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
+				E70A5AE61C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift in Sources */,
 				E76DEB931C0E9C140072A1D7 /* ColorUtil.swift in Sources */,
 				E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */,
 				E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */,
@@ -1646,8 +1739,8 @@
 				E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */,
 				E76234571C0BF5530083E281 /* DateHelper.swift in Sources */,
 				E76234851C0C34770083E281 /* UrlShareContent.swift in Sources */,
-				E76DEC001C0F23EB0072A1D7 /* FileType.swift in Sources */,
 				E76234371C0BF30D0083E281 /* ShareThing.swift in Sources */,
+				E70A5AD91C174870001C0A47 /* FileType.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
@@ -1655,9 +1748,7 @@
 				E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */,
 				E76234361C0BF30D0083E281 /* SharelinkSDK.swift in Sources */,
 				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
-				E76DEBA51C0E9F390072A1D7 /* Bahamut.xcdatamodeld in Sources */,
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
-				E76DEBA61C0E9F390072A1D7 /* FileMgrEntities.swift in Sources */,
 				E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */,
 				E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */,
 				E76234391C0BF30D0083E281 /* UserLink.swift in Sources */,
@@ -1674,30 +1765,31 @@
 				E76234381C0BF30D0083E281 /* ShareLinkUser.swift in Sources */,
 				E76DEB961C0E9C140072A1D7 /* UIColor.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
-				E76DEBA81C0E9F390072A1D7 /* MessageEntity.swift in Sources */,
 				E795C6E01BC94DA9003B9EDC /* UUMsgItem.swift in Sources */,
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
 				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
-				E76DEBA71C0E9F390072A1D7 /* MessageEntity+CoreDataProperties.swift in Sources */,
-				E76DEBA91C0E9F390072A1D7 /* ModelEntity.swift in Sources */,
 				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,
+				E70A5AE01C174870001C0A47 /* FileMgrEntities.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
 				E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */,
 				E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */,
+				E70A5ADD1C174870001C0A47 /* CoreDataManager.swift in Sources */,
 				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
-				E76DEBAC1C0E9F390072A1D7 /* CoreDataManager.swift in Sources */,
+				E70A5ADC1C174870001C0A47 /* Bahamut.xcdatamodeld in Sources */,
+				E70A5AE21C174870001C0A47 /* BahamutMessage.xcdatamodeld in Sources */,
 				E76234321C0BF30D0083E281 /* AliOSSFile.swift in Sources */,
-				E76DEBAA1C0E9F390072A1D7 /* ShareChatEntity+CoreDataProperties.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
 				E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */,
 				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* AppDelegate.swift in Sources */,
 				E76234831C0C34080083E281 /* FilmShareContent.swift in Sources */,
 				E76234311C0BF30D0083E281 /* ShareLinkSDKRequestBase.swift in Sources */,
+				E70A5AE51C174870001C0A47 /* MessageExtension.swift in Sources */,
 				E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */,
+				E70A5AEF1C1772E9001C0A47 /* UpdateCoreData1.swift in Sources */,
 				E73E44BA1B82058300E0B6EB /* UIUserTagExplorerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2094,13 +2186,43 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E76DEB9A1C0E9F380072A1D7 /* Bahamut.xcdatamodeld */ = {
+		E70A5AC21C174870001C0A47 /* Bahamut.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E76DEB9B1C0E9F380072A1D7 /* Bahamut.xcdatamodel */,
+				E70A5AC31C174870001C0A47 /* Bahamut.xcdatamodel */,
 			);
-			currentVersion = E76DEB9B1C0E9F380072A1D7 /* Bahamut.xcdatamodel */;
+			currentVersion = E70A5AC31C174870001C0A47 /* Bahamut.xcdatamodel */;
 			path = Bahamut.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		E70A5AC81C174870001C0A47 /* BahamutLocalFile.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E70A5AC91C174870001C0A47 /* BahamutLocalFile.xcdatamodel */,
+			);
+			currentVersion = E70A5AC91C174870001C0A47 /* BahamutLocalFile.xcdatamodel */;
+			path = BahamutLocalFile.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		E70A5ACD1C174870001C0A47 /* BahamutMessage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E70A5ACE1C174870001C0A47 /* BahamutMessage.xcdatamodel */,
+			);
+			currentVersion = E70A5ACE1C174870001C0A47 /* BahamutMessage.xcdatamodel */;
+			path = BahamutMessage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		E70A5AD51C174870001C0A47 /* BahamutModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E70A5AD61C174870001C0A47 /* BahamutModel.xcdatamodel */,
+			);
+			currentVersion = E70A5AD61C174870001C0A47 /* BahamutModel.xcdatamodel */;
+			path = BahamutModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

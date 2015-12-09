@@ -41,12 +41,12 @@ extension FileService
             self.fetchingFinished(fileId)
             if isSuc
             {
-                PersistentManager.sharedInstance.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
+                PersistentFileHelper.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
                 callback(filePath:absoluteFilePath)
                 ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: absoluteFilePath)
             }else
             {
-                PersistentManager.sharedInstance.deleteFile(tmpFilePath)
+                PersistentFileHelper.deleteFile(tmpFilePath)
                 callback(filePath:nil)
                 ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
             }

@@ -25,14 +25,14 @@ extension FileService
         let client = SharelinkSDK.sharedInstance.getBahamutFireClient()
         client.downloadFile(fireInfo.accessKey,filePath: tmpFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             self.fetchingFinished(fireInfo.fileId)
-            if error == nil && response?.statusCode == ReturnCode.OK.rawValue && PersistentManager.sharedInstance.fileSizeOf(tmpFilePath) > 0
+            if error == nil && response?.statusCode == ReturnCode.OK.rawValue && PersistentFileHelper.fileSizeOf(tmpFilePath) > 0
             {
-                PersistentManager.sharedInstance.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
+                PersistentFileHelper.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
                 callback(filePath:absoluteFilePath)
                 ProgressTaskWatcher.sharedInstance.missionCompleted(fireInfo.fileId, result: absoluteFilePath)
             }else
             {
-                PersistentManager.sharedInstance.deleteFile(tmpFilePath)
+                PersistentFileHelper.deleteFile(tmpFilePath)
                 callback(filePath:nil)
                 ProgressTaskWatcher.sharedInstance.missionFailed(fireInfo.fileId, result: nil)
             }

@@ -18,9 +18,14 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SharelinkCmdManager.sharedInstance.registHandler(self)
-        self.view.backgroundColor = UIColor.whiteColor()
-        
+        let launchScr = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
+        launchScr.frame = self.view.bounds
+        self.view.backgroundColor = UIColor.blackColor()
+        self.view.addSubview(launchScr)
+    }
+    
+    func deInitController(){
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -28,24 +33,60 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         go()
     }
     
-    private func go()
+    
+    func allServicesReady(_:AnyObject)
     {
-        if SharelinkSetting.isUserLogined
+        ServiceContainer.instance.removeObserver(self)
+        if let _ = self.presentedViewController
         {
-            performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
-            //login get message
-            ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
-            ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
-            ServiceContainer.getService(MessageService).getMessageFromServer()
+            let notiService = ServiceContainer.getService(NotificationService)
+            notiService.setMute(false)
+            notiService.setVibration(true)
+            MainNavigationController.start()
         }else
         {
-            performSegueWithIdentifier(SegueIdentifier.ShowSignView, sender: self)
+            showMainView()
         }
     }
     
-    private static func instanceFromStoryBoard() -> MainNavigationController
+    private func go()
     {
-        return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
+        ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
+        if SharelinkSetting.isUserLogined
+        {
+            if ServiceContainer.isAllServiceReady
+            {
+                ServiceContainer.instance.removeObserver(self)
+                showMainView()
+            }else
+            {
+                ServiceContainer.instance.userLogin(SharelinkSetting.userId)
+            }
+        }else
+        {
+            showSignView()
+        }
+    }
+    
+    private func showSignView()
+    {
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "waitTimeShowSignView:", userInfo: nil, repeats: false)
+    }
+    
+    func waitTimeShowSignView(_:AnyObject?)
+    {
+        performSegueWithIdentifier(SegueIdentifier.ShowSignView, sender: self)
+    }
+    
+    private func showMainView()
+    {
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "waitTimeShowMainView:", userInfo: nil, repeats: false)
+    }
+    
+    func waitTimeShowMainView(_:AnyObject?)
+    {
+        SharelinkCmdManager.sharedInstance.registHandler(self)
+        self.performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
     }
     
     //MARK: handle sharelinkMessage
@@ -97,9 +138,17 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         }
     }
     
+    private static func instanceFromStoryBoard() -> MainNavigationController
+    {
+        return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
+    }
+    
     static func start()
     {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let mnc = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController{
+                mnc.deInitController()
+            }
             UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
         })
     }

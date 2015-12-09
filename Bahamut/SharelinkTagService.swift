@@ -99,6 +99,7 @@ public class SharelinkTagService : NSNotificationCenter, ServiceProtocol
     
     @objc func userLoginInit(userId: String) {
         self.refreshMyAllSharelinkTags()
+        self.setServiceReady()
     }
     
     func userLogout(userId: String) {

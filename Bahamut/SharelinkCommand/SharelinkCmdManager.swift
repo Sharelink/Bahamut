@@ -32,9 +32,35 @@ class SharelinkCmdManager
         }
     }
     
+    func removeHandler(handler:HandleSharelinkCmdDelegate)
+    {
+        handlerList.removeElement { (itemInArray) -> Bool in
+            let a = itemInArray as! NSObject
+            let b = handler as! NSObject
+            if a == b
+            {
+                print("Removed HandleSharelinkCmdDelegate \(b.description)")
+                return true
+            }
+            return false
+        }
+    }
+    
     func registHandler(handler:HandleSharelinkCmdDelegate)
     {
-        handlerList.append(handler)
+        let exists = handlerList.contains{
+            let a = $0 as! NSObject
+            let b = handler as! NSObject
+            return a == b
+        }
+        if exists
+        {
+            print("HandleSharelinkCmdDelegate Exists")
+        }else
+        {
+            handlerList.append(handler)
+            print("Add HandleSharelinkCmdDelegate \((handler as! NSObject).description)")
+        }
     }
     
     func handleSharelinkCmd(cmd:String,object:AnyObject? = nil)

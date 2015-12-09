@@ -201,7 +201,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             msgEntity.isRead = true
             msgEntity.isSend = false
             msgEntity.sendFailed = false
-            msgEntity.saveModified()
+            PersistentManager.sharedInstance.saveMessageChanges()
             messageService.sendMessage(chatId, msg: msgEntity,shareId: shareId,audienceId: audienceId)
             let sortableObject = shareService.getShareThing(shareId).getSortableObject()
             sortableObject.compareValue = NSNumber(double:NSDate().timeIntervalSince1970)
@@ -213,7 +213,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
     func clearNotReadMessage()
     {
         chatEntity.newMessage = 0
-        chatEntity.saveModified()
+        PersistentManager.sharedInstance.saveMessageChanges()
     }
     
     func receiveNewMessage(a:NSNotification)

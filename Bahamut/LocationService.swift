@@ -22,6 +22,10 @@ class LocationService:NSNotificationCenter,ServiceProtocol,CLLocationManagerDele
         self.locationManager.startUpdatingLocation()
     }
     
+    func userLoginInit(userId: String) {
+        self.setServiceReady()
+    }
+    
     var isLocationServiceEnabled:Bool{
         return CLLocationManager.locationServicesEnabled()
     }

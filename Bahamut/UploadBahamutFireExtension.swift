@@ -43,7 +43,7 @@ extension FileService
     private func generateBahamutFireFileIdReq(localfilePath:String,type:FileType) -> ShareLinkSDKRequestBase!
     {
         let req = NewBahamutFireRequest()
-        let fileSize = PersistentManager.sharedInstance.fileSizeOf(localfilePath)
+        let fileSize = PersistentFileHelper.fileSizeOf(localfilePath)
         if fileSize > 0
         {
             req.fileSize = fileSize

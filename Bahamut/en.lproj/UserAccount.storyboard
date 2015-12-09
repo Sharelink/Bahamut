@@ -76,6 +76,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="motto" destination="vja-XT-z4B" id="ho5-09-GHE"/>
                         <outlet property="nickNameTextfield" destination="esA-aa-ZDv" id="tq8-Uf-mZU"/>
@@ -626,35 +627,11 @@
             </objects>
             <point key="canvasLocation" x="143" y="2041"/>
         </scene>
-        <!--New User Profile ViewNV Controller-->
-        <scene sceneID="bRk-G9-YAP">
-            <objects>
-                <navigationController storyboardIdentifier="NewUserProfileViewNVController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1U0-5T-Ofc" customClass="NewUserProfileViewNVController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ceh-cv-aAD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                        <color key="barTintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="KSz-HA-Lk6" kind="relationship" relationship="rootViewController" id="b2o-ON-2Zg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VT8-KH-zM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="862" y="3420"/>
-        </scene>
     </scenes>
     <resources>
         <image name="defaultAvatar" width="512" height="512"/>
         <image name="document-edit" width="32" height="32"/>
-        <image name="next" width="64" height="64"/>
+        <image name="next" width="72" height="72"/>
         <image name="shutdown" width="24" height="24"/>
     </resources>
 </document>
