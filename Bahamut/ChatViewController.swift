@@ -153,7 +153,6 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         let item = UIBarButtonItem(image: UIImage(named: "chatting_users"), style: .Plain, target: self, action: "clickChatRoomItem:")
         navigationItem.rightBarButtonItem = item
-        navigationItem.rightBarButtonItem?.badgeValue = "1"
         item.badgeBGColor = UIColor.redColor()
         item.badge.layer.cornerRadius = 10
     }
