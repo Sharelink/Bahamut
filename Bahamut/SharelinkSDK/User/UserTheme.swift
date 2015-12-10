@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SharelinkTagConstant
+public struct SharelinkThemeConstant
 {
     public static let TAG_DOMAIN_CUSTOM = "custom:";
     public static let TAG_DOMAIN_SYSTEM = "system:";
@@ -23,7 +23,7 @@ public struct SharelinkTagConstant
     public static let TAG_TYPE_NORESHARE = "reshareless:"
 }
 
-public extension SharelinkTag
+public extension SharelinkTheme
 {
     
     public func isTypeOf(type:String) -> Bool
@@ -46,47 +46,47 @@ public extension SharelinkTag
     
     public func isSystemTag() -> Bool
     {
-        return isDomainOf(SharelinkTagConstant.TAG_DOMAIN_SYSTEM)
+        return isDomainOf(SharelinkThemeConstant.TAG_DOMAIN_SYSTEM)
     }
     
     public func isCustomTag() -> Bool
     {
-        return  isDomainOf(SharelinkTagConstant.TAG_DOMAIN_CUSTOM)
+        return  isDomainOf(SharelinkThemeConstant.TAG_DOMAIN_CUSTOM)
     }
     
     public func isResharelessTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_NORESHARE)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_NORESHARE)
     }
     
     public func isKeywordTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_KEYWORD)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_KEYWORD)
     }
     
     public func isGeoTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_GEO)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_GEO)
     }
     
     public func isSharelinkerTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_SHARELINKER)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_SHARELINKER)
     }
     
     public func isFeedbackTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_FEEDBACK)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_FEEDBACK)
     }
     
     public func isBroadcastTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_BROADCAST)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_BROADCAST)
     }
     
     public func isPrivateTag() -> Bool
     {
-        return isTypeOf(SharelinkTagConstant.TAG_TYPE_PRIVATE)
+        return isTypeOf(SharelinkThemeConstant.TAG_TYPE_PRIVATE)
     }
 }
 
@@ -97,7 +97,7 @@ public class SendTagModel:BahamutObject
     public var data:String!
 }
 
-public class SharelinkTag : BahamutObject
+public class SharelinkTheme : BahamutObject
 {
     public var tagId:String!
     public var tagName:String!
@@ -123,10 +123,10 @@ public class SharelinkTag : BahamutObject
     }
 }
 
-public class UserSharelinkTags : BahamutObject
+public class SharelinkerThemes : BahamutObject
 {
     public var userId:String!
-    public var tags:[SharelinkTag]!
+    public var tags:[SharelinkTheme]!
     public override func getObjectUniqueIdName() -> String {
         return "userId"
     }

@@ -10,9 +10,9 @@ import Foundation
 
 protocol PersistentExtensionProtocol
 {
-    func reset()
-    func release()
-    func destroy()
+    func resetExtension()
+    func releaseExtension()
+    func destroyExtension()
     func storeImmediately()
 }
 

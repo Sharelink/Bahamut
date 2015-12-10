@@ -1,5 +1,5 @@
 //
-//  UIUserTagEditController.swift
+//  UserThemeEditController.swift
 //  Bahamut
 //
 //  Created by AlexChow on 15/8/18.
@@ -13,9 +13,9 @@ import UIKit
 //MARK: UserService extension
 extension UserService
 {
-    func showUIUserTagEditController(currentNavigationController:UINavigationController,editModel:UISharelinkTagItemModel,editMode:UIUserTagEditMode,delegate:UIUserTagEditControllerDelegate)
+    func showUserThemeEditController(currentNavigationController:UINavigationController,editModel:SharelinkThemeUIModel,editMode:UserThemeEditMode,delegate:UserThemeEditControllerDelegate)
     {
-        let userTagEditController = UIUserTagEditController.instanceFromStoryBoard()
+        let userTagEditController = UserThemeEditController.instanceFromStoryBoard()
         userTagEditController.delegate = delegate
         userTagEditController.tagModel = editModel
         userTagEditController.editMode = editMode
@@ -24,18 +24,18 @@ extension UserService
 }
 
 @objc
-protocol UIUserTagEditControllerDelegate
+protocol UserThemeEditControllerDelegate
 {
-    optional func tagEditControllerSave(saveModel:UISharelinkTagItemModel,sender:UIUserTagEditController)
+    optional func tagEditControllerSave(saveModel:SharelinkThemeUIModel,sender:UserThemeEditController)
 }
 
-enum UIUserTagEditMode
+enum UserThemeEditMode
 {
     case New
     case Edit
 }
 
-class UIUserTagEditController: UIViewController
+class UserThemeEditController: UIViewController
 {
     @IBOutlet weak var tagNameLabel: UITextField!{
         didSet{
@@ -59,14 +59,14 @@ class UIUserTagEditController: UIViewController
             update()
         }
     }
-    var delegate:UIUserTagEditControllerDelegate!
-    var tagModel:UISharelinkTagItemModel!{
+    var delegate:UserThemeEditControllerDelegate!
+    var tagModel:SharelinkThemeUIModel!{
         didSet{
             update()
         }
     }
     
-    var editMode:UIUserTagEditMode = .New
+    var editMode:UserThemeEditMode = .New
 
     @IBAction func changeTagType(sender: AnyObject)
     {
@@ -108,7 +108,7 @@ class UIUserTagEditController: UIViewController
         tagModel.tag.isFocus = focusSwitch.on ? "true":"false"
         tagModel.tag.data = tagData ?? tagModel.tag.tagName;
         tagModel.tag.showToLinkers = showToLinkerSwitch.on ? "true":"false"
-        tagModel.tag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
+        tagModel.tag.type = SharelinkThemeConstant.TAG_TYPE_KEYWORD
         if let saveHandler = delegate?.tagEditControllerSave
         {
             saveHandler(tagModel,sender: self)
@@ -126,9 +126,9 @@ class UIUserTagEditController: UIViewController
         MobClick.endLogPageView("EditThemeView")
     }
     
-    static func instanceFromStoryBoard() -> UIUserTagEditController
+    static func instanceFromStoryBoard() -> UserThemeEditController
     {
-        return instanceFromStoryBoard("Component", identifier: "userTagEditController") as! UIUserTagEditController
+        return instanceFromStoryBoard("Component", identifier: "userTagEditController") as! UserThemeEditController
     }
     
 }

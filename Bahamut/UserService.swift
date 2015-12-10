@@ -63,7 +63,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
-        initMyInfo()
+        self.initServiceBaseData()
     }
     
     func userLogout(userId: String) {
@@ -89,7 +89,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     private(set) var myLinkedUsers:[Sharelinker] = [Sharelinker]()
     private(set) var myLinkedUsersMap:[String:Sharelinker] = [String:Sharelinker]()
     
-    private func initMyInfo()
+    private func initServiceBaseData()
     {
         myUserModel = self.getUser(SharelinkSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
             if newestUser != nil

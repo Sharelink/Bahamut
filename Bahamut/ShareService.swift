@@ -314,7 +314,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     }
     
     //MARK: Create Share
-    func reshare(shareId:String,message:String!,tags:[SharelinkTag],callback:(suc:Bool,shareId:String!)->Void)
+    func reshare(shareId:String,message:String!,tags:[SharelinkTheme],callback:(suc:Bool,shareId:String!)->Void)
     {
         let req = ReShareRequest()
         req.pShareId = shareId
@@ -336,7 +336,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         }
     }
     
-    func postNewShare(newShare:ShareThing,tags:[SharelinkTag],callback:(shareId:String!)->Void)
+    func postNewShare(newShare:ShareThing,tags:[SharelinkTheme],callback:(shareId:String!)->Void)
     {
         let req = AddNewShareThingRequest()
         req.shareContent = newShare.shareContent

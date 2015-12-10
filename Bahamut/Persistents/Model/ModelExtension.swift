@@ -44,15 +44,15 @@ class ModelExtension: PersistentExtensionProtocol
 {
     static var defaultInstance:ModelExtension!
     private(set) var coreData = CoreDataManager()
-    func release() {
+    func releaseExtension() {
         coreData.deinitManager()
     }
     
-    func destroy() {
+    func destroyExtension() {
         coreData.destroyDbFile()
     }
     
-    func reset() {
+    func resetExtension() {
     }
     
     func storeImmediately() {

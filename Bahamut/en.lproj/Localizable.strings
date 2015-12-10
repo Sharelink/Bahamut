@@ -69,7 +69,7 @@ CANCELED = "Canceled";
 SHARE = "Share";
 NO = "No";
 OK = "Ok";
-I_SEE = "I see";
+I_SEE = "I See";
 CONTINUE = "Continue";
 INVALID_VALUE = "Invalid Value";
 USE_ANOTHER_VALUE = "Use another value please!";
@@ -150,8 +150,10 @@ SHARE_FAILED = "Share Failed";
 //SignInViewController
 REFRESHING = "Refreshing";
 
+//MainNavicationController
+USER_APP_TOKEN_TIMEOUT = "User Token Timeout,Need To Login Again";
 
-//UITagExplorerController
+//ThemeExplorerController
 TAG_HEADER_SYSTEM = "Sharelink Theme";
 TAG_HEADER_CUSTOM = "Cutstom Theme";
 NEW_TAG = "New Theme";

@@ -27,15 +27,15 @@ class MessageExtension: PersistentExtensionProtocol
     static var defaultInstance:MessageExtension!
     private(set) var coreData = CoreDataManager()
     
-    func release() {
+    func releaseExtension() {
         coreData.deinitManager()
     }
     
-    func destroy() {
+    func destroyExtension() {
         coreData.destroyDbFile()
     }
     
-    func reset() {
+    func resetExtension() {
     }
     
     func storeImmediately() {

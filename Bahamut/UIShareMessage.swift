@@ -45,8 +45,8 @@ class UIShareMessage:UIShareCell
     {
         if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {
-            let tag = SharelinkTag(json: shareModel.shareContent)
-            ServiceContainer.getService(SharelinkTagService).showConfirmAddTagAlert(self.rootController, tag: tag)
+            let tag = SharelinkTheme(json: shareModel.shareContent)
+            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self.rootController, tag: tag)
         }
     }
     
@@ -89,7 +89,7 @@ class UIShareMessage:UIShareCell
         }
         if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {
-            msgContent = SharelinkTag(json: shareModel.shareContent).getShowName()
+            msgContent = SharelinkTheme(json: shareModel.shareContent).getShowName()
         }
         messageLabel.text = String(format: format, msgContent)
     }

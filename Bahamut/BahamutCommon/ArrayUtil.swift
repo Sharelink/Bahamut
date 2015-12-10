@@ -22,6 +22,16 @@ public extension Array
             }
         }
     }
+    
+    public func toMap<T:NSObject>(m:(elem:Element)-> T) -> [T:Element]
+    {
+        var result = [T:Element]()
+        for e in self{
+            let key = m(elem: e)
+            result[key] = e
+        }
+        return result
+    }
 }
 
 public class ArrayUtil

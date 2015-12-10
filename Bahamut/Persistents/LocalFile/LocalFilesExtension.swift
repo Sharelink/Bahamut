@@ -46,16 +46,16 @@ class LocalFilesExtension: PersistentExtensionProtocol
         PersistentManager.sharedInstance.initFileDir(LocalFilesExtension.defaultInstance.fileCacheDirUrl)
     }
     
-    func release() {
+    func releaseExtension() {
         LocalFilesExtension.defaultInstance = nil
         coreData.deinitManager()
     }
     
-    func destroy() {
+    func destroyExtension() {
         coreData.destroyDbFile()
     }
     
-    func reset() {
+    func resetExtension() {
     }
     
     func storeImmediately() {

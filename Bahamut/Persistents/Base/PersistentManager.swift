@@ -157,7 +157,7 @@ class PersistentManager
     {
         for e in extensions
         {
-            e.release()
+            e.releaseExtension()
         }
         extensions.removeAll()
     }

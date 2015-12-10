@@ -206,7 +206,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         if let firstTheme = shareModel?.forTags?.first
         {
             let stm = SendTagModel(json: firstTheme)
-            let tag = SharelinkTag()
+            let tag = SharelinkTheme()
             tag.tagName = stm.name
             tag.type = stm.type
             tag.data = stm.data

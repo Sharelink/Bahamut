@@ -53,13 +53,9 @@ class SharelinkCmdManager
             let b = handler as! NSObject
             return a == b
         }
-        if exists
-        {
-            print("HandleSharelinkCmdDelegate Exists")
-        }else
+        if exists == false
         {
             handlerList.append(handler)
-            print("Add HandleSharelinkCmdDelegate \((handler as! NSObject).description)")
         }
     }
     

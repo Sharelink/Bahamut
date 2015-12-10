@@ -10,6 +10,9 @@ import Foundation
 import EVReflection
 import CocoaAsyncSocket
 
+let AppTokenInvalided = "AppTokenInvalided"
+
+//MARK: Chicago Client
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
 {
     private static let heartBeatJson = "{}"
@@ -24,7 +27,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     private static var lastHeartBeatTime:NSDate!
     private static var heartBeatInterval:NSTimeInterval = 23
     
-    private static let validationRoute:ChicagoRoute = {
+    static let validationRoute:ChicagoRoute = {
         let route = ChicagoRoute()
         route.ExtName = "SharelinkerValidation"
         route.CmdName = "Login"
@@ -180,6 +183,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .ValidatFailed
                     socket.disconnect()
+                    self.postNotificationName(AppTokenInvalided, object: self)
                     NSLog("Chicago:Validate Failed")
                 }
             }

@@ -167,7 +167,7 @@
         <!--Theme-->
         <scene sceneID="nhT-4z-tHH">
             <objects>
-                <viewController storyboardIdentifier="userTagEditController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xkf-Mc-ucN" customClass="UIUserTagEditController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userTagEditController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xkf-Mc-ucN" customClass="UserThemeEditController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hLQ-Zp-lIf"/>
                         <viewControllerLayoutGuide type="bottom" id="uu4-hu-aWg"/>
@@ -406,10 +406,10 @@
             </objects>
             <point key="canvasLocation" x="-126" y="3003"/>
         </scene>
-        <!--Tag Collection View Controller-->
+        <!--Theme Collection View Controller-->
         <scene sceneID="7He-ch-jYu">
             <objects>
-                <collectionViewController storyboardIdentifier="tagCollectionViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="UITagCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="tagCollectionViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YBx-pe-9kd" customClass="ThemeCollectionViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="vK2-nC-lFv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -423,7 +423,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="Qqg-UF-Fid" customClass="TagCollectionCell" customModule="Bahamut" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="themeCell" id="Qqg-UF-Fid" customClass="ThemeCollectionCell" customModule="Bahamut" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

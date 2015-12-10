@@ -796,7 +796,7 @@
         <!--我的主题-->
         <scene sceneID="QIK-pk-T0u">
             <objects>
-                <viewController storyboardIdentifier="UITagExplorerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WWa-4s-vJi" customClass="UITagExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThemeExplorerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WWa-4s-vJi" customClass="ThemeExplorerController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JEP-eA-7ts"/>
                         <viewControllerLayoutGuide type="bottom" id="oo5-bm-2R9"/>
@@ -816,7 +816,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="TagItemCell" id="HiK-DY-8FS" customClass="UITagExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="ThemeItemCell" id="HiK-DY-8FS" customClass="ThemeExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="73" width="137" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

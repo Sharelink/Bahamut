@@ -44,6 +44,7 @@ extension FileService
                 {
                     let taskKey = "uploadTask:\(uploadTask.fileId)"
                     callback(taskId: taskKey, fileKey: fileKey)
+                    return
                 }
                 
             }

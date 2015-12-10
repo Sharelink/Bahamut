@@ -34,7 +34,7 @@ class NewShareTask : BahamutObject
 {
     var id:String!
     var share:ShareThing!
-    var shareTags:[SharelinkTag]!
+    var shareTags:[SharelinkTheme]!
     var sendFileKey:FileAccessInfo!
 }
 
@@ -172,7 +172,7 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
     
     private func reshare()
     {
-        let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTag]()
+        let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTheme]()
         self.makeToastActivityWithMessage("",message: NSLocalizedString("SHARING", comment: "Sharing"))
         self.shareService.reshare(self.shareModel.shareId, message: self.shareMessageCell.shareMessageTextView.text, tags: tags){ isSuc,msg in
             self.hideToastActivity()
@@ -212,7 +212,7 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
             self.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
-                let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTag]()
+                let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTheme]()
                 self.postShare(newShare,tags:tags)
             }
             
@@ -222,7 +222,7 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         }
     }
     
-    private func postShare(newShare:ShareThing,tags:[SharelinkTag])
+    private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
     {
         let filmModel = FilmModel(json: newShare.shareContent)
         self.fileService.sendFileToAliOSS(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in

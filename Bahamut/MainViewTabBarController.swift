@@ -43,7 +43,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     private(set) static var currentTabBarViewController:MainViewTabBarController!
     
     static var currentNavicationController:UINavigationController!{
-        if let mc = currentTabBarViewController.selectedViewController as? UINavigationController
+        if let mc = currentTabBarViewController?.selectedViewController as? UINavigationController
         {
             return mc
         }
@@ -51,7 +51,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     }
     
     static var currentRootViewController:UIViewController!{
-        if let mc = currentTabBarViewController.selectedViewController?.presentingViewController as? MainNavigationController
+        if let mc = currentTabBarViewController?.selectedViewController?.presentingViewController as? MainNavigationController
         {
             return mc.presentedViewController
         }

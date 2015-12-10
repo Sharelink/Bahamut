@@ -22,17 +22,21 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         launchScr.frame = self.view.bounds
         self.view.backgroundColor = UIColor.blackColor()
         self.view.addSubview(launchScr)
+        if let indicator = launchScr.viewWithTag(1) as? UIActivityIndicatorView
+        {
+            indicator.hidden = false
+        }
+        ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
     }
     
     func deInitController(){
-
+        ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         go()
     }
-    
     
     func allServicesReady(_:AnyObject)
     {
@@ -47,6 +51,16 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         {
             showMainView()
         }
+    }
+    
+    func onAppTokenInvalid(_:AnyObject)
+    {
+        let alert = UIAlertController(title: nil, message: NSLocalizedString("USER_APP_TOKEN_TIMEOUT", comment: "User Token Timeout,Need To Login Again"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Default, handler: { (action) -> Void in
+            ServiceContainer.instance.userLogout()
+            MainNavigationController.start()
+        }))
+        showAlert(self,alertController: alert)
     }
     
     private func go()
@@ -68,9 +82,10 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         }
     }
     
+    let screenWaitTimeInterval = 0.7
     private func showSignView()
     {
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "waitTimeShowSignView:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: "waitTimeShowSignView:", userInfo: nil, repeats: false)
     }
     
     func waitTimeShowSignView(_:AnyObject?)
@@ -80,7 +95,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     private func showMainView()
     {
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "waitTimeShowMainView:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: "waitTimeShowMainView:", userInfo: nil, repeats: false)
     }
     
     func waitTimeShowMainView(_:AnyObject?)
@@ -90,10 +105,10 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     }
     
     //MARK: handle sharelinkMessage
-    
+    let linkMeParameterCount = 3
     func linkMe(method: String, args: [String],object:AnyObject?)
     {
-        if args.count < 3
+        if args.count < linkMeParameterCount
         {
             self.showAlert("Sharelink", msg: NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
             return

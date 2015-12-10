@@ -18,6 +18,10 @@ class AccountService: ServiceProtocol
         SharelinkSDK.sharedInstance.reuse(SharelinkSetting.userId, token: SharelinkSetting.token, shareLinkApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
         SharelinkSDK.setAppVersion(BahamutConfig.sharelinkVersion)
         SharelinkSDK.sharedInstance.startClients()
+        ChicagoClient.sharedInstance.start()
+        ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)
+        ChicagoClient.sharedInstance.startHeartBeat()
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: SharelinkSetting.token)
         self.setServiceReady()
     }
     

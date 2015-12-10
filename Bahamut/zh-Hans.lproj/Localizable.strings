@@ -150,8 +150,10 @@ SHARE_FAILED = "分享失败...";
 //SignInViewController
 REFRESHING = "刷新中";
 
+//MainNavicationController
+USER_APP_TOKEN_TIMEOUT = "用户认证失效，需要重新登录";
 
-//UITagExplorerController
+//ThemeExplorerController
 TAG_HEADER_SYSTEM = "Sharelink主题";
 TAG_HEADER_CUSTOM = "自定义主题";
 NEW_TAG = "新主题";

@@ -13,6 +13,7 @@ class ServiceContainer:NSNotificationCenter
     static let AllServicesReady = "AllServicesReady"
     static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
+    private let serviceReadyLock = NSRecursiveLock()
     private var serviceReady = [String:Bool]()
     private var userId:String!
     private override init()
@@ -40,7 +41,12 @@ class ServiceContainer:NSNotificationCenter
     func userLogin(userId:String)
     {
         self.userId = userId
-        
+        serviceReadyLock.lock()
+        for (name,_) in ServiceConfig.Services
+        {
+            serviceReady[name] = false
+        }
+        serviceReadyLock.unlock()
         for (_,service) in ServiceConfig.Services
         {
             if let initHandler = service.userLoginInit
@@ -54,7 +60,9 @@ class ServiceContainer:NSNotificationCenter
     
     func userLogout()
     {
+        serviceReadyLock.lock()
         serviceReady.removeAll()
+        serviceReadyLock.unlock()
         for (_,service) in ServiceConfig.Services
         {
             if let logoutHandler = service.userLogout
@@ -81,7 +89,15 @@ class ServiceContainer:NSNotificationCenter
     
     private static func setServiceReady<T:ServiceProtocol>(service:T)
     {
+        instance.serviceReadyLock.lock()
+        let value = instance.serviceReady[T.ServiceName]
+        if value == nil || value == true
+        {
+            instance.serviceReadyLock.unlock()
+            return
+        }
         instance.serviceReady[T.ServiceName] = true
+        instance.serviceReadyLock.unlock()
         NSLog("\(T.ServiceName) Ready!")
         if isAllServiceReady
         {
@@ -89,11 +105,6 @@ class ServiceContainer:NSNotificationCenter
                 instance.postNotificationName(ServiceContainer.AllServicesReady, object: instance)
             })
         }
-    }
-    
-    private static func setServiceNotReady<T:ServiceProtocol>(service:T)
-    {
-        instance.serviceReady[T.ServiceName] = false
     }
     
     static var isAllServiceReady:Bool{

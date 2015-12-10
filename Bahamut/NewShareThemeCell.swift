@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,UITextFieldDelegate
+class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,UITextFieldDelegate
 {
     static let themesLimit = 7
     static let reuseableId = "NewShareThemeCell"
     override func initCell()
     {
-        myThemeController = UITagCollectionViewController.instanceFromStoryBoard()
+        myThemeController = ThemeCollectionViewController.instanceFromStoryBoard()
         self.rootView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapView:"))
         if isReshare
         {
@@ -24,7 +24,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
         }
     }
     
-    var myThemeController:UITagCollectionViewController!
+    var myThemeController:ThemeCollectionViewController!
         {
         didSet{
             myThemeContainer = UIView()
@@ -47,7 +47,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
             selectedThemeContainer.layer.borderWidth = 1
             selectedThemeContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
             selectedThemeContainer.backgroundColor = UIColor.whiteColor()
-            selectedThemeController  = UITagCollectionViewController.instanceFromStoryBoard()
+            selectedThemeController  = ThemeCollectionViewController.instanceFromStoryBoard()
             selectedThemeContainer.addSubview(selectedThemeController.view)
         }
     }
@@ -60,10 +60,10 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
     private func initReshareThemeCell()
     {
         //filter share's tag without poster's personal tag
-        let tagDatas = shareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkTagConstant.TAG_TYPE_SHARELINKER != $0.type }
+        let tagDatas = shareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
         for m in tagDatas
         {
-            let tag = SharelinkTag()
+            let tag = SharelinkTheme()
             tag.type = m.type
             tag.tagName = m.name
             tag.data = m.data
@@ -98,7 +98,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
     }
     
     //MARK: seletectd tags
-    var selectedThemeController:UITagCollectionViewController!{
+    var selectedThemeController:ThemeCollectionViewController!{
         didSet{
             selectedThemeController.delegate = self
         }
@@ -106,11 +106,11 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
     
     func initMyThemes()
     {
-        let tagService = ServiceContainer.getService(SharelinkTagService)
-        let mySystemTags = tagService.getAllSystemTags().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
+        let tagService = ServiceContainer.getService(SharelinkThemeService)
+        let mySystemTags = tagService.getAllSystemThemes().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
         
-        let myCustomTags = tagService.getAllCustomTags().filter{$0.isSharelinkerTag() == false}
-        var shareableTags = [SharelinkTag]()
+        let myCustomTags = tagService.getAllCustomThemes().filter{$0.isSharelinkerTag() == false}
+        var shareableTags = [SharelinkTheme]()
         shareableTags.appendContentsOf(mySystemTags)
         shareableTags.appendContentsOf(myCustomTags)
         self.myThemeController.tags = shareableTags
@@ -139,7 +139,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
         myThemeContainer.removeFromSuperview()
     }
     
-    func tagDidTap(sender: UITagCollectionViewController, indexPath: NSIndexPath)
+    func tagDidTap(sender: ThemeCollectionViewController, indexPath: NSIndexPath)
     {
         if sender == myThemeController
         {
@@ -159,7 +159,7 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
         }
     }
     
-    func addThemeToSelectedThemes(theme:SharelinkTag) -> Bool
+    func addThemeToSelectedThemes(theme:SharelinkTheme) -> Bool
     {
         if selectedThemeController.tags != nil && selectedThemeController.tags.count >= NewShareThemeCell.themesLimit
         {
@@ -184,10 +184,10 @@ class NewShareThemeCell: NewShareCellBase,UITagCollectionViewControllerDelegate,
             {
                 if !newThemeName.isEmpty
                 {
-                    let newTheme = SharelinkTag()
+                    let newTheme = SharelinkTheme()
                     newTheme.tagColor = UIColor.getRandomTextColor().toHexString()
                     newTheme.tagName = newThemeName
-                    newTheme.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
+                    newTheme.type = SharelinkThemeConstant.TAG_TYPE_KEYWORD
                     newTheme.data = newThemeName
                     customThemeTextField.text = nil
                     addThemeToSelectedThemes(newTheme)

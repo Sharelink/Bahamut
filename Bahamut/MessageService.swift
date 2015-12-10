@@ -37,11 +37,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
         let route = ChicagoRoute()
         route.ExtName = "NotificationCenter"
         route.CmdName = "UsrNewMsg"
-        ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
-        ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)
-        ChicagoClient.sharedInstance.startHeartBeat()
-        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: SharelinkSetting.token)
         self.setServiceReady()
         self.getMessageFromServer()
     }

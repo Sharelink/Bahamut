@@ -453,7 +453,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9m-uT-GWZ">
-                                        <rect key="frame" x="568" y="191" width="32" height="32"/>
+                                        <rect key="frame" x="557" y="191" width="36" height="32"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="VZt-fI-ADX"/>
@@ -462,9 +462,12 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="rbB-Ay-14x"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="document-edit"/>
+                                        <state key="normal" title="更换">
+                                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="cEJ-LG-hqV"/>
                                                 <exclude reference="nib-Ln-nmy"/>
                                                 <exclude reference="rbB-Ay-14x"/>
                                             </mask>
@@ -512,10 +515,10 @@
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" constant="-7" id="0vs-vq-FSh"/>
+                                    <constraint firstItem="lAb-tL-Fxc" firstAttribute="trailing" secondItem="g9m-uT-GWZ" secondAttribute="trailing" id="0vs-vq-FSh"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="leading" secondItem="gc7-K2-hcP" secondAttribute="leading" id="30X-V7-kmY"/>
                                     <constraint firstItem="gc7-K2-hcP" firstAttribute="leading" secondItem="FeM-jc-wh6" secondAttribute="trailing" constant="8" symbolic="YES" id="FDJ-rj-nU3"/>
-                                    <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" id="Iw9-Q2-HML"/>
+                                    <constraint firstItem="g9m-uT-GWZ" firstAttribute="trailing" secondItem="lHT-sO-2xC" secondAttribute="trailing" constant="-7" id="Iw9-Q2-HML"/>
                                     <constraint firstItem="lAb-tL-Fxc" firstAttribute="top" secondItem="gc7-K2-hcP" secondAttribute="bottom" id="PSs-af-SAu"/>
                                     <constraint firstItem="lHT-sO-2xC" firstAttribute="leading" secondItem="O9m-gS-Bgf" secondAttribute="leading" id="Q3b-XA-q7g"/>
                                     <constraint firstAttribute="trailing" secondItem="Kkx-R0-5We" secondAttribute="trailing" constant="7" id="Qse-Pz-PuW"/>
@@ -636,7 +639,6 @@
     </scenes>
     <resources>
         <image name="defaultAvatar" width="512" height="512"/>
-        <image name="document-edit" width="32" height="32"/>
         <image name="next" width="72" height="72"/>
         <image name="shutdown" width="24" height="24"/>
     </resources>

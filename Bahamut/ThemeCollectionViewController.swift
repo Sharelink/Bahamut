@@ -1,5 +1,5 @@
 //
-//  UITagCollectionViewController.swift
+//  ThemeCollectionViewController.swift
 //  Bahamut
 //
 //  Created by AlexChow on 15/9/13.
@@ -11,21 +11,21 @@ import UIKit
 
 
 @objc
-protocol UITagCollectionViewControllerDelegate
+protocol ThemeCollectionViewControllerDelegate
 {
-    optional func tagDidTap(sender:UITagCollectionViewController,indexPath:NSIndexPath)
+    optional func tagDidTap(sender:ThemeCollectionViewController,indexPath:NSIndexPath)
 }
 
-class TagCollectionCell: UICollectionViewCell
+class ThemeCollectionCell: UICollectionViewCell
 {
-    static let cellIdentifier = "tagCell"
+    static let cellIdentifier = "themeCell"
     @IBOutlet weak var tagNameLabel: UILabel!
     var indexPath:NSIndexPath!
 }
 
-class UITagCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
+class ThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
 {
-    var tags:[SharelinkTag]!{
+    var tags:[SharelinkTheme]!{
         didSet{
             if collectionView != nil
             {
@@ -35,7 +35,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         
     }
     
-    var delegate:UITagCollectionViewControllerDelegate!
+    var delegate:ThemeCollectionViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +43,11 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         collectionView?.reloadData()
     }
     
-    func addTag(tagModel:SharelinkTag)->Bool
+    func addTag(tagModel:SharelinkTheme)->Bool
     {
         if tags == nil
         {
-            tags = [SharelinkTag]()
+            tags = [SharelinkTheme]()
         }
         let exists = tags.contains{ $0.getTagString() == tagModel.getTagString() }
         if exists
@@ -69,7 +69,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("tagCell", forIndexPath: indexPath) as! TagCollectionCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ThemeCollectionCell.cellIdentifier, forIndexPath: indexPath) as! ThemeCollectionCell
         let color = UIColor(hexString: tags[indexPath.row].tagColor)
         if let label = cell.tagNameLabel
         {
@@ -96,7 +96,7 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
     
     func tagDidTap(aTap:UITapGestureRecognizer)
     {
-        if let cell = aTap.view as? TagCollectionCell
+        if let cell = aTap.view as? ThemeCollectionCell
         {
             let indexPath = cell.indexPath
             if let tapHandler = delegate.tagDidTap
@@ -138,8 +138,8 @@ class UITagCollectionViewController: UICollectionViewController,UICollectionView
         return CGSizeMake(label.bounds.width + 23, label.bounds.height)
     }
     
-    static func instanceFromStoryBoard() -> UITagCollectionViewController
+    static func instanceFromStoryBoard() -> ThemeCollectionViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController") as! UITagCollectionViewController
+        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController") as! ThemeCollectionViewController
     }
 }

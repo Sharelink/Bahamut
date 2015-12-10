@@ -1,5 +1,5 @@
 //
-//  UITagExplorerController.swift
+//  ThemeExplorerController.swift
 //  Bahamut
 //
 //  Created by AlexChow on 15/8/17.
@@ -11,59 +11,63 @@ import UIKit
 
 
 //MARK: UserService Extension
-extension SharelinkTagService
+extension SharelinkThemeService
 {
     
-    func getUserTagsResourceItemModels(tags:[SharelinkTag],selected:Bool = false) -> [UIResrouceItemModel]
+    func getUserThemeItemUIModels(tags:[SharelinkTheme],selected:Bool = false) -> [UIResrouceItemModel]
     {
-        return tags.map({ (tag) -> UISharelinkTagItemModel in
-            let model = UISharelinkTagItemModel()
+        return tags.map({ (tag) -> SharelinkThemeUIModel in
+            let model = SharelinkThemeUIModel()
             model.selected = selected
             model.tag = tag
             return model
         })
     }
     
-    func showTagExplorerController(currentNavigationController:UINavigationController, tags:[[UIResrouceItemModel]],tagHeaders:[String]!,selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)! = nil)
+    func showThemeExplorerController(currentNavigationController:UINavigationController, tags:[[UIResrouceItemModel]],tagHeaders:[String]!,selectionMode:ResourceExplorerSelectMode = .Negative ,identifier:String! = "one" ,selectedTagsChanged:((tagsSeleted:[SharelinkThemeUIModel])->Void)! = nil)
     {
-        let collectionController = UITagExplorerController.instanceFromStoryBoard()
+        let collectionController = ThemeExplorerController.instanceFromStoryBoard()
         collectionController.selectedTagsChanged = selectedTagsChanged
         collectionController.selectionMode = selectionMode
         collectionController.explorerIdentifier = identifier
         collectionController.items = tags
         collectionController.tagHeaders = tagHeaders
-        collectionController.isMainTagExplorerController = false
+        collectionController.isMainTabController = false
         currentNavigationController.pushViewController(collectionController, animated: true)
     }
 }
 
-class UISharelinkTagItemModel: UIResrouceItemModel
+class SharelinkThemeUIModel: UIResrouceItemModel
 {
-    var tag:SharelinkTag!
+    var tag:SharelinkTheme!
     override var canEdit:Bool{
         return tag.isSystemTag() == false
     }
 }
 
-class UITagExplorerViewCell: UIResourceItemCell
+class ThemeExplorerViewCell: UIResourceItemCell
 {
+    var cellColor:UIColor!
     override func layoutSubviews() {
-        self.layer.cornerRadius = 7
+        self.layer.cornerRadius = 16
+        self.layer.borderWidth = 2
         super.layoutSubviews()
     }
     override func update() {
         super.update()
-        if let model = self.model as? UISharelinkTagItemModel
+        if let model = self.model as? SharelinkThemeUIModel
         {
+            self.cellColor = UIColor(hexString: model.tag.tagColor)
+            self.layer.borderColor = (cellColor ?? UIColor.themeColor).CGColor
             if tagNameLabel != nil
             {
                 tagNameLabel.text = model.tag.getShowName()
+                tagNameLabel.textColor = self.cellColor ?? UIColor.themeColor
             }
             if focusMark != nil
             {
                 focusMark.hidden = "false" == model.tag.isFocus
             }
-            self.backgroundColor = UIColor(hexString: model.tag.tagColor)
         }
     }
     @IBOutlet weak var focusMark: UIImageView!
@@ -71,16 +75,16 @@ class UITagExplorerViewCell: UIResourceItemCell
     
 }
 
-let TagHeaderSystem = NSLocalizedString("TAG_HEADER_SYSTEM", comment:"Sharelink")
-let TagHeaderCustom = NSLocalizedString("TAG_HEADER_CUSTOM", comment:"Cutstom")
+let ThemeHeaderSystem = NSLocalizedString("TAG_HEADER_SYSTEM", comment:"Sharelink")
+let ThemeHeaderCustom = NSLocalizedString("TAG_HEADER_CUSTOM", comment:"Cutstom")
 
-class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UIUserTagEditControllerDelegate
+class ThemeExplorerController: UIResourceExplorerController,UIResourceExplorerDelegate,UserThemeEditControllerDelegate
 {
-    private(set) var tagService:SharelinkTagService!
+    private(set) var themeService:SharelinkThemeService!
     var explorerIdentifier:String! = "one"
-    var selectedTagsChanged:((tagsSeleted:[UISharelinkTagItemModel])->Void)!
+    var selectedTagsChanged:((tagsSeleted:[SharelinkThemeUIModel])->Void)!
     var tagHeaders:[String]!
-    var isMainTagExplorerController = true
+    var isMainTabController = true
     private var userGuide:UserGuide!
     
     @IBOutlet var doneButton: UIBarButtonItem!
@@ -90,12 +94,12 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if isMainTagExplorerController
+        if isMainTabController
         {
             self.initUserGuide()
         }
         self.items = [[UIResrouceItemModel]]()
-        tagService = ServiceContainer.getService(SharelinkTagService)
+        themeService = ServiceContainer.getService(SharelinkThemeService)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.delegate = self
         self.changeNavigationBarColor()
@@ -120,7 +124,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if isMainTagExplorerController
+        if isMainTabController
         {
             self.userGuide.showGuideControllerPresentFirstTime()
         }
@@ -135,18 +139,18 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     private func initItems()
     {
-        if isMainTagExplorerController
+        if isMainTabController
         {
             self.items.removeAll()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tagHeaders = [String]()
                 self.selectionMode = ResourceExplorerSelectMode.Negative
-                let customtags = self.tagService.getAllCustomTags()
+                let customtags = self.themeService.getAllCustomThemes()
                 if customtags.count > 0
                 {
-                    let customTagItems = self.tagService.getUserTagsResourceItemModels(customtags)
+                    let customTagItems = self.themeService.getUserThemeItemUIModels(customtags)
                     self.items.append(customTagItems)
-                    self.tagHeaders.append(TagHeaderCustom)
+                    self.tagHeaders.append(ThemeHeaderCustom)
                 }
                 self.collectionView.reloadData()
             })
@@ -154,23 +158,23 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
         
     }
     
-    //MARK: UIUserTagEditControllerDelegate
+    //MARK: UserThemeEditControllerDelegate
     
-    func tagEditControllerSave(saveModel: UISharelinkTagItemModel, sender: UIUserTagEditController)
+    func tagEditControllerSave(saveModel: SharelinkThemeUIModel, sender: UserThemeEditController)
     {
         if sender.editMode == .New
         {
-            if tagService.isTagExists(saveModel.tag.data)
+            if themeService.isThemeExists(saveModel.tag.data)
             {
                 let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_TAG_EXISTS", comment: ""), preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "I_SEE", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
-            tagService.addSharelinkTag(saveModel.tag){ (isSuc) -> Void in
+            themeService.addSharelinkTheme(saveModel.tag){ (isSuc) -> Void in
                 if isSuc
                 {
-                    if self.isMainTagExplorerController
+                    if self.isMainTabController
                     {
                         self.initItems()
                     }else
@@ -190,7 +194,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 }
             }
         }else{
-            tagService.updateTag(saveModel.tag){
+            themeService.updateTheme(saveModel.tag){
                 self.uiCollectionView.reloadData()
             }
         }
@@ -222,7 +226,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        if let model = items[indexPath.section][indexPath.row] as? UISharelinkTagItemModel
+        if let model = items[indexPath.section][indexPath.row] as? SharelinkThemeUIModel
         {
             let uiLabel = UILabel()
             uiLabel.font = UIFont.systemFontOfSize(17)
@@ -242,29 +246,29 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     {
         if let tagsChanged = self.selectedTagsChanged
         {
-            tagsChanged(tagsSeleted: itemModels as! [UISharelinkTagItemModel])
+            tagsChanged(tagsSeleted: itemModels as! [SharelinkThemeUIModel])
         }
     }
     
     func resourceExplorerAddItem(completedHandler: (itemModel: UIResrouceItemModel,indexPath:NSIndexPath) -> Void, sender: UIResourceExplorerController!)
     {
-        let model = UISharelinkTagItemModel()
-        model.tag = SharelinkTag()
+        let model = SharelinkThemeUIModel()
+        model.tag = SharelinkTheme()
         model.tag.tagId = nil
         model.tag.tagName = nil
         model.tag.isFocus = "true"
         model.tag.showToLinkers = "true"
-        model.tag.type = SharelinkTagConstant.TAG_TYPE_KEYWORD
-        model.tag.domain = SharelinkTagConstant.TAG_DOMAIN_CUSTOM
+        model.tag.type = SharelinkThemeConstant.TAG_TYPE_KEYWORD
+        model.tag.domain = SharelinkThemeConstant.TAG_DOMAIN_CUSTOM
         model.tag.tagColor = UIColor.getRandomTextColor().toHexString()
-        ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.New, delegate: self)
+        ServiceContainer.getService(UserService).showUserThemeEditController(self.navigationController!, editModel: model,editMode:.New, delegate: self)
     }
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!)
     {
-        if let models = itemModels as? [UISharelinkTagItemModel]
+        if let models = itemModels as? [SharelinkThemeUIModel]
         {
-            ServiceContainer.getService(SharelinkTagService).removeMyTags(models.map{$0.tag!}, sucCallback: { () -> Void in
+            ServiceContainer.getService(SharelinkThemeService).removeMyThemes(models.map{$0.tag!}, sucCallback: { () -> Void in
                 let message = String(format:NSLocalizedString("REMOVED_X_TAGS", comment: "Remove %@ Tags"), "\(models.count)")
                 let alert = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
@@ -275,7 +279,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!)
     {
-        if let model = itemModel as? UISharelinkTagItemModel
+        if let model = itemModel as? SharelinkThemeUIModel
         {
             if model.tag.isSystemTag() || model.tag.isSharelinkerTag()
             {
@@ -288,7 +292,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
                 }
                 return
             }
-            ServiceContainer.getService(UserService).showUIUserTagEditController(self.navigationController!, editModel: model,editMode:.Edit, delegate: self)
+            ServiceContainer.getService(UserService).showUserThemeEditController(self.navigationController!, editModel: model,editMode:.Edit, delegate: self)
         }
     }
     
@@ -312,7 +316,7 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
     }
     
     override func getCellReuseIdentifier() -> String {
-        return "TagItemCell"
+        return "ThemeItemCell"
     }
     
     @IBAction func addTag(sender: AnyObject) {
@@ -335,9 +339,9 @@ class UITagExplorerController: UIResourceExplorerController,UIResourceExplorerDe
 
     }
     
-    static func instanceFromStoryBoard() -> UITagExplorerController
+    static func instanceFromStoryBoard() -> ThemeExplorerController
     {
-        return instanceFromStoryBoard("Main", identifier: "UITagExplorerController") as! UITagExplorerController
+        return instanceFromStoryBoard("Main", identifier: "ThemeExplorerController") as! ThemeExplorerController
     }
 }
 
