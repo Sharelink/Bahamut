@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 import MBProgressHUD
 
-class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,UIShareContentViewSetupDelegate
+class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,UIShareContentViewSetupDelegate,ProgressTaskDelegate
 {
     static let thumbQuality:CGFloat = 0.5
     static let reuseableId = "NewShareFilmCell"
@@ -20,15 +20,16 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
     @IBOutlet weak var recordFilmBtn: UIButton!
     @IBOutlet weak var selectFilmBtn: UIButton!
     
+    
     override func initCell() {
         recordFilmBtn.hidden = isReshare
         selectFilmBtn.hidden = isReshare
         shareContentContainer.setupContentViewDelegate = self
-        refreshShareContent()
+        resetShareContent()
     }
     
     override func clear() {
-        refreshShareContent()
+        resetShareContent()
     }
     
     @IBAction func selectFilm(sender: AnyObject) {
@@ -40,6 +41,16 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
     @IBAction func recordFilm(sender: AnyObject) {
         showQuPaiCamera()
         MobClick.event("RecordVideoButton")
+    }
+    
+    private func getShareContent() -> String? {
+        if String.isNullOrWhiteSpace(self.shareContentContainer.share.shareContent)
+        {
+            let filmModel = FilmModel()
+            filmModel.film = FilmAssetsConstants.SharelinkFilm
+            return filmModel.toJsonString()
+        }
+        return self.shareContentContainer.share.shareContent
     }
     
     //MARK: share content
@@ -59,13 +70,12 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
         }
     }
     
-    func refreshShareContent()
+    private func resetShareContent()
     {
-        shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareThingType(rawValue: shareModel.shareType!)!)
-        shareContentContainer.share = shareModel
+        shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareThingType.shareFilm)
+        shareContentContainer.share = isReshare ? rootController.reShareModel : ShareThing()
         shareContentContainer.update()
     }
-    
     
     //MARK: select film delegate
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
@@ -90,9 +100,9 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
         var sum = 0
         for fileModel in fileModels
         {
-            if fileModel.filePath == FilmModel(json: shareModel.shareContent).film
+            if fileModel.filePath == FilmModel(json: shareContentContainer.share.shareContent).film
             {
-                shareModel.shareContent = nil
+                shareContentContainer.share.shareContent = nil
                 shareContentContainer.update()
             }
             do
@@ -104,16 +114,6 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
             }
         }
         self.rootController.showAlert("", msg: String(format:(NSLocalizedString("FILES_WAS_DELETED", comment: "%@ files deleted")), sum))
-    }
-    
-    //MARK: set share video
-    func setShareVideo(filePath:String)
-    {
-        let filmModel = FilmModel()
-        filmModel.film = filePath
-        filmModel.preview = ImageUtil.getVideoThumbImageBase64String(filePath,compressionQuality: NewShareFilmCell.thumbQuality)
-        self.shareContentContainer.share.shareContent = filmModel.toJsonString()
-        self.shareContentContainer.update()
     }
     
     //MARK: qupai
@@ -132,7 +132,11 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
         {
             if let newFilePath = saveVideo(videoPath)
             {
-                setShareVideo(newFilePath)
+                let filmModel = FilmModel()
+                filmModel.film = newFilePath
+                filmModel.preview = ImageUtil.getVideoThumbImageBase64String(newFilePath,compressionQuality: NewShareFilmCell.thumbQuality)
+                self.shareContentContainer.share.shareContent = filmModel.toJsonString()
+                self.shareContentContainer.update()
             }
         }
         
@@ -145,13 +149,73 @@ class NewShareFilmCell: NewShareCellBase,QupaiSDKDelegate,UIResourceExplorerDele
         if PersistentFileHelper.moveFile(videoSourcePath, destinationPath: newFilePath)
         {
             self.rootController.showCheckMark(NSLocalizedString("VIDEO_SAVED", comment: "Video Saved") )
-            let size = PersistentFileHelper.fileSizeOf(newFilePath)
-            print(size)
             return newFilePath
         }else
         {
             self.rootController.showAlert(NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"), msg: "")
             return nil
+        }
+    }
+    
+    //Post Share
+    override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> (Bool,String?) {
+        
+        baseShareModel.shareContent = getShareContent()
+        baseShareModel.shareType = ShareThingType.shareFilm.rawValue
+        postShare(baseShareModel, tags: themes)
+        return (true,nil)
+    }
+    
+    private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
+    {
+        let filmModel = FilmModel(json: newShare.shareContent)
+        self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
+        self.fileService.sendFileToAliOSS(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
+            self.rootController.hideToastActivity()
+            ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+            if let fk = fileKey
+            {
+                filmModel.film = fk.fileId
+                newShare.shareContent = filmModel.toJsonString()
+                let newShareTask = NewShareTask()
+                newShareTask.id = taskId
+                newShareTask.shareTags = tags
+                newShareTask.share = newShare
+                newShareTask.sendFileKey = fk
+                newShareTask.saveModel()
+            }
+        }
+    }
+    
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
+        {
+            self.shareService.postNewShare(task.share, tags: task.shareTags ,callback: { (shareId) -> Void in
+                if shareId != nil
+                {
+                    self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
+                        if isSuc
+                        {
+                            self.rootController.showToast(NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
+                            NewShareTask.deleteObjectArray([task])
+                        }else
+                        {
+                            self.rootController.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                        }
+                    }
+                }else
+                {
+                    self.rootController.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                }
+            })
+        }
+    }
+    
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
+        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
+        {
+            self.rootController.showToast( NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
+            NewShareTask.deleteObjectArray([task])
         }
     }
     

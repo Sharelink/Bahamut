@@ -143,6 +143,11 @@ POST_SHARE_SUC = "分享成功！";
 SEND_FILM_FAILED = "上传视频失败";
 POST_SHARE_FAILED = "分享失败！";
 
+NO_URL_IN_PASTE_BOARD = "剪切板没有链接";
+
+SHARE_URL_SUCCESS = "分享成功";
+SHARE_URL_ERROR = "分享链接错误";
+
 SHARING = "分享中";
 SHARE_SUCCESSED = "成功分享！";
 SHARE_FAILED = "分享失败...";

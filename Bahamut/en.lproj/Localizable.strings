@@ -143,6 +143,11 @@ POST_SHARE_SUC = "Post Share Success";
 SEND_FILM_FAILED = "Send File Failed";
 POST_SHARE_FAILED = "Post Share Error";
 
+NO_URL_IN_PASTE_BOARD = "No Url In Paste Board";
+
+SHARE_URL_SUCCESS = "Share Url Success";
+SHARE_URL_ERROR = "Share Url Error";
+
 SHARING = "Sharing";
 SHARE_SUCCESSED = "Share Successed";
 SHARE_FAILED = "Share Failed";

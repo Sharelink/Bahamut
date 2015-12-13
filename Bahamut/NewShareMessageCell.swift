@@ -28,9 +28,12 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
         }
     }
     
+    var shareMessage:String{
+        return self.shareMessageTextView.text ?? ""
+    }
+    
     func textViewDidChange(textView: UITextView)
     {
-        shareModel.message = textView.text
         updateMsgTxtPlaceHolder()
     }
     
@@ -47,7 +50,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
     }
     
     private func initReshareMessageCell(){
-        self.shareMessageTextView.text = shareModel.message
+        self.shareMessageTextView.text = rootController.reShareModel.message
         updateMsgTxtPlaceHolder()
     }
     
