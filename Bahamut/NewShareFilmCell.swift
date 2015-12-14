@@ -15,6 +15,11 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
 {
     static let thumbQuality:CGFloat = 0.5
     static let reuseableId = "NewShareFilmCell"
+    
+    override func getCellHeight() -> CGFloat {
+        return 211
+    }
+    
     @IBOutlet weak var shareContentContainer: UIShareContent!
     
     @IBOutlet weak var recordFilmBtn: UIButton!
@@ -41,16 +46,6 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     @IBAction func recordFilm(sender: AnyObject) {
         showQuPaiCamera()
         MobClick.event("RecordVideoButton")
-    }
-    
-    private func getShareContent() -> String? {
-        if String.isNullOrWhiteSpace(self.shareContentContainer.share.shareContent)
-        {
-            let filmModel = FilmModel()
-            filmModel.film = FilmAssetsConstants.SharelinkFilm
-            return filmModel.toJsonString()
-        }
-        return self.shareContentContainer.share.shareContent
     }
     
     //MARK: share content
@@ -148,7 +143,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if PersistentFileHelper.moveFile(videoSourcePath, destinationPath: newFilePath)
         {
-            self.rootController.showCheckMark(NSLocalizedString("VIDEO_SAVED", comment: "Video Saved") )
+            self.rootController.showToast(NSLocalizedString("VIDEO_SAVED", comment: "Video Saved") )
             return newFilePath
         }else
         {
@@ -158,12 +153,28 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     //Post Share
-    override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> (Bool,String?) {
-        
-        baseShareModel.shareContent = getShareContent()
-        baseShareModel.shareType = ShareThingType.shareFilm.rawValue
-        postShare(baseShareModel, tags: themes)
-        return (true,nil)
+    
+    //MARK: new share task entity
+    class NewFilmShareTask : BahamutObject
+    {
+        var id:String!
+        var share:ShareThing!
+        var shareTags:[SharelinkTheme]!
+        var sendFileKey:FileAccessInfo!
+    }
+    
+    override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
+        if String.isNullOrWhiteSpace(self.shareContentContainer.share.shareContent)
+        {
+            self.rootController.showToast(NSLocalizedString("NO_FILM_SELECTED", comment: ""))
+            return false
+        }else
+        {
+            baseShareModel.shareContent = self.shareContentContainer.share.shareContent
+            baseShareModel.shareType = ShareThingType.shareFilm.rawValue
+            postShare(baseShareModel, tags: themes)
+            return true
+        }
     }
     
     private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
@@ -177,7 +188,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             {
                 filmModel.film = fk.fileId
                 newShare.shareContent = filmModel.toJsonString()
-                let newShareTask = NewShareTask()
+                let newShareTask = NewFilmShareTask()
                 newShareTask.id = taskId
                 newShareTask.shareTags = tags
                 newShareTask.share = newShare
@@ -188,7 +199,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     func taskCompleted(taskIdentifier: String, result: AnyObject!) {
-        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
+        if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
             self.shareService.postNewShare(task.share, tags: task.shareTags ,callback: { (shareId) -> Void in
                 if shareId != nil
@@ -196,26 +207,26 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showToast(NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
-                            NewShareTask.deleteObjectArray([task])
+                            self.rootController.showCheckMark(NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
+                            NewFilmShareTask.deleteObjectArray([task])
                         }else
                         {
-                            self.rootController.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                            self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
                         }
                     }
                 }else
                 {
-                    self.rootController.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                    self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
                 }
             })
         }
     }
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
-        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
+        if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
             self.rootController.showToast( NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
-            NewShareTask.deleteObjectArray([task])
+            NewFilmShareTask.deleteObjectArray([task])
         }
     }
     

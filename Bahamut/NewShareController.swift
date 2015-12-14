@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
+import MJRefresh
 
 //MARK: ShareService extension
 extension ShareService
@@ -27,16 +29,6 @@ extension ShareService
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
     }
-}
-
-//MARK: new share task entity
-
-class NewShareTask : BahamutObject
-{
-    var id:String!
-    var share:ShareThing!
-    var shareTags:[SharelinkTheme]!
-    var sendFileKey:FileAccessInfo!
 }
 
 //MARK: NewShareCellBase
@@ -76,11 +68,15 @@ class NewShareCellBase : UITableViewCell
 //MARK: ShareContentCellBase
 class ShareContentCellBase:NewShareCellBase
 {
-    func share(baseShareModel:ShareThing,themes:[SharelinkTheme]) -> (canShare:Bool,msg:String?)
+    func share(baseShareModel:ShareThing,themes:[SharelinkTheme]) -> Bool
     {
-        return (false,nil)
+        return false
     }
     
+    func getCellHeight()->CGFloat
+    {
+        return UITableViewAutomaticDimension
+    }
 }
 
 //MARK:NewShareController
@@ -111,6 +107,9 @@ class NewShareController: UITableViewController
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.changeNavigationBarColor()
+        self.initShareType()
+        self.tableView.estimatedRowHeight = tableView.rowHeight
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
     }
     
@@ -151,6 +150,60 @@ class NewShareController: UITableViewController
         shareMessageCell.clear()
         shareThemeCell.clear()
         shareContentCell.clear()
+    }
+    
+    //MARK: share type
+    func initShareType(){
+        self.shareCellReuseIdIndex = 0
+        let header = MJRefreshGifHeader(){
+            self.nextShareType()
+            self.tableView.mj_header.endRefreshing()
+        }
+        self.tableView.mj_header = header
+        header.lastUpdatedTimeLabel?.hidden = true
+        refreshHeaderTitle()
+    }
+    
+    func refreshHeaderTitle()
+    {
+        let cellConfig = NewShareCellConfig.CellConfig[self.nextShareTypeIndex()]
+        let header = self.tableView.mj_header as! MJRefreshGifHeader
+        let format = NSLocalizedString("NEW_SHARE_PULL_SWITCH_TO", comment: "")
+        let msg = String(format: format, cellConfig.headerTitle)
+        header.setTitle(msg, forState: .Idle)
+        header.setTitle(msg, forState: .Pulling)
+        header.setTitle(msg, forState: .Refreshing)
+        let image = UIImage(named: cellConfig.headerImg)!
+        header.setImages([image], forState: .Idle)
+    }
+    
+    func nextShareTypeIndex() -> Int{
+        let index = (self.shareCellReuseIdIndex + 1) % NewShareCellConfig.numberOfNewShareCellType
+        return index
+    }
+    
+    func nextShareType()
+    {
+        let index = nextShareTypeIndex()
+        selectShareType(index)
+    }
+    
+    func selectShareType(index:Int)
+    {
+        if index >= 0 && index < NewShareCellConfig.numberOfNewShareCellType
+        {
+            self.shareCellReuseIdIndex = index
+            refreshHeaderTitle()
+            tableView.reloadData()
+        }
+    }
+    
+    func selectShareTypeByCellReuseId(typeCellReuseId:String)
+    {
+        if let index = NewShareCellConfig.indexOfReuseId(typeCellReuseId)
+        {
+            selectShareType(index)
+        }
     }
     
     //MARK: post share
@@ -206,14 +259,15 @@ class NewShareController: UITableViewController
         newShare.shareTime = NSDate().toDateTimeString()
         let themes = self.shareThemeCell.selectedThemes
         newShare.reshareable = themes.contains{$0.isPrivateTag()} ? "false" : "true"
-        let result = shareContentCell.share(newShare,themes: themes)
-        if result.canShare
+        let canPost = shareContentCell.share(newShare,themes: themes)
+        if canPost
         {
             clear()
-        }
-        if let shareResultMessage = result.msg
+        }else
         {
-            self.showToast(shareResultMessage)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), atScrollPosition: .None, animated: true)
+            shareContentCell.shakeAnimationForView(7)
+            SystemSoundHelper.vibrate()
         }
     }
 
@@ -226,9 +280,9 @@ class NewShareController: UITableViewController
         return 3
     }
     
+    var rowHights:[CGFloat] = [98,UITableViewAutomaticDimension,168]
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let rowHights = [98,211,168]
-        return CGFloat(rowHights[indexPath.row])
+        return rowHights[indexPath.row]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -239,7 +293,8 @@ class NewShareController: UITableViewController
             cell = self.shareMessageCell
         }else if indexPath.row == 1
         {
-            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.cellForShareCellReuseId[self.shareCellReuseIdIndex],forIndexPath: indexPath) as! ShareContentCellBase
+            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.CellConfig[self.shareCellReuseIdIndex].cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
+            self.rowHights[1] = self.shareContentCell.getCellHeight()
             cell = self.shareContentCell
         }else
         {

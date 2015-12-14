@@ -12,30 +12,56 @@ import EVReflection
 class UrlContentView:UIView
 {
     var model:UrlContentModel!
-    var titleLable:UITextView!
+    var titleLable:UILabel!
     var linkImg:UIImageView!
-    func refresh()
+    var bgImg:UIImageView!
+    
+    private func initViews()
     {
-        if linkImg == nil
+        if bgImg == nil
         {
-            linkImg = UIImageView()
-            linkImg.image = UIImage(named: "link")
-            self.addSubview(linkImg)
+            bgImg = UIImageView(image: UIImage(named: "webPageBg"))
+            self.addSubview(bgImg)
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapTitleLable:"))
+            self.layer.borderColor = UIColor.lightGrayColor().CGColor
+            self.layer.borderWidth = 1
         }
+        
         if titleLable == nil
         {
-            titleLable = UITextView()
-            titleLable.editable = false
-            titleLable.userInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapTitleLable:"))
+            titleLable = UILabel()
+            titleLable.textAlignment = .Left
+            titleLable.numberOfLines = 2
+            titleLable.font = UIFont(name: "System", size: 23)
+            titleLable.backgroundColor = UIColor.whiteColor()
+            titleLable.textColor = UIColor.darkGrayColor()
             self.addSubview(titleLable)
         }
-        linkImg.frame = CGRectMake(0, 0, 128, 128)
+        
+        if linkImg == nil
+        {
+            linkImg = UIImageView(image: UIImage(named: "link"))
+            linkImg.userInteractionEnabled = true
+            self.addSubview(linkImg)
+        }
+    }
+    
+    func refresh()
+    {
+        initViews()
+        bgImg.frame = self.bounds
+        linkImg.frame = CGRectMake(0, 0, 48, 48)
         linkImg.center = self.center
-        titleLable.text = "🔗\(model.title)"
+        
+        if String.isNullOrWhiteSpace(model.title)
+        {
+            titleLable.text = NSLocalizedString("EMPTY_TITLE", comment: "")
+        }else
+        {
+            titleLable.text = "\(model.title)"
+        }
         titleLable.sizeToFit()
-        titleLable.frame = CGRectMake(0, 0, self.bounds.width, titleLable.frame.height)
-        self.setNeedsLayout()
+        titleLable.frame = CGRectMake(0, 128, self.bounds.width, titleLable.frame.height)
     }
     
     func onTapTitleLable(ges:UITapGestureRecognizer)

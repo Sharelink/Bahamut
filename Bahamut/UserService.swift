@@ -97,6 +97,9 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 self.myUserModel = newestUser
                 self.refreshMyLinkedUsers()
                 self.refreshLinkMessage()
+            }else
+            {
+                self.initLinkedUsers()
             }
         })
     }

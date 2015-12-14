@@ -134,6 +134,18 @@ TAG_LIMIT_MESSAGE = "不能再添加主题了!";
 TAG_ALREADY_SELECTED = "主题已添加!";
 TAG_IS_EMPTY = "输入一个主题!";
 
+NEW_SHARE_PULL_SWITCH_TO = "下拉分享%@";
+SHARE_HEADER_TITLE_VIDEO = "小视频";
+SHARE_HEADER_TITLE_LINK = "链接";
+SHARE_HEADER_TITLE_TEXT = "文字";
+
+EMPTY_TITLE = "无标题链接";
+LOAD_URL_TITLE_ERROR = "加载标题失败";
+LINK_URL_NOT_READY = "链接没有准备好";
+
+LINK_CANT_NULL = "链接不能为空";
+INVALID_URL = "非法链接";
+
 FILES_WAS_DELETED = "%@ 个文件已经删除";
 NO_SELECT_TAG_TIPS = "没有关联主题，只有关注了你的人才能看到这次分享，是否继续？";
 SENDING_FILM = "视频发送中";

@@ -66,6 +66,25 @@ extension UIViewController:MBProgressHUDDelegate
         
     }
     
+    func showCrossMark(msg:String)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let HUD = MBProgressHUD(view: self.navigationController!.view)
+            self.navigationController?.view.addSubview(HUD)
+            
+            HUD.customView = UIImageView(image: UIImage(named: "Crossmark"))
+            
+            // Set custom view mode
+            HUD.mode = MBProgressHUDMode.CustomView
+            
+            HUD.delegate = self
+            HUD.labelText = msg
+            HUD.square = true
+            HUD.show(true)
+            HUD.hide(true, afterDelay: 1)
+        }
+    }
+    
     func showCheckMark(msg:String)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

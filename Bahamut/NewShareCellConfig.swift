@@ -9,8 +9,19 @@
 import Foundation
 class NewShareCellConfig
 {
-    static let cellForShareCellReuseId =
+
+    static func indexOfReuseId(cellReuseId:String) -> Int?{
+        return CellConfig.indexOf{$0.cellReuseId == cellReuseId}
+    }
+    
+    static var numberOfNewShareCellType:Int{
+        return CellConfig.count
+    }
+    
+    static let CellConfig =
     [
-        "NewShareFilmCell","NewShareUrlCell"
+        (cellReuseId:"NewShareFilmCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_VIDEO", comment: ""),headerImg:"videoHeader"),
+        (cellReuseId:"NewShareTextCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_TEXT", comment: ""),headerImg:"textHeader"),
+        (cellReuseId:"NewShareUrlCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_LINK", comment: ""),headerImg:"urlHeader")
     ]
 }
