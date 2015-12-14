@@ -480,17 +480,34 @@
                                     <action selector="mailToBahamutSharelink:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="C1l-iE-lal"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这个App目前正处于初级阶段,如果你对这个项目感兴趣,想加入开发或提供相关帮助，请联系我。主题请注明是Sharelink，谢谢。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4se-de-oKX">
+                                <rect key="frame" x="20" y="110" width="560" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:cplover@live.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIb-uQ-3IV">
+                                <rect key="frame" x="20" y="159" width="180" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="4se-de-oKX" secondAttribute="leading" id="2Sr-tZ-gzF"/>
+                            <constraint firstItem="rIb-uQ-3IV" firstAttribute="leading" secondItem="4se-de-oKX" secondAttribute="leading" id="3mo-UO-iCD"/>
                             <constraint firstItem="bs0-wW-q1N" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="leading" id="Cuf-5o-smh"/>
                             <constraint firstItem="vKa-35-R8o" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="top" id="MRW-zX-npJ"/>
                             <constraint firstItem="cF2-93-3Ha" firstAttribute="top" secondItem="fdB-6Y-082" secondAttribute="bottom" constant="8" symbolic="YES" id="QJf-dC-84a"/>
                             <constraint firstItem="zGU-UY-XPh" firstAttribute="bottom" secondItem="cF2-93-3Ha" secondAttribute="bottom" id="VfQ-Xi-sFT"/>
+                            <constraint firstItem="rIb-uQ-3IV" firstAttribute="top" secondItem="4se-de-oKX" secondAttribute="bottom" constant="8" symbolic="YES" id="bkJ-kd-vYO"/>
                             <constraint firstItem="cF2-93-3Ha" firstAttribute="leading" secondItem="CMX-fs-zz6" secondAttribute="leadingMargin" id="bmm-OD-o2r"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4se-de-oKX" secondAttribute="trailing" id="eEy-dm-AwW"/>
                             <constraint firstItem="bs0-wW-q1N" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="bottom" constant="8" symbolic="YES" id="jvW-Ub-4ff"/>
                             <constraint firstItem="zGU-UY-XPh" firstAttribute="leading" secondItem="vKa-35-R8o" secondAttribute="leading" id="tAY-sC-ZIq"/>
                             <constraint firstItem="vKa-35-R8o" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="trailing" constant="8" symbolic="YES" id="tgr-8s-Roo"/>
+                            <constraint firstItem="4se-de-oKX" firstAttribute="top" secondItem="bs0-wW-q1N" secondAttribute="bottom" constant="8" id="vRQ-uc-5Qa"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

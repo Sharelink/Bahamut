@@ -323,6 +323,30 @@ class ShareThingsListController: UITableViewController
         userService.showMyDetailView(self)
     }
     
+    //MARK: scroll
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        for cell in tableView.visibleCells
+        {
+            if let shareThingCell = cell as? UIShareThing
+            {
+                shareThingCell.updateContent()
+            }
+        }
+    }
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate
+        {
+            for cell in tableView.visibleCells
+            {
+                if let shareThingCell = cell as? UIShareThing
+                {
+                    shareThingCell.updateContent()
+                }
+            }
+        }
+    }
+    
     //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {

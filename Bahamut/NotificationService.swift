@@ -43,11 +43,6 @@ class NotificationService: ServiceProtocol
         openVibration = isOpen
     }
     
-    func playVibration()
-    {
-        AudioServicesPlayAlertSound(1011)
-    }
-    
     func playReceivedMessageSound()
     {
         if self.isMute == false

@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
+import MJRefresh
 
 //MARK: ShareService extension
 extension ShareService
@@ -16,26 +18,17 @@ extension ShareService
     {
         let controller = NewShareController.instanceFromStoryBoard()
         controller.isReshare = true
-        controller.shareModel = ShareThing()
-        controller.shareModel.pShareId = reShareModel.shareId
-        controller.shareModel.shareId = reShareModel.shareId
-        controller.shareModel.shareContent = reShareModel.shareContent
-        controller.shareModel.shareType = reShareModel.shareType
-        controller.shareModel.forTags = reShareModel.forTags
-        controller.shareModel.message = reShareModel.message
+        let reshare = ShareThing()
+        reshare.pShareId = reShareModel.shareId
+        reshare.shareId = reShareModel.shareId
+        reshare.shareContent = reShareModel.shareContent
+        reshare.shareType = reShareModel.shareType
+        reshare.forTags = reShareModel.forTags
+        reshare.message = reShareModel.message
+        controller.reShareModel = reshare
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
     }
-}
-
-//MARK: new share task entity
-
-class NewShareTask : BahamutObject
-{
-    var id:String!
-    var share:ShareThing!
-    var shareTags:[SharelinkTheme]!
-    var sendFileKey:FileAccessInfo!
 }
 
 //MARK: NewShareCellBase
@@ -56,9 +49,7 @@ class NewShareCellBase : UITableViewCell
     var isReshare:Bool{
         return rootController.isReshare
     }
-    var shareModel:ShareThing!{
-        return rootController.shareModel
-    }
+    
     var rootView:UIView!{
         return rootController?.view
     }
@@ -74,26 +65,41 @@ class NewShareCellBase : UITableViewCell
     }
 }
 
+//MARK: ShareContentCellBase
+class ShareContentCellBase:NewShareCellBase
+{
+    func share(baseShareModel:ShareThing,themes:[SharelinkTheme]) -> Bool
+    {
+        return false
+    }
+    
+    func getCellHeight()->CGFloat
+    {
+        return UITableViewAutomaticDimension
+    }
+}
+
 //MARK:NewShareController
-class NewShareController: UITableViewController,ProgressTaskDelegate
+class NewShareController: UITableViewController
 {
     var fileService:FileService!
     var shareService:ShareService!
     var userService:UserService!
     
+    //Reshare
     var isReshare:Bool = false
-    var shareModel:ShareThing! = {
-        let st = ShareThing()
-        st.shareType = ShareThingType.shareFilm.rawValue
-        return st
-    }()
+    var reShareModel:ShareThing!
+    
+    //New Share
+    var shareCellReuseIdIndex:Int = 0
     
     private var userGuide:UserGuide!
-
+    
     var shareMessageCell:NewShareMessageCell!
-    var shareContentCell:NewShareFilmCell!
+    var shareContentCell:ShareContentCellBase!
     var shareThemeCell:NewShareThemeCell!
     
+    //MARK: life process
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUserGuide()
@@ -101,6 +107,9 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.changeNavigationBarColor()
+        self.initShareType()
+        self.tableView.estimatedRowHeight = tableView.rowHeight
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
     }
     
@@ -134,28 +143,73 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "New")
         self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
     }
-
-    func resetShare(type:String)
-    {
-        shareModel.shareType = type
-        shareModel.message = ""
-        shareModel.shareContent = ""
-    }
     
-    //MARK: post new share
-    
+    //MARK: clear view controller
     func clear()
     {
-        shareModel.message = ""
-        shareModel.shareContent = ""
         shareMessageCell.clear()
         shareThemeCell.clear()
         shareContentCell.clear()
     }
     
+    //MARK: share type
+    func initShareType(){
+        self.shareCellReuseIdIndex = 0
+        let header = MJRefreshGifHeader(){
+            self.nextShareType()
+            self.tableView.mj_header.endRefreshing()
+        }
+        self.tableView.mj_header = header
+        header.lastUpdatedTimeLabel?.hidden = true
+        refreshHeaderTitle()
+    }
+    
+    func refreshHeaderTitle()
+    {
+        let cellConfig = NewShareCellConfig.CellConfig[self.nextShareTypeIndex()]
+        let header = self.tableView.mj_header as! MJRefreshGifHeader
+        let format = NSLocalizedString("NEW_SHARE_PULL_SWITCH_TO", comment: "")
+        let msg = String(format: format, cellConfig.headerTitle)
+        header.setTitle(msg, forState: .Idle)
+        header.setTitle(msg, forState: .Pulling)
+        header.setTitle(msg, forState: .Refreshing)
+        let image = UIImage(named: cellConfig.headerImg)!
+        header.setImages([image], forState: .Idle)
+    }
+    
+    func nextShareTypeIndex() -> Int{
+        let index = (self.shareCellReuseIdIndex + 1) % NewShareCellConfig.numberOfNewShareCellType
+        return index
+    }
+    
+    func nextShareType()
+    {
+        let index = nextShareTypeIndex()
+        selectShareType(index)
+    }
+    
+    func selectShareType(index:Int)
+    {
+        if index >= 0 && index < NewShareCellConfig.numberOfNewShareCellType
+        {
+            self.shareCellReuseIdIndex = index
+            refreshHeaderTitle()
+            tableView.reloadData()
+        }
+    }
+    
+    func selectShareTypeByCellReuseId(typeCellReuseId:String)
+    {
+        if let index = NewShareCellConfig.indexOfReuseId(typeCellReuseId)
+        {
+            selectShareType(index)
+        }
+    }
+    
+    //MARK: post share
     @IBAction func share()
     {
-        if self.shareThemeCell.selectedThemeController.tags == nil || self.shareThemeCell.selectedThemeController.tags.count == 0
+        if self.shareThemeCell.selectedThemes.count == 0
         {
             let alert = UIAlertController(title: NSLocalizedString("SHARE", comment:  ""), message: NSLocalizedString("NO_SELECT_TAG_TIPS", comment:  ""),preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("CONTINUE", comment:  ""), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
@@ -170,11 +224,11 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         MobClick.event("PostNew")
     }
     
+    //MARK: reshare
     private func reshare()
     {
-        let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTheme]()
         self.makeToastActivityWithMessage("",message: NSLocalizedString("SHARING", comment: "Sharing"))
-        self.shareService.reshare(self.shareModel.shareId, message: self.shareMessageCell.shareMessageTextView.text, tags: tags){ isSuc,msg in
+        self.shareService.reshare(self.reShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
             self.hideToastActivity()
             var alert:UIAlertController!
             if isSuc{
@@ -193,87 +247,30 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         }
     }
     
+    //MARK: new share
     private func prepareShare()
     {
-        if let shareContent = shareModel.shareContent
+        let newShare = ShareThing()
+        newShare.message = self.shareMessageCell.shareMessage
+        let me = userService.myUserModel
+        newShare.userId = me.userId
+        newShare.userNick = me.nickName
+        newShare.avatarId = me.avatarId
+        newShare.shareTime = NSDate().toDateTimeString()
+        let themes = self.shareThemeCell.selectedThemes
+        newShare.reshareable = themes.contains{$0.isPrivateTag()} ? "false" : "true"
+        let canPost = shareContentCell.share(newShare,themes: themes)
+        if canPost
         {
-            let newShare = ShareThing()
-            newShare.message = self.shareMessageCell.shareMessageTextView.text
-            newShare.shareType = ShareThingType.shareFilm.rawValue
-            newShare.shareContent = shareContent
-            let me = userService.myUserModel
-            newShare.userId = me.userId
-            newShare.userNick = me.nickName
-            newShare.avatarId = me.avatarId
-            newShare.shareTime = NSDate().toDateTimeString()
-            newShare.reshareable = "true"
             clear()
-            
-            self.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
-                let tags = self.shareThemeCell.selectedThemeController.tags ?? [SharelinkTheme]()
-                self.postShare(newShare,tags:tags)
-            }
-            
         }else
         {
-            self.showToast(NSLocalizedString("NO_FILM_SELECTED", comment: "must select or capture a film!"))
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), atScrollPosition: .None, animated: true)
+            shareContentCell.shakeAnimationForView(7)
+            SystemSoundHelper.vibrate()
         }
     }
-    
-    private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
-    {
-        let filmModel = FilmModel(json: newShare.shareContent)
-        self.fileService.sendFileToAliOSS(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
-            self.hideToastActivity()
-            ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
-            if let fk = fileKey
-            {
-                filmModel.film = fk.fileId
-                newShare.shareContent = filmModel.toJsonString()
-                let newShareTask = NewShareTask()
-                newShareTask.id = taskId
-                newShareTask.shareTags = tags
-                newShareTask.share = newShare
-                newShareTask.sendFileKey = fk
-                newShareTask.saveModel()
-            }
-        }
-    }
-    
-    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
-        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
-        {
-            self.shareService.postNewShare(task.share, tags: task.shareTags ,callback: { (shareId) -> Void in
-                if shareId != nil
-                {
-                    self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
-                        if isSuc
-                        {
-                            self.showToast(NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
-                            NewShareTask.deleteObjectArray([task])
-                        }else
-                        {
-                            self.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
-                        }
-                    }
-                }else
-                {
-                    self.showToast(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
-                }
-            })
-        }
-    }
-    
-    func taskFailed(taskIdentifier: String, result: AnyObject!) {
-        if let task = PersistentManager.sharedInstance.getModel(NewShareTask.self, idValue: taskIdentifier)
-        {
-            self.showToast( NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
-            NewShareTask.deleteObjectArray([task])
-        }
-    }
-    
+
     //MARK: table view delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -283,9 +280,9 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
         return 3
     }
     
+    var rowHights:[CGFloat] = [98,UITableViewAutomaticDimension,168]
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let rowHights = [98,211,168]
-        return CGFloat(rowHights[indexPath.row])
+        return rowHights[indexPath.row]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -296,7 +293,8 @@ class NewShareController: UITableViewController,ProgressTaskDelegate
             cell = self.shareMessageCell
         }else if indexPath.row == 1
         {
-            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareFilmCell.reuseableId,forIndexPath: indexPath) as! NewShareFilmCell
+            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.CellConfig[self.shareCellReuseIdIndex].cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
+            self.rowHights[1] = self.shareContentCell.getCellHeight()
             cell = self.shareContentCell
         }else
         {

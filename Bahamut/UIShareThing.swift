@@ -51,7 +51,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
     @IBOutlet weak var themeLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            avatarImageView.layer.cornerRadius = 3
+            avatarImageView.layer.cornerRadius = 7
             avatarImageView.userInteractionEnabled = true
             avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }
@@ -192,12 +192,12 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         shareDesc.text = shareModel.message
         updateBadge()
         updateVote()
-        updateContent()
         updateSending()
         updateTheme()
         updateAvatar(self.avatarImageView)
         updateUserNoteName(self.userNicknameLabel)
         updateTime(self.shareDateTime)
+        updateContent()
         self.layoutIfNeeded()
     }
     
@@ -266,9 +266,11 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         }
     }
     
-    private func updateContent()
+    func updateContent()
     {
-        shareContent.update()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.shareContent.update()
+        }
     }
     
     func showAvatar(_:UIGestureRecognizer)

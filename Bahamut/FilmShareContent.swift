@@ -38,6 +38,7 @@ class FilmContent: UIShareContentDelegate
                 mediaPlayer.filePath = film
             }
         }
+        mediaPlayer.refreshUI()
     }
     
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView

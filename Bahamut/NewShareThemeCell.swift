@@ -60,7 +60,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
     private func initReshareThemeCell()
     {
         //filter share's tag without poster's personal tag
-        let tagDatas = shareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
+        let tagDatas = rootController.reShareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
         for m in tagDatas
         {
             let tag = SharelinkTheme()
@@ -98,7 +98,11 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
     }
     
     //MARK: seletectd tags
-    var selectedThemeController:ThemeCollectionViewController!{
+    var selectedThemes:[SharelinkTheme]{
+        return selectedThemeController.tags ?? [SharelinkTheme]()
+    }
+    
+    private var selectedThemeController:ThemeCollectionViewController!{
         didSet{
             selectedThemeController.delegate = self
         }

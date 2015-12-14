@@ -134,6 +134,16 @@ TAG_LIMIT_MESSAGE = "Can't not add more theme!";
 TAG_ALREADY_SELECTED = "Theme has been added!";
 TAG_IS_EMPTY = "Type a theme please!";
 
+NEW_SHARE_PULL_SWITCH_TO = "Pull To Share %@";
+SHARE_HEADER_TITLE_VIDEO = "Video";
+SHARE_HEADER_TITLE_LINK = "Link";
+SHARE_HEADER_TITLE_TEXT = "Words";
+
+LOAD_URL_TITLE_ERROR = "Load Title Error";
+
+LINK_CANT_NULL = "Link Can't Not Be Empty";
+INVALID_URL = "Invalid Link";
+
 FILES_WAS_DELETED = "%@ files deleted";
 NO_SELECT_TAG_TIPS = "No theme added to share,only the sharelinkers who focus on you can see this share";
 SENDING_FILM = "Sending Film";
@@ -142,6 +152,13 @@ SEND_FILM_SUC = "Send Film Success";
 POST_SHARE_SUC = "Post Share Success";
 SEND_FILM_FAILED = "Send File Failed";
 POST_SHARE_FAILED = "Post Share Error";
+
+EMPTY_TITLE = "Empty Title";
+NO_URL_IN_PASTE_BOARD = "No Url In Paste Board";
+LINK_URL_NOT_READY = "Link Not Ready For Share";
+
+SHARE_URL_SUCCESS = "Share Url Success";
+SHARE_URL_ERROR = "Share Url Error";
 
 SHARING = "Sharing";
 SHARE_SUCCESSED = "Share Successed";

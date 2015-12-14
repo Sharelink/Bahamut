@@ -131,7 +131,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
                     refreshBadgeAt(MainViewTabBarController.ShareTabItemBadgeIndex)
                 }else
                 {
-                    notificationService.playVibration()
+                    SystemSoundHelper.vibrate()
                 }
                 
             }
