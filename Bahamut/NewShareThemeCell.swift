@@ -125,7 +125,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
         self.rootView.addSubview(myThemeContainer)
         myThemeContainer.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, selectedThemeContainer.bounds.width, 0)
         self.myThemeContainer.addSubview(myThemeController.view)
-        let height = CGFloat(self.frame.height)
+        let height = CGFloat(113)
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.3)
         myThemeContainer.frame = CGRectMake(selectedThemeContainer.frame.origin.x , self.frame.origin.y - height ,self.selectedThemeContainer.bounds.width, height)

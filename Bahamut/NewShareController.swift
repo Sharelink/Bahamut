@@ -280,7 +280,7 @@ class NewShareController: UITableViewController
         return 3
     }
     
-    var rowHights:[CGFloat] = [98,UITableViewAutomaticDimension,168]
+    var rowHights:[CGFloat] = [128,UITableViewAutomaticDimension,168]
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return rowHights[indexPath.row]
     }
