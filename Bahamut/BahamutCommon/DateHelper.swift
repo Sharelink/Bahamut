@@ -141,6 +141,41 @@ public extension NSDate
 
 public extension NSDate
 {
+    var totalSecondsSince1970:Int{
+        return Int(timeIntervalSince1970)
+    }
+    
+    var totalMinutesSince1970:Int{
+        return totalSecondsSince1970 / 60
+    }
+    
+    var totalHoursSince1970:Int{
+        return totalMinutesSince1970 / 60
+    }
+    
+    var totalDaysSince1970:Int{
+        return totalHoursSince1970 / 24
+    }
+    
+    var totalSecondsSinceNow:Int{
+        return Int(timeIntervalSinceNow)
+    }
+    
+    var totalMinutesSinceNow:Int{
+        return totalSecondsSinceNow / 60
+    }
+    
+    var totalHoursSinceNow:Int{
+        return totalMinutesSinceNow / 60
+    }
+    
+    var totalDaysSinceNow:Int{
+        return totalHoursSinceNow / 24
+    }
+}
+
+public extension NSDate
+{
     func addYears(years:Int) -> NSDate
     {
         return addDays(years * 365)
