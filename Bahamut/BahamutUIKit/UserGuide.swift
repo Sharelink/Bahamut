@@ -71,7 +71,7 @@ public class UserGuide:NSObject
         }
     }
     
-    public func showGuide()
+    public func showGuide() -> Bool
     {
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
@@ -79,10 +79,12 @@ public class UserGuide:NSObject
             self.viewController.presentViewController(imgController, animated: true, completion: {
                 self.showNextImage()
             })
+            return true
         }
+        return false
     }
     
-    public func showGuideControllerPresentFirstTime()
+    public func showGuideControllerPresentFirstTime()  -> Bool
     {
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
@@ -91,11 +93,12 @@ public class UserGuide:NSObject
             if !showed
             {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: key)
-                showGuide()
+                return showGuide()
             }else
             {
                 deInitUserGuide()
             }
         }
+        return false
     }
 }
