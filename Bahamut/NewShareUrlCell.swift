@@ -14,6 +14,10 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
     static let reuseId = "NewShareUrlCell"
     
     override func getCellHeight() -> CGFloat {
+        if isReshare
+        {
+            return 77
+        }
         return 128
     }
     

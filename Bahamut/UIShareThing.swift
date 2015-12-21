@@ -9,7 +9,7 @@
 import UIKit
 import ChatFramework
 
-class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
+class UIShareThing: UIShareCell
 {
     static let ShareThingCellIdentifier = "ShareThing"
     struct Constants
@@ -68,28 +68,17 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         }
     }
     @IBOutlet weak var shareDateTime: UILabel!
-    @IBOutlet weak var shareContent: UIShareContent!{
+    @IBOutlet weak var contentWidth: NSLayoutConstraint!{
         didSet{
-            shareContent.setupContentViewDelegate = self
-            var gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingLeft:")
-            gesture.direction = UISwipeGestureRecognizerDirection.Left
-            self.addGestureRecognizer(gesture)
-            gesture = UISwipeGestureRecognizer(target: self, action: "swipeShareThingRight:")
-            gesture.direction = UISwipeGestureRecognizerDirection.Right
-            self.addGestureRecognizer(gesture)
         }
     }
-    
-    func setupContentView(contentView: UIView, share: ShareThing) {
-        if share.isShareFilm()
-        {
-            if let player = contentView as? ShareLinkFilmView
-            {
-                player.autoLoad = false
-                player.autoPlay = true
-                player.playerController.fillMode = AVLayerVideoGravityResizeAspect
-                player.fileFetcher = rootController.fileService.getFileFetcherOfFileId(.Video)
-            }
+    @IBOutlet weak var contentHeight: NSLayoutConstraint!{
+        didSet{
+        }
+    }
+    @IBOutlet weak var shareContent: UIShareContent!{
+        didSet{
+            shareContent.shareCell = self
         }
     }
     
@@ -104,16 +93,6 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         }
     }
     @IBOutlet weak var shareDesc: UILabel!
-    
-    func swipeShareThingRight(gesture:UISwipeGestureRecognizer)
-    {
-        NSLog("swipe right")
-    }
-    
-    func swipeShareThingLeft(gesture:UISwipeGestureRecognizer)
-    {
-        NSLog("swipe left")
-    }
     
     private static var voteOriginColor:UIColor!
     private static var voteButtonVotedColor:UIColor!
@@ -190,6 +169,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
     override func update()
     {
         shareDesc.text = shareModel.message
+        self.backgroundColor = UIColor.clearColor()
         updateBadge()
         updateVote()
         updateSending()
@@ -198,7 +178,6 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
         updateUserNoteName(self.userNicknameLabel)
         updateTime(self.shareDateTime)
         updateContent()
-        self.layoutIfNeeded()
     }
     
     private func updateTheme()
@@ -213,7 +192,7 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
             themeLabel.text = tag.getShowName()
         }else
         {
-            themeLabel.text = ""
+            themeLabel.text = "Sharelink"
         }
     }
     
@@ -268,8 +247,16 @@ class UIShareThing: UIShareCell,UIShareContentViewSetupDelegate
     
     func updateContent()
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.shareContent.update()
+        updateContantFrame()
+        self.shareContent.update()
+    }
+    
+    private func updateContantFrame()
+    {
+        if contentHeight != nil && contentWidth != nil && self.shareContent != nil && self.shareContent.delegate != nil{
+            let contentFrame = self.shareContent.delegate.getContentFrame(self, share: self.shareModel)
+            contentHeight.constant = contentFrame.height
+            contentWidth.constant = contentFrame.width
         }
     }
     

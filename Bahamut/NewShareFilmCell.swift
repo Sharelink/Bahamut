@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 import MBProgressHUD
 
-class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,UIShareContentViewSetupDelegate,ProgressTaskDelegate
+class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,ProgressTaskDelegate
 {
     static let thumbQuality:CGFloat = 0.5
     static let reuseableId = "NewShareFilmCell"
@@ -20,21 +20,41 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         return 211
     }
     
-    @IBOutlet weak var shareContentContainer: UIShareContent!
-    
+    private let filmModel = FilmModel()
+    private var filmPlayer:ShareLinkFilmView!
+    @IBOutlet weak var shareContentContainer: UIView!
     @IBOutlet weak var recordFilmBtn: UIButton!
     @IBOutlet weak var selectFilmBtn: UIButton!
-    
     
     override func initCell() {
         recordFilmBtn.hidden = isReshare
         selectFilmBtn.hidden = isReshare
-        shareContentContainer.setupContentViewDelegate = self
-        resetShareContent()
+        initFilmPlayer()
+    }
+    
+    private func initFilmPlayer()
+    {
+        if filmPlayer == nil{
+            filmPlayer = ShareLinkFilmView()
+            filmPlayer.playerController.fillMode = AVLayerVideoGravityResizeAspect
+            filmPlayer.autoLoad = true
+            shareContentContainer.addSubview(filmPlayer)
+        }
+        if isReshare
+        {
+            let fm = FilmModel(json: rootController.reShareModel.shareContent)
+            self.filmModel.film = fm.film
+            self.filmModel.preview = fm.preview
+            filmPlayer.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
+        }else
+        {
+            filmPlayer.fileFetcher = FilePathFileFetcher.shareInstance
+        }
+        filmPlayer.filePath = filmModel.film
     }
     
     override func clear() {
-        resetShareContent()
+        filmPlayer.filePath = nil
     }
     
     @IBAction func selectFilm(sender: AnyObject) {
@@ -48,40 +68,14 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         MobClick.event("RecordVideoButton")
     }
     
-    //MARK: share content
-    func setupContentView(contentView: UIView, share: ShareThing)
-    {
-        if let player = contentView as? ShareLinkFilmView
-        {
-            if isReshare
-            {
-                player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
-            }else
-            {
-                player.fileFetcher = FilePathFileFetcher.shareInstance
-            }
-            player.playerController.fillMode = AVLayerVideoGravityResizeAspect
-            player.autoLoad = true
-        }
-    }
-    
-    private func resetShareContent()
-    {
-        shareContentContainer.delegate = UIShareContentTypeDelegateGenerator.getDelegate(ShareThingType.shareFilm)
-        shareContentContainer.share = isReshare ? rootController.reShareModel : ShareThing()
-        shareContentContainer.update()
-    }
-    
     //MARK: select film delegate
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
         if itemModels.count > 0
         {
             let fileModel = itemModels.first as! UIFileCollectionCellModel
-            let filmModel = FilmModel()
             filmModel.film = fileModel.filePath
             filmModel.preview = ImageUtil.getVideoThumbImageBase64String(fileModel.filePath,compressionQuality: NewShareFilmCell.thumbQuality)
-            self.shareContentContainer.share.shareContent = filmModel.toJsonString()
-            self.shareContentContainer.update()
+            filmPlayer.filePath = filmModel.film
         }
     }
     
@@ -93,16 +87,15 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!) {
         let fileModels = itemModels as! [UIFileCollectionCellModel]
         var sum = 0
-        for fileModel in fileModels
+        for fm in fileModels
         {
-            if fileModel.filePath == FilmModel(json: shareContentContainer.share.shareContent).film
+            if fm.filePath == filmModel.film
             {
-                shareContentContainer.share.shareContent = nil
-                shareContentContainer.update()
+                filmPlayer.filePath = nil
             }
             do
             {
-                try NSFileManager.defaultManager().removeItemAtPath(fileModel.filePath)
+                try NSFileManager.defaultManager().removeItemAtPath(fm.filePath)
                 sum++
             }catch let error as NSError{
                 NSLog(error.description)
@@ -127,11 +120,9 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         {
             if let newFilePath = saveVideo(videoPath)
             {
-                let filmModel = FilmModel()
                 filmModel.film = newFilePath
                 filmModel.preview = ImageUtil.getVideoThumbImageBase64String(newFilePath,compressionQuality: NewShareFilmCell.thumbQuality)
-                self.shareContentContainer.share.shareContent = filmModel.toJsonString()
-                self.shareContentContainer.update()
+                filmPlayer.filePath = filmModel.film
             }
         }
         
@@ -164,14 +155,12 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
-        if String.isNullOrWhiteSpace(self.shareContentContainer.share.shareContent)
+        if String.isNullOrWhiteSpace(filmModel.film)
         {
             self.rootController.showToast(NSLocalizedString("NO_FILM_SELECTED", comment: ""))
             return false
         }else
         {
-            baseShareModel.shareContent = self.shareContentContainer.share.shareContent
-            baseShareModel.shareType = ShareThingType.shareFilm.rawValue
             postShare(baseShareModel, tags: themes)
             return true
         }
@@ -179,15 +168,16 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     
     private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
     {
-        let filmModel = FilmModel(json: newShare.shareContent)
+        newShare.shareType = ShareThingType.shareFilm.rawValue
+        let newFilmModel = FilmModel(json: self.filmModel.toJsonString())
         self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
-        self.fileService.sendFileToAliOSS(filmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
+        self.fileService.sendFileToAliOSS(newFilmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.rootController.hideToastActivity()
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
             if let fk = fileKey
             {
-                filmModel.film = fk.fileId
-                newShare.shareContent = filmModel.toJsonString()
+                newFilmModel.film = fk.fileId
+                newShare.shareContent = newFilmModel.toJsonString()
                 let newShareTask = NewFilmShareTask()
                 newShareTask.id = taskId
                 newShareTask.shareTags = tags

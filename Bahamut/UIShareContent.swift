@@ -14,18 +14,13 @@ protocol UIShareContentDelegate
 {
     func refresh(sender:UIShareContent,share:ShareThing?)
     func getContentView(sender: UIShareContent, share: ShareThing?) -> UIView
-}
-
-protocol UIShareContentViewSetupDelegate
-{
-    func setupContentView(contentView:UIView, share:ShareThing)
+    func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect
 }
 
 class UIShareContent: UIView
 {
+    var shareCell:UIShareThing!
     var delegate:UIShareContentDelegate!
-    var setupContentViewDelegate:UIShareContentViewSetupDelegate!
-    
     var share:ShareThing!{
         didSet{
             if contentView != nil
@@ -33,10 +28,6 @@ class UIShareContent: UIView
                 contentView.removeFromSuperview()
             }
             contentView = delegate.getContentView(self, share: share)
-            if setupContentViewDelegate != nil
-            {
-                setupContentViewDelegate.setupContentView(contentView, share: share)
-            }
             self.addSubview(contentView)
         }
     }

@@ -14,14 +14,22 @@ class NewShareCellConfig
         return CellConfig.indexOf{$0.cellReuseId == cellReuseId}
     }
     
+    static func indexOfShareType(type:ShareThingType?) -> Int?{
+        if type == nil
+        {
+            return nil
+        }
+        return CellConfig.indexOf{$0.shareType == type}
+    }
+    
     static var numberOfNewShareCellType:Int{
         return CellConfig.count
     }
     
     static let CellConfig =
     [
-        (cellReuseId:"NewShareFilmCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_VIDEO", comment: ""),headerImg:"videoHeader"),
-        (cellReuseId:"NewShareTextCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_TEXT", comment: ""),headerImg:"textHeader"),
-        (cellReuseId:"NewShareUrlCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_LINK", comment: ""),headerImg:"urlHeader")
+        (shareType:ShareThingType.shareFilm,cellReuseId:"NewShareFilmCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_VIDEO", comment: ""),headerImg:"videoHeader"),
+        (shareType:ShareThingType.shareText,cellReuseId:"NewShareTextCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_TEXT", comment: ""),headerImg:"textHeader"),
+        (shareType:ShareThingType.shareUrl,cellReuseId:"NewShareUrlCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_LINK", comment: ""),headerImg:"urlHeader")
     ]
 }

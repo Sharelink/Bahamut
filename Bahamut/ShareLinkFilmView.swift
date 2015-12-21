@@ -170,6 +170,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     {
         self.thumbImageView.image = nil
         self.thumbImageView.hidden = true
+        self.refreshUI()
     }
     
     //MARK: film file
@@ -201,6 +202,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         playButton.hidden = true
         refreshButton.hidden = true
         self.backgroundColor = UIColor.blackColor()
+        self.refreshUI()
     }
     
     var loaded:Bool = false
@@ -236,6 +238,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             }else
             {
                 self.taskFailed(fileIdentifier, result: result)
+                self.refreshUI()
             }
         }
         

@@ -14,33 +14,26 @@ class UrlContentView:UIView
     var model:UrlContentModel!
     var titleLable:UILabel!
     var linkImg:UIImageView!
-    var bgImg:UIImageView!
     
     private func initViews()
     {
-        if bgImg == nil
-        {
-            bgImg = UIImageView(image: UIImage(named: "webPageBg"))
-            self.addSubview(bgImg)
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapTitleLable:"))
-            self.layer.borderColor = UIColor.lightGrayColor().CGColor
-            self.layer.borderWidth = 1
-        }
         
         if titleLable == nil
         {
+            self.backgroundColor = UIColor.headerColor
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapTitleLable:"))
             titleLable = UILabel()
             titleLable.textAlignment = .Left
             titleLable.numberOfLines = 2
-            titleLable.font = UIFont(name: "System", size: 23)
-            titleLable.backgroundColor = UIColor.whiteColor()
-            titleLable.textColor = UIColor.darkGrayColor()
+            titleLable.font = UIFont(name: "System", size: 13)
+            titleLable.backgroundColor = UIColor.clearColor()
+            titleLable.textColor = UIColor.lightGrayColor()
             self.addSubview(titleLable)
         }
         
         if linkImg == nil
         {
-            linkImg = UIImageView(image: UIImage(named: "link"))
+            linkImg = UIImageView(image: UIImage(named: "linkIcon"))
             linkImg.userInteractionEnabled = true
             self.addSubview(linkImg)
         }
@@ -49,9 +42,7 @@ class UrlContentView:UIView
     func refresh()
     {
         initViews()
-        bgImg.frame = self.bounds
-        linkImg.frame = CGRectMake(0, 0, 48, 48)
-        linkImg.center = self.center
+        linkImg.frame = CGRectMake(3, 3, 42, 42)
         
         if String.isNullOrWhiteSpace(model.title)
         {
@@ -60,8 +51,7 @@ class UrlContentView:UIView
         {
             titleLable.text = "\(model.title)"
         }
-        titleLable.sizeToFit()
-        titleLable.frame = CGRectMake(0, 128, self.bounds.width, titleLable.frame.height)
+        titleLable.frame = CGRectMake(49, 0, self.bounds.width - 49, 48)
     }
     
     func onTapTitleLable(ges:UITapGestureRecognizer)
@@ -87,8 +77,12 @@ class UrlContent:UIShareContentDelegate
         }
     }
     
+    func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect {
+        return CGRectMake(0,0,sender.rootController.view.bounds.width - 23,49)
+    }
+    
     func getContentView(sender: UIShareContent, share: ShareThing?) -> UIView {
-        let view = UrlContentView(frame: sender.bounds)
+        let view = UrlContentView(frame: CGRectMake(0,0,sender.shareCell.rootController.view.bounds.width - 23,49))
         return view
     }
 }

@@ -25,7 +25,7 @@ class NewShareTextCell: ShareContentCellBase {
             let filmModel = FilmModel()
             filmModel.film = FilmAssetsConstants.SharelinkFilm
             let shareContent = filmModel.toJsonString()
-            baseShareModel.shareType = ShareThingType.shareFilm.rawValue
+            baseShareModel.shareType = ShareThingType.shareText.rawValue
             baseShareModel.shareContent = shareContent
             shareService.postNewShare(baseShareModel, tags: themes) { (shareId) -> Void in
                 if shareId != nil

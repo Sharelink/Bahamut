@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 import EVReflection
 
 class FilmModel : EVObject
@@ -41,9 +42,17 @@ class FilmContent: UIShareContentDelegate
         mediaPlayer.refreshUI()
     }
     
+    func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect {
+        return CGRectMake(0,0,148,148)
+    }
+    
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
     {
-        let player = ShareLinkFilmView(frame: sender.bounds)
+        let player = ShareLinkFilmView(frame: CGRectMake(0,0,148,148))
+        player.autoLoad = false
+        player.autoPlay = true
+        player.playerController.fillMode = AVLayerVideoGravityResizeAspect
+        player.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(.Video)
         return player
     }
 }

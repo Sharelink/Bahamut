@@ -11,6 +11,12 @@ import MJRefresh
 //MARK: UIShareCell
 class UIShareCell : UITableViewCell
 {
+    static let dateFomatter:NSDateFormatter = {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = NSTimeZone()
+        return formatter
+    }()
     var rootController:ShareThingsListController!{
         didSet{
             self.userInteractionEnabled = true
@@ -20,7 +26,6 @@ class UIShareCell : UITableViewCell
     var shareModel:ShareThing!{
         didSet{
             postUser = rootController.userService.getUser(shareModel.userId)
-            update()
         }
     }
     
@@ -33,7 +38,7 @@ class UIShareCell : UITableViewCell
     
     func updateTime(timeLabel:UILabel)
     {
-        timeLabel.text = shareModel.shareTimeOfDate.toFriendlyString(UIShareMessage.dateFomatter)
+        timeLabel.text = shareModel.shareTimeOfDate.toFriendlyString(UIShareCell.dateFomatter)
     }
     
     func updateUserNoteName(noteLable:UILabel)
@@ -258,7 +263,6 @@ class ShareThingsListController: UITableViewController
             self.tableView.scrollToNearestSelectedRowAtScrollPosition(.Top, animated: true)
             self.tableView.mj_footer.resetNoMoreData()
         }
-        
     }
     
     func refreshFromServer()
@@ -323,30 +327,6 @@ class ShareThingsListController: UITableViewController
         userService.showMyDetailView(self)
     }
     
-    //MARK: scroll
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        for cell in tableView.visibleCells
-        {
-            if let shareThingCell = cell as? UIShareThing
-            {
-                shareThingCell.updateContent()
-            }
-        }
-    }
-    
-    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate
-        {
-            for cell in tableView.visibleCells
-            {
-                if let shareThingCell = cell as? UIShareThing
-                {
-                    shareThingCell.updateContent()
-                }
-            }
-        }
-    }
-    
     //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -372,15 +352,7 @@ class ShareThingsListController: UITableViewController
             stateHeaderView.initHeader()
         }
     }
-
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if let shareCell = cell as? UIShareThing
-        {
-            shareCell.update()
-            shareCell.setNeedsLayout()
-        }
-    }
-
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState
@@ -402,18 +374,18 @@ class ShareThingsListController: UITableViewController
         var cell:UIShareCell!
         if shareThing.isMessageShare()
         {
-            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier) as! UIShareMessage
         }else if shareThing.isUserShare()
         {
-            cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier, forIndexPath: indexPath) as! UIShareThing
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareThing.ShareThingCellIdentifier) as! UIShareThing
         }else
         {
-            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier, forIndexPath: indexPath) as! UIShareMessage
+            cell = tableView.dequeueReusableCellWithIdentifier(UIShareMessage.RollMessageCellIdentifier) as! UIShareMessage
         }
         cell.rootController = self
         cell.shareModel = shareThing
+        cell.update()
+        cell.update()
         return cell
-        
     }
-    
 }

@@ -111,6 +111,7 @@ class NewShareController: UITableViewController
         self.tableView.estimatedRowHeight = tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -153,18 +154,24 @@ class NewShareController: UITableViewController
     }
     
     //MARK: share type
-    func initShareType(){
-        self.shareCellReuseIdIndex = 0
-        let header = MJRefreshGifHeader(){
-            self.nextShareType()
-            self.tableView.mj_header.endRefreshing()
+    private func initShareType(){
+        if isReshare
+        {
+            self.shareCellReuseIdIndex = NewShareCellConfig.indexOfShareType(ShareThingType(rawValue: reShareModel.shareType)!) ?? 0
+        }else
+        {
+            self.shareCellReuseIdIndex = 0
+            let header = MJRefreshGifHeader(){
+                self.nextShareType()
+                self.tableView.mj_header.endRefreshing()
+            }
+            self.tableView.mj_header = header
+            header.lastUpdatedTimeLabel?.hidden = true
+            refreshHeaderTitle()
         }
-        self.tableView.mj_header = header
-        header.lastUpdatedTimeLabel?.hidden = true
-        refreshHeaderTitle()
     }
     
-    func refreshHeaderTitle()
+    private func refreshHeaderTitle()
     {
         let cellConfig = NewShareCellConfig.CellConfig[self.nextShareTypeIndex()]
         let header = self.tableView.mj_header as! MJRefreshGifHeader
@@ -177,12 +184,12 @@ class NewShareController: UITableViewController
         header.setImages([image], forState: .Idle)
     }
     
-    func nextShareTypeIndex() -> Int{
+    private func nextShareTypeIndex() -> Int{
         let index = (self.shareCellReuseIdIndex + 1) % NewShareCellConfig.numberOfNewShareCellType
         return index
     }
     
-    func nextShareType()
+    private func nextShareType()
     {
         let index = nextShareTypeIndex()
         selectShareType(index)
@@ -294,6 +301,7 @@ class NewShareController: UITableViewController
         }else if indexPath.row == 1
         {
             self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.CellConfig[self.shareCellReuseIdIndex].cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
+            shareContentCell.rootController = self
             self.rowHights[1] = self.shareContentCell.getCellHeight()
             cell = self.shareContentCell
         }else

@@ -12,12 +12,6 @@ import ChatFramework
 
 class UIShareMessage:UIShareCell
 {
-    static let dateFomatter:NSDateFormatter = {
-        var formatter = NSDateFormatter()
-        formatter.dateFormat = "yy/MM/dd"
-        formatter.timeZone = NSTimeZone()
-        return formatter
-    }()
     static let RollMessageCellIdentifier = "RollMessage"
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var noteNameLabel: UILabel!{
