@@ -185,11 +185,12 @@ class UIShareThing: UIShareCell
         if let firstTheme = shareModel?.forTags?.first
         {
             let stm = SendTagModel(json: firstTheme)
-            let tag = SharelinkTheme()
-            tag.tagName = stm.name
-            tag.type = stm.type
-            tag.data = stm.data
-            themeLabel.text = tag.getShowName()
+            let theme = SharelinkTheme()
+            theme.tagName = stm.name
+            theme.type = stm.type
+            theme.data = stm.data
+            let themeName = theme.getShowName(false)
+            themeLabel.text = themeName
         }else
         {
             themeLabel.text = "Sharelink"

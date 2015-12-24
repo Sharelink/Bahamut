@@ -166,7 +166,7 @@ public class AddNewShareThingRequest : GetShareThingsRequest
     public var tags:[SharelinkTheme]!{
         didSet{
             let v = (tags.map{ ($0.getTagString() as NSString).base64String() }.joinWithSeparator("#"))
-            let reshareable = tags.contains{$0.isResharelessTag()}
+            let reshareable = tags.contains{$0.isResharelessTheme()}
             self.paramenters.updateValue(reshareable ? "false" : "true", forKey: "reshareable")
             self.paramenters.updateValue(v, forKey: "tags")
         }
@@ -233,7 +233,7 @@ public class ReShareRequest:ShareLinkSDKRequestBase
     public var tags:[SharelinkTheme]!{
         didSet{
             let v = (tags.map{ ($0.getTagString() as NSString).base64String() }.joinWithSeparator("#"))
-            let reshareable = tags.contains{$0.isResharelessTag()}
+            let reshareable = tags.contains{$0.isResharelessTheme()}
             self.paramenters.updateValue(reshareable ? "false" : "true", forKey: "reshareable")
             self.paramenters.updateValue(v, forKey: "tags")
         }

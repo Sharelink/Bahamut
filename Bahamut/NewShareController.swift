@@ -265,7 +265,7 @@ class NewShareController: UITableViewController
         newShare.avatarId = me.avatarId
         newShare.shareTime = NSDate().toDateTimeString()
         let themes = self.shareThemeCell.selectedThemes
-        newShare.reshareable = themes.contains{$0.isPrivateTag()} ? "false" : "true"
+        newShare.reshareable = themes.contains{$0.isPrivateTheme()} ? "false" : "true"
         let canPost = shareContentCell.share(newShare,themes: themes)
         if canPost
         {

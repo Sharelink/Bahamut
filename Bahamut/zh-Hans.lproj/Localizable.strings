@@ -115,8 +115,8 @@ ILLEGLE_VALUE = "非法数据";
 LOAD_IMG_ERROR = "加载图片失败";
 CONFIRM_FOCUS_TAG = "关注主题:%@ ?";
 
-FOCUS_TAG_SUCCESS = "关注成功!";
-FOCUS_TAG_FAILED = "关注失败，请检查你的网络！";
+FOCUS_THEME_SUCCESS = "关注成功!";
+FOCUS_THEME_ERROR = "关注出现错误，请检查你的网络！";
 THEME = "主题";
 FOCUS = "关注";
 FOCUS_ON = "关注了主题 %@";
@@ -171,14 +171,27 @@ REFRESHING = "刷新中";
 USER_APP_TOKEN_TIMEOUT = "用户认证失效，需要重新登录";
 
 //ThemeExplorerController
-TAG_HEADER_SYSTEM = "Sharelink主题";
-TAG_HEADER_CUSTOM = "自定义主题";
-NEW_TAG = "新主题";
-REMOVED_X_TAGS = "移除了 %@ 个主题";
-A_DEFAULT_TAG = "系统自带的主题!";
-A_SHARELINKER_TAG = "分享人主题不能修改!";
+THEME_HEADER_SYSTEM = "Sharelink主题";
+THEME_HEADER_CUSTOM = "自定义主题";
+NEW_THEME = "新主题";
+REMOVED_X_THEMES = "移除了 %@ 个主题";
+A_DEFAULT_THEME = "系统自带的主题!";
+A_SHARELINKER_THEME = "分享人主题不能修改!";
 
-TAG_NAME_NULL_ERR = "主题必须有一个名字!";
+THEME_NAME_NULL_ERR = "主题必须有一个名字!";
+
+CANCEL_FOCUS = "取消关注";
+REMOVE_THEME = "移除主题";
+CANCEL_FOCUS = "取消关注主题";
+
+MODIFY_THEME_SUC = "主题已经更新";
+MODIFY_THEME_ERROR = "修改主题错误";
+SURE_REMOVE_THEME_X = "确定移除主题 %@ ?";
+SURE_UNFOCUS_THEME_X = "确定不关注 %@ ?";
+CANCEL_FOCUS_THEME_SUC = "取消关注成功";
+CANCEL_FOCUS_THEME_ERROR = "取消关注主题错误";
+
+OPERATE_ERROR = "操作失败，请检查网络";
 
 //SigninViewController
 REGISTING = "注册中";
@@ -191,7 +204,7 @@ SELECT_VIDEO = "选择一个视频";
 USE_DEFAULT_VIDEO = "使用默认视频";
 NOTE_NAME = "备注名";
 
-SAME_TAG_EXISTS = "你已经关注了这个主题!";
+SAME_THEME_EXISTS = "你已经关注了这个主题!";
 
 //User List Controller
 LINK_MESSAGE = "好友消息";

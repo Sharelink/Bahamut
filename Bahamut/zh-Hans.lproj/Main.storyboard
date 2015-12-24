@@ -734,7 +734,7 @@
         <scene sceneID="DoO-bx-Gbx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C54-eI-Wvc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="主题" image="tag" id="2jy-gC-u8c"/>
+                    <tabBarItem key="tabBarItem" title="主题" image="theme" id="2jy-gC-u8c"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="OWQ-Np-D3j">
@@ -744,7 +744,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="WWa-4s-vJi" kind="relationship" relationship="rootViewController" id="l1V-hs-i6t"/>
+                        <segue destination="YjY-t6-jqe" kind="relationship" relationship="rootViewController" id="qzN-Pb-8zW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NkP-fD-kdN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -774,7 +774,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="restoreFileItemCell" reuseIdentifier="ThemeItemCell" id="HiK-DY-8FS" customClass="ThemeExplorerViewCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="73" width="137" height="31"/>
+                                        <rect key="frame" x="0.0" y="93" width="137" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="137" height="31"/>
@@ -840,7 +840,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagSectionHeader" id="z3F-TA-XhQ">
-                                    <rect key="frame" x="0.0" y="44" width="600" height="29"/>
+                                    <rect key="frame" x="0.0" y="64" width="600" height="29"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGl-7M-eP6">
@@ -914,7 +914,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EyK-IC-5C4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-766" y="2070"/>
+            <point key="canvasLocation" x="-772" y="2755"/>
         </scene>
         <!--新的分享-->
         <scene sceneID="XK9-Bb-hha">
@@ -1260,6 +1260,108 @@
             </objects>
             <point key="canvasLocation" x="575" y="2170"/>
         </scene>
+        <!--我的主题-->
+        <scene sceneID="pBQ-MH-8dU">
+            <objects>
+                <tableViewController id="YjY-t6-jqe" customClass="ThemeListViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fQM-tl-5CU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ThemeCell" id="OWz-yJ-p0D" customClass="ThemeCell" customModule="Bahamut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OWz-yJ-p0D" id="xpx-wO-scn">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xh-w8-4GM">
+                                            <rect key="frame" x="8" y="6" width="32" height="32"/>
+                                            <color key="backgroundColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="CFT-ok-8TV"/>
+                                                <constraint firstAttribute="height" constant="32" id="rlC-dn-8Oh"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukE-Xw-Urn">
+                                            <rect key="frame" x="48" y="8" width="451" height="28"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="frK-On-Zvd">
+                                            <rect key="frame" x="538" y="10" width="23" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="23" id="WEf-eS-f62"/>
+                                                <constraint firstAttribute="height" constant="23" id="qIG-eS-lAJ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="private" translatesAutoresizingMaskIntoConstraints="NO" id="AI7-qk-Caz">
+                                            <rect key="frame" x="507" y="10" width="23" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="23" id="eM6-2R-vpf"/>
+                                                <constraint firstAttribute="width" constant="23" id="y2X-SW-5yJ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="TOp-HU-6NR">
+                                            <rect key="frame" x="569" y="10" width="23" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="23" id="Gwb-Ox-0EQ"/>
+                                                <constraint firstAttribute="width" constant="23" id="yLK-g0-uGk"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="frK-On-Zvd" secondAttribute="trailing" id="2Zs-36-EOJ"/>
+                                        <constraint firstItem="frK-On-Zvd" firstAttribute="leading" secondItem="ukE-Xw-Urn" secondAttribute="trailing" constant="8" id="FDW-cF-zq3"/>
+                                        <constraint firstItem="TOp-HU-6NR" firstAttribute="centerY" secondItem="xpx-wO-scn" secondAttribute="centerY" id="H3g-jW-Lir"/>
+                                        <constraint firstAttribute="trailing" secondItem="0xh-w8-4GM" secondAttribute="trailing" constant="563" id="Ln9-cG-b9t"/>
+                                        <constraint firstItem="frK-On-Zvd" firstAttribute="leading" secondItem="AI7-qk-Caz" secondAttribute="trailing" constant="8" symbolic="YES" id="OFf-h5-bRe"/>
+                                        <constraint firstItem="ukE-Xw-Urn" firstAttribute="leading" secondItem="0xh-w8-4GM" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbu-xd-U07"/>
+                                        <constraint firstItem="AI7-qk-Caz" firstAttribute="centerY" secondItem="xpx-wO-scn" secondAttribute="centerY" id="ZDb-cV-yx5"/>
+                                        <constraint firstItem="AI7-qk-Caz" firstAttribute="leading" secondItem="ukE-Xw-Urn" secondAttribute="trailing" constant="8" id="ZTx-Q1-ZSQ"/>
+                                        <constraint firstItem="TOp-HU-6NR" firstAttribute="leading" secondItem="frK-On-Zvd" secondAttribute="trailing" constant="8" symbolic="YES" id="ci1-CU-Dh2"/>
+                                        <constraint firstItem="0xh-w8-4GM" firstAttribute="leading" secondItem="xpx-wO-scn" secondAttribute="leadingMargin" id="n9x-X5-mwF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="TOp-HU-6NR" secondAttribute="trailing" id="otU-8p-WVc"/>
+                                        <constraint firstItem="ukE-Xw-Urn" firstAttribute="centerY" secondItem="0xh-w8-4GM" secondAttribute="centerY" id="p9u-BP-TFq"/>
+                                        <constraint firstItem="frK-On-Zvd" firstAttribute="centerY" secondItem="xpx-wO-scn" secondAttribute="centerY" id="tH7-VV-QB8"/>
+                                        <constraint firstItem="0xh-w8-4GM" firstAttribute="centerY" secondItem="xpx-wO-scn" secondAttribute="centerY" id="yEi-7G-toT"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Ln9-cG-b9t"/>
+                                            <exclude reference="2Zs-36-EOJ"/>
+                                            <exclude reference="FDW-cF-zq3"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="markImage0" destination="TOp-HU-6NR" id="CoS-g7-PGw"/>
+                                    <outlet property="markImage1" destination="frK-On-Zvd" id="n4e-Tg-GMN"/>
+                                    <outlet property="markImage2" destination="AI7-qk-Caz" id="Bmi-9L-D4l"/>
+                                    <outlet property="themeColorView" destination="0xh-w8-4GM" id="ZaA-Xt-o8d"/>
+                                    <outlet property="themeNameLabel" destination="ukE-Xw-Urn" id="myc-fq-0D8"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="YjY-t6-jqe" id="tol-50-qH9"/>
+                            <outlet property="delegate" destination="YjY-t6-jqe" id="yrN-Or-S0D"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="我的主题" id="Urg-wW-aLE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3an-SO-nFy">
+                            <connections>
+                                <action selector="addTheme:" destination="YjY-t6-jqe" id="e2i-2O-WmD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALl-nu-tCV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-766" y="2070"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add_link" width="24" height="24"/>
@@ -1267,14 +1369,16 @@
         <image name="check" width="512" height="512"/>
         <image name="defaultAvatar" width="512" height="512"/>
         <image name="eye" width="16" height="16"/>
+        <image name="heart" width="512" height="512"/>
         <image name="mail" width="512" height="512"/>
         <image name="movie17" width="128" height="128"/>
         <image name="new" width="24" height="24"/>
         <image name="post" width="24" height="24"/>
+        <image name="private" width="512" height="512"/>
         <image name="qr_code" width="24" height="24"/>
         <image name="share" width="96" height="96"/>
         <image name="share_icon" width="24" height="24"/>
-        <image name="tag" width="24" height="24"/>
+        <image name="theme" width="24" height="24"/>
         <image name="themehub" width="42" height="42"/>
         <image name="user" width="24" height="24"/>
         <image name="userlink" width="24" height="24"/>

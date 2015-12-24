@@ -53,7 +53,7 @@ extension SharelinkThemeService
     {
         if self.isThemeExists(tag.data)
         {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_TAG_EXISTS", comment: ""), preferredStyle: .Alert)
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_THEME_EXISTS", comment: ""), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: .Cancel, handler: nil))
             curentViewController.presentViewController(alert, animated: true, completion: nil)
             return
@@ -67,7 +67,7 @@ extension SharelinkThemeService
         newTag.showToLinkers = "true"
         newTag.data = tag.data
         self.addSharelinkTheme(newTag) { (suc) -> Void in
-            let alerttitle = suc ? NSLocalizedString("FOCUS_TAG_SUCCESS", comment: "") : NSLocalizedString("FOCUS_TAG_FAILED", comment: "")
+            let alerttitle = suc ? NSLocalizedString("FOCUS_THEME_SUCCESS", comment: "") : NSLocalizedString("FOCUS_THEME_ERROR", comment: "")
             let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in
                 })

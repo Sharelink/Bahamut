@@ -48,40 +48,38 @@ extension SharelinkTheme
 //MARK: theme name for show
 extension SharelinkTheme
 {
-    func getShowName() -> String
+    func getShowName(useEmojiPrefix:Bool = true) -> String
     {
         var prefix = ""
         let suffix = ""
-        if self.isSystemTag()
+        if self.isPrivateTheme()
         {
-            if self.isPrivateTag()
-            {
-                prefix = "👤"
-            }else if self.isResharelessTag()
-            {
-                prefix = "🚫"
-            }else if self.isBroadcastTag()
-            {
-                prefix = "🗣"
-            }else if self.isFeedbackTag()
-            {
-                prefix = "ℹ️"
-            }
-        }else if self.isCustomTag()
+            prefix = "👤"
+        }else if self.isResharelessTheme()
         {
-            if self.isSharelinkerTag()
-            {
-                let noteName = ServiceContainer.getService(UserService).getUserNoteName(self.data)
-                return "🙂\(noteName)"
-            }else if self.isGeoTag()
-            {
-                prefix = "📍"
-            }else if self.isKeywordTag()
-            {
-                prefix = "📎"
-            }
+            prefix = "🚫"
+        }else if self.isBroadcastTheme()
+        {
+            prefix = "🗣"
+        }else if self.isFeedbackTheme()
+        {
+            prefix = "ℹ️"
+        }else if self.isSharelinkerTheme()
+        {
+            let noteName = ServiceContainer.getService(UserService).getUserNoteName(self.data)
+            return useEmojiPrefix ? "🙂\(noteName)" : noteName
+        }else if self.isGeoTheme()
+        {
+            prefix = "📍"
+        }else if self.isKeywordTheme()
+        {
+            prefix = "📎"
         }
-        return "\(prefix)\(self.tagName)\(suffix)";
+        if useEmojiPrefix
+        {
+            return "\(prefix)\(self.tagName)\(suffix)";
+        }
+        return "\(self.tagName)\(suffix)";
     }
     
     func getEditingName() -> String
@@ -133,7 +131,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
             {
                 for tag in tags
                 {
-                    if tag.isSystemTag()
+                    if tag.isSystemTheme()
                     {
                         tag.tagName = NSLocalizedString(tag.tagName, comment: "") ?? tag.tagName
                     }
@@ -176,7 +174,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         })
     }
     
-    func removeMyThemes(themes:[SharelinkTheme],sucCallback:(()->Void)! = nil)
+    func removeMyThemes(themes:[SharelinkTheme],sucCallback:((suc:Bool)->Void)! = nil)
     {
         if themes.count == 0
         {
@@ -186,19 +184,21 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         req.tagIds = themes.map{$0.tagId}
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
+            var suc = false
             if result.statusCode == ReturnCode.OK
             {
                 PersistentManager.sharedInstance.removeModels(themes)
                 self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
-                if let callback = sucCallback
-                {
-                    callback()
-                }
+                suc = true
+            }
+            if let callback = sucCallback
+            {
+                callback(suc:suc)
             }
         })
     }
     
-    func updateTheme(theme:SharelinkTheme,sucCallback:(()->Void)! = nil)
+    func updateTheme(theme:SharelinkTheme,callback:((Bool)->Void)! = nil)
     {
         let req = UpdateTagRequest()
         req.tagId = theme.tagId
@@ -210,15 +210,17 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         req.data = theme.data
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
+            var suc = false
             if result.statusCode == ReturnCode.OK
             {
                 theme.saveModel()
                 PersistentManager.sharedInstance.refreshCache(SharelinkTheme)
                 self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
-                if let callback = sucCallback
-                {
-                    callback()
-                }
+                suc = true
+            }
+            if let handler = callback
+            {
+                handler(suc)
             }
         })
     }

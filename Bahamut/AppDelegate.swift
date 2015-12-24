@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             MobClick.setAppVersion(version)
         }
         MobClick.setEncryptEnabled(true)
-        MobClick.setLogEnabled(true)
+        MobClick.setLogEnabled(false)
     }
 
     private func configureShareSDK()

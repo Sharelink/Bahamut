@@ -44,47 +44,47 @@ public extension SharelinkTheme
         return false
     }
     
-    public func isSystemTag() -> Bool
+    public func isSystemTheme() -> Bool
     {
         return isDomainOf(SharelinkThemeConstant.TAG_DOMAIN_SYSTEM)
     }
     
-    public func isCustomTag() -> Bool
+    public func isCustomTheme() -> Bool
     {
         return  isDomainOf(SharelinkThemeConstant.TAG_DOMAIN_CUSTOM)
     }
     
-    public func isResharelessTag() -> Bool
+    public func isResharelessTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_NORESHARE)
     }
     
-    public func isKeywordTag() -> Bool
+    public func isKeywordTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_KEYWORD)
     }
     
-    public func isGeoTag() -> Bool
+    public func isGeoTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_GEO)
     }
     
-    public func isSharelinkerTag() -> Bool
+    public func isSharelinkerTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_SHARELINKER)
     }
     
-    public func isFeedbackTag() -> Bool
+    public func isFeedbackTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_FEEDBACK)
     }
     
-    public func isBroadcastTag() -> Bool
+    public func isBroadcastTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_BROADCAST)
     }
     
-    public func isPrivateTag() -> Bool
+    public func isPrivateTheme() -> Bool
     {
         return isTypeOf(SharelinkThemeConstant.TAG_TYPE_PRIVATE)
     }

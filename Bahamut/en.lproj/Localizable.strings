@@ -115,8 +115,8 @@ ILLEGLE_VALUE = "Illegal Value!";
 LOAD_IMG_ERROR = "Load Image Error";
 CONFIRM_FOCUS_TAG = "Are your sure to focus %@?";
 
-FOCUS_TAG_SUCCESS = "Focus theme successful!";
-FOCUS_TAG_FAILED = "Focus theme error , please check your network";
+FOCUS_THEME_SUCCESS = "Focus theme successful!";
+FOCUS_THEME_ERROR = "Focus theme error , please check your network";
 THEME = "Theme";
 FOCUS = "Focus";
 FOCUS_ON = "Focus on theme %@";
@@ -171,14 +171,27 @@ REFRESHING = "Refreshing";
 USER_APP_TOKEN_TIMEOUT = "User Token Timeout,Need To Login Again";
 
 //ThemeExplorerController
-TAG_HEADER_SYSTEM = "Sharelink Theme";
-TAG_HEADER_CUSTOM = "Cutstom Theme";
-NEW_TAG = "New Theme";
-REMOVED_X_TAGS = "Removed %@ Themes";
-A_DEFAULT_TAG = "It's a Sharelink default theme!";
-A_SHARELINKER_TAG = "It's a Sharelinker theme!";
+THEME_HEADER_SYSTEM = "Sharelink Theme";
+THEME_HEADER_CUSTOM = "Cutstom Theme";
+NEW_THEME = "New Theme";
+REMOVED_X_THEMES = "Removed %@ Themes";
+A_DEFAULT_THEME = "It's a Sharelink default theme!";
+A_SHARELINKER_THEME = "It's a Sharelinker theme!";
 
-TAG_NAME_NULL_ERR = "Theme must have a name!";
+THEME_NAME_NULL_ERR = "Theme must have a name!";
+
+CANCEL_FOCUS = "Cancel Focus";
+REMOVE_THEME = "Remove Theme";
+CANCEL_FOCUS = "Cancel Focus Theme";
+
+MODIFY_THEME_SUC = "Theme Updated";
+MODIFY_THEME_ERROR = "Modify Theme Error";
+SURE_REMOVE_THEME_X = "Sure to remove theme %@ ?";
+SURE_UNFOCUS_THEME_X = "Sure to cancel focus theme %@ ?";
+CANCEL_FOCUS_THEME_SUC = "Cancel Focus Theme Success";
+CANCEL_FOCUS_THEME_ERROR = "Cancel Focus Theme Error";
+
+OPERATE_ERROR = "Operate Error,Please Check Your Network";
 
 //SigninViewController
 REGISTING = "Registing";
@@ -191,7 +204,7 @@ SELECT_VIDEO = "Select A Video From Album";
 USE_DEFAULT_VIDEO = "Use Default Video";
 NOTE_NAME = "Note Name";
 
-SAME_TAG_EXISTS = "This Theme already added!";
+SAME_THEME_EXISTS = "This theme already focus!";
 
 //User List Controller
 LINK_MESSAGE = "Sharelinker Messages";

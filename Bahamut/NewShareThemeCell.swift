@@ -111,9 +111,9 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
     func initMyThemes()
     {
         let tagService = ServiceContainer.getService(SharelinkThemeService)
-        let mySystemTags = tagService.getAllSystemThemes().filter{ $0.isKeywordTag() || $0.isFeedbackTag() || $0.isPrivateTag() || $0.isResharelessTag()}
+        let mySystemTags = tagService.getAllSystemThemes().filter{ $0.isKeywordTheme() || $0.isFeedbackTheme() || $0.isPrivateTheme() || $0.isResharelessTheme()}
         
-        let myCustomTags = tagService.getAllCustomThemes().filter{$0.isSharelinkerTag() == false}
+        let myCustomTags = tagService.getAllCustomThemes().filter{$0.isSharelinkerTheme() == false}
         var shareableTags = [SharelinkTheme]()
         shareableTags.appendContentsOf(mySystemTags)
         shareableTags.appendContentsOf(myCustomTags)
