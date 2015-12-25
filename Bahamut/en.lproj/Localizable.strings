@@ -120,7 +120,7 @@ FOCUS_THEME_ERROR = "Focus theme error , please check your network";
 THEME = "Theme";
 FOCUS = "Focus";
 FOCUS_ON = "Focus on theme %@";
-ADD_TAG = "Add theme %@";
+ADD_THEME = "Add theme %@";
 UNVOTE_SHARE_CONFIRM = "Unvote this share?";
 
 UNKNOW_SHARE_TYPE = "Sharelink:Unknow share!";
@@ -138,6 +138,7 @@ NEW_SHARE_PULL_SWITCH_TO = "Pull To Share %@";
 SHARE_HEADER_TITLE_VIDEO = "Video";
 SHARE_HEADER_TITLE_LINK = "Link";
 SHARE_HEADER_TITLE_TEXT = "Words";
+SHARE_HEADER_TITLE_IMAGE = "Images";
 
 LOAD_URL_TITLE_ERROR = "Load Title Error";
 

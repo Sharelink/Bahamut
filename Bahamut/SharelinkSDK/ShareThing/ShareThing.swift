@@ -17,6 +17,7 @@ public enum ShareThingType:String
     case shareFilm = "share:film"
     case shareUrl = "share:url"
     case shareText = "share:text"
+    case shareImage = "share:image"
     case messageTypePrefix = "message:"
     case addTagMessage = "message:add_tag"
     case focusTagMessage = "message:focus_tag"
@@ -24,6 +25,20 @@ public enum ShareThingType:String
     case textMessage = "message:text"
 }
 
+public extension ShareThingType
+{
+    func getShareTypeName() -> String?
+    {
+        if self.rawValue.hasPrefix(ShareThingType.shareTypePrefix.rawValue)
+        {
+            //prefix is "share:"
+            return self.rawValue.substringFromIndex(6)
+        }
+        return nil
+    }
+}
+
+//MARK: ShareThing Extension
 public extension ShareThing
 {
     public func isUserShare() -> Bool
@@ -34,11 +49,6 @@ public extension ShareThing
     public func isMessageShare() -> Bool
     {
         return String.isNullOrWhiteSpace(self.shareType) == false && self.shareType.hasPrefix(ShareThingType.messageTypePrefix.rawValue)
-    }
-    
-    public func isShareFilm() -> Bool
-    {
-        return ShareThingType.shareFilm.rawValue == self.shareType
     }
     
     public func isAddTagMessage() -> Bool

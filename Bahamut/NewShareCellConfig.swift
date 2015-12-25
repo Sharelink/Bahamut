@@ -28,8 +28,9 @@ class NewShareCellConfig
     
     static let CellConfig =
     [
-        (shareType:ShareThingType.shareFilm,cellReuseId:"NewShareFilmCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_VIDEO", comment: ""),headerImg:"videoHeader"),
-        (shareType:ShareThingType.shareText,cellReuseId:"NewShareTextCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_TEXT", comment: ""),headerImg:"textHeader"),
-        (shareType:ShareThingType.shareUrl,cellReuseId:"NewShareUrlCell",headerTitle:NSLocalizedString("SHARE_HEADER_TITLE_LINK", comment: ""),headerImg:"urlHeader")
+        (shareType:ShareThingType.shareFilm,cellReuseId:NewShareFilmCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_VIDEO"),
+        (shareType:ShareThingType.shareText,cellReuseId:NewShareTextCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_TEXT"),
+        (shareType:ShareThingType.shareImage,cellReuseId:NewShareImageCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_IMAGE"),
+        (shareType:ShareThingType.shareUrl,cellReuseId:NewShareUrlCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_LINK")
     ]
 }

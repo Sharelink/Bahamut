@@ -176,12 +176,16 @@ class NewShareController: UITableViewController
         let cellConfig = NewShareCellConfig.CellConfig[self.nextShareTypeIndex()]
         let header = self.tableView.mj_header as! MJRefreshGifHeader
         let format = NSLocalizedString("NEW_SHARE_PULL_SWITCH_TO", comment: "")
-        let msg = String(format: format, cellConfig.headerTitle)
+        let headerTitle = NSLocalizedString(cellConfig.headerTitleLocalizedKey, comment: "")
+        let msg = String(format: format, headerTitle)
         header.setTitle(msg, forState: .Idle)
         header.setTitle(msg, forState: .Pulling)
         header.setTitle(msg, forState: .Refreshing)
-        let image = UIImage(named: cellConfig.headerImg)!
-        header.setImages([image], forState: .Idle)
+        if let shareName = cellConfig.shareType.getShareTypeName()
+        {
+            let image = UIImage(named: "new_share_header_icon_\(shareName)")!
+            header.setImages([image], forState: .Idle)
+        }
     }
     
     private func nextShareTypeIndex() -> Int{

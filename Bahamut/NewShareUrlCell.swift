@@ -11,7 +11,7 @@ import Alamofire
 
 class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
 
-    static let reuseId = "NewShareUrlCell"
+    static let reuseableId = "NewShareUrlCell"
     
     override func getCellHeight() -> CGFloat {
         if isReshare

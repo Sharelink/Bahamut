@@ -68,7 +68,7 @@ class UIShareMessage:UIShareCell
         var msgContent = ""
         if shareModel.isAddTagMessage()
         {
-            format =  NSLocalizedString("ADD_TAG", comment: "")
+            format =  NSLocalizedString("ADD_THEME", comment: "")
         }else if shareModel.isFocusTagMessage()
         {
             format =  NSLocalizedString("FOCUS_ON", comment: "")

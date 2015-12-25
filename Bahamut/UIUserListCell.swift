@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
 import ChatFramework
 
+//MARK: UIUserListMessageCell
 class UIUserListMessageCell: UITableViewCell
 {
     
@@ -59,6 +59,7 @@ class UIUserListMessageCell: UITableViewCell
     }
 }
 
+//MARK: UIUserListAskingLinkCell
 class UIUserListAskingLinkCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserAskLinkCell"
@@ -103,6 +104,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     
 }
 
+//MARK: UIUserListCell
 class UIUserListCell: UITableViewCell
 {
     static let cellIdentifier:String = "UserCell"
@@ -115,6 +117,8 @@ class UIUserListCell: UITableViewCell
     
     @IBOutlet weak var levelLabel: UILabel!{
         didSet{
+            //TODO: cancel hidden when level model completed
+            levelLabel.hidden = true
             levelLabel.userInteractionEnabled = true
             levelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showLevelRule:"))
         }

@@ -9,7 +9,7 @@
 import UIKit
 
 class NewShareTextCell: ShareContentCellBase {
-    static let reuseId = "NewShareTextCell"
+    static let reuseableId = "NewShareTextCell"
     
     override func getCellHeight() -> CGFloat {
         return 0

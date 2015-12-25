@@ -120,7 +120,7 @@ FOCUS_THEME_ERROR = "关注出现错误，请检查你的网络！";
 THEME = "主题";
 FOCUS = "关注";
 FOCUS_ON = "关注了主题 %@";
-ADD_TAG = "添加了主题 %@";
+ADD_THEME = "添加了主题 %@";
 UNVOTE_SHARE_CONFIRM = "取消点赞?";
 
 UNKNOW_SHARE_TYPE = "Sharelink:未知的分享类型!";
@@ -138,6 +138,7 @@ NEW_SHARE_PULL_SWITCH_TO = "下拉分享%@";
 SHARE_HEADER_TITLE_VIDEO = "小视频";
 SHARE_HEADER_TITLE_LINK = "链接";
 SHARE_HEADER_TITLE_TEXT = "文字";
+SHARE_HEADER_TITLE_IMAGE = "图片";
 
 EMPTY_TITLE = "无标题链接";
 LOAD_URL_TITLE_ERROR = "加载标题失败";

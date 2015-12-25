@@ -132,13 +132,15 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.level
         propertySet.propertyLabel = NSLocalizedString("LEVEL", comment:"Level")
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
-        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
+        //TODO: cancel hidden when level model completed
+        //textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.levelScore
         propertySet.propertyLabel = NSLocalizedString("SHARELINK_SCORE", comment:"Sharelink Score")
         propertySet.propertyValue = "\(myInfo.levelScore ?? 1)"
-        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
+        //TODO: cancel hidden when level model completed
+        //textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime

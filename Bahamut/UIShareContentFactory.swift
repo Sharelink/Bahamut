@@ -23,6 +23,7 @@ class UIShareContentTypeDelegateGenerator
             case ShareThingType.shareFilm.rawValue : return FilmContent()
             case ShareThingType.shareUrl.rawValue : return UrlContent()
             case ShareThingType.shareText.rawValue : return TextContent()
+            case ShareThingType.shareImage.rawValue : return ImageContent()
             default:return nil
         }
     }

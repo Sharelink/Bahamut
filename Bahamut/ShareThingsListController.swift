@@ -8,54 +8,6 @@
 
 import UIKit
 import MJRefresh
-//MARK: UIShareCell
-class UIShareCell : UITableViewCell
-{
-    static let dateFomatter:NSDateFormatter = {
-        var formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = NSTimeZone()
-        return formatter
-    }()
-    var rootController:ShareThingsListController!{
-        didSet{
-            self.userInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
-        }
-    }
-    var shareModel:ShareThing!{
-        didSet{
-            postUser = rootController.userService.getUser(shareModel.userId)
-        }
-    }
-    
-    var postUser:Sharelinker?
-    
-    func update()
-    {
-        
-    }
-    
-    func updateTime(timeLabel:UILabel)
-    {
-        timeLabel.text = shareModel.shareTimeOfDate.toFriendlyString(UIShareCell.dateFomatter)
-    }
-    
-    func updateUserNoteName(noteLable:UILabel)
-    {
-        noteLable.text = postUser?.getNoteName() ?? "Sharelinker"
-    }
-    
-    func updateAvatar(avatarImageView:UIImageView)
-    {
-        rootController.fileService.setAvatar(avatarImageView, iconFileId: postUser?.avatarId ?? shareModel.avatarId)
-    }
-    
-    func tapCell(_:UITapGestureRecognizer)
-    {
-        
-    }
-}
 
 //MARK: ShareThingsListController
 class ShareThingsListController: UITableViewController
@@ -112,13 +64,13 @@ class ShareThingsListController: UITableViewController
     {
         let header = MJRefreshNormalHeader(){self.refreshFromServer()}
         let footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
-        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: "下拉可以刷新"), forState: .Idle)
-        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: "松开立即刷新"), forState: .Pulling)
-        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: "正在刷新数据中..."), forState: .Refreshing)
+        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: ""), forState: .Idle)
+        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: ""), forState: .Pulling)
+        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: ""), forState: .Refreshing)
         
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: "点击或上拉加载更多"), forState: .Idle)
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: "正在加载更多的数据..."), forState: .Pulling)
-        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: "已经全部加载完毕"), forState: .NoMoreData)
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: ""), forState: .Idle)
+        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: ""), forState: .Pulling)
+        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: ""), forState: .NoMoreData)
         
         tableView.mj_header = header
         tableView.mj_footer = footer
@@ -384,7 +336,6 @@ class ShareThingsListController: UITableViewController
         }
         cell.rootController = self
         cell.shareModel = shareThing
-        cell.update()
         cell.update()
         return cell
     }

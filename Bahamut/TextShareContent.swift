@@ -15,7 +15,7 @@ class TextContent: UIShareContentDelegate
     }
     
     func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect {
-        return CGRectMake(0,0,0,0)
+        return CGRectZero
     }
     
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
