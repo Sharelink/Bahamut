@@ -9,7 +9,7 @@
 import Foundation
 
 @objc
-protocol ServiceProtocol
+public protocol ServiceProtocol
 {
     static var ServiceName:String {get}
     optional func appStartInit()

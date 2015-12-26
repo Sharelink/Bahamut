@@ -82,6 +82,7 @@ RECORD_CANCELED = "录制取消";
 VIDEO_SAVED = "视频已经保存";
 SAVE_VIDEO_FAILED = "保存视频失败";
 UPDATING = "更新中";
+IGNORE = "忽略";
 
 //System
 ME = "我";

@@ -10,6 +10,17 @@ import Foundation
 import UIKit
 import MBProgressHUD
 
+func getPresentedViewController() -> UIViewController
+{
+    let rootVc = UIApplication.sharedApplication().keyWindow?.rootViewController
+    let topVc = rootVc
+    if let vc = topVc?.presentedViewController
+    {
+        return vc
+    }
+    return topVc ?? rootVc ?? UIApplication.sharedApplication().delegate!.window!!.rootViewController!
+}
+
 var toastActivityMap = [UIViewController:MBProgressHUD]()
 extension UIViewController:MBProgressHUDDelegate
 {
@@ -33,20 +44,23 @@ extension UIViewController:MBProgressHUDDelegate
     
     func makeToastActivity()
     {
-        self.makeToastActivityWithMessage("", message: "")
+        let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
+        vc.makeToastActivityWithMessage("", message: "")
     }
     
     func makeToastActivityWithMessage(title:String!,message:String!)
     {
-        let HUD = MBProgressHUD(view: self.navigationController!.view)
-        HUD.delegate = self
+        let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
+        let vcView = vc.navigationController?.view ?? vc.view
+        let HUD = MBProgressHUD(view: vcView)
+        HUD.delegate = vc
         HUD.labelText = title
         HUD.detailsLabelText = message
         HUD.square = true
         HUD.show(true)
-        toastActivityMap[self] = HUD
+        toastActivityMap[vc] = HUD
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.navigationController!.view.addSubview(HUD)
+            vcView!.addSubview(HUD)
         })
         
     }
@@ -54,12 +68,14 @@ extension UIViewController:MBProgressHUDDelegate
     func showToast(msg:String)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let hud = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+            let vc:UIViewController = getPresentedViewController()
+            let vcView = vc.navigationController?.view ?? vc.view
+            let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
             // Configure for text only and offset down
             hud.mode = MBProgressHUDMode.Text
             hud.labelText = msg
             hud.margin = 10;
-            hud.delegate = self
+            hud.delegate = vc
             hud.removeFromSuperViewOnHide = true
             hud.hide(true, afterDelay: 1)
         }
@@ -69,15 +85,17 @@ extension UIViewController:MBProgressHUDDelegate
     func showCrossMark(msg:String)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let HUD = MBProgressHUD(view: self.navigationController!.view)
-            self.navigationController?.view.addSubview(HUD)
+            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
+            let vcView = vc.navigationController?.view ?? vc.view
+            let HUD = MBProgressHUD(view: vcView)
+            vcView!.addSubview(HUD)
             
             HUD.customView = UIImageView(image: UIImage(named: "Crossmark"))
             
             // Set custom view mode
             HUD.mode = MBProgressHUDMode.CustomView
             
-            HUD.delegate = self
+            HUD.delegate = vc
             HUD.labelText = msg
             HUD.square = true
             HUD.show(true)
@@ -88,7 +106,9 @@ extension UIViewController:MBProgressHUDDelegate
     func showCheckMark(msg:String)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let HUD = MBProgressHUD(view: self.navigationController!.view)
+            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
+            let vcView = vc.navigationController?.view ?? vc.view
+            let HUD = MBProgressHUD(view: vcView)
             self.navigationController?.view.addSubview(HUD)
             
             HUD.customView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -96,7 +116,7 @@ extension UIViewController:MBProgressHUDDelegate
             // Set custom view mode
             HUD.mode = MBProgressHUDMode.CustomView
             
-            HUD.delegate = self
+            HUD.delegate = vc
             HUD.labelText = msg
             HUD.square = true
             HUD.show(true)

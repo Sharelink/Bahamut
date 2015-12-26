@@ -33,11 +33,6 @@ class UIUserListMessageCell: UITableViewCell
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
-    @IBAction func Ok(sender: AnyObject)
-    {
-        rootController.userService.deleteLinkMessage(model.id)
-    }
-    
     func showAvatar(_:UIGestureRecognizer)
     {
         if let avatarId = model.avatar
@@ -74,17 +69,13 @@ class UIUserListAskingLinkCell: UITableViewCell
             avatar.layer.cornerRadius = 3.0
             avatar.userInteractionEnabled = true
             avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showConfirmAccept:"))
         }
     }
     @IBOutlet weak var userNickLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
-    @IBAction func ignore(sender: AnyObject)
-    {
-        rootController.userService.deleteLinkMessage(model.id)
-    }
-    
-    @IBAction func accept(sender: AnyObject)
+    func showConfirmAccept(_:UIGestureRecognizer)
     {
         rootController.userService.showLinkConfirmViewController(self.rootController.navigationController!, linkMessage: self.model)
     }

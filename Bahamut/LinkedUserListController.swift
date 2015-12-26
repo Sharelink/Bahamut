@@ -251,4 +251,33 @@ class LinkedUserListController: UITableViewController
             return cell
         }
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.section == 0 && linkMessageModel.count > 0
+        {
+            return true
+        }else
+        {
+            return false
+        }
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        if indexPath.section == 0 && linkMessageModel.count > 0
+        {
+            let model = linkMessageModel[indexPath.row]
+            var actionTitle = NSLocalizedString("I_SEE", comment: "")
+            if model.type == LinkMessageType.AskLink.rawValue
+            {
+                actionTitle = NSLocalizedString("IGNORE", comment: "Ignore")
+            }
+            let action = UITableViewRowAction(style: .Default, title: actionTitle, handler: { (ac, indexPath) -> Void in
+                self.userService.deleteLinkMessage(model.id)
+            })
+            return [action]
+        }else
+        {
+            return nil
+        }
+    }
 }

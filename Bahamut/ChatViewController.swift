@@ -128,11 +128,14 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
-        let newValue = ChicagoClient.sharedInstance.clientState.rawValue
-        if ChicagoClient.sharedInstance.clientState == .Connecting || newValue >= ChicagoClientState.Validated.rawValue
+        let oldState = aNotification.userInfo![ChicagoClientBeforeChangedState] as! Int
+        let newState = aNotification.userInfo![ChicagoClientCurrentState] as! Int
+        
+        if oldState == ChicagoClientState.Validated.rawValue || newState == ChicagoClientState.Validated.rawValue
         {
             chatTableView.reloadData()
         }
+        
     }
     
     //MARK: inits

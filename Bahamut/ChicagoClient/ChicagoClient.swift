@@ -68,10 +68,16 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     private(set) var reConnectFailedTimes:Int = 0
     private(set) var clientState:ChicagoClientState = .Closed{
         didSet{
-            NSLog("Chicago State:\(clientState)")
-            var userInfo = [NSObject:AnyObject]()
-            userInfo.updateValue(oldValue.rawValue, forKey: ChicagoClientBeforeChangedState)
-            self.postNotificationName(ChicagoClientStateChanged, object: self,userInfo: userInfo)
+            if oldValue != clientState
+            {
+                NSLog("Chicago State:\(clientState)")
+                var userInfo = [NSObject:AnyObject]()
+                userInfo.updateValue(oldValue.rawValue, forKey: ChicagoClientBeforeChangedState)
+                userInfo.updateValue(clientState.rawValue, forKey: ChicagoClientCurrentState)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.postNotificationName(ChicagoClientStateChanged, object: self,userInfo: userInfo)
+                })
+            }
         }
     }
     static let readHeadTag = 1
@@ -230,6 +236,15 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         self.addObserver(observer, selector: selector, name: getAName(route), object: nil)
     }
     
+    //MARK: socket delegate
+    func onSocket(sock: AsyncSocket!, willDisconnectWithError err: NSError!) {
+        clientState = .Disconnected
+    }
+    
+    func onSocket(sock: AsyncSocket!, shouldTimeoutWriteWithTag tag: Int, elapsed: NSTimeInterval, bytesDone length: UInt) -> NSTimeInterval {
+        return 16
+    }
+    
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
     {
         if tag == ChicagoClient.readHeadTag
@@ -283,6 +298,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         }
     }
     
+    //MARK: actions
     func connect(host:String, port:UInt16)
     {
         if clientState != .Disconnected
@@ -294,7 +310,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         do
         {
             clientState = .Connecting
-            NSLog("Chicago:Connecting")
             try socket.connectToHost(host, onPort: port)
         }catch let error as NSError
         {

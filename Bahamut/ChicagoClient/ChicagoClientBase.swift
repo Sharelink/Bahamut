@@ -55,6 +55,7 @@ let ChicagoClientReturnJsonValue = "ChicagoReturnJsonValue"
 let ChicagoClientStateChanged = "ChicagoClientStateChanged"
 
 let ChicagoClientBeforeChangedState = "ChicagoClientBeforeChangedState"
+let ChicagoClientCurrentState = "ChicagoClientCurrentState"
 
 enum ChicagoClientState : Int
 {

@@ -99,6 +99,12 @@ class NewShareController: UITableViewController
     var shareContentCell:ShareContentCellBase!
     var shareThemeCell:NewShareThemeCell!
     
+    let shareMessageCellIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    let shareContentCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+    let shareThemeCellIndexPath = NSIndexPath(forRow: 2, inSection: 0)
+    
+    private var rowHights = [128,UITableViewAutomaticDimension,168]
+    
     //MARK: life process
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,6 +223,16 @@ class NewShareController: UITableViewController
         }
     }
     
+    func reloadContentCellHeight()
+    {
+        self.rowHights[shareContentCellIndexPath.row] = self.shareContentCell.getCellHeight()
+    }
+    
+    func refreshContentCellHeight()
+    {
+        tableView.reloadData()
+    }
+    
     //MARK: post share
     @IBAction func share()
     {
@@ -291,22 +307,21 @@ class NewShareController: UITableViewController
         return 3
     }
     
-    var rowHights:[CGFloat] = [128,UITableViewAutomaticDimension,168]
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return rowHights[indexPath.row]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:NewShareCellBase!
-        if indexPath.row == 0
+        if indexPath.row == shareMessageCellIndexPath.row
         {
             self.shareMessageCell = tableView.dequeueReusableCellWithIdentifier(NewShareMessageCell.reuseableId,forIndexPath: indexPath) as! NewShareMessageCell
             cell = self.shareMessageCell
-        }else if indexPath.row == 1
+        }else if indexPath.row == shareContentCellIndexPath.row
         {
             self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.CellConfig[self.shareCellReuseIdIndex].cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
             shareContentCell.rootController = self
-            self.rowHights[1] = self.shareContentCell.getCellHeight()
+            reloadContentCellHeight()
             cell = self.shareContentCell
         }else
         {

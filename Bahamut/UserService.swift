@@ -97,11 +97,15 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 self.myUserModel = newestUser
                 self.refreshMyLinkedUsers()
                 self.refreshLinkMessage()
-            }else
+            }else if self.myUserModel != nil
             {
                 self.initLinkedUsers()
             }
         })
+        if myUserModel != nil
+        {
+            self.initLinkedUsers()
+        }
     }
     
     private func initLinkedUsers()
@@ -116,8 +120,11 @@ class UserService: NSNotificationCenter,ServiceProtocol
         if myUserModel != nil && myLinkedUsers.count > 0
         {
             PersistentManager.sharedInstance.saveModelChanges()
-            self.postNotificationName(UserService.baseUserDataInited, object: self)
-            self.setServiceReady()
+            if self.isServiceReady == false
+            {
+                self.postNotificationName(UserService.baseUserDataInited, object: self)
+                self.setServiceReady()
+            }
             self.getNewLinkMessageFromServer()
         }
     }

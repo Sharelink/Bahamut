@@ -8,10 +8,10 @@
 
 import Foundation
 
-class ServiceContainer:NSNotificationCenter
+public class ServiceContainer:NSNotificationCenter
 {
-    static let AllServicesReady = "AllServicesReady"
-    static let instance:ServiceContainer = ServiceContainer()
+    public static let AllServicesReady = "AllServicesReady"
+    public static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
     private let serviceReadyLock = NSRecursiveLock()
     private var serviceReady = [String:Bool]()
@@ -21,7 +21,7 @@ class ServiceContainer:NSNotificationCenter
         
     }
     
-    func initContainer()
+    public func initContainer()
     {
         serviceDict = [String:ServiceProtocol]()
         for (name,service) in ServiceConfig.Services
@@ -38,7 +38,7 @@ class ServiceContainer:NSNotificationCenter
         }
     }
     
-    func userLogin(userId:String)
+    public func userLogin(userId:String)
     {
         self.userId = userId
         serviceReadyLock.lock()
@@ -58,7 +58,7 @@ class ServiceContainer:NSNotificationCenter
         }
     }
     
-    func userLogout()
+    public func userLogout()
     {
         serviceReadyLock.lock()
         serviceReady.removeAll()
@@ -77,12 +77,12 @@ class ServiceContainer:NSNotificationCenter
         serviceDict[serviceName] = service
     }
     
-    static func getService(serviceName:String) -> ServiceProtocol?
+    public static func getService(serviceName:String) -> ServiceProtocol?
     {
         return instance.serviceDict[serviceName]
     }
     
-    static func getService<T:ServiceProtocol>(type:T.Type) -> T
+    public static func getService<T:ServiceProtocol>(type:T.Type) -> T
     {
         return getService(T.ServiceName) as! T
     }
@@ -107,29 +107,42 @@ class ServiceContainer:NSNotificationCenter
         }
     }
     
-    static var isAllServiceReady:Bool{
+    public static var isAllServiceReady:Bool{
         for (serviceName,_) in ServiceConfig.Services
         {
-            if let isReady = instance.serviceReady[serviceName]
-            {
-                if !isReady
-                {
-                    return false
-                }
-            }else
+            if isServiceReady(serviceName) == false
             {
                 return false
             }
         }
         return true
     }
+    
+    public static func isServiceReady(serviceName:String) -> Bool
+    {
+        if let isReady = instance.serviceReady[serviceName]
+        {
+            return isReady
+        }
+        return false
+    }
+    
+    public static func isServiceReady<T:ServiceProtocol>(service:T) -> Bool
+    {
+        return isServiceReady(T.ServiceName)
+    }
 }
 
-extension ServiceProtocol
+public extension ServiceProtocol
 {
-    func setServiceReady()
+    public func setServiceReady()
     {
         ServiceContainer.setServiceReady(self)
+    }
+    
+    public var isServiceReady:Bool
+    {
+        return ServiceContainer.isServiceReady(self)
     }
 }
 

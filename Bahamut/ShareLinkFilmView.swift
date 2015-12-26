@@ -222,7 +222,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
-    func taskCompleted(fileIdentifier: String, result: AnyObject!)
+    public func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false
@@ -245,14 +245,14 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         
     }
     
-    func taskProgress(fileIdentifier: String, persent: Float) {
+    public func taskProgress(fileIdentifier: String, persent: Float) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
             self.setProgressValue(persent / 100)
         }
     }
     
-    func taskFailed(fileIdentifier: String, result: AnyObject!)
+    public func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false

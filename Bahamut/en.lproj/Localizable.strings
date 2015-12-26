@@ -82,6 +82,7 @@ RECORD_CANCELED = "Record Canceled";
 VIDEO_SAVED = "Video Saved";
 SAVE_VIDEO_FAILED = "Save Video Failed";
 UPDATING = "Updating";
+IGNORE = "Ignore";
 
 //System
 ME = "Me";
@@ -129,7 +130,7 @@ RESHARE_CONFIRM = "Share To Your Linkers";
 
 RESHARELESS_TIPS = "This Share Is Not Allow Reshare!";
 
-//NewShareViewController
+//MARK:NewShareViewController
 TAG_LIMIT_MESSAGE = "Can't not add more theme!";
 TAG_ALREADY_SELECTED = "Theme has been added!";
 TAG_IS_EMPTY = "Type a theme please!";
@@ -224,16 +225,16 @@ LOGOUT_CONFIRM_TITLE = "Logout Sharelink?";
 USER_DATA_WILL_SAVED = "User data will saved for your login next time";
 CONFIRM_CLEAR_CACHE_TITLE = "Sure To Clear Cache Files?";
 CLEAR_CACHE_SUCCESS = "Clear Cache Successful!";
-SET_KEY_FAILED = "Modify %@ Error";
-MODIFY_KEY_SUC = "Modify %@ Successful!";
+SET_KEY_FAILED = "Modify Error";
+MODIFY_KEY_SUC = "Finished";
 
 CHANGE_AVATAR = "Change Avatar";
 TAKE_NEW_PHOTO = "Take A New Photo";
 SELECT_PHOTO = "Select A Photo From Album";
 SET_PROFILE_VIDEO_SUC = "Set Profile Video Successed";
 SET_PROFILE_VIDEO_FAILED = "Set Profile Video Failed";
-SET_AVATAR_SUC = "Set Avatar Successed";
-SET_AVATAR_FAILED = "Set Avatar Failed";
+SET_AVATAR_SUC = "Finished";
+SET_AVATAR_FAILED = "Failed";
 
 //
 ASKING_FOR_A_LINK = "%@ want to link with you";
