@@ -68,6 +68,10 @@ class UrlContentModel: EVObject
 
 class UrlContent:UIShareContentDelegate
 {
+    func initContent(shareCell: UIShareThing, share: ShareThing) {
+        
+    }
+    
     func refresh(sender: UIShareContent, share: ShareThing?) {
         if let contentView = sender.contentView as? UrlContentView
         {

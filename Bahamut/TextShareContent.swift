@@ -9,6 +9,10 @@
 import Foundation
 class TextContent: UIShareContentDelegate
 {
+    func initContent(shareCell: UIShareThing, share: ShareThing) {
+        return
+    }
+    
     func refresh(sender: UIShareContent, share: ShareThing?)
     {
         

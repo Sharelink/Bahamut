@@ -19,6 +19,10 @@ class FilmModel : EVObject
 
 class FilmContent: UIShareContentDelegate
 {
+    func initContent(shareCell: UIShareThing, share: ShareThing) {
+        
+    }
+    
     func refresh(sender: UIShareContent, share: ShareThing?)
     {
         let mediaPlayer = sender.contentView as! ShareLinkFilmView

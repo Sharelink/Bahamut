@@ -22,8 +22,13 @@ class UIShareThing: UIShareCell
     {
         didSet
         {
+            if shareModel == nil
+            {
+                return
+            }
             postUser = rootController.userService.getUser(shareModel.userId)
             shareContent.delegate = UIShareContentTypeDelegateGenerator.getDelegate(shareModel.shareType)
+            shareContent.delegate.initContent(self, share: shareModel)
             shareContent.share = shareModel
         }
     }
@@ -78,6 +83,7 @@ class UIShareThing: UIShareCell
     }
     @IBOutlet weak var shareContent: UIShareContent!{
         didSet{
+            shareContent.backgroundColor = UIColor.whiteColor()
             shareContent.shareCell = self
         }
     }
@@ -248,8 +254,8 @@ class UIShareThing: UIShareCell
     
     func updateContent()
     {
-        updateContantFrame()
         self.shareContent.update()
+        self.updateContantFrame()
     }
     
     private func updateContantFrame()

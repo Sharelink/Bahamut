@@ -21,6 +21,8 @@ class ShareThingsListController: UITableViewController
     private var shareThings:[ShareThing] = [ShareThing]()
     private var isShowing:Bool = false
     private var userGuide:UserGuide!
+    
+    //MARK: life process
     override func viewDidLoad() {
         super.viewDidLoad()
         initUserGuide()
@@ -38,6 +40,36 @@ class ShareThingsListController: UITableViewController
         refresh()
     }
     
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = true
+        }
+        isShowing = true
+        MobClick.beginLogPageView("ShareThings")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = false
+        }
+        isShowing = false
+        MobClick.endLogPageView("ShareThings")
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        userGuide.showGuideControllerPresentFirstTime()
+        if shareThings.count == 0
+        {
+            refreshFromServer()
+        }
+    }
+    
     deinit{
         ServiceContainer.getService(MessageService).removeObserver(self)
         ServiceContainer.getService(ShareService).removeObserver(self)
@@ -45,6 +77,7 @@ class ShareThingsListController: UITableViewController
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
+    //MARK: init actions
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
@@ -76,35 +109,6 @@ class ShareThingsListController: UITableViewController
         tableView.mj_footer = footer
         tableView.mj_footer.automaticallyHidden = true
         header.lastUpdatedTimeLabel?.hidden = true
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if let nc = self.navigationController as? UIOrientationsNavigationController
-        {
-            nc.lockOrientationPortrait = true
-        }
-        isShowing = true
-        MobClick.beginLogPageView("ShareThings")
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let nc = self.navigationController as? UIOrientationsNavigationController
-        {
-            nc.lockOrientationPortrait = false
-        }
-        isShowing = false
-        MobClick.endLogPageView("ShareThings")
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        userGuide.showGuideControllerPresentFirstTime()
-        if shareThings.count == 0
-        {
-            refreshFromServer()
-        }
     }
     
     var isNetworkError:Bool = false{
@@ -207,10 +211,25 @@ class ShareThingsListController: UITableViewController
     let refreshLock = NSRecursiveLock()
     func refresh()
     {
+        //test
+        let imageShare = ShareThing()
+        imageShare.shareType = ShareThingType.shareImage.rawValue
+        imageShare.message = "test"
+        imageShare.shareId = "sdsd"
+        imageShare.userId = self.userService.myUserId
+        imageShare.reshareable = "false"
+        imageShare.shareTime = NSDate().toDateTimeString()
+        imageShare.forTags = []
+        imageShare.voteUsers = []
+        
         dispatch_async(dispatch_get_main_queue()){
             self.refreshLock.lock()
             self.shareThings.removeAll(keepCapacity: true)
-            let newValues = self.shareService.getShareThings(0,pageNum: 7)
+            
+            var newValues = self.shareService.getShareThings(0,pageNum: 7)
+            
+            newValues.append(imageShare)
+            
             self.shareThings.insertContentsOf(newValues, at: 0)
             self.tableView.reloadData()
             self.refreshLock.unlock()

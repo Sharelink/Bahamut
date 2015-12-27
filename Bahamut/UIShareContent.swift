@@ -12,6 +12,7 @@ import EVReflection
 
 protocol UIShareContentDelegate
 {
+    func initContent(shareCell:UIShareThing,share:ShareThing)
     func refresh(sender:UIShareContent,share:ShareThing?)
     func getContentView(sender: UIShareContent, share: ShareThing?) -> UIView
     func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect
@@ -34,7 +35,6 @@ class UIShareContent: UIView
     
     func update()
     {
-        self.backgroundColor = UIColor.clearColor()
         if delegate != nil && contentView != nil
         {
             self.delegate.refresh(self, share: self.share)

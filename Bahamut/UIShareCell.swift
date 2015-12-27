@@ -18,13 +18,18 @@ class UIShareCell : UITableViewCell
     }()
     var rootController:ShareThingsListController!{
         didSet{
-            self.userInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
+            if oldValue == nil{                
+                self.userInteractionEnabled = true
+                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
+            }
         }
     }
     var shareModel:ShareThing!{
         didSet{
-            postUser = rootController.userService.getUser(shareModel.userId)
+            if shareModel != nil
+            {
+                postUser = rootController.userService.getUser(shareModel.userId)
+            }
         }
     }
     
