@@ -10,7 +10,9 @@ import Foundation
 
 class ImageContent:NSObject,UIShareContentDelegate
 {
-    private let imageSize = CGSizeMake(98, 98)
+    private var rows:Int = 0
+    private var itemsPerRow:Int = 3
+    private var imageSize = CGSizeMake(98, 98)
     private let imageSpace = CGFloat(7)
     private var images:[UIImage]! = [UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!]
     private var shareCell:UIShareThing!
@@ -21,10 +23,6 @@ class ImageContent:NSObject,UIShareContentDelegate
         }
     }
     private var imageViews = [UIImageView]()
-    
-    private var itemsPerRow:Int = 0
-    private var rows:Int = 0
-    
     private var pWidth:CGFloat{
         return imageSize.width + imageSpace
     }
@@ -35,7 +33,9 @@ class ImageContent:NSObject,UIShareContentDelegate
     
     private func calRows(width:CGFloat,imageCount:Int)
     {
-        itemsPerRow = Int(width / pWidth)
+        let perRow = CGFloat(itemsPerRow)
+        let hw = (width - (perRow + 1) * imageSpace) / perRow
+        imageSize = CGSizeMake(hw, hw)
         rows = Int((imageCount + itemsPerRow - 1) / itemsPerRow)
     }
     

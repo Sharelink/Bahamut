@@ -24,7 +24,7 @@ class NewShareImageCollectionViewCell: UICollectionViewCell
 //MARK: NewShareImageCell
 class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
-    static let maxImagePostCount = 7
+    static let maxImagePostCount = 9
     private var images = [UIImage]()
     static let AddImage = UIImage(named: "add")!
     @IBOutlet weak var imageCollectionView: UICollectionView!{
