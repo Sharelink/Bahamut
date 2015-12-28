@@ -29,6 +29,24 @@ extension FileService
             callback(fileKey: nil)
         }
     }
+    
+    func requestFileAccessInfoList(req:ShareLinkSDKRequestBase,callback:(fileKeys:[FileAccessInfo]!) -> Void)
+    {
+        let client = SharelinkSDK.sharedInstance.getBahamutFireClient()
+        client.execute(req) { (result:SLResult<FileAccessInfoList>) -> Void in
+            if result.statusCode == ReturnCode.OK
+            {
+                if let list = result.returnObject
+                {
+                    FileAccessInfo.saveObjectOfArray(list.files)
+                    callback(fileKeys: list.files)
+                    return
+                }
+            }
+            callback(fileKeys: nil)
+        }
+    }
+    
 }
 
 //MARK: Set avatar Util

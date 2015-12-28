@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import EVReflection
+import ImagePicker
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureUmeng()
         configureShareSDK()
         initQuPai()
+        configureImagePicker()
         return true
     }
     
@@ -46,6 +48,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ChatViewController.instanceFromStoryBoard()
         UserProfileViewController.instanceFromStoryBoard()
         UIEditTextPropertyViewController.instanceFromStoryBoard()
+    }
+    
+    private func configureImagePicker()
+    {
+        Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
+        Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
+        Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")
+        Configuration.noCameraTitle = NSLocalizedString("CAMERA_NOT_AVAILABLE", comment: "")
+        Configuration.noImagesTitle = NSLocalizedString("NO_IMAGES_AVAILABLE", comment: "")
+        
     }
     
     private func configureUMessage(launchOptions: [NSObject: AnyObject]?)

@@ -155,7 +155,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     //MARK: init
     private func initTableView()
     {
-        
+        tableView.tableFooterView = UIView()
     }
     
     private func refreshTableViewFooter()

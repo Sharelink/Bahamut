@@ -8,6 +8,19 @@
 
 import Foundation
 import ChatFramework
+import ImagePicker
+import UIKit
+
+class ShareImageContentModel: BahamutObject
+{
+    var thumbImgs:[String]!
+    var imagesFileId:String!
+}
+
+class ShareImageHub: BahamutObject
+{
+    var imagesBase64:[String]!
+}
 
 //MARK:NewShareImageCollectionViewCell
 class NewShareImageCollectionViewCell: UICollectionViewCell
@@ -22,8 +35,10 @@ class NewShareImageCollectionViewCell: UICollectionViewCell
 }
 
 //MARK: NewShareImageCell
-class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate
+class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ImagePickerDelegate,ProgressTaskDelegate
 {
+    static var uploadImageQuality:CGFloat = 0.7
+    static var thumbImageQuality:CGFloat = 0.07
     static let maxImagePostCount = 9
     private var images = [UIImage]()
     static let AddImage = UIImage(named: "add")!
@@ -42,62 +57,167 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     
     override func initCell() {
         super.initCell()
-        if self.imagePickerController == nil
-        {
-            self.imagePickerController = UIImagePickerController()
-        }
     }
     
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
-        return true
+        if images.count == 0
+        {
+            self.rootController.showToast(NSLocalizedString("NO_IMAGE_SELECTED", comment: ""))
+            return false
+        }else
+        {
+            postShare(baseShareModel, themes: themes)
+            return true
+        }
     }
+    
+    private func generateShareContent() -> (content:ShareImageContentModel,imagesHubFilePath:String)!
+    {
+        let contentModel = ShareImageContentModel()
+        contentModel.thumbImgs = [String]()
+        let imageHubFile = ShareImageHub()
+        imageHubFile.imagesBase64 = [String]()
+        for img in images
+        {
+            let imgString = UIImageJPEGRepresentation(img, NewShareImageCell.uploadImageQuality)?.base64UrlEncodedString() ?? ""
+            imageHubFile.imagesBase64.append(imgString)
+            let thumbImgString = UIImageJPEGRepresentation(img, NewShareImageCell.thumbImageQuality)?.base64UrlEncodedString() ?? ""
+            contentModel.thumbImgs.append(thumbImgString)
+        }
+        let imagesHubFilePath = fileService.createLocalStoreFileName(FileType.NoType)
+        if PersistentFileHelper.storeFile(imageHubFile.toJsonString().toUTF8EncodingData(), filePath: imagesHubFilePath)
+        {
+            return (contentModel,imagesHubFilePath)
+        }else
+        {
+            return nil
+        }
+    }
+    
+    //MARK: new share task entity
+    class NewImageShareTask : BahamutObject
+    {
+        var id:String!
+        var share:ShareThing!
+        var shareThemes:[SharelinkTheme]!
+        var sendFileKey:FileAccessInfo!
+    }
+    
+    private func postShare(newShare:ShareThing,themes:[SharelinkTheme])
+    {
+        newShare.shareType = ShareThingType.shareImage.rawValue
+        
+        if let content = generateShareContent()
+        {
+            self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILE", comment: ""))
+            self.fileService.sendFileToAliOSS(content.imagesHubFilePath, type: FileType.NoType) { (taskId, fileKey) -> Void in
+                self.rootController.hideToastActivity()
+                ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
+                if let fk = fileKey
+                {
+                    content.content.imagesFileId = fk.fileId
+                    newShare.shareContent = content.content.toJsonString()
+                    let newShareTask = NewImageShareTask()
+                    newShareTask.id = taskId
+                    newShareTask.shareThemes = themes
+                    newShareTask.share = newShare
+                    newShareTask.sendFileKey = fk
+                    newShareTask.saveModel()
+                }
+            }
+        }else{
+                
+        }
+    }
+    
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+        if let task = PersistentManager.sharedInstance.getModel(NewImageShareTask.self, idValue: taskIdentifier)
+        {
+            self.shareService.postNewShare(task.share, tags: task.shareThemes ,callback: { (shareId) -> Void in
+                if shareId != nil
+                {
+                    self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
+                        if isSuc
+                        {
+                            self.rootController.showCheckMark(NSLocalizedString("POST_SHARE_SUC", comment: ""))
+                            NewImageShareTask.deleteObjectArray([task])
+                        }else
+                        {
+                            self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                        }
+                    }
+                }else
+                {
+                    self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                }
+            })
+        }
+    }
+    
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
+        if let task = PersistentManager.sharedInstance.getModel(NewImageShareTask.self, idValue: taskIdentifier)
+        {
+            self.rootController.showToast( NSLocalizedString("SEND_FILE_FAILED", comment: ""))
+            NewImageShareTask.deleteObjectArray([task])
+        }
+    }
+    
     //MARK: actions
     
     //MARK: add image
     func addImage(_:UITapGestureRecognizer)
     {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("TAKE_NEW_PHOTO", comment: "Take A New Photo"), style: .Destructive) { _ in
-            self.newPictureWithCamera()
-            })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_PHOTO", comment: "Select A Photo From Album"), style: .Destructive) { _ in
-            self.selectPictureFromAlbum()
-            })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel){ _ in})
-        rootController.showAlert(alert)
+        showImagePicker()
     }
     
     //MARK:
     
-    private var imagePickerController:UIImagePickerController!{
+    private var imagePicker:ImagePickerController!{
         didSet{
-            imagePickerController.delegate = self
+            imagePicker.delegate = self
         }
     }
     
-    func newPictureWithCamera()
+    private var selectedStack:ImageStack!
+    
+    func showImagePicker()
     {
-        imagePickerController.sourceType = .Camera
-        imagePickerController.allowsEditing = false
-        rootController.presentViewController(imagePickerController, animated: true, completion: nil)
+        imagePicker = ImagePickerController()
+        self.rootController.presentViewController(imagePicker, animated: true){
+            if self.selectedStack != nil
+            {
+                self.imagePicker.stack.resetAssets(self.selectedStack.assets)
+            }
+        }
     }
     
-    func selectPictureFromAlbum()
-    {
-        imagePickerController.sourceType = .PhotoLibrary
-        imagePickerController.allowsEditing = false
-        imagePickerController.delegate = self
-        rootController.presentViewController(imagePickerController, animated: true, completion: nil)
+    //MAARK: image picker delegate
+    func wrapperDidPress(images: [UIImage]) {
     }
     
-    //MARK: image delegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
-    {
-        imagePickerController.dismissViewControllerAnimated(true){
-            self.images.append(image)
+    func doneButtonDidPress(newImages: [UIImage]) {
+        let mostImagesLimit = NewShareImageCell.maxImagePostCount
+        if mostImagesLimit < newImages.count
+        {
+            let msgFormat = NSLocalizedString("ADD_IMAGE_LIMIT_AT_X", comment: "Only add %@ photos most")
+            let msg = String(format:msgFormat,"\(mostImagesLimit)")
+            let alert = UIAlertController(title: msg, message: nil, preferredStyle: .Alert)
+            alert.addAction(ALERT_ACTION_I_SEE.first!)
+            self.imagePicker.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        selectedStack = imagePicker.stack
+        self.imagePicker.dismissViewControllerAnimated(true, completion: {
+            self.images = newImages
             self.imageCollectionView.reloadData()
-        }
+        })
     }
+    
+    func cancelButtonDidPress() {
+        
+    }
+    
+    //MAARK: image actions
     
     func tapImage(a:UITapGestureRecognizer)
     {
@@ -105,6 +225,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         {
             if let index = imageCollectionView.indexPathForCell(cell)
             {
+                self.selectedStack.assets.removeAtIndex(index.row)
                 self.images.removeAtIndex(index.row)
                 self.imageCollectionView.reloadData()
             }

@@ -35,6 +35,7 @@ public class TaskRecord
     public var delegate:ProgressTaskDelegate!
 }
 
+//MARK: TO DO: finish this
 public class ProgressQueueTask:NSObject,ProgressTaskDelegate
 {
     let queueTaskId = IdUtil.generateUniqueId()

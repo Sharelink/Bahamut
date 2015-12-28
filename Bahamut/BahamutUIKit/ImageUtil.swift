@@ -61,7 +61,7 @@ class ImageUtil
         return nil
     }
     
-    class func getThumbImageFromBase64String(base64:String) -> UIImage?
+    class func getImageFromBase64String(base64:String) -> UIImage?
     {
         if let thumbData = NSData(base64UrlEncodedString: base64)
         {

@@ -32,3 +32,34 @@ public class NewAliOSSFileAccessInfoRequest : ShareLinkSDKRequestBase
         }
     }
 }
+
+/*
+POST /AliOSSFiles/List (fileTypes,fileSizes) : get a new send files key for upload task
+*/
+public class NewAliOSSFileAccessInfoListRequest : ShareLinkSDKRequestBase
+{
+    public override init()
+    {
+        super.init()
+        self.api = "/AliOSSFiles/List"
+        self.method = .POST
+    }
+    
+    public var fileTypes:[FileType]!{
+        didSet{
+            if fileTypes != nil && fileTypes.count > 0
+            {
+                self.paramenters["fileTypes"] = fileTypes.map{"\($0.rawValue)"}.joinWithSeparator("#")
+            }
+        }
+    }
+    
+    public var fileSizes:[Int]!{ //byte
+        didSet{
+            if fileSizes != nil && fileSizes.count > 0
+            {
+                self.paramenters["fileSizes"] = fileSizes.map{"\($0)"}.joinWithSeparator("#")
+            }
+        }
+    }
+}

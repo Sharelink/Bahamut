@@ -14,3 +14,5 @@ pod 'CocoaAsyncSocket'
 pod 'AlamofireJsonToObjects'
 
 pod 'AliyunOSSiOS', '~> 2.1.1'
+
+pod 'ImagePicker'

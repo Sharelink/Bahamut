@@ -14,8 +14,9 @@ class ImageContent:NSObject,UIShareContentDelegate
     private var itemsPerRow:Int = 3
     private var imageSize = CGSizeMake(98, 98)
     private let imageSpace = CGFloat(7)
-    private var images:[UIImage]! = [UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!,UIImage(named: "defaultView")!]
+    private var images:[UIImage]!
     private var shareCell:UIShareThing!
+    private var imageContentModel:ShareImageContentModel!
     private var view = UIView(){
         didSet{
             view.backgroundColor = UIColor.whiteColor()
@@ -50,6 +51,12 @@ class ImageContent:NSObject,UIShareContentDelegate
     
     func initContent(shareCell: UIShareThing, share: ShareThing) {
         self.shareCell = shareCell
+        if let shareContent = share.shareContent
+        {
+            self.imageContentModel = ShareImageContentModel(json:shareContent)
+            let images = imageContentModel.thumbImgs.map{ImageUtil.getImageFromBase64String($0)}.filter{$0 != nil}.map{$0!}
+            self.images = images
+        }
         let width = shareCell.rootController.view.bounds.width - 23
         calRows(width, imageCount: images.count)
     }

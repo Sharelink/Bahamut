@@ -13,7 +13,7 @@ import MBProgressHUD
 
 class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,ProgressTaskDelegate
 {
-    static let thumbQuality:CGFloat = 0.5
+    static let thumbQuality:CGFloat = 0.1
     static let reuseableId = "NewShareFilmCell"
     
     override func getCellHeight() -> CGFloat {
@@ -170,7 +170,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     {
         newShare.shareType = ShareThingType.shareFilm.rawValue
         let newFilmModel = FilmModel(json: self.filmModel.toJsonString())
-        self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILM", comment: "Sending Film"))
+        self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILE", comment: ""))
         self.fileService.sendFileToAliOSS(newFilmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.rootController.hideToastActivity()
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
@@ -215,7 +215,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
-            self.rootController.showToast( NSLocalizedString("SEND_FILM_FAILED", comment: "Send File Failed"))
+            self.rootController.showToast( NSLocalizedString("SEND_FILE_FAILED", comment: ""))
             NewFilmShareTask.deleteObjectArray([task])
         }
     }

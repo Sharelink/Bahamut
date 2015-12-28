@@ -66,6 +66,7 @@ FINISH = "Finish";
 EDIT = "Edit";
 CANCEL = "Cancel";
 CANCELED = "Canceled";
+DONE = "Done";
 SHARE = "Share";
 NO = "No";
 OK = "Ok";
@@ -83,8 +84,14 @@ VIDEO_SAVED = "Video Saved";
 SAVE_VIDEO_FAILED = "Save Video Failed";
 UPDATING = "Updating";
 IGNORE = "Ignore";
+ADD_IMAGE_LIMIT_AT_X = "Only add %@ photos at most";
+
+//Image Picker
+"CAMERA_NOT_AVAILABLE" = "Camera is not available";
+"NO_IMAGES_AVAILABLE" = "No images available";
 
 //System
+SETTING = "Setting";
 ME = "Me";
 "#<SharelinkCenter>#" = "Sharelink";
 
@@ -152,8 +159,14 @@ SENDING_FILM = "Sending Film";
 NO_FILM_SELECTED = "Select or capture a film please!";
 SEND_FILM_SUC = "Send Film Success";
 POST_SHARE_SUC = "Post Share Success";
-SEND_FILM_FAILED = "Send File Failed";
 POST_SHARE_FAILED = "Post Share Error";
+
+SENDING_FILE = "Sending File";
+SEND_FILE_SUC = "Send File Success";
+SEND_FILE_FAILED = "Send File Error";
+
+NO_IMAGE_SELECTED = "Select or capture images please!";
+
 
 EMPTY_TITLE = "Empty Title";
 NO_URL_IN_PASTE_BOARD = "No Url In Paste Board";

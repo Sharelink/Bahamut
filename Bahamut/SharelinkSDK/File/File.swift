@@ -10,6 +10,11 @@ import Foundation
 import EVReflection
 import Alamofire
 
+public class FileAccessInfoList : BahamutObject
+{
+    var files:[FileAccessInfo]!
+}
+
 public class FileAccessInfo : BahamutObject
 {
     public override func getObjectUniqueIdName() -> String {

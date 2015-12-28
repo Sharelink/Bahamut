@@ -66,6 +66,7 @@ FINISH = "完成";
 EDIT = "编辑";
 CANCEL = "取消";
 CANCELED = "取消";
+DONE = "完成";
 SHARE = "分享";
 NO = "否";
 OK = "好";
@@ -83,8 +84,14 @@ VIDEO_SAVED = "视频已经保存";
 SAVE_VIDEO_FAILED = "保存视频失败";
 UPDATING = "更新中";
 IGNORE = "忽略";
+ADD_IMAGE_LIMIT_AT_X = "最多只能添加%@张图片";
+
+//Image Picker
+"CAMERA_NOT_AVAILABLE" = "没有发现相机";
+"NO_IMAGES_AVAILABLE" = "没有图片";
 
 //System
+SETTING = "Setting";
 ME = "我";
 "#<SharelinkCenter>#" = "Sharelink";
 
@@ -154,8 +161,12 @@ SENDING_FILM = "视频发送中";
 NO_FILM_SELECTED = "需要录制或者选择一个视频!";
 SEND_FILM_SUC = "上传视频成功！";
 POST_SHARE_SUC = "分享成功！";
-SEND_FILM_FAILED = "上传视频失败";
 POST_SHARE_FAILED = "分享失败！";
+
+SENDING_FILE = "文件传送中";
+SEND_FILE_SUC = "传送文件成功";
+SEND_FILE_FAILED = "传送文件错误";
+NO_IMAGE_SELECTED = "请选择或拍摄图片!";
 
 NO_URL_IN_PASTE_BOARD = "剪切板没有链接";
 

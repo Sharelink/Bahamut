@@ -32,7 +32,7 @@ class FilmContent: UIShareContentDelegate
             let fm = FilmModel(json: json)
             if let preview = fm.preview
             {
-                if let thumb = ImageUtil.getThumbImageFromBase64String(preview)
+                if let thumb = ImageUtil.getImageFromBase64String(preview)
                 {
                     mediaPlayer.setThumb(thumb)
                 }
