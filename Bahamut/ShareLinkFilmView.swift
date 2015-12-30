@@ -155,7 +155,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             fileProgress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
             fileProgress.center = self.center
             self.addSubview(fileProgress)
-            setProgressValue(0)
+            fileProgress.setProgressValue(0)
         }
     }
     //MARK: thumb
@@ -218,17 +218,17 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         loading = true
         refreshButton.hidden = true
         playButton.hidden = true
-        setProgressValue(0)
+        fileProgress.setProgressValue(0)
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
     public func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
+        self.fileProgress.setProgressValue(0)
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false
             self.playButton.hidden = false
             self.refreshButton.hidden = true
-            self.setProgressValue(0)
             if let video = result as? String
             {
                 self.playerController.path = video
@@ -246,17 +246,14 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
     
     public func taskProgress(fileIdentifier: String, persent: Float) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            
-            self.setProgressValue(persent / 100)
-        }
+        self.fileProgress.setProgressValue(persent / 100)
     }
     
     public func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
+        fileProgress.setProgressValue(0)
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false
-            self.setProgressValue(0)
             self.refreshButton.hidden = false
             self.playButton.hidden = true
             self.playerController.reset()
@@ -346,20 +343,23 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         {
             self.originContainer = self.superview
         }
+        
+        self.fileProgress.center = self.center
+        self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
+        self.playerController.view.frame = self.bounds
+        self.thumbImageView.frame = self.bounds
+        self.refreshButton.center = self.center
+        self.playButton.center = self.center
+        self.noFileImage.center = self.center
+        
         super.layoutSubviews()
     }
     
-    func refreshUI()
+    private func refreshUI()
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.superview?.bringSubviewToFront(self)
-            self.fileProgress.center = self.center
-            self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
-            self.playerController.view.frame = self.bounds
-            self.thumbImageView.frame = self.bounds
-            self.refreshButton.center = self.center
-            self.playButton.center = self.center
-            self.noFileImage.center = self.center
+            
             self.bringSubviewToFront(self.fileProgress)
             self.bringSubviewToFront(self.timeLine)
             self.bringSubviewToFront(self.refreshButton)
@@ -381,21 +381,6 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             let b = CMTimeGetSeconds(currentFilm.duration)
             let c = a / b
             timeLine.progress = Float(c)
-        }
-        
-    }
-    
-    func setProgressValue(value:Float)
-    {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.fileProgress.angle = Int(value * 360)
-            if self.fileProgress.angle > 0 && self.fileProgress.angle <= 356
-            {
-                self.fileProgress.hidden = false
-            }else{
-                self.fileProgress.hidden = true
-                self.fileProgress.superview?.bringSubviewToFront(self.fileProgress)
-            }
         }
         
     }

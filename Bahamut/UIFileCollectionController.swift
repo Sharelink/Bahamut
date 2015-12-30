@@ -42,7 +42,7 @@ class UIFileCollectionCellModel : UIResrouceItemModel
             return ImageUtil.getTextFileIconImage()
         }else if self.fileType == FileType.Sound
         {
-            return ImageUtil.getSountIconImage()
+            return ImageUtil.getSoundIconImage()
         }else if self.fileType == FileType.Image
         {
             return ImageUtil.getImageThumbImage(self.filePath)

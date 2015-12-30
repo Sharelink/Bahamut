@@ -14,31 +14,50 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
 {
     static let themesLimit = 7
     static let reuseableId = "NewShareThemeCell"
+    static var tempThemes = [SharelinkTheme]()
+    private var inited:Bool = false
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!{
+        didSet{
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.hidden = true
+        }
+    }
+    var themeService = ServiceContainer.getService(SharelinkThemeService)
+    
+    private var themeHubController:ThemeCollectionViewController!{
+        didSet{
+            ServiceContainer.getService(SharelinkThemeService).addObserver(self, selector: "onUserThemeUpdated:", name: SharelinkThemeService.themesUpdated, object: nil)
+            themeHubController.delegate = self
+        }
+    }
+    
+    override var rootController:NewShareController!{
+        didSet{
+            rootView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapView:"))
+        }
+    }
+    
+    var selectedThemesCount:Int{
+        return selectedIndexPath.count
+    }
+    var selectedThemes:[SharelinkTheme]{
+        return themeHubController.selectedThemes
+    }
+    var selectedIndexPath = [NSIndexPath]()
+    
     override func initCell()
     {
-        myThemeController = ThemeCollectionViewController.instanceFromStoryBoard()
-        self.rootView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapView:"))
-        if isReshare
+        if self.isReshare
         {
-            initReshareThemeCell()
+            self.initReshareThemeCell()
+        }else if self.inited == false{
+            self.refreshMyThemes()
         }
     }
     
-    var myThemeController:ThemeCollectionViewController!
-        {
-        didSet{
-            myThemeContainer = UIView()
-            myThemeController.delegate = self
-        }
-    }
-    
-    private var myThemeContainer:UIView!{
-        didSet{
-            myThemeContainer.layer.cornerRadius = 7
-            myThemeContainer.layer.borderWidth = 1
-            myThemeContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
-            myThemeContainer.backgroundColor = UIColor.whiteColor()
-        }
+    deinit{
+        ServiceContainer.getService(SharelinkThemeService).removeObserver(self)
     }
     
     @IBOutlet weak var selectedThemeContainer: UIView!{
@@ -47,8 +66,8 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
             selectedThemeContainer.layer.borderWidth = 1
             selectedThemeContainer.layer.borderColor = UIColor.lightGrayColor().CGColor
             selectedThemeContainer.backgroundColor = UIColor.whiteColor()
-            selectedThemeController  = ThemeCollectionViewController.instanceFromStoryBoard()
-            selectedThemeContainer.addSubview(selectedThemeController.view)
+            themeHubController  = ThemeCollectionViewController.instanceFromStoryBoard()
+            selectedThemeContainer.addSubview(themeHubController.view)
         }
     }
     @IBOutlet weak var customThemeTextField: UITextField!{
@@ -57,126 +76,112 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
         }
     }
     
-    private func initReshareThemeCell()
+    private func startLoading()
     {
-        //filter share's tag without poster's personal tag
-        let tagDatas = rootController.reShareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
-        for m in tagDatas
-        {
-            let tag = SharelinkTheme()
-            tag.type = m.type
-            tag.tagName = m.name
-            tag.data = m.data
-            tag.tagColor = UIColor.getRandomTextColor().toHexString()
-            self.selectedThemeController.addTag(tag)
-        }
+        self.themeHubController.view.hidden = true
+        self.loadingIndicator.hidden = false
+        self.loadingIndicator.startAnimating()
     }
     
-    @IBAction func themeHubClick(sender: AnyObject) {
-        if myThemeContainer.superview != nil
-        {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.hideMyThemesCollection()
-            })
+    private func endLoading()
+    {
+        self.themeHubController.view.hidden = false
+        self.loadingIndicator.stopAnimating()
+    }
+    
+    private func initReshareThemeCell()
+    {
+        startLoading()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) { () -> Void in
+            let mySystemThemes = self.themeService.getAllSystemThemes().filter{ $0.isKeywordTheme() || $0.isFeedbackTheme() || $0.isPrivateTheme() || $0.isResharelessTheme()}
+            let myCustomThemes = self.themeService.getAllCustomThemes().filter{$0.isSharelinkerTheme() == false}
+            var shareableThemes = [SharelinkTheme]()
             
-        }else{
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.showMyThemesCollection()
-                MobClick.event("SelectThemeButton")
-            })
+            //filter share's tag without poster's personal tag
+            let themeDatas = self.rootController.reShareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
+            let themeForShare = themeDatas.map { (m) -> SharelinkTheme in
+                let theme = SharelinkTheme()
+                theme.type = m.type
+                theme.tagName = m.name
+                theme.data = m.data
+                theme.tagColor = UIColor.themeColor.toHexString()
+                return theme
+            }
             
+            shareableThemes.appendContentsOf(mySystemThemes)
+            shareableThemes.appendContentsOf(themeForShare)
+            shareableThemes.appendContentsOf(NewShareThemeCell.tempThemes)
+            shareableThemes.appendContentsOf(myCustomThemes)
+            self.themeHubController.addThemes(shareableThemes,refreshCollection: false)
+            
+            let selectedStartIndex = mySystemThemes.count
+            let selectedEndIndex = selectedStartIndex + themeForShare.count
+            let range = selectedStartIndex..<selectedEndIndex
+            let selectionIndexs = range.map{NSIndexPath(forRow: $0, inSection: 0)}
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.themeHubController.reloadCollection(selectionIndexs)
+                self.endLoading()
+                self.inited = true
+            })
         }
     }
     
     func tapView(_:UITapGestureRecognizer)
     {
-        if myThemeContainer.superview != nil
-        {
-            hideMyThemesCollection()
-        }
         self.rootController.hideKeyBoard()
     }
     
-    //MARK: seletectd tags
-    var selectedThemes:[SharelinkTheme]{
-        return selectedThemeController.tags ?? [SharelinkTheme]()
+    func onUserThemeUpdated(_:NSNotification)
+    {
+        refreshMyThemes()
     }
     
-    private var selectedThemeController:ThemeCollectionViewController!{
-        didSet{
-            selectedThemeController.delegate = self
+    private func refreshMyThemes()
+    {
+        startLoading()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) { () -> Void in
+            let mySystemThemes = self.themeService.getAllSystemThemes().filter{ $0.isKeywordTheme() || $0.isFeedbackTheme() || $0.isPrivateTheme() || $0.isResharelessTheme()}
+            let myCustomThemes = self.themeService.getAllCustomThemes().filter{$0.isSharelinkerTheme() == false}
+            var shareableThemes = [SharelinkTheme]()
+            shareableThemes.appendContentsOf(mySystemThemes)
+            shareableThemes.appendContentsOf(NewShareThemeCell.tempThemes)
+            shareableThemes.appendContentsOf(myCustomThemes)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.themeHubController.themes = shareableThemes
+                self.endLoading()
+                self.inited = true
+            })
         }
     }
     
-    func initMyThemes()
-    {
-        let tagService = ServiceContainer.getService(SharelinkThemeService)
-        let mySystemTags = tagService.getAllSystemThemes().filter{ $0.isKeywordTheme() || $0.isFeedbackTheme() || $0.isPrivateTheme() || $0.isResharelessTheme()}
-        
-        let myCustomTags = tagService.getAllCustomThemes().filter{$0.isSharelinkerTheme() == false}
-        var shareableTags = [SharelinkTheme]()
-        shareableTags.appendContentsOf(mySystemTags)
-        shareableTags.appendContentsOf(myCustomTags)
-        self.myThemeController.tags = shareableTags
-    }
-    
-    private func showMyThemesCollection()
-    {
-        self.rootView.addSubview(myThemeContainer)
-        myThemeContainer.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, selectedThemeContainer.bounds.width, 0)
-        self.myThemeContainer.addSubview(myThemeController.view)
-        let height = CGFloat(113)
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.3)
-        myThemeContainer.frame = CGRectMake(selectedThemeContainer.frame.origin.x , self.frame.origin.y - height ,self.selectedThemeContainer.bounds.width, height)
-        self.rootView.layoutIfNeeded()
-        UIView.commitAnimations()
-        initMyThemes()
-    }
-    
-    private func hideMyThemesCollection()
-    {
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.3)
-        self.rootView.layoutIfNeeded()
-        UIView.commitAnimations()
-        myThemeContainer.removeFromSuperview()
-    }
-    
-    func tagDidTap(sender: ThemeCollectionViewController, indexPath: NSIndexPath)
-    {
-        if sender == myThemeController
+    func themeCellDidClick(sender: ThemeCollectionViewController, cell: ThemeCollectionCell, indexPath: NSIndexPath) {
+        if cell.selected == false && selectedThemesCount >= NewShareThemeCell.themesLimit
         {
-            let tag = myThemeController.tags[indexPath.row]
-            if addThemeToSelectedThemes(tag)
-            {
-                let tagSortableObj = tag.getSortableObject()
-                tagSortableObj.compareValue = NSNumber(double: NSDate().timeIntervalSince1970)
-                tagSortableObj.saveModel()
-            }else
-            {
-                
-            }
-        }else if sender == selectedThemeController
-        {
-            sender.removeTag(indexPath)
+            self.rootController.showToast(NSLocalizedString("THEME_LIMIT_MESSAGE", comment: ""))
+            return
         }
-    }
-    
-    func addThemeToSelectedThemes(theme:SharelinkTheme) -> Bool
-    {
-        if selectedThemeController.tags != nil && selectedThemeController.tags.count >= NewShareThemeCell.themesLimit
+        if cell.selected
         {
-            self.rootController.showToast(NSLocalizedString("TAG_LIMIT_MESSAGE", comment: "can't not add more tags!"))
-            return false
-        }
-        if !selectedThemeController.addTag(theme)
-        {
-            self.rootController.showToast(NSLocalizedString("TAG_ALREADY_SELECTED", comment: "tag has been added!"))
-            return true
+            self.selectedIndexPath.removeElement({ (itemInArray) -> Bool in
+                itemInArray.row == indexPath.row && itemInArray.section == indexPath.section
+            })
         }else
         {
-            return false
+            self.selectedIndexPath.append(indexPath)
+        }
+        cell.selected = !cell.selected
+    }
+    
+    //MARK: add temp theme
+    func addTempThemeToThemesHub(theme:SharelinkTheme)
+    {
+        if themeHubController.addTheme(theme,refreshCollection: false) != nil
+        {
+            themeHubController.reloadCollection(self.selectedIndexPath)
+            NewShareThemeCell.tempThemes.append(theme)
+        }else
+        {
+            self.rootController.showToast(NSLocalizedString("THEME_ALREADY_SELECTED", comment: ""))
         }
     }
     
@@ -189,16 +194,16 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
                 if !newThemeName.isEmpty
                 {
                     let newTheme = SharelinkTheme()
-                    newTheme.tagColor = UIColor.getRandomTextColor().toHexString()
+                    newTheme.tagColor = UIColor.themeColor.toHexString()
                     newTheme.tagName = newThemeName
                     newTheme.type = SharelinkThemeConstant.TAG_TYPE_KEYWORD
                     newTheme.data = newThemeName
                     customThemeTextField.text = nil
-                    addThemeToSelectedThemes(newTheme)
+                    addTempThemeToThemesHub(newTheme)
                     return false
                 }
             }
-            self.rootController.showToast(NSLocalizedString("TAG_IS_EMPTY", comment: "there is nothing!"))
+            self.rootController.showToast(NSLocalizedString("THEME_IS_EMPTY", comment: ""))
         }
         return true
     }

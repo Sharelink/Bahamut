@@ -11,6 +11,16 @@ import Foundation
 //MARK: PersistentFileHelper
 class PersistentFileHelper
 {
+    static func readTextFile(filePath:String) -> String?
+    {
+        do
+        {
+            return try String(contentsOfFile: filePath)
+        }catch
+        {
+            return nil
+        }
+    }
     
     static func fileExists(filePath:String) -> Bool
     {

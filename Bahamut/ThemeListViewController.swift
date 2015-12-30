@@ -134,6 +134,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = false
+        }
         initThemes()
         MobClick.beginLogPageView("ThemeView")
     }

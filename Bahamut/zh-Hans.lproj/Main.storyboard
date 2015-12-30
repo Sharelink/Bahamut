@@ -576,7 +576,7 @@
                     <connections>
                         <outlet property="dev_panel" destination="UCy-Uk-G7g" id="bFO-0o-gDO"/>
                         <outlet property="webPageView" destination="BsZ-WV-6Gb" id="iKD-1r-VQ5"/>
-                        <segue destination="501-Fq-5xf" kind="presentation" identifier="ShowMainView" id="N2o-I0-qzh"/>
+                        <segue destination="501-Fq-5xf" kind="custom" identifier="ShowMainView" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="N2o-I0-qzh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjl-Za-0ff" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -858,8 +858,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="168"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关联的主题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb3-ou-gUI">
-                                            <rect key="frame" x="8" y="8" width="85" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享主题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb3-ou-gUI">
+                                            <rect key="frame" x="8" y="8" width="68" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -868,50 +868,35 @@
                                             <rect key="frame" x="8" y="37" width="584" height="83"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="自定义一个分享主题" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Egk-jd-AMW">
-                                            <rect key="frame" x="8" y="128" width="475" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="添加一个临时的主题" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Egk-jd-AMW">
+                                            <rect key="frame" x="8" y="128" width="584" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="5bp-M6-Irb"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJV-rB-fXy">
-                                            <rect key="frame" x="491" y="128" width="101" height="32"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="83" id="KNA-dr-YNN"/>
-                                                <constraint firstAttribute="height" constant="32" id="dhI-Nr-ABF"/>
-                                            </constraints>
-                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title=" 主题库" image="themehub">
-                                                <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="KNA-dr-YNN"/>
-                                                </mask>
-                                            </variation>
-                                            <connections>
-                                                <action selector="themeHubClick:" destination="Orw-ds-51j" eventType="touchUpInside" id="mBL-0H-lQi"/>
-                                            </connections>
-                                        </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wKF-t9-5Vg">
+                                            <rect key="frame" x="290" y="74" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="mJV-rB-fXy" firstAttribute="leading" secondItem="Egk-jd-AMW" secondAttribute="trailing" constant="8" symbolic="YES" id="0YA-cb-5er"/>
                                         <constraint firstItem="Nb3-ou-gUI" firstAttribute="top" secondItem="SqK-SR-kkp" secondAttribute="topMargin" id="37P-ZT-vcU"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Egk-jd-AMW" secondAttribute="bottom" constant="2" id="7Tk-WU-eSm"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Egk-jd-AMW" secondAttribute="trailing" id="Hca-ue-cvk"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="IfE-5v-1kZ" secondAttribute="trailing" id="Pjm-fH-38b"/>
-                                        <constraint firstItem="mJV-rB-fXy" firstAttribute="top" secondItem="Egk-jd-AMW" secondAttribute="top" id="Uvn-dE-gJV"/>
                                         <constraint firstItem="Egk-jd-AMW" firstAttribute="leading" secondItem="IfE-5v-1kZ" secondAttribute="leading" id="WUH-ON-5Pb"/>
                                         <constraint firstItem="IfE-5v-1kZ" firstAttribute="top" secondItem="Nb3-ou-gUI" secondAttribute="bottom" constant="8" symbolic="YES" id="cZW-Bq-Stv"/>
-                                        <constraint firstItem="mJV-rB-fXy" firstAttribute="trailing" secondItem="SqK-SR-kkp" secondAttribute="trailingMargin" id="dic-bZ-G1J"/>
+                                        <constraint firstItem="wKF-t9-5Vg" firstAttribute="centerY" secondItem="SqK-SR-kkp" secondAttribute="centerY" id="dYv-sm-Oft"/>
                                         <constraint firstItem="Egk-jd-AMW" firstAttribute="top" secondItem="IfE-5v-1kZ" secondAttribute="bottom" constant="8" id="gHn-ro-6Xo"/>
                                         <constraint firstItem="Nb3-ou-gUI" firstAttribute="leading" secondItem="SqK-SR-kkp" secondAttribute="leadingMargin" id="hSg-xt-Ict"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="mJV-rB-fXy" secondAttribute="bottom" id="oKG-T8-ywI"/>
+                                        <constraint firstItem="wKF-t9-5Vg" firstAttribute="centerX" secondItem="SqK-SR-kkp" secondAttribute="centerX" id="mJy-d4-jIA"/>
                                         <constraint firstItem="IfE-5v-1kZ" firstAttribute="leading" secondItem="Nb3-ou-gUI" secondAttribute="leading" id="t5n-i8-73h"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="customThemeTextField" destination="Egk-jd-AMW" id="dSP-dM-6bl"/>
+                                    <outlet property="loadingIndicator" destination="wKF-t9-5Vg" id="vKi-GM-Khr"/>
                                     <outlet property="selectedThemeContainer" destination="IfE-5v-1kZ" id="Fn1-Ir-hdm"/>
                                 </connections>
                             </tableViewCell>
@@ -1246,7 +1231,6 @@
         <image name="share" width="96" height="96"/>
         <image name="share_icon" width="24" height="24"/>
         <image name="theme" width="24" height="24"/>
-        <image name="themehub" width="42" height="42"/>
         <image name="user" width="24" height="24"/>
         <image name="userlink" width="24" height="24"/>
         <image name="webcam" width="128" height="128"/>

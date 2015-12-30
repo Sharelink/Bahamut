@@ -138,15 +138,20 @@ RESHARE_CONFIRM = "Share To Your Linkers";
 RESHARELESS_TIPS = "This Share Is Not Allow Reshare!";
 
 //MARK:NewShareViewController
-TAG_LIMIT_MESSAGE = "Can't not add more theme!";
-TAG_ALREADY_SELECTED = "Theme has been added!";
-TAG_IS_EMPTY = "Type a theme please!";
+THEME_LIMIT_MESSAGE = "Can't not add more themes!";
+THEME_ALREADY_SELECTED = "Theme has been added!";
+THEME_IS_EMPTY = "Type a theme please!";
+
+PREPARING_SHARE = "Preparing Share";
+PREPARE_SHARE_ERROR = "Prepare Share Error!";
 
 NEW_SHARE_PULL_SWITCH_TO = "Pull To Share %@";
 SHARE_HEADER_TITLE_VIDEO = "Video";
 SHARE_HEADER_TITLE_LINK = "Link";
 SHARE_HEADER_TITLE_TEXT = "Words";
 SHARE_HEADER_TITLE_IMAGE = "Images";
+
+MSG_IS_TOO_LONG = "Message Is Too Long";
 
 LOAD_URL_TITLE_ERROR = "Load Title Error";
 

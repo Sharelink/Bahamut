@@ -13,7 +13,7 @@ import MBProgressHUD
 
 class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorerDelegate,ProgressTaskDelegate
 {
-    static let thumbQuality:CGFloat = 0.1
+    static let thumbQuality:CGFloat = 0.3
     static let reuseableId = "NewShareFilmCell"
     
     override func getCellHeight() -> CGFloat {
@@ -74,7 +74,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         {
             let fileModel = itemModels.first as! UIFileCollectionCellModel
             filmModel.film = fileModel.filePath
-            filmModel.preview = ImageUtil.getVideoThumbImageBase64String(fileModel.filePath,compressionQuality: NewShareFilmCell.thumbQuality)
+            filmModel.preview = generatePreview(fileModel.filePath)
             filmPlayer.filePath = filmModel.film
         }
     }
@@ -104,6 +104,17 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         self.rootController.showAlert("", msg: String(format:(NSLocalizedString("FILES_WAS_DELETED", comment: "%@ files deleted")), sum))
     }
     
+    //MARK: generate preview
+    private func generatePreview(filePath:String) -> String?
+    {
+        if let thumbImage = ImageUtil.generateThumb(filePath)
+        {
+            let thumbString = thumbImage.scaleToSize(CGSize(width: 168, height: 168)).generateImageDataOfQuality(NewShareFilmCell.thumbQuality)?.base64UrlEncodedString()
+            return thumbString
+        }
+        return nil
+    }
+    
     //MARK: qupai
     func showQuPaiCamera()
     {
@@ -121,7 +132,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             if let newFilePath = saveVideo(videoPath)
             {
                 filmModel.film = newFilePath
-                filmModel.preview = ImageUtil.getVideoThumbImageBase64String(newFilePath,compressionQuality: NewShareFilmCell.thumbQuality)
+                filmModel.preview = generatePreview(newFilePath)
                 filmPlayer.filePath = filmModel.film
             }
         }
@@ -150,7 +161,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     {
         var id:String!
         var share:ShareThing!
-        var shareTags:[SharelinkTheme]!
+        var shareThemes:[SharelinkTheme]!
         var sendFileKey:FileAccessInfo!
     }
     
@@ -161,12 +172,12 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             return false
         }else
         {
-            postShare(baseShareModel, tags: themes)
+            postShare(baseShareModel, themes: themes)
             return true
         }
     }
     
-    private func postShare(newShare:ShareThing,tags:[SharelinkTheme])
+    private func postShare(newShare:ShareThing,themes:[SharelinkTheme])
     {
         newShare.shareType = ShareThingType.shareFilm.rawValue
         let newFilmModel = FilmModel(json: self.filmModel.toJsonString())
@@ -180,7 +191,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
                 newShare.shareContent = newFilmModel.toJsonString()
                 let newShareTask = NewFilmShareTask()
                 newShareTask.id = taskId
-                newShareTask.shareTags = tags
+                newShareTask.shareThemes = themes
                 newShareTask.share = newShare
                 newShareTask.sendFileKey = fk
                 newShareTask.saveModel()
@@ -191,7 +202,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     func taskCompleted(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
-            self.shareService.postNewShare(task.share, tags: task.shareTags ,callback: { (shareId) -> Void in
+            self.shareService.postNewShare(task.share, tags: task.shareThemes ,callback: { (shareId) -> Void in
                 if shareId != nil
                 {
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in

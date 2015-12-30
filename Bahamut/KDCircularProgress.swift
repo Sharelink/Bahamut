@@ -272,6 +272,24 @@ public class KDCircularProgress: UIView {
         }
     }
     
+    //value:0 to 1
+    func setProgressValue(value:Float)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.angle = Int(value * 360)
+            if self.angle > 0 && self.angle <= 356
+            {
+                self.hidden = false
+            }else{
+                self.hidden = true
+                if self.superview != nil
+                {
+                    self.superview?.bringSubviewToFront(self)
+                }
+            }
+        }
+    }
+    
     public override func prepareForInterfaceBuilder() {
         setInitialValues()
         refreshValues()

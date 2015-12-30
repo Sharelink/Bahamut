@@ -103,7 +103,7 @@ class NewShareController: UITableViewController
     let shareContentCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
     let shareThemeCellIndexPath = NSIndexPath(forRow: 2, inSection: 0)
     
-    private var rowHights = [128,UITableViewAutomaticDimension,168]
+    private var rowHights = [128,UITableViewAutomaticDimension,256]
     
     //MARK: life process
     override func viewDidLoad() {
@@ -124,17 +124,13 @@ class NewShareController: UITableViewController
         super.viewWillAppear(animated)
         if let nc = self.navigationController as? UIOrientationsNavigationController
         {
-            nc.lockOrientationPortrait = true
+            nc.lockOrientationPortrait = false
         }
         MobClick.beginLogPageView("New")
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if let nc = self.navigationController as? UIOrientationsNavigationController
-        {
-            nc.lockOrientationPortrait = false
-        }
         MobClick.endLogPageView("New")
     }
     

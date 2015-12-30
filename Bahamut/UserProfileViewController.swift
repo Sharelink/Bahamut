@@ -32,46 +32,40 @@ extension UserService
 //MARK: extension SharelinkThemeService
 extension SharelinkThemeService
 {
-    func showConfirmAddTagAlert(curentViewController:UIViewController,tag:SharelinkTheme)
+    func showConfirmAddTagAlert(currentViewController:UIViewController,theme:SharelinkTheme)
     {
-        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), tag.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), theme.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default){ _ in
-            self.addThisTapToMyFocus(curentViewController,tag: tag)
+            self.addThisThemeToMyFocus(currentViewController,theme: theme)
             })
         alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: ""), style: .Cancel){ _ in
-            self.cancelAddTag(tag)
             })
-        curentViewController.presentViewController(alert, animated: true, completion: nil)
+        currentViewController.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func cancelAddTag(tag:SharelinkTheme)
+    func addThisThemeToMyFocus(currentViewController:UIViewController,theme:SharelinkTheme)
     {
-        
-    }
-    
-    func addThisTapToMyFocus(curentViewController:UIViewController,tag:SharelinkTheme)
-    {
-        if self.isThemeExists(tag.data)
+        if self.isThemeExists(theme.data)
         {
             let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_THEME_EXISTS", comment: ""), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: .Cancel, handler: nil))
-            curentViewController.presentViewController(alert, animated: true, completion: nil)
+            currentViewController.presentViewController(alert, animated: true, completion: nil)
             return
         }
         
         let newTag = SharelinkTheme()
-        newTag.tagName = tag.tagName
-        newTag.tagColor = tag.tagColor
+        newTag.tagName = theme.tagName
+        newTag.tagColor = theme.tagColor
         newTag.isFocus = "true"
-        newTag.type = tag.type
+        newTag.type = theme.type
         newTag.showToLinkers = "true"
-        newTag.data = tag.data
+        newTag.data = theme.data
         self.addSharelinkTheme(newTag) { (suc) -> Void in
             let alerttitle = suc ? NSLocalizedString("FOCUS_THEME_SUCCESS", comment: "") : NSLocalizedString("FOCUS_THEME_ERROR", comment: "")
             let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in
                 })
-            curentViewController.presentViewController(alert, animated: true, completion: nil)
+            currentViewController.presentViewController(alert, animated: true, completion: nil)
         }
         
     }
@@ -124,8 +118,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func initTags()
     {
-        tags = ServiceContainer.getService(SharelinkThemeService).getUserTheme(userProfileModel.userId){ result in
-            self.tags = result
+        self.themes = ServiceContainer.getService(SharelinkThemeService).getUserTheme(userProfileModel.userId){ result in
+            self.themes = result
         }
     }
     
@@ -181,15 +175,14 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    func tagDidTap(sender: ThemeCollectionViewController, indexPath: NSIndexPath)
-    {
+    func themeCellDidClick(sender: ThemeCollectionViewController, cell: ThemeCollectionCell, indexPath: NSIndexPath) {
         if isMyProfile
         {
             return
         }
         if sender == focusTagController
         {
-            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self,tag: sender.tags[indexPath.row])
+            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self,theme: sender.themes[indexPath.row])
         }
     }
     
@@ -370,10 +363,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         fileService.setAvatar(avatarImageView, iconFileId: userProfileModel.avatarId)
     }
     
-    //MARK: user tag
-    var tags:[SharelinkTheme]!{
+    //MARK: user theme
+    var themes:[SharelinkTheme]!{
         didSet{
-            self.focusTagController.tags = tags
+            self.focusTagController.themes = self.themes
         }
     }
     

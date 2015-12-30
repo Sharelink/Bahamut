@@ -45,7 +45,7 @@ class ShareThingsListController: UITableViewController
         super.viewWillAppear(animated)
         if let nc = self.navigationController as? UIOrientationsNavigationController
         {
-            nc.lockOrientationPortrait = true
+            nc.lockOrientationPortrait = false
         }
         isShowing = true
         MobClick.beginLogPageView("ShareThings")
@@ -53,10 +53,6 @@ class ShareThingsListController: UITableViewController
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if let nc = self.navigationController as? UIOrientationsNavigationController
-        {
-            nc.lockOrientationPortrait = false
-        }
         isShowing = false
         MobClick.endLogPageView("ShareThings")
     }
@@ -211,25 +207,11 @@ class ShareThingsListController: UITableViewController
     let refreshLock = NSRecursiveLock()
     func refresh()
     {
-        //test
-        let imageShare = ShareThing()
-        imageShare.shareType = ShareThingType.shareImage.rawValue
-        imageShare.message = "test"
-        imageShare.shareId = "sdsd"
-        imageShare.userId = self.userService.myUserId
-        imageShare.reshareable = "false"
-        imageShare.shareTime = NSDate().toDateTimeString()
-        imageShare.forTags = []
-        imageShare.voteUsers = []
         
         dispatch_async(dispatch_get_main_queue()){
             self.refreshLock.lock()
             self.shareThings.removeAll(keepCapacity: true)
-            
-            var newValues = self.shareService.getShareThings(0,pageNum: 7)
-            
-            newValues.append(imageShare)
-            
+            let newValues = self.shareService.getShareThings(0,pageNum: 7)
             self.shareThings.insertContentsOf(newValues, at: 0)
             self.tableView.reloadData()
             self.refreshLock.unlock()

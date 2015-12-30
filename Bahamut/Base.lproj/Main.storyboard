@@ -598,50 +598,35 @@
                                             <rect key="frame" x="8" y="37" width="584" height="83"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add custom theme" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bkI-3S-Ajg">
-                                            <rect key="frame" x="8" y="128" width="468" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a temporary theme" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bkI-3S-Ajg">
+                                            <rect key="frame" x="8" y="128" width="584" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="GI5-n3-vsx"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-3V-WI2">
-                                            <rect key="frame" x="484" y="128" width="108" height="32"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="32" id="h6D-ku-pY1"/>
-                                                <constraint firstAttribute="width" constant="83" id="rId-sT-oNE"/>
-                                            </constraints>
-                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title="Themes" image="themehub">
-                                                <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="rId-sT-oNE"/>
-                                                </mask>
-                                            </variation>
-                                            <connections>
-                                                <action selector="themeHubClick:" destination="lhf-AV-JNL" eventType="touchUpInside" id="v8S-88-iqp"/>
-                                            </connections>
-                                        </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UoW-4s-PLW">
+                                            <rect key="frame" x="290" y="74" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bgK-3V-WI2" firstAttribute="top" secondItem="bkI-3S-Ajg" secondAttribute="top" id="2OO-XX-6Lf"/>
                                         <constraint firstItem="bkI-3S-Ajg" firstAttribute="top" secondItem="cOU-9A-My4" secondAttribute="bottom" constant="8" id="6FI-3E-v0j"/>
                                         <constraint firstItem="cOU-9A-My4" firstAttribute="leading" secondItem="MXe-06-qRh" secondAttribute="leading" id="9DG-5Q-i5Y"/>
-                                        <constraint firstItem="bgK-3V-WI2" firstAttribute="leading" secondItem="bkI-3S-Ajg" secondAttribute="trailing" constant="8" symbolic="YES" id="Gm9-Lt-56p"/>
-                                        <constraint firstItem="bgK-3V-WI2" firstAttribute="trailing" secondItem="PSr-gv-4Lf" secondAttribute="trailingMargin" id="JPX-8m-CGu"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="bgK-3V-WI2" secondAttribute="bottom" id="UKc-8N-bo1"/>
+                                        <constraint firstItem="UoW-4s-PLW" firstAttribute="centerX" secondItem="PSr-gv-4Lf" secondAttribute="centerX" id="CeQ-d6-rAh"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bkI-3S-Ajg" secondAttribute="trailing" id="IiX-sz-dVL"/>
                                         <constraint firstItem="MXe-06-qRh" firstAttribute="top" secondItem="PSr-gv-4Lf" secondAttribute="topMargin" id="Y0E-yI-oqf"/>
+                                        <constraint firstItem="UoW-4s-PLW" firstAttribute="centerY" secondItem="PSr-gv-4Lf" secondAttribute="centerY" id="bR9-A2-wTJ"/>
                                         <constraint firstItem="bkI-3S-Ajg" firstAttribute="leading" secondItem="cOU-9A-My4" secondAttribute="leading" id="iS6-cl-gIU"/>
                                         <constraint firstItem="cOU-9A-My4" firstAttribute="top" secondItem="MXe-06-qRh" secondAttribute="bottom" constant="8" symbolic="YES" id="n84-zi-dgR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="cOU-9A-My4" secondAttribute="trailing" id="nAS-8Z-EcI"/>
                                         <constraint firstItem="MXe-06-qRh" firstAttribute="leading" secondItem="PSr-gv-4Lf" secondAttribute="leadingMargin" id="wGp-JS-Fvx"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bkI-3S-Ajg" secondAttribute="bottom" constant="2" id="xIc-lY-9vc"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="customThemeTextField" destination="bkI-3S-Ajg" id="thg-Gl-Q1Q"/>
+                                    <outlet property="loadingIndicator" destination="UoW-4s-PLW" id="rBE-8S-4Tx"/>
                                     <outlet property="selectedThemeContainer" destination="cOU-9A-My4" id="6nr-Lw-6nO"/>
                                 </connections>
                             </tableViewCell>
@@ -978,7 +963,7 @@
                     <connections>
                         <outlet property="dev_panel" destination="UCy-Uk-G7g" id="bFO-0o-gDO"/>
                         <outlet property="webPageView" destination="BsZ-WV-6Gb" id="iKD-1r-VQ5"/>
-                        <segue destination="501-Fq-5xf" kind="presentation" identifier="ShowMainView" id="N2o-I0-qzh"/>
+                        <segue destination="501-Fq-5xf" kind="custom" identifier="ShowMainView" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="N2o-I0-qzh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjl-Za-0ff" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1002,7 +987,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="501-Fq-5xf" kind="presentation" identifier="Show Main Navigation" id="sWa-BH-Q2l"/>
+                        <segue destination="501-Fq-5xf" kind="custom" identifier="Show Main Navigation" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="sWa-BH-Q2l"/>
                         <segue destination="gSG-zD-Igm" kind="presentation" identifier="Show Sign View" id="ij8-QM-uEW"/>
                     </connections>
                 </navigationController>
@@ -1243,7 +1228,6 @@
         <image name="share" width="96" height="96"/>
         <image name="share_icon" width="24" height="24"/>
         <image name="theme" width="24" height="24"/>
-        <image name="themehub" width="42" height="42"/>
         <image name="user" width="24" height="24"/>
         <image name="userlink" width="24" height="24"/>
         <image name="webcam" width="128" height="128"/>

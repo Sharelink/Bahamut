@@ -93,6 +93,10 @@ class LinkedUserListController: UITableViewController
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         isShowing = true
+        if let nc = self.navigationController as? UIOrientationsNavigationController
+        {
+            nc.lockOrientationPortrait = false
+        }
         MobClick.beginLogPageView("SharelinkerList")
     }
     

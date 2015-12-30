@@ -37,8 +37,10 @@ class NewShareImageCollectionViewCell: UICollectionViewCell
 //MARK: NewShareImageCell
 class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,ImagePickerDelegate,ProgressTaskDelegate
 {
-    static var uploadImageQuality:CGFloat = 0.7
-    static var thumbImageQuality:CGFloat = 0.07
+    static var uploadImageQuality:CGFloat = 0.5
+    static var uploadImageWidth:CGFloat = 640
+    static var thumbImageQuality:CGFloat = 0.3
+    static var thumbImageSize = CGSizeMake(168, 168)
     static let maxImagePostCount = 9
     private var images = [UIImage]()
     static let AddImage = UIImage(named: "add")!
@@ -59,6 +61,13 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         super.initCell()
     }
     
+    override func clear() {
+        super.clear()
+        self.images.removeAll()
+        self.selectedStack = nil
+        self.imageCollectionView.reloadData()
+    }
+    
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
         if images.count == 0
         {
@@ -77,11 +86,13 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         contentModel.thumbImgs = [String]()
         let imageHubFile = ShareImageHub()
         imageHubFile.imagesBase64 = [String]()
+        let thumbSize = images.count < 3 ? CGSizeMake(NewShareImageCell.thumbImageSize.width * 2, NewShareImageCell.thumbImageSize.height * 2) : NewShareImageCell.thumbImageSize
+        let thumbQuality = NewShareImageCell.thumbImageQuality
         for img in images
         {
-            let imgString = UIImageJPEGRepresentation(img, NewShareImageCell.uploadImageQuality)?.base64UrlEncodedString() ?? ""
+            let imgString = img.scaleToWidthOf(NewShareImageCell.uploadImageWidth).generateImageDataOfQuality(NewShareImageCell.uploadImageQuality)?.base64UrlEncodedString() ?? ""
             imageHubFile.imagesBase64.append(imgString)
-            let thumbImgString = UIImageJPEGRepresentation(img, NewShareImageCell.thumbImageQuality)?.base64UrlEncodedString() ?? ""
+            let thumbImgString = img.scaleToSize(thumbSize).generateImageDataOfQuality(thumbQuality)?.base64UrlEncodedString() ?? ""
             contentModel.thumbImgs.append(thumbImgString)
         }
         let imagesHubFilePath = fileService.createLocalStoreFileName(FileType.NoType)
@@ -107,8 +118,10 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     {
         newShare.shareType = ShareThingType.shareImage.rawValue
         
+        self.rootController.makeToastActivityWithMessage(nil, message: NSLocalizedString("PREPARING_SHARE", comment: "Preparing Share"))
         if let content = generateShareContent()
         {
+            self.rootController.hideToastActivity()
             self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILE", comment: ""))
             self.fileService.sendFileToAliOSS(content.imagesHubFilePath, type: FileType.NoType) { (taskId, fileKey) -> Void in
                 self.rootController.hideToastActivity()
@@ -126,7 +139,8 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
                 }
             }
         }else{
-                
+            self.rootController.hideToastActivity()
+            self.rootController.showCrossMark(NSLocalizedString("PREPARE_SHARE_ERROR", comment: "Prepare Share Error!"))
         }
     }
     

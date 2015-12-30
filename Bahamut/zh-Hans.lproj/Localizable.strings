@@ -138,15 +138,20 @@ RESHARE_CONFIRM = "分享到你的Sharelink";
 RESHARELESS_TIPS = "分享人不允许转载!";
 
 //NewShareViewController
-TAG_LIMIT_MESSAGE = "不能再添加主题了!";
-TAG_ALREADY_SELECTED = "主题已添加!";
-TAG_IS_EMPTY = "输入一个主题!";
+THEME_LIMIT_MESSAGE = "不能再添加主题了!";
+THEME_ALREADY_SELECTED = "主题已添加!";
+THEME_IS_EMPTY = "输入一个主题!";
+
+PREPARING_SHARE = "正在准备分享";
+PREPARE_SHARE_ERROR = "准备分享出错!";
 
 NEW_SHARE_PULL_SWITCH_TO = "下拉分享%@";
 SHARE_HEADER_TITLE_VIDEO = "小视频";
 SHARE_HEADER_TITLE_LINK = "链接";
 SHARE_HEADER_TITLE_TEXT = "文字";
 SHARE_HEADER_TITLE_IMAGE = "图片";
+
+MSG_IS_TOO_LONG = "超过限制的长度了";
 
 EMPTY_TITLE = "无标题链接";
 LOAD_URL_TITLE_ERROR = "加载标题失败";

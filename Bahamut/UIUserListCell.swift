@@ -35,14 +35,7 @@ class UIUserListMessageCell: UITableViewCell
     
     func showAvatar(_:UIGestureRecognizer)
     {
-        if let avatarId = model.avatar
-        {
-            let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-            UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [avatarId],imageFileFetcher: imageFileFetcher)
-        }else
-        {
-            UUImageAvatarBrowser.showImage(self.avatar)
-        }
+        UUImageAvatarBrowser.showImage(self.avatar)
     }
     
     private func update()
@@ -82,8 +75,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     
     func showAvatar(_:UIGestureRecognizer)
     {
-        let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-        UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [model.avatar ?? ImageAssetsConstants.defaultAvatar],imageFileFetcher: imageFileFetcher)
+        UUImageAvatarBrowser.showImage(self.avatar)
     }
     
     private func update()
@@ -148,14 +140,7 @@ class UIUserListCell: UITableViewCell
     
     func showAvatar(_:UIGestureRecognizer)
     {
-        if let avatarId = userModel?.avatarId
-        {
-            let imageFileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Image)
-            UIImagePlayerController.showImagePlayer(self.rootController, imageUrls: [avatarId],imageFileFetcher: imageFileFetcher)
-        }else
-        {
-            UUImageAvatarBrowser.showImage(self.avatarImageView)
-        }
+        UUImageAvatarBrowser.showImage(self.avatarImageView)
     }
     
     func update()

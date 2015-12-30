@@ -39,8 +39,8 @@ class UIShareMessage:UIShareCell
     {
         if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {
-            let tag = SharelinkTheme(json: shareModel.shareContent)
-            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self.rootController, tag: tag)
+            let theme = SharelinkTheme(json: shareModel.shareContent)
+            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self.rootController, theme: theme)
         }
     }
     

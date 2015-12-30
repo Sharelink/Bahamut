@@ -109,7 +109,7 @@ public class SharelinkTheme : BahamutObject
     public var showToLinkers:String!
     public var time:String!
     
-    public func getTagString() -> String
+    public func getThemeString() -> String
     {
         let st = SendTagModel()
         st.name = tagName

@@ -73,7 +73,7 @@ extension SharelinkTheme
             prefix = "📍"
         }else if self.isKeywordTheme()
         {
-            prefix = "📎"
+            prefix = "🔤"
         }
         if useEmojiPrefix
         {
@@ -92,7 +92,7 @@ extension SharelinkTheme
 
 public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
 {
-    static let ThemesUpdated:String = "ThemesUpdated"
+    static let themesUpdated:String = "themesUpdated"
     @objc public static var ServiceName:String{return "SharelinkThemeService"}
     
     @objc public func userLoginInit(userId: String) {
@@ -138,7 +138,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
                 }
                 SharelinkTheme.saveObjectOfArray(tags)
                 PersistentManager.sharedInstance.refreshCache(SharelinkTheme)
-                self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
+                self.postNotificationName(SharelinkThemeService.themesUpdated, object: self)
             }
         }
     }
@@ -165,7 +165,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
                 newTheme.saveModel()
                 PersistentManager.sharedInstance.refreshCache(SharelinkTheme)
                 suc = true
-                self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
+                self.postNotificationName(SharelinkThemeService.themesUpdated, object: self)
             }
             if let callback = sucCallback
             {
@@ -188,7 +188,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
             if result.statusCode == ReturnCode.OK
             {
                 PersistentManager.sharedInstance.removeModels(themes)
-                self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
+                self.postNotificationName(SharelinkThemeService.themesUpdated, object: self)
                 suc = true
             }
             if let callback = sucCallback
@@ -215,7 +215,7 @@ public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
             {
                 theme.saveModel()
                 PersistentManager.sharedInstance.refreshCache(SharelinkTheme)
-                self.postNotificationName(SharelinkThemeService.ThemesUpdated, object: self)
+                self.postNotificationName(SharelinkThemeService.themesUpdated, object: self)
                 suc = true
             }
             if let handler = callback

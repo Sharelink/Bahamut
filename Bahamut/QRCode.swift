@@ -125,7 +125,7 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     /// start scan
     public func startScan() {
         if session.running {
-            print("the  capture session is running")
+            NSLog("the  capture session is running")
             
             return
         }
@@ -135,8 +135,7 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     /// stop scan
     public func stopScan() {
         if !session.running {
-            print("the  capture session is running")
-            
+            NSLog("the  capture session is running")
             return
         }
         session.stopRunning()
@@ -151,17 +150,17 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     
     func setupSession() {
         if session.running {
-            print("the capture session is running")
+            NSLog("the capture session is running")
             return
         }
         
         if !session.canAddInput(videoInput) {
-            print("can not add input device")
+            NSLog("can not add input device")
             return
         }
         
         if !session.canAddOutput(dataOutput) {
-            print("can not add output device")
+            NSLog("can not add output device")
             return
         }
         
@@ -182,8 +181,6 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
                 let obj = previewLayer.transformedMetadataObjectForMetadataObject(codeObject) as! AVMetadataMachineReadableCodeObject
 
                 if CGRectContainsRect(scanFrame, obj.bounds) {
-                    print(scanFrame)
-                    print(obj.bounds)
                     
                     if currentDetectedCount++ > maxDetectedCount {
                         session.stopRunning()

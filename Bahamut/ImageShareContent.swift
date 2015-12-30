@@ -12,9 +12,10 @@ class ImageContent:NSObject,UIShareContentDelegate
 {
     private var rows:Int = 0
     private var itemsPerRow:Int = 3
-    private var imageSize = CGSizeMake(98, 98)
+    private var thumbImageSize = CGSizeMake(98, 98)
+    private var maxThumbSize = CGSizeMake(168,168)
     private let imageSpace = CGFloat(7)
-    private var images:[UIImage]!
+    private var thumbImages:[UIImage]!
     private var shareCell:UIShareThing!
     private var imageContentModel:ShareImageContentModel!
     private var view = UIView(){
@@ -25,27 +26,132 @@ class ImageContent:NSObject,UIShareContentDelegate
     }
     private var imageViews = [UIImageView]()
     private var pWidth:CGFloat{
-        return imageSize.width + imageSpace
+        return thumbImageSize.width + imageSpace
     }
     
     private var pHeight:CGFloat{
-        return imageSize.height + imageSpace
+        return thumbImageSize.height + imageSpace
     }
     
     private func calRows(width:CGFloat,imageCount:Int)
     {
-        let perRow = CGFloat(itemsPerRow)
+        var oneRowItem = itemsPerRow
+        if imageCount < itemsPerRow
+        {
+            oneRowItem = imageCount
+        }
+        let perRow = CGFloat(oneRowItem)
         let hw = (width - (perRow + 1) * imageSpace) / perRow
-        imageSize = CGSizeMake(hw, hw)
+        thumbImageSize = CGSizeMake(min(hw,maxThumbSize.width), min(hw,maxThumbSize.height))
         rows = Int((imageCount + itemsPerRow - 1) / itemsPerRow)
+    }
+    
+    class ImageHubImageProvider: NSObject,ImageProvider,ProgressTaskDelegate
+    {
+        private var hubFileId:String!
+        private var images:[UIImage]!
+        private var observer:LoadImageObserver!
+        private var thumbnails = [UIImage]()
+        private var imageCount:Int = 0
+        
+        init(hubFileId:String,thumbnails:[UIImage])
+        {
+            self.hubFileId = hubFileId
+            self.thumbnails = thumbnails
+            self.imageCount = thumbnails.count
+        }
+        
+        func getImageCount() -> Int {
+            return imageCount
+        }
+        
+        func getThumbnail(index: Int) -> UIImage? {
+            if index < thumbnails.count{
+                return thumbnails[index]
+            }
+            return nil
+        }
+        
+        func registImagePlayerObserver(observer: LoadImageObserver) {
+            self.observer = observer
+        }
+        
+        func startLoad(index: Int) {
+            if images != nil && index < images.count
+            {
+                if observer != nil
+                {
+                    observer.imageLoaded(index, image: images[index])
+                }
+            }else
+            {
+                let fileService = ServiceContainer.getService(FileService)
+                
+                if let path = fileService.getFilePath(hubFileId, type: .NoType){
+                    taskCompleted(hubFileId, result: path)
+                }else
+                {
+                    ProgressTaskWatcher.sharedInstance.addTaskObserver(hubFileId, delegate: self)
+                    ServiceContainer.getService(FileService).fetchFile(self.hubFileId, fileType: .NoType, callback: { (filePath) -> Void in
+                    })
+                }
+                
+            }
+        }
+        
+        func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+            
+            if let filePath = result as? String
+            {
+                if let json = PersistentFileHelper.readTextFile(filePath)
+                {
+                    let imageHubModel = ShareImageHub(json: json)
+                    images = [UIImage]()
+                    for imgString in imageHubModel.imagesBase64
+                    {
+                        let image = ImageUtil.getImageFromBase64String(imgString)
+                        images.append(image!)
+                    }
+                }
+            }
+            
+            if let handler = observer?.imageLoaded
+            {
+                for i in 0..<imageCount
+                {
+                    handler(i,image: images[i])
+                }
+            }
+        }
+        
+        func taskFailed(taskIdentifier: String, result: AnyObject!) {
+            if let handler = observer?.imageLoadError
+            {
+                for i in 0..<imageCount
+                {
+                    handler(i)
+                }
+            }
+        }
+        
+        func taskProgress(taskIdentifier: String, persent: Float) {
+            if let handler = observer?.imageLoadingProgress
+            {
+                let progress = persent / 100
+                for i in 0..<imageCount
+                {
+                    handler(i,progress: progress)
+                }
+            }
+        }
     }
     
     func onTapImageView(a:UITapGestureRecognizer)
     {
-        print("tap view")
         if let imgView = a.view as? UIImageView
         {
-            print("tap view:\(imgView.tag)")
+            let imageIndex = imgView.tag
+            UIImagePlayerController.showImagePlayer(shareCell.rootController, imageProvider: ImageHubImageProvider(hubFileId: imageContentModel.imagesFileId,thumbnails: self.thumbImages),imageIndex: imageIndex)
         }
     }
     
@@ -55,10 +161,16 @@ class ImageContent:NSObject,UIShareContentDelegate
         {
             self.imageContentModel = ShareImageContentModel(json:shareContent)
             let images = imageContentModel.thumbImgs.map{ImageUtil.getImageFromBase64String($0)}.filter{$0 != nil}.map{$0!}
-            self.images = images
+            self.thumbImages = images
+            let width = shareCell.rootController.view.bounds.width - 23
+            calRows(width, imageCount: images.count)
+        }else
+        {
+            self.thumbImages.removeAll()
+            self.thumbImageSize = CGSizeZero
+            self.rows = 0
         }
-        let width = shareCell.rootController.view.bounds.width - 23
-        calRows(width, imageCount: images.count)
+        
     }
     
     func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect {
@@ -78,13 +190,15 @@ class ImageContent:NSObject,UIShareContentDelegate
                 {
                     let img = UIImageView()
                     img.userInteractionEnabled = true
+                    img.clipsToBounds = true
+                    img.contentMode = .ScaleAspectFill
                     let tapGes = UITapGestureRecognizer(target: self, action: "onTapImageView:")
                     img.addGestureRecognizer(tapGes)
                     imageViews.append(img)
                     
                 }
                 let imgView = imageViews[index]
-                imgView.frame = CGRectMake( CGFloat(j) * pWidth, CGFloat(i) * pHeight, imageSize.width, imageSize.height)
+                imgView.frame = CGRectMake( CGFloat(j) * pWidth, CGFloat(i) * pHeight, thumbImageSize.width, thumbImageSize.height)
                 view.addSubview(imgView)
             }
             
@@ -93,10 +207,10 @@ class ImageContent:NSObject,UIShareContentDelegate
     }
     
     func refresh(sender: UIShareContent, share: ShareThing?){
-        for i in 0..<images.count{
+        for i in 0..<thumbImages.count{
             let img = imageViews[i]
             img.tag = i
-            img.image = images[i]
+            img.image = thumbImages[i]
         }
     }
     

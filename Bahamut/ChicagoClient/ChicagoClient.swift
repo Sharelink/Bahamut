@@ -156,8 +156,10 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func logout()
     {
-        ChicagoClient.heartBeatTimer.invalidate()
-        ChicagoClient.heartBeatTimer = nil
+        if ChicagoClient.heartBeatTimer != nil{
+            ChicagoClient.heartBeatTimer.invalidate()
+            ChicagoClient.heartBeatTimer = nil
+        }
         self.clientState = .UserLogout
         if sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
         {

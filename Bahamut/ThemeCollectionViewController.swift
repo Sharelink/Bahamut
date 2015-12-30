@@ -13,26 +13,77 @@ import UIKit
 @objc
 protocol ThemeCollectionViewControllerDelegate
 {
-    optional func tagDidTap(sender:ThemeCollectionViewController,indexPath:NSIndexPath)
+    optional func themeCellDidClick(sender:ThemeCollectionViewController,cell:ThemeCollectionCell,indexPath:NSIndexPath)
 }
 
 class ThemeCollectionCell: UICollectionViewCell
 {
+    static let selectedMarkImage = UIImage(named:"check")!
+    static let normalMarkImage = UIImage(named:"bullet-blue")!
+    
     static let cellIdentifier = "themeCell"
-    @IBOutlet weak var tagNameLabel: UILabel!
+    @IBOutlet weak var themeNameLabel: UILabel!
+    @IBOutlet weak var cellStatusMarkView: UIImageView!{
+        didSet{
+            cellStatusMarkView.image = selected ? ThemeCollectionCell.selectedMarkImage : ThemeCollectionCell.normalMarkImage
+        }
+    }
+    
     var indexPath:NSIndexPath!
+    
+    override var selected:Bool{
+        didSet{
+            if cellStatusMarkView != nil{
+                cellStatusMarkView.image = selected ? ThemeCollectionCell.selectedMarkImage : ThemeCollectionCell.normalMarkImage
+            }
+        }
+    }
 }
 
 class ThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout
 {
-    var tags:[SharelinkTheme]!{
+    private var reloadSelectionMarkMap = [String:Bool]()
+    var themes:[SharelinkTheme] = [SharelinkTheme](){
         didSet{
             if collectionView != nil
             {
                 collectionView?.reloadData()
             }
         }
-        
+    }
+    
+    var selectedIndexPaths:[NSIndexPath]{
+        var result = [NSIndexPath]()
+        for i in 0..<themes.count
+        {
+            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            
+            if let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? ThemeCollectionCell
+            {
+                if cell.selected
+                {
+                    result.append(indexPath)
+                }
+            }
+        }
+        return result
+    }
+    
+    var selectedThemes:[SharelinkTheme]{
+        var result = [SharelinkTheme]()
+        for i in 0..<themes.count
+        {
+            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            
+            if let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? ThemeCollectionCell
+            {
+                if cell.selected
+                {
+                    result.append(themes[cell.indexPath.row])
+                }
+            }
+        }
+        return result
     }
     
     var delegate:ThemeCollectionViewControllerDelegate!
@@ -43,38 +94,73 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
         collectionView?.reloadData()
     }
     
-    func addTag(tagModel:SharelinkTheme)->Bool
+    func setCellSelectValue(index:NSIndexPath,selected:Bool) -> Bool
     {
-        if tags == nil
+        if let cell = collectionView?.cellForItemAtIndexPath(index) as? ThemeCollectionCell
         {
-            tags = [SharelinkTheme]()
-        }
-        let exists = tags.contains{ $0.getTagString() == tagModel.getTagString() }
-        if exists
-        {
-            return false
-        }else
-        {
-            tags.append(tagModel)
-            collectionView?.reloadData()
+            cell.selected = selected
             return true
+        }
+        return false
+    }
+    
+    func addThemes(themesModel:[SharelinkTheme],refreshCollection:Bool = true)
+    {
+        let indexPaths = themesModel.map{self.addTheme($0, refreshCollection: false)}.filter{$0 != nil}.map{$0!}
+        if refreshCollection
+        {
+            collectionView?.reloadItemsAtIndexPaths(indexPaths)
         }
     }
     
-    func removeTag(indexPath:NSIndexPath)
+    func addTheme(themeModel:SharelinkTheme,refreshCollection:Bool = true)->NSIndexPath?
     {
-        tags.removeAtIndex(indexPath.row)
+        let exists = themes.contains{ $0.getThemeString() == themeModel.getThemeString() }
+        if exists
+        {
+            return nil
+        }else
+        {
+            let indexPath = NSIndexPath(forRow: themes.count, inSection: 0)
+            themes.append(themeModel)
+            if refreshCollection
+            {
+                collectionView?.reloadItemsAtIndexPaths([indexPath])
+            }
+            return indexPath
+        }
+    }
+    
+    private func getIndexPathSelectionKey(indexPath:NSIndexPath) -> String
+    {
+        return "\(indexPath.section)_\(indexPath.row)"
+    }
+    
+    func reloadCollection(selectedIndexPath:[NSIndexPath]! = nil)
+    {
+        if let paths = selectedIndexPath
+        {
+            for p in paths{
+                reloadSelectionMarkMap[getIndexPathSelectionKey(p)] = true
+            }
+        }
+        self.collectionView?.reloadData()
+    }
+    
+    func removeTheme(indexPath:NSIndexPath)
+    {
+        themes.removeAtIndex(indexPath.row)
         collectionView?.reloadData()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ThemeCollectionCell.cellIdentifier, forIndexPath: indexPath) as! ThemeCollectionCell
-        let color = UIColor(hexString: tags[indexPath.row].tagColor)
-        if let label = cell.tagNameLabel
+        let color = UIColor(hexString: themes[indexPath.row].tagColor)
+        if let label = cell.themeNameLabel
         {
-            label.font = tagNameLabelFont
-            label.text = tags[indexPath.row].getShowName()
+            label.font = themeNameLabelFont
+            label.text = themes[indexPath.row].getShowName()
             label.textColor = color
         }
         
@@ -91,6 +177,16 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
         cell.userInteractionEnabled = true
         cell.setNeedsLayout()
         cell.setNeedsDisplay()
+        
+        //Selection
+        let key = getIndexPathSelectionKey(indexPath)
+        if let flag = reloadSelectionMarkMap.removeValueForKey(key)
+        {
+            if flag
+            {
+                cell.selected = true
+            }
+        }
         return cell
     }
     
@@ -99,9 +195,9 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
         if let cell = aTap.view as? ThemeCollectionCell
         {
             let indexPath = cell.indexPath
-            if let tapHandler = delegate.tagDidTap
+            if let tapHandler = delegate.themeCellDidClick
             {
-                tapHandler(self, indexPath: indexPath)
+                tapHandler(self,cell: cell,indexPath: indexPath)
             }
         }
     }
@@ -113,16 +209,12 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if tags == nil
-        {
-            return 0
-        }
-        return tags.count
+        return themes.count
     }
     
     //MARK: layout
     
-    let tagNameLabelFont = UIFont.systemFontOfSize(14.0)
+    let themeNameLabelFont = UIFont.systemFontOfSize(16.0)
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
@@ -132,8 +224,8 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         let label = UILabel()
-        label.font = tagNameLabelFont
-        label.text = tags[indexPath.row].getShowName()
+        label.font = themeNameLabelFont
+        label.text = themes[indexPath.row].getShowName()
         label.sizeToFit()
         return CGSizeMake(label.bounds.width + 23, label.bounds.height)
     }

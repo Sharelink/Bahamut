@@ -404,13 +404,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
-                                            <rect key="frame" x="14" y="4" width="66" height="17"/>
+                                        <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="themeName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-Jx-KxB">
+                                            <rect key="frame" x="14" y="4" width="79" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bullet-blue" translatesAutoresizingMaskIntoConstraints="NO" id="Hng-t9-MHb">
+                                        <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="Hng-t9-MHb">
                                             <rect key="frame" x="0.0" y="5" width="14" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="96b-iR-gy5"/>
@@ -427,7 +427,8 @@
                                     <constraint firstItem="zj1-Jx-KxB" firstAttribute="centerY" secondItem="Qqg-UF-Fid" secondAttribute="centerY" id="kOd-fe-SSK"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="tagNameLabel" destination="zj1-Jx-KxB" id="N2g-jn-O7t"/>
+                                    <outlet property="cellStatusMarkView" destination="Hng-t9-MHb" id="G5R-Ca-2JN"/>
+                                    <outlet property="themeNameLabel" destination="zj1-Jx-KxB" id="NP4-bh-EID"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -482,14 +483,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ase-4O-DrG">
-                                <rect key="frame" x="20" y="110" width="560" height="61"/>
-                                <string key="text">This App is in the primary stage, if you are interest in this project, want to develop together or provide help, please contact me.Subject please indicate as Sharelink, thank you.</string>
+                                <rect key="frame" x="20" y="110" width="560" height="41"/>
+                                <string key="text">This App is in the primary stage, if you are interest in this project, want to join development or provide help, contact me please. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:cplover@live.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-lg-2gA">
-                                <rect key="frame" x="20" y="179" width="180" height="21"/>
+                                <rect key="frame" x="20" y="159" width="180" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PS:Indicate subject as Sharelink, thank you." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fs-VG-XWh">
+                                <rect key="frame" x="20" y="188" width="333" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -497,6 +504,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="7Fs-VG-XWh" firstAttribute="top" secondItem="xB3-lg-2gA" secondAttribute="bottom" constant="8" symbolic="YES" id="1Wb-WX-Pvd"/>
                             <constraint firstItem="ftb-Tm-XNI" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="trailing" constant="8" symbolic="YES" id="3UX-a1-sNq"/>
                             <constraint firstItem="bce-Lq-eUc" firstAttribute="top" secondItem="V1V-6t-FOv" secondAttribute="bottom" constant="8" symbolic="YES" id="CSb-V3-2U5"/>
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="bottom" constant="8" symbolic="YES" id="GMg-T4-3lh"/>
@@ -508,6 +516,7 @@
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="leading" id="gZg-Zq-0Aq"/>
                             <constraint firstItem="xB3-lg-2gA" firstAttribute="leading" secondItem="ase-4O-DrG" secondAttribute="leading" id="nwp-aV-LEy"/>
                             <constraint firstItem="xB3-lg-2gA" firstAttribute="top" secondItem="ase-4O-DrG" secondAttribute="bottom" constant="8" symbolic="YES" id="p5b-fp-96k"/>
+                            <constraint firstItem="7Fs-VG-XWh" firstAttribute="leading" secondItem="xB3-lg-2gA" secondAttribute="leading" id="poC-F5-6dT"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="ftb-Tm-XNI" secondAttribute="leading" id="sqL-Iy-bWf"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="bottom" secondItem="bce-Lq-eUc" secondAttribute="bottom" id="xeJ-NO-BAL"/>
                         </constraints>
@@ -524,7 +533,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bullet-blue" width="24" height="24"/>
         <image name="check" width="512" height="512"/>
         <image name="icon_check" width="32" height="32"/>
         <image name="next" width="72" height="72"/>

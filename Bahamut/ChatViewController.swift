@@ -342,10 +342,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         dealTheFunctionData(msg)
     }
     
+    static var sendImageSize = CGSizeMake(640, 640)
     func UUInputFunctionViewSend(funcView: UUInputFunctionView!, sendPicture image: UIImage!)
     {
         let msg = UUmsgPictureItem()
-        msg.image = image
+        msg.image = image.scaleToSize(ChatViewController.sendImageSize)
         msg.msgFrom = .Me
         dealTheFunctionData(msg)
     }

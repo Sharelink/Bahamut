@@ -79,7 +79,7 @@ class ImageUtil
         return image
     }
     
-    class func getSountIconImage() -> UIImage
+    class func getSoundIconImage() -> UIImage
     {
         let thumb = UIImage(named:"music")
         return thumb!
@@ -89,5 +89,39 @@ class ImageUtil
     {
         let thumb = UIImage(named:"text_file")
         return thumb!
+    }
+}
+
+extension UIImage
+{
+    func scaleToWidthOf(width:CGFloat) -> UIImage
+    {
+        let originWidth = self.size.width
+        let a = width / originWidth
+        let size = CGSizeMake(width, self.size.height * a)
+        return scaleToSize(size)
+    }
+    
+    func scaleToHeightOf(height:CGFloat) -> UIImage
+    {
+        let originHeight = self.size.height
+        let a = height / originHeight
+        let size = CGSizeMake(self.size.width * a, height)
+        return scaleToSize(size)
+    }
+    
+    func scaleToSize(asize:CGSize) -> UIImage
+    {
+        let imgCopy = UIImage(data: self.generateImageDataOfQuality(1)!)!
+        UIGraphicsBeginImageContext(asize);
+        imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height));
+        let newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newimage;
+    }
+    
+    func generateImageDataOfQuality(quality:CGFloat) -> NSData?
+    {
+        return UIImageJPEGRepresentation(self, quality)
     }
 }

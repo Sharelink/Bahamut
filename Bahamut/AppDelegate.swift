@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import EVReflection
 import ImagePicker
+import CoreMotion
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -52,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureImagePicker()
     {
+        let mmanger = CMMotionManager()
+        mmanger.accessibilityActivate()
         Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
         Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
         Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")

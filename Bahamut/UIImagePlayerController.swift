@@ -8,19 +8,25 @@
 
 import UIKit
 
-
-class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
+protocol ImageProvider
 {
-    var progress:KDCircularProgress!{
+    func getImageCount() -> Int
+    func startLoad(index:Int)
+    func getThumbnail(index:Int) -> UIImage?
+    func registImagePlayerObserver(observer:LoadImageObserver)
+}
+
+class UIFetchImageView: UIScrollView,UIScrollViewDelegate
+{
+    private var progress:KDCircularProgress!{
         didSet{
             progress.trackColor = UIColor.blackColor()
             progress.IBColor1 = UIColor.whiteColor()
             progress.IBColor2 = UIColor.whiteColor()
             progress.IBColor3 = UIColor.whiteColor()
-            
         }
     }
-    var refreshButton:UIButton!{
+    private var refreshButton:UIButton!{
         didSet{
             refreshButton.titleLabel?.text = NSLocalizedString("LOAD_IMG_ERROR", comment: "Load Image Error")
             refreshButton.hidden = true
@@ -28,73 +34,49 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
             self.addSubview(refreshButton)
         }
     }
-    var fileFetcher:FileFetcher!
-    var imageView:UIImageView!{
-        didSet{
-            
-        }
-    }
-    
-    var url:String!{
-        didSet{
-            startLoadImage()
-        }
-    }
-    
-    private func setProgressValue(value:Float)
-    {
-        progress.angle = Int(360 * value)
-        if progress.angle > 0 && progress.angle <= 359
-        {
-            progress.hidden = false
-        }else{
-            progress.hidden = true
-        }
-    }
+    private var imageView:UIImageView!
     
     func refreshButtonClick(_:UIButton)
     {
         startLoadImage()
     }
     
-    private func startLoadImage()
+    func startLoadImage()
     {
         canScale = false
         refreshButton.hidden = true
-        setProgressValue(0)
-        fileFetcher.startFetch(url, delegate: self)
+        self.progress.setProgressValue(0)
     }
     
-    func taskCompleted(fileIdentifier: String, result: AnyObject!)
+    func imageLoaded(image:UIImage)
     {
+        self.progress.setProgressValue(0)
         dispatch_async(dispatch_get_main_queue()){
-            self.setProgressValue(0)
-            if let image = result as? String
-            {
-                self.imageView.image = UIImage(contentsOfFile: image)
-            }
+            self.imageView.image = image
             self.canScale = true
             self.refreshUI()
         }
     }
     
-    func taskFailed(fileIdentifier: String, result: AnyObject!)
+    func imageLoadError()
     {
+        self.progress.setProgressValue(0)
         dispatch_async(dispatch_get_main_queue()){
-            self.setProgressValue(0)
             self.refreshButton.hidden = false
             self.canScale = false
             self.refreshUI()
         }
-        
     }
     
-    func taskProgress(fileIdentifier: String, persent: Float)
+    func loadImageProgress(progress:Float)
     {
-        dispatch_async(dispatch_get_main_queue()){
-            self.setProgressValue(persent / 100)
-        }
-        
+        self.progress.setProgressValue(0)
+    }
+    
+    func setThumbnail(thumbnail:UIImage)
+    {
+        self.canScale = false
+        self.imageView.image = thumbnail
     }
     
     private func initImageView()
@@ -136,18 +118,18 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
         progress.hidden = true
     }
     
-    func refreshUI()
+    private func refreshUI()
     {
         self.setZoomScale(self.minimumZoomScale, animated: true)
         progress.center = CGPoint(x: self.center.x, y: self.center.y)
         refreshButton.center = CGPoint(x: self.center.x, y: self.center.y)
-        imageView.frame = bounds
+        imageView.frame = UIApplication.sharedApplication().keyWindow!.bounds
         imageView.layoutIfNeeded()
     }
     
-    var isScale:Bool = false
-    var isScrollling:Bool = false
-    var canScale:Bool = false
+    private var isScale:Bool = false
+    private var isScrollling:Bool = false
+    private var canScale:Bool = false
     
     func doubleTap(ges:UITapGestureRecognizer)
     {
@@ -205,19 +187,25 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate,ProgressTaskDelegate
     }
 }
 
-class UIImagePlayerController: UIViewController,UIScrollViewDelegate
+protocol LoadImageObserver
 {
-    var imageUrls:[String]!{
+    func imageLoaded(index:Int,image:UIImage)
+    func imageLoadError(index:Int)
+    func imageLoadingProgress(index:Int,progress:Float)
+}
+
+class UIImagePlayerController: UIViewController,UIScrollViewDelegate,LoadImageObserver
+{
+    private var imageCount:Int = 0
+    private let spaceOfItem:CGFloat = 23
+    var imageProvider:ImageProvider!{
         didSet{
-            if pageControl != nil
-            {
-                pageControl.hidden = imageUrls.count <= 1
-            }
+            imageProvider.registImagePlayerObserver(self)
+            imageCount = imageProvider.getImageCount()
         }
     }
     
     var images = [UIFetchImageView]()
-    var imageFileFetcher:FileFetcher!
     
     func supportedViewOrientations() -> UIInterfaceOrientationMask
     {
@@ -229,17 +217,59 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
             scrollView.backgroundColor = UIColor.blackColor()
             scrollView.showsHorizontalScrollIndicator = false
             scrollView.showsVerticalScrollIndicator = false
+            scrollView.pagingEnabled = false
+            scrollView.delegate = self
         }
     }
     
-    var currentIndex:Int = 0{
+    var currentIndex:Int = -1{
         didSet{
-            if imageUrls != nil && imageUrls.count > 0 && images.count > currentIndex
+            if currentIndex >= 0 && currentIndex != oldValue && currentIndex < imageCount
             {
-                images[currentIndex].url = imageUrls[currentIndex]
-                let x:CGFloat = CGFloat(integerLiteral: currentIndex) * self.scrollView.frame.width;
-                self.scrollView.contentOffset = CGPointMake(x, 0);
+                images[currentIndex].startLoadImage()
+                if let thumb = imageProvider.getThumbnail(currentIndex)
+                {
+                    images[currentIndex].setThumbnail(thumb)
+                }
+                self.imageProvider.startLoad(currentIndex)
             }
+        }
+    }
+    
+    private func scrollToCurrentIndex()
+    {
+        let x:CGFloat = CGFloat(integerLiteral: currentIndex) * (self.scrollView.frame.width  + spaceOfItem);
+        self.scrollView.contentOffset = CGPointMake(x, 0);
+    }
+    
+    private func getNearestTargetPoint(offset:CGPoint) -> CGPoint{
+        let pageSize = self.scrollView.frame.width + spaceOfItem
+        let targetIndex = Int(roundf(Float(offset.x / pageSize)))
+        currentIndex += targetIndex == currentIndex ? 0 : targetIndex > currentIndex ? 1 : -1
+        let targetX = pageSize * CGFloat(currentIndex);
+        return CGPointMake(targetX, offset.y);
+    }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let offset = getNearestTargetPoint(targetContentOffset.memory)
+        targetContentOffset.memory.x = offset.x
+    }
+    
+    func imageLoaded(index: Int, image: UIImage) {
+        if images.count > index{
+            images[index].imageLoaded(image)
+        }
+    }
+    
+    func imageLoadError(index: Int) {
+        if images.count > index{
+            images[index].imageLoadError()
+        }
+    }
+    
+    func imageLoadingProgress(index: Int, progress: Float) {
+        if images.count > index{
+            images[index].loadImageProgress(progress)
         }
     }
     
@@ -251,11 +281,16 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         return [UIInterfaceOrientationMask.Portrait,UIInterfaceOrientationMask.Landscape]
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        initScrollView()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        initImageViews()
         initPageControl()
         initObserver()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        deinitObserver()
     }
     
     override func viewWillLayoutSubviews() {
@@ -265,31 +300,26 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
     
     private func initPageControl()
     {
-        self.pageControl.numberOfPages = imageUrls.count
+        self.pageControl.numberOfPages = imageCount
     }
 
     @IBOutlet weak var pageControl: UIPageControl!{
         didSet{
             if pageControl != nil
             {
-                pageControl.hidden = imageUrls.count <= 1
+                pageControl.hidden = imageCount <= 1
             }
         }
     }
     
-    func initScrollView()
+    func initImageViews()
     {
-        for var i:Int = 0; i < imageUrls.count;i++
+        for _ in 0..<imageCount
         {
             let uiImageView = UIFetchImageView()
-            uiImageView.fileFetcher = imageFileFetcher
             scrollView.addSubview(uiImageView)
-            uiImageView.url = imageUrls[i]
             images.append(uiImageView)
         }
-        
-        scrollView.pagingEnabled = true
-        scrollView.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: "tapScollView:")
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: "doubleTapScollView:")
         doubleTapGesture.numberOfTapsRequired = 2
@@ -304,6 +334,11 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     
+    private func deinitObserver()
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func didChangeStatusBarOrientation(_: NSNotification)
     {
         resizeScrollView()
@@ -311,18 +346,19 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
     
     func resizeScrollView()
     {
-        let svFrame = self.view.bounds
+        let svFrame = UIApplication.sharedApplication().keyWindow!.bounds
         let imageWidth = svFrame.width
         let imageHeight = svFrame.height
+        let pageSize = imageWidth + spaceOfItem
         for var i:Int = 0; i < images.count;i++
         {
-            let imageX = CGFloat(integerLiteral: i) * imageWidth
+            let imageX = CGFloat(integerLiteral: i) * pageSize
             let frame = CGRectMake( imageX , 0, imageWidth, imageHeight)
             images[i].frame = frame
             images[i].refreshUI()
         }
         scrollView.frame = svFrame
-        scrollView.contentSize = CGSizeMake(CGFloat(integerLiteral:imageUrls.count) * imageWidth, imageHeight)
+        scrollView.contentSize = CGSizeMake(CGFloat(integerLiteral:imageCount) * pageSize, imageHeight)
     }
     
     enum OrientationAngle:CGFloat
@@ -363,7 +399,7 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
     
     func tapScollView(_:UIGestureRecognizer)
     {
-        self.dismissViewControllerAnimated(true) { () -> Void in
+        self.dismissViewControllerAnimated(false) { () -> Void in
         }
     }
     
@@ -372,14 +408,13 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    static func showImagePlayer(currentController:UIViewController,imageUrls:[String],imageFileFetcher:FileFetcher,imageIndex:Int = 0)
+    static func showImagePlayer(currentController:UIViewController,imageProvider:ImageProvider,imageIndex:Int = 0)
     {
         let controller = instanceFromStoryBoard("Component", identifier: "imagePlayerController") as!UIImagePlayerController
-        controller.imageUrls = imageUrls
-        controller.currentIndex = imageIndex
-        controller.imageFileFetcher = imageFileFetcher
+        controller.imageProvider = imageProvider
         currentController.presentViewController(controller, animated: true, completion: { () -> Void in
-            
+            controller.currentIndex = imageIndex
+            controller.scrollToCurrentIndex()
         })
         
     }
