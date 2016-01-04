@@ -35,7 +35,17 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         super.viewDidLoad()
         changeNavigationBarColor()
         loginAccountId = SharelinkSetting.lastLoginAccountId
-        authenticate()
+        if loginAccountId != nil{
+            authenticate()
+        }else
+        {
+            registAccount()
+        }
+    }
+    
+    private var registAccountUrl:String{
+        let url = NSBundle.mainBundle().pathForResource("register_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        return url!
     }
     
     private var authenticationURL: String {
@@ -124,6 +134,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         {
             url = "\(url)?loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
         }
+        webViewUrl = url
+    }
+    
+    private func registAccount()
+    {
+        let url = "\(registAccountUrl)?loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
         webViewUrl = url
     }
     

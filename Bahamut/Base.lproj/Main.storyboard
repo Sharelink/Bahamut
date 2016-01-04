@@ -314,7 +314,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="800" text="Link Message Content" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idq-eK-5tu">
-                                            <rect key="frame" x="63" y="28" width="522" height="20"/>
+                                            <rect key="frame" x="63" y="28" width="162" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -332,12 +332,20 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8r-EZ-TiQ">
+                                            <rect key="frame" x="563" y="18" width="22" height="22"/>
+                                            <connections>
+                                                <action selector="addButtonClicked:" destination="80A-tW-7eC" eventType="touchUpInside" id="zyN-gV-Nc5"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="Z8r-EZ-TiQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Idq-eK-5tu" secondAttribute="trailing" constant="8" id="1Uy-va-gpG"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="top" secondItem="i9r-5O-2RD" secondAttribute="topMargin" id="5cH-7Y-oxZ"/>
                                         <constraint firstItem="Idq-eK-5tu" firstAttribute="bottom" secondItem="Naa-aN-XCd" secondAttribute="bottom" id="B9y-9o-v60"/>
+                                        <constraint firstItem="Z8r-EZ-TiQ" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="Igh-u9-SGD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Z8r-EZ-TiQ" secondAttribute="trailing" constant="7" id="Lgs-yO-ORZ"/>
                                         <constraint firstItem="vS5-cZ-92g" firstAttribute="top" secondItem="Naa-aN-XCd" secondAttribute="top" id="SQ9-4K-KZe"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Idq-eK-5tu" secondAttribute="trailing" constant="7" id="SkU-Pk-SAr"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="leading" secondItem="i9r-5O-2RD" secondAttribute="leadingMargin" constant="7" id="UIQ-gP-Dql"/>
                                         <constraint firstItem="vS5-cZ-92g" firstAttribute="leading" secondItem="Naa-aN-XCd" secondAttribute="trailing" constant="8" id="Vas-dR-Xys"/>
                                         <constraint firstItem="Naa-aN-XCd" firstAttribute="centerY" secondItem="i9r-5O-2RD" secondAttribute="centerY" id="Vva-Sj-EIe"/>
@@ -371,36 +379,44 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link Message Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFN-6r-SAC">
-                                            <rect key="frame" x="63" y="28" width="522" height="20"/>
+                                            <rect key="frame" x="63" y="28" width="162" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boA-xx-LwI">
-                                            <rect key="frame" x="532" y="8" width="60" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgP-1Z-Uzw">
+                                            <rect key="frame" x="563" y="18" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="o1t-ft-VVn"/>
+                                            </constraints>
+                                            <connections>
+                                                <action selector="showDetail:" destination="rjP-Sc-6TF" eventType="touchUpInside" id="eA4-tb-Swi"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kFN-6r-SAC" firstAttribute="bottom" secondItem="zrv-Vh-Dze" secondAttribute="bottom" id="1Lx-iz-AvY"/>
-                                        <constraint firstItem="boA-xx-LwI" firstAttribute="top" secondItem="V0E-F6-hu7" secondAttribute="top" id="A6o-nk-8hm"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="kFN-6r-SAC" secondAttribute="trailing" constant="7" id="F4V-s7-n9n"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bgP-1Z-Uzw" secondAttribute="trailing" constant="7" id="A3r-MT-OmP"/>
+                                        <constraint firstItem="bgP-1Z-Uzw" firstAttribute="trailing" secondItem="49C-wb-dN4" secondAttribute="trailingMargin" constant="-7" id="A8R-Ay-A4K"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="leading" secondItem="49C-wb-dN4" secondAttribute="leadingMargin" constant="7" id="JGv-jY-Gi0"/>
                                         <constraint firstAttribute="topMargin" secondItem="zrv-Vh-Dze" secondAttribute="top" id="OoR-jB-nvT"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="top" secondItem="zrv-Vh-Dze" secondAttribute="top" id="SJF-WD-t9z"/>
+                                        <constraint firstItem="bgP-1Z-Uzw" firstAttribute="centerY" secondItem="49C-wb-dN4" secondAttribute="centerY" id="U2N-Rg-eFh"/>
                                         <constraint firstItem="zrv-Vh-Dze" firstAttribute="centerY" secondItem="49C-wb-dN4" secondAttribute="centerY" id="bXt-02-4Wr"/>
                                         <constraint firstItem="V0E-F6-hu7" firstAttribute="leading" secondItem="zrv-Vh-Dze" secondAttribute="trailing" constant="8" id="hLv-vz-pfT"/>
                                         <constraint firstItem="kFN-6r-SAC" firstAttribute="leading" secondItem="V0E-F6-hu7" secondAttribute="leading" id="hMS-3E-kQJ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="boA-xx-LwI" secondAttribute="trailing" id="tfZ-NY-ff6"/>
+                                        <constraint firstItem="bgP-1Z-Uzw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kFN-6r-SAC" secondAttribute="trailing" constant="8" symbolic="YES" id="oH9-kZ-gyD"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="A8R-Ay-A4K"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatar" destination="zrv-Vh-Dze" id="wWw-Z7-cpP"/>
                                     <outlet property="messageLabel" destination="kFN-6r-SAC" id="BLe-U9-2Ni"/>
                                     <outlet property="noteNameLabel" destination="V0E-F6-hu7" id="Fd3-Gi-H17"/>
-                                    <outlet property="timeLabel" destination="boA-xx-LwI" id="YaH-nk-rbf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
