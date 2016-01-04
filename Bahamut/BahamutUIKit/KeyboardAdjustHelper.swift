@@ -60,8 +60,14 @@ public class ControllerViewAdjustByKeyboardProxy : NSObject
         
     }
     
+    var viewOriginHeight:CGFloat!
+    
     private func adjustViewAdaptKeyboard(keyboardNotification:String,userInfo:[NSObject:AnyObject] ,responderView:UIView)
     {
+        if viewOriginHeight == nil
+        {
+            viewOriginHeight = controller.view.frame.size.height
+        }
         let info = userInfo
         if !responderView.isFirstResponder()
         {
@@ -86,8 +92,15 @@ public class ControllerViewAdjustByKeyboardProxy : NSObject
                 UIView.beginAnimations(nil, context:nil)
                 UIView.setAnimationDuration(animationDuration)
                 UIView.setAnimationCurve(animationCurve)
-                
-                controller.view.frame.origin.y = -offset
+                responderView.constraints.count
+                for c in responderView.constraints
+                {
+                    if (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view) && c.firstAttribute == .Bottom
+                    {
+                        c.constant = c.constant + offset
+                    }
+                }
+                //controller.view.frame.size.height = viewOriginHeight - offset
                 
                 controller.view.layoutIfNeeded()
                 UIView.commitAnimations()
@@ -97,7 +110,13 @@ public class ControllerViewAdjustByKeyboardProxy : NSObject
                 {
                     return
                 }
-                controller.view.frame.origin.y = 0
+                responderView.constraints.forEach({ (c) -> () in
+                    if (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view) && c.firstAttribute == .Bottom
+                    {
+                        c.constant = c.constant - offset
+                    }
+                })
+                //controller.view.frame.size.height = viewOriginHeight
                 controller.view.layoutIfNeeded()
             }
         }

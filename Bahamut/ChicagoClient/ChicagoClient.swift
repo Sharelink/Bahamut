@@ -239,10 +239,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     }
     
     //MARK: socket delegate
-    func onSocket(sock: AsyncSocket!, willDisconnectWithError err: NSError!) {
-        clientState = .Disconnected
-    }
-    
     func onSocket(sock: AsyncSocket!, shouldTimeoutWriteWithTag tag: Int, elapsed: NSTimeInterval, bytesDone length: UInt) -> NSTimeInterval {
         return 16
     }
@@ -293,10 +289,8 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         reConnectFailedTimes++
         if reConnectFailedTimes < 3
         {
-            reConnect()
-        }else
-        {
-            clientState = .Disconnected
+            start()
+            connect(self.host, port: self.port)
         }
     }
     
@@ -325,8 +319,8 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         if clientState == .ValidatFailed || clientState == .Closed
         {
             ChicagoClient.sharedInstance.start()
+            connect(self.host, port: self.port)
         }
-        connect(self.host, port: self.port)
     }
     
     func start()

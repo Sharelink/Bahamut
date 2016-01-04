@@ -121,7 +121,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     private(set) var myThemes = [(header:String?,themes:[SharelinkTheme])]()
     private var userGuide:UserGuide!
     
-    //MARK:life process
+    //MARK:life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUserGuide()

@@ -55,7 +55,7 @@ class EditThemeViewController: UIViewController
     var themeModel:SharelinkTheme!
     var editMode:UserThemeEditMode = .New
 
-    //MARK: life process
+    //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.update()

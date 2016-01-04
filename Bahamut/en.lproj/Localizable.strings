@@ -100,7 +100,7 @@ ME = "Me";
 "Here" = "Here";
 "Feedback" = "Feedback";
 "Broadcast" = "Broadcast";
-"Reshareless" = "Reshareless";
+"Reshareless" = "No Reshare";
 "Me" = "Me";
 
 LEVEL_RULE_TITLE = "Level Rule";
@@ -138,6 +138,8 @@ RESHARE_CONFIRM = "Share To Your Linkers";
 RESHARELESS_TIPS = "This Share Is Not Allow Reshare!";
 
 //MARK:NewShareViewController
+NEW_SHARE_TITLE = "New Share";
+
 THEME_LIMIT_MESSAGE = "Can't not add more themes!";
 THEME_ALREADY_SELECTED = "Theme has been added!";
 THEME_IS_EMPTY = "Type a theme please!";

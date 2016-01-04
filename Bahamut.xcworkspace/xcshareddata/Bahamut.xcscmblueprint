@@ -12,6 +12,7 @@
     "84531867786028116B6D2D77343D51BB7B4A9B11" : 0,
     "887A4DAF38295A7621106664C13C6A5C89B19F59" : 0,
     "D76505715D462805A666F5DB57A4D139F6E8425B" : 0,
+    "F1BC4876811AFC3F9EBAC1327B95940A459E2E4A" : 0,
     "646fb212-6d06-11e3-a2a4-57cd746879f3++1155" : 0,
     "5F2519C11E6DA964CFDE8DE9B244C15457DDE8E2" : 0
   },
@@ -23,6 +24,7 @@
     "84531867786028116B6D2D77343D51BB7B4A9B11" : "..\/UUChatTableView",
     "887A4DAF38295A7621106664C13C6A5C89B19F59" : "Toast-Swift",
     "D76505715D462805A666F5DB57A4D139F6E8425B" : "ShareLinkSDK",
+    "F1BC4876811AFC3F9EBAC1327B95940A459E2E4A" : "..\/TheAmazingAudioEngine",
     "646fb212-6d06-11e3-a2a4-57cd746879f3++1155" : "..\/UUChatTableView\/Demo\/OtherResources\/MJRefresh\/MJRefresh.bundle",
     "5F2519C11E6DA964CFDE8DE9B244C15457DDE8E2" : "..\/ChatFramework"
   },
@@ -69,6 +71,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Sharelink\/SwiftSDK.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D76505715D462805A666F5DB57A4D139F6E8425B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/TheAmazingAudioEngine\/TheAmazingAudioEngine.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F1BC4876811AFC3F9EBAC1327B95940A459E2E4A"
     }
   ]
 }

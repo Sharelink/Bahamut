@@ -26,7 +26,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     @IBOutlet weak var webPageView: UIWebView!{
         didSet{
-            webPageView.scrollView.scrollEnabled = false
+            webPageView.scrollView.scrollEnabled = true
             webPageView.delegate = self
         }
     }

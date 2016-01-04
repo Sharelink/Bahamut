@@ -27,6 +27,7 @@ class AccountService: ServiceProtocol
     
     @objc func userLogout(userId: String) {
         MobClick.profileSignOff()
+        ChicagoClient.sharedInstance.logout()
         SharelinkSetting.token = nil
         SharelinkSetting.isUserLogined = false
         SharelinkSetting.fileApiServer = nil

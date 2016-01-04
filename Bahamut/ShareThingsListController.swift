@@ -22,7 +22,7 @@ class ShareThingsListController: UITableViewController
     private var isShowing:Bool = false
     private var userGuide:UserGuide!
     
-    //MARK: life process
+    //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         initUserGuide()

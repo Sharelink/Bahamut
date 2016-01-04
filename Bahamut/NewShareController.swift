@@ -86,6 +86,9 @@ class NewShareController: UITableViewController
     var shareService:ShareService!
     var userService:UserService!
     
+    //views
+    var titleView:NewControllerTitleView!
+    
     //Reshare
     var isReshare:Bool = false
     var reShareModel:ShareThing!
@@ -105,15 +108,16 @@ class NewShareController: UITableViewController
     
     private var rowHights = [128,UITableViewAutomaticDimension,256]
     
-    //MARK: life process
+    //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initUserGuide()
         self.shareService = ServiceContainer.getService(ShareService)
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.changeNavigationBarColor()
+        self.initUserGuide()
         self.initShareType()
+        self.initTitleView()
         self.tableView.estimatedRowHeight = tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
@@ -139,12 +143,32 @@ class NewShareController: UITableViewController
         self.userGuide.showGuideControllerPresentFirstTime()
     }
     
+    deinit{
+        if shareService != nil{
+            shareService.removeObserver(self)
+        }
+    }
+    
     //Init
+    private func initTitleView()
+    {
+        self.titleView = NewControllerTitleView.instanceFromXib()
+        self.titleView.frame = CGRectMake(0, 0, 128, 32)
+        self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
+        self.navigationItem.titleView = self.titleView
+    }
+    
     private func initUserGuide()
     {
         self.userGuide = UserGuide()
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "New")
         self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
+    }
+    
+    //MARK: new share posted notification
+    func sharePosted(a:NSNotification)
+    {
+        self.titleView.shareQueue--
     }
     
     //MARK: clear view controller
@@ -285,6 +309,7 @@ class NewShareController: UITableViewController
         let canPost = shareContentCell.share(newShare,themes: themes)
         if canPost
         {
+            titleView.shareQueue++
             clear()
         }else
         {

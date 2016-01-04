@@ -138,6 +138,8 @@ RESHARE_CONFIRM = "分享到你的Sharelink";
 RESHARELESS_TIPS = "分享人不允许转载!";
 
 //NewShareViewController
+NEW_SHARE_TITLE = "新的分享";
+
 THEME_LIMIT_MESSAGE = "不能再添加主题了!";
 THEME_ALREADY_SELECTED = "主题已添加!";
 THEME_IS_EMPTY = "输入一个主题!";

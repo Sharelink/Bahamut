@@ -57,9 +57,11 @@ let shareUpdatedNotifyRoute:ChicagoRoute = {
 
 let NewShareMessages = "NewShareMessages"
 let UpdatedShares = "UpdatedShares"
+let NewSharePostedShareId = "NewSharePostedShareId"
 
 class ShareService: NSNotificationCenter,ServiceProtocol
 {
+    static let newSharePosted = "newSharePosted"
     static let newShareMessagesUpdated = "newShareMessagesUpdated"
     static let shareUpdated = "shareUpdated"
     @objc static var ServiceName:String{return "share service"}
@@ -367,6 +369,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
             if result.isSuccess
             {
                 self.sendingShareId.removeValueForKey(shareId)
+                self.postNotificationName(ShareService.newSharePosted, object: self, userInfo: [NewSharePostedShareId:shareId])
                 callback(isSuc: true)
             }else
             {

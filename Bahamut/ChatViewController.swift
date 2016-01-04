@@ -60,7 +60,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     @IBOutlet weak var bottomConstraint:NSLayoutConstraint!
     var IFView:UUInputFunctionView!
 
-    //MARK: life process
+    //MARK: life circle
     override func viewDidLoad()
     {
         super.viewDidLoad()
