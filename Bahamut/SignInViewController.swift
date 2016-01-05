@@ -34,7 +34,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        loginAccountId = SharelinkSetting.lastLoginAccountId
+        loginAccountId = UserSetting.lastLoginAccountId
         if loginAccountId != nil{
             authenticate()
         }else

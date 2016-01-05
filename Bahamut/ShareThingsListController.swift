@@ -78,7 +78,7 @@ class ShareThingsListController: UITableViewController
     {
         self.userGuide = UserGuide()
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Share")
-        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
+        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
     private func initTableView()
@@ -119,10 +119,8 @@ class ShareThingsListController: UITableViewController
     //MARK: chicago client
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
-        let oldState = aNotification.userInfo![ChicagoClientBeforeChangedState] as! Int
-        let newState = aNotification.userInfo![ChicagoClientCurrentState] as! Int
-        
-        if oldState == ChicagoClientState.Validated.rawValue || newState == ChicagoClientState.Validated.rawValue
+        let newState = aNotification.userInfo![ChicagoClientCurrentState] as! Int   
+        if newState == ChicagoClientState.Disconnected.rawValue || newState == ChicagoClientState.ValidatFailed.rawValue
         {
             tableView.reloadData()
         }
@@ -311,7 +309,7 @@ class ShareThingsListController: UITableViewController
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cstate = ChicagoClient.sharedInstance.clientState
-        if cstate != ChicagoClientState.Validated
+        if cstate == ChicagoClientState.Disconnected || cstate == .ValidatFailed
         {
             if stateHeaderView == nil
             {

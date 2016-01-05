@@ -15,26 +15,26 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        SharelinkSDK.sharedInstance.reuse(SharelinkSetting.userId, token: SharelinkSetting.token, shareLinkApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
+        SharelinkSDK.sharedInstance.reuse(UserSetting.userId, token: UserSetting.token, shareLinkApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
         SharelinkSDK.setAppVersion(BahamutConfig.sharelinkVersion)
         SharelinkSDK.sharedInstance.startClients()
         ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)
         ChicagoClient.sharedInstance.startHeartBeat()
-        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: SharelinkSetting.token)
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: UserSetting.token)
         self.setServiceReady()
     }
     
     @objc func userLogout(userId: String) {
         MobClick.profileSignOff()
         ChicagoClient.sharedInstance.logout()
-        SharelinkSetting.token = nil
-        SharelinkSetting.isUserLogined = false
+        UserSetting.token = nil
+        UserSetting.isUserLogined = false
         SharelinkSetting.fileApiServer = nil
         SharelinkSetting.shareLinkApiServer = nil
         SharelinkSetting.chicagoServerHost = nil
         SharelinkSetting.chicagoServerHostPort = 0
-        SharelinkSetting.userId = nil
+        UserSetting.userId = nil
         SharelinkSDK.sharedInstance.cancelToken(){
             message in
             
@@ -44,20 +44,20 @@ class AccountService: ServiceProtocol
     
     private func setLogined(validateResult:ValidateResult)
     {
-        SharelinkSetting.token = validateResult.AppToken
-        SharelinkSetting.isUserLogined = true
+        UserSetting.token = validateResult.AppToken
+        UserSetting.isUserLogined = true
         SharelinkSetting.shareLinkApiServer = validateResult.APIServer
         SharelinkSetting.fileApiServer = validateResult.FileAPIServer
         let chicagoStrs = validateResult.ChicagoServer.split(":")
         SharelinkSetting.chicagoServerHost = chicagoStrs[0]
         SharelinkSetting.chicagoServerHostPort = UInt16(chicagoStrs[1])!
-        SharelinkSetting.userId = validateResult.UserId
+        UserSetting.userId = validateResult.UserId
         ServiceContainer.instance.userLogin(validateResult.UserId)
     }
 
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
-        SharelinkSetting.lastLoginAccountId = accountId
+        UserSetting.lastLoginAccountId = accountId
         SharelinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer,validateResult) -> Void in
             if isNewUser
             {

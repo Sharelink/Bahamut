@@ -66,7 +66,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     private func go()
     {
         ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
-        if SharelinkSetting.isUserLogined
+        if UserSetting.isUserLogined
         {
             if ServiceContainer.isAllServiceReady
             {
@@ -74,7 +74,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
                 showMainView()
             }else
             {
-                ServiceContainer.instance.userLogin(SharelinkSetting.userId)
+                ServiceContainer.instance.userLogin(UserSetting.userId)
             }
         }else
         {

@@ -11,6 +11,9 @@ import AudioToolbox
 
 class NotificationService: ServiceProtocol
 {
+    static let vibrationEnableKey = "vibrationEnable"
+    static let isMuteKey = "isMute"
+    
     @objc static var ServiceName:String{return "NotificationService"}
     
     private(set) var isMute:Bool = true
@@ -19,27 +22,25 @@ class NotificationService: ServiceProtocol
     
     @objc func appStartInit()
     {
-        setMute(false)
-        setVibration(false)
     }
     
     @objc func userLoginInit(userId: String)
     {
-        isMute = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):isMute")
-        openVibration = NSUserDefaults.standardUserDefaults().boolForKey("\(userId):openVibration")
+        openVibration = UserSetting.isSettingEnable(NotificationService.vibrationEnableKey)
+        isMute = UserSetting.isSettingEnable(NotificationService.isMuteKey)
         self.userId = userId
         self.setServiceReady()
     }
     
     func setMute(isMute:Bool)
     {
-        NSUserDefaults.standardUserDefaults().setBool(isMute, forKey: "\(userId):isMute")
+        UserSetting.setSetting(NotificationService.isMuteKey, enable: isMute)
         self.isMute = isMute
     }
     
     func setVibration(isOpen:Bool)
     {
-        NSUserDefaults.standardUserDefaults().setBool(isOpen, forKey: "\(userId):openVibration")
+        UserSetting.setSetting(NotificationService.vibrationEnableKey, enable: isOpen)
         openVibration = isOpen
     }
     

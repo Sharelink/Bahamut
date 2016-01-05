@@ -18,7 +18,7 @@ extension UserService
             if let myInfo = self.myUserModel
             {
                 let controller = MyDetailViewController.instanceFromStoryBoard()
-                controller.accountId = SharelinkSetting.lastLoginAccountId
+                controller.accountId = UserSetting.lastLoginAccountId
                 controller.myInfo = myInfo
                 currentViewController.navigationController?.pushViewController(controller, animated: true)
             }else
@@ -103,6 +103,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         static let motto = "signtext"
         static let createTime = "createtime"
         static let changePsw = "changePsw"
+        static let useTink = "useTink"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -124,8 +125,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = NSLocalizedString("NICK", comment: "Nick")
         propertySet.propertyValue = myInfo.nickName
-        //propertySet.valueRegex = "^?{1,23}$"
-        //propertySet.illegalValueMessage = NSLocalizedString("NICK_REGEX_TIPS", comment: "At least 1 character,less than 23 character")
         textPropertyCells.append(MyDetailCellModel(propertySet: propertySet, editable: true, selector: "tapTextProperty:"))
         
         propertySet = UIEditTextPropertySet()
@@ -166,6 +165,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyLabel = NSLocalizedString("CHANGE_PSW", comment: "Change Password")
         propertySet.propertyValue = ""
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "changePassword:"))
+        
+        propertySet = UIEditTextPropertySet()
+        propertySet.propertyIdentifier = InfoIds.useTink
+        propertySet.propertyLabel = NSLocalizedString("TINK_TINK_TINK", comment: "")
+        propertySet.propertyValue = ""
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "useTinkTinkTink:"))
     }
     
     override func viewDidLoad() {
@@ -276,6 +281,11 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     func changePassword(_:UITapGestureRecognizer)
     {
         self.navigationController?.pushViewController(ChangePasswordViewController.instanceFromStoryBoard(), animated: true)
+    }
+    
+    func useTinkTinkTink(_:UITapGestureRecognizer)
+    {
+        self.navigationController?.pushViewController(UseTinkViewController.instanceFromStoryBoard(), animated: true)
     }
     
     //MARK: Clear User Tmp Dir

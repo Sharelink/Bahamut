@@ -340,6 +340,49 @@
             </objects>
             <point key="canvasLocation" x="566" y="2339"/>
         </scene>
+        <!--Tink Tink Tink !-->
+        <scene sceneID="GCd-jp-zDq">
+            <objects>
+                <viewController storyboardIdentifier="UseTinkViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ua3-cD-nXF" customClass="UseTinkViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BAm-X9-Mlt"/>
+                        <viewControllerLayoutGuide type="bottom" id="3QL-kI-PPP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uni-Bd-GsE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7f-29-BFh">
+                                <rect key="frame" x="531" y="72" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onTinkSwitch:" destination="Ua3-cD-nXF" eventType="valueChanged" id="WeA-AV-ON5"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tink Tink Tink !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUV-Kz-nTp">
+                                <rect key="frame" x="20" y="77" width="116" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x7f-29-BFh" firstAttribute="centerY" secondItem="DUV-Kz-nTp" secondAttribute="centerY" id="IgU-s0-gkR"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="DUV-Kz-nTp" secondAttribute="leading" id="WPa-xl-qBb"/>
+                            <constraint firstItem="DUV-Kz-nTp" firstAttribute="top" secondItem="BAm-X9-Mlt" secondAttribute="bottom" constant="13" id="hLY-Ue-Kuv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="x7f-29-BFh" secondAttribute="trailing" id="jIw-sD-CFC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tink Tink Tink !" id="R9d-1K-Olg"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="enableTinkSwitch" destination="x7f-29-BFh" id="lHi-NQ-Syb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HnM-0R-vKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1195" y="1680"/>
+        </scene>
         <!--Image Player Controller-->
         <scene sceneID="gox-HR-Pi5">
             <objects>

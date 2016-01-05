@@ -53,6 +53,8 @@
 		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
 		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
 		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
+		E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500071C3B7392009185FE /* UseTinkViewController.swift */; };
+		E715000A1C3B7520009185FE /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500091C3B7520009185FE /* UserSetting.swift */; };
 		E71788641BF82B72005916B5 /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788531BF82B72005916B5 /* chat_animation1.png */; };
 		E71788651BF82B72005916B5 /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788541BF82B72005916B5 /* chat_animation2.png */; };
 		E71788661BF82B72005916B5 /* chat_animation3.png in Resources */ = {isa = PBXBuildFile; fileRef = E71788551BF82B72005916B5 /* chat_animation3.png */; };
@@ -334,6 +336,11 @@
 		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E71500071C3B7392009185FE /* UseTinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseTinkViewController.swift; sourceTree = "<group>"; };
+		E71500091C3B7520009185FE /* UserSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
+		E715000B1C3B7B0F009185FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Component.storyboard; sourceTree = "<group>"; };
+		E715000C1C3B7B23009185FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UIMessage.storyboard; sourceTree = "<group>"; };
+		E715000D1C3B7B31009185FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserAccount.storyboard; sourceTree = "<group>"; };
 		E71788531BF82B72005916B5 /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
 		E71788541BF82B72005916B5 /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
 		E71788551BF82B72005916B5 /* chat_animation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation3.png; sourceTree = "<group>"; };
@@ -365,12 +372,9 @@
 		E71788991BF85FAD005916B5 /* en_UserViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_UserViewGuide_1.jpg; sourceTree = "<group>"; };
 		E71AF3281BE4FE12000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E71AF3291BE4FE14000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		E71AF32C1BE500A4000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/UIMessage.storyboard; sourceTree = "<group>"; };
 		E71AF32D1BE500A5000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UIMessage.storyboard"; sourceTree = "<group>"; };
 		E71AF32F1BE500BA000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		E71AF3301BE500D0000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Component.storyboard; sourceTree = "<group>"; };
 		E71AF3311BE500D1000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Component.storyboard"; sourceTree = "<group>"; };
-		E71AF3321BE500E0000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/UserAccount.storyboard; sourceTree = "<group>"; };
 		E71AF3331BE500E0000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UserAccount.storyboard"; sourceTree = "<group>"; };
 		E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDetailViewController.swift; sourceTree = "<group>"; };
 		E71C67021BDFD46B00F36BE4 /* WhatsAppConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhatsAppConnection.framework; sourceTree = "<group>"; };
@@ -794,6 +798,18 @@
 			name = AliOSS;
 			sourceTree = "<group>";
 		};
+		E71500061C3B733D009185FE /* UISettings */ = {
+			isa = PBXGroup;
+			children = (
+				E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */,
+				E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */,
+				E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */,
+				E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */,
+				E71500071C3B7392009185FE /* UseTinkViewController.swift */,
+			);
+			name = UISettings;
+			sourceTree = "<group>";
+		};
 		E71788521BF82B72005916B5 /* ChatAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1142,8 +1158,6 @@
 				E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */,
 				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
 				E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */,
-				E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */,
-				E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */,
 			);
 			name = Sharelinker;
 			sourceTree = "<group>";
@@ -1240,12 +1254,14 @@
 				E790BCFB1B677D8000D5426B /* UIReply */,
 				E786084E1BA1DEDE00E2BECA /* UITheme */,
 				E79E3E341B6B567F00B27085 /* UIUser */,
+				E71500061C3B733D009185FE /* UISettings */,
 				E790BD081B67EFA000D5426B /* Service */,
 				E7A62FE51B6609A500F28D73 /* AppDelegate.swift */,
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
 				E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
 				E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */,
+				E71500091C3B7520009185FE /* UserSetting.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1387,11 +1403,9 @@
 				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
 				E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */,
 				E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */,
-				E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */,
 				E7A3AA9B1B9C332F0094B0D0 /* UIImagePlayerController.swift */,
 				E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */,
 				E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */,
-				E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */,
 				E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */,
 			);
 			name = UIComponent;
@@ -1775,6 +1789,7 @@
 				E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */,
 				E76234331C0BF30D0083E281 /* BahamutFire.swift in Sources */,
 				E7443ADE1C2BDF4100CB5C3A /* ThemeListViewController.swift in Sources */,
+				E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */,
 				E70A572A1C1EA0140031A0C5 /* UIAnimationHelper.swift in Sources */,
@@ -1863,6 +1878,7 @@
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
 				E70C170D1C1D7FA300F2D67F /* NewShareUrlCell.swift in Sources */,
 				E76DEB941C0E9C140072A1D7 /* ControllerExtension.swift in Sources */,
+				E715000A1C3B7520009185FE /* UserSetting.swift in Sources */,
 				E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */,
 				E7A3AA9C1B9C332F0094B0D0 /* UIImagePlayerController.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
@@ -1916,8 +1932,8 @@
 		E71AF30C1BE4ECCD000BBBF8 /* UIMessage.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E71AF32C1BE500A4000BBBF8 /* en */,
 				E71AF32D1BE500A5000BBBF8 /* zh-Hans */,
+				E715000C1C3B7B23009185FE /* Base */,
 			);
 			name = UIMessage.storyboard;
 			sourceTree = "<group>";
@@ -1925,8 +1941,8 @@
 		E71AF3171BE4EEF9000BBBF8 /* Component.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E71AF3301BE500D0000BBBF8 /* en */,
 				E71AF3311BE500D1000BBBF8 /* zh-Hans */,
+				E715000B1C3B7B0F009185FE /* Base */,
 			);
 			name = Component.storyboard;
 			sourceTree = "<group>";
@@ -1934,8 +1950,8 @@
 		E71AF31E1BE4EFD9000BBBF8 /* UserAccount.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E71AF3321BE500E0000BBBF8 /* en */,
 				E71AF3331BE500E0000BBBF8 /* zh-Hans */,
+				E715000D1C3B7B31009185FE /* Base */,
 			);
 			name = UserAccount.storyboard;
 			sourceTree = "<group>";

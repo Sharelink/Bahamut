@@ -106,6 +106,10 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     {
         setTabItemBadge(self.selectedIndex, badge: 0)
         refreshBadgeAt(self.selectedIndex)
+        if UserSetting.isSettingEnable(TinkTinkTinkSetting)
+        {
+            SystemSoundHelper.keyTink()
+        }
     }
     
     
@@ -185,7 +189,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     private func generateBadgeKey(index:Int) -> String
     {
-        let badgeKey = "\(SharelinkSetting.lastLoginAccountId)\(MainViewTabBarController.badgeKeys[index])"
+        let badgeKey = "\(UserSetting.lastLoginAccountId)\(MainViewTabBarController.badgeKeys[index])"
         return badgeKey
     }
     

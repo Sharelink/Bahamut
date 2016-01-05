@@ -38,7 +38,7 @@ class LinkedUserListController: UITableViewController
     {
         self.userGuide = UserGuide()
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "User")
-        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
+        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
     //MARK: notify

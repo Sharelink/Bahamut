@@ -247,6 +247,7 @@ CONFIRM_CLEAR_CACHE_TITLE = "Sure To Clear Cache Files?";
 CLEAR_CACHE_SUCCESS = "Clear Cache Successful!";
 SET_KEY_FAILED = "Modify Error";
 MODIFY_KEY_SUC = "Finished";
+TINK_TINK_TINK = "Tink! Tink! Tink!";
 
 CHANGE_AVATAR = "Change Avatar";
 TAKE_NEW_PHOTO = "Take A New Photo";

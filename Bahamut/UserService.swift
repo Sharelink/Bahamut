@@ -15,7 +15,7 @@ extension Sharelinker
 {
     func getNoteName() -> String
     {
-        if self.userId == SharelinkSetting.userId
+        if self.userId == UserSetting.userId
         {
             return NSLocalizedString("ME", comment: "")
         }else if self.noteName == SharelinkerCenterNoteName
@@ -57,7 +57,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     @objc static var ServiceName:String{return "user service"}
     
     var myUserId:String{
-        return SharelinkSetting.userId
+        return UserSetting.userId
     }
     
     @objc func userLoginInit(userId:String)
@@ -91,7 +91,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     private func initServiceBaseData()
     {
-        myUserModel = self.getUser(SharelinkSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
+        myUserModel = self.getUser(UserSetting.userId, serverNewestCallback: { (newestUser, msg) -> Void in
             if newestUser != nil
             {
                 self.myUserModel = newestUser
@@ -347,7 +347,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func generateSharelinkLinkMeCmd() -> String
     {
         let expriedAt = NSDate(timeIntervalSinceNow: 7 * 24 * 3600)
-        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: SharelinkSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
+        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: UserSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
     }
     
     func generateSharelinkerQrString() -> String

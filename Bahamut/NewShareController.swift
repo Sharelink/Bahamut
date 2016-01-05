@@ -162,7 +162,7 @@ class NewShareController: UITableViewController
     {
         self.userGuide = UserGuide()
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "New")
-        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
+        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
     //MARK: new share posted notification

@@ -171,7 +171,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     {
         self.userGuide = UserGuide()
         let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Theme")
-        self.userGuide.initGuide(self, userId: SharelinkSetting.userId, guideImgs: guideImgs)
+        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
     private func initThemes()

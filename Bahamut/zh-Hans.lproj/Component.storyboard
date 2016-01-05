@@ -529,6 +529,49 @@
             </objects>
             <point key="canvasLocation" x="1218" y="3003"/>
         </scene>
+        <!--叮叮叮！-->
+        <scene sceneID="O7r-2b-m6O">
+            <objects>
+                <viewController storyboardIdentifier="UseTinkViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AGx-0d-GYo" customClass="UseTinkViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HeJ-nq-oKz"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Ac-pv-Wb4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pia-pv-evZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fqi-GF-sjN">
+                                <rect key="frame" x="531" y="72" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onTinkSwitch:" destination="AGx-0d-GYo" eventType="valueChanged" id="B5T-aD-Hc1"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="叮叮叮！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71A-1O-xrH">
+                                <rect key="frame" x="20" y="77" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fqi-GF-sjN" firstAttribute="centerY" secondItem="71A-1O-xrH" secondAttribute="centerY" id="6L1-Tc-q6x"/>
+                            <constraint firstItem="71A-1O-xrH" firstAttribute="top" secondItem="HeJ-nq-oKz" secondAttribute="bottom" constant="13" id="8XY-cP-mLu"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="71A-1O-xrH" secondAttribute="leading" id="KkF-pw-quL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fqi-GF-sjN" secondAttribute="trailing" id="kKZ-2V-m9G"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="叮叮叮！" id="ACf-Zh-e9d"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="enableTinkSwitch" destination="Fqi-GF-sjN" id="bUK-1x-oZW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxK-AT-ENE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1195" y="1680"/>
+        </scene>
     </scenes>
     <resources>
         <image name="check" width="512" height="512"/>

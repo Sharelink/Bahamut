@@ -245,6 +245,7 @@ CONFIRM_CLEAR_CACHE_TITLE = "确定清除所有缓存文件?";
 CLEAR_CACHE_SUCCESS = "清除缓存成功!";
 SET_KEY_FAILED = "修改%@出错";
 MODIFY_KEY_SUC = "修改%@成功!";
+TINK_TINK_TINK = "叮叮叮！";
 
 CHANGE_AVATAR = "修改头像";
 TAKE_NEW_PHOTO = "拍照";
