@@ -293,7 +293,8 @@ class ShareThingsListController: UITableViewController
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        if ChicagoClient.sharedInstance.clientState != ChicagoClientState.Validated
+        let cstate = ChicagoClient.sharedInstance.clientState
+        if cstate == ChicagoClientState.Disconnected || cstate == .ValidatFailed
         {
             return 35
         }
