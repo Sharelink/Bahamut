@@ -11,6 +11,14 @@ import UIKit
 class NewShareTextCell: ShareContentCellBase {
     static let reuseableId = "NewShareTextCell"
     
+    override func getShareContentTitle() -> String? {
+        if let config = NewShareCellConfig.configOfReuseId(NewShareTextCell.reuseableId)
+        {
+            return NSLocalizedString(config.viewTitle, comment: "")
+        }
+        return nil
+    }
+    
     override func getCellHeight() -> CGFloat {
         return 0
     }

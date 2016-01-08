@@ -9,6 +9,8 @@ import UIKit
 
 class NewControllerTitleView: UIView {
 
+    static let defaultTitle = NSLocalizedString("NEW_SHARE_TITLE", comment: "")
+    
     var shareQueue:Int = 0{
         didSet{
             if indicator != nil{
@@ -19,7 +21,7 @@ class NewControllerTitleView: UIView {
     
     @IBOutlet weak var titleLabel: UILabel!{
         didSet{
-            titleLabel.text = NSLocalizedString("NEW_SHARE_TITLE", comment: "")
+            titleLabel.text = NewControllerTitleView.defaultTitle
             self.backgroundColor = UIColor.clearColor()
         }
     }

@@ -26,11 +26,30 @@ class NewShareCellConfig
         return CellConfig.count
     }
     
-    static let CellConfig =
+    static func configOfIndex(index:Int!) -> (shareType:ShareThingType,cellReuseId:String,headerTitle:String,viewTitle:String)?
+    {
+        if index != nil && index >= 0 && index < CellConfig.count
+        {
+            return CellConfig[index]
+        }
+        return nil
+    }
+    
+    static func configOfReuseId(cellReuseId:String) -> (shareType:ShareThingType,cellReuseId:String,headerTitle:String,viewTitle:String)?
+    {
+        return configOfIndex(indexOfReuseId(cellReuseId))
+    }
+    
+    static func configOfShareType(type:ShareThingType?) -> (shareType:ShareThingType,cellReuseId:String,headerTitle:String,viewTitle:String)?
+    {
+        return configOfIndex(indexOfShareType(type))
+    }
+    
+    private static let CellConfig =
     [
-        (shareType:ShareThingType.shareFilm,cellReuseId:NewShareFilmCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_VIDEO"),
-        (shareType:ShareThingType.shareText,cellReuseId:NewShareTextCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_TEXT"),
-        (shareType:ShareThingType.shareImage,cellReuseId:NewShareImageCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_IMAGE"),
-        (shareType:ShareThingType.shareUrl,cellReuseId:NewShareUrlCell.reuseableId,headerTitleLocalizedKey:"SHARE_HEADER_TITLE_LINK")
+        (shareType:ShareThingType.shareFilm,cellReuseId:NewShareFilmCell.reuseableId,headerTitle:"SHARE_HEADER_TITLE_VIDEO",viewTitle:"SHARE_VIEW_TITLE_NEW_FILM"),
+        (shareType:ShareThingType.shareText,cellReuseId:NewShareTextCell.reuseableId,headerTitle:"SHARE_HEADER_TITLE_TEXT",viewTitle:"SHARE_VIEW_TITLE_NEW_TEXT"),
+        (shareType:ShareThingType.shareImage,cellReuseId:NewShareImageCell.reuseableId,headerTitle:"SHARE_HEADER_TITLE_IMAGE",viewTitle:"SHARE_VIEW_TITLE_NEW_IMAGE"),
+        (shareType:ShareThingType.shareUrl,cellReuseId:NewShareUrlCell.reuseableId,headerTitle:"SHARE_HEADER_TITLE_LINK",viewTitle:"SHARE_VIEW_TITLE_NEW_URL")
     ]
 }

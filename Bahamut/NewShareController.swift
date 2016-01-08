@@ -77,6 +77,11 @@ class ShareContentCellBase:NewShareCellBase
     {
         return UITableViewAutomaticDimension
     }
+    
+    func getShareContentTitle()->String?
+    {
+        return nil
+    }
 }
 
 //MARK:NewShareController
@@ -199,10 +204,10 @@ class NewShareController: UITableViewController
     
     private func refreshHeaderTitle()
     {
-        let cellConfig = NewShareCellConfig.CellConfig[self.nextShareTypeIndex()]
+        let cellConfig = NewShareCellConfig.configOfIndex(self.nextShareTypeIndex())!
         let header = self.tableView.mj_header as! MJRefreshGifHeader
         let format = NSLocalizedString("NEW_SHARE_PULL_SWITCH_TO", comment: "")
-        let headerTitle = NSLocalizedString(cellConfig.headerTitleLocalizedKey, comment: "")
+        let headerTitle = NSLocalizedString(cellConfig.headerTitle, comment: "")
         let msg = String(format: format, headerTitle)
         header.setTitle(msg, forState: .Idle)
         header.setTitle(msg, forState: .Pulling)
@@ -340,9 +345,17 @@ class NewShareController: UITableViewController
             cell = self.shareMessageCell
         }else if indexPath.row == shareContentCellIndexPath.row
         {
-            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(NewShareCellConfig.CellConfig[self.shareCellReuseIdIndex].cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
+            let cellConfig = NewShareCellConfig.configOfIndex(self.shareCellReuseIdIndex)!
+            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(cellConfig.cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
             shareContentCell.rootController = self
             reloadContentCellHeight()
+            if let title = self.shareContentCell.getShareContentTitle()
+            {
+                self.titleView.titleLabel.text = title
+            }else
+            {
+                self.titleView.titleLabel.text = NewControllerTitleView.defaultTitle
+            }
             cell = self.shareContentCell
         }else
         {

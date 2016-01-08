@@ -13,6 +13,14 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
 
     static let reuseableId = "NewShareUrlCell"
     
+    override func getShareContentTitle() -> String? {
+        if let config = NewShareCellConfig.configOfReuseId(NewShareUrlCell.reuseableId)
+        {
+            return NSLocalizedString(config.viewTitle, comment: "")
+        }
+        return nil
+    }
+    
     override func getCellHeight() -> CGFloat {
         if isReshare
         {

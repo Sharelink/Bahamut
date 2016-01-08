@@ -16,6 +16,14 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     static let thumbQuality:CGFloat = 0.3
     static let reuseableId = "NewShareFilmCell"
     
+    override func getShareContentTitle() -> String? {
+        if let config = NewShareCellConfig.configOfReuseId(NewShareFilmCell.reuseableId)
+        {
+            return NSLocalizedString(config.viewTitle, comment: "")
+        }
+        return nil
+    }
+    
     override func getCellHeight() -> CGFloat {
         return 211
     }
