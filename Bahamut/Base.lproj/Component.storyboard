@@ -340,6 +340,107 @@
             </objects>
             <point key="canvasLocation" x="566" y="2339"/>
         </scene>
+        <!--Harmful Report-->
+        <scene sceneID="6NS-6q-7Hi">
+            <objects>
+                <viewController storyboardIdentifier="HarmfulReportViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eRc-4a-Fpy" customClass="HarmfulReportViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7FV-VC-1Bb"/>
+                        <viewControllerLayoutGuide type="bottom" id="sgf-hI-KYh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lc0-CQ-8eM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Email For Reply" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Me-n1-qul">
+                                <rect key="frame" x="20" y="101" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUo-PL-Cid">
+                                <rect key="frame" x="20" y="139" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Harmful Share:abcd" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WfF-qb-xSD">
+                                <rect key="frame" x="20" y="168" width="560" height="412"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reporter Account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXK-1n-3aI">
+                                <rect key="frame" x="20" y="72" width="140" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Harmful Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mj-Ji-9pJ">
+                                <rect key="frame" x="85" y="139" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReporterID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbE-6t-J84">
+                                <rect key="frame" x="168" y="72" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Mj-Ji-9pJ" firstAttribute="leading" secondItem="QUo-PL-Cid" secondAttribute="trailing" constant="8" id="0S1-qC-hlA"/>
+                            <constraint firstItem="5Me-n1-qul" firstAttribute="top" secondItem="QbE-6t-J84" secondAttribute="bottom" constant="8" symbolic="YES" id="0ky-38-IYV"/>
+                            <constraint firstItem="7Mj-Ji-9pJ" firstAttribute="top" secondItem="5Me-n1-qul" secondAttribute="bottom" constant="8" id="1S2-8H-X77"/>
+                            <constraint firstItem="QUo-PL-Cid" firstAttribute="top" secondItem="5Me-n1-qul" secondAttribute="bottom" constant="8" symbolic="YES" id="4Rp-LI-lR6"/>
+                            <constraint firstItem="WfF-qb-xSD" firstAttribute="top" secondItem="QUo-PL-Cid" secondAttribute="bottom" constant="8" symbolic="YES" id="5uf-mr-n2r"/>
+                            <constraint firstItem="WfF-qb-xSD" firstAttribute="leading" secondItem="QUo-PL-Cid" secondAttribute="leading" id="JXl-QD-krc"/>
+                            <constraint firstItem="WfF-qb-xSD" firstAttribute="trailing" secondItem="5Me-n1-qul" secondAttribute="trailing" id="O4C-mR-gOn"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="7Mj-Ji-9pJ" secondAttribute="trailing" id="Ow4-LT-l0q"/>
+                            <constraint firstItem="pXK-1n-3aI" firstAttribute="top" secondItem="7FV-VC-1Bb" secondAttribute="bottom" constant="8" id="Uxm-Ya-gAP"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="5Me-n1-qul" secondAttribute="leading" id="WJ8-dF-pdm"/>
+                            <constraint firstItem="QbE-6t-J84" firstAttribute="leading" secondItem="Lc0-CQ-8eM" secondAttribute="leadingMargin" id="bgV-1a-Wjx"/>
+                            <constraint firstItem="QUo-PL-Cid" firstAttribute="leading" secondItem="5Me-n1-qul" secondAttribute="leading" id="bmB-xE-Wbl"/>
+                            <constraint firstAttribute="bottom" secondItem="WfF-qb-xSD" secondAttribute="bottom" constant="20" symbolic="YES" id="caJ-NQ-Xlz"/>
+                            <constraint firstItem="5Me-n1-qul" firstAttribute="leading" secondItem="QbE-6t-J84" secondAttribute="leading" id="njL-3U-hDI"/>
+                            <constraint firstItem="QbE-6t-J84" firstAttribute="top" secondItem="7FV-VC-1Bb" secondAttribute="bottom" constant="8" symbolic="YES" id="oOL-8e-T0l"/>
+                            <constraint firstItem="QbE-6t-J84" firstAttribute="leading" secondItem="pXK-1n-3aI" secondAttribute="trailing" constant="8" id="tiA-eI-n1q"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="pXK-1n-3aI" secondAttribute="leading" id="w76-yF-Ju4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Me-n1-qul" secondAttribute="trailing" id="waB-6P-Qtm"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="njL-3U-hDI"/>
+                                <exclude reference="bgV-1a-Wjx"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Harmful Report" id="Ju8-2Z-QR1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d6g-Fb-58y">
+                            <connections>
+                                <action selector="cancelReport:" destination="eRc-4a-Fpy" id="gys-Fg-K7b"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="909-n3-w5n">
+                            <connections>
+                                <action selector="sendReport:" destination="eRc-4a-Fpy" id="nsj-LN-NNe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="reportContentTextView" destination="WfF-qb-xSD" id="aXI-ok-l63"/>
+                        <outlet property="reportTypeLabel" destination="7Mj-Ji-9pJ" id="pF0-uk-6nj"/>
+                        <outlet property="reporterEmailTextField" destination="5Me-n1-qul" id="RrP-wc-P9W"/>
+                        <outlet property="reporterIdLabel" destination="QbE-6t-J84" id="2sq-Nh-gE5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ry7-fa-3KR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218" y="2339"/>
+        </scene>
         <!--Tink Tink Tink !-->
         <scene sceneID="GCd-jp-zDq">
             <objects>

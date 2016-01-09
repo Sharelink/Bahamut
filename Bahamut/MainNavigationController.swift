@@ -26,6 +26,11 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         {
             indicator.hidden = false
         }
+        if let mottoLabel = launchScr.viewWithTag(2) as? UILabel
+        {
+            mottoLabel.text = SharelinkConfig.SharelinkMotto
+            mottoLabel.hidden = false
+        }
         ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
     }
     

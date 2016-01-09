@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureImagePicker()
     {
         let mmanger = CMMotionManager()
-        mmanger.accessibilityActivate()
+        NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
         Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
         Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
         Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")

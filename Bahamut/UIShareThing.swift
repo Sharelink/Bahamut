@@ -128,6 +128,25 @@ class UIShareThing: UIShareCell
         }
     }
     
+    
+    @IBAction func showMoreOperate(sender: AnyObject)
+    {
+        let alerts = [
+            UIAlertAction(title: NSLocalizedString("HARMFUL_CONTENT", comment: ""), style: .Default, handler: { (action) -> Void in
+                self.showHarmfulContentFeedback()
+            }),
+            UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: { (action) -> Void in
+                
+            })
+        ]
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        for al in alerts
+        {
+            alertController.addAction(al)
+        }
+        self.rootController.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func shareToFriends()
     {
         if shareModel.canReshare()
@@ -141,6 +160,18 @@ class UIShareThing: UIShareCell
             rootController.presentViewController(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    private func showHarmfulContentFeedback()
+    {
+        let reportController = HarmfulReportViewController.instanceFromStoryBoard()
+        let navController = UINavigationController(rootViewController: reportController)
+        self.rootController.presentViewController(navController, animated: true){
+            reportController.reporterIdLabel.text = UserSetting.lastLoginAccountId
+            let str = self.shareModel.shareId as NSString
+            reportController.reportTypeLabel.text = "Harmful Share"
+            reportController.reportContentTextView.text = "Share Code:\n\(str.base64String())\n"
+        }
     }
     
     private func cancelShare()

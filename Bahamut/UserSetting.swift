@@ -7,13 +7,27 @@
 //
 
 import Foundation
+
 class UserSetting
 {
-    static var lastLoginAccountId:String!{
+    static var isAppstoreReviewing:Bool{
         get{
-        return NSUserDefaults.standardUserDefaults().valueForKey("lastLoginAccountId") as? String
+            return NSUserDefaults.standardUserDefaults().boolForKey("isAppstoreReviewId")
         }
         set{
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "isAppstoreReviewId")
+        }
+    }
+    
+    static var lastLoginAccountId:String!{
+        get{
+            return NSUserDefaults.standardUserDefaults().valueForKey("lastLoginAccountId") as? String
+        }
+        set{
+            if BahamutConfig.appleStoreReviewAccountIds.contains(lastLoginAccountId)
+            {
+                isAppstoreReviewing = true
+            }
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "lastLoginAccountId")
         }
     }

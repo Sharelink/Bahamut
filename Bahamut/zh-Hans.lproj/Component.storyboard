@@ -572,6 +572,107 @@
             </objects>
             <point key="canvasLocation" x="1195" y="1680"/>
         </scene>
+        <!--不良信息报告-->
+        <scene sceneID="la9-Pw-ZNx">
+            <objects>
+                <viewController storyboardIdentifier="HarmfulReportViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DMi-5G-eag" customClass="HarmfulReportViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rBp-3k-Fo3"/>
+                        <viewControllerLayoutGuide type="bottom" id="pTB-Tr-7ra"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YUZ-rb-WtI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="报告结果回复的邮箱" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sg3-Bo-yRw">
+                                <rect key="frame" x="20" y="101" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报告:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnD-9Y-Uol">
+                                <rect key="frame" x="20" y="139" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Harmful Share:abcd" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IyY-bY-xm7">
+                                <rect key="frame" x="20" y="168" width="560" height="412"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报告账号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGb-QS-Ibv">
+                                <rect key="frame" x="20" y="72" width="73" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Harmful Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMb-LR-Gws">
+                                <rect key="frame" x="67" y="139" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReporterID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iak-fX-Ala">
+                                <rect key="frame" x="101" y="72" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aMb-LR-Gws" firstAttribute="leading" secondItem="cnD-9Y-Uol" secondAttribute="trailing" constant="8" id="0hk-eO-UFg"/>
+                            <constraint firstItem="IyY-bY-xm7" firstAttribute="leading" secondItem="cnD-9Y-Uol" secondAttribute="leading" id="1Hy-hu-Y0M"/>
+                            <constraint firstItem="Iak-fX-Ala" firstAttribute="top" secondItem="rBp-3k-Fo3" secondAttribute="bottom" constant="8" symbolic="YES" id="1gb-S2-E9K"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="NGb-QS-Ibv" secondAttribute="leading" id="6X3-Sv-T2y"/>
+                            <constraint firstItem="Sg3-Bo-yRw" firstAttribute="top" secondItem="Iak-fX-Ala" secondAttribute="bottom" constant="8" symbolic="YES" id="ADd-sE-C5r"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Sg3-Bo-yRw" secondAttribute="trailing" id="Ai0-6a-46f"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aMb-LR-Gws" secondAttribute="trailing" id="Aov-xU-8na"/>
+                            <constraint firstItem="Iak-fX-Ala" firstAttribute="leading" secondItem="YUZ-rb-WtI" secondAttribute="leadingMargin" id="Bfy-Fk-h4R"/>
+                            <constraint firstItem="cnD-9Y-Uol" firstAttribute="leading" secondItem="Sg3-Bo-yRw" secondAttribute="leading" id="Nfs-Kh-ulM"/>
+                            <constraint firstItem="IyY-bY-xm7" firstAttribute="trailing" secondItem="Sg3-Bo-yRw" secondAttribute="trailing" id="NtS-I7-Awh"/>
+                            <constraint firstItem="Iak-fX-Ala" firstAttribute="leading" secondItem="NGb-QS-Ibv" secondAttribute="trailing" constant="8" id="Ps4-9D-IcL"/>
+                            <constraint firstItem="IyY-bY-xm7" firstAttribute="top" secondItem="cnD-9Y-Uol" secondAttribute="bottom" constant="8" symbolic="YES" id="ROY-0h-Jt9"/>
+                            <constraint firstItem="NGb-QS-Ibv" firstAttribute="top" secondItem="rBp-3k-Fo3" secondAttribute="bottom" constant="8" id="Tfw-7l-KFI"/>
+                            <constraint firstItem="Sg3-Bo-yRw" firstAttribute="leading" secondItem="Iak-fX-Ala" secondAttribute="leading" id="a0q-kg-1fi"/>
+                            <constraint firstItem="aMb-LR-Gws" firstAttribute="top" secondItem="Sg3-Bo-yRw" secondAttribute="bottom" constant="8" id="g9C-cq-jFI"/>
+                            <constraint firstAttribute="bottom" secondItem="IyY-bY-xm7" secondAttribute="bottom" constant="20" symbolic="YES" id="lRK-rl-X6o"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Sg3-Bo-yRw" secondAttribute="leading" id="opM-Hy-Z2D"/>
+                            <constraint firstItem="cnD-9Y-Uol" firstAttribute="top" secondItem="Sg3-Bo-yRw" secondAttribute="bottom" constant="8" symbolic="YES" id="ztw-dz-TX4"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="a0q-kg-1fi"/>
+                                <exclude reference="Bfy-Fk-h4R"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="不良信息报告" id="S2a-Et-IAE">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0md-7T-Fcr">
+                            <connections>
+                                <action selector="cancelReport:" destination="DMi-5G-eag" id="wqk-zE-hn5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="BCD-9J-bbX">
+                            <connections>
+                                <action selector="sendReport:" destination="DMi-5G-eag" id="QR4-Gl-wRW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="reportContentTextView" destination="IyY-bY-xm7" id="48F-oe-cMX"/>
+                        <outlet property="reportTypeLabel" destination="aMb-LR-Gws" id="Edc-RX-nWS"/>
+                        <outlet property="reporterEmailTextField" destination="Sg3-Bo-yRw" id="S14-zf-hjG"/>
+                        <outlet property="reporterIdLabel" destination="Iak-fX-Ala" id="15a-9l-rNK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ayx-aQ-CLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218" y="2339"/>
+        </scene>
     </scenes>
     <resources>
         <image name="check" width="512" height="512"/>

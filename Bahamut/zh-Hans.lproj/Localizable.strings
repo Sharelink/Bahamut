@@ -66,6 +66,7 @@ FINISH = "完成";
 EDIT = "编辑";
 CANCEL = "取消";
 CANCELED = "取消";
+FAILED = "失败";
 DONE = "完成";
 SHARE = "分享";
 NO = "否";
@@ -85,6 +86,8 @@ SAVE_VIDEO_FAILED = "保存视频失败";
 UPDATING = "更新中";
 IGNORE = "忽略";
 ADD_IMAGE_LIMIT_AT_X = "最多只能添加%@张图片";
+HARMFUL_CONTENT = "不良信息";
+SHARELINK_MOTTO = "让社交更加有价值!";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "没有发现相机";

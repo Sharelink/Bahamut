@@ -73,7 +73,7 @@ extension SharelinkTheme
             prefix = "📍"
         }else if self.isKeywordTheme()
         {
-            prefix = "🔤"
+            prefix = ""
         }
         if useEmojiPrefix
         {

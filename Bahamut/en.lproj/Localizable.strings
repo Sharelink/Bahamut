@@ -66,6 +66,7 @@ FINISH = "Finish";
 EDIT = "Edit";
 CANCEL = "Cancel";
 CANCELED = "Canceled";
+FAILED = "Failed";
 DONE = "Done";
 SHARE = "Share";
 NO = "No";
@@ -85,6 +86,8 @@ SAVE_VIDEO_FAILED = "Save Video Failed";
 UPDATING = "Updating";
 IGNORE = "Ignore";
 ADD_IMAGE_LIMIT_AT_X = "Only add %@ photos at most";
+HARMFUL_CONTENT = "Harmful Content";
+SHARELINK_MOTTO = "Make Your SNS More Valuable!";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "Camera is not available";

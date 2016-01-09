@@ -228,6 +228,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func switchDevMode() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            UserSetting.isAppstoreReviewing = false
             self.dev_panel.hidden = !self.dev_panel.hidden
             self.view.bringSubviewToFront(self.dev_panel)
         }

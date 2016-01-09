@@ -126,6 +126,7 @@
 		E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */; };
 		E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
 		E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
+		E73B32961C40D6BE007E9254 /* HarmfulReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */; };
 		E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09C1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m */; };
 		E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09E1BCABC1C001BEEAC /* UIButton+Badge.m */; };
 		E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */; };
@@ -414,6 +415,7 @@
 		E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserNavigationController.swift; sourceTree = "<group>"; };
 		E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserListCell.swift; sourceTree = "<group>"; };
+		E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarmfulReportViewController.swift; sourceTree = "<group>"; };
 		E73CB09B1BCABC1C001BEEAC /* UIBarButtonItem+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Badge.h"; sourceTree = "<group>"; };
 		E73CB09C1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		E73CB09D1BCABC1C001BEEAC /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
@@ -1407,6 +1409,7 @@
 				E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */,
 				E71E07821BE38DE000B1F69D /* SimpleBrowser.swift */,
 				E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */,
+				E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */,
 			);
 			name = UIComponent;
 			sourceTree = "<group>";
@@ -1840,6 +1843,7 @@
 				E70A5ADB1C174870001C0A47 /* PersistentManager.swift in Sources */,
 				E72387231BFC437600247A35 /* UIShareMessage.swift in Sources */,
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
+				E73B32961C40D6BE007E9254 /* HarmfulReportViewController.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,

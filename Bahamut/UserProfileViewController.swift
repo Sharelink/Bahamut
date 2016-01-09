@@ -316,7 +316,13 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     //MARK: update
     func updateEditVideoButton()
     {
-        editProfileVideoButton.hidden = !isMyProfile
+        if isMyProfile && UserSetting.isAppstoreReviewing == false
+        {
+            editProfileVideoButton.hidden = false
+        }else
+        {
+            editProfileVideoButton.hidden = true
+        }
     }
     
     func update()

@@ -10,7 +10,8 @@ import Foundation
 
 class SharelinkConfig
 {
-    static let appName = "Sharelink"
+    static let appName = NSLocalizedString("SHARELINK_NAME", comment: "")
+    static let SharelinkMotto = NSLocalizedString("SHARELINK_MOTTO", comment: "")
 }
 
 class SharelinkSetting

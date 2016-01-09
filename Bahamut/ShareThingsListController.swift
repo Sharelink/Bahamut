@@ -83,6 +83,7 @@ class ShareThingsListController: UITableViewController
     
     private func initTableView()
     {
+        tableView.separatorStyle = .None
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         let uiview = UIView()
