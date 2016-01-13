@@ -168,4 +168,14 @@ public extension String{
     }
 }
 
+func LocalizedString(key:String) -> String
+{
+    return NSLocalizedString(key, comment: "")
+}
 
+extension String
+{
+    var localizedString:String{
+        return LocalizedString(self)
+    }
+}
