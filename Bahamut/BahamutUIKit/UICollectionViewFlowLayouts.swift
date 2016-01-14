@@ -51,3 +51,28 @@ class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
         return nil
     }
 }
+
+class UICollectionViewMaxWhiteSpaceFlowLayout: UICollectionViewFlowLayout {
+    
+    var maximumSpacing:CGFloat = 5
+    
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        if var answer = super.layoutAttributesForElementsInRect(rect)
+        {
+            let cellWidth = self.collectionViewContentSize().width
+            for i in 1..<answer.count
+            {
+                let currentLayoutAttributes = answer[i];
+                let prevLayoutAttributes = answer[i - 1];
+                let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
+                if(origin + maximumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
+                    var frame = currentLayoutAttributes.frame;
+                    frame.origin.x = origin + maximumSpacing;
+                    currentLayoutAttributes.frame = frame;
+                }
+            }
+            return answer
+        }
+        return nil
+    }
+}
