@@ -14,6 +14,11 @@ extension UIView
     {
         UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes)
     }
+    
+    func animationMaxToMin()
+    {
+        UIAnimationHelper.animationMaxToMin(self)
+    }
 }
 
 class UIAnimationHelper: UIViewController {
@@ -93,5 +98,20 @@ class UIAnimationHelper: UIViewController {
         
         // 添加上动画
         viewLayer.addAnimation(animation, forKey: nil)
+    }
+    
+    static func animationMaxToMin(view:UIView){
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        
+        animation.fromValue = 1.0
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        animation.toValue = 1.1
+        animation.duration = 0.2
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        animation.removedOnCompletion = true
+        animation.fillMode = kCAFillModeForwards;
+        view.layer.addAnimation(animation, forKey: "Float")
     }
 }

@@ -98,6 +98,25 @@ public class DateHelper
         return localDateFomatter.stringFromDate(date)
     }
     
+    static let monthDays = [31,28,31,30,31,30,31,31,30,31,30,31]
+    public class func daysOfMonth(year:Int,month:Int) -> Int
+    {
+        let monthIndex = month > 0 ? month - 1 : 0
+        if monthIndex == 1
+        {
+            return monthDays[monthIndex] + (isLeapYear(year) ? 1 : 0)
+        }
+        return monthDays[monthIndex]
+    }
+    
+    public class func isLeapYear(year:Int) -> Bool
+    {
+        if (year%4==0 && year % 100 != 0) || year%400==0 {
+            return true
+        }else {
+            return false
+        }
+    }
 }
 
 public extension String
