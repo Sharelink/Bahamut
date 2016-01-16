@@ -2160,7 +2160,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;
@@ -2216,7 +2216,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;

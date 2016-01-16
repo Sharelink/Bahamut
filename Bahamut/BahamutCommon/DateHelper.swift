@@ -260,6 +260,30 @@ public extension NSDate
     }
 }
 
+extension DateHelper
+{
+    static func generateDate(year:Int = 1970,var month:Int = 1,var day:Int = 1,hour:Int = 0,minute:Int = 0,var second:NSTimeInterval = 0) -> NSDate
+    {
+        if second > 60 || second < 0
+        {
+            second = 0
+        }
+        if month <= 0
+        {
+            month = 1
+        }
+        if day <= 0
+        {
+            day = 1
+        }
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        formatter.timeZone = NSTimeZone.systemTimeZone()
+        let dateString = String(format: "%04d-%02d-%02d %02d:%02d:%06.3f", year,month,day,hour,minute,second)
+        return formatter.dateFromString(dateString)!
+    }
+}
+
 public extension NSDate
 {
     var hourOfDate:Int{
