@@ -153,7 +153,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.userGuide.showGuideControllerPresentFirstTime()
+        if UserSetting.isAppstoreReviewing == false
+        {
+            userGuide.showGuideControllerPresentFirstTime()
+        }
     }
     
     //MARK: init

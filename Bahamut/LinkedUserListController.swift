@@ -108,7 +108,10 @@ class LinkedUserListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.userGuide.showGuideControllerPresentFirstTime()
+        if UserSetting.isAppstoreReviewing == false
+        {
+            userGuide.showGuideControllerPresentFirstTime()
+        }
         tableView.reloadData()
     }
     

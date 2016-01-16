@@ -145,7 +145,10 @@ class NewShareController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.userGuide.showGuideControllerPresentFirstTime()
+        if UserSetting.isAppstoreReviewing == false
+        {
+            userGuide.showGuideControllerPresentFirstTime()
+        }
     }
     
     deinit{
@@ -191,7 +194,7 @@ class NewShareController: UITableViewController
             self.shareCellReuseIdIndex = NewShareCellConfig.indexOfShareType(ShareThingType(rawValue: reShareModel.shareType)!) ?? 0
         }else
         {
-            self.shareCellReuseIdIndex = 0
+            self.shareCellReuseIdIndex = UserSetting.isAppstoreReviewing ? 1 : 0
             let header = MJRefreshGifHeader(){
                 self.nextShareType()
                 self.tableView.mj_header.endRefreshing()

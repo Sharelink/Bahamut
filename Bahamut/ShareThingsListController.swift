@@ -59,7 +59,10 @@ class ShareThingsListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        userGuide.showGuideControllerPresentFirstTime()
+        if UserSetting.isAppstoreReviewing == false
+        {
+            userGuide.showGuideControllerPresentFirstTime()
+        }
         if shareThings.count == 0
         {
             refreshFromServer()
