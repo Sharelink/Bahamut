@@ -10,7 +10,7 @@ import Foundation
 
 class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
     
-    var maximumSpacing:CGFloat = 5
+    var minimumSpacing:CGFloat = 3
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         if var answer = super.layoutAttributesForElementsInRect(rect)
@@ -26,9 +26,9 @@ class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
                 let prevLayoutAttributes = answer[i - 1];
                 let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
                 lineItemCount++
-                if(origin + maximumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
+                if(origin + self.minimumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
                     var frame = currentLayoutAttributes.frame;
-                    frame.origin.x = origin + maximumSpacing;
+                    frame.origin.x = origin + minimumSpacing;
                     currentLayoutAttributes.frame = frame;
                     lineContentWidth = frame.origin.x + frame.size.width
                     
@@ -54,7 +54,7 @@ class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
 
 class UICollectionViewMaxWhiteSpaceFlowLayout: UICollectionViewFlowLayout {
     
-    var maximumSpacing:CGFloat = 5
+    var minimumSpacing:CGFloat = 7
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         if var answer = super.layoutAttributesForElementsInRect(rect)
@@ -65,9 +65,9 @@ class UICollectionViewMaxWhiteSpaceFlowLayout: UICollectionViewFlowLayout {
                 let currentLayoutAttributes = answer[i];
                 let prevLayoutAttributes = answer[i - 1];
                 let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
-                if(origin + maximumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
+                if(origin + minimumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
                     var frame = currentLayoutAttributes.frame;
-                    frame.origin.x = origin + maximumSpacing;
+                    frame.origin.x = origin + minimumSpacing;
                     currentLayoutAttributes.frame = frame;
                 }
             }

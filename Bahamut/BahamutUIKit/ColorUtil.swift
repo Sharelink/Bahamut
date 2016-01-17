@@ -54,10 +54,15 @@ extension UIColor
         return ColorSets.navicationBarTintColor
     }
     
+    static func getRondomColorIn(colors:[UIColor]) -> UIColor
+    {
+        let index = Int(arc4random_uniform(UInt32(colors.count)))
+        return colors[index]
+    }
+    
     static func getRandomTextColor() -> UIColor
     {
-        let index = Int(arc4random_uniform(UInt32(ColorSets.textColors.count)))
-        return ColorSets.textColors[index]
+        return getRondomColorIn(ColorSets.textColors)
     }
     
     static func getRandomColor() -> UIColor

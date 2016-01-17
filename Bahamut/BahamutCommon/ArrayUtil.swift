@@ -32,6 +32,7 @@ public extension Array
         }
         return result
     }
+    
 }
 
 public class ArrayUtil
@@ -66,6 +67,20 @@ public class ArrayUtil
         }
         var result = dict.map {(latinLetter:$0.0, items:$0.1.map{$0 as! T}) }
         result.sortInPlace{$0.0 < $1.0}
+        return result
+    }
+    
+    public static func messArrayUp<T:AnyObject>(originArray:[T]) -> [T]
+    {
+        var result = originArray.map{$0}
+        for _ in 0..<originArray.count
+        {
+            let index = Int(arc4random_uniform(UInt32(originArray.count)))
+            let indexb = Int(arc4random_uniform(UInt32(originArray.count)))
+            let a = result[index]
+            result[index] = result[indexb]
+            result[indexb] = a
+        }
         return result
     }
 }
