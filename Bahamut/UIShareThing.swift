@@ -111,8 +111,12 @@ class UIShareThing: UIShareCell
         }
     }
     
-    @IBAction func vote()
+    @IBAction func vote(sender: AnyObject)
     {
+        if let btn = sender as? UIButton
+        {
+            btn.animationMaxToMin()
+        }
         if voted
         {
             let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -128,6 +132,34 @@ class UIShareThing: UIShareCell
         }
     }
     
+    @IBAction func shareToFriends(sender: AnyObject)
+    {
+        if shareModel.canReshare()
+        {
+            MobClick.event("Reshare")
+            rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: shareModel)
+        }else
+        {
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+            rootController.presentViewController(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @IBAction func reply(sender: AnyObject)
+    {
+        let controller = ChatViewController.instanceFromStoryBoard()
+        controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
+        let navController = UINavigationController(rootViewController: controller)
+        controller.changeNavigationBarColor()
+        self.replyButton.badgeValue = nil
+        MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: notReadmsg)
+        self.rootController.presentViewController(navController, animated: true) { () -> Void in
+            
+        }
+        
+    }
     
     @IBAction func showMoreOperate(sender: AnyObject)
     {
@@ -147,20 +179,6 @@ class UIShareThing: UIShareCell
         self.rootController.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func shareToFriends()
-    {
-        if shareModel.canReshare()
-        {
-            MobClick.event("Reshare")
-            rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: shareModel)
-        }else
-        {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
-            rootController.presentViewController(alert, animated: true, completion: nil)
-        }
-        
-    }
     
     private func showHarmfulContentFeedback()
     {
@@ -172,25 +190,6 @@ class UIShareThing: UIShareCell
             reportController.reportTypeLabel.text = "Harmful Share"
             reportController.reportContentTextView.text = "Share Code:\n\(str.base64String())\n"
         }
-    }
-    
-    private func cancelShare()
-    {
-        
-    }
-    
-    @IBAction func reply()
-    {
-        let controller = ChatViewController.instanceFromStoryBoard()
-        controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
-        let navController = UINavigationController(rootViewController: controller)
-        controller.changeNavigationBarColor()
-        self.replyButton.badgeValue = nil
-        MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: notReadmsg)
-        self.rootController.presentViewController(navController, animated: true) { () -> Void in
-            
-        }
-        
     }
     
     func showUserProfile(_:UIGestureRecognizer)

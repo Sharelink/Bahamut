@@ -16,6 +16,7 @@ struct ServiceConfig
         (FileService.ServiceName,FileService()), //FileService must second to init core data
         (MessageService.ServiceName,MessageService()),
         (ShareService.ServiceName,ShareService()),
+        (SRCService.ServiceName,SRCService()),
         (UserService.ServiceName,UserService()),
         (SharelinkThemeService.ServiceName,SharelinkThemeService()),
         (NotificationService.ServiceName,NotificationService()),

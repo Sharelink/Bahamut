@@ -77,11 +77,6 @@ class ShareContentCellBase:NewShareCellBase
     {
         return UITableViewAutomaticDimension
     }
-    
-    func getShareContentTitle()->String?
-    {
-        return nil
-    }
 }
 
 //MARK:NewShareController
@@ -90,6 +85,7 @@ class NewShareController: UITableViewController
     var fileService:FileService!
     var shareService:ShareService!
     var userService:UserService!
+    var srcService:SRCService!
     
     //views
     var titleView:NewControllerTitleView!
@@ -99,7 +95,15 @@ class NewShareController: UITableViewController
     var reShareModel:ShareThing!
     
     //New Share
-    var shareCellReuseIdIndex:Int = 0
+    var defaultSRCIndex:Int = 0{
+        didSet{
+            if srcService != nil && self.defaultSRCIndex < srcService.defaultSRCPlugins.count
+            {
+                self.currentSRCPlugin = srcService.defaultSRCPlugins[self.defaultSRCIndex]
+            }
+        }
+    }
+    var currentSRCPlugin:SRCPlugin!
     
     private var userGuide:UserGuide!
     
@@ -113,16 +117,26 @@ class NewShareController: UITableViewController
     
     private var rowHights = [128,UITableViewAutomaticDimension,256]
     
+    //MARK: SRCMenu
+    @IBOutlet weak var srcMenuButtonItem: UIBarButtonItem!
+    private var shareButtonItem:UIBarButtonItem!
+    private var srcMenu:UIView!
+    private var srcMenuFrame:CGRect!
+    private var srcMenuBackLayer:UIView!
+    
     //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.shareService = ServiceContainer.getService(ShareService)
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
+        self.srcService = ServiceContainer.getService(SRCService)
         self.changeNavigationBarColor()
         self.initUserGuide()
         self.initShareType()
         self.initTitleView()
+        self.initSRCMenu()
+        self.shareButtonItem = self.navigationItem.rightBarButtonItem
         self.tableView.estimatedRowHeight = tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
@@ -173,6 +187,20 @@ class NewShareController: UITableViewController
         self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
+    private func initSRCMenu()
+    {
+        self.srcMenuBackLayer = UIView(frame: self.view.bounds)
+        self.srcMenuBackLayer.userInteractionEnabled = true
+        self.srcMenuBackLayer.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+        self.srcMenuBackLayer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideSRCMenu:"))
+        self.srcMenu = UIView(frame: CGRectZero)
+        self.srcMenu.layer.cornerRadius = 7
+        self.srcMenu.backgroundColor = UIColor.themeColor.colorWithAlphaComponent(0.7)
+        self.srcMenu.hidden = true
+        self.srcMenuFrame = CGRectMake(0, -7, self.view.frame.width, self.view.frame.height / 2)
+        self.view.addSubview(srcMenu)
+    }
+    
     //MARK: new share posted notification
     func sharePosted(a:NSNotification)
     {
@@ -191,12 +219,13 @@ class NewShareController: UITableViewController
     private func initShareType(){
         if isReshare
         {
-            self.shareCellReuseIdIndex = NewShareCellConfig.indexOfShareType(ShareThingType(rawValue: reShareModel.shareType)!) ?? 0
+            self.currentSRCPlugin = srcService.getSRCPlugin(reShareModel.shareType)
+            self.navigationItem.leftBarButtonItems?.removeAll()
         }else
         {
-            self.shareCellReuseIdIndex = UserSetting.isAppstoreReviewing ? 1 : 0
+            self.defaultSRCIndex = UserSetting.isAppstoreReviewing ? 1 : 0
             let header = MJRefreshGifHeader(){
-                self.nextShareType()
+                self.selectShareType(self.nextDefaultPluginIndex)
                 self.tableView.mj_header.endRefreshing()
             }
             self.tableView.mj_header = header
@@ -207,48 +236,28 @@ class NewShareController: UITableViewController
     
     private func refreshHeaderTitle()
     {
-        let cellConfig = NewShareCellConfig.configOfIndex(self.nextShareTypeIndex())!
+        let nextSRCPlugin = srcService.defaultSRCPlugins[self.nextDefaultPluginIndex]
         let header = self.tableView.mj_header as! MJRefreshGifHeader
-        let format = NSLocalizedString("NEW_SHARE_PULL_SWITCH_TO", comment: "")
-        let headerTitle = NSLocalizedString(cellConfig.headerTitle, comment: "")
+        let format = "NEW_SHARE_PULL_SWITCH_TO".localizedString
+        let headerTitle = NSLocalizedString(nextSRCPlugin.srcHeaderTitle, comment: "")
         let msg = String(format: format, headerTitle)
         header.setTitle(msg, forState: .Idle)
         header.setTitle(msg, forState: .Pulling)
         header.setTitle(msg, forState: .Refreshing)
-        if let shareName = cellConfig.shareType.getShareTypeName()
-        {
-            let image = UIImage(named: "new_share_header_icon_\(shareName)")!
-            header.setImages([image], forState: .Idle)
-        }
+        let headerImage = nextSRCPlugin.srcHeaderIcon
+        header.setImages([headerImage], forState: .Idle)
     }
     
-    private func nextShareTypeIndex() -> Int{
-        let index = (self.shareCellReuseIdIndex + 1) % NewShareCellConfig.numberOfNewShareCellType
+    private var nextDefaultPluginIndex:Int{
+        let index = (self.defaultSRCIndex + 1) % srcService.defaultSRCPlugins.count
         return index
     }
     
-    private func nextShareType()
+    private func selectShareType(index:Int)
     {
-        let index = nextShareTypeIndex()
-        selectShareType(index)
-    }
-    
-    func selectShareType(index:Int)
-    {
-        if index >= 0 && index < NewShareCellConfig.numberOfNewShareCellType
-        {
-            self.shareCellReuseIdIndex = index
-            refreshHeaderTitle()
-            tableView.reloadData()
-        }
-    }
-    
-    func selectShareTypeByCellReuseId(typeCellReuseId:String)
-    {
-        if let index = NewShareCellConfig.indexOfReuseId(typeCellReuseId)
-        {
-            selectShareType(index)
-        }
+        self.defaultSRCIndex = index
+        refreshHeaderTitle()
+        tableView.reloadData()
     }
     
     func reloadContentCellHeight()
@@ -261,16 +270,57 @@ class NewShareController: UITableViewController
         tableView.reloadData()
     }
     
+    //MARK: select share rich content
+    
+    @IBAction func SRCMenuCliecked(sender: AnyObject)
+    {
+        self.srcMenu.hidden ? showSRCMenu() : hideSRCMenu()
+    }
+    
+    private func showSRCMenu()
+    {
+        self.view.addSubview(self.srcMenuBackLayer)
+        self.view.bringSubviewToFront(self.srcMenu)
+        self.tableView.scrollEnabled = false
+        UIView.beginAnimations("animationID", context: nil)
+        self.titleView.titleLabel.hidden = true
+        self.srcMenu.hidden = false
+        self.srcMenu.frame = self.srcMenuFrame
+        self.srcMenuButtonItem.tintColor = UIColor.orangeColor()
+        self.navigationItem.rightBarButtonItems = nil
+        self.tabBarController!.tabBar.hidden = true
+        UIView.commitAnimations()
+    }
+    
+    func hideSRCMenu(_:UITapGestureRecognizer)
+    {
+        hideSRCMenu()
+    }
+    
+    private func hideSRCMenu()
+    {
+        UIView.beginAnimations("animationID", context: nil)
+        self.srcMenu.hidden = true
+        self.srcMenu.frame = CGRectZero
+        self.srcMenuButtonItem.tintColor = UIColor.whiteColor()
+        UIView.commitAnimations()
+        self.titleView.titleLabel.hidden = false
+        self.srcMenuBackLayer.removeFromSuperview()
+        self.tableView.scrollEnabled = true
+        self.navigationItem.rightBarButtonItems = [self.shareButtonItem]
+        self.tabBarController!.tabBar.hidden = false
+    }
+    
     //MARK: post share
     @IBAction func share()
     {
         if self.shareThemeCell.selectedThemes.count == 0
         {
-            let alert = UIAlertController(title: NSLocalizedString("SHARE", comment:  ""), message: NSLocalizedString("NO_SELECT_TAG_TIPS", comment:  ""),preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("CONTINUE", comment:  ""), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
+            let alert = UIAlertController(title: "NO_SELECT_THEME_ALERT_TITLE".localizedString, message: "NO_SELECT_THEME_TIPS".localizedString, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "CONTINUE".localizedString, style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
                 self.isReshare ? self.reshare() : self.prepareShare()
             }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment:  ""), style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "CANCEL".localizedString, style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil )
         }else
         {
@@ -282,19 +332,19 @@ class NewShareController: UITableViewController
     //MARK: reshare
     private func reshare()
     {
-        self.makeToastActivityWithMessage("",message: NSLocalizedString("SHARING", comment: "Sharing"))
+        self.makeToastActivityWithMessage("",message: "SHARING".localizedString)
         self.shareService.reshare(self.reShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
             self.hideToastActivity()
             var alert:UIAlertController!
             if isSuc{
-                alert = UIAlertController(title: NSLocalizedString("SHARE_SUCCESSED", comment: "Share Successed"), message: nil, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: { (action) -> Void in
+                alert = UIAlertController(title: "SHARE_SUCCESSED".localizedString, message: nil, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString, style: .Cancel, handler: { (action) -> Void in
                     self.navigationController?.popViewControllerAnimated(true)
                 }))
             }else
             {
-                alert = UIAlertController(title: NSLocalizedString("SHARE_FAILED", comment: "Share Failed"), message: msg, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: { (action) -> Void in
+                alert = UIAlertController(title: "SHARE_FAILED".localizedString, message: msg, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString, style: .Cancel, handler: { (action) -> Void in
                     
                 }))
             }
@@ -348,11 +398,10 @@ class NewShareController: UITableViewController
             cell = self.shareMessageCell
         }else if indexPath.row == shareContentCellIndexPath.row
         {
-            let cellConfig = NewShareCellConfig.configOfIndex(self.shareCellReuseIdIndex)!
-            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(cellConfig.cellReuseId,forIndexPath: indexPath) as! ShareContentCellBase
+            self.shareContentCell = tableView.dequeueReusableCellWithIdentifier(currentSRCPlugin.srcCellId,forIndexPath: indexPath) as! ShareContentCellBase
             shareContentCell.rootController = self
             reloadContentCellHeight()
-            if let title = self.shareContentCell.getShareContentTitle()
+            if let title = self.currentSRCPlugin.controllerTitle
             {
                 self.titleView.titleLabel.text = title
             }else

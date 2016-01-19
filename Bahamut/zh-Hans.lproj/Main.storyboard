@@ -50,7 +50,7 @@
                                                 <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="shareToFriends" destination="vdt-yN-gqF" eventType="touchUpInside" id="Y0g-Js-IU9"/>
+                                                <action selector="shareToFriends:" destination="vdt-yN-gqF" eventType="touchUpInside" id="efh-hD-bPy"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="em9-et-kK8">
@@ -70,15 +70,7 @@
                                                 <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="vote" destination="vdt-yN-gqF" eventType="touchUpInside" id="K8y-Eo-czX"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSY-nk-Jhu">
-                                            <rect key="frame" x="562" y="22" width="23" height="23"/>
-                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="mail"/>
-                                            <connections>
-                                                <action selector="reply" destination="vdt-yN-gqF" eventType="touchUpInside" id="TCg-p2-Z00"/>
+                                                <action selector="vote:" destination="vdt-yN-gqF" eventType="touchUpInside" id="SaO-B4-L8P"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享的文字描述" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-BN-uYb">
@@ -116,11 +108,19 @@
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22k-dY-4Vx">
                                             <rect key="frame" x="0.0" y="179" width="600" height="1"/>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="uvZ-Yr-eoC"/>
                                             </constraints>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSY-nk-Jhu">
+                                            <rect key="frame" x="562" y="22" width="23" height="23"/>
+                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="mail"/>
+                                            <connections>
+                                                <action selector="reply:" destination="vdt-yN-gqF" eventType="touchUpInside" id="OWn-6m-pei"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="qSY-nk-Jhu" secondAttribute="trailing" constant="7" id="3C1-Dd-5qH"/>
@@ -1123,6 +1123,38 @@
                                     <outlet property="imageCollectionView" destination="538-UA-RX4" id="J0d-Eg-i58"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewCustomSRCCell" id="Jo0-dY-dyU" customClass="NewCustomSRCCell" customModule="Bahamut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="799" width="600" height="116"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jo0-dY-dyU" id="rCF-i6-boh">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SRC名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeQ-i6-PUR">
+                                            <rect key="frame" x="8" y="0.0" width="67" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m0i-PQ-aWk">
+                                            <rect key="frame" x="8" y="27" width="584" height="81"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                        </webView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="m0i-PQ-aWk" firstAttribute="trailing" secondItem="rCF-i6-boh" secondAttribute="trailingMargin" id="14z-L7-m72"/>
+                                        <constraint firstItem="xeQ-i6-PUR" firstAttribute="leading" secondItem="rCF-i6-boh" secondAttribute="leadingMargin" id="Z0t-xM-Tbn"/>
+                                        <constraint firstItem="xeQ-i6-PUR" firstAttribute="top" secondItem="rCF-i6-boh" secondAttribute="top" id="dQL-41-fye"/>
+                                        <constraint firstItem="m0i-PQ-aWk" firstAttribute="leading" secondItem="xeQ-i6-PUR" secondAttribute="leading" id="nWT-4m-s8e"/>
+                                        <constraint firstItem="m0i-PQ-aWk" firstAttribute="top" secondItem="xeQ-i6-PUR" secondAttribute="bottom" constant="6" id="qgI-Mk-daY"/>
+                                        <constraint firstItem="m0i-PQ-aWk" firstAttribute="bottom" secondItem="rCF-i6-boh" secondAttribute="bottomMargin" id="weG-U9-6EV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="srcNameLabel" destination="xeQ-i6-PUR" id="B0n-3D-TEB"/>
+                                    <outlet property="srcWebView" destination="m0i-PQ-aWk" id="kFM-e1-x9L"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="uOJ-Jt-puu" id="bGK-bz-Vqx"/>
@@ -1130,6 +1162,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="新的分享" id="24z-CM-1cO">
+                        <barButtonItem key="leftBarButtonItem" image="SRC" id="5q7-x8-kx8">
+                            <connections>
+                                <action selector="SRCMenuCliecked:" destination="uOJ-Jt-puu" id="7BM-wi-FM9"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="post" id="A6l-ih-Mt6">
                             <connections>
                                 <action selector="share" destination="uOJ-Jt-puu" id="sci-1d-o9J"/>
@@ -1140,6 +1177,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
+                    <connections>
+                        <outlet property="srcMenuButtonItem" destination="5q7-x8-kx8" id="1RT-Af-gEd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6A-C9-1A9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1249,6 +1289,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SRC" width="24" height="24"/>
         <image name="add_link" width="24" height="24"/>
         <image name="approve" width="256" height="256"/>
         <image name="defaultAvatar" width="512" height="512"/>

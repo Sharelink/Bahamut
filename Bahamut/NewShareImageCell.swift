@@ -53,14 +53,6 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     }
     static let reuseableId = "NewShareImageCell"
     
-    override func getShareContentTitle() -> String? {
-        if let config = NewShareCellConfig.configOfReuseId(NewShareImageCell.reuseableId)
-        {
-            return NSLocalizedString(config.viewTitle, comment: "")
-        }
-        return nil
-    }
-    
     override func getCellHeight() -> CGFloat {
         return 49 + imageCollectionView.contentSize.height
     }

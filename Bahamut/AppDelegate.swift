@@ -32,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func initService()
     {
-        ServiceContainer.instance.initContainer()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            ServiceContainer.instance.initContainer()
+        }
     }
     
     private func initQuPai()
@@ -46,77 +48,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func loadUI()
     {
-        ChatViewController.instanceFromStoryBoard()
-        UserProfileViewController.instanceFromStoryBoard()
-        UIEditTextPropertyViewController.instanceFromStoryBoard()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            ChatViewController.instanceFromStoryBoard()
+            UserProfileViewController.instanceFromStoryBoard()
+            UIEditTextPropertyViewController.instanceFromStoryBoard()
+        }
     }
     
     private func configureImagePicker()
     {
-        let mmanger = CMMotionManager()
-        NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
-        Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
-        Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
-        Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")
-        Configuration.noCameraTitle = NSLocalizedString("CAMERA_NOT_AVAILABLE", comment: "")
-        Configuration.noImagesTitle = NSLocalizedString("NO_IMAGES_AVAILABLE", comment: "")
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let mmanger = CMMotionManager()
+            NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
+            Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
+            Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
+            Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")
+            Configuration.noCameraTitle = NSLocalizedString("CAMERA_NOT_AVAILABLE", comment: "")
+            Configuration.noImagesTitle = NSLocalizedString("NO_IMAGES_AVAILABLE", comment: "")
+        }
         
     }
     
     private func configureUMessage(launchOptions: [NSObject: AnyObject]?)
     {
-        UMessage.startWithAppkey(BahamutConfig.umengAppkey, launchOptions: launchOptions)
-        UMessage.setAutoAlert(false)
-        //register remoteNotification types
-        let action1 = UIMutableUserNotificationAction()
-        action1.identifier = "action1_identifier"
-        action1.title="Accept";
-        action1.activationMode = UIUserNotificationActivationMode.Foreground //当点击的时候启动程序
-        
-        let action2 = UIMutableUserNotificationAction()  //第二按钮
-        action2.identifier = "action2_identifier"
-        action2.title="Reject"
-        action2.activationMode = UIUserNotificationActivationMode.Background //当点击的时候不启动程序，在后台处理
-        action2.authenticationRequired = true //需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
-        action2.destructive = true;
-        
-        let categorys = UIMutableUserNotificationCategory()
-        categorys.identifier = "category1" //这组动作的唯一标示
-        categorys.setActions([action1,action2], forContext: .Default)
-        
-        let userSettings = UIUserNotificationSettings(forTypes: [.Sound,.Badge,.Alert], categories: [categorys])
-        UMessage.registerRemoteNotificationAndUserNotificationSettings(userSettings)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            UMessage.startWithAppkey(BahamutConfig.umengAppkey, launchOptions: launchOptions)
+            UMessage.setAutoAlert(false)
+            //register remoteNotification types
+            let action1 = UIMutableUserNotificationAction()
+            action1.identifier = "action1_identifier"
+            action1.title="Accept";
+            action1.activationMode = UIUserNotificationActivationMode.Foreground //当点击的时候启动程序
+            
+            let action2 = UIMutableUserNotificationAction()  //第二按钮
+            action2.identifier = "action2_identifier"
+            action2.title="Reject"
+            action2.activationMode = UIUserNotificationActivationMode.Background //当点击的时候不启动程序，在后台处理
+            action2.authenticationRequired = true //需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+            action2.destructive = true;
+            
+            let categorys = UIMutableUserNotificationCategory()
+            categorys.identifier = "category1" //这组动作的唯一标示
+            categorys.setActions([action1,action2], forContext: .Default)
+            
+            let userSettings = UIUserNotificationSettings(forTypes: [.Sound,.Badge,.Alert], categories: [categorys])
+            UMessage.registerRemoteNotificationAndUserNotificationSettings(userSettings)
+            
+        }
     }
     
     private func configureUmeng()
     {
-        MobClick.startWithAppkey(BahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
-        if let infoDic = NSBundle.mainBundle().infoDictionary
-        {
-            let version = infoDic["CFBundleShortVersionString"] as! String
-            MobClick.setAppVersion(version)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            MobClick.startWithAppkey(BahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
+            MobClick.setAppVersion(BahamutConfig.sharelinkVersion)
+            MobClick.setEncryptEnabled(true)
+            MobClick.setLogEnabled(false)
         }
-        MobClick.setEncryptEnabled(true)
-        MobClick.setLogEnabled(false)
     }
 
     private func configureShareSDK()
     {
-        ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
-        if(SharelinkSetting.contry == "CN")
-        {
-            connectChinaApps()
-            connectGlobalApps()
-        }else{
-            connectGlobalApps()
-            connectChinaApps()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
+            if(SharelinkSetting.contry == "CN")
+            {
+                self.connectChinaApps()
+                self.connectGlobalApps()
+            }else{
+                self.connectGlobalApps()
+                self.connectChinaApps()
+            }
+            
+            //SMS Mail
+            ShareSDK.connectSMS()
+            ShareSDK.connectMail()
+            
+            ShareSDK.ssoEnabled(true)
         }
-        
-        //SMS Mail
-        ShareSDK.connectSMS()
-        ShareSDK.connectMail()
-        
-        ShareSDK.ssoEnabled(true)
         
     }
     

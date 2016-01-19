@@ -18,6 +18,7 @@ public enum ShareThingType:String
     case shareUrl = "share:url"
     case shareText = "share:text"
     case shareImage = "share:image"
+    case shareSRC = "share:src" //SRC:Sharelink Rich Content
     case messageTypePrefix = "message:"
     case addTagMessage = "message:add_tag"
     case focusTagMessage = "message:focus_tag"

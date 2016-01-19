@@ -155,11 +155,13 @@ SHARE_HEADER_TITLE_VIDEO = "Video";
 SHARE_HEADER_TITLE_LINK = "Link";
 SHARE_HEADER_TITLE_TEXT = "Words";
 SHARE_HEADER_TITLE_IMAGE = "Images";
+SHARE_HEADER_TITLE_SRC = "SRC";
 
 SHARE_VIEW_TITLE_NEW_FILM = "New Film";
 SHARE_VIEW_TITLE_NEW_TEXT = "New Text";
 SHARE_VIEW_TITLE_NEW_IMAGE = "New Images";
 SHARE_VIEW_TITLE_NEW_URL = "New Link";
+SHARE_VIEW_TITLE_NEW_SRC = "New SRC";
 
 MSG_IS_TOO_LONG = "Message Is Too Long";
 
@@ -169,7 +171,8 @@ LINK_CANT_NULL = "Link Can't Not Be Empty";
 INVALID_URL = "Invalid Link";
 
 FILES_WAS_DELETED = "%@ files deleted";
-NO_SELECT_TAG_TIPS = "No theme added to share,only the sharelinkers who focus on you can see this share";
+NO_SELECT_THEME_ALERT_TITLE = "No Theme For This Share";
+NO_SELECT_THEME_TIPS = "Only Sharelinkers who focus on your personal theme can see this share";
 SENDING_FILM = "Sending Film";
 NO_FILM_SELECTED = "Select or capture a film please!";
 SEND_FILM_SUC = "Send Film Success";

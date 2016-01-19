@@ -155,11 +155,13 @@ SHARE_HEADER_TITLE_VIDEO = "小视频";
 SHARE_HEADER_TITLE_LINK = "链接";
 SHARE_HEADER_TITLE_TEXT = "文字";
 SHARE_HEADER_TITLE_IMAGE = "图片";
+SHARE_HEADER_TITLE_SRC = "SRC";
 
 SHARE_VIEW_TITLE_NEW_FILM = "新的视频";
 SHARE_VIEW_TITLE_NEW_TEXT = "新的文字";
 SHARE_VIEW_TITLE_NEW_IMAGE = "新的图片";
 SHARE_VIEW_TITLE_NEW_URL = "新的链接";
+SHARE_VIEW_TITLE_NEW_SRC = "新的SRC";
 
 MSG_IS_TOO_LONG = "超过限制的长度了";
 
@@ -171,7 +173,8 @@ LINK_CANT_NULL = "链接不能为空";
 INVALID_URL = "非法链接";
 
 FILES_WAS_DELETED = "%@ 个文件已经删除";
-NO_SELECT_TAG_TIPS = "没有关联主题，只有关注了你的人才能看到这次分享，是否继续？";
+NO_SELECT_THEME_ALERT_TITLE = "没有选择主题";
+NO_SELECT_THEME_TIPS = "只有关注了你的个人主题才能看到这次分享，是否继续分享？";
 SENDING_FILM = "视频发送中";
 NO_FILM_SELECTED = "需要录制或者选择一个视频!";
 SEND_FILM_SUC = "上传视频成功！";
