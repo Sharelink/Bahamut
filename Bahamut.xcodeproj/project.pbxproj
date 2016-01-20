@@ -11,6 +11,7 @@
 		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
 		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
+		E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70955AB1C4F61C50060A06E /* SRCMenu.swift */; };
 		E709B77A1C3FA7C800F7E46B /* AppIcon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E709B7791C3FA7C800F7E46B /* AppIcon.storyboard */; };
 		E70A572A1C1EA0140031A0C5 /* UIAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */; };
 		E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */; };
@@ -287,6 +288,7 @@
 		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
 		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		E70955AB1C4F61C50060A06E /* SRCMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCMenu.swift; sourceTree = "<group>"; };
 		E709B7791C3FA7C800F7E46B /* AppIcon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppIcon.storyboard; sourceTree = "<group>"; };
 		E70A57281C1E9E6F0031A0C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAnimationHelper.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				E7CB5D331BFB958700098DD4 /* NewShareController.swift */,
 				E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */,
 				E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */,
+				E70955AB1C4F61C50060A06E /* SRCMenu.swift */,
 			);
 			name = NewShare;
 			sourceTree = "<group>";
@@ -1762,6 +1765,7 @@
 				E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
+				E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,

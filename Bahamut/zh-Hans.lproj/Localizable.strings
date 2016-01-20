@@ -163,6 +163,8 @@ SHARE_VIEW_TITLE_NEW_IMAGE = "新的图片";
 SHARE_VIEW_TITLE_NEW_URL = "新的链接";
 SHARE_VIEW_TITLE_NEW_SRC = "新的SRC";
 
+MY_PLUGINS = "我的插件";
+
 MSG_IS_TOO_LONG = "超过限制的长度了";
 
 EMPTY_TITLE = "无标题链接";

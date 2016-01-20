@@ -163,6 +163,8 @@ SHARE_VIEW_TITLE_NEW_IMAGE = "New Images";
 SHARE_VIEW_TITLE_NEW_URL = "New Link";
 SHARE_VIEW_TITLE_NEW_SRC = "New SRC";
 
+MY_PLUGINS = "My Plugins";
+
 MSG_IS_TOO_LONG = "Message Is Too Long";
 
 LOAD_URL_TITLE_ERROR = "Load Title Error";

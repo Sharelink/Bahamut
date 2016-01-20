@@ -35,6 +35,17 @@ public extension Array
     
 }
 
+public extension Array
+{
+    public func forIndexEach(body:(i:Int,element:Element)->Void)
+    {
+        var i = 0
+        self.forEach { (element) -> () in
+            body(i: i++, element: element)
+        }
+    }
+}
+
 public class ArrayUtil
 {
     public static func groupWithLatinLetter<T:AnyObject>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]

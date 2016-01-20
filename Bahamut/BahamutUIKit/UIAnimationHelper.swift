@@ -10,19 +10,32 @@ import UIKit
 
 extension UIView
 {
-    func shakeAnimationForView(repeatTimes:Float = 3)
+    func shakeAnimationForView(repeatTimes:Float = 3,completion:AnimationCompletedHandler! = nil)
     {
-        UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes)
+        UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes,completion: completion)
     }
     
-    func animationMaxToMin()
+    func animationMaxToMin(completion:AnimationCompletedHandler! = nil)
     {
-        UIAnimationHelper.animationMaxToMin(self)
+        UIAnimationHelper.animationMaxToMin(self,completion: completion)
+    }
+    
+    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        if let handler = UIAnimationHelper.instance.animationCompleted.removeValueForKey(self)
+        {
+            handler()
+        }
     }
 }
 
-class UIAnimationHelper: UIViewController {
-    static func shakeAnimationForView(view:UIView,repeatTimes:Float){
+typealias AnimationCompletedHandler = ()->Void
+
+class UIAnimationHelper {
+    
+    private var animationCompleted = [UIView:AnimationCompletedHandler]()
+    private static let instance = UIAnimationHelper()
+
+    static func shakeAnimationForView(view:UIView,repeatTimes:Float,completion:AnimationCompletedHandler! = nil){
         
         // 获取到当前的View
         
@@ -41,7 +54,11 @@ class UIAnimationHelper: UIViewController {
         // 设置动画
         
         let animation = CABasicAnimation(keyPath: "position")
-        
+        animation.delegate = view
+        if let handler = completion
+        {
+            UIAnimationHelper.instance.animationCompleted[view] = handler
+        }
         // 设置运动形式
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
         
@@ -64,7 +81,7 @@ class UIAnimationHelper: UIViewController {
         viewLayer.addAnimation(animation, forKey: nil)
     }
     
-    static func flyToTopForView(startPosition:CGPoint,view:UIView){
+    static func flyToTopForView(startPosition:CGPoint,view:UIView,completion:AnimationCompletedHandler! = nil){
         
         // 获取到当前的View
         
@@ -83,7 +100,11 @@ class UIAnimationHelper: UIViewController {
         // 设置动画
         
         let animation = CABasicAnimation(keyPath: "position")
-        
+        animation.delegate = view
+        if let handler = completion
+        {
+            UIAnimationHelper.instance.animationCompleted[view] = handler
+        }
         // 设置运动形式
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
         
@@ -100,12 +121,15 @@ class UIAnimationHelper: UIViewController {
         viewLayer.addAnimation(animation, forKey: nil)
     }
     
-    static func animationMaxToMin(view:UIView){
+    static func animationMaxToMin(view:UIView,completion:AnimationCompletedHandler! = nil){
         let animation = CABasicAnimation(keyPath: "transform.scale")
-        
+        animation.delegate = view
+        if let handler = completion
+        {
+            UIAnimationHelper.instance.animationCompleted[view] = handler
+        }
         animation.fromValue = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        
         animation.toValue = 1.1
         animation.duration = 0.2
         animation.repeatCount = 0

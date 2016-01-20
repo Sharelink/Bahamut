@@ -36,7 +36,7 @@ let SharelinkSRCPlugins:[SRCPlugin] = {
     for config in SharelinkSRCPluginConfig
     {
         let plugin = SRCPlugin()
-        plugin.srcId = "SharelinkDefault"
+        plugin.srcId = "\(config.shareType.rawValue):\(SharelinkSystemSRCId)"
         plugin.srcName = config.name.localizedString
         plugin.controllerTitle = config.controllerTitle.localizedString
         plugin.srcCellId = config.cellId
@@ -89,7 +89,7 @@ class SRCService: NSNotificationCenter,ServiceProtocol
         allSRCPlugins.forEach { (p) -> () in
             if p.srcId == SharelinkSystemSRCId
             {
-                srcPluginsMap[p.shareType] = p
+                srcPluginsMap[p.srcId] = p
             }else
             {
                 srcPluginsMap["\(p.shareType):\(p.srcId)"] = p
