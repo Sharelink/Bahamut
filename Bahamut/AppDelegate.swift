@@ -10,5 +10,7 @@ import Foundation
 
 @UIApplicationMain
 class AppDelegate: SharelinkAppDelegate {
-    
+    override var isSDKVersion:Bool {
+        return false
+    }
 }

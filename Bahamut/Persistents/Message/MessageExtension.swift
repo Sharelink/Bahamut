@@ -45,11 +45,11 @@ class MessageExtension: PersistentExtensionProtocol
 
 extension PersistentManager
 {
-    func useMessageExtension(dbFileUrl:NSURL)
+    func useMessageExtension(dbFileUrl:NSURL,momdBundle:NSBundle)
     {
         self.useExtension(MessageExtension()) { (ext) -> Void in
             MessageExtension.defaultInstance = ext
-            ext.coreData.initManager(MessageExtensionConstant.coreDataModelId, dbFileUrl: dbFileUrl)
+            ext.coreData.initManager(MessageExtensionConstant.coreDataModelId, dbFileUrl: dbFileUrl,momdBundle: momdBundle)
         }
     }
     

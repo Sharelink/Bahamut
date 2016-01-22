@@ -174,20 +174,20 @@ class CoreDataManager {
     //MARK: Base Managed Core Data Object
     var managedObjectModel: NSManagedObjectModel!
     
-    private func initManagedObjectModel(){
+    private func initManagedObjectModel(momdBundle:NSBundle){
         if managedObjectModel == nil{
             // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-            let modelURL = Sharelink.mainBundle.URLForResource(self.coreDataModelId, withExtension: "momd")!
+            let modelURL = momdBundle.URLForResource(self.coreDataModelId, withExtension: "momd")!
             managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         }
     }
     
     private var persistentStoreCoordinator: NSPersistentStoreCoordinator?
     
-    private func initPersistentStoreCoordinator() -> NSPersistentStoreCoordinator{
+    private func initPersistentStoreCoordinator(momdBundle:NSBundle) -> NSPersistentStoreCoordinator{
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
-        initManagedObjectModel()
+        initManagedObjectModel(momdBundle)
         let optionsDictionary = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(bool: true),NSInferMappingModelAutomaticallyOption:NSNumber(bool: true)]
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -213,12 +213,12 @@ class CoreDataManager {
         return coordinator
     }
     
-    func initManager(coreDataModelId:String,dbFileUrl:NSURL)
+    func initManager(coreDataModelId:String,dbFileUrl:NSURL,momdBundle:NSBundle)
     {
         contextLock.lock()
         self.coreDataModelId = coreDataModelId
         self.dbFileUrl = dbFileUrl
-        self.persistentStoreCoordinator = initPersistentStoreCoordinator()
+        self.persistentStoreCoordinator = initPersistentStoreCoordinator(momdBundle)
         let coordinator = self.persistentStoreCoordinator
         managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator

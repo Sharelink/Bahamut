@@ -18,9 +18,9 @@ public class NoStatusBarViewController :UIViewController
 //MARK: instanceFromStoryBoard
 extension UIViewController
 {
-    static func instanceFromStoryBoard(storyBoardName:String,identifier:String) -> UIViewController
+    static func instanceFromStoryBoard(storyBoardName:String,identifier:String,bundle:NSBundle = NSBundle.mainBundle()) -> UIViewController
     {
-        let storyBoard = UIStoryboard(name: storyBoardName, bundle: Sharelink.mainBundle)
+        let storyBoard = UIStoryboard(name: storyBoardName, bundle: bundle)
         return storyBoard.instantiateViewControllerWithIdentifier(identifier)
     }
 }

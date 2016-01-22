@@ -66,10 +66,10 @@ class LocalFilesExtension: PersistentExtensionProtocol
 extension PersistentManager
 {
     
-    func useLocalFilesExtension(dbFileUrl:NSURL,documentDirUrl:NSURL){
+    func useLocalFilesExtension(dbFileUrl:NSURL,documentDirUrl:NSURL,momdBundle:NSBundle){
         self.useExtension(LocalFilesExtension()) { (ext) -> Void in
             LocalFilesExtension.defaultInstance = ext
-            ext.coreData.initManager(LocalFileExtensionConstant.coreDataModelId, dbFileUrl:dbFileUrl)
+            ext.coreData.initManager(LocalFileExtensionConstant.coreDataModelId, dbFileUrl:dbFileUrl,momdBundle: momdBundle)
             ext.initFileCacheDir(documentDirUrl)
         }
     }

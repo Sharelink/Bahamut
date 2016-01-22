@@ -17,10 +17,10 @@ class Sharelink
     static var mainBundle:NSBundle!
 }
 
-class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
+public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    public var window: UIWindow?
+    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureSharelinkBundle()
         configContryAndLang()
         initService()
@@ -33,7 +33,28 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    var isSDKVersion:Bool
+    {
+        return true
+    }
+    
     private func configureSharelinkBundle()
+    {
+        if isSDKVersion
+        {
+            configureAsSDKVersion()
+        }else
+        {
+            configureAsProductVersion()
+        }
+    }
+    
+    private func configureAsSDKVersion()
+    {
+        Sharelink.mainBundle = NSBundle(identifier: "SharelinkSDK")!
+    }
+    
+    private func configureAsProductVersion()
     {
         Sharelink.mainBundle = NSBundle.mainBundle()
     }
@@ -173,7 +194,7 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    public func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         UMessage.registerDeviceToken(deviceToken)
         SharelinkSetting.deviceToken = deviceToken.description
             .stringByReplacingOccurrencesOfString("<", withString: "")
@@ -182,16 +203,16 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         ChicagoClient.sharedInstance.registDeviceToken(SharelinkSetting.deviceToken)
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    public func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         
         UMessage.didReceiveRemoteNotification(userInfo)
     }
     
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    public func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         NSLog("%@", error.description)
     }
     
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    public func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         if url.scheme == SharelinkCmd.sharelinkUrlSchema
         {
             return handleSharelinkUrl(url)
@@ -201,7 +222,7 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    public func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         if url.scheme == SharelinkCmd.sharelinkUrlSchema
         {
             return handleSharelinkUrl(url)
@@ -211,7 +232,7 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+    public func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         return handleSharelinkUrl(url)
     }
     
@@ -225,24 +246,25 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-    func applicationWillResignActive(application: UIApplication) {
+    
+    public func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    public func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         PersistentManager.sharedInstance.saveAll()
         ChicagoClient.sharedInstance.inBackground()
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    public func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    public func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if ServiceContainer.isAllServiceReady
         {
@@ -259,7 +281,7 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    public func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         PersistentManager.sharedInstance.saveAll()
@@ -273,7 +295,7 @@ class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         return urls[urls.count-1]
     }()
     
-    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask
+    public func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask
     {
         if let presentedVc = self.window?.rootViewController?.presentedViewController as? OrientationsNavigationController
         {

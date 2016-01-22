@@ -87,9 +87,9 @@ class FileService: ServiceProtocol {
     
     private func initPersistentsExtensions(userId:String)
     {
-        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl)
-        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"))
-        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"))
+        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl,momdBundle: Sharelink.mainBundle)
+        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"),momdBundle: Sharelink.mainBundle)
+        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"),momdBundle: Sharelink.mainBundle)
         
         UpdateCoreDataHelper.getUpdater(userId).update(userId)
     }

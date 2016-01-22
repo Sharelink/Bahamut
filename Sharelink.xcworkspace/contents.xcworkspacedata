@@ -5,9 +5,9 @@
       location = "group:../../ChatFramework/ChatFramework.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "group:Sharelink.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/alexchow/GitHub/bahamut/Bahamut/Sharelink.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

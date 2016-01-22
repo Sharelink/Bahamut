@@ -62,11 +62,11 @@ class ModelExtension: PersistentExtensionProtocol
 
 extension PersistentManager
 {
-    func useModelExtension(dbFileUrl:NSURL)
+    func useModelExtension(dbFileUrl:NSURL,momdBundle:NSBundle)
     {
         self.useExtension(ModelExtension()) { (ext) -> Void in
             ModelExtension.defaultInstance = ext
-            ext.coreData.initManager(ModelExtensionConstant.coreDataModelId, dbFileUrl: dbFileUrl)
+            ext.coreData.initManager(ModelExtensionConstant.coreDataModelId, dbFileUrl: dbFileUrl,momdBundle: momdBundle)
         }
     }
     
