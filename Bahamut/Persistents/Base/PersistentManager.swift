@@ -41,16 +41,26 @@ class PersistentManager
         for item in FileType.allValues
         {
             let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")
-            if NSFileManager.defaultManager().fileExistsAtPath(dir.path!) == false
+            createDir(dir)
+        }
+    }
+    
+    func createDir(dir:NSURL) -> Bool
+    {
+        if NSFileManager.defaultManager().fileExistsAtPath(dir.path!) == false
+        {
+            do
             {
-                do
-                {
-                    try NSFileManager.defaultManager().createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
-                }catch let error as NSError
-                {
-                    NSLog(error.description)
-                }
+                try NSFileManager.defaultManager().createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
+                return true
+            }catch let error as NSError
+            {
+                NSLog(error.description)
+                return false
             }
+        }else
+        {
+            return true
         }
     }
     

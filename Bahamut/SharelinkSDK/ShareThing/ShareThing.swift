@@ -18,12 +18,17 @@ public enum ShareThingType:String
     case shareUrl = "share:url"
     case shareText = "share:text"
     case shareImage = "share:image"
-    case shareSRC = "share:src" //SRC:Sharelink Rich Content
+    case shareCSRC = "share:csrc" //CSRC:Custom Sharelink Rich Content
     case messageTypePrefix = "message:"
     case addTagMessage = "message:add_tag"
     case focusTagMessage = "message:focus_tag"
     case customMessage = "message:custom"
     case textMessage = "message:text"
+    
+    func getCSRCShareType(srcId:String) -> String
+    {
+        return "\(self.rawValue):\(srcId)"
+    }
 }
 
 public extension ShareThingType

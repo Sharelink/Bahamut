@@ -11,7 +11,7 @@ import CoreLocation
 
 class LocationService:NSNotificationCenter,ServiceProtocol,CLLocationManagerDelegate
 {
-    @objc static var ServiceName:String{return "LocationService"}
+    @objc static var ServiceName:String{return "Location Service"}
     static let hereUpdated = "hereUpdated"
     private var locationManager:CLLocationManager!
     @objc func appStartInit() {

@@ -101,6 +101,7 @@ public class ServiceContainer:NSNotificationCenter
         NSLog("\(T.ServiceName) Ready!")
         if isAllServiceReady
         {
+            NSLog("All Services Ready!")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 instance.postNotificationName(ServiceContainer.AllServicesReady, object: instance)
             })

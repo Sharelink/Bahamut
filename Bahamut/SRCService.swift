@@ -7,17 +7,6 @@
 //
 
 import Foundation
-//MARK: SRCPlugin
-class SRCPlugin
-{
-    var srcId:String!
-    var srcName:String!
-    var controllerTitle:String!
-    var srcCellId:String!
-    var shareType:String!
-    var srcHeaderTitle:String!
-    var srcHeaderIcon:UIImage!
-}
 
 //MARK: Sharelink SRCPlugin
 let SharelinkSRCHeaderIconNamePrefix = "new_share_header_icon_"
@@ -51,26 +40,53 @@ let SharelinkSRCPlugins:[SRCPlugin] = {
 //MARK: SRCService
 class SRCService: NSNotificationCenter,ServiceProtocol
 {
-    @objc static var ServiceName:String{return "src service"}
+    @objc static var ServiceName:String{return "SRC Service"}
+    static let allSRCPluginsReloaded = "allSRCPluginsReloaded"
+    static let allSRCPluginsLoading = "allSRCPluginsLoading"
     private(set) var defaultSRCPlugins = [SRCPlugin](SharelinkSRCPlugins)
     private(set) var allSRCPlugins = [SRCPlugin]()
+    private var userSRCPluginDir:NSURL!
     private var srcPluginsMap = [String:SRCPlugin]()
     
     @objc func userLoginInit(userId:String)
     {
-        self.reloadSRC()
+        self.initSRCPluginDir(userId)
         self.setServiceReady()
     }
     
     func userLogout(userId: String) {
     }
     
-    private func reloadSRC()
+    private func initSRCPluginDir(userId:String)
     {
-        allSRCPlugins.removeAll()
-        loadSharelinkPlugins()
-        loadCustomPlugins()
-        mappingPlugins()
+        self.userSRCPluginDir = PersistentManager.sharedInstance.rootUrl.URLByAppendingPathComponent("SRCPlugin/\(userId)", isDirectory: true)
+        PersistentManager.sharedInstance.createDir(userSRCPluginDir)
+        copySRCTestFolder()
+    }
+    
+    private func copySRCTestFolder()
+    {
+        //let dir = "SRCPluginTemplate"
+        let url = Sharelink.mainBundle.URLForResource("SRCPluginTemplate", withExtension: nil)!
+        do
+        {
+            try NSFileManager.defaultManager().copyItemAtURL(url, toURL: self.userSRCPluginDir.URLByAppendingPathComponent(IdUtil.generateUniqueId()))
+        }catch let err as NSError
+        {
+            print(err.description)
+        }
+    }
+    
+    func reloadSRC()
+    {
+        self.postNotificationName(SRCService.allSRCPluginsLoading, object: nil)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.allSRCPlugins.removeAll()
+            self.loadSharelinkPlugins()
+            self.loadCustomPlugins()
+            self.mappingPlugins()
+            self.postNotificationName(SRCService.allSRCPluginsReloaded, object: nil)
+        }
     }
     
     private func loadSharelinkPlugins()
@@ -80,6 +96,37 @@ class SRCService: NSNotificationCenter,ServiceProtocol
     
     private func loadCustomPlugins()
     {
+        let fileManager = NSFileManager.defaultManager()
+        self.userSRCPluginDir.pathComponents
+        do
+        {
+            
+            let files = try fileManager.contentsOfDirectoryAtURL(self.userSRCPluginDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            files.forEach { (url) -> () in
+                let pluginJsonUrl = url.URLByAppendingPathComponent("info.json")
+                if PersistentFileHelper.isDirectory(url) && PersistentFileHelper.fileExists(pluginJsonUrl)
+                {
+                    if let pluginJson = PersistentFileHelper.readTextFile(pluginJsonUrl)
+                    {
+                        if let pluginInfo = generateSRCPluginInfoModel(pluginJson)
+                        {
+                            if pluginInfo.isInlegal() == false
+                            {
+                                if let plugin = pluginInfo.generateSRCPlugin()
+                                {
+                                    plugin.shareType = ShareThingType.shareCSRC.getCSRCShareType(plugin.srcId)
+                                    plugin.srcCellId = NewCustomSRCCell.reuseableId
+                                    self.allSRCPlugins.append(plugin)
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }catch let err as NSError{
+            NSLog("Error To Load Custom SRCPlugins %@", err.description)
+        }
         
     }
     

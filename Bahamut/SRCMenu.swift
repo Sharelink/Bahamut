@@ -31,15 +31,31 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     private var srcItemContainer:UIScrollView!
     private var srcMenuPageControl:UIPageControl!
     private var srcItemViews = [SRCMenuItemView]()
+    private var loadingSRCTipsLabel:UILabel!
     var delegate:SRCMenuManagerDelegate!
     
     func initManager(rootView:UIView,menuTopInset:CGFloat)
     {
         self.menuTopInset = menuTopInset
         self.rootView = rootView
-        self.srcService = ServiceContainer.getService(SRCService)
         self.initSRCMenu()
         self.initItemLayoutAttributes()
+        self.srcService = ServiceContainer.getService(SRCService)
+        self.srcService.addObserver(self, selector: "onLoadingPlugins:", name: SRCService.allSRCPluginsLoading, object: nil)
+        self.srcService.addObserver(self, selector: "onPluginsLoaded:", name: SRCService.allSRCPluginsReloaded, object: nil)
+    }
+    
+    //MARK: notification
+    func onLoadingPlugins(_:NSNotification)
+    {
+        self.srcItemViews.forEach{$0.removeFromSuperview()}
+        self.srcMenu.bringSubviewToFront(self.loadingSRCTipsLabel)
+        self.loadingSRCTipsLabel.hidden = false
+    }
+    
+    func onPluginsLoaded(_:NSNotification)
+    {
+        self.loadingSRCTipsLabel.hidden = true
         self.reloadSRCMenuItems()
     }
     
@@ -64,6 +80,13 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcItemContainer.addSubview(self.srcMenuPageControl)
         self.srcMenu.addSubview(self.srcMenuPageControl)
         self.srcMenu.hidden = true
+        self.loadingSRCTipsLabel = UILabel()
+        self.loadingSRCTipsLabel.font = self.loadingSRCTipsLabel.font.fontWithSize(23)
+        self.loadingSRCTipsLabel.text = "LOADING_SRCPLUGINS".localizedString
+        self.loadingSRCTipsLabel.sizeToFit()
+        self.loadingSRCTipsLabel.frame = CGRectMake(0,srcMenuFrame.size.height / 2 - 23,srcMenuFrame.size.width,self.loadingSRCTipsLabel.frame.height)
+        self.loadingSRCTipsLabel.textAlignment = .Center
+        self.srcMenu.addSubview(self.loadingSRCTipsLabel)
         self.rootView.addSubview(srcMenu)
     }
 
@@ -103,13 +126,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     
     func reloadSRCMenuItems()
     {
-        var allSRCPlugins = self.srcService.allSRCPlugins
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
-        allSRCPlugins.appendContentsOf(self.srcService.allSRCPlugins)
+        let allSRCPlugins = self.srcService.allSRCPlugins
         
         let totalPage = (allSRCPlugins.count + onePageCount - 1) / onePageCount
         self.srcMenuPageControl.numberOfPages = totalPage
@@ -143,13 +160,14 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         let itemView = SRCMenuItemView()
         itemView.backgroundColor = UIColor.clearColor()
         let iconView = UIImageView()
+        iconView.layer.cornerRadius = iconWidthHeight / 2
         iconView.frame = CGRectMake(iconEdge, 0, iconWidthHeight, iconWidthHeight)
         itemView.addSubview(iconView)
         itemView.iconImageView = iconView
-        let nameLabel = UILabel(frame: CGRectMake(0,iconWidthHeight + 3,itemWidth,nameFontSize + 2))
+        let nameLabel = UILabel(frame: CGRectMake(0,iconWidthHeight + 3,itemWidth,nameFontSize * 3 + 2))
         nameLabel.font = nameLabel.font.fontWithSize(nameFontSize)
+        nameLabel.numberOfLines = 2
         nameLabel.textColor = UIColor.darkTextColor()
-        nameLabel.contentMode = .Center
         nameLabel.textAlignment = .Center
         itemView.addSubview(nameLabel)
         itemView.nameLabel = nameLabel
@@ -183,6 +201,10 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     
     func showMenu()
     {
+        if srcService.allSRCPlugins.count == 0
+        {
+            srcService.reloadSRC()
+        }
         self.srcMenu.hidden = false
         self.srcMenu.alpha = 0
         UIView.animateWithDuration(0.3, animations: { () -> Void in

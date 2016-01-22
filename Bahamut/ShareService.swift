@@ -64,7 +64,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     static let newSharePosted = "newSharePosted"
     static let newShareMessagesUpdated = "newShareMessagesUpdated"
     static let shareUpdated = "shareUpdated"
-    @objc static var ServiceName:String{return "share service"}
+    @objc static var ServiceName:String{return "Share Service"}
     
     @objc func userLoginInit(userId:String)
     {

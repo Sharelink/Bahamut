@@ -93,7 +93,7 @@ extension SharelinkTheme
 public class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
 {
     static let themesUpdated:String = "themesUpdated"
-    @objc public static var ServiceName:String{return "SharelinkThemeService"}
+    @objc public static var ServiceName:String{return "Theme Service"}
     
     @objc public func userLoginInit(userId: String) {
         self.refreshMyAllSharelinkThemes()

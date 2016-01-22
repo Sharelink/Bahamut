@@ -164,6 +164,7 @@ SHARE_VIEW_TITLE_NEW_URL = "New Link";
 SHARE_VIEW_TITLE_NEW_SRC = "New SRC";
 
 MY_PLUGINS = "My Plugins";
+LOADING_SRCPLUGINS = "Loading SRCPlugins...";
 
 MSG_IS_TOO_LONG = "Message Is Too Long";
 

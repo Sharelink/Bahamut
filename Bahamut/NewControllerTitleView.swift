@@ -46,6 +46,6 @@ class NewControllerTitleView: UIView {
     
     static func instanceFromXib() -> NewControllerTitleView
     {
-        return NSBundle.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is NewControllerTitleView}.first as! NewControllerTitleView
+        return Sharelink.mainBundle.loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is NewControllerTitleView}.first as! NewControllerTitleView
     }
 }

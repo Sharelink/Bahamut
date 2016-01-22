@@ -271,7 +271,12 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     {
         self.defaultSRCIndex = index
         refreshHeaderTitle()
-        tableView.reloadData()
+        refreshSRCCell()
+    }
+    
+    private func refreshSRCCell(animation:UITableViewRowAnimation = .Fade)
+    {
+        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: animation)
     }
     
     func reloadContentCellHeight()
@@ -314,7 +319,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         if self.currentSRCPlugin.srcId != itemView.srcPlugin.srcId
         {
             self.currentSRCPlugin = itemView.srcPlugin
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: .Left)
+            refreshSRCCell(.Left)
         }
     }
     

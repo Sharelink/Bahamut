@@ -164,6 +164,7 @@ SHARE_VIEW_TITLE_NEW_URL = "新的链接";
 SHARE_VIEW_TITLE_NEW_SRC = "新的SRC";
 
 MY_PLUGINS = "我的插件";
+LOADING_SRCPLUGINS = "正在加载插件...";
 
 MSG_IS_TOO_LONG = "超过限制的长度了";
 

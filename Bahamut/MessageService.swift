@@ -29,7 +29,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
 {
     static let messageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
     private(set) var chattingShareId:String!
-    @objc static var ServiceName:String {return "MessageService"}
+    @objc static var ServiceName:String {return "Message Service"}
     @objc func appStartInit() {}
     
     @objc func userLoginInit(userId: String)

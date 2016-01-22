@@ -11,7 +11,7 @@ import Foundation
 
 class AccountService: ServiceProtocol
 {
-    @objc static var ServiceName:String{return "account service"}
+    @objc static var ServiceName:String{return "Account Service"}
     
     @objc func userLoginInit(userId:String)
     {

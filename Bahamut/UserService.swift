@@ -54,7 +54,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     static let myUserInfoRefreshed = "myUserInfoRefreshed"
     static let baseUserDataInited = "baseUserDataInited"
     static var lastRefreshLinkedUserTime:NSDate!
-    @objc static var ServiceName:String{return "user service"}
+    @objc static var ServiceName:String{return "User Service"}
     
     var myUserId:String{
         return UserSetting.userId

@@ -156,6 +156,18 @@ public extension String{
     {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex), end: self.startIndex.advancedBy(endIndex)))
     }
+    
+    public func substringWithRange(range:Range<Int>) -> String
+    {
+        if let start = range.first
+        {
+            if let end = range.last
+            {
+                return substringWithRange(start, endIndex: end + 1)
+            }
+        }
+        return ""
+    }
 
     //反转
     public func reverse()-> String{

@@ -11,6 +11,11 @@ import Foundation
 //MARK: PersistentFileHelper
 class PersistentFileHelper
 {
+    static func readTextFile(fileUrl:NSURL) -> String?
+    {
+        return readTextFile(fileUrl.path!)
+    }
+    
     static func readTextFile(filePath:String) -> String?
     {
         do
@@ -20,6 +25,17 @@ class PersistentFileHelper
         {
             return nil
         }
+    }
+    
+    static func isDirectory(url:NSURL) -> Bool
+    {
+        var isDir = ObjCBool(true)
+        return NSFileManager.defaultManager().fileExistsAtPath(url.path!,isDirectory: &isDir)
+    }
+    
+    static func fileExists(fileUrl:NSURL) -> Bool
+    {
+        return fileExists(fileUrl.path!)
     }
     
     static func fileExists(filePath:String) -> Bool

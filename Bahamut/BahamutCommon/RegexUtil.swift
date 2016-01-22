@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct RegexUtil {
+public struct RegexMatcher {
     let regex: NSRegularExpression?
     
     init(_ pattern: String) {
@@ -33,6 +33,22 @@ public struct RegexUtil {
             return false
         }
     }
+    
+    func matchFirstString(input:String) -> String?{
+        if let matches = regex?.firstMatchInString(input,
+            options: [],
+            range: NSMakeRange(0, input.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))) {
+                if let range = matches.range.toRange()
+                {
+                    return input.substringWithRange(range)
+                }else
+                {
+                    return nil
+                }
+        } else {
+            return nil
+        }
+    }
 }
 
 infix operator =~ {
@@ -41,6 +57,6 @@ precedence 130
 }
 
 public func =~(lhs: String, rhs: String) -> Bool {
-    return RegexUtil(rhs).match(lhs)
+    return RegexMatcher(rhs).match(lhs)
 }
 

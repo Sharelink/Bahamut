@@ -40,7 +40,7 @@ extension FileService
 
 //MARK: FileService
 class FileService: ServiceProtocol {
-    @objc static var ServiceName:String {return "file service"}
+    @objc static var ServiceName:String {return "File Service"}
     
     private(set) var fileManager:NSFileManager!
     private(set) var documentsPathUrl:NSURL!
@@ -98,16 +98,7 @@ class FileService: ServiceProtocol {
     private func initDocumentUrl(userId:String)
     {
         documentsPathUrl = PersistentManager.sharedInstance.rootUrl.URLByAppendingPathComponent(userId)
-        if fileManager.fileExistsAtPath(documentsPathUrl.path!) == false
-        {
-            do
-            {
-                try fileManager.createDirectoryAtPath(documentsPathUrl.path!, withIntermediateDirectories: true, attributes: nil)
-            }catch
-            {
-                NSLog("create document dir error")
-            }
-        }
+        PersistentManager.sharedInstance.createDir(documentsPathUrl)
     }
     
     private func initLocalStoreDir()
@@ -141,7 +132,7 @@ class FileService: ServiceProtocol {
     
     func getFilePath(fileId:String!,type:FileType!) -> String!
     {
-        if let path = NSBundle.mainBundle().pathForResource(fileId, ofType: nil)
+        if let path = Sharelink.mainBundle.pathForResource(fileId, ofType: nil)
         {
             return path
         }else if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)

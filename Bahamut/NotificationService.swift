@@ -14,7 +14,7 @@ class NotificationService: ServiceProtocol
     static let vibrationEnableKey = "vibrationEnable"
     static let isMuteKey = "isMute"
     
-    @objc static var ServiceName:String{return "NotificationService"}
+    @objc static var ServiceName:String{return "Notification Service"}
     
     private(set) var isMute:Bool = true
     private(set) var openVibration:Bool = true

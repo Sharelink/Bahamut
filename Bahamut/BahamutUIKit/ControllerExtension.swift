@@ -20,7 +20,7 @@ extension UIViewController
 {
     static func instanceFromStoryBoard(storyBoardName:String,identifier:String) -> UIViewController
     {
-        let storyBoard = UIStoryboard(name: storyBoardName, bundle: NSBundle.mainBundle())
+        let storyBoard = UIStoryboard(name: storyBoardName, bundle: Sharelink.mainBundle)
         return storyBoard.instantiateViewControllerWithIdentifier(identifier)
     }
 }

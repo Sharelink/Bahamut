@@ -177,7 +177,7 @@ class CoreDataManager {
     private func initManagedObjectModel(){
         if managedObjectModel == nil{
             // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-            let modelURL = NSBundle.mainBundle().URLForResource(self.coreDataModelId, withExtension: "momd")!
+            let modelURL = Sharelink.mainBundle.URLForResource(self.coreDataModelId, withExtension: "momd")!
             managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         }
     }
