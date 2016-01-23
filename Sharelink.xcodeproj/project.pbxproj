@@ -29,8 +29,6 @@
 		E70A572A1C1EA0140031A0C5 /* UIAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */; };
 		E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */; };
 		E70A572E1C1EAE2D0031A0C5 /* NewShareTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A572D1C1EAE2D0031A0C5 /* NewShareTextCell.swift */; };
-		E70A57321C1F4C2B0031A0C5 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70A57311C1F4C2B0031A0C5 /* ChatFramework.framework */; };
-		E70A57331C1F4C2B0031A0C5 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E70A57311C1F4C2B0031A0C5 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E70A5AD91C174870001C0A47 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABE1C174870001C0A47 /* FileType.swift */; };
 		E70A5ADA1C174870001C0A47 /* PersistentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABF1C174870001C0A47 /* PersistentBase.swift */; };
 		E70A5ADB1C174870001C0A47 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC01C174870001C0A47 /* PersistentManager.swift */; };
@@ -247,6 +245,8 @@
 		E7C4F2A91BCFB0850050997B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A81BCFB0850050997B /* ImageIO.framework */; };
 		E7C4F2AB1BCFB08A0050997B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AA1BCFB08A0050997B /* AdSupport.framework */; };
 		E7C4F2AD1BCFB0950050997B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */; };
+		E7C5BBC31C53772A00B979EF /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C5BBC21C53772A00B979EF /* ChatFramework.framework */; };
+		E7C5BBC41C53772A00B979EF /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7C5BBC21C53772A00B979EF /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7CB5CEB1BFAFEE900098DD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */; };
 		E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
 		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
@@ -399,7 +399,6 @@
 		E7F7F3C71C525B8000E6D117 /* BahamutLocalFile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC81C174870001C0A47 /* BahamutLocalFile.xcdatamodeld */; };
 		E7F7F3C81C525B8000E6D117 /* BahamutMessage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACD1C174870001C0A47 /* BahamutMessage.xcdatamodeld */; };
 		E7F7F3C91C525B8000E6D117 /* BahamutModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD51C174870001C0A47 /* BahamutModel.xcdatamodeld */; };
-		E7F7F3CA1C525C0F00E6D117 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70A57311C1F4C2B0031A0C5 /* ChatFramework.framework */; };
 		E7F7F3CB1C525C0F00E6D117 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
 		E7F7F3CC1C525C0F00E6D117 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */; };
 		E7F7F3CD1C525C0F00E6D117 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */; };
@@ -513,13 +512,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E70A57341C1F4C2B0031A0C5 /* Embed Frameworks */ = {
+		E7C5BBC51C53772A00B979EF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E70A57331C1F4C2B0031A0C5 /* ChatFramework.framework in Embed Frameworks */,
+				E7C5BBC41C53772A00B979EF /* ChatFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,7 +537,6 @@
 		E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAnimationHelper.swift; sourceTree = "<group>"; };
 		E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemSoundHelper.swift; sourceTree = "<group>"; };
 		E70A572D1C1EAE2D0031A0C5 /* NewShareTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareTextCell.swift; sourceTree = "<group>"; };
-		E70A57311C1F4C2B0031A0C5 /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Bahamut-grokfcvkizorsqflyzrlgbjjrbwf/Build/Products/Release-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E70A5ABE1C174870001C0A47 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		E70A5ABF1C174870001C0A47 /* PersistentBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentBase.swift; sourceTree = "<group>"; };
 		E70A5AC01C174870001C0A47 /* PersistentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
@@ -773,6 +771,7 @@
 		E7C4F2A81BCFB0850050997B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		E7C4F2AA1BCFB08A0050997B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		E7C5BBC21C53772A00B979EF /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Release-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bahamut.entitlements; sourceTree = "<group>"; };
 		E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -839,8 +838,8 @@
 				E7B616331BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework in Frameworks */,
 				E7B616211BCFCB6E00D0831C /* QQConnection.framework in Frameworks */,
 				E7C4F2A91BCFB0850050997B /* ImageIO.framework in Frameworks */,
+				E7C5BBC31C53772A00B979EF /* ChatFramework.framework in Frameworks */,
 				E7B616261BCFCB6E00D0831C /* AGCommon.framework in Frameworks */,
-				E70A57321C1F4C2B0031A0C5 /* ChatFramework.framework in Frameworks */,
 				E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */,
 				E7B616251BCFCB6E00D0831C /* WeChatConnection.framework in Frameworks */,
 				E7B616301BCFCB6E00D0831C /* ShareSDK.framework in Frameworks */,
@@ -861,7 +860,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7F7F3CB1C525C0F00E6D117 /* AudioToolbox.framework in Frameworks */,
-				E7F7F3CA1C525C0F00E6D117 /* ChatFramework.framework in Frameworks */,
 				E7F7F3CC1C525C0F00E6D117 /* MapKit.framework in Frameworks */,
 				E7F7F3CD1C525C0F00E6D117 /* CoreTelephony.framework in Frameworks */,
 				E7F7F4121C52624800E6D117 /* libMobClickLibrary.a in Frameworks */,
@@ -927,7 +925,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E70A57311C1F4C2B0031A0C5 /* ChatFramework.framework */,
+				E7C5BBC21C53772A00B979EF /* ChatFramework.framework */,
 				E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */,
 				E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */,
 				E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */,
@@ -1785,7 +1783,7 @@
 				E7A62FDE1B6609A500F28D73 /* Resources */,
 				D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */,
 				5E5B533462BB1C9FCE028608 /* Copy Pods Resources */,
-				E70A57341C1F4C2B0031A0C5 /* Embed Frameworks */,
+				E7C5BBC51C53772A00B979EF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2519,7 +2517,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2576,7 +2573,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
 				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2759,6 +2755,7 @@
 				E7F7F33B1C525B2000E6D117 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7F7F4541C52949100E6D117 /* Build configuration list for PBXAggregateTarget "SKernel" */ = {
 			isa = XCConfigurationList;
@@ -2767,6 +2764,7 @@
 				E7F7F4561C52949100E6D117 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
