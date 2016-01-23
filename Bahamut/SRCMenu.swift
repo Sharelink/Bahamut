@@ -38,11 +38,12 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     {
         self.menuTopInset = menuTopInset
         self.rootView = rootView
-        self.initSRCMenu()
-        self.initItemLayoutAttributes()
         self.srcService = ServiceContainer.getService(SRCService)
         self.srcService.addObserver(self, selector: "onLoadingPlugins:", name: SRCService.allSRCPluginsLoading, object: nil)
         self.srcService.addObserver(self, selector: "onPluginsLoaded:", name: SRCService.allSRCPluginsReloaded, object: nil)
+        self.initSRCMenu()
+        self.initItemLayoutAttributes()
+        self.reloadSRCMenuItems()
     }
     
     //MARK: notification
@@ -84,8 +85,9 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.loadingSRCTipsLabel.font = self.loadingSRCTipsLabel.font.fontWithSize(23)
         self.loadingSRCTipsLabel.text = "LOADING_SRCPLUGINS".localizedString
         self.loadingSRCTipsLabel.sizeToFit()
-        self.loadingSRCTipsLabel.frame = CGRectMake(0,srcMenuFrame.size.height / 2 - 23,srcMenuFrame.size.width,self.loadingSRCTipsLabel.frame.height)
+        self.loadingSRCTipsLabel.frame = CGRectMake(0,srcMenuFrame.size.height / 2 - 23 * 2,srcMenuFrame.size.width,self.loadingSRCTipsLabel.frame.height)
         self.loadingSRCTipsLabel.textAlignment = .Center
+        self.loadingSRCTipsLabel.hidden = srcService.allSRCPlugins.count > 0
         self.srcMenu.addSubview(self.loadingSRCTipsLabel)
         self.rootView.addSubview(srcMenu)
     }
@@ -124,8 +126,12 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.onePageCount = rows * rowItemCount
     }
     
-    func reloadSRCMenuItems()
+    private func reloadSRCMenuItems()
     {
+        if self.srcService.allSRCPlugins.count == 0
+        {
+            return
+        }
         let allSRCPlugins = self.srcService.allSRCPlugins
         
         let totalPage = (allSRCPlugins.count + onePageCount - 1) / onePageCount

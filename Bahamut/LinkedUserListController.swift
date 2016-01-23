@@ -186,6 +186,15 @@ class LinkedUserListController: UITableViewController
         
     }
     
+    //MARK: actions
+    func scrollTableViewToTop()
+    {
+        if userListModel.count > 0 || linkMessageModel.count > 0
+        {
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+        }
+    }
+    
     //MARK: table view delegate
     
     var indexOfUserList:Int{

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //MARK: UserGuide
-public class UserGuide:NSObject
+class UserGuide:NSObject
 {
     private var viewController:UIViewController!
     private var guideImages:[UIImage]!
@@ -19,7 +19,7 @@ public class UserGuide:NSObject
     private var imgController:NoStatusBarViewController!
     private var imageView:UIImageView!
     private var isInited:Bool = false
-    public func initGuide<T:UIViewController>(controller:T,userId:String,guideImgs:[UIImage])
+    func initGuide<T:UIViewController>(controller:T,userId:String,guideImgs:[UIImage])
     {
         viewController = controller
         guideImages = guideImgs
@@ -42,7 +42,7 @@ public class UserGuide:NSObject
         self.imgController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapImage:"))
     }
     
-    public func deInitUserGuide()
+    func deInitUserGuide()
     {
         isInited = false
         self.viewController = nil
@@ -52,7 +52,7 @@ public class UserGuide:NSObject
         self.firstTimeStoreKey = nil
     }
     
-    public func onTapImage(_:UITapGestureRecognizer)
+    func onTapImage(_:UITapGestureRecognizer)
     {
         showNextImage()
     }
@@ -71,7 +71,7 @@ public class UserGuide:NSObject
         }
     }
     
-    public func showGuide() -> Bool
+    func showGuide() -> Bool
     {
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
@@ -84,7 +84,7 @@ public class UserGuide:NSObject
         return false
     }
     
-    public func showGuideControllerPresentFirstTime()  -> Bool
+    func showGuideControllerPresentFirstTime()  -> Bool
     {
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {

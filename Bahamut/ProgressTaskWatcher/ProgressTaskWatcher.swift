@@ -9,14 +9,14 @@
 import Foundation
 
 @objc
-public protocol ProgressTaskDelegate
+protocol ProgressTaskDelegate
 {
     optional func taskProgress(taskIdentifier:String,persent:Float)
     func taskCompleted(taskIdentifier:String,result:AnyObject!)
     optional func taskFailed(taskIdentifier:String,result:AnyObject!)
 }
 
-public enum TaskState:Int
+enum TaskState:Int
 {
     case Created = 0
     case Working = 1
@@ -25,28 +25,28 @@ public enum TaskState:Int
     case Cancel = 4
 }
 
-public class TaskRecord
+class TaskRecord
 {
-    public var id:String!
-    public var progress:Float = 0
-    public var result:AnyObject!
-    public var state = TaskState.Created
-    public var subTaskOfQueueTask:ProgressQueueTask!
-    public var delegate:ProgressTaskDelegate!
+    var id:String!
+    var progress:Float = 0
+    var result:AnyObject!
+    var state = TaskState.Created
+    var subTaskOfQueueTask:ProgressQueueTask!
+    var delegate:ProgressTaskDelegate!
 }
 
 //MARK: TO DO: finish this
-public class ProgressQueueTask:NSObject,ProgressTaskDelegate
+class ProgressQueueTask:NSObject,ProgressTaskDelegate
 {
     let queueTaskId = IdUtil.generateUniqueId()
     private(set) var subTasks = [String:TaskRecord]()
-    public func addSubTask(subTask:TaskRecord)
+    func addSubTask(subTask:TaskRecord)
     {
         subTasks.updateValue(subTask, forKey: subTask.id)
         subTask.subTaskOfQueueTask = self
     }
     
-    public func taskCompleted(taskIdentifier: String, result: AnyObject!) {
+    func taskCompleted(taskIdentifier: String, result: AnyObject!) {
         var allCompleted = true
         subTasks.forEach({ (task) -> () in
             let taskRecord = task.1
@@ -61,25 +61,25 @@ public class ProgressQueueTask:NSObject,ProgressTaskDelegate
         }
     }
     
-    public func taskFailed(taskIdentifier: String, result: AnyObject!) {
+    func taskFailed(taskIdentifier: String, result: AnyObject!) {
         
     }
     
-    public func taskProgress(taskIdentifier: String, persent: Float) {
+    func taskProgress(taskIdentifier: String, persent: Float) {
         
     }
 }
 
-public class ProgressTaskWatcher
+class ProgressTaskWatcher
 {
-    public static let sharedInstance:ProgressTaskWatcher = {
+    static let sharedInstance:ProgressTaskWatcher = {
         return ProgressTaskWatcher()
-        }()
+    }()
     
     private var dict = [String:NSMutableSet]()
     
     
-    public func addTaskObserver(taskIdentifier:String,delegate:ProgressTaskDelegate) -> TaskRecord
+    func addTaskObserver(taskIdentifier:String,delegate:ProgressTaskDelegate) -> TaskRecord
     {
         var list = dict[taskIdentifier]
         if list == nil

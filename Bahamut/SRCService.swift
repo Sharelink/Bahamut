@@ -52,6 +52,7 @@ class SRCService: NSNotificationCenter,ServiceProtocol
     {
         self.initSRCPluginDir(userId)
         self.setServiceReady()
+        self.reloadSRC()
     }
     
     func userLogout(userId: String) {
@@ -61,7 +62,6 @@ class SRCService: NSNotificationCenter,ServiceProtocol
     {
         self.userSRCPluginDir = PersistentManager.sharedInstance.rootUrl.URLByAppendingPathComponent("SRCPlugin/\(userId)", isDirectory: true)
         PersistentManager.sharedInstance.createDir(userSRCPluginDir)
-        copySRCTestFolder()
     }
     
     private func copySRCTestFolder()
@@ -134,9 +134,9 @@ class SRCService: NSNotificationCenter,ServiceProtocol
     {
         srcPluginsMap.removeAll()
         allSRCPlugins.forEach { (p) -> () in
-            if p.srcId == SharelinkSystemSRCId
+            if p.srcId.hasEnd(SharelinkSystemSRCId)
             {
-                srcPluginsMap[p.srcId] = p
+                srcPluginsMap[p.shareType] = p
             }else
             {
                 srcPluginsMap["\(p.shareType):\(p.srcId)"] = p

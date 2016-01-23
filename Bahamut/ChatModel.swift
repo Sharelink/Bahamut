@@ -150,6 +150,8 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
     var audienceId:String!
     var shareId:String!
     
+    var sendImageQuality:CGFloat = 0.7
+    
     var dataSource:[UUMsgItem]{
         return msgItems
     }
@@ -189,7 +191,8 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 msgText = (newMsg as! UUMsgTextItem).message
             case .Picture:
                 msgType = MessageType.Picture;
-                msgData = UIImageJPEGRepresentation((newMsg as! UUmsgPictureItem).image, 1)
+                msgData = UIImageJPEGRepresentation((newMsg as! UUmsgPictureItem).image, sendImageQuality)
+                msgText = "img"
             case .Voice:
                 msgType = MessageType.Voice;
                 let m = (newMsg as! UUMsgVoiceItem);

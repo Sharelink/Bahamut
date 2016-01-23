@@ -25,7 +25,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     private static var heartBeatTimer:NSTimer!
     private static var lastHeartBeatTime:NSDate!
-    private static var heartBeatInterval:NSTimeInterval = 23
+    private static var heartBeatInterval:NSTimeInterval = 42
     
     static let validationRoute:ChicagoRoute = {
         let route = ChicagoRoute()

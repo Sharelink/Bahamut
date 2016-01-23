@@ -173,7 +173,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         if isReshare == false && self.srcMenuManager == nil
         {
             self.srcMenuManager = SRCMenuManager()
-            print(self.navigationController?.navigationBar.frame)
             let navBarFrame = self.navigationController!.navigationBar.frame
             let menuTopInset = navBarFrame.height + navBarFrame.origin.y
             self.srcMenuManager.initManager(self.view.superview!,menuTopInset: menuTopInset)
@@ -220,16 +219,16 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     //MARK: share type
     private func initDefaultSRCPlugins(){
+        self.navigationItem.leftBarButtonItems?.removeAll()
         if isReshare
         {
             self.currentSRCPlugin = srcService.getSRCPlugin(reShareModel.shareType)
-            self.navigationItem.leftBarButtonItems?.removeAll()
         }else
         {
             self.defaultSRCIndex = UserSetting.isAppstoreReviewing ? 1 : 0
             let header = MJRefreshGifHeader(){
-                self.selectShareType(self.nextDefaultPluginIndex)
                 self.tableView.mj_header.endRefreshing()
+                self.selectShareType(self.nextDefaultPluginIndex)
             }
             self.tableView.mj_header = header
             header.lastUpdatedTimeLabel?.hidden = true
@@ -269,9 +268,11 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     private func selectShareType(index:Int)
     {
-        self.defaultSRCIndex = index
-        refreshHeaderTitle()
-        refreshSRCCell()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.defaultSRCIndex = index
+            self.refreshHeaderTitle()
+            self.refreshSRCCell()
+        }
     }
     
     private func refreshSRCCell(animation:UITableViewRowAnimation = .Fade)
@@ -428,6 +429,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: instance from storyboard
     static func instanceFromStoryBoard() -> NewShareController
     {
-        return instanceFromStoryBoard("Main", identifier: "NewShareController") as! NewShareController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "NewShareController") as! NewShareController
     }
 }

@@ -15,9 +15,9 @@ extension UIView
         UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes,completion: completion)
     }
     
-    func animationMaxToMin(completion:AnimationCompletedHandler! = nil)
+    func animationMaxToMin(duration:Double = 0.2,maxScale:CGFloat = 1.1,completion:AnimationCompletedHandler! = nil)
     {
-        UIAnimationHelper.animationMaxToMin(self,completion: completion)
+        UIAnimationHelper.animationMaxToMin(self,duration:duration,maxScale: maxScale,completion: completion)
     }
     
     public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
@@ -121,7 +121,7 @@ class UIAnimationHelper {
         viewLayer.addAnimation(animation, forKey: nil)
     }
     
-    static func animationMaxToMin(view:UIView,completion:AnimationCompletedHandler! = nil){
+    static func animationMaxToMin(view:UIView,duration:Double,maxScale:CGFloat,completion:AnimationCompletedHandler! = nil){
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.delegate = view
         if let handler = completion
@@ -130,8 +130,8 @@ class UIAnimationHelper {
         }
         animation.fromValue = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.toValue = 1.1
-        animation.duration = 0.2
+        animation.toValue = maxScale
+        animation.duration = duration
         animation.repeatCount = 0
         animation.autoreverses = true
         animation.removedOnCompletion = true

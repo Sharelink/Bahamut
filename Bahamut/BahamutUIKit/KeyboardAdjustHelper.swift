@@ -24,7 +24,7 @@ extension UIViewController
     }
 }
 
-public class ControllerViewAdjustByKeyboardProxy : NSObject
+class ControllerViewAdjustByKeyboardProxy : NSObject
 {
     private var controller:UIViewController!
     
@@ -33,12 +33,12 @@ public class ControllerViewAdjustByKeyboardProxy : NSObject
         self.controller = controller
     }
     
-    public func removeObserverForKeyboardNotifications()
+    func removeObserverForKeyboardNotifications()
     {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    public func registerForKeyboardNotifications(views:[UIView])
+    func registerForKeyboardNotifications(views:[UIView])
     {
         keyBoardAdjuetResponderViews = views
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardDidShowNotification, object: nil)

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B84DE46359EC6144872C156939360FB1A660D8C3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B84DE46359EC6144872C156939360FB1A660D8C3" : 0,
+    "5F2519C11E6DA964CFDE8DE9B244C15457DDE8E2" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A6A3E038-27E8-4870-8EA2-74304920D567",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B84DE46359EC6144872C156939360FB1A660D8C3" : "Bahamut\/",
+    "5F2519C11E6DA964CFDE8DE9B244C15457DDE8E2" : "..\/ChatFramework"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Sharelink",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Sharelink.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zhouguangjie\/ChatFramework.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5F2519C11E6DA964CFDE8DE9B244C15457DDE8E2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Sharelink\/Bahamut.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B84DE46359EC6144872C156939360FB1A660D8C3"
+    }
+  ]
+}

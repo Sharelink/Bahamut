@@ -10,19 +10,19 @@ import Foundation
 import EVReflection
 import Alamofire
 
-public class ValidateResult : EVObject
+class ValidateResult : EVObject
 {
     //validate success part
-    public var UserId:String!
-    public var AppToken:String!
-    public var APIServer:String!
-    public var FileAPIServer:String!
-    public var ChicagoServer:String!
+    var UserId:String!
+    var AppToken:String!
+    var APIServer:String!
+    var FileAPIServer:String!
+    var ChicagoServer:String!
     
     //new user part
-    public var RegistAPIServer:String!
+    var RegistAPIServer:String!
     
-    public func isValidateResultDataComplete() -> Bool
+    func isValidateResultDataComplete() -> Bool
     {
         if RegistAPIServer != nil
         {
@@ -39,36 +39,36 @@ public class ValidateResult : EVObject
     }
 }
 
-public let ShareLinkClientType = "ShareLinkClientType"
-public let BahamutFireClientType = "BahamutFireClientType"
+let ShareLinkClientType = "ShareLinkClientType"
+let BahamutFireClientType = "BahamutFireClientType"
 
-public class SharelinkSDK
+class SharelinkSDK
 {
-    public static let appkey = "5e6c827f2fcb04e8fca80cf72db5ba004508246b";
-    public private(set) static var version:String = "1.0"
-    public private(set) var accountId:String!
-    public private(set) var userId:String!
-    public private(set) var token:String!
-    public private(set) var fileApiServer:String!
-    public private(set) var shareLinkApiServer:String!
-    public private(set) var apiTokenServer:String!
-    public private(set) var chicagoServerHost:String!
-    public private(set) var chicagoServerPort:UInt16 = 0
+    static let appkey = "5e6c827f2fcb04e8fca80cf72db5ba004508246b";
+    private(set) static var version:String = "1.0"
+    private(set) var accountId:String!
+    private(set) var userId:String!
+    private(set) var token:String!
+    private(set) var fileApiServer:String!
+    private(set) var shareLinkApiServer:String!
+    private(set) var apiTokenServer:String!
+    private(set) var chicagoServerHost:String!
+    private(set) var chicagoServerPort:UInt16 = 0
     
     private var clients:[String:ClientProtocal] = [String:ClientProtocal]()
     
     private init(){}
     
-    public static let sharedInstance: SharelinkSDK = {
+    static let sharedInstance: SharelinkSDK = {
         return SharelinkSDK()
     }()
     
-    public static func setAppVersion(version:String)
+    static func setAppVersion(version:String)
     {
         SharelinkSDK.version = version
     }
     
-    public func reuse(userId:String,token:String!,shareLinkApiServer:String,fileApiServer:String)
+    func reuse(userId:String,token:String!,shareLinkApiServer:String,fileApiServer:String)
     {
         self.userId = userId
         self.token = token
@@ -82,7 +82,7 @@ public class SharelinkSDK
         clients.updateValue(fileClient, forKey: BahamutFireClientType)
     }
     
-    public func startClients()
+    func startClients()
     {
         for client in clients.values
         {
@@ -90,7 +90,7 @@ public class SharelinkSDK
         }
     }
     
-    public func closeClients()
+    func closeClients()
     {
         for client in clients.values
         {
@@ -98,7 +98,7 @@ public class SharelinkSDK
         }
     }
 
-    public func useValidateData(validateResult:ValidateResult)
+    func useValidateData(validateResult:ValidateResult)
     {
         self.userId = validateResult.UserId
         self.token = validateResult.AppToken
@@ -109,7 +109,7 @@ public class SharelinkSDK
         self.chicagoServerPort = UInt16(chicagoStrs[1])!
     }
     
-    public func validateAccessToken(apiTokenServer:String,accountId:String,accessToken:String,callback:(isNewUser:Bool,error:String!,registApiServer:String!,validateResult:ValidateResult! )->Void)
+    func validateAccessToken(apiTokenServer:String,accountId:String,accessToken:String,callback:(isNewUser:Bool,error:String!,registApiServer:String!,validateResult:ValidateResult! )->Void)
     {
         self.apiTokenServer = apiTokenServer
         Alamofire.request(Method.GET, "\(apiTokenServer)/Tokens", parameters: ["appkey":SharelinkSDK.appkey,"accountId":accountId,"accessToken":accessToken]).responseObject { (req, response,result:Result<ValidateResult,NSError>) -> Void in
@@ -139,7 +139,7 @@ public class SharelinkSDK
         }
     }
     
-    public func cancelToken(finishCallback:(message:String!) ->Void)
+    func cancelToken(finishCallback:(message:String!) ->Void)
     {
         if apiTokenServer == nil
         {
@@ -151,19 +151,19 @@ public class SharelinkSDK
         }
     }
     
-    public func getBahamutClient() -> ClientProtocal
+    func getBahamutClient() -> ClientProtocal
     {
         let client = ShareLinkSDKClient()
         client.setClientStart()
         return client
     }
     
-    public func getShareLinkClient() -> ClientProtocal
+    func getShareLinkClient() -> ClientProtocal
     {
         return clients[ShareLinkClientType]!
     }
     
-    public func getBahamutFireClient() -> BahamutFireClient
+    func getBahamutFireClient() -> BahamutFireClient
     {
         return clients[BahamutFireClientType] as! BahamutFireClient
     }

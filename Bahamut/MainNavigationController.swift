@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
+public class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
 {
     struct SegueIdentifier
     {
@@ -16,7 +16,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         static let ShowMainView = "Show Main Navigation"
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         let launchScr = Sharelink.mainBundle.loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
         launchScr.frame = self.view.bounds
@@ -38,7 +38,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         go()
     }
@@ -160,7 +160,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     private static func instanceFromStoryBoard() -> MainNavigationController
     {
-        return instanceFromStoryBoard("Main", identifier: "mainNavigationController") as! MainNavigationController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController") as! MainNavigationController
     }
     
     static func start()
@@ -171,5 +171,12 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
             }
             UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
         })
+    }
+    
+    public static func appInitStart(initialNavigationController:UINavigationController)
+    {
+        let mainNavController = instanceFromStoryBoard()
+        print(mainNavController)
+        print(UIApplication.sharedApplication().delegate?.window!?.rootViewController)
     }
 }

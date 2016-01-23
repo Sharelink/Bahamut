@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yy6-ii-UPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -38,13 +38,13 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrM-Si-UN5">
-                                            <rect key="frame" x="65" y="15" width="388" height="21"/>
+                                            <rect key="frame" x="65" y="15" width="378" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSI-El-9pH">
-                                            <rect key="frame" x="519" y="22" width="23" height="23"/>
+                                            <rect key="frame" x="509" y="22" width="27" height="27"/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="share">
                                                 <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,19 +54,11 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IQ-hG-Qs8">
-                                            <rect key="frame" x="65" y="44" width="388" height="20"/>
+                                            <rect key="frame" x="65" y="44" width="378" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7y-iK-jy7">
-                                            <rect key="frame" x="562" y="22" width="23" height="23"/>
-                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="mail"/>
-                                            <connections>
-                                                <action selector="reply:" destination="cik-6H-2wT" eventType="touchUpInside" id="Thh-Al-v52"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享的文字描述" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIg-zL-cuG">
                                             <rect key="frame" x="8" y="72" width="584" height="20"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
@@ -108,10 +100,10 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7J-bE-gZK">
-                                            <rect key="frame" x="476" y="22" width="23" height="23"/>
+                                            <rect key="frame" x="466" y="22" width="27" height="27"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="edS-vU-iNM"/>
-                                                <constraint firstAttribute="width" constant="23" id="zG8-ux-yjo"/>
+                                                <constraint firstAttribute="height" constant="27" id="edS-vU-iNM"/>
+                                                <constraint firstAttribute="width" constant="27" id="zG8-ux-yjo"/>
                                             </constraints>
                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" image="approve">
@@ -119,6 +111,14 @@
                                             </state>
                                             <connections>
                                                 <action selector="vote:" destination="cik-6H-2wT" eventType="touchUpInside" id="1a2-mg-ckV"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7y-iK-jy7">
+                                            <rect key="frame" x="552" y="22" width="27" height="27"/>
+                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="mail"/>
+                                            <connections>
+                                                <action selector="reply:" destination="cik-6H-2wT" eventType="touchUpInside" id="Thh-Al-v52"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -149,14 +149,14 @@
                                         <constraint firstAttribute="leadingMargin" secondItem="AGf-Xs-fcr" secondAttribute="leading" id="Wef-G8-Qjj"/>
                                         <constraint firstItem="AGf-Xs-fcr" firstAttribute="leading" secondItem="tXf-62-fxC" secondAttribute="leading" id="b89-GL-7EU"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="tXf-62-fxC" secondAttribute="leading" id="dmF-ot-bvd"/>
-                                        <constraint firstItem="CSI-El-9pH" firstAttribute="leading" secondItem="H7J-bE-gZK" secondAttribute="trailing" constant="20" id="h5y-eH-1s3"/>
+                                        <constraint firstItem="CSI-El-9pH" firstAttribute="leading" secondItem="H7J-bE-gZK" secondAttribute="trailing" constant="16" id="h5y-eH-1s3"/>
                                         <constraint firstItem="RrM-Si-UN5" firstAttribute="top" secondItem="jVv-hz-fIv" secondAttribute="topMargin" constant="7" id="lPz-XX-hzt"/>
                                         <constraint firstItem="p7y-iK-jy7" firstAttribute="top" secondItem="CSI-El-9pH" secondAttribute="top" id="omn-NW-tFW"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="AGf-Xs-fcr" secondAttribute="bottom" id="sAM-Z1-FXd"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="tXf-62-fxC" secondAttribute="trailing" id="scR-pQ-727"/>
-                                        <constraint firstItem="p7y-iK-jy7" firstAttribute="leading" secondItem="CSI-El-9pH" secondAttribute="trailing" constant="20" id="vGS-a7-7kh"/>
+                                        <constraint firstItem="p7y-iK-jy7" firstAttribute="leading" secondItem="CSI-El-9pH" secondAttribute="trailing" constant="16" id="vGS-a7-7kh"/>
                                         <constraint firstItem="Y8Z-QP-U2Z" firstAttribute="centerY" secondItem="AGf-Xs-fcr" secondAttribute="centerY" id="vvF-oO-b1p"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="p7y-iK-jy7" secondAttribute="trailing" constant="7" id="yCI-eM-9IO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="p7y-iK-jy7" secondAttribute="trailing" constant="13" id="yCI-eM-9IO"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>

@@ -19,8 +19,10 @@ class Sharelink
 
 public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
 
+    static var instance:SharelinkAppDelegate!
     public var window: UIWindow?
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        SharelinkAppDelegate.instance = self
         configureSharelinkBundle()
         configContryAndLang()
         initService()
@@ -68,6 +70,10 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func initQuPai()
     {
+        if isSDKVersion
+        {
+            return
+        }
         TaeSDK.sharedInstance().asyncInit({ () -> Void in
             NSLog("TaeSDK Inited")
         }) { (error) -> Void in

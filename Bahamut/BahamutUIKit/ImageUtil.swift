@@ -94,25 +94,25 @@ class ImageUtil
 
 extension UIImage
 {
-    func scaleToWidthOf(width:CGFloat) -> UIImage
+    func scaleToWidthOf(width:CGFloat,quality:CGFloat = 1) -> UIImage
     {
         let originWidth = self.size.width
         let a = width / originWidth
         let size = CGSizeMake(width, self.size.height * a)
-        return scaleToSize(size)
+        return scaleToSize(size,quality: quality)
     }
     
-    func scaleToHeightOf(height:CGFloat) -> UIImage
+    func scaleToHeightOf(height:CGFloat,quality:CGFloat = 1) -> UIImage
     {
         let originHeight = self.size.height
         let a = height / originHeight
         let size = CGSizeMake(self.size.width * a, height)
-        return scaleToSize(size)
+        return scaleToSize(size,quality: quality)
     }
     
-    func scaleToSize(asize:CGSize) -> UIImage
+    func scaleToSize(asize:CGSize,quality:CGFloat = 1) -> UIImage
     {
-        let imgCopy = UIImage(data: self.generateImageDataOfQuality(1)!)!
+        let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality)!)!
         UIGraphicsBeginImageContext(asize);
         imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height));
         let newimage = UIGraphicsGetImageFromCurrentImageContext();

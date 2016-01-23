@@ -35,6 +35,7 @@ class ChatRoomListCell: UITableViewCell
     @IBOutlet weak var titleLabel: UILabel!{
         didSet{
             titleLabel.text = title
+            titleLabel.textColor = UIColor.lightTextColor()
         }
     }
     @IBOutlet weak var iconView: UIImageView!{
@@ -80,12 +81,14 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
             let bcgv = UIImageView(image: PersistentManager.sharedInstance.getImage("chat_room"))
             bcgv.contentMode = .ScaleAspectFill
             roomListTableView.backgroundView = bcgv
+            roomListTableView.backgroundColor = UIColor.clearColor()
             roomListTableView.separatorStyle = .None
         }
     }
     var rootController:ChatViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.clearColor()
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell

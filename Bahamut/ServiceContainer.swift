@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class ServiceContainer:NSNotificationCenter
+class ServiceContainer:NSNotificationCenter
 {
-    public static let AllServicesReady = "AllServicesReady"
-    public static let instance:ServiceContainer = ServiceContainer()
+    static let AllServicesReady = "AllServicesReady"
+    static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
     private let serviceReadyLock = NSRecursiveLock()
     private var serviceReady = [String:Bool]()
@@ -21,7 +21,7 @@ public class ServiceContainer:NSNotificationCenter
         
     }
     
-    public func initContainer()
+    func initContainer()
     {
         serviceDict = [String:ServiceProtocol]()
         for (name,service) in ServiceConfig.Services
@@ -38,7 +38,7 @@ public class ServiceContainer:NSNotificationCenter
         }
     }
     
-    public func userLogin(userId:String)
+    func userLogin(userId:String)
     {
         self.userId = userId
         serviceReadyLock.lock()
@@ -58,7 +58,7 @@ public class ServiceContainer:NSNotificationCenter
         }
     }
     
-    public func userLogout()
+    func userLogout()
     {
         serviceReadyLock.lock()
         serviceReady.removeAll()
@@ -77,12 +77,12 @@ public class ServiceContainer:NSNotificationCenter
         serviceDict[serviceName] = service
     }
     
-    public static func getService(serviceName:String) -> ServiceProtocol?
+    static func getService(serviceName:String) -> ServiceProtocol?
     {
         return instance.serviceDict[serviceName]
     }
     
-    public static func getService<T:ServiceProtocol>(type:T.Type) -> T
+    static func getService<T:ServiceProtocol>(type:T.Type) -> T
     {
         return getService(T.ServiceName) as! T
     }
@@ -108,7 +108,7 @@ public class ServiceContainer:NSNotificationCenter
         }
     }
     
-    public static var isAllServiceReady:Bool{
+    static var isAllServiceReady:Bool{
         for (serviceName,_) in ServiceConfig.Services
         {
             if isServiceReady(serviceName) == false
@@ -119,7 +119,7 @@ public class ServiceContainer:NSNotificationCenter
         return true
     }
     
-    public static func isServiceReady(serviceName:String) -> Bool
+    static func isServiceReady(serviceName:String) -> Bool
     {
         if let isReady = instance.serviceReady[serviceName]
         {
@@ -128,20 +128,20 @@ public class ServiceContainer:NSNotificationCenter
         return false
     }
     
-    public static func isServiceReady<T:ServiceProtocol>(service:T) -> Bool
+    static func isServiceReady<T:ServiceProtocol>(service:T) -> Bool
     {
         return isServiceReady(T.ServiceName)
     }
 }
 
-public extension ServiceProtocol
+extension ServiceProtocol
 {
-    public func setServiceReady()
+    func setServiceReady()
     {
         ServiceContainer.setServiceReady(self)
     }
     
-    public var isServiceReady:Bool
+    var isServiceReady:Bool
     {
         return ServiceContainer.isServiceReady(self)
     }

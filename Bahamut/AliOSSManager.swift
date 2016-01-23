@@ -10,7 +10,7 @@ import Foundation
 import AliyunOSSiOS
 
 //MARK: AliOSSManager
-public class AliOSSManager
+class AliOSSManager
 {
     private var ossClientMap = [String:OSSClient]()
     private var ossClientConfig:OSSClientConfiguration!

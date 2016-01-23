@@ -17,14 +17,14 @@ public enum FileType : Int
     case Video = 130
     case Image = 131
     
-    public static let allValues = [Raw, NoType, Other, Text, Sound, Video, Image]
+    static let allValues = [Raw, NoType, Other, Text, Sound, Video, Image]
     
-    public var FileSuffix:String
+    var FileSuffix:String
         {
             return FileType.getFileTypeFileSuffix(self)
     }
     
-    public static func getFileTypeFileSuffix(type:FileType) -> String
+    static func getFileTypeFileSuffix(type:FileType) -> String
     {
         switch type
         {
@@ -38,7 +38,7 @@ public enum FileType : Int
         }
     }
     
-    public static func getFileType(rawValue:Int) -> FileType
+    static func getFileType(rawValue:Int) -> FileType
     {
         for type in allValues
         {
@@ -50,7 +50,7 @@ public enum FileType : Int
         return Raw
     }
     
-    public static func getFileTypeByFileId(fileId:String) -> FileType
+    static func getFileTypeByFileId(fileId:String) -> FileType
     {
         for type in allValues
         {

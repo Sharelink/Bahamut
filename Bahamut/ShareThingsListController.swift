@@ -284,6 +284,14 @@ class ShareThingsListController: UITableViewController
         userService.showMyDetailView(self)
     }
     
+    func scrollTableViewToTop()
+    {
+        if self.shareThings.count > 0
+        {
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+        }
+    }
+    
     //MARK: tableView delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {

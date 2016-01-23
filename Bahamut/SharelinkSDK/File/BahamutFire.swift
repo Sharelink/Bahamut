@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class BahamutFireClient : ShareLinkSDKClient
+class BahamutFireClient : ShareLinkSDKClient
 {
     
     init(fileApiServer:String,userId:String,token:String)
@@ -23,24 +23,24 @@ public class BahamutFireClient : ShareLinkSDKClient
         return super.setReqHeader(req)
     }
     
-    public func sendFile(sendFileKey:FileAccessInfo,filePath:String)->Request
+    func sendFile(sendFileKey:FileAccessInfo,filePath:String)->Request
     {
         return sendFile(sendFileKey, filePathUrl: NSURL(fileURLWithPath: filePath))
     }
     
-    public func sendFile(sendFileKey:FileAccessInfo,filePathUrl:NSURL)->Request
+    func sendFile(sendFileKey:FileAccessInfo,filePathUrl:NSURL)->Request
     {
         let headers :[String:String] = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":SharelinkSDK.appkey]
         return Manager.sharedInstance.upload(Method.POST, sendFileKey.server, headers: headers, file: filePathUrl)
     }
     
-    public func sendFile(sendFileKey:FileAccessInfo,fileData:NSData)->Request
+    func sendFile(sendFileKey:FileAccessInfo,fileData:NSData)->Request
     {
         let headers :[String:String] = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":SharelinkSDK.appkey]
         return Manager.sharedInstance.upload(.POST, sendFileKey.server, headers: headers, data: fileData)
     }
     
-    public func downloadFile(fileId:String,filePath:String) -> Request
+    func downloadFile(fileId:String,filePath:String) -> Request
     {
         let headers :[String:String] = ["userId":self.userId,"token":self.token,"appkey":SharelinkSDK.appkey]
         let fileUrl = "\(self.apiServer)/Files/\(fileId)"

@@ -115,48 +115,59 @@ class UIShareThing: UIShareCell
     {
         if let btn = sender as? UIButton
         {
-            btn.animationMaxToMin()
-        }
-        if voted
-        {
-            let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: UIAlertActionStyle.Default){ aa in
-                ServiceContainer.getService(ShareService).unVoteShareThing(self.shareModel,updateCallback: self.updateVote)
-            })
-            alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in })
-            rootController.presentViewController(alert, animated: true, completion: nil)
-        }else{
-            
-            ServiceContainer.getService(ShareService).voteShareThing(shareModel,updateCallback: updateVote)
-            MobClick.event("Vote")
-        }
-    }
-    
-    @IBAction func shareToFriends(sender: AnyObject)
-    {
-        if shareModel.canReshare()
-        {
-            MobClick.event("Reshare")
-            rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: shareModel)
-        }else
-        {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
-            rootController.presentViewController(alert, animated: true, completion: nil)
+            btn.animationMaxToMin(0.1,maxScale: 1.3){
+                if self.voted
+                {
+                    let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: UIAlertActionStyle.Default){ aa in
+                        ServiceContainer.getService(ShareService).unVoteShareThing(self.shareModel,updateCallback: self.updateVote)
+                        })
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in })
+                    self.rootController.presentViewController(alert, animated: true, completion: nil)
+                }else{
+                    
+                    ServiceContainer.getService(ShareService).voteShareThing(self.shareModel,updateCallback: self.updateVote)
+                    MobClick.event("Vote")
+                }
+            }
         }
         
     }
     
+    @IBAction func shareToFriends(sender: AnyObject)
+    {
+        if let btn = sender as? UIButton
+        {
+            btn.animationMaxToMin(0.1,maxScale: 1.3){
+                if self.shareModel.canReshare()
+                {
+                    MobClick.event("Reshare")
+                    self.rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: self.shareModel)
+                }else
+                {
+                    let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+                    self.rootController.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
     @IBAction func reply(sender: AnyObject)
     {
-        let controller = ChatViewController.instanceFromStoryBoard()
-        controller.shareChat = rootController.messageService.getShareChatHub(shareModel.shareId,shareSenderId: shareModel.userId)
-        let navController = UINavigationController(rootViewController: controller)
-        controller.changeNavigationBarColor()
-        self.replyButton.badgeValue = nil
-        MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: notReadmsg)
-        self.rootController.presentViewController(navController, animated: true) { () -> Void in
-            
+        if let btn = sender as? UIButton
+        {
+            btn.animationMaxToMin(0.1,maxScale: 1.3){
+                let controller = ChatViewController.instanceFromStoryBoard()
+                controller.shareChat = self.rootController.messageService.getShareChatHub(self.shareModel.shareId,shareSenderId: self.shareModel.userId)
+                let navController = UINavigationController(rootViewController: controller)
+                controller.changeNavigationBarColor()
+                MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: self.notReadmsg)
+                self.notReadmsg = 0
+                self.rootController.presentViewController(navController, animated: true) { () -> Void in
+                    self.replyButton.badgeValue = nil
+                }
+            }
         }
         
     }

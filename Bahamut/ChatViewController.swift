@@ -42,7 +42,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     var messageService:MessageService!
     var chatRoomListViewController:ChatRoomListViewController!
-    @IBOutlet weak var roomsContainer: UIView!
+    @IBOutlet weak var roomsContainer: UIView!{
+        didSet{
+            roomsContainer.backgroundColor = UIColor.clearColor()
+        }
+    }
     @IBOutlet weak var roomContainerTrailiing: NSLayoutConstraint!
     
     var chatRoomBadgeValue:Int!{
@@ -342,11 +346,12 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         dealTheFunctionData(msg)
     }
     
-    static var sendImageSize = CGSizeMake(640, 640)
+    static var compressImageSize = CGSizeMake(640, 640)
+    static var compressImageQuality:CGFloat = 1
     func UUInputFunctionViewSend(funcView: UUInputFunctionView!, sendPicture image: UIImage!)
     {
         let msg = UUmsgPictureItem()
-        msg.image = image.scaleToSize(ChatViewController.sendImageSize)
+        msg.image = image.scaleToWidthOf(ChatViewController.compressImageSize.width,quality: ChatViewController.compressImageQuality)
         msg.msgFrom = .Me
         dealTheFunctionData(msg)
     }
@@ -446,9 +451,15 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         ServiceContainer.getService(UserService).showUserProfileViewController(self.navigationController!, userId: userId)
     }
     
+    private static var instance:ChatViewController!
+    
     static func instanceFromStoryBoard() -> ChatViewController
     {
-        return instanceFromStoryBoard("UIMessage", identifier: "ChatViewController") as! ChatViewController
+        if instance == nil
+        {
+            instance = instanceFromStoryBoard("UIMessage", identifier: "ChatViewController") as! ChatViewController
+        }
+        return instance
     }
     
 }

@@ -104,12 +104,26 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
     {
+        if badgeValue[self.selectedIndex] > 0
+        {
+            if let nvc = viewController as? UINavigationController
+            {
+                if let controller = nvc.topViewController as? ShareThingsListController
+                {
+                    controller.scrollTableViewToTop()
+                }else if let controller = nvc.topViewController as? LinkedUserListController
+                {
+                    controller.scrollTableViewToTop()
+                }
+            }
+        }
         setTabItemBadge(self.selectedIndex, badge: 0)
         refreshBadgeAt(self.selectedIndex)
         if UserSetting.isSettingEnable(TinkTinkTinkSetting)
         {
             SystemSoundHelper.keyTink()
         }
+        
     }
     
     
@@ -183,8 +197,8 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     private func setTabItemBadge(index:Int,badge:Int)
     {
         let badgeKey = generateBadgeKey(index)
-        badgeValue[index] = badge
-        NSUserDefaults.standardUserDefaults().setInteger(badge, forKey: badgeKey)
+        badgeValue[index] = badge > 0 ? badge : 0
+        NSUserDefaults.standardUserDefaults().setInteger(badgeValue[index], forKey: badgeKey)
     }
     
     private func generateBadgeKey(index:Int) -> String

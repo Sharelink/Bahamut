@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SendFileStatus
+struct SendFileStatus
 {
     static let UploadTaskReady:NSNumber = 0
     static let SendFileReady:NSNumber = 1
