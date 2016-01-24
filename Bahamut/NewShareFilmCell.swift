@@ -27,7 +27,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     @IBOutlet weak var selectFilmBtn: UIButton!
     
     override func initCell() {
-        recordFilmBtn.hidden = isReshare || SharelinkAppDelegate.instance.isSDKVersion
+        recordFilmBtn.hidden = isReshare || Sharelink.isSDKVersion
         selectFilmBtn.hidden = isReshare
         initFilmPlayer()
     }

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SharelinkKernel/SharelinkKernel.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:../../ChatFramework/ChatFramework.xcodeproj">
    </FileRef>
    <FileRef

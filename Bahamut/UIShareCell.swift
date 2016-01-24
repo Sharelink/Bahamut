@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 //MARK: UIShareCell
 class UIShareCell : UITableViewCell
 {

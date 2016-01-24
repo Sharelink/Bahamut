@@ -37,7 +37,7 @@ class MyQRViewController: UIViewController
     
     static func instanceFromStoryBoard() -> MyQRViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "myQRViewController") as! MyQRViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "myQRViewController",bundle: Sharelink.mainBundle) as! MyQRViewController
     }
     
 }

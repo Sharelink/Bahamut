@@ -22,7 +22,7 @@ class AliOSSManager
         conf.timeoutIntervalForRequest = 30
         conf.timeoutIntervalForResource = 24 * 60 * 60
         self.ossClientConfig = conf
-        self.credential = OSSPlainTextAKSKPairCredentialProvider(plainTextAccessKey: BahamutConfig.AliOssAccessKey, secretKey: BahamutConfig.AliOssSecretKey)
+        self.credential = OSSPlainTextAKSKPairCredentialProvider(plainTextAccessKey: SharelinkConfig.bahamutConfig.AliOssAccessKey, secretKey: SharelinkConfig.bahamutConfig.AliOssSecretKey)
     }
     
     static var sharedInstance:AliOSSManager = {

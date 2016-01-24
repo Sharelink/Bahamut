@@ -219,9 +219,9 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     //MARK: share type
     private func initDefaultSRCPlugins(){
-        self.navigationItem.leftBarButtonItems?.removeAll()
         if isReshare
         {
+            self.navigationItem.leftBarButtonItems?.removeAll()
             self.currentSRCPlugin = srcService.getSRCPlugin(reShareModel.shareType)
         }else
         {
@@ -429,6 +429,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: instance from storyboard
     static func instanceFromStoryBoard() -> NewShareController
     {
-        return instanceFromStoryBoard("SharelinkMain", identifier: "NewShareController") as! NewShareController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "NewShareController",bundle: Sharelink.mainBundle) as! NewShareController
     }
 }

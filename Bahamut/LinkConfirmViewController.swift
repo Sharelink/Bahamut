@@ -61,6 +61,6 @@ class LinkConfirmViewController: UIViewController
     
     static func instanceFromStoryBoard() -> LinkConfirmViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "linkConfirmViewController") as! LinkConfirmViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "linkConfirmViewController",bundle: Sharelink.mainBundle) as! LinkConfirmViewController
     }
 }

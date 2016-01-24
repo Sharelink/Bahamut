@@ -65,6 +65,6 @@ class NewUserProfileViewController: UIViewController
     }
     
     static func instanceFromStoryBoard()->NewUserProfileViewController{
-        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewController") as! NewUserProfileViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "NewUserProfileViewController",bundle: Sharelink.mainBundle) as! NewUserProfileViewController
     }
 }

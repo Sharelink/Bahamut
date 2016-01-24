@@ -77,7 +77,7 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
     
     static func instanceFromStoryBoard() -> ScanQRViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "scanQRViewController") as! ScanQRViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "scanQRViewController",bundle: Sharelink.mainBundle) as! ScanQRViewController
     }
     
     static func showScanQRViewController(currentNavigationController:UINavigationController,delegate:QRStringDelegate)
@@ -99,9 +99,9 @@ extension UserService: QRStringDelegate
             SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
         }else if qrString.hasBegin("http://") || qrString.hasBegin("https://")
         {
-            if qrString.hasPrefix(BahamutConfig.sharelinkOuterExecutorUrlPrefix)
+            if qrString.hasPrefix(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)
             {
-                let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(BahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
+                let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
                 if let cmd = SharelinkCmd.decodeSharelinkCmd(cmdEncoded)
                 {
                     sender.navigationController?.popViewControllerAnimated(true)

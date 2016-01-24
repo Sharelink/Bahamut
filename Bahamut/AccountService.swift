@@ -16,7 +16,7 @@ class AccountService: ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         SharelinkSDK.sharedInstance.reuse(UserSetting.userId, token: UserSetting.token, shareLinkApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
-        SharelinkSDK.setAppVersion(BahamutConfig.sharelinkVersion)
+        SharelinkSDK.setAppVersion(SharelinkVersion)
         SharelinkSDK.sharedInstance.startClients()
         ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)

@@ -410,7 +410,7 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate,LoadImageOb
     
     static func showImagePlayer(currentController:UIViewController,imageProvider:ImageProvider,imageIndex:Int = 0)
     {
-        let controller = instanceFromStoryBoard("Component", identifier: "imagePlayerController") as!UIImagePlayerController
+        let controller = instanceFromStoryBoard("Component", identifier: "imagePlayerController",bundle: Sharelink.mainBundle) as!UIImagePlayerController
         controller.imageProvider = imageProvider
         currentController.presentViewController(controller, animated: true, completion: { () -> Void in
             controller.currentIndex = imageIndex

@@ -34,7 +34,7 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
     }
     @IBAction func showInAppStore(sender: AnyObject)
     {
-        let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(BahamutConfig.sharelinkAppStoreId)"
+        let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(SharelinkConfig.bahamutConfig.sharelinkAppStoreId)"
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
 
@@ -42,7 +42,7 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = self
         mail.setSubject("")
-        mail.setToRecipients([BahamutConfig.sharelinkEmail])
+        mail.setToRecipients([SharelinkConfig.bahamutConfig.sharelinkEmail])
         self.presentViewController(mail, animated: true, completion: nil)
 
     }
@@ -62,6 +62,6 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
     
     static func instanceFromStoryBoard() -> AboutViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "aboutViewController") as! AboutViewController
+        return instanceFromStoryBoard("Component", identifier: "aboutViewController",bundle: Sharelink.mainBundle) as! AboutViewController
     }
 }

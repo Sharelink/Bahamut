@@ -474,6 +474,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     static func instanceFromStoryBoard()->MyDetailViewController{
-        return instanceFromStoryBoard("UserAccount", identifier: "MyDetailViewController") as! MyDetailViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "MyDetailViewController",bundle: Sharelink.mainBundle) as! MyDetailViewController
     }
 }

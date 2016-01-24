@@ -113,7 +113,7 @@ class EditThemeViewController: UIViewController
     
     static func instanceFromStoryBoard() -> EditThemeViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "EditThemeViewController") as! EditThemeViewController
+        return instanceFromStoryBoard("Component", identifier: "EditThemeViewController",bundle: Sharelink.mainBundle) as! EditThemeViewController
     }
     
 }

@@ -12,6 +12,7 @@ class SharelinkConfig
 {
     static let appName = NSLocalizedString("SHARELINK_NAME", comment: "")
     static let SharelinkMotto = NSLocalizedString("SHARELINK_MOTTO", comment: "")
+    static var bahamutConfig:BahamutConfigObject!
 }
 
 class SharelinkSetting
@@ -25,7 +26,7 @@ class SharelinkSetting
             if let api = NSUserDefaults.standardUserDefaults().valueForKey("loginApi") as? String{
                 return api
             }
-            return BahamutConfig.accountLoginApiUrl
+            return SharelinkConfig.bahamutConfig.accountLoginApiUrl
         }
         set{
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey:"loginApi")
@@ -37,7 +38,7 @@ class SharelinkSetting
             if let api = NSUserDefaults.standardUserDefaults().valueForKey("registAccountApi") as? String{
                 return api
             }
-            return BahamutConfig.accountRegistApiUrl
+            return SharelinkConfig.bahamutConfig.accountRegistApiUrl
         }
         set{
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey:"registAccountApi")

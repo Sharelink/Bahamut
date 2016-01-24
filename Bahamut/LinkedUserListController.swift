@@ -126,7 +126,7 @@ class LinkedUserListController: UITableViewController
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
-        let url = "\(BahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
+        let url = "\(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
         
         let contentWithUrl = "\(contentMsg)\n\(url)"
         

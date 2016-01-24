@@ -24,7 +24,7 @@ class UserSetting
             return NSUserDefaults.standardUserDefaults().valueForKey("lastLoginAccountId") as? String
         }
         set{
-            if BahamutConfig.appleStoreReviewAccountIds.contains(newValue)
+            if AppleStoreReviewAccountIds.contains(newValue)
             {
                 isAppstoreReviewing = true
             }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: SharelinkAppDelegate {

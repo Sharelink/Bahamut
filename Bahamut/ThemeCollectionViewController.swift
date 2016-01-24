@@ -232,6 +232,6 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
     
     static func instanceFromStoryBoard() -> ThemeCollectionViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController") as! ThemeCollectionViewController
+        return instanceFromStoryBoard("Component", identifier: "tagCollectionViewController",bundle: Sharelink.mainBundle) as! ThemeCollectionViewController
     }
 }

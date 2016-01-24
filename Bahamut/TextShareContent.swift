@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 class TextContent: UIShareContentDelegate
 {
     func initContent(shareCell: UIShareThing, share: ShareThing) {

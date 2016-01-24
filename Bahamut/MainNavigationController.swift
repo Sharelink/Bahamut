@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc
 public class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
 {
     struct SegueIdentifier
@@ -18,6 +19,12 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        setWaitingScreen()
+        ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
+    }
+    
+    private func setWaitingScreen()
+    {
         let launchScr = Sharelink.mainBundle.loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
         launchScr.frame = self.view.bounds
         self.view.backgroundColor = UIColor.blackColor()
@@ -31,7 +38,6 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
             mottoLabel.text = SharelinkConfig.SharelinkMotto
             mottoLabel.hidden = false
         }
-        ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
     }
     
     func deInitController(){
@@ -160,10 +166,10 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     
     private static func instanceFromStoryBoard() -> MainNavigationController
     {
-        return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController") as! MainNavigationController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController",bundle: Sharelink.mainBundle) as! MainNavigationController
     }
     
-    static func start()
+    public static func start()
     {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             if let mnc = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController{
@@ -171,12 +177,5 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
             }
             UIApplication.sharedApplication().delegate?.window!?.rootViewController = instanceFromStoryBoard()
         })
-    }
-    
-    public static func appInitStart(initialNavigationController:UINavigationController)
-    {
-        let mainNavController = instanceFromStoryBoard()
-        print(mainNavController)
-        print(UIApplication.sharedApplication().delegate?.window!?.rootViewController)
     }
 }

@@ -412,6 +412,6 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     static func instanceFromStoryBoard() -> UserProfileViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "userProfileViewController") as! UserProfileViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "userProfileViewController",bundle: Sharelink.mainBundle) as! UserProfileViewController
     }
 }

@@ -14,23 +14,29 @@ import CoreMotion
 
 class Sharelink
 {
-    static var mainBundle:NSBundle!
+    private(set) static var mainBundle:NSBundle!
+    private(set) static var isSDKVersion:Bool = false
+    static var isProductVersion:Bool{
+        return !isSDKVersion
+    }
 }
 
+@objc
 public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
 
-    static var instance:SharelinkAppDelegate!
     public var window: UIWindow?
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        SharelinkAppDelegate.instance = self
         configureSharelinkBundle()
         configContryAndLang()
         initService()
         loadUI()
         configureUMessage(launchOptions)
-        configureUmeng()
-        configureShareSDK()
-        initQuPai()
+        if Sharelink.isProductVersion
+        {
+            configureUmeng()
+            configureShareSDK()
+            initQuPai()
+        }
         configureImagePicker()
         return true
     }
@@ -42,6 +48,8 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureSharelinkBundle()
     {
+        
+        Sharelink.isSDKVersion = isSDKVersion
         if isSDKVersion
         {
             configureAsSDKVersion()
@@ -53,12 +61,33 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureAsSDKVersion()
     {
-        Sharelink.mainBundle = NSBundle(identifier: "SharelinkSDK")!
+        let path = NSBundle.mainBundle().pathForResource("SharelinkKernel", ofType: "framework")!
+        Sharelink.mainBundle = NSBundle(path:path)!
+        loadBahamutConfig("BahamutConfigDev")
     }
     
     private func configureAsProductVersion()
     {
         Sharelink.mainBundle = NSBundle.mainBundle()
+        loadBahamutConfig("BahamutConfig")
+    }
+    
+    private func loadBahamutConfig(configName:String)
+    {
+        if let bahamutConfigPath = Sharelink.mainBundle.pathForResource(configName, ofType: "json")
+        {
+            if let json = PersistentFileHelper.readTextFile(bahamutConfigPath)
+            {
+                let config = BahamutConfigObject(json: json)
+                SharelinkConfig.bahamutConfig = config
+            }else
+            {
+                fatalError("Load Config File Error!")
+            }
+        }else
+        {
+            fatalError("No Config File!")
+        }
     }
     
     private func initService()
@@ -70,10 +99,6 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func initQuPai()
     {
-        if isSDKVersion
-        {
-            return
-        }
         TaeSDK.sharedInstance().asyncInit({ () -> Void in
             NSLog("TaeSDK Inited")
         }) { (error) -> Void in
@@ -94,7 +119,10 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let mmanger = CMMotionManager()
-            NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
+            if self.isSDKVersion == false
+            {
+                NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
+            }
             Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
             Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
             Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")
@@ -108,7 +136,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            UMessage.startWithAppkey(BahamutConfig.umengAppkey, launchOptions: launchOptions)
+            UMessage.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, launchOptions: launchOptions)
             UMessage.setAutoAlert(false)
             //register remoteNotification types
             let action1 = UIMutableUserNotificationAction()
@@ -136,8 +164,8 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func configureUmeng()
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            MobClick.startWithAppkey(BahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
-            MobClick.setAppVersion(BahamutConfig.sharelinkVersion)
+            MobClick.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
+            MobClick.setAppVersion(SharelinkVersion)
             MobClick.setEncryptEnabled(true)
             MobClick.setLogEnabled(false)
         }
@@ -146,7 +174,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func configureShareSDK()
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            ShareSDK.registerApp(BahamutConfig.shareSDKAppkey)
+            ShareSDK.registerApp(SharelinkConfig.bahamutConfig.shareSDKAppkey)
             if(SharelinkSetting.contry == "CN")
             {
                 self.connectChinaApps()
@@ -180,7 +208,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func connectGlobalApps()
     {
         //Facebook
-        ShareSDK.connectFacebookWithAppKey(BahamutConfig.facebookAppkey, appSecret: BahamutConfig.facebookAppScrect)
+        ShareSDK.connectFacebookWithAppKey(SharelinkConfig.bahamutConfig.facebookAppkey, appSecret: SharelinkConfig.bahamutConfig.facebookAppScrect)
         
         //WhatsApp
         ShareSDK.connectWhatsApp()
@@ -189,14 +217,14 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func connectChinaApps()
     {
         //微信登陆的时候需要初始化
-        ShareSDK.connectWeChatSessionWithAppId(BahamutConfig.wechatAppkey, appSecret: BahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
-        ShareSDK.connectWeChatTimelineWithAppId(BahamutConfig.wechatAppkey, appSecret: BahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
+        ShareSDK.connectWeChatSessionWithAppId(SharelinkConfig.bahamutConfig.wechatAppkey, appSecret: SharelinkConfig.bahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
+        ShareSDK.connectWeChatTimelineWithAppId(SharelinkConfig.bahamutConfig.wechatAppkey, appSecret: SharelinkConfig.bahamutConfig.wechatAppScrect, wechatCls: WXApi.classForCoder())
         
         //添加QQ应用  注册网址   http://mobile.qq.com/api/
-        ShareSDK.connectQQWithAppId(BahamutConfig.qqAppkey, qqApiCls: QQApiInterface.classForCoder())
+        ShareSDK.connectQQWithAppId(SharelinkConfig.bahamutConfig.qqAppkey, qqApiCls: QQApiInterface.classForCoder())
         
         //Weibo
-//        ShareSDK.connectSinaWeiboWithAppKey(BahamutConfig.weiboAppkey, appSecret: BahamutConfig.weiboAppScrect, redirectUri: "https://api.weibo.com/oauth2/default.html",weiboSDKCls: WeiboSDK.classForCoder())
+//        ShareSDK.connectSinaWeiboWithAppKey(SharelinkConfig.bahamutConfig.weiboAppkey, appSecret: SharelinkConfig.bahamutConfig.weiboAppScrect, redirectUri: "https://api.weibo.com/oauth2/default.html",weiboSDKCls: WeiboSDK.classForCoder())
         
     }
     
@@ -243,7 +271,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func handleSharelinkUrl(url:NSURL) -> Bool
+    private func handleSharelinkUrl(url:NSURL) -> Bool
     {
         if url.scheme == SharelinkCmd.sharelinkUrlSchema
         {
@@ -292,14 +320,6 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         PersistentManager.sharedInstance.saveAll()
     }
-
-    // MARK: - Core Data stack
-
-    lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.gstudio.Bahamut" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1]
-    }()
     
     public func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask
     {
