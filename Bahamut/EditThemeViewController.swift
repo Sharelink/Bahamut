@@ -83,8 +83,8 @@ class EditThemeViewController: UIViewController
     {
         if String.isNullOrWhiteSpace(tagNameLabel.text)
         {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("THEME_NAME_NULL_ERR", comment: ""), preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
+            let alert = UIAlertController(title: nil, message: "THEME_NAME_NULL_ERR".localizedString(), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }

@@ -9,7 +9,7 @@ import UIKit
 
 class NewControllerTitleView: UIView {
 
-    static let defaultTitle = NSLocalizedString("NEW_SHARE_TITLE", comment: "")
+    static let defaultTitle = "NEW_SHARE_TITLE".localizedString()
     
     var shareQueue:Int = 0{
         didSet{

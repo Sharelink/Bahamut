@@ -68,10 +68,10 @@ class UIShareMessage:UIShareCell
         var msgContent = ""
         if shareModel.isAddTagMessage()
         {
-            format =  NSLocalizedString("ADD_THEME", comment: "")
+            format =  "ADD_THEME".localizedString()
         }else if shareModel.isFocusTagMessage()
         {
-            format =  NSLocalizedString("FOCUS_ON", comment: "")
+            format =  "FOCUS_ON".localizedString()
         }else if shareModel.isTextMessage()
         {
             format = "%@"
@@ -79,7 +79,7 @@ class UIShareMessage:UIShareCell
         }
         else
         {
-            format = NSLocalizedString("UNKNOW_SHARE_TYPE", comment: "")
+            format = "UNKNOW_SHARE_TYPE".localizedString()
         }
         if shareModel.isAddTagMessage() || shareModel.isFocusTagMessage()
         {

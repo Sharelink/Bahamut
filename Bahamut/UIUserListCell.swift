@@ -56,7 +56,7 @@ class UIUserListMessageCell: UITableViewCell
     private func update()
     {
         noteNameLabel.text = model.sharelinkerNick
-        messageLabel.text = model.isAcceptAskLinkMessage() ? NSLocalizedString("USER_ACCEPT_YOUR_LINK", comment: "") : model.message
+        messageLabel.text = model.isAcceptAskLinkMessage() ? "USER_ACCEPT_YOUR_LINK".localizedString() : model.message
         ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
 }
@@ -107,7 +107,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     private func update()
     {
         userNickLabel.text = "\(model.sharelinkerNick)"
-        messageLabel.text = String(format: NSLocalizedString("ASKING_FOR_A_LINK", comment: ""),model.sharelinkerNick!)
+        messageLabel.text = String(format: "ASKING_FOR_A_LINK".localizedString(),model.sharelinkerNick!)
         ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
     }
     
@@ -153,9 +153,8 @@ class UIUserListCell: UITableViewCell
     
     func showLevelRule(_:UIGestureRecognizer)
     {
-        let title = NSLocalizedString("LEVEL_RULE_TITLE", comment: "Level Rule")
-        let msg = NSLocalizedString("LEVEL_RULE_DESC", comment:
-            "1.One Share Worth 1 Point\n2.Your Share Be Vote One Time Worth 1 Point\n3Your Share Be Reshare Worth 2 Point\nYou Rank Caculate By Your Points")
+        let title = "LEVEL_RULE_TITLE".localizedString()
+        let msg = "LEVEL_RULE_DESC".localizedString()
         self.rootController.showAlert(title, msg: msg, actions: ALERT_ACTION_I_SEE)
     }
     

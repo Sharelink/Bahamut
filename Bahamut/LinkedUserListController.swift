@@ -122,7 +122,7 @@ class LinkedUserListController: UITableViewController
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
-        let contentMsg = String(format: NSLocalizedString("ASK_LINK_MSG", comment: "%@ want to link with you in Sharelink!"),user.nickName)
+        let contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
@@ -162,11 +162,11 @@ class LinkedUserListController: UITableViewController
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
-                self.showToast( NSLocalizedString("SHARE_SUC", comment: "Share Success!"))
+                self.showToast( "SHARE_SUC".localizedString())
             }
             else if (state == SSResponseStateFail)
             {
-                self.showToast( NSLocalizedString("SHARE_FAILED", comment: "Share Failed."))
+                self.showToast( "SHARE_FAILED".localizedString())
                 NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
             }
         }
@@ -174,14 +174,14 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {
-        let alert = UIAlertController(title: NSLocalizedString("QRCODE", comment: "QRCode"), message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("SCAN_QRCODE", comment: "Scan QRCode"), style: .Destructive) { _ in
+        let alert = UIAlertController(title: "QRCODE".localizedString(), message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "SCAN_QRCODE".localizedString(), style: .Destructive) { _ in
             self.userService.showScanQRViewController(self.navigationController!)
             })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("MY_QRCODE", comment: "My QRCode"), style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:"MY_QRCODE".localizedString(), style: .Destructive) { _ in
             self.userService.showMyQRViewController(self.navigationController!,sharelinkUserId: self.userService.myUserId ,avataImage: nil)
             })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
         
     }
@@ -227,7 +227,7 @@ class LinkedUserListController: UITableViewController
         
         if section == 0 && linkMessageModel.count > 0
         {
-            label.text = NSLocalizedString("LINK_MESSAGE", comment: "")
+            label.text = "LINK_MESSAGE".localizedString()
         }else
         {
             label.text = userListModel[section - indexOfUserList].latinLetter
@@ -282,10 +282,10 @@ class LinkedUserListController: UITableViewController
         if indexPath.section == 0 && linkMessageModel.count > 0
         {
             let model = linkMessageModel[indexPath.row]
-            var actionTitle = NSLocalizedString("I_SEE", comment: "")
+            var actionTitle = "I_SEE".localizedString()
             if model.type == LinkMessageType.AskLink.rawValue
             {
-                actionTitle = NSLocalizedString("IGNORE", comment: "Ignore")
+                actionTitle = "IGNORE".localizedString()
             }
             let action = UITableViewRowAction(style: .Default, title: actionTitle, handler: { (ac, indexPath) -> Void in
                 self.userService.deleteLinkMessage(model.id)

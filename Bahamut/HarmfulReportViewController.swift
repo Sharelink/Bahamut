@@ -59,12 +59,12 @@ class HarmfulReportViewController: UIViewController,MFMailComposeViewControllerD
         {
         case MFMailComposeResultCancelled:
             controller.dismissViewControllerAnimated(true, completion: { () -> Void in
-                self.showCrossMark(NSLocalizedString("CANCELED", comment: ""))
+                self.showCrossMark("CANCELED".localizedString())
             })
             
         case MFMailComposeResultFailed:
             controller.dismissViewControllerAnimated(true, completion: { () -> Void in
-                self.showCrossMark(NSLocalizedString("FAILED", comment: ""))
+                self.showCrossMark("FAILED".localizedString())
             })
             
         case MFMailComposeResultSent: fallthrough

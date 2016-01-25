@@ -84,7 +84,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcMenu.hidden = true
         self.loadingSRCTipsLabel = UILabel()
         self.loadingSRCTipsLabel.font = self.loadingSRCTipsLabel.font.fontWithSize(23)
-        self.loadingSRCTipsLabel.text = "LOADING_SRCPLUGINS".localizedString
+        self.loadingSRCTipsLabel.text = "LOADING_SRCPLUGINS".localizedString()
         self.loadingSRCTipsLabel.sizeToFit()
         self.loadingSRCTipsLabel.frame = CGRectMake(0,srcMenuFrame.size.height / 2 - 23 * 2,srcMenuFrame.size.width,self.loadingSRCTipsLabel.frame.height)
         self.loadingSRCTipsLabel.textAlignment = .Center

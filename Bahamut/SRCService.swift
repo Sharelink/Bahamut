@@ -26,12 +26,13 @@ let SharelinkSRCPlugins:[SRCPlugin] = {
     {
         let plugin = SRCPlugin()
         plugin.srcId = "\(config.shareType.rawValue):\(SharelinkSystemSRCId)"
-        plugin.srcName = config.name.localizedString
-        plugin.controllerTitle = config.controllerTitle.localizedString
+        plugin.srcName = config.name.localizedString()
+        plugin.controllerTitle = config.controllerTitle.localizedString()
         plugin.srcCellId = config.cellId
         plugin.shareType = config.shareType.rawValue
-        plugin.srcHeaderTitle = config.name.localizedString
-        plugin.srcHeaderIcon = UIImage(named:"\(SharelinkSRCHeaderIconNamePrefix)\(config.shareType.getShareTypeName()!)")
+        plugin.srcHeaderTitle = config.name.localizedString()
+        let iconName = "\(SharelinkSRCHeaderIconNamePrefix)\(config.shareType.getShareTypeName()!)"
+        plugin.srcHeaderIcon = UIImage.namedImageInSharelink(iconName)
         result.append(plugin)
     }
     return result

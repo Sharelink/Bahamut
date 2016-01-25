@@ -43,7 +43,7 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
             self.prepareShare()
         }else
         {
-            self.rootController.showToast(NSLocalizedString("NO_URL_IN_PASTE_BOARD", comment: ""))
+            self.rootController.showToast("NO_URL_IN_PASTE_BOARD".localizedString())
         }
     }
     
@@ -93,7 +93,7 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
                         return
                     }
                 }
-                self.titleLabel.text = NSLocalizedString("LOAD_URL_TITLE_ERROR", comment: "Load Title Error")
+                self.titleLabel.text = "LOAD_URL_TITLE_ERROR".localizedString()
             }
         }
     }
@@ -103,13 +103,13 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
 
         if String.isNullOrWhiteSpace(shareUrl.text)
         {
-            self.rootController.showToast(NSLocalizedString("LINK_CANT_NULL", comment: ""))
+            self.rootController.showToast("LINK_CANT_NULL".localizedString())
             return false
         }else if shareUrl.text! =~ urlRegex
         {
             if urlModel == nil
             {
-                self.rootController.showToast(NSLocalizedString("LINK_URL_NOT_READY", comment: ""))
+                self.rootController.showToast("LINK_URL_NOT_READY".localizedString())
                 return false
             }
             let shareContent = urlModel.toJsonString()
@@ -121,21 +121,21 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
                     self.shareService.postNewShareFinish(shareId, isCompleted: true, callback: { (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark(NSLocalizedString("SHARE_URL_SUCCESS", comment: ""))
+                            self.rootController.showCheckMark("SHARE_URL_SUCCESS".localizedString())
                         }else
                         {
-                            self.rootController.showCrossMark(NSLocalizedString("SHARE_URL_ERROR", comment: ""))
+                            self.rootController.showCrossMark("SHARE_URL_ERROR".localizedString())
                         }
                     })
                 }else{
-                    self.rootController.showCrossMark(NSLocalizedString("SHARE_URL_ERROR", comment: ""))
+                    self.rootController.showCrossMark("SHARE_URL_ERROR".localizedString())
                 }
             }
-            self.rootController.showCheckMark(NSLocalizedString("SHARING", comment: "Sharing"))
+            self.rootController.showCheckMark("SHARING".localizedString())
             return true
         }
         else{
-            self.rootController.showToast(NSLocalizedString("INVALID_URL", comment: ""))
+            self.rootController.showToast("INVALID_URL".localizedString())
             return false
         }
     }

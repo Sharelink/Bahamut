@@ -231,14 +231,17 @@
 		E7C4F2A91BCFB0850050997B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A81BCFB0850050997B /* ImageIO.framework */; };
 		E7C4F2AB1BCFB08A0050997B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AA1BCFB08A0050997B /* AdSupport.framework */; };
 		E7C4F2AD1BCFB0950050997B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */; };
-		E7C5BBC31C53772A00B979EF /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C5BBC21C53772A00B979EF /* ChatFramework.framework */; };
-		E7C5BBC41C53772A00B979EF /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7C5BBC21C53772A00B979EF /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7CB5CEB1BFAFEE900098DD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */; };
 		E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
 		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
 		E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D331BFB958700098DD4 /* NewShareController.swift */; };
 		E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
 		E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
+		E7D7518C1C55C75D002E3D40 /* SharelinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */; };
+		E7D751951C55DFA7002E3D40 /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */; };
+		E7D7519F1C55E64E002E3D40 /* ChatFrameworkLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */; };
+		E7D751A41C55EA58002E3D40 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751A31C55EA58002E3D40 /* ChatFramework.framework */; };
+		E7D751A51C55EA58002E3D40 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751A31C55EA58002E3D40 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */; };
 		E7F2F8471C27F176003C87C5 /* TextShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2F8461C27F176003C87C5 /* TextShareContent.swift */; };
 		E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
@@ -249,18 +252,17 @@
 		E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */; };
 		E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */ = {isa = PBXBuildFile; fileRef = E7FDBAB31BC4C1A90017BCEF /* WebAssets */; };
 		E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */; };
-		E7FF29341C510B9800F95FE5 /* SRCPluginTemplate in Resources */ = {isa = PBXBuildFile; fileRef = E7FF29331C510B9800F95FE5 /* SRCPluginTemplate */; };
 		E7FF29371C5110DE00F95FE5 /* SRCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FF29361C5110DE00F95FE5 /* SRCModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E7C5BBC51C53772A00B979EF /* Embed Frameworks */ = {
+		E7D751A61C55EA58002E3D40 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E7C5BBC41C53772A00B979EF /* ChatFramework.framework in Embed Frameworks */,
+				E7D751A51C55EA58002E3D40 /* ChatFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,7 +515,6 @@
 		E7C4F2A81BCFB0850050997B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		E7C4F2AA1BCFB08A0050997B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E7C4F2AC1BCFB0950050997B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		E7C5BBC21C53772A00B979EF /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Release-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bahamut.entitlements; sourceTree = "<group>"; };
 		E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -521,6 +522,12 @@
 		E7CB5D331BFB958700098DD4 /* NewShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareController.swift; sourceTree = "<group>"; };
 		E7D5A2341B7CC0D800F34CE0 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
+		E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkExtensions.swift; sourceTree = "<group>"; };
+		E7D751961C55DFA7002E3D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
+		E7D751981C55DFAA002E3D40 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
+		E7D751A01C55E64E002E3D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/ChatFrameworkLocalized.strings; sourceTree = "<group>"; };
+		E7D751A21C55E676002E3D40 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ChatFrameworkLocalized.strings"; sourceTree = "<group>"; };
+		E7D751A31C55EA58002E3D40 /* ChatFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChatFramework.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Debug-iphoneos/ChatFramework.framework"; sourceTree = "<absolute>"; };
 		E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewController.swift; sourceTree = "<group>"; };
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7F2F8461C27F176003C87C5 /* TextShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextShareContent.swift; sourceTree = "<group>"; };
@@ -532,7 +539,6 @@
 		E7FD58521BCBDDDC00E42C95 /* UIClientStateHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClientStateHeader.swift; sourceTree = "<group>"; };
 		E7FDBAB31BC4C1A90017BCEF /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
 		E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		E7FF29331C510B9800F95FE5 /* SRCPluginTemplate */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SRCPluginTemplate; sourceTree = "<group>"; };
 		E7FF29361C5110DE00F95FE5 /* SRCModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCModels.swift; sourceTree = "<group>"; };
 		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -577,7 +583,7 @@
 				E7B616331BCFCB6E00D0831C /* ShareSDKShareActionSheet.framework in Frameworks */,
 				E7B616211BCFCB6E00D0831C /* QQConnection.framework in Frameworks */,
 				E7C4F2A91BCFB0850050997B /* ImageIO.framework in Frameworks */,
-				E7C5BBC31C53772A00B979EF /* ChatFramework.framework in Frameworks */,
+				E7D751A41C55EA58002E3D40 /* ChatFramework.framework in Frameworks */,
 				E7B616261BCFCB6E00D0831C /* AGCommon.framework in Frameworks */,
 				E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */,
 				E7B616251BCFCB6E00D0831C /* WeChatConnection.framework in Frameworks */,
@@ -609,7 +615,7 @@
 		D1311D6FD64F106598012550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E7C5BBC21C53772A00B979EF /* ChatFramework.framework */,
+				E7D751A31C55EA58002E3D40 /* ChatFramework.framework */,
 				E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */,
 				E7CB5CEA1BFAFEE900098DD4 /* MapKit.framework */,
 				E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */,
@@ -933,6 +939,7 @@
 				E76234541C0BF5530083E281 /* StringHelper.swift */,
 				E762345B1C0BF56C0083E281 /* BahamutCommon.h */,
 				E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */,
+				E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */,
 			);
 			path = BahamutCommon;
 			sourceTree = "<group>";
@@ -1172,6 +1179,7 @@
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
 				E71AF3271BE4FE11000BBBF8 /* Localizable.strings */,
 				E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */,
+				E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1369,7 +1377,6 @@
 		E7B665011B6B8EA200032495 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E7FF29331C510B9800F95FE5 /* SRCPluginTemplate */,
 				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7AF0CE71C4E6753007C91E2 /* ThemeTypedIcons.xcassets */,
 				E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */,
@@ -1378,7 +1385,6 @@
 				E71788521BF82B72005916B5 /* ChatAssets */,
 				E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */,
 				E70D11421C085BE900DC6C9A /* defaultAvatar.png */,
-				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -1431,12 +1437,14 @@
 		E7F7F1CF1C52111000E6D117 /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
+				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 				E7A62FE51B6609A500F28D73 /* SharelinkAppDelegate.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
 				E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */,
 				E71500091C3B7520009185FE /* UserSetting.swift */,
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
 				E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */,
+				E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */,
 			);
 			name = AppMain;
 			sourceTree = "<group>";
@@ -1454,7 +1462,7 @@
 				E7A62FDE1B6609A500F28D73 /* Resources */,
 				D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */,
 				5E5B533462BB1C9FCE028608 /* Copy Pods Resources */,
-				E7C5BBC51C53772A00B979EF /* Embed Frameworks */,
+				E7D751A61C55EA58002E3D40 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1542,6 +1550,7 @@
 				E717886E1BF82B72005916B5 /* Chat_take_picture.png in Resources */,
 				E7B616271BCFCB6E00D0831C /* ShareSDKLocalizable.strings in Resources */,
 				E7F7F32A1C524C9900E6D117 /* Entry.storyboard in Resources */,
+				E7D751951C55DFA7002E3D40 /* BahamutCommonLocalized.strings in Resources */,
 				E71788A81BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg in Resources */,
 				E71788A31BF85FAD005916B5 /* en_NewViewGuide_0.jpg in Resources */,
 				E71AF3251BE4FE11000BBBF8 /* Localizable.strings in Resources */,
@@ -1566,7 +1575,7 @@
 				E7AF0CE61C4E6700007C91E2 /* SharelinkSRCIcons.xcassets in Resources */,
 				E71788651BF82B72005916B5 /* chat_animation2.png in Resources */,
 				E71788721BF82B72005916B5 /* chatto_bg_normal.png in Resources */,
-				E7FF29341C510B9800F95FE5 /* SRCPluginTemplate in Resources */,
+				E7D7519F1C55E64E002E3D40 /* ChatFrameworkLocalized.strings in Resources */,
 				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
 				E71788A61BF85FAD005916B5 /* en_ShareViewGuide_1.jpg in Resources */,
 				E7B616311BCFCB6E00D0831C /* ShareSDKFlatShareViewUI.bundle in Resources */,
@@ -1633,6 +1642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E70A5AE71C174870001C0A47 /* ShareChatEntity.swift in Sources */,
+				E7D7518C1C55C75D002E3D40 /* SharelinkExtensions.swift in Sources */,
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
@@ -1840,6 +1850,24 @@
 				E7B616041BCFCB6E00D0831C /* zh-Hans */,
 			);
 			name = ShareSDKLocalizable.strings;
+			sourceTree = "<group>";
+		};
+		E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7D751961C55DFA7002E3D40 /* Base */,
+				E7D751981C55DFAA002E3D40 /* zh-Hans */,
+			);
+			name = BahamutCommonLocalized.strings;
+			sourceTree = "<group>";
+		};
+		E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7D751A01C55E64E002E3D40 /* Base */,
+				E7D751A21C55E676002E3D40 /* zh-Hans */,
+			);
+			name = ChatFrameworkLocalized.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -80,7 +80,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func jsExceptionHandler(context:JSContext!,value:JSValue!) {
-        self.showToast( NSLocalizedString("JS_ERROR", comment:"Js Error"))
+        self.showToast("JS_ERROR".localizedString())
     }
     
     var registedAccountName:String!
@@ -89,7 +89,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         let arrs = result.split("#p")
         let accountId = arrs[0]
         let accountName = arrs[1]
-        alert(String(format: NSLocalizedString("REGIST_SUC_MSG", comment: ""), accountId))
+        alert(String(format: "REGIST_SUC_MSG".localizedString(), accountId))
         self.loginAccountId = accountId
         self.registedAccountName = accountName
         authenticate()
@@ -98,11 +98,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        self.makeToastActivityWithMessage("",message: NSLocalizedString("LOGINING", comment: "Logining"))
+        self.makeToastActivityWithMessage("",message: "LOGINING".localizedString() )
         accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
             self.hideToastActivity()
             if loginSuccess{
-                self.makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
+                self.makeToastActivityWithMessage("",message:"REFRESHING".localizedString())
             }else{
                 self.showToast( message)
                 self.authenticate()
@@ -145,8 +145,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     //MARK: implements jsProtocol
     func alert(msg: String) {
-        let alert = UIAlertController(title:NSLocalizedString("SHARELINK", comment: "Sharelink"), message: NSLocalizedString(msg, comment: ""), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title:NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in})
+        let alert = UIAlertController(title:"SHARELINK".localizedString(), message: msg.localizedString(), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title:"I_SEE".localizedString(), style: .Cancel){ _ in})
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -163,7 +163,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func makeToast(msg:String){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.showToast( NSLocalizedString(msg, comment: ""))
+            self.showToast( msg.localizedString())
         }
     }
     
@@ -173,7 +173,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             {
                 self.makeToastActivity()
             }else{
-                self.makeToastActivityWithMessage("",message: NSLocalizedString(msg!, comment: ""))
+                self.makeToastActivityWithMessage("",message: msg!.localizedString())
             }
         }
         

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+let BahamutCommonLocalizedTableName = "BahamutCommonLocalized"
 public class DateHelper
 {
     
@@ -239,17 +239,17 @@ public extension NSDate
         let interval = -self.timeIntervalSinceNow
         if interval < 60
         {
-            return NSLocalizedString("JUST_NOW", comment: "new")
+            return LocalizedString("JUST_NOW", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle())
         }
         else if interval < 3600
         {
-            return String(format: NSLocalizedString("X_MINUTES_AGO", comment: "%@ minutes ago"),"\(Int(interval/60))")
+            return String(format:LocalizedString("X_MINUTES_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalMinutesSinceNow))")
         }else if interval < 3600 * 24
         {
-            return String(format: NSLocalizedString("X_HOURS_AGO", comment: "%@ hours ago"),"\(Int(interval/3600))")
+            return String(format:LocalizedString("X_HOURS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalHoursSinceNow))")
         }else if interval < 3600 * 24 * 7
         {
-            return String(format: NSLocalizedString("X_DAYS_AGO", comment: "%@ days ago"),"\(Int(interval/3600/24))")
+            return String(format:LocalizedString("X_DAYS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalDaysSinceNow))")
         }else if formatter == nil
         {
             return self.toLocalDateString()

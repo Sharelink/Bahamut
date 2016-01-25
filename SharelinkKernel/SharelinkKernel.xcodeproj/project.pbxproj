@@ -198,20 +198,6 @@
 		E7AF5D8C1C551B8100505B2A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D641C551B8100505B2A /* Images.xcassets */; };
 		E7AF5D8D1C551B8100505B2A /* ThemeTypedIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D651C551B8100505B2A /* ThemeTypedIcons.xcassets */; };
 		E7AF5D8E1C551B8100505B2A /* SharelinkSRCIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D661C551B8100505B2A /* SharelinkSRCIcons.xcassets */; };
-		E7AF5D8F1C551B8100505B2A /* ch_NewViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D671C551B8100505B2A /* ch_NewViewGuide_0.jpg */; };
-		E7AF5D901C551B8100505B2A /* ch_NewViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D681C551B8100505B2A /* ch_NewViewGuide_1.jpg */; };
-		E7AF5D911C551B8100505B2A /* ch_ShareViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D691C551B8100505B2A /* ch_ShareViewGuide_0.jpg */; };
-		E7AF5D921C551B8100505B2A /* ch_ShareViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6A1C551B8100505B2A /* ch_ShareViewGuide_1.jpg */; };
-		E7AF5D931C551B8200505B2A /* ch_ThemeViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6B1C551B8100505B2A /* ch_ThemeViewGuide_0.jpg */; };
-		E7AF5D941C551B8200505B2A /* ch_UserViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6C1C551B8100505B2A /* ch_UserViewGuide_0.jpg */; };
-		E7AF5D951C551B8200505B2A /* ch_UserViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6D1C551B8100505B2A /* ch_UserViewGuide_1.jpg */; };
-		E7AF5D961C551B8200505B2A /* en_NewViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6E1C551B8100505B2A /* en_NewViewGuide_0.jpg */; };
-		E7AF5D971C551B8200505B2A /* en_NewViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D6F1C551B8100505B2A /* en_NewViewGuide_1.jpg */; };
-		E7AF5D981C551B8200505B2A /* en_ShareViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D701C551B8100505B2A /* en_ShareViewGuide_0.jpg */; };
-		E7AF5D991C551B8200505B2A /* en_ShareViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D711C551B8100505B2A /* en_ShareViewGuide_1.jpg */; };
-		E7AF5D9A1C551B8200505B2A /* en_ThemeViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D721C551B8100505B2A /* en_ThemeViewGuide_0.jpg */; };
-		E7AF5D9B1C551B8200505B2A /* en_UserViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D731C551B8100505B2A /* en_UserViewGuide_0.jpg */; };
-		E7AF5D9C1C551B8200505B2A /* en_UserViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D741C551B8100505B2A /* en_UserViewGuide_1.jpg */; };
 		E7AF5D9D1C551B8200505B2A /* WebAssets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D761C551B8100505B2A /* WebAssets */; };
 		E7AF5D9E1C551B8200505B2A /* chat_animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D771C551B8100505B2A /* chat_animation1.png */; };
 		E7AF5D9F1C551B8200505B2A /* chat_animation2.png in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D781C551B8100505B2A /* chat_animation2.png */; };
@@ -231,11 +217,12 @@
 		E7AF5DAD1C551B8300505B2A /* SharelinkFilm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D871C551B8100505B2A /* SharelinkFilm.mp4 */; };
 		E7AF5DAE1C551B8300505B2A /* defaultAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5D881C551B8100505B2A /* defaultAvatar.png */; };
 		E7AF5DAF1C551B8300505B2A /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF5D891C551B8100505B2A /* AssetsConstants.swift */; };
-		E7AF5DB51C551B9800505B2A /* Bahamut-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E7AF5DB11C551B9800505B2A /* Bahamut-Bridging-Header.h */; };
-		E7AF5DB61C551B9800505B2A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5DB21C551B9800505B2A /* Info.plist */; };
 		E7AF5DB71C551B9800505B2A /* SharelinkEmulatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E7AF5DB31C551B9800505B2A /* SharelinkEmulatorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7AF5DB81C551B9800505B2A /* SharelinkEmulatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7AF5DB41C551B9800505B2A /* SharelinkEmulatorDelegate.m */; };
 		E7AF5DBD1C55255B00505B2A /* BahamutConfigDev.json in Resources */ = {isa = PBXBuildFile; fileRef = E7AF5DBC1C55255B00505B2A /* BahamutConfigDev.json */; };
+		E7D7518E1C55CA60002E3D40 /* SharelinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D7518D1C55CA60002E3D40 /* SharelinkExtensions.swift */; };
+		E7D751921C55CB53002E3D40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751911C55CB53002E3D40 /* Localizable.strings */; };
+		E7D7519C1C55E11A002E3D40 /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D7519B1C55E11A002E3D40 /* BahamutCommonLocalized.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -435,24 +422,9 @@
 		E7AF5CA01C551B6400505B2A /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E7AF5CA21C551B6400505B2A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7AF5CA31C551B6400505B2A /* Entry.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Entry.storyboard; sourceTree = "<group>"; };
-		E7AF5D631C551B8100505B2A /* SRCPluginTemplate */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SRCPluginTemplate; sourceTree = "<group>"; };
 		E7AF5D641C551B8100505B2A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7AF5D651C551B8100505B2A /* ThemeTypedIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ThemeTypedIcons.xcassets; sourceTree = "<group>"; };
 		E7AF5D661C551B8100505B2A /* SharelinkSRCIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SharelinkSRCIcons.xcassets; sourceTree = "<group>"; };
-		E7AF5D671C551B8100505B2A /* ch_NewViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D681C551B8100505B2A /* ch_NewViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_1.jpg; sourceTree = "<group>"; };
-		E7AF5D691C551B8100505B2A /* ch_ShareViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ShareViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D6A1C551B8100505B2A /* ch_ShareViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ShareViewGuide_1.jpg; sourceTree = "<group>"; };
-		E7AF5D6B1C551B8100505B2A /* ch_ThemeViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ThemeViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D6C1C551B8100505B2A /* ch_UserViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_UserViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D6D1C551B8100505B2A /* ch_UserViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_UserViewGuide_1.jpg; sourceTree = "<group>"; };
-		E7AF5D6E1C551B8100505B2A /* en_NewViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_NewViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D6F1C551B8100505B2A /* en_NewViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_NewViewGuide_1.jpg; sourceTree = "<group>"; };
-		E7AF5D701C551B8100505B2A /* en_ShareViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ShareViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D711C551B8100505B2A /* en_ShareViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ShareViewGuide_1.jpg; sourceTree = "<group>"; };
-		E7AF5D721C551B8100505B2A /* en_ThemeViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ThemeViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D731C551B8100505B2A /* en_UserViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_UserViewGuide_0.jpg; sourceTree = "<group>"; };
-		E7AF5D741C551B8100505B2A /* en_UserViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_UserViewGuide_1.jpg; sourceTree = "<group>"; };
 		E7AF5D761C551B8100505B2A /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
 		E7AF5D771C551B8100505B2A /* chat_animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation1.png; sourceTree = "<group>"; };
 		E7AF5D781C551B8100505B2A /* chat_animation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_animation2.png; sourceTree = "<group>"; };
@@ -477,6 +449,11 @@
 		E7AF5DB31C551B9800505B2A /* SharelinkEmulatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharelinkEmulatorDelegate.h; sourceTree = "<group>"; };
 		E7AF5DB41C551B9800505B2A /* SharelinkEmulatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharelinkEmulatorDelegate.m; sourceTree = "<group>"; };
 		E7AF5DBC1C55255B00505B2A /* BahamutConfigDev.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BahamutConfigDev.json; sourceTree = "<group>"; };
+		E7D7518D1C55CA60002E3D40 /* SharelinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkExtensions.swift; sourceTree = "<group>"; };
+		E7D7518F1C55CB53002E3D40 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E7D751901C55CB53002E3D40 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		E7D751991C55E11A002E3D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
+		E7D7519A1C55E11A002E3D40 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -679,6 +656,7 @@
 				E7AF5BCE1C551B6400505B2A /* StringHelper.swift */,
 				E7AF5BCF1C551B6400505B2A /* BahamutCommon.h */,
 				E7AF5BD01C551B6400505B2A /* BahamutObject.swift */,
+				E7D7519B1C55E11A002E3D40 /* BahamutCommonLocalized.strings */,
 			);
 			name = BahamutCommon;
 			path = ../Bahamut/BahamutCommon;
@@ -921,6 +899,8 @@
 		E7AF5C331C551B6400505B2A /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
+				E7AF5D891C551B8100505B2A /* AssetsConstants.swift */,
+				E7D7518D1C55CA60002E3D40 /* SharelinkExtensions.swift */,
 				E7AF5C2D1C551B6400505B2A /* SharelinkAppDelegate.swift */,
 				E7AF5C2E1C551B6400505B2A /* BahamutConfig.swift */,
 				E7AF5C2F1C551B6400505B2A /* SharelinkSetting.swift */,
@@ -1234,27 +1214,6 @@
 			path = ../Bahamut;
 			sourceTree = "<group>";
 		};
-		E7AF5D751C551B8100505B2A /* GuideAssets */ = {
-			isa = PBXGroup;
-			children = (
-				E7AF5D671C551B8100505B2A /* ch_NewViewGuide_0.jpg */,
-				E7AF5D681C551B8100505B2A /* ch_NewViewGuide_1.jpg */,
-				E7AF5D691C551B8100505B2A /* ch_ShareViewGuide_0.jpg */,
-				E7AF5D6A1C551B8100505B2A /* ch_ShareViewGuide_1.jpg */,
-				E7AF5D6B1C551B8100505B2A /* ch_ThemeViewGuide_0.jpg */,
-				E7AF5D6C1C551B8100505B2A /* ch_UserViewGuide_0.jpg */,
-				E7AF5D6D1C551B8100505B2A /* ch_UserViewGuide_1.jpg */,
-				E7AF5D6E1C551B8100505B2A /* en_NewViewGuide_0.jpg */,
-				E7AF5D6F1C551B8100505B2A /* en_NewViewGuide_1.jpg */,
-				E7AF5D701C551B8100505B2A /* en_ShareViewGuide_0.jpg */,
-				E7AF5D711C551B8100505B2A /* en_ShareViewGuide_1.jpg */,
-				E7AF5D721C551B8100505B2A /* en_ThemeViewGuide_0.jpg */,
-				E7AF5D731C551B8100505B2A /* en_UserViewGuide_0.jpg */,
-				E7AF5D741C551B8100505B2A /* en_UserViewGuide_1.jpg */,
-			);
-			path = GuideAssets;
-			sourceTree = "<group>";
-		};
 		E7AF5D861C551B8100505B2A /* ChatAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1280,16 +1239,13 @@
 		E7AF5D8A1C551B8100505B2A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E7AF5D631C551B8100505B2A /* SRCPluginTemplate */,
 				E7AF5D641C551B8100505B2A /* Images.xcassets */,
 				E7AF5D651C551B8100505B2A /* ThemeTypedIcons.xcassets */,
 				E7AF5D661C551B8100505B2A /* SharelinkSRCIcons.xcassets */,
-				E7AF5D751C551B8100505B2A /* GuideAssets */,
 				E7AF5D761C551B8100505B2A /* WebAssets */,
 				E7AF5D861C551B8100505B2A /* ChatAssets */,
 				E7AF5D871C551B8100505B2A /* SharelinkFilm.mp4 */,
 				E7AF5D881C551B8100505B2A /* defaultAvatar.png */,
-				E7AF5D891C551B8100505B2A /* AssetsConstants.swift */,
 			);
 			name = Assets;
 			path = ../Bahamut;
@@ -1298,6 +1254,7 @@
 		E7AF5DB01C551B9800505B2A /* SharelinkKernel */ = {
 			isa = PBXGroup;
 			children = (
+				E7D751911C55CB53002E3D40 /* Localizable.strings */,
 				E7AF5DBC1C55255B00505B2A /* BahamutConfigDev.json */,
 				E7AF5DB11C551B9800505B2A /* Bahamut-Bridging-Header.h */,
 				E7AF5DB21C551B9800505B2A /* Info.plist */,
@@ -1317,7 +1274,6 @@
 				E7AF5DB71C551B9800505B2A /* SharelinkEmulatorDelegate.h in Headers */,
 				E7AF5CF01C551B6500505B2A /* TaeSDKExtension.h in Headers */,
 				E7AF5CE01C551B6500505B2A /* WXApi.h in Headers */,
-				E7AF5DB51C551B9800505B2A /* Bahamut-Bridging-Header.h in Headers */,
 				E7AF5CD11C551B6400505B2A /* UMessage.h in Headers */,
 				E7AF5CCB1C551B6400505B2A /* BahamutCommon.h in Headers */,
 				E7AF5CC41C551B6400505B2A /* MF_Base64Additions.h in Headers */,
@@ -1393,16 +1349,11 @@
 				E7AF5DAE1C551B8300505B2A /* defaultAvatar.png in Resources */,
 				E7AF5D9D1C551B8200505B2A /* WebAssets in Resources */,
 				E7AF5DAD1C551B8300505B2A /* SharelinkFilm.mp4 in Resources */,
-				E7AF5D941C551B8200505B2A /* ch_UserViewGuide_0.jpg in Resources */,
-				E7AF5D9A1C551B8200505B2A /* en_ThemeViewGuide_0.jpg in Resources */,
+				E7D7519C1C55E11A002E3D40 /* BahamutCommonLocalized.strings in Resources */,
 				E7AF5CAB1C551B6400505B2A /* BahamutLocalFile.xcdatamodeld in Resources */,
-				E7AF5D981C551B8200505B2A /* en_ShareViewGuide_0.jpg in Resources */,
 				E7AF5CD91C551B6500505B2A /* ShareSDKLocalizable.strings in Resources */,
 				E7AF5DA81C551B8200505B2A /* Chat_take_picture.png in Resources */,
-				E7AF5D911C551B8100505B2A /* ch_ShareViewGuide_0.jpg in Resources */,
 				E7AF5DAB1C551B8300505B2A /* chatfrom_doctor_icon.png in Resources */,
-				E7AF5D961C551B8200505B2A /* en_NewViewGuide_0.jpg in Resources */,
-				E7AF5D951C551B8200505B2A /* ch_UserViewGuide_1.jpg in Resources */,
 				E7AF5CF21C551B6500505B2A /* LaunchScreen.xib in Resources */,
 				E7AF5DA31C551B8200505B2A /* chat_animation_white3.png in Resources */,
 				E7AF5CF71C551B6500505B2A /* UIViews.xib in Resources */,
@@ -1415,32 +1366,24 @@
 				E7AF5DA71C551B8200505B2A /* chat_send_message.png in Resources */,
 				E7AF5DA61C551B8200505B2A /* Chat_record_circle.png in Resources */,
 				E7AF5D8C1C551B8100505B2A /* Images.xcassets in Resources */,
-				E7AF5D931C551B8200505B2A /* ch_ThemeViewGuide_0.jpg in Resources */,
 				E7AF5CDB1C551B6500505B2A /* Resource.bundle in Resources */,
 				E7AF5D8D1C551B8100505B2A /* ThemeTypedIcons.xcassets in Resources */,
-				E7AF5D991C551B8200505B2A /* en_ShareViewGuide_1.jpg in Resources */,
-				E7AF5D901C551B8100505B2A /* ch_NewViewGuide_1.jpg in Resources */,
 				E7AF5CDE1C551B6500505B2A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E7AF5D9F1C551B8200505B2A /* chat_animation2.png in Resources */,
 				E7AF5CAE1C551B6400505B2A /* BahamutMessage.xcdatamodeld in Resources */,
 				E7AF5CF61C551B6500505B2A /* UserAccount.storyboard in Resources */,
 				E7AF5D8E1C551B8100505B2A /* SharelinkSRCIcons.xcassets in Resources */,
-				E7AF5D8F1C551B8100505B2A /* ch_NewViewGuide_0.jpg in Resources */,
 				E7AF5DAC1C551B8300505B2A /* chatto_bg_normal.png in Resources */,
 				E7AF5CF41C551B6500505B2A /* SharelinkMain.storyboard in Resources */,
 				E7AF5CF51C551B6500505B2A /* Component.storyboard in Resources */,
-				E7AF5D971C551B8200505B2A /* en_NewViewGuide_1.jpg in Resources */,
+				E7D751921C55CB53002E3D40 /* Localizable.strings in Resources */,
 				E7AF5D621C551B6800505B2A /* Entry.storyboard in Resources */,
 				E7AF5CE31C551B6500505B2A /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				E7AF5DA91C551B8200505B2A /* chat_voice_record.png in Resources */,
 				E7AF5DA11C551B8200505B2A /* chat_animation_white1.png in Resources */,
-				E7AF5DB61C551B9800505B2A /* Info.plist in Resources */,
 				E7AF5D9E1C551B8200505B2A /* chat_animation1.png in Resources */,
-				E7AF5D9C1C551B8200505B2A /* en_UserViewGuide_1.jpg in Resources */,
 				E7AF5CEE1C551B6500505B2A /* ALBBQuPaiPlugin.bundle in Resources */,
 				E7AF5CF31C551B6500505B2A /* UIMessage.storyboard in Resources */,
-				E7AF5D921C551B8100505B2A /* ch_ShareViewGuide_1.jpg in Resources */,
-				E7AF5D9B1C551B8200505B2A /* en_UserViewGuide_0.jpg in Resources */,
 				E7AF5CA91C551B6400505B2A /* Bahamut.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1470,6 +1413,7 @@
 				E7AF5D401C551B6700505B2A /* LinkConfirmViewController.swift in Sources */,
 				E7AF5CF91C551B6500505B2A /* Account.swift in Sources */,
 				E7AF5D191C551B6600505B2A /* QRCode.swift in Sources */,
+				E7D7518E1C55CA60002E3D40 /* SharelinkExtensions.swift in Sources */,
 				E7AF5CC61C551B6400505B2A /* DateHelper.swift in Sources */,
 				E7AF5CF11C551B6500505B2A /* TaeSDKExtension.m in Sources */,
 				E7AF5D241C551B6600505B2A /* UIShareCell.swift in Sources */,
@@ -1647,6 +1591,25 @@
 				E7AF5C121C551B6400505B2A /* Base */,
 			);
 			name = UserAccount.storyboard;
+			sourceTree = "<group>";
+		};
+		E7D751911C55CB53002E3D40 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7D7518F1C55CB53002E3D40 /* en */,
+				E7D751901C55CB53002E3D40 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = ../../Bahamut;
+			sourceTree = "<group>";
+		};
+		E7D7519B1C55E11A002E3D40 /* BahamutCommonLocalized.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7D751991C55E11A002E3D40 /* Base */,
+				E7D7519A1C55E11A002E3D40 /* zh-Hans */,
+			);
+			name = BahamutCommonLocalized.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

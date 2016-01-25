@@ -23,7 +23,7 @@ extension UserService
                 currentViewController.navigationController?.pushViewController(controller, animated: true)
             }else
             {
-                currentViewController.showToast( NSLocalizedString("USER_DATA_NOT_READY_RETRY", comment: "User Data Not Ready,Retry Later"))
+                currentViewController.showToast( "USER_DATA_NOT_READY_RETRY".localizedString())
             }
         }
         
@@ -123,52 +123,52 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         var propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.nickName
-        propertySet.propertyLabel = NSLocalizedString("NICK", comment: "Nick")
+        propertySet.propertyLabel = "NICK".localizedString()
         propertySet.propertyValue = myInfo.nickName
         textPropertyCells.append(MyDetailCellModel(propertySet: propertySet, editable: true, selector: "tapTextProperty:"))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.level
-        propertySet.propertyLabel = NSLocalizedString("LEVEL", comment:"Level")
+        propertySet.propertyLabel = "LEVEL".localizedString()
         propertySet.propertyValue = "Lv.\(myInfo.level ?? 1)"
         //TODO: cancel hidden when level model completed
         //textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.levelScore
-        propertySet.propertyLabel = NSLocalizedString("SHARELINK_SCORE", comment:"Sharelink Score")
+        propertySet.propertyLabel = "SHARELINK_SCORE".localizedString()
         propertySet.propertyValue = "\(myInfo.levelScore ?? 1)"
         //TODO: cancel hidden when level model completed
         //textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.createTime
-        propertySet.propertyLabel = NSLocalizedString("JOIN", comment: "Join")
+        propertySet.propertyLabel = "JOIN".localizedString()
         propertySet.propertyValue = myInfo.createTimeOfDate.toDateString()
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "accountId"
-        propertySet.propertyLabel = NSLocalizedString("ACCOUNT_ID", comment: "Sharelink ID")
+        propertySet.propertyLabel = "ACCOUNT_ID".localizedString()
         propertySet.propertyValue = accountId
         textPropertyCells.insert(MyDetailCellModel(propertySet:propertySet,editable:false, selector: nil), atIndex: 2)
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.motto
-        propertySet.propertyLabel = NSLocalizedString("MOTTO", comment: "Motto")
+        propertySet.propertyLabel = "MOTTO".localizedString()
         propertySet.propertyValue = myInfo.motto
         propertySet.isOneLineValue = false
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "tapTextProperty:"))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.changePsw
-        propertySet.propertyLabel = NSLocalizedString("CHANGE_PSW", comment: "Change Password")
+        propertySet.propertyLabel = "CHANGE_PSW".localizedString()
         propertySet.propertyValue = ""
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "changePassword:"))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.useTink
-        propertySet.propertyLabel = NSLocalizedString("TINK_TINK_TINK", comment: "")
+        propertySet.propertyLabel = "TINK_TINK_TINK".localizedString()
         propertySet.propertyValue = ""
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "useTinkTinkTink:"))
     }
@@ -186,12 +186,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     @IBAction func logout(sender: AnyObject)
     {
-        let alert = UIAlertController(title: NSLocalizedString("LOGOUT_CONFIRM_TITLE", comment: "Sure To Logout Sharelink?"),
-            message: NSLocalizedString("USER_DATA_WILL_SAVED", comment:""), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default) { _ in
+        let alert = UIAlertController(title: "LOGOUT_CONFIRM_TITLE".localizedString(),
+            message: "USER_DATA_WILL_SAVED".localizedString(), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "YES".localizedString(), style: .Default) { _ in
             self.logout()
             })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel) { _ in
+        alert.addAction(UIAlertAction(title: "NO".localizedString(), style: .Cancel) { _ in
             self.cancelLogout()
             })
         self.presentViewController(alert, animated: true, completion: nil)
@@ -293,14 +293,14 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         let actions =
         [
-            UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+            UIAlertAction(title: "YES".localizedString(), style: .Default, handler: { (action) -> Void in
                 PersistentManager.sharedInstance.clearFileCacheFiles()
                 PersistentManager.sharedInstance.resetTmpDir()
-                self.showAlert(NSLocalizedString("CLEAR_CACHE_SUCCESS", comment: ""), msg: "")
+                self.showAlert("CLEAR_CACHE_SUCCESS".localizedString() , msg: "")
             }),
-            UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil)
+            UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel, handler: nil)
         ]
-        showAlert(NSLocalizedString("CONFIRM_CLEAR_CACHE_TITLE", comment: "Sure To Clear Cache Files?"), msg: nil, actions: actions)
+        showAlert("CONFIRM_CLEAR_CACHE_TITLE".localizedString() , msg: nil, actions: actions)
     }
     
     //MARK: Avatar
@@ -326,14 +326,14 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func tapAvatarCell(aTap:UITapGestureRecognizer)
     {
-        let alert = UIAlertController(title: NSLocalizedString("CHANGE_AVATAR", comment: "Change Avatar"), message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("TAKE_NEW_PHOTO", comment: "Take A New Photo"), style: .Destructive) { _ in
+        let alert = UIAlertController(title: "CHANGE_AVATAR".localizedString(), message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "TAKE_NEW_PHOTO".localizedString(), style: .Destructive) { _ in
             self.newPictureWithCamera()
             })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_PHOTO", comment: "Select A Photo From Album"), style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:"SELECT_PHOTO".localizedString(), style: .Destructive) { _ in
             self.selectPictureFromAlbum()
             })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -380,7 +380,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 })
             }else
             {
-                self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+                self.showToast("SET_AVATAR_FAILED".localizedString())
             }
         }
     }
@@ -395,7 +395,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     self.myInfo.avatarId = fileKey.accessKey
                     self.myInfo.saveModel()
                     self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
-                    self.showCheckMark(NSLocalizedString("SET_AVATAR_SUC", comment: ""))
+                    self.showCheckMark("SET_AVATAR_SUC".localizedString())
                 }
             })
         }
@@ -403,7 +403,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         taskFileMap.removeValueForKey(taskIdentifier)
-        self.showToast(NSLocalizedString("SET_AVATAR_FAILED", comment: ""))
+        self.showToast("SET_AVATAR_FAILED".localizedString())
     }
     
     func aboutSharelink(_:UITapGestureRecognizer)
@@ -451,10 +451,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     if isSuc
                     {
                         self.tableView.reloadData()
-                        self.showCheckMark(String(format: NSLocalizedString("MODIFY_KEY_SUC", comment: ""), NSLocalizedString("NICK", comment: "")))
+                        self.showCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "NICK".localizedString()))
                     }else
                     {
-                        self.showToast(String(format: NSLocalizedString("SET_KEY_FAILED", comment: ""), NSLocalizedString("NICK", comment: "")))
+                        self.showToast(String(format: "SET_KEY_FAILED".localizedString(), "NICK".localizedString()))
                     }
                     
                 }
@@ -463,10 +463,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     if isSuc
                     {
                         self.tableView.reloadData()
-                        self.showCheckMark(String(format: NSLocalizedString("MODIFY_KEY_SUC", comment: ""), NSLocalizedString("MOTTO", comment: "")))
+                        self.showCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "MOTTO".localizedString() ))
                     }else
                     {
-                        self.showToast(String(format: NSLocalizedString("SET_KEY_FAILED", comment: ""), NSLocalizedString("MOTTO", comment: "")))
+                        self.showToast(String(format: "SET_KEY_FAILED".localizedString() , "MOTTO".localizedString() ))
                     }
                 }
         default: break

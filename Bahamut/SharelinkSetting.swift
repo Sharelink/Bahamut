@@ -10,8 +10,8 @@ import Foundation
 
 class SharelinkConfig
 {
-    static let appName = NSLocalizedString("SHARELINK_NAME", comment: "")
-    static let SharelinkMotto = NSLocalizedString("SHARELINK_MOTTO", comment: "")
+    static let appName = "SHARELINK_NAME".localizedString()
+    static let SharelinkMotto = "SHARELINK_MOTTO".localizedString()
     static var bahamutConfig:BahamutConfigObject!
 }
 

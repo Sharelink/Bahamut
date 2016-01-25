@@ -133,7 +133,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
                 {
                     if tag.isSystemTheme()
                     {
-                        tag.tagName = NSLocalizedString(tag.tagName, comment: "") ?? tag.tagName
+                        tag.tagName = tag.tagName.localizedString()
                     }
                 }
                 SharelinkTheme.saveObjectOfArray(tags)

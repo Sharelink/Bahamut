@@ -18,8 +18,8 @@ protocol ThemeCollectionViewControllerDelegate
 
 class ThemeCollectionCell: UICollectionViewCell
 {
-    static let selectedMarkImage = UIImage(named:"check")!
-    static let normalMarkImage = UIImage(named:"bullet-blue")!
+    static let selectedMarkImage = UIImage.namedImageInSharelink("check")!
+    static let normalMarkImage = UIImage.namedImageInSharelink("bullet-blue")!
     
     static let cellIdentifier = "themeCell"
     @IBOutlet weak var themeNameLabel: UILabel!

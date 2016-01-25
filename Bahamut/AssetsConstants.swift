@@ -16,7 +16,7 @@ struct FilmAssetsConstants
 
 struct  ImageAssetsConstants
 {
-    static let defaultCustomSRCIcon = UIImage(named: "new_share_header_icon_csrc")!
+    static let defaultCustomSRCIcon = UIImage.namedImageInSharelink("new_share_header_icon_csrc")
     static let defaultAvatar = "defaultAvatar"
     static let defaultViewImage = "defaultView"
     static let defaultAvatarPath = Sharelink.mainBundle.pathForResource("defaultAvatar", ofType: "png")!
@@ -31,7 +31,7 @@ class UserGuideAssetsConstants
         repeat
         {
             let imgName = "\(lang)_\(viewName)ViewGuide_\(i).jpg"
-            if let img = UIImage(named: imgName){
+            if let img = UIImage.namedImageInSharelink(imgName){
                 imgs.append(img)
             }else{
                 return imgs

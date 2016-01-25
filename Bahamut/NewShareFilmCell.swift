@@ -101,7 +101,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
                 NSLog(error.description)
             }
         }
-        self.rootController.showAlert("", msg: String(format:(NSLocalizedString("FILES_WAS_DELETED", comment: "%@ files deleted")), sum))
+        self.rootController.showAlert("", msg: String(format:("FILES_WAS_DELETED".localizedString()), sum))
     }
     
     //MARK: generate preview
@@ -145,11 +145,11 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if PersistentFileHelper.moveFile(videoSourcePath, destinationPath: newFilePath)
         {
-            self.rootController.showToast(NSLocalizedString("VIDEO_SAVED", comment: "Video Saved") )
+            self.rootController.showToast("VIDEO_SAVED".localizedString())
             return newFilePath
         }else
         {
-            self.rootController.showAlert(NSLocalizedString("SAVE_VIDEO_FAILED", comment: "Save Video Failed"), msg: "")
+            self.rootController.showAlert("SAVE_VIDEO_FAILED".localizedString(), msg: "")
             return nil
         }
     }
@@ -168,7 +168,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
         if String.isNullOrWhiteSpace(filmModel.film)
         {
-            self.rootController.showToast(NSLocalizedString("NO_FILM_SELECTED", comment: ""))
+            self.rootController.showToast("NO_FILM_SELECTED".localizedString())
             return false
         }else
         {
@@ -181,7 +181,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     {
         newShare.shareType = ShareThingType.shareFilm.rawValue
         let newFilmModel = FilmModel(json: self.filmModel.toJsonString())
-        self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILE", comment: ""))
+        self.rootController.makeToastActivityWithMessage("",message: "SENDING_FILE".localizedString())
         self.fileService.sendFileToAliOSS(newFilmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
             self.rootController.hideToastActivity()
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
@@ -208,16 +208,16 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark(NSLocalizedString("POST_SHARE_SUC", comment: "Post Share Success"))
+                            self.rootController.showCheckMark("POST_SHARE_SUC".localizedString())
                             NewFilmShareTask.deleteObjectArray([task])
                         }else
                         {
-                            self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                         }
                     }
                 }else
                 {
-                    self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: "Post Share Error"))
+                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             })
         }
@@ -226,7 +226,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
-            self.rootController.showToast( NSLocalizedString("SEND_FILE_FAILED", comment: ""))
+            self.rootController.showToast("SEND_FILE_FAILED".localizedString())
             NewFilmShareTask.deleteObjectArray([task])
         }
     }

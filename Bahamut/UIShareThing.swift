@@ -118,11 +118,11 @@ class UIShareThing: UIShareCell
             btn.animationMaxToMin(0.1,maxScale: 1.3){
                 if self.voted
                 {
-                    let alert = UIAlertController(title: NSLocalizedString("UNVOTE_SHARE_CONFIRM", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: UIAlertActionStyle.Default){ aa in
+                    let alert = UIAlertController(title: "UNVOTE_SHARE_CONFIRM".localizedString(), message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "YES".localizedString(), style: UIAlertActionStyle.Default){ aa in
                         ServiceContainer.getService(ShareService).unVoteShareThing(self.shareModel,updateCallback: self.updateVote)
                         })
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL",comment:""), style: UIAlertActionStyle.Cancel){ _ in })
+                    alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: UIAlertActionStyle.Cancel){ _ in })
                     self.rootController.presentViewController(alert, animated: true, completion: nil)
                 }else{
                     
@@ -145,8 +145,8 @@ class UIShareThing: UIShareCell
                     self.rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: self.shareModel)
                 }else
                 {
-                    let alert = UIAlertController(title: nil, message: NSLocalizedString("RESHARELESS_TIPS", comment: "This Share Is Not Allow Reshare!"), preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+                    let alert = UIAlertController(title: nil, message: "RESHARELESS_TIPS".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: UIAlertActionStyle.Cancel ,handler:nil))
                     self.rootController.presentViewController(alert, animated: true, completion: nil)
                 }
             }
@@ -175,10 +175,10 @@ class UIShareThing: UIShareCell
     @IBAction func showMoreOperate(sender: AnyObject)
     {
         let alerts = [
-            UIAlertAction(title: NSLocalizedString("HARMFUL_CONTENT", comment: ""), style: .Default, handler: { (action) -> Void in
+            UIAlertAction(title: "HARMFUL_CONTENT".localizedString(), style: .Default, handler: { (action) -> Void in
                 self.showHarmfulContentFeedback()
             }),
-            UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: { (action) -> Void in
+            UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel, handler: { (action) -> Void in
                 
             })
         ]

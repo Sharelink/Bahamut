@@ -17,35 +17,35 @@ class ChangePasswordViewController: UIViewController
         let oldPsw = oldPasswordTextField.text ?? ""
         if String.isNullOrWhiteSpace(oldPsw)
         {
-            self.showAlert(NSLocalizedString("OLD_PSW_NULL", comment: ""), msg: nil)
+            self.showAlert("OLD_PSW_NULL".localizedString(), msg: nil)
             return
         }else if oldPsw == newPsw
         {
-            showAlert(NSLocalizedString("OLD_NEW_PSW_SAME", comment: "Password Not Changed"), msg: nil, actions: ALERT_ACTION_I_SEE)
+            showAlert("OLD_NEW_PSW_SAME".localizedString(), msg: nil, actions: ALERT_ACTION_I_SEE)
         }
         else if newPsw =~ "^[A-Za-z0-9_\\@\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,23}$"
         {
-            showAlert(NSLocalizedString("CONFIRM_PSW", comment: "Change Password To"), msg: newPsw, actions: [
-                UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+            showAlert("CONFIRM_PSW".localizedString(), msg: newPsw, actions: [
+                UIAlertAction(title: "YES".localizedString(), style: .Default, handler: { (action) -> Void in
                     self.makeToastActivity()
                     ServiceContainer.getService(AccountService).changePassword(oldPsw, newPsw: newPsw) { (isSuc) -> Void in
                         self.hideToastActivity()
                         if isSuc
                         {
-                            self.showAlert(NSLocalizedString("CHG_PSW_SUC", comment: ""), msg: nil)
+                            self.showAlert("CHG_PSW_SUC".localizedString(), msg: nil)
                             self.navigationController?.popViewControllerAnimated(true)
                         }else
                         {
-                            self.showAlert(NSLocalizedString("CHG_PSW_FAIL", comment: ""), msg: nil)
+                            self.showAlert("CHG_PSW_FAIL".localizedString(), msg: nil)
                         }
                     }
                 }),
-                UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil)
+                UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel, handler: nil)
                 ])
             
         }else
         {
-            self.showAlert(NSLocalizedString("WRONG_PSW_FORMAT", comment: ""), msg: NSLocalizedString("PSW_FORMAT", comment: ""))
+            self.showAlert("WRONG_PSW_FORMAT".localizedString(), msg: "PSW_FORMAT".localizedString())
         }
     }
     

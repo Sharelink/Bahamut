@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: MessagePersistents
-struct MessageExtensionConstant
+class MessageExtensionConstant
 {
     static let chatEntityName = "ShareChatEntity"
     static let chatEntityShareIdFieldName = "shareId"

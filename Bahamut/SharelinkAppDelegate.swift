@@ -123,11 +123,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
             {
                 NSLog("AccelerometerActive:\(mmanger.accelerometerActive)")
             }
-            Configuration.cancelButtonTitle = NSLocalizedString("CANCEL", comment: "")
-            Configuration.doneButtonTitle = NSLocalizedString("DONE", comment: "")
-            Configuration.settingsTitle = NSLocalizedString("SETTING", comment: "")
-            Configuration.noCameraTitle = NSLocalizedString("CAMERA_NOT_AVAILABLE", comment: "")
-            Configuration.noImagesTitle = NSLocalizedString("NO_IMAGES_AVAILABLE", comment: "")
+            Configuration.cancelButtonTitle = "CANCEL".localizedString()
+            Configuration.doneButtonTitle = "DONE".localizedString()
+            Configuration.settingsTitle = "SETTING".localizedString()
+            Configuration.noCameraTitle = "CAMERA_NOT_AVAILABLE".localizedString()
+            Configuration.noImagesTitle = "NO_IMAGES_AVAILABLE".localizedString()
         }
         
     }

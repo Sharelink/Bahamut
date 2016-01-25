@@ -1,0 +1,11 @@
+/* 
+  BahamutCommonLocalized.strings
+  Sharelink
+
+  Created by AlexChow on 16/1/25.
+  Copyright © 2016年 GStudio. All rights reserved.
+*/
+JUST_NOW = "刚刚";
+X_MINUTES_AGO = "%@ 分钟前";
+X_HOURS_AGO = "%@ 小时前";
+X_DAYS_AGO = "%@ 天前";

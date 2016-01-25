@@ -68,6 +68,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.changeNavigationBarColor()
         self.addInputFunctionView()
         self.initChatRoomListViewController()
         self.addRefreshViews()
@@ -158,7 +159,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func initBarBadge()
     {
-        let item = UIBarButtonItem(image: UIImage(named: "chatting_users"), style: .Plain, target: self, action: "clickChatRoomItem:")
+        let item = UIBarButtonItem(image: UIImage.namedImageInSharelink("chatting_users"), style: .Plain, target: self, action: "clickChatRoomItem:")
         navigationItem.rightBarButtonItem = item
         item.badgeBGColor = UIColor.redColor()
         item.badge.layer.cornerRadius = 10
@@ -189,11 +190,11 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
                 }
             }else
             {
-                self.showToast( NSLocalizedString("NO_MORE_MESSAGE", comment: "No More Message~"))
+                self.showToast( "NO_MORE_MESSAGE".localizedString())
             }
             self.head.endRefreshing()
         }
-        header.setTitle(NSLocalizedString("LOADING",comment:"Loading"), forState: .Pulling)
+        header.setTitle("LOADING".localizedString(), forState: .Pulling)
         header.lastUpdatedTimeLabel?.hidden = true
         head = header
         chatTableView.mj_header = head
@@ -334,7 +335,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         
         if String.isNullOrWhiteSpace(message)
         {
-            self.showAlert(NSLocalizedString("SEND_WHITE_SPACE_ERROR", comment:"Can't Send White Space"), msg: nil)
+            self.showAlert("SEND_WHITE_SPACE_ERROR".localizedString(), msg: nil)
             funcView.TextViewInput.text = ""
             return
         }

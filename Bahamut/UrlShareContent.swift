@@ -33,7 +33,7 @@ class UrlContentView:UIView
         
         if linkImg == nil
         {
-            linkImg = UIImageView(image: UIImage(named: "linkIcon"))
+            linkImg = UIImageView(image: UIImage.namedImageInSharelink( "linkIcon"))
             linkImg.userInteractionEnabled = true
             self.addSubview(linkImg)
         }
@@ -46,7 +46,7 @@ class UrlContentView:UIView
         
         if String.isNullOrWhiteSpace(model.title)
         {
-            titleLable.text = NSLocalizedString("EMPTY_TITLE", comment: "")
+            titleLable.text = "EMPTY_TITLE".localizedString()
         }else
         {
             titleLable.text = "\(model.title)"

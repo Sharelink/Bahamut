@@ -114,7 +114,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         didSet{
             refreshButton.userInteractionEnabled = true
             refreshButton.frame = CGRectMake(0, 0, 48, 48)
-            refreshButton.image = UIImage(named: "refresh")
+            refreshButton.image = UIImage.namedImageInSharelink("refresh")
             refreshButton.hidden = true
             refreshButton.center = self.center
             refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "refreshButtonClick:"))
@@ -125,7 +125,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var playButton:UIImageView!{
         didSet{
             playButton.frame = CGRectMake(0, 0, 48, 48)
-            playButton.image = UIImage(named: "playGray")
+            playButton.image = UIImage.namedImageInSharelink( "playGray")
             playButton.hidden = false
             playButton.center = self.center
             self.addSubview(playButton)
@@ -135,7 +135,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var noFileImage:UIImageView!{
         didSet{
             noFileImage.frame = CGRectMake(0, 0, 48, 48)
-            noFileImage.image = UIImage(named: "delete")
+            noFileImage.image = UIImage.namedImageInSharelink( "delete")
             noFileImage.hidden = true
             noFileImage.center = self.center
             self.addSubview(noFileImage)

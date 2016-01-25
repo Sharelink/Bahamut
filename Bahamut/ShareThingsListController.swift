@@ -97,13 +97,13 @@ class ShareThingsListController: UITableViewController
     {
         let header = MJRefreshNormalHeader(){self.refreshFromServer()}
         let footer = MJRefreshAutoNormalFooter(){self.loadNextPage()}
-        header.setTitle(NSLocalizedString("RefreshHeaderIdleText", comment: ""), forState: .Idle)
-        header.setTitle(NSLocalizedString("RefreshHeaderPullingText", comment: ""), forState: .Pulling)
-        header.setTitle(NSLocalizedString("RefreshHeaderRefreshingText", comment: ""), forState: .Refreshing)
+        header.setTitle("RefreshHeaderIdleText".localizedString(), forState: .Idle)
+        header.setTitle("RefreshHeaderPullingText".localizedString(), forState: .Pulling)
+        header.setTitle("RefreshHeaderRefreshingText".localizedString(), forState: .Refreshing)
         
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterIdleText", comment: ""), forState: .Idle)
-        footer.setTitle(NSLocalizedString("MJRefreshAutoFooterRefreshingText", comment: ""), forState: .Pulling)
-        footer.setTitle(NSLocalizedString("RefreshAutoFooterNoMoreDataText", comment: ""), forState: .NoMoreData)
+        footer.setTitle("MJRefreshAutoFooterIdleText".localizedString(), forState: .Idle)
+        footer.setTitle("MJRefreshAutoFooterRefreshingText".localizedString(), forState: .Pulling)
+        footer.setTitle("RefreshAutoFooterNoMoreDataText".localizedString(), forState: .NoMoreData)
         
         tableView.mj_header = header
         tableView.mj_footer = footer

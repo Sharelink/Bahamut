@@ -157,7 +157,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
     func themeCellDidClick(sender: ThemeCollectionViewController, cell: ThemeCollectionCell, indexPath: NSIndexPath) {
         if cell.selected == false && selectedThemesCount >= NewShareThemeCell.themesLimit
         {
-            self.rootController.showToast(NSLocalizedString("THEME_LIMIT_MESSAGE", comment: ""))
+            self.rootController.showToast("THEME_LIMIT_MESSAGE".localizedString())
             return
         }
         if cell.selected
@@ -181,7 +181,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
             NewShareThemeCell.tempThemes.append(theme)
         }else
         {
-            self.rootController.showToast(NSLocalizedString("THEME_ALREADY_SELECTED", comment: ""))
+            self.rootController.showToast("THEME_ALREADY_SELECTED".localizedString())
         }
     }
     
@@ -203,7 +203,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
                     return false
                 }
             }
-            self.rootController.showToast(NSLocalizedString("THEME_IS_EMPTY", comment: ""))
+            self.rootController.showToast("THEME_IS_EMPTY".localizedString())
         }
         return true
     }

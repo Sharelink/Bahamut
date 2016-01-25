@@ -1,0 +1,40 @@
+/* 
+  ChatFrameworkLocalized.strings
+  Sharelink
+
+  Created by AlexChow on 16/1/25.
+  Copyright © 2016年 GStudio. All rights reserved.
+*/
+//Chat Framework
+HOLD_TO_TALK = "按住说话";
+RELEASE_TO_SEND = "释放发送";
+INPUT_CONTENTS_HERE = "输入消息";
+
+CANCEL = "取消";
+RELEASE_TO_CANCEL = "释放取消";
+SLIDE_UP_CANCEL = "向上滑动取消";
+SUCCESS = "成功";
+CAMERA = "相机";
+IMAGES = "图片";
+TOO_SHORT = "时间太短";
+SEND = "发送";
+TIPS = "提示";
+NO_CAMERA_TIPS = "找不到相机设备";
+SURE = "确定";
+VOICE_SEC = "%@' 秒";
+TIME_LIMIT = "时间限制";
+
+Sunday = "星期日";
+Monday = "星期一";
+Tuesday = "星期二";
+Wednesday = "星期三";
+Thursday = "星期四";
+Friday = "星期五";
+Saturday = "星期六";
+Today = "今天";
+Tomorrow = "明天";
+Yesterday = "昨天";
+AM = "上午";
+PM = "下午";
+Night = "晚上";
+Dawn = "早上";

@@ -129,12 +129,12 @@ class SharelinkSDK
                         }
                     }else
                     {
-                        callback(isNewUser: false,error: NSLocalizedString("VALIDATE_DATA_ERROR", comment: "Validate Data Error"),registApiServer:nil,validateResult: nil)
+                        callback(isNewUser: false,error: "VALIDATE_DATA_ERROR".localizedString(),registApiServer:nil,validateResult: nil)
                     }
                 }
             }else{
                 
-                callback(isNewUser: false,error: NSLocalizedString("NETWORK_ERROR", comment: "Network Error"),registApiServer:nil,validateResult: nil)
+                callback(isNewUser: false,error: "NETWORK_ERROR".localizedString(),registApiServer:nil,validateResult: nil)
             }
         }
     }
@@ -143,11 +143,11 @@ class SharelinkSDK
     {
         if apiTokenServer == nil
         {
-            finishCallback(message: NSLocalizedString("NOT_LOGIN", comment: "Not Login"))
+            finishCallback(message: "NOT_LOGIN".localizedString())
             return
         }
         Alamofire.request(Method.DELETE, "\(apiTokenServer)/Tokens", parameters: ["userId":userId,"appToken":token,"appkey":SharelinkSDK.appkey]).responseObject { (result:Result<EVObject,NSError>) -> Void in
-            finishCallback(message: NSLocalizedString("LOGOUTED", comment: "Logout"))
+            finishCallback(message: "LOGOUTED".localizedString())
         }
     }
     

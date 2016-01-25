@@ -17,10 +17,10 @@ extension Sharelinker
     {
         if self.userId == UserSetting.userId
         {
-            return NSLocalizedString("ME", comment: "")
+            return "ME".localizedString()
         }else if self.noteName == SharelinkerCenterNoteName
         {
-            return NSLocalizedString(SharelinkerCenterNoteName, comment: "")
+            return SharelinkerCenterNoteName.localizedString()
         }
         return self.noteName ?? self.nickName ?? "Sharelinker"
     }
@@ -337,7 +337,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
-        req.message = String(format: NSLocalizedString("ASK_LINK_MSG",comment:""), myUserModel.nickName!)
+        req.message = String(format: "ASK_LINK_MSG", myUserModel.nickName!)
         SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }

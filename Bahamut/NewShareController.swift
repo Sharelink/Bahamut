@@ -251,8 +251,8 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     {
         let nextSRCPlugin = srcService.defaultSRCPlugins[self.nextDefaultPluginIndex]
         let header = self.tableView.mj_header as! MJRefreshGifHeader
-        let format = "NEW_SHARE_PULL_SWITCH_TO".localizedString
-        let headerTitle = NSLocalizedString(nextSRCPlugin.srcHeaderTitle, comment: "")
+        let format = "NEW_SHARE_PULL_SWITCH_TO".localizedString()
+        let headerTitle = nextSRCPlugin.srcHeaderTitle.localizedString()
         let msg = String(format: format, headerTitle)
         header.setTitle(msg, forState: .Idle)
         header.setTitle(msg, forState: .Pulling)
@@ -301,7 +301,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         self.srcMenuButtonItem.tintColor = UIColor.orangeColor()
         self.navigationItem.rightBarButtonItems = nil
         self.tabBarController!.tabBar.hidden = true
-        self.titleView.titleLabel.text = "MY_PLUGINS".localizedString
+        self.titleView.titleLabel.text = "MY_PLUGINS".localizedString()
         self.srcMenuManager.showMenu()
     }
     
@@ -329,11 +329,11 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     {
         if self.shareThemeCell.selectedThemes.count == 0
         {
-            let alert = UIAlertController(title: "NO_SELECT_THEME_ALERT_TITLE".localizedString, message: "NO_SELECT_THEME_TIPS".localizedString, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "CONTINUE".localizedString, style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
+            let alert = UIAlertController(title: "NO_SELECT_THEME_ALERT_TITLE".localizedString(), message: "NO_SELECT_THEME_TIPS".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "CONTINUE".localizedString(), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
                 self.isReshare ? self.reshare() : self.prepareShare()
             }))
-            alert.addAction(UIAlertAction(title: "CANCEL".localizedString, style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil )
         }else
         {
@@ -345,19 +345,19 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: reshare
     private func reshare()
     {
-        self.makeToastActivityWithMessage("",message: "SHARING".localizedString)
+        self.makeToastActivityWithMessage("",message: "SHARING".localizedString())
         self.shareService.reshare(self.reShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
             self.hideToastActivity()
             var alert:UIAlertController!
             if isSuc{
-                alert = UIAlertController(title: "SHARE_SUCCESSED".localizedString, message: nil, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "I_SEE".localizedString, style: .Cancel, handler: { (action) -> Void in
+                alert = UIAlertController(title: "SHARE_SUCCESSED".localizedString(), message: nil, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel, handler: { (action) -> Void in
                     self.navigationController?.popViewControllerAnimated(true)
                 }))
             }else
             {
-                alert = UIAlertController(title: "SHARE_FAILED".localizedString, message: msg, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "I_SEE".localizedString, style: .Cancel, handler: { (action) -> Void in
+                alert = UIAlertController(title: "SHARE_FAILED".localizedString(), message: msg, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel, handler: { (action) -> Void in
                     
                 }))
             }

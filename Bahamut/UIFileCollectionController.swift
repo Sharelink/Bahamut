@@ -34,20 +34,25 @@ class UIFileCollectionCellModel : UIResrouceItemModel
     var fileType:FileType = FileType.Raw
     var filePath:String!
     private(set) lazy var thumbImage:UIImage! = {
+        var img:UIImage? = nil
         if self.fileType == FileType.Video
         {
-            return ImageUtil.getVideoThumbImage(self.filePath)
+            img = ImageUtil.getVideoThumbImage(self.filePath)
         }else if self.fileType == FileType.Text
         {
-            return ImageUtil.getTextFileIconImage()
+            img = UIImage.namedImageInSharelink("text_file")
         }else if self.fileType == FileType.Sound
         {
-            return ImageUtil.getSoundIconImage()
+            img = UIImage.namedImageInSharelink("music")
         }else if self.fileType == FileType.Image
         {
-            return ImageUtil.getImageThumbImage(self.filePath)
+            img = ImageUtil.getImageThumbImage(self.filePath)
         }
-        return UIImage(named: "file")
+        if let res = img
+        {
+            return res
+        }
+        return UIImage.namedImageInSharelink( "file")
     }()
 }
 

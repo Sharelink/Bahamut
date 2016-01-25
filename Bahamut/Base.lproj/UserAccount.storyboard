@@ -578,7 +578,7 @@
                     <connections>
                         <outlet property="avatarImageView" destination="FeM-jc-wh6" id="OYA-CM-1cd"/>
                         <outlet property="editProfileVideoButton" destination="g9m-uT-GWZ" id="tFR-AN-k63"/>
-                        <outlet property="focusTagViewContainer" destination="Kkx-R0-5We" id="fqN-1b-RGN"/>
+                        <outlet property="focusThemeViewContainer" destination="Kkx-R0-5We" id="fqN-1b-RGN"/>
                         <outlet property="profileVideoViewContainer" destination="lHT-sO-2xC" id="mZT-zl-3SP"/>
                         <outlet property="userMottoView" destination="lAb-tL-Fxc" id="vGr-ee-pLf"/>
                         <outlet property="userNickNameLabelView" destination="gc7-K2-hcP" id="qjY-Zb-VlX"/>

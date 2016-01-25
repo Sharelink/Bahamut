@@ -11,7 +11,7 @@ import UIKit
 
 //MARK: FilePersistents
 
-struct LocalFileExtensionConstant
+class LocalFileExtensionConstant
 {
     static let fileEntityName = "FileInfoEntity"
     static let fileEntityIdFieldName = "fileId"
@@ -70,7 +70,8 @@ extension PersistentManager
     func useLocalFilesExtension(dbFileUrl:NSURL,documentDirUrl:NSURL,momdBundle:NSBundle){
         self.useExtension(LocalFilesExtension()) { (ext) -> Void in
             LocalFilesExtension.defaultInstance = ext
-            ext.coreData.initManager(LocalFileExtensionConstant.coreDataModelId, dbFileUrl:dbFileUrl,momdBundle: momdBundle)
+            let cdmid = LocalFileExtensionConstant.coreDataModelId
+            ext.coreData.initManager(cdmid, dbFileUrl:dbFileUrl,momdBundle: momdBundle)
             ext.initFileCacheDir(documentDirUrl)
         }
     }

@@ -7,15 +7,17 @@
 //
 
 import UIKit
-let ThemeHeaderSystem = NSLocalizedString("THEME_HEADER_SYSTEM", comment:"Sharelink")
-let ThemeHeaderCustom = NSLocalizedString("THEME_HEADER_CUSTOM", comment:"Cutstom")
+let ThemeHeaderSystem = "THEME_HEADER_SYSTEM".localizedString()
+let ThemeHeaderCustom = "THEME_HEADER_CUSTOM".localizedString()
+
 //MARK: extension SharelinkTheme
 extension SharelinkTheme
 {
     func getThemeIcon() -> UIImage
     {
         let themeType = self.type.stringByReplacingOccurrencesOfString(":", withString: "")
-        return UIImage(named: "theme_icon_\(themeType).png") ?? UIImage(named: "theme_icon_keyword.png")!
+        let named = "theme_icon_\(themeType).png"
+        return UIImage.namedImageInSharelink(named) ?? UIImage.namedImageInSharelink("theme_icon_keyword.png")!
     }
 }
 
@@ -31,8 +33,8 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "modifyTheme:"))
         }
     }
-    static let privateImageIcon = UIImage(named: "private")!
-    static let focusImageIcon = UIImage(named: "heart")!
+    static let privateImageIcon = UIImage.namedImageInSharelink("private")!
+    static let focusImageIcon = UIImage.namedImageInSharelink("heart")!
     private var markImages:[UIImageView?] = [nil,nil,nil]
     @IBOutlet weak var themeNameLabel: UILabel!
     @IBOutlet weak var markImage0: UIImageView!{
@@ -57,10 +59,10 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
         {
             if theme.isSystemTheme()
             {
-                rootController.showToast(NSLocalizedString("A_DEFAULT_THEME", comment: ""))
+                rootController.showToast("A_DEFAULT_THEME".localizedString())
             }else
             {
-                rootController.showToast(NSLocalizedString("A_SHARELINKER_THEME", comment: ""))
+                rootController.showToast("A_SHARELINKER_THEME".localizedString())
             }
             return
         }
@@ -74,10 +76,10 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
             {
                 self.theme = saveModel
                 self.refreshUI()
-                msg = NSLocalizedString("MODIFY_THEME_SUC", comment: "")
+                msg = "MODIFY_THEME_SUC".localizedString()
             }else
             {
-                msg = NSLocalizedString("MODIFY_THEME_ERROR", comment: "")
+                msg = "MODIFY_THEME_ERROR".localizedString()
             }
             self.rootController.showToast(msg)
         }
@@ -204,13 +206,13 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     private func removeTheme(indexPath:NSIndexPath)
     {
-        let msgFormat = NSLocalizedString("SURE_REMOVE_THEME_X", comment: "Sure to remove theme %@ ?")
+        let msgFormat = "SURE_REMOVE_THEME_X".localizedString()
         let msg = String(format: msgFormat, self.myThemes[indexPath.section].themes[indexPath.row].getShowName(false))
-        let alert = UIAlertController(title: NSLocalizedString("REMOVE_THEME", comment: "Remove Theme"), message: msg, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+        let alert = UIAlertController(title: "REMOVE_THEME".localizedString(), message: msg, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "YES".localizedString(), style: .Default, handler: { (action) -> Void in
             self.removeThemes([indexPath])
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: .Cancel, handler: nil))
         self.showAlert(alert)
     }
     
@@ -220,14 +222,14 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         ServiceContainer.getService(SharelinkThemeService).removeMyThemes(needToRemoveThemes, sucCallback: { (suc) -> Void in
             if suc
             {
-                let message = String(format:NSLocalizedString("REMOVED_X_THEMES", comment: ""), "\(needToRemoveThemes.count)")
+                let message = String(format:"REMOVED_X_THEMES".localizedString(), "\(needToRemoveThemes.count)")
                 let alert = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 self.initThemes()
             }else
             {
-                let msg = NSLocalizedString("OPERATE_ERROR", comment: "Operate Error,Please Check Your Network")
+                let msg = "OPERATE_ERROR".localizedString()
                 self.showToast(msg)
             }
         })
@@ -237,7 +239,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     func editThemeViewControllerSave(saveModel: SharelinkTheme, sender: EditThemeViewController) {
         if self.themeService.isThemeExists(saveModel.data)
         {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_THEME_EXISTS", comment: ""), preferredStyle: .Alert)
+            let alert = UIAlertController(title: nil, message: "SAME_THEME_EXISTS".localizedString(), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "I_SEE", style: .Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
             return
@@ -246,10 +248,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
             if isSuc
             {
                 self.initThemes()
-                self.showToast( NSLocalizedString("FOCUS_THEME_SUCCESS", comment: ""))
+                self.showToast( "FOCUS_THEME_SUCCESS".localizedString())
             }else
             {
-                self.showToast( NSLocalizedString("FOCUS_THEME_ERROR", comment: ""))
+                self.showToast( "FOCUS_THEME_ERROR".localizedString())
             }
         }
     }
@@ -277,7 +279,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction]()
-        let removeThemeAction = UITableViewRowAction(style: .Normal, title: NSLocalizedString("REMOVE_THEME", comment: "Remove Theme")) { (action, indexPath) -> Void in
+        let removeThemeAction = UITableViewRowAction(style: .Normal, title: "REMOVE_THEME".localizedString()) { (action, indexPath) -> Void in
             self.removeTheme(indexPath)
         }
         actions.append(removeThemeAction)

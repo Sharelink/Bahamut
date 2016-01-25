@@ -30,7 +30,7 @@ extension BahamutObject
     }
 }
 
-struct ModelExtensionConstant
+class ModelExtensionConstant
 {
     static let coreDataModelId = "BahamutModel"
     

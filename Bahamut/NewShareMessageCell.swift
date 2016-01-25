@@ -38,7 +38,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
             return true
         }else {
             if textView.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) - range.length + text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > NewShareMessageCell.messageLenghtLimit {
-                self.rootController.showToast(NSLocalizedString("MSG_IS_TOO_LONG", comment: ""))
+                self.rootController.showToast("MSG_IS_TOO_LONG".localizedString())
                 return false
             }
             else {

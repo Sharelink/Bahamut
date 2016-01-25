@@ -67,7 +67,7 @@ class AccountService: ServiceProtocol
                 callback(loginSuccess: true, message: "")
                 MobClick.profileSignInWithPUID(validateResult.UserId)
             }else{
-                callback(loginSuccess: false, message: NSLocalizedString("VALIDATE_ACCTOKEN_FAILED", comment: "Validate Access Token Failed"))
+                callback(loginSuccess: false, message: "VALIDATE_ACCTOKEN_FAILED".localizedString())
             }
             
         }
@@ -86,21 +86,21 @@ class AccountService: ServiceProtocol
         client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
-                callback(isSuc:false,msg: NSLocalizedString("REGIST_FAILED", comment: "Regist Failed"),validateResult: nil);
+                callback(isSuc:false,msg: "REGIST_FAILED".localizedString(),validateResult: nil);
             }else if let validateResult = result.returnObject
             {
                 if validateResult.isValidateResultDataComplete()
                 {
                     SharelinkSDK.sharedInstance.useValidateData(validateResult)
                     self.setLogined(validateResult)
-                    callback(isSuc: true, msg: NSLocalizedString("REGIST_SUC", comment: "Regist Success"),validateResult:validateResult)
+                    callback(isSuc: true, msg: "REGIST_SUC".localizedString(),validateResult:validateResult)
                 }else
                 {
-                    callback(isSuc: false, msg:NSLocalizedString("DATA_ERROR", comment: "Data Error"),validateResult:nil)
+                    callback(isSuc: false, msg:"DATA_ERROR".localizedString(),validateResult:nil)
                 }
             }else
             {
-                callback(isSuc:false,msg:NSLocalizedString("REGIST_FAILED", comment: ""),validateResult:nil);
+                callback(isSuc:false,msg:"REGIST_FAILED".localizedString(),validateResult:nil);
             }
         }
     }

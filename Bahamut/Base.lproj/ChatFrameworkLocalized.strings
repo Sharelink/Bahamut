@@ -1,0 +1,40 @@
+/* 
+  ChatFrameworkLocalized.strings
+  Sharelink
+
+  Created by AlexChow on 16/1/25.
+  Copyright © 2016年 GStudio. All rights reserved.
+*/
+//Chat Framework
+HOLD_TO_TALK = "Hold to Talk";
+RELEASE_TO_SEND = "Release to Send";
+INPUT_CONTENTS_HERE = "Input the contents here";
+
+CANCEL = "Cancel";
+RELEASE_TO_CANCEL = "Release to cancel";
+SLIDE_UP_CANCEL = "Slide up to cancel";
+SUCCESS = "Success";
+CAMERA = "Camera";
+IMAGES = "Images";
+TOO_SHORT = "Too short";
+SEND = "send";
+TIPS = "Tip";
+NO_CAMERA_TIPS = "Your device don't have camera";
+SURE = "Sure";
+VOICE_SEC = "%@'s Voice";
+TIME_LIMIT = "Time Limit";
+
+Sunday = "Sunday";
+Monday = "Monday";
+Tuesday = "Tuesday";
+Wednesday = "Wednesday";
+Thursday = "Thursday";
+Friday = "Friday";
+Saturday = "Saturday";
+Today = "Today";
+Tomorrow = "Tomorrow";
+Yesterday = "Yesterday";
+AM = "AM";
+PM = "PM";
+Night = "Night";
+Dawn = "Dawn";

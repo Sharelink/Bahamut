@@ -213,7 +213,7 @@ class CoreDataManager {
         return coordinator
     }
     
-    func initManager(coreDataModelId:String,dbFileUrl:NSURL,momdBundle:NSBundle)
+    func initManager(coreDataModelId:String!,dbFileUrl:NSURL,momdBundle:NSBundle)
     {
         contextLock.lock()
         self.coreDataModelId = coreDataModelId

@@ -8,12 +8,12 @@
 
 import UIKit
 
-let ALERT_ACTION_OK = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)]
-let ALERT_ACTION_I_SEE = [UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style:.Cancel, handler: nil)]
+let ALERT_ACTION_OK = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)]
+let ALERT_ACTION_I_SEE = [UIAlertAction(title: "I_SEE".localizedString(), style:.Cancel, handler: nil)]
 extension UIViewController
 {
     
-    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style:.Cancel, handler: nil)])
+    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)])
     {
         let controller = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
         for ac in actions

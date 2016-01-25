@@ -66,8 +66,8 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     
     func onAppTokenInvalid(_:AnyObject)
     {
-        let alert = UIAlertController(title: nil, message: NSLocalizedString("USER_APP_TOKEN_TIMEOUT", comment: "User Token Timeout,Need To Login Again"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Default, handler: { (action) -> Void in
+        let alert = UIAlertController(title: nil, message: "USER_APP_TOKEN_TIMEOUT".localizedString() , preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Default, handler: { (action) -> Void in
             ServiceContainer.instance.userLogout()
             MainNavigationController.start()
         }))
@@ -121,7 +121,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     {
         if args.count < linkMeParameterCount
         {
-            self.showAlert("Sharelink", msg: NSLocalizedString("UNKNOW_SHARELINK_CMD", comment: "Unknow Sharelink Command"))
+            self.showAlert("Sharelink", msg: "UNKNOW_SHARELINK_CMD".localizedString() )
             return
         }
         let sharelinkerId = args[0]
@@ -129,7 +129,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
         let expriedAt = args[2].dateTimeOfString
         if expriedAt.timeIntervalSince1970 < NSDate().timeIntervalSince1970
         {
-            self.showAlert("Sharelink", msg: NSLocalizedString("SHARELINK_CMD_TIMEOUT", comment: "Sharelink Command Timeout"))
+            self.showAlert("Sharelink", msg: "SHARELINK_CMD_TIMEOUT".localizedString())
             return
         }
         let userService = ServiceContainer.getService(UserService)
@@ -141,17 +141,17 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
             }
         }else
         {
-            let yes = UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default, handler: { (action) -> Void in
+            let yes = UIAlertAction(title: "YES".localizedString() , style: .Default, handler: { (action) -> Void in
                 userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
                     if isSuc
                     {
-                        self.showAlert("Sharelink" ,msg:NSLocalizedString("LINK_REQUEST_SENDED", comment: "Ask for link sended"))
+                        self.showAlert("Sharelink" ,msg:"LINK_REQUEST_SENDED".localizedString() )
                     }
                 })
             })
-            let no = UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .Cancel,handler:nil)
-            let title = NSLocalizedString("SHARELINK", comment: "")
-            let msg = String(format: NSLocalizedString("SEND_LINK_REQUEST_TO", comment:"Send link request to %@"),sharelinkerNick)
+            let no = UIAlertAction(title: "NO".localizedString(), style: .Cancel,handler:nil)
+            let title = "SHARELINK".localizedString()
+            let msg = String(format: "SEND_LINK_REQUEST_TO".localizedString(),sharelinkerNick)
             self.showAlert(title, msg:msg, actions: [yes,no])
         }
     }

@@ -50,12 +50,12 @@ class NewUserProfileViewController: UIViewController
     {
         model.nickName = nickNameTextfield.text
         model.motto = motto.text
-        self.makeToastActivityWithMessage("",message:NSLocalizedString("REGISTING", comment: "Registing"))
+        self.makeToastActivityWithMessage("",message:"REGISTING".localizedString())
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
             self.hideToastActivity()
             if isSuc
             {
-                self.makeToastActivityWithMessage("",message:NSLocalizedString("REFRESHING", comment: "Refreshing"))
+                self.makeToastActivityWithMessage("",message:"REFRESHING".localizedString())
             }else
             {
                 ServiceContainer.instance.removeObserver(self)

@@ -180,14 +180,8 @@ public extension String{
     }
 }
 
-func LocalizedString(key:String) -> String
+func LocalizedString(key:String,tableName:String? = nil, bundle:NSBundle! = NSBundle.mainBundle()) -> String
 {
-    return NSLocalizedString(key, comment: "")
+    return NSLocalizedString(key, tableName: tableName, bundle: bundle, value: "", comment: "")
 }
 
-extension String
-{
-    var localizedString:String{
-        return LocalizedString(self)
-    }
-}

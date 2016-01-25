@@ -33,17 +33,17 @@ class NewShareTextCell: ShareContentCellBase {
                     self.shareService.postNewShareFinish(shareId, isCompleted: true, callback: { (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark(NSLocalizedString("SHARE_SUCCESSED", comment: ""))
+                            self.rootController.showCheckMark("SHARE_SUCCESSED".localizedString())
                         }else
                         {
-                            self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                         }
                     })
                 }else{
-                    self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             }
-            self.rootController.showCheckMark(NSLocalizedString("SHARING", comment: "Sharing"))
+            self.rootController.showCheckMark("SHARING".localizedString())
             return true
         }
     }

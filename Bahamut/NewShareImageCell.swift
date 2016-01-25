@@ -43,7 +43,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     static var thumbImageSize = CGSizeMake(168, 168)
     static let maxImagePostCount = 9
     private var images = [UIImage]()
-    static let AddImage = UIImage(named: "add")!
+    static let AddImage = UIImage.namedImageInSharelink("add")!
     @IBOutlet weak var imageCollectionView: UICollectionView!{
         didSet{
             imageCollectionView.dataSource = self
@@ -71,7 +71,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
         if images.count == 0
         {
-            self.rootController.showToast(NSLocalizedString("NO_IMAGE_SELECTED", comment: ""))
+            self.rootController.showToast("NO_IMAGE_SELECTED".localizedString())
             return false
         }else
         {
@@ -118,11 +118,11 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     {
         newShare.shareType = ShareThingType.shareImage.rawValue
         
-        self.rootController.makeToastActivityWithMessage(nil, message: NSLocalizedString("PREPARING_SHARE", comment: "Preparing Share"))
+        self.rootController.makeToastActivityWithMessage(nil, message: "PREPARING_SHARE".localizedString())
         if let content = generateShareContent()
         {
             self.rootController.hideToastActivity()
-            self.rootController.makeToastActivityWithMessage("",message: NSLocalizedString("SENDING_FILE", comment: ""))
+            self.rootController.makeToastActivityWithMessage("",message:"SENDING_FILE".localizedString())
             self.fileService.sendFileToAliOSS(content.imagesHubFilePath, type: FileType.NoType) { (taskId, fileKey) -> Void in
                 self.rootController.hideToastActivity()
                 ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
@@ -140,7 +140,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
             }
         }else{
             self.rootController.hideToastActivity()
-            self.rootController.showCrossMark(NSLocalizedString("PREPARE_SHARE_ERROR", comment: "Prepare Share Error!"))
+            self.rootController.showCrossMark("PREPARE_SHARE_ERROR".localizedString())
         }
     }
     
@@ -153,16 +153,16 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark(NSLocalizedString("POST_SHARE_SUC", comment: ""))
+                            self.rootController.showCheckMark("POST_SHARE_SUC".localizedString())
                             NewImageShareTask.deleteObjectArray([task])
                         }else
                         {
-                            self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                         }
                     }
                 }else
                 {
-                    self.rootController.showCrossMark(NSLocalizedString("POST_SHARE_FAILED", comment: ""))
+                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             })
         }
@@ -171,7 +171,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewImageShareTask.self, idValue: taskIdentifier)
         {
-            self.rootController.showToast( NSLocalizedString("SEND_FILE_FAILED", comment: ""))
+            self.rootController.showToast("SEND_FILE_FAILED".localizedString())
             NewImageShareTask.deleteObjectArray([task])
         }
     }
@@ -213,7 +213,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         let mostImagesLimit = NewShareImageCell.maxImagePostCount
         if mostImagesLimit < newImages.count
         {
-            let msgFormat = NSLocalizedString("ADD_IMAGE_LIMIT_AT_X", comment: "Only add %@ photos most")
+            let msgFormat = "ADD_IMAGE_LIMIT_AT_X".localizedString()
             let msg = String(format:msgFormat,"\(mostImagesLimit)")
             let alert = UIAlertController(title: msg, message: nil, preferredStyle: .Alert)
             alert.addAction(ALERT_ACTION_I_SEE.first!)

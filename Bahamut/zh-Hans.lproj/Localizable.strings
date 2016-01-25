@@ -11,45 +11,6 @@ NETWORK_ERROR = "网络错误";
 NOT_LOGIN = "没有登录";
 LOGOUTED = "已经注销";
 
-JUST_NOW = "刚刚";
-X_MINUTES_AGO = "%@ 分钟前";
-X_HOURS_AGO = "%@ 小时前";
-X_DAYS_AGO = "%@ 天前";
-
-//Chat Framework
-HOLD_TO_TALK = "按住说话";
-RELEASE_TO_SEND = "释放发送";
-INPUT_CONTENTS_HERE = "输入消息";
-
-CANCEL = "取消";
-RELEASE_TO_CANCEL = "释放取消";
-SLIDE_UP_CANCEL = "向上滑动取消";
-SUCCESS = "成功";
-CAMERA = "相机";
-IMAGES = "图片";
-TOO_SHORT = "时间太短";
-SEND = "发送";
-TIPS = "提示";
-NO_CAMERA_TIPS = "找不到相机设备";
-SURE = "确定";
-VOICE_SEC = "%@' 秒";
-TIME_LIMIT = "时间限制";
-
-Sunday = "星期日";
-Monday = "星期一";
-Tuesday = "星期二";
-Wednesday = "星期三";
-Thursday = "星期四";
-Friday = "星期五";
-Saturday = "星期六";
-Today = "今天";
-Tomorrow = "明天";
-Yesterday = "昨天";
-AM = "上午";
-PM = "下午";
-Night = "晚上";
-Dawn = "早上";
-
 //MJRefresh
 RefreshHeaderIdleText = "下拉加载最新分享";
 RefreshHeaderPullingText = "松开立即刷新";
@@ -124,7 +85,7 @@ CONNECT_ERROR_TAP_RETRY = "网络错误，点我重试!";
 
 ILLEGLE_VALUE = "非法数据";
 LOAD_IMG_ERROR = "加载图片失败";
-CONFIRM_FOCUS_TAG = "关注主题:%@ ?";
+CONFIRM_FOCUS_THEME = "关注主题:%@ ?";
 
 FOCUS_THEME_SUCCESS = "关注成功!";
 FOCUS_THEME_ERROR = "关注出现错误，请检查你的网络！";

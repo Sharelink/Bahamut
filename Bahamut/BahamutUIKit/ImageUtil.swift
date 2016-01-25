@@ -11,15 +11,9 @@ import UIKit
 import AVFoundation
 class ImageUtil
 {
-    class func getVideoThumbImage(videoURL:String) -> UIImage
+    class func getVideoThumbImage(videoURL:String) -> UIImage?
     {
-        if let thumb = generateThumb(videoURL)
-        {
-            return thumb
-        }else
-        {
-            return UIImage(named:"file")!
-        }
+        return generateThumb(videoURL)
     }
     
     class func generateThumb(videoURL:String) -> UIImage?
@@ -73,27 +67,24 @@ class ImageUtil
         return nil
     }
     
-    class func getImageThumbImage(imageURL:String) -> UIImage
+    class func getImageThumbImage(imageURL:String) -> UIImage?
     {
-        let image:UIImage = UIImage(contentsOfFile: imageURL)!
-        return image
+        return UIImage(contentsOfFile: imageURL)
     }
-    
-    class func getSoundIconImage() -> UIImage
+
+}
+
+extension UIImage
+{
+    static func namedImageInBundle(named:String, inBundle:NSBundle) -> UIImage?
     {
-        let thumb = UIImage(named:"music")
-        return thumb!
-    }
-    
-    class func getTextFileIconImage() -> UIImage
-    {
-        let thumb = UIImage(named:"text_file")
-        return thumb!
+        return UIImage(named: named, inBundle: inBundle, compatibleWithTraitCollection: nil)
     }
 }
 
 extension UIImage
 {
+    
     func scaleToWidthOf(width:CGFloat,quality:CGFloat = 1) -> UIImage
     {
         let originWidth = self.size.width

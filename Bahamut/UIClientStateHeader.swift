@@ -71,28 +71,28 @@ class UIClientStateHeader: UIView {
     {
         self.backgroundColor = UIColor.headerColor
         indicator.startAnimating()
-        messageLabel.text = NSLocalizedString("CONNECTED", comment: "Connected")
+        messageLabel.text = "CONNECTED".localizedString()
     }
     
     private func startConnect()
     {
         self.backgroundColor = UIColor.headerColor
         indicator.startAnimating()
-        messageLabel.text = NSLocalizedString("CONNECTING", comment: "Connecting")
+        messageLabel.text = "CONNECTING".localizedString()
     }
     
     private func setConnectError()
     {
         self.backgroundColor = UIColor.headerColor
         indicator.stopAnimating()
-        messageLabel.text = NSLocalizedString("CONNECT_ERROR_TAP_RETRY", comment: "Network Error,Tap Here Retry")
+        messageLabel.text = "CONNECT_ERROR_TAP_RETRY".localizedString()
     }
     
     private func setValidateFailed()
     {
         self.backgroundColor = UIColor.headerColor
         indicator.stopAnimating()
-        messageLabel.text = NSLocalizedString("CHICAGO_VALIDATE_FAILED", comment: "")
+        messageLabel.text = "CHICAGO_VALIDATE_FAILED".localizedString()
         
     }
 

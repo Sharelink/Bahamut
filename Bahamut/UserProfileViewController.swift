@@ -34,11 +34,11 @@ extension SharelinkThemeService
 {
     func showConfirmAddTagAlert(currentViewController:UIViewController,theme:SharelinkTheme)
     {
-        let alert = UIAlertController(title: NSLocalizedString("FOCUS", comment: "") , message: String(format: NSLocalizedString("CONFIRM_FOCUS_TAG", comment: ""), theme.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("YES", comment: ""), style: .Default){ _ in
+        let alert = UIAlertController(title: "FOCUS".localizedString() , message: String(format: "CONFIRM_FOCUS_THEME".localizedString(), theme.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "YES".localizedString(), style: .Default){ _ in
             self.addThisThemeToMyFocus(currentViewController,theme: theme)
             })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("UMMM", comment: ""), style: .Cancel){ _ in
+        alert.addAction(UIAlertAction(title: "UMMM".localizedString(), style: .Cancel){ _ in
             })
         currentViewController.presentViewController(alert, animated: true, completion: nil)
     }
@@ -47,8 +47,8 @@ extension SharelinkThemeService
     {
         if self.isThemeExists(theme.data)
         {
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("SAME_THEME_EXISTS", comment: ""), preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: .Cancel, handler: nil))
+            let alert = UIAlertController(title: nil, message: "SAME_THEME_EXISTS".localizedString(), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel, handler: nil))
             currentViewController.presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -61,9 +61,9 @@ extension SharelinkThemeService
         newTag.showToLinkers = "true"
         newTag.data = theme.data
         self.addSharelinkTheme(newTag) { (suc) -> Void in
-            let alerttitle = suc ? NSLocalizedString("FOCUS_THEME_SUCCESS", comment: "") : NSLocalizedString("FOCUS_THEME_ERROR", comment: "")
+            let alerttitle = suc ? "FOCUS_THEME_SUCCESS".localizedString() : "FOCUS_THEME_ERROR".localizedString()
             let alert = UIAlertController(title:alerttitle , message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE", comment: ""), style: .Cancel){ _ in
+            alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel){ _ in
                 })
             currentViewController.presentViewController(alert, animated: true, completion: nil)
         }
@@ -113,11 +113,12 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         initProfileVideoView()
-        initTags()
+        initThemes()
     }
     
-    func initTags()
+    private func initThemes()
     {
+        
         self.themes = ServiceContainer.getService(SharelinkThemeService).getUserTheme(userProfileModel.userId){ result in
             self.themes = result
         }
@@ -168,10 +169,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     }
     
     //MARK: focus tags
-    var focusTagController:ThemeCollectionViewController!{
+    var focusThemeController:ThemeCollectionViewController!{
         didSet{
-            self.addChildViewController(focusTagController)
-            focusTagController.delegate = self
+            self.addChildViewController(focusThemeController)
+            focusThemeController.delegate = self
         }
     }
     
@@ -180,17 +181,30 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             return
         }
-        if sender == focusTagController
+        if sender == focusThemeController
         {
             ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self,theme: sender.themes[indexPath.row])
         }
     }
     
-    @IBOutlet weak var focusTagViewContainer: UIView!{
+    //TODO: add RefreshThemes functions
+    private var refreshThemesButton:UIButton!
+    private var refreshingIndicator:UIActivityIndicatorView!
+    
+    private func initRefreshThemes()
+    {
+        refreshingIndicator = UIActivityIndicatorView()
+        refreshingIndicator.center = focusThemeViewContainer.center
+        refreshThemesButton = UIButton(type: .InfoDark)
+        refreshThemesButton.center = focusThemeViewContainer.center
+    }
+    
+    @IBOutlet weak var focusThemeViewContainer: UIView!{
         didSet{
-            focusTagViewContainer.layer.cornerRadius = 7
-            focusTagController = ThemeCollectionViewController.instanceFromStoryBoard()
-            focusTagViewContainer.addSubview(focusTagController.view)
+            
+            focusThemeViewContainer.layer.cornerRadius = 7
+            focusThemeController = ThemeCollectionViewController.instanceFromStoryBoard()
+            focusThemeViewContainer.addSubview(focusThemeController.view)
             
         }
     }
@@ -223,7 +237,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                     self.userProfileModel.personalVideoId = fileKey.accessKey
                     self.userProfileModel.saveModel()
                     self.updatePersonalFilm()
-                    self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_SUC", comment: ""))
+                    self.showToast("SET_PROFILE_VIDEO_SUC".localizedString())
                 }
             })
         }
@@ -231,7 +245,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     }
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
-        self.showToast(NSLocalizedString("SET_PROFILE_VIDEO_FAILED", comment: ""))
+        self.showToast("SET_PROFILE_VIDEO_FAILED".localizedString())
         taskFileMap.removeValueForKey(taskIdentifier)
     }
     
@@ -242,17 +256,17 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     private func showEditProfileVideoActionSheet()
     {
-        let alert = UIAlertController(title:NSLocalizedString("CHANGE_PROFILE_VIDEO", comment: "Change Profile Video"), message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title:NSLocalizedString("REC_NEW_VIDEO", comment: "Record A New Video"), style: .Destructive) { _ in
+        let alert = UIAlertController(title:"CHANGE_PROFILE_VIDEO".localizedString() , message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title:"REC_NEW_VIDEO".localizedString() , style: .Destructive) { _ in
             self.recordVideo()
             })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("SELECT_VIDEO", comment: "Select A Video From Album"), style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:"SELECT_VIDEO".localizedString(), style: .Destructive) { _ in
             self.seleteVideo()
             })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("USE_DEFAULT_VIDEO", comment: "Use Default Video"), style: .Destructive) { _ in
+        alert.addAction(UIAlertAction(title:"USE_DEFAULT_VIDEO".localizedString(), style: .Destructive) { _ in
             self.useDefaultVideo()
             })
-        alert.addAction(UIAlertAction(title:NSLocalizedString("CANCEL",comment:""), style: .Cancel){ _ in})
+        alert.addAction(UIAlertAction(title:"CANCEL".localizedString(), style: .Cancel){ _ in})
         presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -282,11 +296,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath
-            self.showToast( NSLocalizedString("VIDEO_SAVED", comment: ""))
+            self.showToast( "VIDEO_SAVED".localizedString())
             saveProfileVideo()
         }else
         {
-            self.showToast( NSLocalizedString("SAVE_VIDEO_FAILED",comment:""))
+            self.showToast( "SAVE_VIDEO_FAILED".localizedString())
         }
     }
     
@@ -372,7 +386,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     //MARK: user theme
     var themes:[SharelinkTheme]!{
         didSet{
-            self.focusTagController.themes = self.themes
+            self.focusThemeController.themes = self.themes
         }
     }
     
@@ -381,8 +395,8 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = "note"
         propertySet.propertyValue = userProfileModel.noteName
-        propertySet.propertyLabel = NSLocalizedString("NOTE_NAME", comment: "Note Name")
-        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: NSLocalizedString("NOTE_NAME", comment: ""), delegate: self)
+        propertySet.propertyLabel = "NOTE_NAME".localizedString()
+        UIEditTextPropertyViewController.showEditPropertyViewController(self.navigationController!,propertySet:propertySet, controllerTitle: "NOTE_NAME".localizedString(), delegate: self)
     }
     
     func editPropertySave(propertyId: String!, newValue: String!)
@@ -390,11 +404,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let userService = ServiceContainer.getService(UserService)
         if propertyId == "note"
         {
-            self.makeToastActivityWithMessage("",message:NSLocalizedString("UPDATING", comment: ""))
+            self.makeToastActivityWithMessage("",message:"UPDATING".localizedString())
             if SharelinkerCenterNoteName == newValue
             {
-                let alert = UIAlertController(title: NSLocalizedString("INVALID_VALUE", comment: "Invalid Value"), message: NSLocalizedString("USE_ANOTHER_VALUE", comment: "Use another value please!"), preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("I_SEE",comment:""), style: UIAlertActionStyle.Cancel ,handler:nil))
+                let alert = UIAlertController(title: "INVALID_VALUE".localizedString(), message: "USE_ANOTHER_VALUE".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: UIAlertActionStyle.Cancel ,handler:nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
