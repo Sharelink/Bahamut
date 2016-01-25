@@ -21,6 +21,8 @@ class LinkedUserListController: UITableViewController
     
     var linkMessageModel:[LinkMessage] = [LinkMessage]()
     
+    private(set) var fileService:FileService!
+    
     private(set) var userService:UserService!{
         didSet{
             userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
@@ -85,6 +87,7 @@ class LinkedUserListController: UITableViewController
         let uiview = UIView()
         uiview.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = uiview
+        self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.notificationService = ServiceContainer.getService(NotificationService)
         refresh()
@@ -244,14 +247,14 @@ class LinkedUserListController: UITableViewController
             if model.type == LinkMessageType.AskLink.rawValue
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListAskingLinkCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListAskingLinkCell
-                cell.model = model
                 cell.rootController = self
+                cell.model = model
                 return cell
             }else
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier(UIUserListMessageCell.cellIdentifier, forIndexPath: indexPath) as! UIUserListMessageCell
-                cell.model = model
                 cell.rootController = self
+                cell.model = model
                 return cell
             }
         }else
@@ -261,8 +264,8 @@ class LinkedUserListController: UITableViewController
             
             if let userCell = cell as? UIUserListCell
             {
-                userCell.userModel = userModel
                 userCell.rootController = self
+                userCell.userModel = userModel
             }
             return cell
         }

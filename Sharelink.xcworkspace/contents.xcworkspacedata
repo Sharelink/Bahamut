@@ -8,9 +8,6 @@
       location = "group:SharelinkKernel/SharelinkKernel.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../ChatFramework/ChatFramework.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Sharelink.xcodeproj">
    </FileRef>
    <FileRef

@@ -14,7 +14,16 @@ import CoreMotion
 
 class Sharelink
 {
-    private(set) static var mainBundle:NSBundle!
+    static var mainBundle:NSBundle{
+        if isSDKVersion
+        {
+            let path = NSBundle.mainBundle().pathForResource("SharelinkKernel", ofType: "framework")!
+            return NSBundle(path:path)!
+        }else
+        {
+            return NSBundle.mainBundle()
+        }
+    }
     private(set) static var isSDKVersion:Bool = false
     static var isProductVersion:Bool{
         return !isSDKVersion
@@ -52,24 +61,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         Sharelink.isSDKVersion = isSDKVersion
         if isSDKVersion
         {
-            configureAsSDKVersion()
+            loadBahamutConfig("BahamutConfigDev")
         }else
         {
-            configureAsProductVersion()
+            loadBahamutConfig("BahamutConfig")
         }
-    }
-    
-    private func configureAsSDKVersion()
-    {
-        let path = NSBundle.mainBundle().pathForResource("SharelinkKernel", ofType: "framework")!
-        Sharelink.mainBundle = NSBundle(path:path)!
-        loadBahamutConfig("BahamutConfigDev")
-    }
-    
-    private func configureAsProductVersion()
-    {
-        Sharelink.mainBundle = NSBundle.mainBundle()
-        loadBahamutConfig("BahamutConfig")
     }
     
     private func loadBahamutConfig(configName:String)

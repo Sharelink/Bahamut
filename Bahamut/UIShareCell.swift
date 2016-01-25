@@ -36,6 +36,7 @@ class UIShareCell : UITableViewCell
     }
     
     var postUser:Sharelinker?
+    private var avatarId:String!
     
     func update()
     {
@@ -54,7 +55,11 @@ class UIShareCell : UITableViewCell
     
     func updateAvatar(avatarImageView:UIImageView)
     {
-        rootController.fileService.setAvatar(avatarImageView, iconFileId: postUser?.avatarId ?? shareModel.avatarId)
+        if String.isNullOrEmpty(avatarId) || avatarId != postUser?.avatarId
+        {
+            avatarId = postUser?.avatarId ?? shareModel.avatarId
+            rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId)
+        }
     }
     
     func tapCell(_:UITapGestureRecognizer)

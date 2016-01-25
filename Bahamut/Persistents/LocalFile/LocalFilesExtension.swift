@@ -156,8 +156,7 @@ extension PersistentManager
     {
         let localStoreFileDir = LocalFilesExtension.defaultInstance.fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
         let fileName = "\(fileId)\(fileType.FileSuffix)"
-        let dirPath = localStoreFileDir.path!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
-        return "\(dirPath)/\(fileName)"
+        return localStoreFileDir.URLByAppendingPathComponent(fileName).path!
     }
     
     func getFilePathFromCachePath(fileId:String,type:FileType!) -> String!

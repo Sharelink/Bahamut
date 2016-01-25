@@ -9,8 +9,33 @@
 import UIKit
 import ChatFramework
 
+class UIUserListCellBase: UITableViewCell
+{
+    private var avatarId:String!
+    var rootController:LinkedUserListController!{
+        didSet{
+            if oldValue == nil{
+                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onCellTapped:"))
+            }
+        }
+    }
+    
+    func updateAvatar(newAvatarId:String?, avatarImageView:UIImageView)
+    {
+        if String.isNullOrEmpty(avatarId) || avatarId != newAvatarId
+        {
+            avatarId = newAvatarId
+            self.rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId)
+        }
+    }
+    
+    func onCellTapped(a:UITapGestureRecognizer)
+    {
+    }
+}
+
 //MARK: UIUserListMessageCell
-class UIUserListMessageCell: UITableViewCell
+class UIUserListMessageCell: UIUserListCellBase
 {
     
     static let cellIdentifier:String = "UIUserListMessageCell"
@@ -20,13 +45,7 @@ class UIUserListMessageCell: UITableViewCell
         }
     }
     
-    var rootController:LinkedUserListController!{
-        didSet{
-            if oldValue == nil{
-                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onCellTapped:"))
-            }
-        }
-    }
+    
     @IBOutlet weak var noteNameLabel: UILabel!
     @IBOutlet weak var avatar: UIImageView!{
         didSet{
@@ -48,7 +67,7 @@ class UIUserListMessageCell: UITableViewCell
         self.rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.model.sharelinkerId)
     }
     
-    func onCellTapped(a:UITapGestureRecognizer)
+    override func onCellTapped(a:UITapGestureRecognizer)
     {
         self.rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userId: self.model.sharelinkerId)
     }
@@ -57,24 +76,17 @@ class UIUserListMessageCell: UITableViewCell
     {
         noteNameLabel.text = model.sharelinkerNick
         messageLabel.text = model.isAcceptAskLinkMessage() ? "USER_ACCEPT_YOUR_LINK".localizedString() : model.message
-        ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
+        self.updateAvatar(model.avatar, avatarImageView: avatar)
     }
 }
 
 //MARK: UIUserListAskingLinkCell
-class UIUserListAskingLinkCell: UITableViewCell
+class UIUserListAskingLinkCell: UIUserListCellBase
 {
     static let cellIdentifier:String = "UserAskLinkCell"
     var model:LinkMessage!{
         didSet{
             update()
-        }
-    }
-    var rootController:LinkedUserListController!{
-        didSet{
-            if oldValue == nil{
-                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onCellTapped:"))
-            }
         }
     }
     
@@ -89,7 +101,7 @@ class UIUserListAskingLinkCell: UITableViewCell
     @IBOutlet weak var userNickLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
-    func onCellTapped(_:UIGestureRecognizer)
+    override func onCellTapped(_:UIGestureRecognizer)
     {
         rootController.userService.showLinkConfirmViewController(self.rootController.navigationController!, linkMessage: self.model)
     }
@@ -108,13 +120,13 @@ class UIUserListAskingLinkCell: UITableViewCell
     {
         userNickLabel.text = "\(model.sharelinkerNick)"
         messageLabel.text = String(format: "ASKING_FOR_A_LINK".localizedString(),model.sharelinkerNick!)
-        ServiceContainer.getService(FileService).setAvatar(avatar, iconFileId: model.avatar)
+        updateAvatar(model.avatar, avatarImageView: avatar)
     }
     
 }
 
 //MARK: UIUserListCell
-class UIUserListCell: UITableViewCell
+class UIUserListCell: UIUserListCellBase
 {
     static let cellIdentifier:String = "UserCell"
     
@@ -132,15 +144,7 @@ class UIUserListCell: UITableViewCell
             levelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showLevelRule:"))
         }
     }
-    var rootController:LinkedUserListController!{
-        didSet{
-            if oldValue == nil
-            {
-                self.userInteractionEnabled = true
-                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showProfile:"))
-            }
-        }
-    }
+
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 3.0
@@ -158,8 +162,7 @@ class UIUserListCell: UITableViewCell
         self.rootController.showAlert(title, msg: msg, actions: ALERT_ACTION_I_SEE)
     }
     
-    func showProfile(_:UIGestureRecognizer)
-    {
+    override func onCellTapped(a: UITapGestureRecognizer) {
         rootController.userService.showUserProfileViewController(self.rootController.navigationController!, userProfile: self.userModel)
     }
     
@@ -172,13 +175,6 @@ class UIUserListCell: UITableViewCell
     {
         userNickTextField.text = userModel.getNoteName()
         levelLabel.text = "Lv.\(userModel.level ?? 1)"
-        updateAvatar()
+        self.updateAvatar(userModel.avatarId, avatarImageView: avatarImageView)
     }
-    
-    func updateAvatar()
-    {
-        let fileService = ServiceContainer.getService(FileService)
-        fileService.setAvatar(self.avatarImageView, iconFileId: userModel.avatarId)
-    }
-
 }
