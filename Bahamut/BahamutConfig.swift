@@ -1,0 +1,55 @@
+//
+//  SharelinkSetting.swift
+//  Bahamut
+//
+//  Created by AlexChow on 15/10/12.
+//  Copyright © 2015年 GStudio. All rights reserved.
+//
+
+import Foundation
+import EVReflection
+
+let AppleStoreReviewAccountIds = ["147275","147276"];
+var SharelinkVersion:String{
+    if let infoDic = Sharelink.mainBundle.infoDictionary
+    {
+        let version = infoDic["CFBundleShortVersionString"] as! String
+        return version
+    }
+    return "1.0.24"
+}
+
+var SharelinkName:String{
+    return "SHARELINK_NAME".localizedString()
+}
+
+class BahamutConfigObject:EVObject
+{
+    var accountRegistApiUrl:String!
+    var accountLoginApiUrl:String!
+    
+    var sharelinkPrivacyPage:String!
+    var sharelinkEmail:String!
+    var sharelinkOuterExecutorUrlPrefix:String!
+    
+    var AliOssAccessKey:String!
+    var AliOssSecretKey:String!
+    
+    var sharelinkAppStoreId:String!
+    
+    var umengAppkey:String!
+    var shareSDKAppkey:String!
+    
+    var facebookAppkey:String!
+    var facebookAppScrect:String!
+    
+    var wechatAppkey:String!
+    var wechatAppScrect:String!
+    
+    var qqAppkey:String!
+    
+    var weiboAppkey:String!
+    var weiboAppScrect:String!
+    
+}
+
