@@ -185,7 +185,7 @@ extension PersistentManager
         return nil
     }
     
-    func getImage(fileId:String?) -> UIImage?
+    func getImage(fileId:String?,bundle:NSBundle? = NSBundle.mainBundle()) -> UIImage?
     {
         if fileId == nil
         {
@@ -195,7 +195,7 @@ extension PersistentManager
         if let image = cache.objectForKey(fileId!) as? UIImage
         {
             return image
-        }else if let image = UIImage(named: fileId!)
+        }else if let image = UIImage(named: fileId!,inBundle: bundle,compatibleWithTraitCollection:nil)
         {
             cache.setObject(image, forKey: fileId!)
             return image

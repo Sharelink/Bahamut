@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		E7171AAD1C57559E0097AF64 /* SKAggregate */ = {
+		E73C75411C57CC1C00C89702 /* MergeSharelinkKernel */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = E7171AAE1C57559E0097AF64 /* Build configuration list for PBXAggregateTarget "SKAggregate" */;
+			buildConfigurationList = E73C75421C57CC1C00C89702 /* Build configuration list for PBXAggregateTarget "MergeSharelinkKernel" */;
 			buildPhases = (
-				E7171AB11C5755A40097AF64 /* ShellScript */,
+				E73C75451C57CC2200C89702 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = SKAggregate;
-			productName = SKAggregate;
+			name = MergeSharelinkKernel;
+			productName = MergeSharelinkKernel;
 		};
 /* End PBXAggregateTarget section */
 
@@ -166,7 +166,6 @@
 		E7171A6D1C5743D80097AF64 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719841C5743D80097AF64 /* NotificationService.swift */; };
 		E7171A6E1C5743D80097AF64 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719851C5743D80097AF64 /* LocationService.swift */; };
 		E7171A851C5744450097AF64 /* SharelinkKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = E7171A841C5744450097AF64 /* SharelinkKernel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E7171A881C5744920097AF64 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71718591C5742A80097AF64 /* Pods.framework */; };
 		E7171A891C5744920097AF64 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E717184B1C5738260097AF64 /* Security.framework */; };
 		E7171A8A1C5744920097AF64 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D756191C564839002E3D40 /* AudioToolbox.framework */; };
 		E7171A8B1C5744920097AF64 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D7561A1C564839002E3D40 /* MapKit.framework */; };
@@ -236,7 +235,6 @@
 		E717184F1C573BB90097AF64 /* CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
 		E71718511C573C080097AF64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E71718521C573C080097AF64 /* Pods.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		E71718591C5742A80097AF64 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Pods.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Debug-iphoneos/Pods.framework"; sourceTree = "<absolute>"; };
 		E71718601C57437E0097AF64 /* SharelinkKernel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SharelinkKernel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71718641C57437F0097AF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E71718761C5743D80097AF64 /* ChatFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ChatFramework.framework; sourceTree = "<group>"; };
@@ -451,7 +449,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7171AA51C5745ED0097AF64 /* CommonCrypto.framework in Frameworks */,
-				E7171A881C5744920097AF64 /* Pods.framework in Frameworks */,
 				E7171A891C5744920097AF64 /* Security.framework in Frameworks */,
 				E7171A8A1C5744920097AF64 /* AudioToolbox.framework in Frameworks */,
 				E7171A8B1C5744920097AF64 /* MapKit.framework in Frameworks */,
@@ -1151,7 +1148,6 @@
 		E7D756181C564818002E3D40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E71718591C5742A80097AF64 /* Pods.framework */,
 				E717184B1C5738260097AF64 /* Security.framework */,
 				E7D756191C564839002E3D40 /* AudioToolbox.framework */,
 				E7D7561A1C564839002E3D40 /* MapKit.framework */,
@@ -1287,10 +1283,11 @@
 					E717185F1C57437E0097AF64 = {
 						CreatedOnToolsVersion = 7.2;
 					};
-					E7171AAD1C57559E0097AF64 = {
-						CreatedOnToolsVersion = 7.2;
-					};
 					E7171AC31C576B4D0097AF64 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 2BW6TGDJAV;
+					};
+					E73C75411C57CC1C00C89702 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
@@ -1309,8 +1306,8 @@
 			targets = (
 				E717183C1C57364B0097AF64 /* CommonCrypto */,
 				E717185F1C57437E0097AF64 /* SharelinkKernel */,
-				E7171AAD1C57559E0097AF64 /* SKAggregate */,
 				E7171AC31C576B4D0097AF64 /* KernelResource */,
+				E73C75411C57CC1C00C89702 /* MergeSharelinkKernel */,
 			);
 		};
 /* End PBXProject section */
@@ -1358,19 +1355,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E7171AB11C5755A40097AF64 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#构建平台通用Framework\nFMK_NAME=\"SharelinkKernel\"\nINSTALL_DIR=\"${PROJECT_DIR}/Products/${FMK_NAME}.framework\"\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\nxcodebuild -workspace \"../../../Sharelink.xcworkspace\" -scheme \"SharelinkKernel\" -sdk iphoneos clean build\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}\"\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
-		};
 		E7171AEF1C577D0D0097AF64 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1383,6 +1367,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"Compile *.xcdatamodeld\"\ncd $CODESIGNING_FOLDER_PATH\nfor i in $(ls | grep .xcdatamodeld)\ndo\n    name=\"${i%%.xcdatamodeld}\"\n    target_name=\"${name}.momd\"\n    mkdir -p $target_name\n    momc --module $PRODUCT_NAME \"${CODESIGNING_FOLDER_PATH}/${i}\" \"${CODESIGNING_FOLDER_PATH}/${target_name}\"\n    rm -R \"${CODESIGNING_FOLDER_PATH}/${i}\"\ndone\necho \"Compile *.xcdatamodeld Finished\"\ncd -";
+		};
+		E73C75451C57CC2200C89702 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/make.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1672,6 +1669,9 @@
 		E71718661C57437F0097AF64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1706,6 +1706,9 @@
 		E71718671C57437F0097AF64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1735,23 +1738,12 @@
 			};
 			name = Release;
 		};
-		E7171AAF1C57559E0097AF64 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		E7171AB01C57559E0097AF64 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		E7171ACA1C576B4D0097AF64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEFINES_MODULE = YES;
@@ -1777,6 +1769,8 @@
 		E7171ACB1C576B4D0097AF64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEFINES_MODULE = YES;
@@ -1795,6 +1789,20 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		E73C75431C57CC1C00C89702 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = SharelinkKernel;
+			};
+			name = Debug;
+		};
+		E73C75441C57CC1C00C89702 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = SharelinkKernel;
 			};
 			name = Release;
 		};
@@ -1899,15 +1907,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E7171AAE1C57559E0097AF64 /* Build configuration list for PBXAggregateTarget "SKAggregate" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E7171AAF1C57559E0097AF64 /* Debug */,
-				E7171AB01C57559E0097AF64 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		E7171AC91C576B4D0097AF64 /* Build configuration list for PBXNativeTarget "KernelResource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1916,6 +1915,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E73C75421C57CC1C00C89702 /* Build configuration list for PBXAggregateTarget "MergeSharelinkKernel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E73C75431C57CC1C00C89702 /* Debug */,
+				E73C75441C57CC1C00C89702 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E7AF57AD1C54AE8400505B2A /* Build configuration list for PBXProject "SharelinkKernel" */ = {
 			isa = XCConfigurationList;

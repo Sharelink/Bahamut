@@ -55,10 +55,10 @@ extension FileService
     func setAvatar(imageView:UIImageView,iconFileId fileId:String!)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar)
+            imageView.image = PersistentManager.sharedInstance.getImage(ImageAssetsConstants.defaultAvatar,bundle: Sharelink.mainBundle())
             if String.isNullOrWhiteSpace(fileId) == false
             {
-                if let uiimage =  PersistentManager.sharedInstance.getImage( fileId )
+                if let uiimage =  PersistentManager.sharedInstance.getImage( fileId ,bundle: Sharelink.mainBundle())
                 {
                     imageView.image = uiimage
                 }else
@@ -67,7 +67,7 @@ extension FileService
                         if filePath != nil
                         {
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                imageView.image = PersistentManager.sharedInstance.getImage(fileId)
+                                imageView.image = PersistentManager.sharedInstance.getImage(fileId,bundle: Sharelink.mainBundle())
                             })
                         }
                     })
