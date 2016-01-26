@@ -20,7 +20,7 @@ class EntryController: UINavigationController
 {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let launchScr = Sharelink.mainBundle.loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
+        let launchScr = Sharelink.mainBundle().loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
         launchScr.frame = self.view.bounds
         self.view.backgroundColor = UIColor.blackColor()
         self.view.addSubview(launchScr)

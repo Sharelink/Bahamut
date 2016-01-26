@@ -77,7 +77,7 @@ class ScanQRViewController: UIViewController,UIPopoverPresentationControllerDele
     
     static func instanceFromStoryBoard() -> ScanQRViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "scanQRViewController",bundle: Sharelink.mainBundle) as! ScanQRViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "scanQRViewController",bundle: Sharelink.mainBundle()) as! ScanQRViewController
     }
     
     static func showScanQRViewController(currentNavigationController:UINavigationController,delegate:QRStringDelegate)

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ChatFramework
 import MJRefresh
 
 //MARK:ChatViewController
@@ -458,7 +457,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         if instance == nil
         {
-            instance = instanceFromStoryBoard("UIMessage", identifier: "ChatViewController",bundle: Sharelink.mainBundle) as! ChatViewController
+            instance = instanceFromStoryBoard("UIMessage", identifier: "ChatViewController",bundle: Sharelink.mainBundle()) as! ChatViewController
         }
         return instance
     }

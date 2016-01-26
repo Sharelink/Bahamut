@@ -19,7 +19,7 @@ class UIClientStateHeader: UIView {
     
     static func instanceFromXib() -> UIClientStateHeader
     {
-        return Sharelink.mainBundle.loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
+        return Sharelink.mainBundle().loadNibNamed("UIViews", owner: nil, options: nil).filter{$0 is UIClientStateHeader}.first as! UIClientStateHeader
     }
 
     deinit{

@@ -68,7 +68,7 @@ class SRCService: NSNotificationCenter,ServiceProtocol
     private func copySRCTestFolder()
     {
         //let dir = "SRCPluginTemplate"
-        let url = Sharelink.mainBundle.URLForResource("SRCPluginTemplate", withExtension: nil)!
+        let url = Sharelink.mainBundle().URLForResource("SRCPluginTemplate", withExtension: nil)!
         do
         {
             try NSFileManager.defaultManager().copyItemAtURL(url, toURL: self.userSRCPluginDir.URLByAppendingPathComponent(IdUtil.generateUniqueId()))

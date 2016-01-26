@@ -64,8 +64,10 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     @IBAction func recordFilm(sender: AnyObject) {
+        #if APP_VERSION
         showQuPaiCamera()
         MobClick.event("RecordVideoButton")
+        #endif
     }
     
     //MARK: select film delegate
@@ -115,6 +117,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         return nil
     }
     
+    #if APP_VERSION
     //MARK: qupai
     func showQuPaiCamera()
     {
@@ -138,6 +141,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         }
         
     }
+    #endif
     
     //MARK: Save video
     func saveVideo(videoSourcePath:String) -> String?

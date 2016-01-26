@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import ChatFramework
 
 class UIShareMessage:UIShareCell
 {

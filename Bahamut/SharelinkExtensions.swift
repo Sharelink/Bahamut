@@ -7,18 +7,27 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIImage
 {
     static func namedImageInSharelink(named:String) -> UIImage?
     {
-        return UIImage.namedImageInBundle(named, inBundle: Sharelink.mainBundle)
+        return UIImage.namedImageInBundle(named, inBundle: Sharelink.mainBundle())
     }
 }
 
 extension String
 {
     func localizedString() -> String{
-        return NSLocalizedString(self, tableName: "Localizable", bundle: Sharelink.mainBundle, value: "", comment: "")
+        return NSLocalizedString(self, tableName: "Localizable", bundle: Sharelink.mainBundle(), value: "", comment: "")
+    }
+}
+
+extension UIViewController
+{
+    func showAppVersionOnlyTips()
+    {
+        self.showToast("App Version Only")
     }
 }

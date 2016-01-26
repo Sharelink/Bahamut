@@ -122,6 +122,16 @@ class LinkedUserListController: UITableViewController
     
     @IBAction func addNewLink(sender: AnyObject)
     {
+        #if APP_VERSION
+            shareAddLinkMessageToSNS()
+        #else
+            self.showAppVersionOnlyTips()
+        #endif
+    }
+    
+    #if APP_VERSION
+    private func shareAddLinkMessageToSNS()
+    {
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
@@ -174,6 +184,7 @@ class LinkedUserListController: UITableViewController
             }
         }
     }
+    #endif
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {

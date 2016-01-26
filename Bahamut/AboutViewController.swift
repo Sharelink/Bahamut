@@ -62,6 +62,6 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
     
     static func instanceFromStoryBoard() -> AboutViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "aboutViewController",bundle: Sharelink.mainBundle) as! AboutViewController
+        return instanceFromStoryBoard("Component", identifier: "aboutViewController",bundle: Sharelink.mainBundle()) as! AboutViewController
     }
 }

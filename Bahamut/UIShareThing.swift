@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ChatFramework
 
 class UIShareThing: UIShareCell
 {

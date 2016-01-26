@@ -24,7 +24,7 @@ class UpdateCoreData1:PersistentUpdateProtocol
         if PersistentFileHelper.fileExists(dbFileUrl.path!)
         {
             let oldCoreData = CoreDataManager()
-            oldCoreData.initManager("Bahamut", dbFileUrl: dbFileUrl,momdBundle: Sharelink.mainBundle)
+            oldCoreData.initManager("Bahamut", dbFileUrl: dbFileUrl,momdBundle: Sharelink.mainBundle())
             NSLog("Importing Core Data Local File Entity")
             let fileInfos = oldCoreData.getCells(LocalFileExtensionConstant.fileEntityName, predicate: nil) as! [FileInfoEntity]
             for e in fileInfos

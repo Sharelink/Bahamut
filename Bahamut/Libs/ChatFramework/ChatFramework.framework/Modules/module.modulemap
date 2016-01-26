@@ -1,0 +1,6 @@
+framework module ChatFramework {
+  umbrella header "ChatFramework.h"
+
+  export *
+  module * { export * }
+}

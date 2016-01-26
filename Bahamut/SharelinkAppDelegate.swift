@@ -14,18 +14,25 @@ import CoreMotion
 
 class Sharelink
 {
-    static var mainBundle:NSBundle{
+    static func mainBundle() -> NSBundle{
         if isSDKVersion
         {
-            let path = NSBundle.mainBundle().pathForResource("SharelinkKernel", ofType: "framework")!
-            return NSBundle(path:path)!
+            if let path = NSBundle.mainBundle().pathForResource("SharelinkKernel", ofType: "bundle")
+            {
+                if let bundle = NSBundle(path: path)
+                {
+                    return bundle
+                }
+                
+            }
+            fatalError("No Kernel Resource Bundle")
         }else
         {
             return NSBundle.mainBundle()
         }
     }
     private(set) static var isSDKVersion:Bool = false
-    static var isProductVersion:Bool{
+    static func isProductVersion() -> Bool{
         return !isSDKVersion
     }
 }
@@ -39,14 +46,18 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         configContryAndLang()
         initService()
         loadUI()
-        configureUMessage(launchOptions)
-        if Sharelink.isProductVersion
+        configureImagePicker()
+        
+        #if APP_VERSION
+        if Sharelink.isProductVersion()
         {
+            configureUMessage(launchOptions)
             configureUmeng()
             configureShareSDK()
             initQuPai()
         }
-        configureImagePicker()
+        #endif
+        
         return true
     }
     
@@ -57,20 +68,13 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureSharelinkBundle()
     {
-        
         Sharelink.isSDKVersion = isSDKVersion
-        if isSDKVersion
-        {
-            loadBahamutConfig("BahamutConfigDev")
-        }else
-        {
-            loadBahamutConfig("BahamutConfig")
-        }
+        loadBahamutConfig("BahamutConfig")
     }
     
     private func loadBahamutConfig(configName:String)
     {
-        if let bahamutConfigPath = Sharelink.mainBundle.pathForResource(configName, ofType: "json")
+        if let bahamutConfigPath = Sharelink.mainBundle().pathForResource(configName, ofType: "json")
         {
             if let json = PersistentFileHelper.readTextFile(bahamutConfigPath)
             {
@@ -93,12 +97,15 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func initQuPai()
+    private func configContryAndLang()
     {
-        TaeSDK.sharedInstance().asyncInit({ () -> Void in
-            NSLog("TaeSDK Inited")
-        }) { (error) -> Void in
-            fatalError(error.description)
+        let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
+        SharelinkSetting.contry = countryCode!.description
+        if(countryCode!.description == "CN")
+        {
+            SharelinkSetting.lang = "ch"
+        }else{
+            SharelinkSetting.lang = "en"
         }
     }
     
@@ -128,6 +135,9 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    //MARK:PRODUCTION ONLY
+    #if APP_VERSION
+    
     private func configureUMessage(launchOptions: [NSObject: AnyObject]?)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -154,6 +164,15 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
             let userSettings = UIUserNotificationSettings(forTypes: [.Sound,.Badge,.Alert], categories: [categorys])
             UMessage.registerRemoteNotificationAndUserNotificationSettings(userSettings)
             
+        }
+    }
+    
+    private func initQuPai()
+    {
+        TaeSDK.sharedInstance().asyncInit({ () -> Void in
+            NSLog("TaeSDK Inited")
+            }) { (error) -> Void in
+                fatalError(error.description)
         }
     }
     
@@ -189,17 +208,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    private func configContryAndLang()
-    {
-        let countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)
-        SharelinkSetting.contry = countryCode!.description
-        if(countryCode!.description == "CN")
-        {
-            SharelinkSetting.lang = "ch"
-        }else{
-            SharelinkSetting.lang = "en"
-        }
-    }
+    
     
     private func connectGlobalApps()
     {
@@ -224,8 +233,14 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    #endif
+    
+    //MARK: AppDelegate
+    
     public func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        UMessage.registerDeviceToken(deviceToken)
+        #if APP_VERSION
+            UMessage.registerDeviceToken(deviceToken)
+        #endif
         SharelinkSetting.deviceToken = deviceToken.description
             .stringByReplacingOccurrencesOfString("<", withString: "")
             .stringByReplacingOccurrencesOfString(">", withString: "")
@@ -234,8 +249,9 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     public func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        
-        UMessage.didReceiveRemoteNotification(userInfo)
+        #if APP_VERSION
+            UMessage.didReceiveRemoteNotification(userInfo)
+        #endif
     }
     
     public func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -248,7 +264,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
             return handleSharelinkUrl(url)
         }else
         {
-            return ShareSDK.handleOpenURL(url, wxDelegate: self)
+            #if APP_VERSION
+                return ShareSDK.handleOpenURL(url, wxDelegate: self)
+            #else
+                return true
+            #endif
         }
     }
     
@@ -258,7 +278,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
             return handleSharelinkUrl(url)
         }else
         {
-            return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self)
+            #if APP_VERSION
+                return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self)
+            #else
+                return true
+            #endif
         }
     }
     

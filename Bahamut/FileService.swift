@@ -87,9 +87,9 @@ class FileService: ServiceProtocol {
     
     private func initPersistentsExtensions(userId:String)
     {
-        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl,momdBundle: Sharelink.mainBundle)
-        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"),momdBundle: Sharelink.mainBundle)
-        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"),momdBundle: Sharelink.mainBundle)
+        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl,momdBundle: Sharelink.mainBundle())
+        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"),momdBundle: Sharelink.mainBundle())
+        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"),momdBundle: Sharelink.mainBundle())
         
         UpdateCoreDataHelper.getUpdater(userId).update(userId)
     }
@@ -132,7 +132,7 @@ class FileService: ServiceProtocol {
     
     func getFilePath(fileId:String!,type:FileType!) -> String!
     {
-        if let path = Sharelink.mainBundle.pathForResource(fileId, ofType: nil)
+        if let path = Sharelink.mainBundle().pathForResource(fileId, ofType: nil)
         {
             return path
         }else if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)

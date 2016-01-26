@@ -13,6 +13,7 @@ class QuPaiRecordCamera
 {
     func getQuPaiController(delegate:QupaiSDKDelegate,sec:Int = 30) -> UINavigationController?
     {
+        #if APP_VERSION
         let taeSdk = TaeSDK.sharedInstance()
         if let sdk = taeSdk.getQuPaiSDk()
         {
@@ -31,6 +32,7 @@ class QuPaiRecordCamera
             navigation.navigationBarHidden = true
             return navigation
         }
+        #endif
         return nil
     }
 }

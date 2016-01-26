@@ -25,7 +25,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     
     private func setWaitingScreen()
     {
-        let launchScr = Sharelink.mainBundle.loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
+        let launchScr = Sharelink.mainBundle().loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
         launchScr.frame = self.view.bounds
         self.view.backgroundColor = UIColor.blackColor()
         self.view.addSubview(launchScr)
@@ -166,7 +166,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
     
     private static func instanceFromStoryBoard() -> MainNavigationController
     {
-        return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController",bundle: Sharelink.mainBundle) as! MainNavigationController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController",bundle: Sharelink.mainBundle()) as! MainNavigationController
     }
     
     public static func start()

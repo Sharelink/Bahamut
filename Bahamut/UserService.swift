@@ -67,7 +67,9 @@ class UserService: NSNotificationCenter,ServiceProtocol
     }
     
     func userLogout(userId: String) {
+        #if APP_VERSION
         ShareSDK.cancelAuthWithType(ShareTypeFacebook)
+        #endif
         SharelinkCmdManager.sharedInstance.clearHandler()
         ChicagoClient.sharedInstance.removeObserver(self)
         myUserModel = nil

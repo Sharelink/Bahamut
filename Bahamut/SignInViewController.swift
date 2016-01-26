@@ -44,12 +44,12 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     private var registAccountUrl:String{
-        let url = Sharelink.mainBundle.pathForResource("register_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        let url = Sharelink.mainBundle().pathForResource("register_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
         return url!
     }
     
     private var authenticationURL: String {
-        let url = Sharelink.mainBundle.pathForResource("login_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
+        let url = Sharelink.mainBundle().pathForResource("login_\(SharelinkSetting.lang)", ofType: "html", inDirectory: "WebAssets/Sharelink")
         return url!
     }
     

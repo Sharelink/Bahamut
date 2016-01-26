@@ -124,6 +124,6 @@ class UIFileCollectionController: UIResourceExplorerController
     
     static func instanceFromStoryBoard() -> UIFileCollectionController
     {
-        return instanceFromStoryBoard("Component", identifier: "fileCollectionViewController",bundle: Sharelink.mainBundle) as! UIFileCollectionController
+        return instanceFromStoryBoard("Component", identifier: "fileCollectionViewController",bundle: Sharelink.mainBundle()) as! UIFileCollectionController
     }
 }

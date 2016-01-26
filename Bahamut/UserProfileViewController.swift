@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ChatFramework
 
 
 //MARK: UserService
@@ -284,6 +283,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
+    #if APP_VERSION
     func qupaiSDK(sdk: ALBBQuPaiPluginPluginServiceProtocol!, compeleteVideoPath videoPath: String!, thumbnailPath: String!) {
         self.dismissViewControllerAnimated(false, completion: nil)
         if videoPath == nil
@@ -303,6 +303,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
             self.showToast( "SAVE_VIDEO_FAILED".localizedString())
         }
     }
+    #endif
     
     private func seleteVideo()
     {
@@ -426,6 +427,6 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     static func instanceFromStoryBoard() -> UserProfileViewController
     {
-        return instanceFromStoryBoard("UserAccount", identifier: "userProfileViewController",bundle: Sharelink.mainBundle) as! UserProfileViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "userProfileViewController",bundle: Sharelink.mainBundle()) as! UserProfileViewController
     }
 }

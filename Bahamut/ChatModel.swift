@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ChatFramework
 import UIKit
 
 

@@ -18,7 +18,7 @@ class LocalFileExtensionConstant
     static let uploadTaskEntityName = "UploadTask"
     static let uploadTaskEntityIdFieldName = "fileId"
     
-    static let coreDataModelId = "BahamutLocalFile"
+    static let coreDataModelId:String = "BahamutLocalFile"
 }
 
 extension FileInfoEntity

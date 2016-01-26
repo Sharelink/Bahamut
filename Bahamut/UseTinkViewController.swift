@@ -29,6 +29,6 @@ class UseTinkViewController: UIViewController {
     }
     
     static func instanceFromStoryBoard()->UseTinkViewController{
-        return instanceFromStoryBoard("Component", identifier: "UseTinkViewController",bundle: Sharelink.mainBundle) as! UseTinkViewController
+        return instanceFromStoryBoard("Component", identifier: "UseTinkViewController",bundle: Sharelink.mainBundle()) as! UseTinkViewController
     }
 }

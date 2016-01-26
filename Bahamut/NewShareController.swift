@@ -429,6 +429,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: instance from storyboard
     static func instanceFromStoryBoard() -> NewShareController
     {
-        return instanceFromStoryBoard("SharelinkMain", identifier: "NewShareController",bundle: Sharelink.mainBundle) as! NewShareController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "NewShareController",bundle: Sharelink.mainBundle()) as! NewShareController
     }
 }

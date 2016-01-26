@@ -11,7 +11,7 @@ import EVReflection
 
 let AppleStoreReviewAccountIds = ["147275","147276"];
 var SharelinkVersion:String{
-    if let infoDic = Sharelink.mainBundle.infoDictionary
+    if let infoDic = Sharelink.mainBundle().infoDictionary
     {
         let version = infoDic["CFBundleShortVersionString"] as! String
         return version

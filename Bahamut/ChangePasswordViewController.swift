@@ -50,7 +50,7 @@ class ChangePasswordViewController: UIViewController
     }
     
     static func instanceFromStoryBoard()->ChangePasswordViewController{
-        return instanceFromStoryBoard("UserAccount", identifier: "ChangePasswordViewController",bundle: Sharelink.mainBundle) as! ChangePasswordViewController
+        return instanceFromStoryBoard("UserAccount", identifier: "ChangePasswordViewController",bundle: Sharelink.mainBundle()) as! ChangePasswordViewController
     }
 
 }

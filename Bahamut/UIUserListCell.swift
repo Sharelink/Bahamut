@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ChatFramework
 
 class UIUserListCellBase: UITableViewCell
 {
@@ -22,10 +21,10 @@ class UIUserListCellBase: UITableViewCell
     
     func updateAvatar(newAvatarId:String?, avatarImageView:UIImageView)
     {
-        if String.isNullOrEmpty(avatarId) || avatarId != newAvatarId
+        if String.isNullOrEmpty(avatarId) || String.isNullOrEmpty(newAvatarId) || avatarId != newAvatarId
         {
             avatarId = newAvatarId
-            self.rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId)
+            self.rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId ?? ImageAssetsConstants.defaultAvatar)
         }
     }
     

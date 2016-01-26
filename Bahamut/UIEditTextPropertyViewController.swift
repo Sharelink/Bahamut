@@ -102,7 +102,7 @@ class UIEditTextPropertyViewController: UIViewController
     
     static func instanceFromStoryBoard() -> UIEditTextPropertyViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "editTextPropertyViewController",bundle: Sharelink.mainBundle) as! UIEditTextPropertyViewController
+        return instanceFromStoryBoard("Component", identifier: "editTextPropertyViewController",bundle: Sharelink.mainBundle()) as! UIEditTextPropertyViewController
     }
     
 }

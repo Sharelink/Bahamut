@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import ChatFramework
-
 
 protocol UUMegItemDataSource
 {

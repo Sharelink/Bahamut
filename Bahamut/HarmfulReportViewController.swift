@@ -80,7 +80,7 @@ class HarmfulReportViewController: UIViewController,MFMailComposeViewControllerD
     
     static func instanceFromStoryBoard() -> HarmfulReportViewController
     {
-        return instanceFromStoryBoard("Component", identifier: "HarmfulReportViewController",bundle: Sharelink.mainBundle) as! HarmfulReportViewController
+        return instanceFromStoryBoard("Component", identifier: "HarmfulReportViewController",bundle: Sharelink.mainBundle()) as! HarmfulReportViewController
     }
 
 }

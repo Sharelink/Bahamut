@@ -58,6 +58,6 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     
     static func instanceFromStoryBoard() -> SimpleBrowser
     {
-        return instanceFromStoryBoard("Component", identifier: "SimpleBrowser",bundle: Sharelink.mainBundle) as! SimpleBrowser
+        return instanceFromStoryBoard("Component", identifier: "SimpleBrowser",bundle: Sharelink.mainBundle()) as! SimpleBrowser
     }
 }

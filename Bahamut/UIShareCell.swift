@@ -55,10 +55,10 @@ class UIShareCell : UITableViewCell
     
     func updateAvatar(avatarImageView:UIImageView)
     {
-        if String.isNullOrEmpty(avatarId) || avatarId != postUser?.avatarId
+        if String.isNullOrEmpty(avatarId) || String.isNullOrEmpty(postUser?.avatarId) || avatarId != postUser?.avatarId
         {
             avatarId = postUser?.avatarId ?? shareModel.avatarId
-            rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId)
+            rootController.fileService.setAvatar(avatarImageView, iconFileId: avatarId ?? ImageAssetsConstants.defaultAvatar)
         }
     }
     
