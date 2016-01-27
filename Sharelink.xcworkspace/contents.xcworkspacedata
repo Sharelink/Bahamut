@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SharelinkKernel/SharelinkKernel.xcodeproj">
+      location = "group:Sharelink.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Sharelink.xcodeproj">
+      location = "group:SharelinkKernel/SharelinkKernel.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

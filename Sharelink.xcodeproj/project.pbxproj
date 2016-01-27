@@ -1973,13 +1973,7 @@
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Connection",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Core",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/QQConnectSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/UI",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/QuPaiSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
 					"$(PROJECT_DIR)/Bahamut/Libs/QuPaiSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Connection",
@@ -2043,13 +2037,7 @@
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Connection",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Core",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/QQConnectSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/UI",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/QuPaiSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
 					"$(PROJECT_DIR)/Bahamut/Libs/QuPaiSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Connection",
