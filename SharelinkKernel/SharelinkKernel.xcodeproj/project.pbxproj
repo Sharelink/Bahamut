@@ -216,6 +216,7 @@
 		E7171AF11C5781550097AF64 /* BahamutLocalFile.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718B61C5743D80097AF64 /* BahamutLocalFile.xcdatamodeld */; };
 		E7171AF21C5781550097AF64 /* BahamutMessage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718BB1C5743D80097AF64 /* BahamutMessage.xcdatamodeld */; };
 		E7171AF31C5781550097AF64 /* BahamutModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718C31C5743D80097AF64 /* BahamutModel.xcdatamodeld */; };
+		E79EAF591C587F54004E55AA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79EAF581C587F54004E55AA /* Pods.framework */; };
 		E7F7AB8A1C5868B200C5A6FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F7AB891C5868B200C5A6FA /* UIKit.framework */; };
 		E7F7AB8C1C5868C800C5A6FA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -412,6 +413,7 @@
 		E7171AC61C576B4D0097AF64 /* KernelResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KernelResource.h; sourceTree = "<group>"; };
 		E7171AC81C576B4D0097AF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7171AE31C576D210097AF64 /* BahamutConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BahamutConfig.json; sourceTree = "<group>"; };
+		E79EAF581C587F54004E55AA /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Pods.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Debug-iphoneos/Pods.framework"; sourceTree = "<absolute>"; };
 		E7D756191C564839002E3D40 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		E7D7561A1C564839002E3D40 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = "<absolute>"; };
 		E7D7561B1C564839002E3D40 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = "<absolute>"; };
@@ -458,6 +460,7 @@
 				E7171A891C5744920097AF64 /* Security.framework in Frameworks */,
 				E7171A8A1C5744920097AF64 /* AudioToolbox.framework in Frameworks */,
 				E7171A8B1C5744920097AF64 /* MapKit.framework in Frameworks */,
+				E79EAF591C587F54004E55AA /* Pods.framework in Frameworks */,
 				E7171A8C1C5744920097AF64 /* CoreTelephony.framework in Frameworks */,
 				E7171A8D1C5744920097AF64 /* Photos.framework in Frameworks */,
 				E7171A8E1C5744920097AF64 /* CoreMedia.framework in Frameworks */,
@@ -1154,6 +1157,7 @@
 		E7D756181C564818002E3D40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E79EAF581C587F54004E55AA /* Pods.framework */,
 				E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */,
 				E7F7AB891C5868B200C5A6FA /* UIKit.framework */,
 				E717184B1C5738260097AF64 /* Security.framework */,
@@ -1388,7 +1392,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PROJECT_DIR}/makeKernel.sh\n${PROJECT_DIR}/mergeKernel.sh";
+			shellScript = "#${PROJECT_DIR}/makeKernel.sh\n#${PROJECT_DIR}/merge_framework.sh $PRODUCT_NAME ~/Desktop/Products\n\nPOD_INSTALL_DIR=~/Desktop/Products/Pods\ncat ${PROJECT_DIR}/Pods | while read podfk\ndo\n    ${PROJECT_DIR}/merge_framework.sh $podfk $POD_INSTALL_DIR\ndone\nopen ~/Desktop/Products";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1678,6 +1682,7 @@
 		};
 		E71718661C57437F0097AF64 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E71718511C573C080097AF64 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				CODE_SIGN_ENTITLEMENTS = "";
@@ -1716,6 +1721,7 @@
 		};
 		E71718671C57437F0097AF64 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E71718521C573C080097AF64 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				CODE_SIGN_ENTITLEMENTS = "";
