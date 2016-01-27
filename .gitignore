@@ -19,6 +19,7 @@ DerivedData
 
 #Bahamut secret config
 Bahamut/BahamutConfig.json
+*.entitlements
 
 # CocoaPods
 #
