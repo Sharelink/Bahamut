@@ -1,0 +1,10 @@
+framework module SharelinkKernel {
+  umbrella header "SharelinkKernel.h"
+
+  export *
+  module * { export * }
+}
+
+module SharelinkKernel.Swift {
+    header "SharelinkKernel-Swift.h"
+}
