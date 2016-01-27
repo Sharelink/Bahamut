@@ -9,7 +9,7 @@
 import UIKit
 
 @objc
-public class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
+class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
 {
     struct SegueIdentifier
     {
@@ -17,7 +17,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
         static let ShowMainView = "Show Main Navigation"
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         setWaitingScreen()
         ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
@@ -44,7 +44,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
-    override public func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         go()
     }
@@ -169,7 +169,7 @@ public class MainNavigationController: UINavigationController,HandleSharelinkCmd
         return instanceFromStoryBoard("SharelinkMain", identifier: "mainNavigationController",bundle: Sharelink.mainBundle()) as! MainNavigationController
     }
     
-    public static func start()
+    static func start()
     {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             if let mnc = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MainNavigationController{

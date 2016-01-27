@@ -40,6 +40,11 @@ class Sharelink
 @objc
 public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
 
+    public static func startSharelink()
+    {
+        MainNavigationController.start()
+    }
+    
     public var window: UIWindow?
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureSharelinkBundle()

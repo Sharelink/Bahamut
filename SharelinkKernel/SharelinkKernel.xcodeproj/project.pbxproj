@@ -216,6 +216,8 @@
 		E7171AF11C5781550097AF64 /* BahamutLocalFile.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718B61C5743D80097AF64 /* BahamutLocalFile.xcdatamodeld */; };
 		E7171AF21C5781550097AF64 /* BahamutMessage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718BB1C5743D80097AF64 /* BahamutMessage.xcdatamodeld */; };
 		E7171AF31C5781550097AF64 /* BahamutModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E71718C31C5743D80097AF64 /* BahamutModel.xcdatamodeld */; };
+		E7F7AB8A1C5868B200C5A6FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F7AB891C5868B200C5A6FA /* UIKit.framework */; };
+		E7F7AB8C1C5868C800C5A6FA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -434,6 +436,8 @@
 		E7D7562E1C564839002E3D40 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		E7D7562F1C564839002E3D40 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = "<absolute>"; };
 		E7D756301C564839002E3D40 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = "<absolute>"; };
+		E7F7AB891C5868B200C5A6FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -448,6 +452,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7F7AB8C1C5868C800C5A6FA /* CoreFoundation.framework in Frameworks */,
+				E7F7AB8A1C5868B200C5A6FA /* UIKit.framework in Frameworks */,
 				E7171AA51C5745ED0097AF64 /* CommonCrypto.framework in Frameworks */,
 				E7171A891C5744920097AF64 /* Security.framework in Frameworks */,
 				E7171A8A1C5744920097AF64 /* AudioToolbox.framework in Frameworks */,
@@ -1148,6 +1154,8 @@
 		E7D756181C564818002E3D40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */,
+				E7F7AB891C5868B200C5A6FA /* UIKit.framework */,
 				E717184B1C5738260097AF64 /* Security.framework */,
 				E7D756191C564839002E3D40 /* AudioToolbox.framework */,
 				E7D7561A1C564839002E3D40 /* MapKit.framework */,
@@ -1367,6 +1375,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"Compile *.xcdatamodeld\"\ncd $CODESIGNING_FOLDER_PATH\nfor i in $(ls | grep .xcdatamodeld)\ndo\n    name=\"${i%%.xcdatamodeld}\"\n    target_name=\"${name}.momd\"\n    mkdir -p $target_name\n    momc --module $PRODUCT_NAME \"${CODESIGNING_FOLDER_PATH}/${i}\" \"${CODESIGNING_FOLDER_PATH}/${target_name}\"\n    rm -R \"${CODESIGNING_FOLDER_PATH}/${i}\"\ndone\necho \"Compile *.xcdatamodeld Finished\"\ncd -";
+			showEnvVarsInLog = 0;
 		};
 		E73C75451C57CC2200C89702 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1379,7 +1388,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PROJECT_DIR}/make.sh";
+			shellScript = "${PROJECT_DIR}/makeKernel.sh\n${PROJECT_DIR}/mergeKernel.sh";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1698,6 +1708,7 @@
 				SWIFT_INCLUDE_PATHS = ../Bahamut/BahamutCommon;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1733,6 +1744,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = ../Bahamut/BahamutCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1923,6 +1935,7 @@
 				E73C75441C57CC1C00C89702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7AF57AD1C54AE8400505B2A /* Build configuration list for PBXProject "SharelinkKernel" */ = {
 			isa = XCConfigurationList;
