@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//MARK: SDK_VERSION
 
 #if SDK_VERSION
     protocol QupaiSDKDelegate{}
@@ -18,6 +19,17 @@ import Foundation
         static func event(a:String){}
         static func profileSignOff(){}
         static func profileSignInWithPUID(a:String){}
+    }
+    
+    extension SRCService
+    {
+        func loadDevelopingPlugins()
+        {
+            if let srcDirUrl = NSBundle.mainBundle().URLForResource("src", withExtension: nil)
+            {
+                self.loadCustomPlugins(srcDirUrl)
+            }
+        }
     }
     
 #endif

@@ -10,6 +10,8 @@ import Foundation
 
 //MARK: Sharelink SRCPlugin
 let SharelinkSRCHeaderIconNamePrefix = "new_share_header_icon_"
+
+#if APP_VERSION
 let SharelinkSRCPluginConfig =
 [
     (shareType:ShareThingType.shareFilm,cellId:NewShareFilmCell.reuseableId,name:"SHARE_HEADER_TITLE_VIDEO",controllerTitle:"SHARE_VIEW_TITLE_NEW_FILM"),
@@ -17,6 +19,15 @@ let SharelinkSRCPluginConfig =
     (shareType:ShareThingType.shareImage,cellId:NewShareImageCell.reuseableId,name:"SHARE_HEADER_TITLE_IMAGE",controllerTitle:"SHARE_VIEW_TITLE_NEW_IMAGE"),
     (shareType:ShareThingType.shareUrl,cellId:NewShareUrlCell.reuseableId,name:"SHARE_HEADER_TITLE_LINK",controllerTitle:"SHARE_VIEW_TITLE_NEW_URL")
 ]
+#endif
+
+#if SDK_VERSION
+let SharelinkSRCPluginConfig =
+[
+    (shareType:ShareThingType.shareText,cellId:NewShareTextCell.reuseableId,name:"SHARE_HEADER_TITLE_TEXT",controllerTitle:"SHARE_VIEW_TITLE_NEW_TEXT"),
+    (shareType:ShareThingType.shareUrl,cellId:NewShareUrlCell.reuseableId,name:"SHARE_HEADER_TITLE_LINK",controllerTitle:"SHARE_VIEW_TITLE_NEW_URL")
+]
+#endif
 
 let SharelinkSystemSRCId = "SharelinkDefault"
 
@@ -65,26 +76,16 @@ class SRCService: NSNotificationCenter,ServiceProtocol
         PersistentManager.sharedInstance.createDir(userSRCPluginDir)
     }
     
-    private func copySRCTestFolder()
-    {
-        //let dir = "SRCPluginTemplate"
-        let url = Sharelink.mainBundle().URLForResource("SRCPluginTemplate", withExtension: nil)!
-        do
-        {
-            try NSFileManager.defaultManager().copyItemAtURL(url, toURL: self.userSRCPluginDir.URLByAppendingPathComponent(IdUtil.generateUniqueId()))
-        }catch let err as NSError
-        {
-            print(err.description)
-        }
-    }
-    
     func reloadSRC()
     {
         self.postNotificationName(SRCService.allSRCPluginsLoading, object: nil)
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.allSRCPlugins.removeAll()
             self.loadSharelinkPlugins()
-            self.loadCustomPlugins()
+            self.loadCustomPlugins(self.userSRCPluginDir)
+            #if SDK_VERSION
+                self.loadDevelopingPlugins()
+            #endif
             self.mappingPlugins()
             self.postNotificationName(SRCService.allSRCPluginsReloaded, object: nil)
         }
@@ -95,14 +96,13 @@ class SRCService: NSNotificationCenter,ServiceProtocol
         allSRCPlugins.appendContentsOf(SharelinkSRCPlugins)
     }
     
-    private func loadCustomPlugins()
+    func loadCustomPlugins(rootDir:NSURL)
     {
         let fileManager = NSFileManager.defaultManager()
-        self.userSRCPluginDir.pathComponents
         do
         {
             
-            let files = try fileManager.contentsOfDirectoryAtURL(self.userSRCPluginDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            let files = try fileManager.contentsOfDirectoryAtURL(rootDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
             files.forEach { (url) -> () in
                 let pluginJsonUrl = url.URLByAppendingPathComponent("info.json")
                 if PersistentFileHelper.isDirectory(url) && PersistentFileHelper.fileExists(pluginJsonUrl)
@@ -120,7 +120,6 @@ class SRCService: NSNotificationCenter,ServiceProtocol
                                     self.allSRCPlugins.append(plugin)
                                 }
                             }
-                            
                         }
                     }
                 }

@@ -18,6 +18,17 @@
 			name = MergeSharelinkKernel;
 			productName = MergeSharelinkKernel;
 		};
+		E74C83501C590AD6009CF8DB /* MergePods */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E74C83531C590AD6009CF8DB /* Build configuration list for PBXAggregateTarget "MergePods" */;
+			buildPhases = (
+				E74C83541C590ADB009CF8DB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = MergePods;
+			productName = MergePods;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -413,6 +424,9 @@
 		E7171AC61C576B4D0097AF64 /* KernelResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KernelResource.h; sourceTree = "<group>"; };
 		E7171AC81C576B4D0097AF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7171AE31C576D210097AF64 /* BahamutConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BahamutConfig.json; sourceTree = "<group>"; };
+		E74C83551C590B36009CF8DB /* makeKernel.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = makeKernel.sh; sourceTree = SOURCE_ROOT; };
+		E74C83561C590B36009CF8DB /* merge_framework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = merge_framework.sh; sourceTree = SOURCE_ROOT; };
+		E74C83571C590B36009CF8DB /* Pods */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pods; sourceTree = SOURCE_ROOT; };
 		E79EAF581C587F54004E55AA /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Pods.framework; path = "/Users/alexchow/Library/Developer/Xcode/DerivedData/Sharelink-heyyvhvpipggdtbartyzcihlnvil/Build/Products/Debug-iphoneos/Pods.framework"; sourceTree = "<absolute>"; };
 		E7D756191C564839002E3D40 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		E7D7561A1C564839002E3D40 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = "<absolute>"; };
@@ -519,6 +533,9 @@
 		E71718611C57437F0097AF64 /* SharelinkKernel */ = {
 			isa = PBXGroup;
 			children = (
+				E74C83551C590B36009CF8DB /* makeKernel.sh */,
+				E74C83561C590B36009CF8DB /* merge_framework.sh */,
+				E74C83571C590B36009CF8DB /* Pods */,
 				E7171A841C5744450097AF64 /* SharelinkKernel.h */,
 				E71718641C57437F0097AF64 /* Info.plist */,
 			);
@@ -1302,6 +1319,9 @@
 					E73C75411C57CC1C00C89702 = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					E74C83501C590AD6009CF8DB = {
+						CreatedOnToolsVersion = 7.2;
+					};
 				};
 			};
 			buildConfigurationList = E7AF57AD1C54AE8400505B2A /* Build configuration list for PBXProject "SharelinkKernel" */;
@@ -1320,6 +1340,7 @@
 				E717185F1C57437E0097AF64 /* SharelinkKernel */,
 				E7171AC31C576B4D0097AF64 /* KernelResource */,
 				E73C75411C57CC1C00C89702 /* MergeSharelinkKernel */,
+				E74C83501C590AD6009CF8DB /* MergePods */,
 			);
 		};
 /* End PBXProject section */
@@ -1392,8 +1413,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#${PROJECT_DIR}/makeKernel.sh\n#${PROJECT_DIR}/merge_framework.sh $PRODUCT_NAME ~/Desktop/Products\n\nPOD_INSTALL_DIR=~/Desktop/Products/Pods\ncat ${PROJECT_DIR}/Pods | while read podfk\ndo\n    ${PROJECT_DIR}/merge_framework.sh $podfk $POD_INSTALL_DIR\ndone\nopen ~/Desktop/Products";
+			shellScript = "${PROJECT_DIR}/makeKernel.sh\n${PROJECT_DIR}/merge_framework.sh $PRODUCT_NAME ~/Desktop/Products";
 			showEnvVarsInLog = 0;
+		};
+		E74C83541C590ADB009CF8DB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "POD_INSTALL_DIR=~/Desktop/Products/Pods\ncat ${PROJECT_DIR}/Pods | while read podfk\ndo\n${PROJECT_DIR}/merge_framework.sh $podfk $POD_INSTALL_DIR\ndone\nopen ~/Desktop/Products";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1694,6 +1728,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "../Bahamut/Libs/**";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"SDK_VERSION=1",
+				);
 				INFOPLIST_FILE = SharelinkKernel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1733,6 +1772,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "../Bahamut/Libs/**";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"SDK_VERSION=1",
+				);
 				INFOPLIST_FILE = SharelinkKernel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1818,6 +1862,20 @@
 			name = Debug;
 		};
 		E73C75441C57CC1C00C89702 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = SharelinkKernel;
+			};
+			name = Release;
+		};
+		E74C83511C590AD6009CF8DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = SharelinkKernel;
+			};
+			name = Debug;
+		};
+		E74C83521C590AD6009CF8DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = SharelinkKernel;
@@ -1942,6 +2000,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E74C83531C590AD6009CF8DB /* Build configuration list for PBXAggregateTarget "MergePods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E74C83511C590AD6009CF8DB /* Debug */,
+				E74C83521C590AD6009CF8DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E7AF57AD1C54AE8400505B2A /* Build configuration list for PBXProject "SharelinkKernel" */ = {
 			isa = XCConfigurationList;
