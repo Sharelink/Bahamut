@@ -154,7 +154,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.initSRCMenuManager()
+        //self.initSRCMenuManager()
         if UserSetting.isAppstoreReviewing == false
         {
             userGuide.showGuideControllerPresentFirstTime()
@@ -219,9 +219,9 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     //MARK: share type
     private func initDefaultSRCPlugins(){
+        self.navigationItem.leftBarButtonItems?.removeAll()
         if isReshare
         {
-            self.navigationItem.leftBarButtonItems?.removeAll()
             self.currentSRCPlugin = srcService.getSRCPlugin(reShareModel.shareType)
         }else
         {
