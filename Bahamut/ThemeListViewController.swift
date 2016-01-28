@@ -33,7 +33,7 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "modifyTheme:"))
         }
     }
-    static let privateImageIcon = UIImage.namedImageInSharelink("private")!
+    static let privateImageIcon = UIImage.namedImageInSharelink("lock")!
     static let focusImageIcon = UIImage.namedImageInSharelink("heart")!
     private var markImages:[UIImageView?] = [nil,nil,nil]
     @IBOutlet weak var themeNameLabel: UILabel!
@@ -128,8 +128,9 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         super.viewDidLoad()
         self.initUserGuide()
         self.initTableView()
-        
+        self.initThemes()
         self.themeService = ServiceContainer.getService(SharelinkThemeService)
+        self.themeService.addObserver(self, selector: "themesUpdated:", name: SharelinkThemeService.themesUpdated, object: nil)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.changeNavigationBarColor()
     }
@@ -140,7 +141,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         {
             nc.lockOrientationPortrait = false
         }
-        initThemes()
+        
         MobClick.beginLogPageView("ThemeView")
     }
     
@@ -159,6 +160,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         {
             userGuide.showGuideControllerPresentFirstTime()
         }
+    }
+    
+    deinit{
+        self.themeService.removeObserver(self)
     }
     
     //MARK: init
@@ -188,6 +193,11 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
             self.tableView.reloadData()
             self.refreshTableViewFooter()
         })
+    }
+    
+    func themesUpdated(_:NSNotification)
+    {
+        initThemes()
     }
     
     //MARK:actions

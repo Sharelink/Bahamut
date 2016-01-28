@@ -22,7 +22,7 @@ class UIShareMessage:UIShareCell
     }
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
-            avatarImageView.layer.cornerRadius = 3
+            avatarImageView.layer.cornerRadius = 7
             avatarImageView.userInteractionEnabled = true
             avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
         }

@@ -70,12 +70,13 @@ extension FileService
         }
     }
     
-    func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],selectionMode:ResourceExplorerSelectMode = .Negative ,delegate:UIResourceExplorerDelegate! = nil)
+    func showFileCollectionControllerView(currentNavigationController:UINavigationController,files:[UIFileCollectionCellModel],title:String? = nil,selectionMode:ResourceExplorerSelectMode = .Negative ,delegate:UIResourceExplorerDelegate! = nil)
     {
         let fileCollectionController = UIFileCollectionController.instanceFromStoryBoard()
         fileCollectionController.selectionMode = selectionMode
         fileCollectionController.items = [files]
         fileCollectionController.delegate = delegate
+        fileCollectionController.title = title
         currentNavigationController.pushViewController(fileCollectionController, animated: true)
     }
 }
@@ -101,6 +102,14 @@ class UIFileCollectionController: UIResourceExplorerController
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return CGFloat(4)
+    }
+    
+    override var delegate:UIResourceExplorerDelegate!{
+        didSet{
+            if delegate == nil || self.delegate.resourceExplorerAddItem == nil{
+                self.navigationItem.rightBarButtonItems?.removeAtIndex(1)
+            }
+        }
     }
     
     @IBAction func ok(sender: AnyObject)

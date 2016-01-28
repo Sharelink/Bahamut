@@ -592,7 +592,7 @@
 		E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewControllerTitleView.swift; sourceTree = "<group>"; };
 		E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeListViewController.swift; sourceTree = "<group>"; };
 		E7443AE61C2C218C00CB5C3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E74C84531C590E8F009CF8DB /* SRCSharelink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRCSharelink.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E74C84531C590E8F009CF8DB /* SDKSharelink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKSharelink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E74C84541C590E8F009CF8DB /* SDKSharelink.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SDKSharelink.plist; path = /Users/alexchow/GitHub/bahamut/Bahamut/SDKSharelink.plist; sourceTree = "<absolute>"; };
 		E74C84561C591042009CF8DB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = SRCPlugin/src; sourceTree = SOURCE_ROOT; };
 		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
@@ -1107,6 +1107,7 @@
 			children = (
 				E74C84561C591042009CF8DB /* src */,
 				E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */,
+				E74C84541C590E8F009CF8DB /* SDKSharelink.plist */,
 			);
 			name = SDKVersion;
 			sourceTree = "<group>";
@@ -1327,7 +1328,6 @@
 				7A86D96ED0EE82317F95B25D /* Pods */,
 				D1311D6FD64F106598012550 /* Frameworks */,
 				E7A62FE11B6609A500F28D73 /* Products */,
-				E74C84541C590E8F009CF8DB /* SDKSharelink.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1335,7 +1335,7 @@
 			isa = PBXGroup;
 			children = (
 				E7A62FE01B6609A500F28D73 /* Sharelink.app */,
-				E74C84531C590E8F009CF8DB /* SRCSharelink.app */,
+				E74C84531C590E8F009CF8DB /* SDKSharelink.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1704,9 +1704,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E74C83581C590E8F009CF8DB /* SRCSharelink */ = {
+		E74C83581C590E8F009CF8DB /* SDKSharelink */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E74C84501C590E8F009CF8DB /* Build configuration list for PBXNativeTarget "SRCSharelink" */;
+			buildConfigurationList = E74C84501C590E8F009CF8DB /* Build configuration list for PBXNativeTarget "SDKSharelink" */;
 			buildPhases = (
 				E74C83591C590E8F009CF8DB /* Check Pods Manifest.lock */,
 				E74C835A1C590E8F009CF8DB /* Sources */,
@@ -1720,9 +1720,9 @@
 			);
 			dependencies = (
 			);
-			name = SRCSharelink;
+			name = SDKSharelink;
 			productName = Bahamut;
-			productReference = E74C84531C590E8F009CF8DB /* SRCSharelink.app */;
+			productReference = E74C84531C590E8F009CF8DB /* SDKSharelink.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E7A62FDF1B6609A500F28D73 /* Sharelink */ = {
@@ -1794,7 +1794,7 @@
 			projectRoot = "";
 			targets = (
 				E7A62FDF1B6609A500F28D73 /* Sharelink */,
-				E74C83581C590E8F009CF8DB /* SRCSharelink */,
+				E74C83581C590E8F009CF8DB /* SDKSharelink */,
 			);
 		};
 /* End PBXProject section */
@@ -2361,7 +2361,7 @@
 			baseConfigurationReference = EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2370,7 +2370,7 @@
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
+					"$(PROJECT_DIR)/Bahamut/Libs/**",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2384,15 +2384,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Bahamut/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2407,7 +2399,7 @@
 					"-all_load",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D SDK_VERSION";
-				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.sdk;
 				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2425,7 +2417,7 @@
 			baseConfigurationReference = 56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
 				DEFINES_MODULE = NO;
@@ -2433,7 +2425,7 @@
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
+					"$(PROJECT_DIR)/Bahamut/Libs/**",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2447,15 +2439,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Bahamut/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -2470,7 +2454,7 @@
 					"-all_load",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D SDK_VERSION";
-				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.sdk;
 				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2615,11 +2599,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Bahamut/Umeng",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
@@ -2703,11 +2683,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/Bahamut/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut",
-					"$(PROJECT_DIR)/Bahamut/UMessage_Sdk_1.2.0",
-					"$(PROJECT_DIR)/Bahamut/Umeng",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
@@ -2742,7 +2718,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E74C84501C590E8F009CF8DB /* Build configuration list for PBXNativeTarget "SRCSharelink" */ = {
+		E74C84501C590E8F009CF8DB /* Build configuration list for PBXNativeTarget "SDKSharelink" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E74C84511C590E8F009CF8DB /* Debug */,

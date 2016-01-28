@@ -25,10 +25,15 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     private func setWaitingScreen()
     {
-        let launchScr = Sharelink.mainBundle().loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
-        launchScr.frame = self.view.bounds
-        self.view.backgroundColor = UIColor.blackColor()
+        let launchScr = MainNavigationController.getLaunchScreen(self.view.bounds)
         self.view.addSubview(launchScr)
+        
+    }
+    
+    static func getLaunchScreen(frame:CGRect) -> UIView
+    {
+        let launchScr = Sharelink.mainBundle().loadNibNamed("LaunchScreen", owner: nil, options: nil).filter{$0 is UIView}.first as! UIView
+        launchScr.frame = frame
         if let indicator = launchScr.viewWithTag(1) as? UIActivityIndicatorView
         {
             indicator.hidden = false
@@ -38,6 +43,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
             mottoLabel.text = SharelinkConfig.SharelinkMotto
             mottoLabel.hidden = false
         }
+        return launchScr
     }
     
     func deInitController(){

@@ -43,7 +43,6 @@ class FilmContent: UIShareContentDelegate
                 mediaPlayer.filePath = film
             }
         }
-        //mediaPlayer.refreshUI()
     }
     
     func getContentFrame(sender: UIShareThing, share: ShareThing?) -> CGRect {
@@ -53,6 +52,7 @@ class FilmContent: UIShareContentDelegate
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
     {
         let player = ShareLinkFilmView(frame: CGRectMake(0,0,148,148))
+        player.layer.cornerRadius = 7
         player.autoLoad = false
         player.autoPlay = true
         player.playerController.fillMode = AVLayerVideoGravityResizeAspect

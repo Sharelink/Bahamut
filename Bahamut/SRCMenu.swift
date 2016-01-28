@@ -65,10 +65,13 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     
     private func initSRCMenu()
     {
-        let blurEffect = UIBlurEffect(style: .Light)
-        self.srcMenu = UIVisualEffectView(effect: blurEffect)
-        self.srcMenu.backgroundColor = UIColor.themeColor.colorWithAlphaComponent(0.3)
         let srcMenuFrame = CGRectMake(0, menuTopInset, self.rootView.frame.width, self.rootView.frame.height)
+        self.srcMenu = UIView(frame: srcMenuFrame)
+        self.srcMenu.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: .Light)
+        let bcg = UIVisualEffectView(effect: blurEffect)
+        bcg.frame = self.srcMenu.bounds
+        self.srcMenu.addSubview(bcg)
         self.srcItemContainer = UIScrollView(frame: CGRectMake(0,0,srcMenuFrame.size.width,srcMenuFrame.size.height - 100))
         self.srcItemContainer.pagingEnabled = true
         self.srcItemContainer.showsHorizontalScrollIndicator = false
@@ -76,7 +79,6 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcItemContainer.showsVerticalScrollIndicator = false
         self.srcItemContainer.backgroundColor = UIColor.clearColor()
         self.srcMenuPageControl = UIPageControl(frame:CGRectMake(0,srcMenuFrame.height - 98,srcMenuFrame.width,7))
-        self.srcMenu.frame = srcMenuFrame
         self.srcMenu.addSubview(self.srcItemContainer)
         self.srcMenu.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideSRCMenu:"))
         self.srcItemContainer.addSubview(self.srcMenuPageControl)

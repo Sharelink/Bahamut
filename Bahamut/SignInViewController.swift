@@ -24,16 +24,41 @@ import JavaScriptCore
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
 {
     
-    @IBOutlet weak var webPageView: UIWebView!{
+    private var webPageView: UIWebView!{
         didSet{
+            webPageView.hidden = true
+            webPageView.scrollView.showsHorizontalScrollIndicator = false
+            webPageView.scrollView.showsVerticalScrollIndicator = false
             webPageView.scrollView.scrollEnabled = true
+            webPageView.scalesPageToFit = true
             webPageView.delegate = self
+            self.view.addSubview(webPageView)
+        }
+    }
+    
+    private var launchScr:UIView!
+    private func setBackgroundView()
+    {
+        launchScr = MainNavigationController.getLaunchScreen(self.view.bounds)
+        self.view.addSubview(launchScr)
+        self.view.bringSubviewToFront(launchScr)
+    }
+    
+    private func launchScrEaseOut()
+    {
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.launchScr.alpha = 0
+            }) { (flag) -> Void in
+                self.launchScr.removeFromSuperview()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
+        self.view.backgroundColor = UIColor.whiteColor()
+        webPageView = UIWebView(frame: self.view.bounds)
+        setBackgroundView()
         loginAccountId = UserSetting.lastLoginAccountId
         if loginAccountId != nil{
             authenticate()
@@ -72,6 +97,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        if self.webPageView.hidden
+        {
+            self.webPageView.hidden = false
+            launchScrEaseOut()
+        }
         if let jsContext:JSContext = webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
         {
             jsContext.setObject(self, forKeyedSubscript: "controller")

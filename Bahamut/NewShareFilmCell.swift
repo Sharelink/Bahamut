@@ -59,7 +59,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     
     @IBAction func selectFilm(sender: AnyObject) {
         let files = fileService.getFileModelsOfFileLocalStore(FileType.Video)
-        fileService.showFileCollectionControllerView(self.rootController.navigationController!, files: files,selectionMode:.Single, delegate: self)
+        fileService.showFileCollectionControllerView(self.rootController.navigationController!, files: files,selectionMode:.Single, delegate: self,title:"SELECT_FILM".localizedString())
         MobClick.event("SelectVideoButton")
     }
     
@@ -71,6 +71,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     //MARK: select film delegate
+    
     func resourceExplorerItemsSelected(itemModels: [UIResrouceItemModel],sender: UIResourceExplorerController!) {
         if itemModels.count > 0
         {

@@ -48,7 +48,7 @@ UPDATING = "Updating";
 IGNORE = "Ignore";
 ADD_IMAGE_LIMIT_AT_X = "Only add %@ photos at most";
 HARMFUL_CONTENT = "Harmful Content";
-SHARELINK_MOTTO = "Make Your SNS More Valuable!";
+SHARELINK_MOTTO = "Read Your Focus, Share Your Friends Focus!";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "Camera is not available";
@@ -123,6 +123,8 @@ SHARE_VIEW_TITLE_NEW_TEXT = "New Text";
 SHARE_VIEW_TITLE_NEW_IMAGE = "New Images";
 SHARE_VIEW_TITLE_NEW_URL = "New Link";
 SHARE_VIEW_TITLE_NEW_SRC = "New SRC";
+
+SELECT_FILM = "Select Film";
 
 MY_PLUGINS = "My Plugins";
 LOADING_SRCPLUGINS = "Loading SRCPlugins...";

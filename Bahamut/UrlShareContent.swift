@@ -28,6 +28,7 @@ class UrlContentView:UIView
             titleLable.font = UIFont(name: "System", size: 13)
             titleLable.backgroundColor = UIColor.clearColor()
             titleLable.textColor = UIColor.lightGrayColor()
+            self.layer.cornerRadius = 7
             self.addSubview(titleLable)
         }
         

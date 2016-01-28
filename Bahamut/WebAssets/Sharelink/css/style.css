@@ -6,8 +6,8 @@ blockquote,q{quotes:none}
 blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
 body{background:#f8f8f8;font-family:"Microsoft YaHei","Microsoft JhengHei",STHeiti,MingLiu;text-align:center;color:#fff}
-.login-container{margin:10% auto 0 auto}
-.register-container{margin:6% auto 0 auto}
+.login-container{margin:23% auto 0 auto}
+.register-container{margin:23% auto 0 auto}
 @media (min-width:670px){
 	.login-container {margin: 8% auto 0 auto;}
 }
@@ -30,6 +30,8 @@ button:active{-moz-box-shadow:0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7p
 .alert .alert_con p{color:#000;line-height:90px}
 .alert .alert_con .btn{padding:3px 10px;color:#fff;cursor:pointer;background:#72D1FF;border:1px solid #72D1FF;border-radius:4px}
 .alert .alert_con .btn:hover{background:#4FB2EF;border:1px solid #4FB2EF;border-radius:4px}
+
+.footer{position:absolute;bottom:0;width:100%;height:23px;clear:both;}
 .privacy{text-decoration: none;color: #438ccb}
 /* Supersized - Fullscreen Slideshow jQuery Plugin  Version : 3.2.7 */
 *{margin:0;padding:0}

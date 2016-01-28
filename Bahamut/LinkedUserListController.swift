@@ -82,6 +82,8 @@ class LinkedUserListController: UITableViewController
         super.viewDidLoad()
         changeNavigationBarColor()
         self.initUserGuide()
+        self.tableView.showsHorizontalScrollIndicator = false
+        self.tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         let uiview = UIView()

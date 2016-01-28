@@ -48,7 +48,7 @@ UPDATING = "更新中";
 IGNORE = "忽略";
 ADD_IMAGE_LIMIT_AT_X = "最多只能添加%@张图片";
 HARMFUL_CONTENT = "不良信息";
-SHARELINK_MOTTO = "让社交更加有价值!";
+SHARELINK_MOTTO = "看你想看的，分享你朋友想看的!";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "没有发现相机";
@@ -123,6 +123,8 @@ SHARE_VIEW_TITLE_NEW_TEXT = "分享文字";
 SHARE_VIEW_TITLE_NEW_IMAGE = "分享图片";
 SHARE_VIEW_TITLE_NEW_URL = "分享链接";
 SHARE_VIEW_TITLE_NEW_SRC = "分享CSRC";
+
+SELECT_FILM = "选择视频";
 
 MY_PLUGINS = "我的插件";
 LOADING_SRCPLUGINS = "正在加载插件...";

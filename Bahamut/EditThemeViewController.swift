@@ -41,16 +41,43 @@ class EditThemeViewController: UIViewController
     @IBOutlet weak var tagNameLabel: UITextField!
     
     @IBOutlet weak var tagTypeLabel: UILabel!
-    private var tagData:String!
-    @IBOutlet weak var focusSwitch: UISwitch!
+    private var themeData:String!
     
-    @IBOutlet weak var showToLinkerSwitch: UISwitch!
-    @IBOutlet weak var tagColorView: UIView!{
+    @IBOutlet weak var isFocusImgView: UIImageView!{
         didSet{
-            tagColorView.layer.cornerRadius = 3
-            tagColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectColor:"))
+            isFocusImgView.userInteractionEnabled = true
+            isFocusImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onIsFocusClicked:"))
         }
     }
+    @IBOutlet weak var isShowToFriendsImgView: UIImageView!{
+        didSet{
+            isShowToFriendsImgView.userInteractionEnabled = true
+            isShowToFriendsImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onIsShowToFriendsClicked:"))
+        }
+    }
+    @IBOutlet weak var themeColorView: UIView!{
+        didSet{
+            themeColorView.layer.cornerRadius = 3
+            themeColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectColor:"))
+        }
+    }
+    
+    private var isFocusTheme:Bool = true{
+        didSet{
+            if isFocusImgView != nil{
+                isFocusImgView.image = isFocusTheme ? UIImage.namedImageInSharelink("heart") : UIImage.namedImageInSharelink("gray_heart")
+            }
+        }
+    }
+    
+    private var isShowToFriends:Bool = true{
+        didSet{
+            if isShowToFriendsImgView != nil{
+                isShowToFriendsImgView.image = isShowToFriends ? UIImage.namedImageInSharelink("unlock") : UIImage.namedImageInSharelink("lock")
+            }
+        }
+    }
+    
     var delegate:EditThemeViewControllerDelegate!
     var themeModel:SharelinkTheme!
     var editMode:UserThemeEditMode = .New
@@ -66,17 +93,43 @@ class EditThemeViewController: UIViewController
         
     }
     
-    func selectColor(_:UITapGestureRecognizer)
+    func onIsShowToFriendsClicked(a:UITapGestureRecognizer)
     {
-        tagColorView.backgroundColor = UIColor.getRandomTextColor()
+        if let view = a.view
+        {
+            view.animationMaxToMin(0.1, maxScale: 1.3, completion: { () -> Void in
+                self.isShowToFriends = !self.isShowToFriends
+            })
+        }
+    }
+    
+    func onIsFocusClicked(a:UITapGestureRecognizer)
+    {
+        if let view = a.view
+        {
+            view.animationMaxToMin(0.1, maxScale: 1.3, completion: { () -> Void in
+                self.isFocusTheme = !self.isFocusTheme
+            })
+        }
+    }
+    
+    func selectColor(a:UITapGestureRecognizer)
+    {
+        if let view = a.view
+        {
+            view.animationMaxToMin(0.1, maxScale: 1.3, completion: { () -> Void in
+                self.themeColorView.backgroundColor = UIColor.getRandomTextColor()
+            })
+        }
+        
     }
     
     private func update()
     {
         tagNameLabel.text = themeModel.getEditingName()
-        tagColorView.backgroundColor = UIColor(hexString: themeModel.tagColor)
-        focusSwitch.on = themeModel.isFocus == "true"
-        showToLinkerSwitch.on = themeModel.showToLinkers == "true"
+        themeColorView.backgroundColor = UIColor(hexString: themeModel.tagColor)
+        isFocusTheme = themeModel.isFocus == "true"
+        isShowToFriends = themeModel.showToLinkers == "true"
     }
     
     @IBAction func save(sender: AnyObject)
@@ -89,10 +142,10 @@ class EditThemeViewController: UIViewController
             return
         }
         themeModel.tagName = tagNameLabel.text
-        themeModel.tagColor = tagColorView.backgroundColor?.toHexString()
-        themeModel.isFocus = focusSwitch.on ? "true":"false"
-        themeModel.data = tagData ?? themeModel.tagName;
-        themeModel.showToLinkers = showToLinkerSwitch.on ? "true":"false"
+        themeModel.tagColor = themeColorView.backgroundColor?.toHexString()
+        themeModel.isFocus = isFocusTheme ? "true":"false"
+        themeModel.data = themeData ?? themeModel.tagName;
+        themeModel.showToLinkers = isShowToFriends ? "true":"false"
         themeModel.type = SharelinkThemeConstant.TAG_TYPE_KEYWORD
         if let saveHandler = delegate?.editThemeViewControllerSave
         {

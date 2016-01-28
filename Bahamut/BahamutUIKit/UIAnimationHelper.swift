@@ -54,11 +54,6 @@ class UIAnimationHelper {
         // 设置动画
         
         let animation = CABasicAnimation(keyPath: "position")
-        animation.delegate = view
-        if let handler = completion
-        {
-            UIAnimationHelper.instance.animationCompleted[view] = handler
-        }
         // 设置运动形式
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
         
@@ -79,6 +74,8 @@ class UIAnimationHelper {
         
         // 添加上动画
         viewLayer.addAnimation(animation, forKey: nil)
+        
+        playAnimation(view, animation: animation, key: "shakeAnimationForView", completion: completion)
     }
     
     static func flyToTopForView(startPosition:CGPoint,view:UIView,completion:AnimationCompletedHandler! = nil){
@@ -100,11 +97,6 @@ class UIAnimationHelper {
         // 设置动画
         
         let animation = CABasicAnimation(keyPath: "position")
-        animation.delegate = view
-        if let handler = completion
-        {
-            UIAnimationHelper.instance.animationCompleted[view] = handler
-        }
         // 设置运动形式
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
         
@@ -117,17 +109,11 @@ class UIAnimationHelper {
         // 设置时间
         animation.duration = 1
         
-        // 添加上动画
-        viewLayer.addAnimation(animation, forKey: nil)
+        playAnimation(view, animation: animation, key: "flyToTopForView", completion: completion)
     }
     
     static func animationMaxToMin(view:UIView,duration:Double,maxScale:CGFloat,completion:AnimationCompletedHandler! = nil){
         let animation = CABasicAnimation(keyPath: "transform.scale")
-        animation.delegate = view
-        if let handler = completion
-        {
-            UIAnimationHelper.instance.animationCompleted[view] = handler
-        }
         animation.fromValue = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.toValue = maxScale
@@ -136,6 +122,16 @@ class UIAnimationHelper {
         animation.autoreverses = true
         animation.removedOnCompletion = true
         animation.fillMode = kCAFillModeForwards;
-        view.layer.addAnimation(animation, forKey: "Float")
+        playAnimation(view, animation: animation, key: "animationMaxToMin", completion: completion)
+    }
+    
+    static func playAnimation(view:UIView,animation:CAAnimation,key:String? = nil,completion:AnimationCompletedHandler! = nil)
+    {
+        animation.delegate = view
+        if let handler = completion
+        {
+            UIAnimationHelper.instance.animationCompleted[view] = handler
+        }
+        view.layer.addAnimation(animation, forKey: key)
     }
 }
