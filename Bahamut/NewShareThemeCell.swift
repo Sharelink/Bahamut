@@ -98,7 +98,7 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
             var shareableThemes = [SharelinkTheme]()
             
             //filter share's tag without poster's personal tag
-            let themeDatas = self.rootController.reShareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
+            let themeDatas = self.rootController.passedShareModel.forTags.map{SendTagModel(json:$0)}.filter{ SharelinkThemeConstant.TAG_TYPE_SHARELINKER != $0.type }
             let themeForShare = themeDatas.map { (m) -> SharelinkTheme in
                 let theme = SharelinkTheme()
                 theme.type = m.type

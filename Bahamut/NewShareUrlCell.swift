@@ -143,9 +143,9 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
     override func initCell() {
         self.shareUrl.text = ""
         clear()
-        if isReshare
+        if let model = rootController.passedShareModel
         {
-            let urlModel = UrlContentModel(json: rootController.reShareModel.shareContent)
+            let urlModel = UrlContentModel(json: model.shareContent)
             self.shareUrl.text = urlModel.url
             self.shareUrl.enabled = false
             self.pasteButton.hidden = true

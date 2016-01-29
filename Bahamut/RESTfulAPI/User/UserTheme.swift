@@ -288,3 +288,17 @@ public class GetLinkedUserTagsRequest: ShareLinkSDKRequestBase
         }
     }
 }
+
+public class GetHotThemesRequest : ShareLinkSDKRequestBase
+{
+    public class HotThemes:BahamutObject
+    {
+        var themes:[String]!
+    }
+    
+    public override init() {
+        super.init()
+        self.method = .GET
+        self.api = "/SharelinkThemes/HotThemes"
+    }
+}

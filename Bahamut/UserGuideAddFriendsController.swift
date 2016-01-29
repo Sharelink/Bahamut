@@ -15,10 +15,9 @@ class UserGuideAddFriendsController: UIViewController
         super.viewDidAppear(animated)
         ServiceContainer.getService(UserService).shareAddLinkMessageToSNS(self)
     }
-    @IBAction func done(sender: AnyObject) {
-        UserSetting.setSetting(NewUserStartGuided, enable: true)
-        self.dismissViewControllerAnimated(true) { () -> Void in
-            MainViewTabBarController.currentTabBarViewController.selectedIndex = 3
-        }
+    
+    @IBAction func addMore(sender: AnyObject) {
+        ServiceContainer.getService(UserService).shareAddLinkMessageToSNS(self)
     }
+    
 }

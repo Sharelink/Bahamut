@@ -141,7 +141,7 @@ class UIShareThing: UIShareCell
                 if self.shareModel.canReshare()
                 {
                     MobClick.event("Reshare")
-                    self.rootController.shareService.showReshareController(self.rootController.navigationController!, reShareModel: self.shareModel)
+                    self.rootController.shareService.showNewShareController(self.rootController.navigationController!, shareModel: self.shareModel,isReshare: true)
                 }else
                 {
                     let alert = UIAlertController(title: nil, message: "RESHARELESS_TIPS".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)

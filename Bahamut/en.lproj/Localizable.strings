@@ -166,6 +166,7 @@ SHARE_FAILED = "Share Failed";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "Please Focus One Theme At Least~";
 NEED_INPUT_THEME_NAME = "Theme Name Can't Not Be Empty~";
+HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink!";
 
 //SignInViewController
 REFRESHING = "Refreshing";

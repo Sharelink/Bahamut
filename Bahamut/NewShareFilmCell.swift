@@ -40,9 +40,9 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             filmPlayer.autoLoad = true
             shareContentContainer.addSubview(filmPlayer)
         }
-        if isReshare
+        if let model = rootController.passedShareModel
         {
-            let fm = FilmModel(json: rootController.reShareModel.shareContent)
+            let fm = FilmModel(json: model.shareContent)
             self.filmModel.film = fm.film
             self.filmModel.preview = fm.preview
             filmPlayer.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)

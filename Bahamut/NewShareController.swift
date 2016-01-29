@@ -14,18 +14,18 @@ import MJRefresh
 //MARK: ShareService extension
 extension ShareService
 {
-    func showReshareController(currentNavigationController:UINavigationController,reShareModel:ShareThing)
+    func showNewShareController(currentNavigationController:UINavigationController,shareModel:ShareThing,isReshare:Bool)
     {
         let controller = NewShareController.instanceFromStoryBoard()
-        controller.isReshare = true
-        let reshare = ShareThing()
-        reshare.pShareId = reShareModel.shareId
-        reshare.shareId = reShareModel.shareId
-        reshare.shareContent = reShareModel.shareContent
-        reshare.shareType = reShareModel.shareType
-        reshare.forTags = reShareModel.forTags
-        reshare.message = reShareModel.message
-        controller.reShareModel = reshare
+        controller.isReshare = isReshare
+        let share = ShareThing()
+        share.pShareId = shareModel.shareId
+        share.shareId = shareModel.shareId
+        share.shareContent = shareModel.shareContent
+        share.shareType = shareModel.shareType
+        share.forTags = shareModel.forTags
+        share.message = shareModel.message
+        controller.passedShareModel = share
         controller.hidesBottomBarWhenPushed = true
         currentNavigationController.pushViewController(controller, animated: true)
     }
@@ -92,7 +92,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     //Reshare
     var isReshare:Bool = false
-    var reShareModel:ShareThing!
+    var passedShareModel:ShareThing!
     
     //New Share
     var defaultSRCIndex:Int = 0{
@@ -105,8 +105,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     }
     var currentSRCPlugin:SRCPlugin!
     var srcMenuManager:SRCMenuManager!
-    
-    private var userGuide:UserGuide!
     
     var shareMessageCell:NewShareMessageCell!
     var shareContentCell:ShareContentCellBase!
@@ -132,7 +130,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         self.srcService = ServiceContainer.getService(SRCService)
         self.changeNavigationBarColor()
         self.initDefaultSRCPlugins()
-        self.initUserGuide()
         self.initTitleView()
         self.shareButtonItem = self.navigationItem.rightBarButtonItem
         self.initTableView()
@@ -192,13 +189,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         self.navigationItem.titleView = self.titleView
     }
     
-    private func initUserGuide()
-    {
-        self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "New")
-        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
-    }
-    
     //MARK: new share posted notification
     func sharePosted(a:NSNotification)
     {
@@ -218,7 +208,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         self.navigationItem.leftBarButtonItems?.removeAll()
         if isReshare
         {
-            self.currentSRCPlugin = srcService.getSRCPlugin(reShareModel.shareType)
+            self.currentSRCPlugin = srcService.getSRCPlugin(passedShareModel.shareType)
         }else
         {
             self.defaultSRCIndex = UserSetting.isAppstoreReviewing ? 1 : 0
@@ -342,7 +332,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     private func reshare()
     {
         self.makeToastActivityWithMessage("",message: "SHARING".localizedString())
-        self.shareService.reshare(self.reShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
+        self.shareService.reshare(self.passedShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
             self.hideToastActivity()
             var alert:UIAlertController!
             if isSuc{

@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--欢迎使用Sharelink-->
+        <!--关注主题-->
         <scene sceneID="QXi-Eh-SEf">
             <objects>
                 <viewController storyboardIdentifier="UserGuideThemeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="imQ-kT-My5" customClass="UserGuideThemeController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,13 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你和朋友经常分享的话题：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1c-QF-nrL">
-                                <rect key="frame" x="20" y="72" width="204" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你和朋友经常共同分享的话题：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1c-QF-nrL">
+                                <rect key="frame" x="20" y="72" width="238" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="如:美食、运动、学校、班级、公司、圈子、书籍等" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-hk-ZpW">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="如:兴趣爱好、地方、集体、公司、圈子、书籍等" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-hk-ZpW">
                                 <rect key="frame" x="20" y="101" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="97" id="WOV-dy-RaC"/>
@@ -125,7 +125,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="NNG-hk-ZpW" secondAttribute="trailing" id="wb0-HR-6EY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="欢迎使用Sharelink" id="SMV-4q-miF">
+                    <navigationItem key="navigationItem" title="关注主题" id="SMV-4q-miF">
                         <barButtonItem key="backBarButtonItem" title="返回" id="boq-rw-OZ0"/>
                         <barButtonItem key="rightBarButtonItem" title="下一步" id="B9b-44-3lR">
                             <connections>
@@ -144,7 +144,49 @@
             </objects>
             <point key="canvasLocation" x="478" y="497"/>
         </scene>
-        <!--欢迎使用-->
+        <!--Sharelink-->
+        <scene sceneID="AYv-yI-9YH">
+            <objects>
+                <viewController storyboardIdentifier="UserGuideStartController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hB6-Te-KJ8" customClass="UserGuideStartController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yBb-Nv-dEe"/>
+                        <viewControllerLayoutGuide type="bottom" id="jYz-ZV-USg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T8w-XU-V3Z">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你好" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prU-c2-ACe">
+                                <rect key="frame" x="20" y="72" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="prU-c2-ACe" firstAttribute="leading" secondItem="T8w-XU-V3Z" secondAttribute="leadingMargin" id="SSR-hy-jVc"/>
+                            <constraint firstItem="prU-c2-ACe" firstAttribute="top" secondItem="yBb-Nv-dEe" secondAttribute="bottom" constant="8" symbolic="YES" id="gbz-71-6Pg"/>
+                            <constraint firstItem="prU-c2-ACe" firstAttribute="trailing" secondItem="T8w-XU-V3Z" secondAttribute="trailingMargin" id="zQC-Az-jD3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Sharelink" id="vGI-fl-mK1">
+                        <barButtonItem key="rightBarButtonItem" title="开始" id="Vyp-AE-NT9">
+                            <connections>
+                                <segue destination="imQ-kT-My5" kind="show" identifier="ShowUserGuideThemeController" id="XfL-y7-mQ2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="helloMessageLabel" destination="prU-c2-ACe" id="c83-iW-xe4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e03-Fo-4Wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478" y="1221"/>
+        </scene>
+        <!--添加朋友-->
         <scene sceneID="Hud-fd-OTl">
             <objects>
                 <viewController storyboardIdentifier="UserGuideAddFriendsController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8LF-BG-56B" customClass="UserGuideAddFriendsController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -155,12 +197,35 @@
                     <view key="view" contentMode="scaleToFill" id="1oL-x3-a7r">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邀请在微信、QQ等平台上有共同话题的好朋友到Sharelink一起分享！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5T-jp-kbT">
+                                <rect key="frame" x="20" y="72" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zza-ed-Uvl">
+                                <rect key="frame" x="520" y="101" width="60" height="30"/>
+                                <state key="normal" title="继续添加"/>
+                                <connections>
+                                    <action selector="addMore:" destination="8LF-BG-56B" eventType="touchUpInside" id="nE9-ga-qc6"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="v5T-jp-kbT" firstAttribute="trailing" secondItem="1oL-x3-a7r" secondAttribute="trailingMargin" id="2Ho-N8-hQk"/>
+                            <constraint firstItem="Zza-ed-Uvl" firstAttribute="top" secondItem="v5T-jp-kbT" secondAttribute="bottom" constant="8" symbolic="YES" id="CxS-cP-zcx"/>
+                            <constraint firstItem="v5T-jp-kbT" firstAttribute="leading" secondItem="1oL-x3-a7r" secondAttribute="leadingMargin" id="T8a-Yz-mJi"/>
+                            <constraint firstItem="Zza-ed-Uvl" firstAttribute="trailing" secondItem="v5T-jp-kbT" secondAttribute="trailing" id="bX2-fE-CVD"/>
+                            <constraint firstItem="v5T-jp-kbT" firstAttribute="top" secondItem="ReU-Xt-hMo" secondAttribute="bottom" constant="8" symbolic="YES" id="rvw-zI-Dly"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="欢迎使用" id="zWd-sW-9tK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="eq3-7O-cds">
+                    <navigationItem key="navigationItem" title="添加朋友" id="zWd-sW-9tK">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="UI8-nm-SFF"/>
+                        <barButtonItem key="rightBarButtonItem" title="下一步" id="eq3-7O-cds">
                             <connections>
-                                <action selector="done:" destination="8LF-BG-56B" id="ozt-NI-2I7"/>
+                                <segue destination="aan-it-v7W" kind="show" id="CtA-EW-VnN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -169,5 +234,108 @@
             </objects>
             <point key="canvasLocation" x="1142" y="497"/>
         </scene>
+        <!--最后一步-->
+        <scene sceneID="wMT-Pr-st4">
+            <objects>
+                <viewController id="aan-it-v7W" customClass="UserGuideFinishViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QbL-9J-Fp1"/>
+                        <viewControllerLayoutGuide type="bottom" id="mo5-w2-kbV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oEN-O9-C0V">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-Jr-qJa">
+                                <rect key="frame" x="268" y="268" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="hff-xd-UFq"/>
+                                    <constraint firstAttribute="width" constant="64" id="zwO-hp-6jb"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="rSQ-D4-t78">
+                                <rect key="frame" x="181" y="268" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="8Rq-BX-0fD"/>
+                                    <constraint firstAttribute="width" constant="64" id="KgM-Rm-730"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_round" translatesAutoresizingMaskIntoConstraints="NO" id="SY7-cK-BW2">
+                                <rect key="frame" x="355" y="268" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="hKW-vX-i2t"/>
+                                    <constraint firstAttribute="width" constant="64" id="jND-T3-Vcq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更换头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZS-sv-Gwj">
+                                <rect key="frame" x="187" y="340" width="52" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看资料" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTr-q2-F2n">
+                                <rect key="frame" x="274" y="340" width="52" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发布第一条分享" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bg-aG-tc6">
+                                <rect key="frame" x="342" y="340" width="91" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="继续探索..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4Q-7p-Zv7">
+                                <rect key="frame" x="245" y="173" width="111" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DTr-q2-F2n" firstAttribute="centerX" secondItem="6sA-Jr-qJa" secondAttribute="centerX" id="1SM-El-smR"/>
+                            <constraint firstItem="SY7-cK-BW2" firstAttribute="centerY" secondItem="6sA-Jr-qJa" secondAttribute="centerY" id="FQA-vx-umq"/>
+                            <constraint firstItem="6sA-Jr-qJa" firstAttribute="top" secondItem="t4Q-7p-Zv7" secondAttribute="bottom" constant="67" id="IZg-Pc-lzK"/>
+                            <constraint firstItem="rSQ-D4-t78" firstAttribute="centerY" secondItem="6sA-Jr-qJa" secondAttribute="centerY" id="JrU-QT-oIF"/>
+                            <constraint firstItem="DZS-sv-Gwj" firstAttribute="centerX" secondItem="rSQ-D4-t78" secondAttribute="centerX" id="LvJ-Vg-fP3"/>
+                            <constraint firstItem="6sA-Jr-qJa" firstAttribute="leading" secondItem="rSQ-D4-t78" secondAttribute="trailing" constant="23" id="Qtj-HF-gom"/>
+                            <constraint firstItem="4Bg-aG-tc6" firstAttribute="top" secondItem="SY7-cK-BW2" secondAttribute="bottom" constant="8" id="SP8-nr-nSw"/>
+                            <constraint firstItem="DTr-q2-F2n" firstAttribute="top" secondItem="6sA-Jr-qJa" secondAttribute="bottom" constant="8" id="STY-hY-U4M"/>
+                            <constraint firstItem="rSQ-D4-t78" firstAttribute="width" secondItem="6sA-Jr-qJa" secondAttribute="width" id="Shz-Nj-LNj"/>
+                            <constraint firstItem="SY7-cK-BW2" firstAttribute="height" secondItem="6sA-Jr-qJa" secondAttribute="height" id="Xha-Fn-zg4"/>
+                            <constraint firstItem="t4Q-7p-Zv7" firstAttribute="centerX" secondItem="6sA-Jr-qJa" secondAttribute="centerX" id="Z4k-0g-0Vl"/>
+                            <constraint firstItem="6sA-Jr-qJa" firstAttribute="centerY" secondItem="oEN-O9-C0V" secondAttribute="centerY" id="e4O-nV-Xhd"/>
+                            <constraint firstItem="rSQ-D4-t78" firstAttribute="height" secondItem="6sA-Jr-qJa" secondAttribute="height" id="e6t-wI-dMj"/>
+                            <constraint firstItem="4Bg-aG-tc6" firstAttribute="centerX" secondItem="SY7-cK-BW2" secondAttribute="centerX" id="jVU-L0-1Bk"/>
+                            <constraint firstItem="6sA-Jr-qJa" firstAttribute="centerX" secondItem="oEN-O9-C0V" secondAttribute="centerX" id="uD7-mL-j9q"/>
+                            <constraint firstItem="DZS-sv-Gwj" firstAttribute="top" secondItem="rSQ-D4-t78" secondAttribute="bottom" constant="8" id="yx9-Vy-vOB"/>
+                            <constraint firstItem="SY7-cK-BW2" firstAttribute="leading" secondItem="6sA-Jr-qJa" secondAttribute="trailing" constant="23" id="zDx-4n-ptm"/>
+                            <constraint firstItem="SY7-cK-BW2" firstAttribute="width" secondItem="6sA-Jr-qJa" secondAttribute="width" id="zh9-wO-H5h"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="最后一步" id="29o-bT-YCI">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="c5h-Ak-AL0"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="okt-Y9-8JG">
+                            <connections>
+                                <action selector="done:" destination="aan-it-v7W" id="NoE-b0-Ole"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="shareImgView" destination="SY7-cK-BW2" id="nvd-sw-eLH"/>
+                        <outlet property="userProfileImgView" destination="6sA-Jr-qJa" id="KLc-h1-nMs"/>
+                        <outlet property="userSettingImgView" destination="rSQ-D4-t78" id="JDD-qw-w3q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WNm-8Z-4aL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1142" y="1221"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="camera" width="256" height="256"/>
+        <image name="profile" width="128" height="128"/>
+        <image name="share_round" width="128" height="128"/>
+    </resources>
 </document>

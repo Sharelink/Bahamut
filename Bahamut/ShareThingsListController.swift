@@ -36,6 +36,7 @@ class ShareThingsListController: UITableViewController
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
         refresh()
+        UserSetting.setSetting(NewUserStartGuided, enable: false)
     }
     
     
@@ -59,7 +60,9 @@ class ShareThingsListController: UITableViewController
         super.viewDidAppear(animated)
         if UserSetting.isAppstoreReviewing == false
         {
-            UserGuideThemeController.startUserGuide(self)
+            #if APP_VERSION
+                UserGuideStartController.startUserGuide(self)
+            #endif
         }
         if shareThings.count == 0
         {
@@ -115,8 +118,9 @@ class ShareThingsListController: UITableViewController
     //MARK: chicago client
     func chicagoClientStateChanged(aNotification:NSNotification)
     {
-        let newState = aNotification.userInfo![ChicagoClientCurrentState] as! Int   
-        if newState == ChicagoClientState.Disconnected.rawValue || newState == ChicagoClientState.ValidatFailed.rawValue
+        let newState = aNotification.userInfo![ChicagoClientCurrentState] as! Int
+        let oldState = aNotification.userInfo![ChicagoClientBeforeChangedState] as! Int
+        if oldState == ChicagoClientState.Connecting.rawValue && (newState == ChicagoClientState.Disconnected.rawValue || newState == ChicagoClientState.ValidatFailed.rawValue)
         {
             tableView.reloadData()
         }

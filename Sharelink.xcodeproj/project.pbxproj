@@ -57,6 +57,10 @@
 		E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */; };
 		E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */; };
 		E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */; };
+		E71059011C5BAB1500D1C0CC /* DeveloperMainPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */; };
+		E71059021C5BAB6A00D1C0CC /* DeveloperPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */; };
+		E71059041C5BB6B000D1C0CC /* UserGuideStartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71059031C5BB6B000D1C0CC /* UserGuideStartController.swift */; };
+		E71059061C5BCA3900D1C0CC /* UserGuideFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71059051C5BCA3900D1C0CC /* UserGuideFinishViewController.swift */; };
 		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
 		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
 		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
@@ -513,6 +517,8 @@
 		E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServiceSNSExtension.swift; sourceTree = "<group>"; };
 		E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperPanel.storyboard; sourceTree = "<group>"; };
 		E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeveloperMainPanelController.swift; sourceTree = "<group>"; };
+		E71059031C5BB6B000D1C0CC /* UserGuideStartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideStartController.swift; sourceTree = "<group>"; };
+		E71059051C5BCA3900D1C0CC /* UserGuideFinishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideFinishViewController.swift; sourceTree = "<group>"; };
 		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1001,6 +1007,8 @@
 			children = (
 				E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */,
 				E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */,
+				E71059031C5BB6B000D1C0CC /* UserGuideStartController.swift */,
+				E71059051C5BCA3900D1C0CC /* UserGuideFinishViewController.swift */,
 			);
 			name = UserGuide;
 			sourceTree = "<group>";
@@ -1817,6 +1825,7 @@
 				E74C84341C590E8F009CF8DB /* BahamutCommonLocalized.strings in Resources */,
 				E74C84381C590E8F009CF8DB /* Localizable.strings in Resources */,
 				E74C843E1C590E8F009CF8DB /* LaunchScreen.xib in Resources */,
+				E71059021C5BAB6A00D1C0CC /* DeveloperPanel.storyboard in Resources */,
 				E74C84401C590E8F009CF8DB /* BahamutConfig.json in Resources */,
 				E74C84451C590E8F009CF8DB /* SharelinkSRCIcons.xcassets in Resources */,
 				E74C84461C590E8F009CF8DB /* ChatAssets.xcassets in Resources */,
@@ -2082,6 +2091,7 @@
 				E74C83C51C590E8F009CF8DB /* ControllerExtension.swift in Sources */,
 				E74C83C61C590E8F009CF8DB /* UserSetting.swift in Sources */,
 				E74C83C71C590E8F009CF8DB /* ArrayUtil.swift in Sources */,
+				E71059011C5BAB1500D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E74C83C81C590E8F009CF8DB /* SRCModels.swift in Sources */,
 				E74C83C91C590E8F009CF8DB /* UIImagePlayerController.swift in Sources */,
 				E74C83CA1C590E8F009CF8DB /* UserService.swift in Sources */,
@@ -2150,8 +2160,10 @@
 				E70A5AE91C174870001C0A47 /* ModelEntity.swift in Sources */,
 				E71D24BC1C063ECD00E0C31C /* SharelinkSetting.swift in Sources */,
 				E7FD58531BCBDDDC00E42C95 /* UIClientStateHeader.swift in Sources */,
+				E71059041C5BB6B000D1C0CC /* UserGuideStartController.swift in Sources */,
 				E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
+				E71059061C5BCA3900D1C0CC /* UserGuideFinishViewController.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,

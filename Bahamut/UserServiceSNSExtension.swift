@@ -11,7 +11,8 @@ extension UserService
 {
     
     #if APP_VERSION
-    func shareAddLinkMessageToSNS(viewController:UIViewController)
+    
+    func getLinkMessageContent() -> ISSContent
     {
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
@@ -50,7 +51,15 @@ extension UserService
         
         publishContent.addWhatsAppUnitWithContent(contentWithUrl, image: img, music: nil, video: nil)
         
+        return publishContent
+    }
+    
+    func shareAddLinkMessageToSNS(viewController:UIViewController)
+    {
+        
+        let publishContent = getLinkMessageContent()
         let container = ShareSDK.container()
+
         container.setIPadContainerWithView(viewController.view, arrowDirect: .Down)
         container.setIPhoneContainerWithViewController(viewController)
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in

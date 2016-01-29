@@ -164,6 +164,7 @@ SHARE_FAILED = "分享失败...";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "需要关注至少一个主题~";
 NEED_INPUT_THEME_NAME = "主题名不能为空~";
+HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink!";
 
 //SignInViewController
 REFRESHING = "刷新中";

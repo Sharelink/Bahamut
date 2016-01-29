@@ -65,7 +65,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
     }
     
     private func initReshareMessageCell(){
-        self.shareMessageTextView.text = rootController.reShareModel.message
+        self.shareMessageTextView.text = rootController.passedShareModel.message
         updateMsgTxtPlaceHolder()
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let NewUserStartGuided = "NewUserStartGuided"
+#if APP_VERSION
 
 class UserGuideThemeCollectionThemeCell: UICollectionViewCell
 {
@@ -23,6 +23,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     
     static let ShowUserGuideAddFriendsControllerSegue = "UserGuideAddFriendsController"
     private var focusThemeCount = 0
+    var hotThemes:[String]!
     private var allRandomThemes:[String]!
     private var randomThemes:[String]!{
         didSet{
@@ -55,9 +56,38 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         }
     }
     
+    private func getHotThemes()
+    {
+        let req = GetHotThemesRequest()
+        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<GetHotThemesRequest.HotThemes>) -> Void in
+            if let result = result.returnObject
+            {
+                if let themes = result.themes
+                {
+                    self.hotThemes = themes
+                }
+            }
+        }
+    }
+    
+    private func reloadThemes()
+    {
+        var themes:[String]! = nil
+        if hotThemes != nil && hotThemes.count > 0
+        {
+            var themes = hotThemes.getRandomSubArray(3)
+            themes.appendContentsOf(allRandomThemes.getRandomSubArray(7))
+        }else
+        {
+            getHotThemes()
+            themes = allRandomThemes.getRandomSubArray(10)
+        }
+        randomThemes = themes
+    }
+    
     @IBAction func refreshThemes(sender: AnyObject)
     {
-        randomThemes = allRandomThemes.getRandomSubArray(10)
+        reloadThemes()
     }
     
     @IBAction func addThemeFocus(sender: AnyObject)
@@ -133,7 +163,11 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         let url = Sharelink.mainBundle().pathForResource("StartupThemes", ofType: "conf")!
         let themesText = PersistentFileHelper.readTextFile(url)!
         allRandomThemes = themesText.split(",")
-        randomThemes = allRandomThemes.getRandomSubArray(10)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadThemes()
     }
     
     func tapView(_:UITapGestureRecognizer)
@@ -173,22 +207,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         calSizeLabel.sizeToFit()
         return CGSizeMake(calSizeLabel.frame.width + 23, calSizeLabel.frame.height + 7)
     }
-    
-    
-    
-    static func startUserGuide(viewController:UIViewController) -> Bool
-    {
-        if !UserSetting.isSettingEnable(NewUserStartGuided)
-        {
-            let controller = instanceFromStoryBoard("UserGuide", identifier: "UserGuideThemeController", bundle: Sharelink.mainBundle())
-            let navController = UINavigationController(rootViewController: controller)
-            navController.navigationBar.barStyle = viewController.navigationController!.navigationBar.barStyle
-            navController.changeNavigationBarColor()
-            viewController.navigationController!.presentViewController(navController, animated: true, completion: { () -> Void in
-            })
-            return true
-        }
-        return false
-    }
 
 }
+
+#endif
