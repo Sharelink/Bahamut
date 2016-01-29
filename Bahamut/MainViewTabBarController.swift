@@ -59,7 +59,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     }
     
     private var notificationService:NotificationService!
-    private var messageService:MessageService!
+    private var messageService:ChatService!
     private var shareService:ShareService!
     private var userService:UserService!
     
@@ -78,7 +78,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         notificationService = ServiceContainer.getService(NotificationService)
         shareService = ServiceContainer.getService(ShareService)
         userService = ServiceContainer.getService(UserService)
-        messageService = ServiceContainer.getService(MessageService)
+        messageService = ServiceContainer.getService(ChatService)
         self.delegate = self
     }
     
@@ -92,7 +92,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     override func viewWillDisappear(animated: Bool) {
         super.viewWillAppear(animated)
         MainViewTabBarController.currentTabBarViewController = nil
-        ServiceContainer.getService(MessageService).removeObserver(self)
+        ServiceContainer.getService(ChatService).removeObserver(self)
         ServiceContainer.getService(ShareService).removeObserver(self)
         ServiceContainer.getService(UserService).removeObserver(self)
     }
@@ -129,14 +129,14 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     private func initObserver()
     {
-        messageService.addObserver(self, selector: "newChatMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
+        messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedMsgReceived:", name: ShareService.newShareMessagesUpdated, object: nil)
         userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
     }
     
     func newChatMessageReceived(aNotification:NSNotification)
     {
-        if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
+        if let messages = aNotification.userInfo?[ChatServiceNewMessageEntities] as? [MessageEntity]
         {
             if messages.count > 0
             {

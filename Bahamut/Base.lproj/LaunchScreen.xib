@@ -13,14 +13,17 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bcg" translatesAutoresizingMaskIntoConstraints="NO" id="7iM-gY-MrW">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="113" width="441" height="95"/>
-                    <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="67"/>
+                    <rect key="frame" x="20" y="113" width="441" height="94"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="67"/>
                     <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ake-eh-QyL">
-                    <rect key="frame" x="230" y="216" width="20" height="20"/>
+                <activityIndicatorView hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ake-eh-QyL">
+                    <rect key="frame" x="230" y="215" width="20" height="20"/>
                 </activityIndicatorView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make Your SNS More Valuable!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJo-JL-rqU">
                     <rect key="frame" x="129" y="449" width="222" height="23"/>
@@ -32,16 +35,23 @@
             <color key="backgroundColor" red="0.2627450980392157" green="0.5490196078431373" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" id="5cJ-9S-tgC"/>
+                <constraint firstItem="7iM-gY-MrW" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Bmt-zT-a3z"/>
                 <constraint firstItem="bJo-JL-rqU" firstAttribute="centerX" secondItem="ake-eh-QyL" secondAttribute="centerX" id="Eu9-EQ-t1K"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
+                <constraint firstItem="7iM-gY-MrW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="SQv-aP-V3p"/>
                 <constraint firstItem="ake-eh-QyL" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="8" id="SdN-YI-gVL"/>
+                <constraint firstItem="7iM-gY-MrW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="WHI-tI-6dm"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
                 <constraint firstItem="ake-eh-QyL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gkd-I3-GKr"/>
                 <constraint firstItem="bJo-JL-rqU" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="i2W-ap-cBb"/>
+                <constraint firstItem="7iM-gY-MrW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jxn-Ts-Sba"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="bcg" width="1920" height="1200"/>
+    </resources>
 </document>

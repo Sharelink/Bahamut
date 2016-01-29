@@ -11,9 +11,9 @@ import Foundation
 import UIKit
 import EVReflection
 
-//MARK:MessageService
+//MARK:ChatService
 
-let MessageServiceNewMessageEntities = "MessageServiceNewMessageEntities"
+let ChatServiceNewMessageEntities = "ChatServiceNewMessageEntities"
 let NewCreatedChatModels = "NewCreatedChatModels"
 let NewChatModelsCreated = "NewChatModelsCreated"
 
@@ -25,19 +25,27 @@ extension Message
     }
 }
 
-class MessageService:NSNotificationCenter,ServiceProtocol
+class ChatService:NSNotificationCenter,ServiceProtocol
 {
-    static let messageServiceNewMessageReceived = "MessageServiceNewMessageReceived"
+    static let messageServiceNewMessageReceived = "ChatServiceNewMessageReceived"
     private(set) var chattingShareId:String!
-    @objc static var ServiceName:String {return "Message Service"}
+    private var chatMessageServerUrl:String!
+    @objc static var ServiceName:String {return "Chat Service"}
     @objc func appStartInit() {}
     
     @objc func userLoginInit(userId: String)
     {
+        self.chatMessageServerUrl = SharelinkSDK.sharedInstance.shareLinkApiServer
         let route = ChicagoRoute()
         route.ExtName = "NotificationCenter"
         route.CmdName = "UsrNewMsg"
         ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
+        
+        let chatServerChangedRoute = ChicagoRoute()
+        chatServerChangedRoute.ExtName = "NotificationCenter"
+        route.CmdName = "ChatServerChanged"
+        ChicagoClient.sharedInstance.addChicagoObserver(chatServerChangedRoute, observer: self, selector: "chatServerChanged:")
+        
         self.setServiceReady()
         self.getMessageFromServer()
     }
@@ -75,6 +83,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     func getMessageFromServer()
     {
         let req = GetNewMessagesRequest()
+        req.apiServerUrl = self.chatMessageServerUrl
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
             if var msgs = result.returnObject
@@ -87,6 +96,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
                 
                 self.recevieMessage(msgs)
                 let dreq = NotifyNewMessagesReceivedRequest()
+                dreq.apiServerUrl = self.chatMessageServerUrl
                 client.execute(dreq, callback: { (result:SLResult<EVObject>) -> Void in
                     
                 })
@@ -158,6 +168,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
     func sendMessage(chatId:String,msg:MessageEntity,shareId:String,audienceId:String)
     {
         let req = SendMessageRequest()
+        req.apiServerUrl = self.chatMessageServerUrl
         req.time = msg.time
         req.type = msg.type
         req.chatId = chatId
@@ -200,7 +211,7 @@ class MessageService:NSNotificationCenter,ServiceProtocol
             msgEntities.append(me)
         }
         PersistentManager.sharedInstance.saveMessageChanges()
-        self.postNotificationName(MessageService.messageServiceNewMessageReceived, object: self, userInfo: [MessageServiceNewMessageEntities:msgEntities])
+        self.postNotificationName(ChatService.messageServiceNewMessageReceived, object: self, userInfo: [ChatServiceNewMessageEntities:msgEntities])
         if newChatModels.count > 0
         {
             self.postNotificationName(NewChatModelsCreated, object: self, userInfo: [NewCreatedChatModels:newChatModels])

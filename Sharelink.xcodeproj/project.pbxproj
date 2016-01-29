@@ -49,6 +49,14 @@
 		E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
 		E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
 		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
+		E71058EE1C5AF3D900D1C0CC /* UserGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */; };
+		E71058F01C5B114600D1C0CC /* UserGuideThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */; };
+		E71058F21C5B118E00D1C0CC /* UserGuideAddFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */; };
+		E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */ = {isa = PBXBuildFile; fileRef = E71058F51C5B226C00D1C0CC /* StartupThemes.conf */; };
+		E71058F81C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */; };
+		E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */; };
+		E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */; };
+		E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */; };
 		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
 		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
 		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
@@ -68,20 +76,6 @@
 		E71717501C5713F30097AF64 /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71717441C5713F30097AF64 /* yw_1222.jpg */; };
 		E717182F1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */; };
 		E7171AA61C5747D50097AF64 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E717184D1C5738510097AF64 /* Security.framework */; };
-		E717889A1BF85FAD005916B5 /* ch_NewViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788881BF85FAD005916B5 /* ch_NewViewGuide_0.jpg */; };
-		E717889B1BF85FAD005916B5 /* ch_NewViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788891BF85FAD005916B5 /* ch_NewViewGuide_1.jpg */; };
-		E717889C1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E717888A1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg */; };
-		E717889D1BF85FAD005916B5 /* ch_ShareViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E717888B1BF85FAD005916B5 /* ch_ShareViewGuide_1.jpg */; };
-		E717889F1BF85FAD005916B5 /* ch_ThemeViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E717888D1BF85FAD005916B5 /* ch_ThemeViewGuide_0.jpg */; };
-		E71788A11BF85FAD005916B5 /* ch_UserViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E717888F1BF85FAD005916B5 /* ch_UserViewGuide_0.jpg */; };
-		E71788A21BF85FAD005916B5 /* ch_UserViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788901BF85FAD005916B5 /* ch_UserViewGuide_1.jpg */; };
-		E71788A31BF85FAD005916B5 /* en_NewViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788911BF85FAD005916B5 /* en_NewViewGuide_0.jpg */; };
-		E71788A41BF85FAD005916B5 /* en_NewViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788921BF85FAD005916B5 /* en_NewViewGuide_1.jpg */; };
-		E71788A51BF85FAD005916B5 /* en_ShareViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788931BF85FAD005916B5 /* en_ShareViewGuide_0.jpg */; };
-		E71788A61BF85FAD005916B5 /* en_ShareViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788941BF85FAD005916B5 /* en_ShareViewGuide_1.jpg */; };
-		E71788A81BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788961BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg */; };
-		E71788AA1BF85FAD005916B5 /* en_UserViewGuide_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788981BF85FAD005916B5 /* en_UserViewGuide_0.jpg */; };
-		E71788AB1BF85FAD005916B5 /* en_UserViewGuide_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E71788991BF85FAD005916B5 /* en_UserViewGuide_1.jpg */; };
 		E71AF30A1BE4ECCD000BBBF8 /* UIMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71AF30C1BE4ECCD000BBBF8 /* UIMessage.storyboard */; };
 		E71AF3151BE4EEF9000BBBF8 /* Component.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71AF3171BE4EEF9000BBBF8 /* Component.storyboard */; };
 		E71AF31C1BE4EFD9000BBBF8 /* UserAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71AF31E1BE4EFD9000BBBF8 /* UserAccount.storyboard */; };
@@ -191,7 +185,7 @@
 		E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */; };
 		E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF0CE31C4E2CBE007C91E2 /* SRCService.swift */; };
 		E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
-		E74C83A21C590E8F009CF8DB /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* MessageService.swift */; };
+		E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* ChatService.swift */; };
 		E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
 		E74C83A41C590E8F009CF8DB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578F1C54AD4C00505B2A /* File.swift */; };
 		E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD21C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift */; };
@@ -350,7 +344,7 @@
 		E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
 		E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0D1B67F44E00D5426B /* AccountService.swift */; };
 		E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */; };
-		E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* MessageService.swift */; };
+		E790BD121B67FDEF00D5426B /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* ChatService.swift */; };
 		E790BD141B68069A00D5426B /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD131B68069A00D5426B /* ShareService.swift */; };
 		E795C6E01BC94DA9003B9EDC /* UUMsgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E795C6DF1BC94DA9003B9EDC /* UUMsgItem.swift */; };
 		E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798102D1BC6C38B002F35A5 /* ChatViewController.swift */; };
@@ -511,6 +505,14 @@
 		E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
 		E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
 		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
+		E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserGuide.storyboard; sourceTree = "<group>"; };
+		E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideThemeController.swift; sourceTree = "<group>"; };
+		E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideAddFriendsController.swift; sourceTree = "<group>"; };
+		E71058F51C5B226C00D1C0CC /* StartupThemes.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StartupThemes.conf; sourceTree = "<group>"; };
+		E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayouts.swift; sourceTree = "<group>"; };
+		E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServiceSNSExtension.swift; sourceTree = "<group>"; };
+		E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperPanel.storyboard; sourceTree = "<group>"; };
+		E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeveloperMainPanelController.swift; sourceTree = "<group>"; };
 		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -535,20 +537,6 @@
 		E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKVersionReplaceInterfaces.swift; sourceTree = "<group>"; };
 		E717184D1C5738510097AF64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E7171AA41C5745430097AF64 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
-		E71788881BF85FAD005916B5 /* ch_NewViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788891BF85FAD005916B5 /* ch_NewViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_NewViewGuide_1.jpg; sourceTree = "<group>"; };
-		E717888A1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ShareViewGuide_0.jpg; sourceTree = "<group>"; };
-		E717888B1BF85FAD005916B5 /* ch_ShareViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ShareViewGuide_1.jpg; sourceTree = "<group>"; };
-		E717888D1BF85FAD005916B5 /* ch_ThemeViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_ThemeViewGuide_0.jpg; sourceTree = "<group>"; };
-		E717888F1BF85FAD005916B5 /* ch_UserViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_UserViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788901BF85FAD005916B5 /* ch_UserViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ch_UserViewGuide_1.jpg; sourceTree = "<group>"; };
-		E71788911BF85FAD005916B5 /* en_NewViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_NewViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788921BF85FAD005916B5 /* en_NewViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_NewViewGuide_1.jpg; sourceTree = "<group>"; };
-		E71788931BF85FAD005916B5 /* en_ShareViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ShareViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788941BF85FAD005916B5 /* en_ShareViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ShareViewGuide_1.jpg; sourceTree = "<group>"; };
-		E71788961BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_ThemeViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788981BF85FAD005916B5 /* en_UserViewGuide_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_UserViewGuide_0.jpg; sourceTree = "<group>"; };
-		E71788991BF85FAD005916B5 /* en_UserViewGuide_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = en_UserViewGuide_1.jpg; sourceTree = "<group>"; };
 		E71AF3281BE4FE12000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E71AF3291BE4FE14000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E71AF32D1BE500A5000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UIMessage.storyboard"; sourceTree = "<group>"; };
@@ -636,7 +624,7 @@
 		E790BD0B1B67F12000D5426B /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
 		E790BD0D1B67F44E00D5426B /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
-		E790BD111B67FDEF00D5426B /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		E790BD111B67FDEF00D5426B /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		E790BD131B68069A00D5426B /* ShareService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 		E795C6DF1BC94DA9003B9EDC /* UUMsgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUMsgItem.swift; sourceTree = "<group>"; };
 		E798102D1BC6C38B002F35A5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -972,6 +960,7 @@
 				E70FEF401C04E1200096C437 /* BahamutFire */,
 				E72F00761B6C94F8007E9E29 /* FileService.swift */,
 				E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */,
+				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
 				E70FEF351C048C390096C437 /* UploadBaseExtension.swift */,
 				E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */,
 			);
@@ -1007,6 +996,32 @@
 			name = AliOSS;
 			sourceTree = "<group>";
 		};
+		E71058EC1C5AF39400D1C0CC /* UserGuide */ = {
+			isa = PBXGroup;
+			children = (
+				E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */,
+				E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */,
+			);
+			name = UserGuide;
+			sourceTree = "<group>";
+		};
+		E71058F91C5B5F4D00D1C0CC /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				E79E3E371B6B56A900B27085 /* UserService.swift */,
+				E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */,
+			);
+			name = UserService;
+			sourceTree = "<group>";
+		};
+		E71058FE1C5B6C9900D1C0CC /* DeveloperPanel */ = {
+			isa = PBXGroup;
+			children = (
+				E71058FF1C5B6CD300D1C0CC /* DeveloperMainPanelController.swift */,
+			);
+			name = DeveloperPanel;
+			sourceTree = "<group>";
+		};
 		E71500061C3B733D009185FE /* UISettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1037,27 +1052,6 @@
 				E71717441C5713F30097AF64 /* yw_1222.jpg */,
 			);
 			path = QuPaiSDK;
-			sourceTree = "<group>";
-		};
-		E71788751BF83572005916B5 /* GuideAssets */ = {
-			isa = PBXGroup;
-			children = (
-				E71788881BF85FAD005916B5 /* ch_NewViewGuide_0.jpg */,
-				E71788891BF85FAD005916B5 /* ch_NewViewGuide_1.jpg */,
-				E717888A1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg */,
-				E717888B1BF85FAD005916B5 /* ch_ShareViewGuide_1.jpg */,
-				E717888D1BF85FAD005916B5 /* ch_ThemeViewGuide_0.jpg */,
-				E717888F1BF85FAD005916B5 /* ch_UserViewGuide_0.jpg */,
-				E71788901BF85FAD005916B5 /* ch_UserViewGuide_1.jpg */,
-				E71788911BF85FAD005916B5 /* en_NewViewGuide_0.jpg */,
-				E71788921BF85FAD005916B5 /* en_NewViewGuide_1.jpg */,
-				E71788931BF85FAD005916B5 /* en_ShareViewGuide_0.jpg */,
-				E71788941BF85FAD005916B5 /* en_ShareViewGuide_1.jpg */,
-				E71788961BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg */,
-				E71788981BF85FAD005916B5 /* en_UserViewGuide_0.jpg */,
-				E71788991BF85FAD005916B5 /* en_UserViewGuide_1.jpg */,
-			);
-			path = GuideAssets;
 			sourceTree = "<group>";
 		};
 		E723871C1BFC196100247A35 /* NewShare */ = {
@@ -1115,6 +1109,7 @@
 		E75EE44F1B9A05E200783308 /* UIResource */ = {
 			isa = PBXGroup;
 			children = (
+				E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */,
 				E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */,
 				E71AF30C1BE4ECCD000BBBF8 /* UIMessage.storyboard */,
 				E7A62FEC1B6609A500F28D73 /* SharelinkMain.storyboard */,
@@ -1122,6 +1117,7 @@
 				E71AF31E1BE4EFD9000BBBF8 /* UserAccount.storyboard */,
 				E7FD58501BCBDB4D00E42C95 /* UIViews.xib */,
 				E709B7791C3FA7C800F7E46B /* AppIcon.storyboard */,
+				E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */,
 			);
 			name = UIResource;
 			sourceTree = "<group>";
@@ -1163,6 +1159,7 @@
 			isa = PBXGroup;
 			children = (
 				E76DEB8E1C0E9C140072A1D7 /* DynamicColor */,
+				E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */,
 				E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */,
 				E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */,
 				E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */,
@@ -1261,11 +1258,10 @@
 			isa = PBXGroup;
 			children = (
 				E70FEF3D1C04CE620096C437 /* Base */,
+				E71058F91C5B5F4D00D1C0CC /* UserService */,
 				E7AF0CE21C4E2C9F007C91E2 /* Share */,
 				E795C6DE1BC93A63003B9EDC /* Message */,
 				E70C48B31BA122B600F805C3 /* FileService */,
-				E79E3E371B6B56A900B27085 /* UserService.swift */,
-				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
 				E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */,
 				E712765C1BE2099F00CCCB3F /* NotificationService.swift */,
 				E712765E1BE209AD00CCCB3F /* LocationService.swift */,
@@ -1285,7 +1281,7 @@
 			isa = PBXGroup;
 			children = (
 				E708CD211BC90494000ADD1B /* ChatModel.swift */,
-				E790BD111B67FDEF00D5426B /* MessageService.swift */,
+				E790BD111B67FDEF00D5426B /* ChatService.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -1305,6 +1301,8 @@
 			isa = PBXGroup;
 			children = (
 				E7F7F1CF1C52111000E6D117 /* AppMain */,
+				E71058FE1C5B6C9900D1C0CC /* DeveloperPanel */,
+				E71058EC1C5AF39400D1C0CC /* UserGuide */,
 				E74246491C3A296A00BA564F /* UIViews */,
 				E76DEBB61C0EA0790072A1D7 /* ChicagoClient */,
 				E7F225FE1BC646F00034B745 /* UIMessage */,
@@ -1371,6 +1369,7 @@
 				E71AF3271BE4FE11000BBBF8 /* Localizable.strings */,
 				E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */,
 				E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */,
+				E71058F51C5B226C00D1C0CC /* StartupThemes.conf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1497,7 +1496,6 @@
 				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7AF0CE71C4E6753007C91E2 /* ThemeTypedIcons.xcassets */,
 				E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */,
-				E71788751BF83572005916B5 /* GuideAssets */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */,
 				E70D11421C085BE900DC6C9A /* defaultAvatar.png */,
@@ -1832,45 +1830,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				E70D11431C085BE900DC6C9A /* defaultAvatar.png in Resources */,
-				E71788AA1BF85FAD005916B5 /* en_UserViewGuide_0.jpg in Resources */,
 				E7D7525D1C561488002E3D40 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				E71AF3151BE4EEF9000BBBF8 /* Component.storyboard in Resources */,
 				E71AF30A1BE4ECCD000BBBF8 /* UIMessage.storyboard in Resources */,
 				E7FDBAB41BC4C1A90017BCEF /* WebAssets in Resources */,
 				E7D7525A1C561488002E3D40 /* WeiboSDK.bundle in Resources */,
-				E717889A1BF85FAD005916B5 /* ch_NewViewGuide_0.jpg in Resources */,
 				E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */,
 				E717174B1C5713F30097AF64 /* Tae.bundle in Resources */,
-				E71788A51BF85FAD005916B5 /* en_ShareViewGuide_0.jpg in Resources */,
 				E7A62FEE1B6609A500F28D73 /* SharelinkMain.storyboard in Resources */,
 				E7A645351BE9E39E00204D1A /* SharelinkFilm.mp4 in Resources */,
 				E7AF0CE81C4E6753007C91E2 /* ThemeTypedIcons.xcassets in Resources */,
 				E71AF31C1BE4EFD9000BBBF8 /* UserAccount.storyboard in Resources */,
 				E7F7F32A1C524C9900E6D117 /* Entry.storyboard in Resources */,
 				E7D751951C55DFA7002E3D40 /* BahamutCommonLocalized.strings in Resources */,
-				E71788A81BF85FAD005916B5 /* en_ThemeViewGuide_0.jpg in Resources */,
-				E71788A31BF85FAD005916B5 /* en_NewViewGuide_0.jpg in Resources */,
 				E71717471C5713F30097AF64 /* ALBBQuPaiPlugin.bundle in Resources */,
 				E71AF3251BE4FE11000BBBF8 /* Localizable.strings in Resources */,
 				E7D752581C561488002E3D40 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				E71788A21BF85FAD005916B5 /* ch_UserViewGuide_1.jpg in Resources */,
-				E717889D1BF85FAD005916B5 /* ch_ShareViewGuide_1.jpg in Resources */,
-				E717889C1BF85FAD005916B5 /* ch_ShareViewGuide_0.jpg in Resources */,
-				E717889F1BF85FAD005916B5 /* ch_ThemeViewGuide_0.jpg in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
-				E71788A11BF85FAD005916B5 /* ch_UserViewGuide_0.jpg in Resources */,
 				E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */,
+				E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */,
 				E7D752531C561488002E3D40 /* ShareSDKLocalizable.strings in Resources */,
-				E71788AB1BF85FAD005916B5 /* en_UserViewGuide_1.jpg in Resources */,
-				E71788A41BF85FAD005916B5 /* en_NewViewGuide_1.jpg in Resources */,
+				E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */,
+				E71058EE1C5AF3D900D1C0CC /* UserGuide.storyboard in Resources */,
 				E71717501C5713F30097AF64 /* yw_1222.jpg in Resources */,
 				E7AF0CE61C4E6700007C91E2 /* SharelinkSRCIcons.xcassets in Resources */,
 				E7D752ED1C5633C0002E3D40 /* ChatAssets.xcassets in Resources */,
 				E7D7519F1C55E64E002E3D40 /* ChatFrameworkLocalized.strings in Resources */,
 				E7A62FF01B6609A500F28D73 /* Images.xcassets in Resources */,
 				E7D752551C561488002E3D40 /* Resource.bundle in Resources */,
-				E71788A61BF85FAD005916B5 /* en_ShareViewGuide_1.jpg in Resources */,
-				E717889B1BF85FAD005916B5 /* ch_NewViewGuide_1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1933,7 +1920,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ARCHS = 'x86_64' ]\nthen\n    exit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
+			shellScript = "\nif [ $ARCHS = 'x86_64' -o $CONFIGURATION = 'Debug' ]\nthen\n    exit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
 		};
 		E74C83591C590E8F009CF8DB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2058,7 +2045,7 @@
 				E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */,
 				E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */,
 				E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */,
-				E74C83A21C590E8F009CF8DB /* MessageService.swift in Sources */,
+				E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */,
 				E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */,
 				E74C83A41C590E8F009CF8DB /* File.swift in Sources */,
 				E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */,
@@ -2148,6 +2135,7 @@
 				E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */,
 				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
 				E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */,
+				E71058F81C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift in Sources */,
 				E7AF57A61C54AD4C00505B2A /* UserLink.swift in Sources */,
 				E7443ADE1C2BDF4100CB5C3A /* ThemeListViewController.swift in Sources */,
 				E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */,
@@ -2208,7 +2196,7 @@
 				E73B32961C40D6BE007E9254 /* HarmfulReportViewController.swift in Sources */,
 				E7AF0CE41C4E2CBE007C91E2 /* SRCService.swift in Sources */,
 				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
-				E790BD121B67FDEF00D5426B /* MessageService.swift in Sources */,
+				E790BD121B67FDEF00D5426B /* ChatService.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
 				E7AF57A11C54AD4C00505B2A /* File.swift in Sources */,
 				E70A5AE61C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift in Sources */,
@@ -2226,6 +2214,7 @@
 				E70A5AD91C174870001C0A47 /* FileType.swift in Sources */,
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */,
+				E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */,
 				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
 				E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */,
@@ -2244,6 +2233,7 @@
 				E717174D1C5713F30097AF64 /* TaeSDKExtension.m in Sources */,
 				E70C170D1C1D7FA300F2D67F /* NewShareUrlCell.swift in Sources */,
 				E76DEB941C0E9C140072A1D7 /* ControllerExtension.swift in Sources */,
+				E71058F21C5B118E00D1C0CC /* UserGuideAddFriendsController.swift in Sources */,
 				E715000A1C3B7520009185FE /* UserSetting.swift in Sources */,
 				E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */,
 				E7FF29371C5110DE00F95FE5 /* SRCModels.swift in Sources */,
@@ -2260,6 +2250,7 @@
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E7AF57A41C54AD4C00505B2A /* ShareThing.swift in Sources */,
 				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
+				E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
 				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
 				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,
@@ -2274,6 +2265,7 @@
 				E70A5AE21C174870001C0A47 /* BahamutMessage.xcdatamodeld in Sources */,
 				E7AF57A71C54AD4C00505B2A /* UserTheme.swift in Sources */,
 				E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */,
+				E71058F01C5B114600D1C0CC /* UserGuideThemeController.swift in Sources */,
 				E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */,
 				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* SharelinkAppDelegate.swift in Sources */,

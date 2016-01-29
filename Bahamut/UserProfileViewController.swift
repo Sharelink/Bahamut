@@ -31,7 +31,7 @@ extension UserService
 //MARK: extension SharelinkThemeService
 extension SharelinkThemeService
 {
-    func showConfirmAddTagAlert(currentViewController:UIViewController,theme:SharelinkTheme)
+    func showConfirmAddThemeAlert(currentViewController:UIViewController,theme:SharelinkTheme)
     {
         let alert = UIAlertController(title: "FOCUS".localizedString() , message: String(format: "CONFIRM_FOCUS_THEME".localizedString(), theme.getShowName()), preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "YES".localizedString(), style: .Default){ _ in
@@ -42,7 +42,7 @@ extension SharelinkThemeService
         currentViewController.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func addThisThemeToMyFocus(currentViewController:UIViewController,theme:SharelinkTheme)
+    func addThisThemeToMyFocus(currentViewController:UIViewController,theme:SharelinkTheme,callback:((Bool)->Void)! = nil)
     {
         if self.isThemeExists(theme.data)
         {
@@ -65,6 +65,10 @@ extension SharelinkThemeService
             alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Cancel){ _ in
                 })
             currentViewController.presentViewController(alert, animated: true, completion: nil)
+            if let handler = callback
+            {
+                handler(suc)
+            }
         }
         
     }
@@ -182,7 +186,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
         if sender == focusThemeController
         {
-            ServiceContainer.getService(SharelinkThemeService).showConfirmAddTagAlert(self,theme: sender.themes[indexPath.row])
+            ServiceContainer.getService(SharelinkThemeService).showConfirmAddThemeAlert(self,theme: sender.themes[indexPath.row])
         }
     }
     

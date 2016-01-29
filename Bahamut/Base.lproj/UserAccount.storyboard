@@ -71,7 +71,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="motto" destination="vja-XT-z4B" id="ho5-09-GHE"/>
                         <outlet property="nickNameTextfield" destination="esA-aa-ZDv" id="tq8-Uf-mZU"/>

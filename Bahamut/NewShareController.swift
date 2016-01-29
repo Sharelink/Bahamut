@@ -155,10 +155,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         //self.initSRCMenuManager()
-        if UserSetting.isAppstoreReviewing == false
-        {
-            userGuide.showGuideControllerPresentFirstTime()
-        }
     }
     
     deinit{

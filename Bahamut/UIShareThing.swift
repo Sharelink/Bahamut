@@ -157,15 +157,12 @@ class UIShareThing: UIShareCell
         if let btn = sender as? UIButton
         {
             btn.animationMaxToMin(0.1,maxScale: 1.3){
-                let controller = ChatViewController.instanceFromStoryBoard()
-                controller.shareChat = self.rootController.messageService.getShareChatHub(self.shareModel.shareId,shareSenderId: self.shareModel.userId)
-                let navController = UINavigationController(rootViewController: controller)
-                controller.changeNavigationBarColor()
+                let shareChat = self.rootController.messageService.getShareChatHub(self.shareModel.shareId,shareSenderId: self.shareModel.userId)
                 MainViewTabBarController.currentTabBarViewController.reduceTabItemBadge(MainViewTabBarController.ShareTabItemBadgeIndex, badgeReduce: self.notReadmsg)
                 self.notReadmsg = 0
-                self.rootController.presentViewController(navController, animated: true) { () -> Void in
+                ChatViewController.startChat(self.rootController, chatHub: shareChat, callback: { () -> Void in
                     self.replyButton.badgeValue = nil
-                }
+                })
             }
         }
         

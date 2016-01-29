@@ -173,15 +173,21 @@ public class AddNewTagRequest: ShareLinkSDKRequestBase
         }
     }
     
-    public var isFocus:String!{
+    public var isFocus:Bool = true{
         didSet{
-            self.paramenters["isFocus"] = isFocus
+            self.paramenters["isFocus"] = isFocus ? "true" : "false"
         }
     }
     
-    public var isShowToLinkers:String!{
+    public var isShowToLinkers:Bool = true{
         didSet{
-            self.paramenters["isShowToLinkers"] = isShowToLinkers
+            self.paramenters["isShowToLinkers"] = isShowToLinkers ? "true" : "false"
+        }
+    }
+    
+    public var notifyFriends:Bool = true{
+        didSet{
+            self.paramenters["notifyFriends"] = notifyFriends ? "true" : "false"
         }
     }
     

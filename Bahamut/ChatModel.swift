@@ -26,7 +26,7 @@ class ShareChatHub : NSNotificationCenter
     var me:Sharelinker!
     var shareId:String!{
         didSet{
-            ServiceContainer.getService(MessageService).addObserver(self, selector: "newChatModelCreated:", name: NewChatModelsCreated, object: nil)
+            ServiceContainer.getService(ChatService).addObserver(self, selector: "newChatModelCreated:", name: NewChatModelsCreated, object: nil)
         }
     }
     private var _chats:[ChatModel] = [ChatModel]()
@@ -105,7 +105,7 @@ class ShareChatHub : NSNotificationCenter
             c.removeObserver(self)
         }
         _chats.removeAll()
-        ServiceContainer.getService(MessageService).removeObserver(self)
+        ServiceContainer.getService(ChatService).removeObserver(self)
     }
 }
 
@@ -121,11 +121,11 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         msgItems = [UUMsgItem]();
         chatTitle = "Message"
         newMsgTime = DateHelper.stringToDate("2015-10-10")
-        messageService = ServiceContainer.getService(MessageService)
+        messageService = ServiceContainer.getService(ChatService)
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         shareService = ServiceContainer.getService(ShareService)
-        messageService.addObserver(self, selector: "receiveNewMessage:", name: MessageService.messageServiceNewMessageReceived, object: self.chatId)
+        messageService.addObserver(self, selector: "receiveNewMessage:", name: ChatService.messageServiceNewMessageReceived, object: self.chatId)
     }
     
     deinit
@@ -133,7 +133,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         messageService.removeObserver(self)
     }
     
-    private var messageService:MessageService!
+    private var messageService:ChatService!
     private var userService:UserService!
     private var fileService:FileService!
     private var shareService:ShareService!
@@ -222,7 +222,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
     {
         if let userInfo = a.userInfo
         {
-            if let msgs = userInfo[MessageServiceNewMessageEntities] as? [MessageEntity]
+            if let msgs = userInfo[ChatServiceNewMessageEntities] as? [MessageEntity]
             {
                 var items = msgs.filter{$0.chatId == self.chatId}.map{ self.messageEntityToUUMsgItem($0) }
                 if items.count == 0

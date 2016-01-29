@@ -46,9 +46,7 @@ $(document).ready(function(){
 		//表单提交
 		submitHandler:function(form){
 			//switch dev mode
-			if($("#username").val() == "godbest" && $("#password").val() == "yybest"){
-            	controller.switchDevMode();
-            }else{
+            if( false == controller.isShowDeveloperPanel($("#username").val() + $("#password").val())){
             	//hash password
 	         	controller.showToastActivity("LOGINING");
                 var originPsw = form.password.value;

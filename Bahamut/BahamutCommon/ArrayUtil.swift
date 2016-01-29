@@ -33,6 +33,31 @@ public extension Array
         return result
     }
     
+    public func messArrayUp() -> [Element]
+    {
+        var result = self.map{$0}
+        for _ in 0..<self.count
+        {
+            let index = Int(arc4random_uniform(UInt32(self.count)))
+            let indexb = Int(arc4random_uniform(UInt32(self.count)))
+            let a = result[index]
+            result[index] = result[indexb]
+            result[indexb] = a
+        }
+        return result
+    }
+    
+    public func getRandomSubArray(subArrayCount:Int) -> [Element]
+    {
+        var result = [Element]()
+        let messArray = self.messArrayUp()
+        for i in 0..<min(messArray.count , subArrayCount)
+        {
+            result.append(messArray[i])
+        }
+        return result.messArrayUp()
+    }
+    
 }
 
 public extension Array
@@ -78,20 +103,6 @@ public class ArrayUtil
         }
         var result = dict.map {(latinLetter:$0.0, items:$0.1.map{$0 as! T}) }
         result.sortInPlace{$0.0 < $1.0}
-        return result
-    }
-    
-    public static func messArrayUp<T:AnyObject>(originArray:[T]) -> [T]
-    {
-        var result = originArray.map{$0}
-        for _ in 0..<originArray.count
-        {
-            let index = Int(arc4random_uniform(UInt32(originArray.count)))
-            let indexb = Int(arc4random_uniform(UInt32(originArray.count)))
-            let a = result[index]
-            result[index] = result[indexb]
-            result[indexb] = a
-        }
         return result
     }
 }

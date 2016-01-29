@@ -39,7 +39,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         }
     }
     
-    var messageService:MessageService!
+    var messageService:ChatService!
     var chatRoomListViewController:ChatRoomListViewController!
     @IBOutlet weak var roomsContainer: UIView!{
         didSet{
@@ -71,7 +71,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.addInputFunctionView()
         self.initChatRoomListViewController()
         self.addRefreshViews()
-        messageService = ServiceContainer.getService(MessageService)
+        messageService = ServiceContainer.getService(ChatService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         self.initBarBadge()
     }
@@ -462,4 +462,14 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         return instance
     }
     
+    static func startChat(rootController:UIViewController,chatHub:ShareChatHub,callback:()->Void)
+    {
+        instance.shareChat = chatHub
+        let navController = UINavigationController(rootViewController: instance)
+        navController.navigationBar.barStyle = rootController.navigationController!.navigationBar.barStyle
+        navController.changeNavigationBarColor()
+        rootController.presentViewController(navController, animated: true) { () -> Void in
+            callback()
+        }
+    }
 }

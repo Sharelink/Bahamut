@@ -329,7 +329,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         {
             ServiceContainer.getService(UserService).getNewLinkMessageFromServer()
             ServiceContainer.getService(ShareService).getNewShareMessageFromServer()
-            ServiceContainer.getService(MessageService).getMessageFromServer()
+            ServiceContainer.getService(ChatService).getMessageFromServer()
             ChicagoClient.sharedInstance.reConnect()
             if UserService.lastRefreshLinkedUserTime == nil || UserService.lastRefreshLinkedUserTime.timeIntervalSinceNow < -1000 * 3600 * 3
             {

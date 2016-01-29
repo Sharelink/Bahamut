@@ -17,8 +17,8 @@ import JavaScriptCore
     func validateToken(result:String)
     func finishRegist(accountId:String)
     func alert(msg:String)
-    func switchDevMode()
     func showPrivacy()
+    func isShowDeveloperPanel(idpsw:String) -> Bool
 }
 
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
@@ -29,7 +29,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             webPageView.hidden = true
             webPageView.scrollView.showsHorizontalScrollIndicator = false
             webPageView.scrollView.showsVerticalScrollIndicator = false
-            webPageView.scrollView.scrollEnabled = true
+            webPageView.scrollView.scrollEnabled = false
             webPageView.scalesPageToFit = true
             webPageView.delegate = self
             self.view.addSubview(webPageView)
@@ -66,6 +66,27 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         {
             registAccount()
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillShow:", name:UIKeyboardWillShowNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillHide:", name:UIKeyboardWillHideNotification, object:nil)
+    }
+    
+    func keyboardWillHide(_:NSNotification)
+    {
+        webPageView.scrollView.scrollEnabled = false
+    }
+    
+    func keyboardWillShow(_:NSNotification)
+    {
+        webPageView.scrollView.scrollEnabled = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     private var registAccountUrl:String{
@@ -219,49 +240,19 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         SimpleBrowser.openUrl(self.navigationController!, url: SharelinkConfig.bahamutConfig.sharelinkPrivacyPage)
     }
     
-    //MARK: develop mode
-    @IBAction func hideDevPanel(sender: AnyObject) {
-        dev_panel.hidden = true
-    }
+    //MARK: Developer Panel
     
-    @IBAction func clearAllData(sender: AnyObject)
-    {
-        PersistentManager.sharedInstance.clearCache()
-        PersistentManager.sharedInstance.clearRootDir()
-    }
-    
-    @IBAction func use168Server(sender: AnyObject)
-    {
-        SharelinkSetting.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
-        SharelinkSetting.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
-        authenticate()
-    }
-    @IBAction func use67Server(sender: AnyObject)
-    {
-        SharelinkSetting.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
-        SharelinkSetting.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
-        authenticate()
-    }
-    
-    @IBAction func useRemoteServer(sender: AnyObject)
-    {
-        SharelinkSetting.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
-        SharelinkSetting.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
-        authenticate()
-    }
-    
-    @IBOutlet weak var dev_panel: UIView!{
-        didSet{
-            dev_panel.hidden = true
+    func isShowDeveloperPanel(idpsw: String) -> Bool{
+        if idpsw == "godbestyybest"
+        {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                UserSetting.isAppstoreReviewing = false
+                DeveloperMainPanelController.showDeveloperMainPanel(self)
+            }
+            return true
+        }else
+        {
+            return false
         }
     }
-    
-    func switchDevMode() {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            UserSetting.isAppstoreReviewing = false
-            self.dev_panel.hidden = !self.dev_panel.hidden
-            self.view.bringSubviewToFront(self.dev_panel)
-        }
-    }
-    
 }

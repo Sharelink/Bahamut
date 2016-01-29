@@ -15,27 +15,25 @@ class ShareThingsListController: UITableViewController
     
     private(set) var userService:UserService!
     private(set) var fileService:FileService!
-    private(set) var messageService:MessageService!
+    private(set) var messageService:ChatService!
     private(set) var notificationService:NotificationService!
     private(set) var shareService = ServiceContainer.getService(ShareService)
     private var shareThings:[ShareThing] = [ShareThing]()
     private var isShowing:Bool = false
-    private var userGuide:UserGuide!
     
     //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUserGuide()
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
-        messageService = ServiceContainer.getService(MessageService)
+        messageService = ServiceContainer.getService(ChatService)
         notificationService = ServiceContainer.getService(NotificationService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         initTableView()
         initRefresh()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
-        messageService.addObserver(self, selector: "newChatMessageReceived:", name: MessageService.messageServiceNewMessageReceived, object: nil)
+        messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
         refresh()
     }
@@ -61,7 +59,7 @@ class ShareThingsListController: UITableViewController
         super.viewDidAppear(animated)
         if UserSetting.isAppstoreReviewing == false
         {
-            userGuide.showGuideControllerPresentFirstTime()
+            UserGuideThemeController.startUserGuide(self)
         }
         if shareThings.count == 0
         {
@@ -70,19 +68,13 @@ class ShareThingsListController: UITableViewController
     }
     
     deinit{
-        ServiceContainer.getService(MessageService).removeObserver(self)
+        ServiceContainer.getService(ChatService).removeObserver(self)
         ServiceContainer.getService(ShareService).removeObserver(self)
         ServiceContainer.getService(UserService).removeObserver(self)
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     
     //MARK: init actions
-    private func initUserGuide()
-    {
-        self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Share")
-        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
-    }
     
     private func initTableView()
     {
@@ -140,7 +132,7 @@ class ShareThingsListController: UITableViewController
     
     func newChatMessageReceived(aNotification:NSNotification)
     {
-        if let messages = aNotification.userInfo?[MessageServiceNewMessageEntities] as? [MessageEntity]
+        if let messages = aNotification.userInfo?[ChatServiceNewMessageEntities] as? [MessageEntity]
         {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.refreshShareLastActiveTime(messages)

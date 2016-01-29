@@ -49,6 +49,7 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let controller = instanceFromStoryBoard()
             let navController = UINavigationController(rootViewController: controller)
+            navController.navigationBar.barStyle = currentViewController.navigationBar.barStyle
             navController.changeNavigationBarColor()
             currentViewController.presentViewController(navController, animated: true, completion: {
                 controller.url = url;

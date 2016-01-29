@@ -121,12 +121,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
 {
     private(set) var themeService:SharelinkThemeService!
     private(set) var myThemes = [(header:String?,themes:[SharelinkTheme])]()
-    private var userGuide:UserGuide!
     
     //MARK:life circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initUserGuide()
         self.initTableView()
         self.initThemes()
         self.themeService = ServiceContainer.getService(SharelinkThemeService)
@@ -156,10 +154,6 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if UserSetting.isAppstoreReviewing == false
-        {
-            userGuide.showGuideControllerPresentFirstTime()
-        }
     }
     
     deinit{
@@ -175,13 +169,6 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     private func refreshTableViewFooter()
     {
         self.tableView.tableFooterView = UIView()
-    }
-    
-    private func initUserGuide()
-    {
-        self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "Theme")
-        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
     }
     
     private func initThemes()
@@ -264,6 +251,11 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
                 self.showToast( "FOCUS_THEME_ERROR".localizedString())
             }
         }
+    }
+    
+    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
     }
     
     //MARK:table view delegate

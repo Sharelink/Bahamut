@@ -76,8 +76,9 @@ extension UIViewController:MBProgressHUDDelegate
     func showToast(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc:UIViewController = getPresentedViewController()
+            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
             let vcView = vc.navigationController?.view ?? vc.view
+            
             let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
             // Configure for text only and offset down
             hud.mode = MBProgressHUDMode.Text

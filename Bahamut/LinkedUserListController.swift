@@ -31,17 +31,9 @@ class LinkedUserListController: UITableViewController
         }
     }
     
-    private var userGuide:UserGuide!
     private var isShowing:Bool = false
     
     private(set) var notificationService:NotificationService!
-    
-    private func initUserGuide()
-    {
-        self.userGuide = UserGuide()
-        let guideImgs = UserGuideAssetsConstants.getViewGuideImages(SharelinkSetting.lang, viewName: "User")
-        self.userGuide.initGuide(self, userId: UserSetting.userId, guideImgs: guideImgs)
-    }
     
     //MARK: notify
     func myLinkedUsersUpdated(sender:AnyObject)
@@ -81,7 +73,6 @@ class LinkedUserListController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
-        self.initUserGuide()
         self.tableView.showsHorizontalScrollIndicator = false
         self.tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -113,10 +104,6 @@ class LinkedUserListController: UITableViewController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if UserSetting.isAppstoreReviewing == false
-        {
-            userGuide.showGuideControllerPresentFirstTime()
-        }
         tableView.reloadData()
     }
     
@@ -125,68 +112,11 @@ class LinkedUserListController: UITableViewController
     @IBAction func addNewLink(sender: AnyObject)
     {
         #if APP_VERSION
-            shareAddLinkMessageToSNS()
+            userService.shareAddLinkMessageToSNS(self)
         #else
             self.showAppVersionOnlyTips()
         #endif
     }
-    
-    #if APP_VERSION
-    private func shareAddLinkMessageToSNS()
-    {
-        let userService = ServiceContainer.getService(UserService)
-        let user = userService.myUserModel
-        let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
-        let contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
-        let title = "Sharelink"
-        
-        let linkMeCmd = userService.generateSharelinkLinkMeCmd()
-        let url = "\(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
-        
-        let contentWithUrl = "\(contentMsg)\n\(url)"
-        
-        var img:ISSCAttachment!
-        if let qrImage = QRCode.generateImage(url, avatarImage: nil)
-        {
-            let imgData = UIImageJPEGRepresentation(qrImage, 1.0)
-            img = ShareSDK.imageWithData(imgData, fileName: nil, mimeType: nil)
-        }
-        if img == nil
-        {
-            img = ShareSDK.imageWithPath(userHeadIconPath ?? ImageAssetsConstants.defaultAvatarPath)
-        }
-        let publishContent = ShareSDK.content(contentWithUrl, defaultContent: nil, image: img, title: title, url: url, description: nil, mediaType: SSPublishContentMediaTypeImage)
-        
-        publishContent.addWeixinSessionUnitWithType(5, content: contentMsg, title: title, url: url, thumbImage: nil, image: img, musicFileUrl: nil, extInfo: nil, fileData: nil, emoticonData: nil)
-        
-        publishContent.addWeixinTimelineUnitWithType(5, content: contentMsg, title: title, url: url, thumbImage: nil, image: img, musicFileUrl: nil, extInfo: nil, fileData: nil, emoticonData: nil)
-        
-        publishContent.addQQUnitWithType(3, content: contentMsg, title: title, url: url, image: img)
-        
-        publishContent.addSMSUnitWithContent(contentWithUrl)
-        
-        publishContent.addFacebookWithContent(contentWithUrl, image: img)
-        
-        publishContent.addMailUnitWithSubject(title, content: contentWithUrl, isHTML: false, attachments: nil, to: nil, cc: nil, bcc: nil)
-        
-        publishContent.addWhatsAppUnitWithContent(contentWithUrl, image: img, music: nil, video: nil)
-        
-        let container = ShareSDK.container()
-        container.setIPadContainerWithView(self.view, arrowDirect: .Down)
-        container.setIPhoneContainerWithViewController(self)
-        ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
-            if (state == SSResponseStateSuccess)
-            {
-                self.showToast( "SHARE_SUC".localizedString())
-            }
-            else if (state == SSResponseStateFail)
-            {
-                self.showToast( "SHARE_FAILED".localizedString())
-                NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
-            }
-        }
-    }
-    #endif
     
     @IBAction func showMyQRCode(sender: AnyObject)
     {

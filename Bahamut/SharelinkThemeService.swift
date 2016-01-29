@@ -145,17 +145,25 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
     
     func isThemeExists(themeData:String) -> Bool
     {
-        return self.getAllCustomThemes().contains{$0.data == themeData}
+        return self.getAllCustomThemes().contains{!String.isNullOrEmpty($0.data) && themeData == $0.data}
     }
     
     func addSharelinkTheme(theme:SharelinkTheme,sucCallback:((isSuc:Bool)->Void)! = nil)
     {
+        if String.isNullOrEmpty(theme.tagName) || String.isNullOrEmpty(theme.data)
+        {
+            if let callback = sucCallback
+            {
+                callback(isSuc: false)
+            }
+            return
+        }
         let req = AddNewTagRequest()
         req.tagColor = theme.tagColor
         req.tagName = theme.tagName
-        req.isFocus = theme.isFocus
+        req.isFocus = theme.isFocus == "true"
         req.data = theme.data
-        req.isShowToLinkers = theme.showToLinkers
+        req.isShowToLinkers = theme.showToLinkers == "true"
         req.type = theme.type
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req, callback: { (result:SLResult<SharelinkTheme>) -> Void in

@@ -32,6 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		E71058F41C5B140800D1C0CC /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F31C5B140800D1C0CC /* ChatService.swift */; };
 		E71718501C573BB90097AF64 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = E717184F1C573BB90097AF64 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E71719D41C5743D80097AF64 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71718AC1C5743D80097AF64 /* FileType.swift */; };
 		E71719D51C5743D80097AF64 /* PersistentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71718AD1C5743D80097AF64 /* PersistentBase.swift */; };
@@ -159,7 +160,6 @@
 		E7171A5B1C5743D80097AF64 /* SRCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717196C1C5743D80097AF64 /* SRCService.swift */; };
 		E7171A5C1C5743D80097AF64 /* SRCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717196D1C5743D80097AF64 /* SRCModels.swift */; };
 		E7171A5D1C5743D80097AF64 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717196F1C5743D80097AF64 /* ChatModel.swift */; };
-		E7171A5E1C5743D80097AF64 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719701C5743D80097AF64 /* MessageService.swift */; };
 		E7171A5F1C5743D80097AF64 /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719721C5743D80097AF64 /* UpdateCoreData1.swift */; };
 		E7171A601C5743D80097AF64 /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719731C5743D80097AF64 /* UpdateCoreDataHelper.swift */; };
 		E7171A611C5743D80097AF64 /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71719751C5743D80097AF64 /* UploadAliOSSExtension.swift */; };
@@ -243,6 +243,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E71058F31C5B140800D1C0CC /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		E717183D1C57364B0097AF64 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71718411C57364B0097AF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E717184B1C5738260097AF64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -394,7 +395,6 @@
 		E717196C1C5743D80097AF64 /* SRCService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCService.swift; sourceTree = "<group>"; };
 		E717196D1C5743D80097AF64 /* SRCModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCModels.swift; sourceTree = "<group>"; };
 		E717196F1C5743D80097AF64 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
-		E71719701C5743D80097AF64 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		E71719721C5743D80097AF64 /* UpdateCoreData1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreData1.swift; sourceTree = "<group>"; };
 		E71719731C5743D80097AF64 /* UpdateCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreDataHelper.swift; sourceTree = "<group>"; };
 		E71719751C5743D80097AF64 /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
@@ -1028,8 +1028,8 @@
 		E71719711C5743D80097AF64 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				E71058F31C5B140800D1C0CC /* ChatService.swift */,
 				E717196F1C5743D80097AF64 /* ChatModel.swift */,
-				E71719701C5743D80097AF64 /* MessageService.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -1524,7 +1524,6 @@
 				E71719F71C5743D80097AF64 /* IDUtil.swift in Sources */,
 				E71719E61C5743D80097AF64 /* ProgressTaskWatcher.swift in Sources */,
 				E7171A0A1C5743D80097AF64 /* Message.swift in Sources */,
-				E7171A5E1C5743D80097AF64 /* MessageService.swift in Sources */,
 				E7171A571C5743D80097AF64 /* ServiceProtocol.swift in Sources */,
 				E71719EE1C5743D80097AF64 /* ColorUtil.swift in Sources */,
 				E7171A201C5743D80097AF64 /* ChatRoomListViewController.swift in Sources */,
@@ -1575,6 +1574,7 @@
 				E7171A3E1C5743D80097AF64 /* NewShareTextCell.swift in Sources */,
 				E7171A371C5743D80097AF64 /* FilmShareContent.swift in Sources */,
 				E7171A151C5743D80097AF64 /* SharelinkSetting.swift in Sources */,
+				E71058F41C5B140800D1C0CC /* ChatService.swift in Sources */,
 				E7171A0E1C5743D80097AF64 /* ShareLinkUser.swift in Sources */,
 				E7171A131C5743D80097AF64 /* AssetsConstants.swift in Sources */,
 				E7171A391C5743D80097AF64 /* TextShareContent.swift in Sources */,
@@ -2008,6 +2008,7 @@
 				E74C83521C590AD6009CF8DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7AF57AD1C54AE8400505B2A /* Build configuration list for PBXProject "SharelinkKernel" */ = {
 			isa = XCConfigurationList;

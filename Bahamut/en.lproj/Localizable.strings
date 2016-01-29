@@ -163,6 +163,10 @@ SHARING = "Sharing";
 SHARE_SUCCESSED = "Share Successed";
 SHARE_FAILED = "Share Failed";
 
+//UserGuide
+NEED_TO_FOCUS_ONE_THEME = "Please Focus One Theme At Least~";
+NEED_INPUT_THEME_NAME = "Theme Name Can't Not Be Empty~";
+
 //SignInViewController
 REFRESHING = "Refreshing";
 
