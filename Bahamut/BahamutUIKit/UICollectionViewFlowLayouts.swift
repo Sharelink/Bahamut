@@ -10,7 +10,7 @@ import Foundation
 
 class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
     
-    var minimumSpacing:CGFloat = 3
+    var minimumSpacing:CGFloat = 7
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         if var answer = super.layoutAttributesForElementsInRect(rect)

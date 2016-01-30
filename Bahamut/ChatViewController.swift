@@ -468,7 +468,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         let navController = UINavigationController(rootViewController: instance)
         navController.navigationBar.barStyle = rootController.navigationController!.navigationBar.barStyle
         navController.changeNavigationBarColor()
-        rootController.presentViewController(navController, animated: true) { () -> Void in
+        rootController.presentViewController(navController, animated: false) { () -> Void in
             callback()
         }
     }

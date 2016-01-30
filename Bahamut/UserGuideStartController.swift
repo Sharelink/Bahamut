@@ -55,6 +55,7 @@ class UserGuideStartController: UIViewController {
             let navController = UINavigationController(rootViewController: controller)
             navController.navigationBar.barStyle = viewController.navigationController!.navigationBar.barStyle
             navController.changeNavigationBarColor()
+            navController.modalTransitionStyle = .FlipHorizontal
             viewController.navigationController!.presentViewController(navController, animated: true, completion: { () -> Void in
             })
             return true

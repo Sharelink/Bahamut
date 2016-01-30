@@ -23,9 +23,11 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
     }
     
+    private var launchScr:UIView!
     private func setWaitingScreen()
     {
-        let launchScr = MainNavigationController.getLaunchScreen(self.view.bounds)
+        self.view.backgroundColor = UIColor.whiteColor()
+        launchScr = MainNavigationController.getLaunchScreen(self.view.bounds)
         self.view.addSubview(launchScr)
         
     }
@@ -119,6 +121,10 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     {
         SharelinkCmdManager.sharedInstance.registHandler(self)
         self.performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
+        if self.launchScr != nil
+        {
+            self.launchScr.removeFromSuperview()
+        }
     }
     
     //MARK: handle sharelinkMessage

@@ -31,19 +31,9 @@ class NewShareTextCell: ShareContentCellBase {
                 if shareId != nil
                 {
                     self.shareService.postNewShareFinish(shareId, isCompleted: true, callback: { (isSuc) -> Void in
-                        if isSuc
-                        {
-                            self.rootController.showCheckMark("SHARE_SUCCESSED".localizedString())
-                        }else
-                        {
-                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
-                        }
                     })
-                }else{
-                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             }
-            self.rootController.showCheckMark("SHARING".localizedString())
             return true
         }
     }

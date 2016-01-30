@@ -186,13 +186,28 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         self.titleView = NewControllerTitleView.instanceFromXib()
         self.titleView.frame = CGRectMake(0, 0, 128, 32)
         self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
+        self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
+        self.shareService.addObserver(self, selector: "startPostingShare:", name: ShareService.startPostingShare, object: nil)
         self.navigationItem.titleView = self.titleView
     }
     
     //MARK: new share posted notification
     func sharePosted(a:NSNotification)
     {
+        self.showCheckMark("POST_SHARE_SUC".localizedString())
         self.titleView.shareQueue--
+    }
+    
+    func sharePostFailed(a:NSNotification)
+    {
+        self.showCrossMark("POST_SHARE_FAILED".localizedString())
+        self.titleView.shareQueue--
+    }
+    
+    func startPostingShare(a:NSNotification)
+    {
+        titleView.shareQueue++
+        self.showCheckMark("SHARING".localizedString())
     }
     
     //MARK: clear view controller
@@ -366,8 +381,12 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         let canPost = shareContentCell.share(newShare,themes: themes)
         if canPost
         {
-            titleView.shareQueue++
-            clear()
+            if self.passedShareModel != nil{
+                self.navigationController!.popViewControllerAnimated(true)
+            }else
+            {
+                clear()
+            }
         }else
         {
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), atScrollPosition: .None, animated: true)

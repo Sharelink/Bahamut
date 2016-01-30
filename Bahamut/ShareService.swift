@@ -62,6 +62,8 @@ let NewSharePostedShareId = "NewSharePostedShareId"
 class ShareService: NSNotificationCenter,ServiceProtocol
 {
     static let newSharePosted = "newSharePosted"
+    static let newSharePostFailed = "newSharePostFailed"
+    static let startPostingShare = "startPostingShare"
     static let newShareMessagesUpdated = "newShareMessagesUpdated"
     static let shareUpdated = "shareUpdated"
     @objc static var ServiceName:String{return "Share Service"}
@@ -346,6 +348,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.tags = tags
         req.shareType = newShare.shareType
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        self.postNotificationName(ShareService.startPostingShare, object: nil)
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
             {
@@ -354,6 +357,9 @@ class ShareService: NSNotificationCenter,ServiceProtocol
                 let sortableObject = newShare.getSortableObject()
                 self.setSortableObjects([sortableObject])
                 self.sendingShareId[newShare.shareId] = "true"
+            }else
+            {
+                self.postNotificationName(ShareService.newSharePostFailed, object: self, userInfo: nil)
             }
             callback(shareId: newShare.shareId)
         }
@@ -366,13 +372,14 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.taskSuccess = isCompleted
         let client = SharelinkSDK.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
-            if result.isSuccess
+            if let _ = result.returnObject
             {
                 self.sendingShareId.removeValueForKey(shareId)
                 self.postNotificationName(ShareService.newSharePosted, object: self, userInfo: [NewSharePostedShareId:shareId])
                 callback(isSuc: true)
             }else
             {
+                self.postNotificationName(ShareService.newSharePostFailed, object: self, userInfo: [NewSharePostedShareId:shareId])
                 callback(isSuc: false)
             }
         }
@@ -423,6 +430,4 @@ class ShareService: NSNotificationCenter,ServiceProtocol
             }
         }
     }
-
-    
 }

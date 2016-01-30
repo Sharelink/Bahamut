@@ -14,6 +14,8 @@ class UserGuideFinishViewController: UIViewController
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var userSettingImgView: UIImageView!
     
+    private var shareService:ShareService!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         shareImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapShare:"))
@@ -24,6 +26,30 @@ class UserGuideFinishViewController: UIViewController
         
         userSettingImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapSetting:"))
         userSettingImgView.userInteractionEnabled = true
+        
+        shareService = ServiceContainer.getService(ShareService)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
+        self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.shareService.removeObserver(self)
+    }
+    
+    //MARK: new share posted notification
+    func sharePosted(a:NSNotification)
+    {
+        self.showCheckMark("POST_SHARE_SUC".localizedString())
+    }
+    
+    func sharePostFailed(a:NSNotification)
+    {
+        self.showCrossMark("POST_SHARE_FAILED".localizedString())
     }
     
     func tapShare(a:UITapGestureRecognizer)
@@ -32,6 +58,9 @@ class UserGuideFinishViewController: UIViewController
         {
             view.animationMaxToMin(0.1, maxScale: 1.2, completion: { () -> Void in
                 let shareModel = ShareThing()
+                shareModel.shareType = ShareThingType.shareText.rawValue
+                shareModel.message = "FIRST_SHARE_MESSAGE".localizedString()
+                
                 ServiceContainer.getService(ShareService).showNewShareController(self.navigationController!, shareModel: shareModel,isReshare:false)
             })
         }

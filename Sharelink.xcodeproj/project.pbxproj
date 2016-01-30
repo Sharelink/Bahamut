@@ -676,6 +676,7 @@
 		E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareThemeCell.swift; sourceTree = "<group>"; };
 		E7CB5D331BFB958700098DD4 /* NewShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareController.swift; sourceTree = "<group>"; };
+		E7D0DAEC1C5CF87A00F838F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
 		E7D5A2341B7CC0D800F34CE0 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkExtensions.swift; sourceTree = "<group>"; };
@@ -2349,6 +2350,7 @@
 			children = (
 				E7D751961C55DFA7002E3D40 /* Base */,
 				E7D751981C55DFAA002E3D40 /* zh-Hans */,
+				E7D0DAEC1C5CF87A00F838F6 /* en */,
 			);
 			name = BahamutCommonLocalized.strings;
 			sourceTree = "<group>";

@@ -58,6 +58,15 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     
     override func initCell() {
         super.initCell()
+        if rootController.isReshare
+        {
+            if let shareContent = rootController.passedShareModel?.shareContent
+            {
+                let imageContentModel = ShareImageContentModel(json:shareContent)
+                let images = imageContentModel.thumbImgs.map{ImageUtil.getImageFromBase64String($0)}.filter{$0 != nil}.map{$0!}
+                self.images = images
+            }
+        }
     }
     
     override func clear() {
@@ -91,7 +100,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         {
             let imgString = img.scaleToWidthOf(NewShareImageCell.uploadImageWidth).generateImageDataOfQuality(NewShareImageCell.uploadImageQuality)?.base64UrlEncodedString() ?? ""
             imageHubFile.imagesBase64.append(imgString)
-            let thumbImgString = img.scaleToSize(thumbSize).generateImageDataOfQuality(thumbQuality)?.base64UrlEncodedString() ?? ""
+            let thumbImgString = img.scaleToWidthOf(thumbSize.width).generateImageDataOfQuality(thumbQuality)?.base64UrlEncodedString() ?? ""
             contentModel.thumbImgs.append(thumbImgString)
         }
         let imagesHubFilePath = fileService.createLocalStoreFileName(FileType.NoType)
@@ -152,16 +161,9 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark("POST_SHARE_SUC".localizedString())
                             NewImageShareTask.deleteObjectArray([task])
-                        }else
-                        {
-                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                         }
                     }
-                }else
-                {
-                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             })
         }
@@ -262,7 +264,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if images.count < NewShareImageCell.maxImagePostCount
         {
-            return images.count + 1
+            return rootController.isReshare ? images.count : images.count + 1
         }
         return NewShareImageCell.maxImagePostCount
     }
@@ -279,12 +281,15 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         {
             cell.imageView.image = images[indexPath.row]
             cell.imageView.layer.borderWidth = 1
-            let tapGes = UITapGestureRecognizer(target: self, action: "tapImage:")
-            let doubleTapGes = UITapGestureRecognizer(target: self, action: "doubleTapImage:")
-            doubleTapGes.numberOfTapsRequired = 2
-            tapGes.requireGestureRecognizerToFail(doubleTapGes)
-            cell.addGestureRecognizer(tapGes)
-            cell.addGestureRecognizer(doubleTapGes)
+            if !rootController.isReshare
+            {
+                let tapGes = UITapGestureRecognizer(target: self, action: "tapImage:")
+                let doubleTapGes = UITapGestureRecognizer(target: self, action: "doubleTapImage:")
+                doubleTapGes.numberOfTapsRequired = 2
+                tapGes.requireGestureRecognizerToFail(doubleTapGes)
+                cell.addGestureRecognizer(tapGes)
+                cell.addGestureRecognizer(doubleTapGes)
+            }
         }
         //resize the share content size
         rootController.refreshContentCellHeight()

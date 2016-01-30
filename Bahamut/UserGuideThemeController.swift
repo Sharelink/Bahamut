@@ -36,7 +36,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     private var themeService:SharelinkThemeService!
     @IBOutlet weak var randomThemeCollectionView: UICollectionView!{
         didSet{
-            randomThemeCollectionView.collectionViewLayout = UICollectionViewMaxWhiteSpaceFlowLayout()
+            randomThemeCollectionView.collectionViewLayout = UICollectionViewFullFlowLayout()
             randomThemeCollectionView.delegate = self
             randomThemeCollectionView.dataSource = self
             randomThemeCollectionView.backgroundColor = UIColor.whiteColor()
@@ -200,6 +200,14 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         didSet{
             calSizeLabel.font = UIFont(name: "System", size: 23)
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 3
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 3, left: 3, bottom: 7, right: 3)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

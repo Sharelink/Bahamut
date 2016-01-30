@@ -20,6 +20,7 @@ public class Sharelinker : BahamutObject
     public var motto:String!
     public var level:NSNumber!
     public var levelScore:NSNumber!
+    public var tags:[String]! //REMOVE THE WARMNING,THIS PROPERTY IS REMOVED FROM SERVER
     
     public override func getObjectUniqueIdName() -> String {
         return "userId"

@@ -75,6 +75,30 @@ class ChatService:NSNotificationCenter,ServiceProtocol
         self.chattingShareId = nil
     }
     
+    func chatServerChanged(a:NSNotification)
+    {
+        class ReturnValue:EVObject
+        {
+            var chatServerUrl:String!
+        }
+        
+        if let userInfo = a.userInfo
+        {
+            if let json = userInfo[ChicagoClientReturnJsonValue] as? String
+            {
+                let value = ReturnValue(json: json)
+                if let chatUrl = value.chatServerUrl
+                {
+                    if String.isNullOrWhiteSpace(chatUrl)
+                    {
+                        self.chatMessageServerUrl = chatUrl
+                    }
+                }
+            }
+            
+        }
+    }
+    
     func newMessage(a:NSNotification)
     {
         getMessageFromServer()

@@ -116,22 +116,9 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
             baseShareModel.shareType = ShareThingType.shareUrl.rawValue
             baseShareModel.shareContent = shareContent
             shareService.postNewShare(baseShareModel, tags: themes) { (shareId) -> Void in
-                if shareId != nil
-                {
-                    self.shareService.postNewShareFinish(shareId, isCompleted: true, callback: { (isSuc) -> Void in
-                        if isSuc
-                        {
-                            self.rootController.showCheckMark("SHARE_URL_SUCCESS".localizedString())
-                        }else
-                        {
-                            self.rootController.showCrossMark("SHARE_URL_ERROR".localizedString())
-                        }
-                    })
-                }else{
-                    self.rootController.showCrossMark("SHARE_URL_ERROR".localizedString())
-                }
+                self.shareService.postNewShareFinish(shareId, isCompleted: true, callback: { (isSuc) -> Void in
+                })
             }
-            self.rootController.showCheckMark("SHARING".localizedString())
             return true
         }
         else{

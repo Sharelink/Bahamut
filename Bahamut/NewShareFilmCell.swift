@@ -213,16 +213,9 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
                     self.shareService.postNewShareFinish(shareId, isCompleted: true){ (isSuc) -> Void in
                         if isSuc
                         {
-                            self.rootController.showCheckMark("POST_SHARE_SUC".localizedString())
                             NewFilmShareTask.deleteObjectArray([task])
-                        }else
-                        {
-                            self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                         }
                     }
-                }else
-                {
-                    self.rootController.showCrossMark("POST_SHARE_FAILED".localizedString())
                 }
             })
         }
