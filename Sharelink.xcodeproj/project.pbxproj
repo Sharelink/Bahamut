@@ -51,7 +51,6 @@
 		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
 		E71058F01C5B114600D1C0CC /* UserGuideThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */; };
 		E71058F21C5B118E00D1C0CC /* UserGuideAddFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */; };
-		E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */ = {isa = PBXBuildFile; fileRef = E71058F51C5B226C00D1C0CC /* StartupThemes.conf */; };
 		E71058F81C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */; };
 		E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */; };
 		E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */; };
@@ -118,6 +117,7 @@
 		E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */; };
 		E7443ADE1C2BDF4100CB5C3A /* ThemeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */; };
 		E7450E121C5E249C00212C1D /* UserGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7450E141C5E249C00212C1D /* UserGuide.storyboard */; };
+		E7450E1A1C5E2C2100212C1D /* StartupThemes.conf in Resources */ = {isa = PBXBuildFile; fileRef = E7450E1C1C5E2C2100212C1D /* StartupThemes.conf */; };
 		E74C835B1C590E8F009CF8DB /* ShareChatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD31C174870001C0A47 /* ShareChatEntity.swift */; };
 		E74C835C1C590E8F009CF8DB /* SharelinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */; };
 		E74C835D1C590E8F009CF8DB /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
@@ -511,7 +511,6 @@
 		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
 		E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideThemeController.swift; sourceTree = "<group>"; };
 		E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideAddFriendsController.swift; sourceTree = "<group>"; };
-		E71058F51C5B226C00D1C0CC /* StartupThemes.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StartupThemes.conf; sourceTree = "<group>"; };
 		E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayouts.swift; sourceTree = "<group>"; };
 		E71058FA1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServiceSNSExtension.swift; sourceTree = "<group>"; };
 		E71058FC1C5B6C7300D1C0CC /* DeveloperPanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperPanel.storyboard; sourceTree = "<group>"; };
@@ -587,6 +586,8 @@
 		E7443AE61C2C218C00CB5C3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E7450E131C5E249C00212C1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserGuide.storyboard; sourceTree = "<group>"; };
 		E7450E191C5E24C600212C1D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UserGuide.storyboard"; sourceTree = "<group>"; };
+		E7450E1B1C5E2C2100212C1D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text; name = "zh-Hans"; path = "zh-Hans.lproj/StartupThemes.conf"; sourceTree = "<group>"; };
+		E7450E1D1C5E2C2300212C1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = Base.lproj/StartupThemes.conf; sourceTree = "<group>"; };
 		E74C84531C590E8F009CF8DB /* SDKSharelink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKSharelink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E74C84541C590E8F009CF8DB /* SDKSharelink.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SDKSharelink.plist; path = /Users/alexchow/GitHub/bahamut/Bahamut/SDKSharelink.plist; sourceTree = "<absolute>"; };
 		E74C84561C591042009CF8DB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = SRCPlugin/src; sourceTree = SOURCE_ROOT; };
@@ -1379,7 +1380,7 @@
 				E71AF3271BE4FE11000BBBF8 /* Localizable.strings */,
 				E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */,
 				E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */,
-				E71058F51C5B226C00D1C0CC /* StartupThemes.conf */,
+				E7450E1C1C5E2C2100212C1D /* StartupThemes.conf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1859,7 +1860,7 @@
 				E7D752581C561488002E3D40 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
 				E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */,
-				E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */,
+				E7450E1A1C5E2C2100212C1D /* StartupThemes.conf in Resources */,
 				E7D752531C561488002E3D40 /* ShareSDKLocalizable.strings in Resources */,
 				E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */,
 				E7450E121C5E249C00212C1D /* UserGuide.storyboard in Resources */,
@@ -2336,6 +2337,15 @@
 				E7450E191C5E24C600212C1D /* zh-Hans */,
 			);
 			name = UserGuide.storyboard;
+			sourceTree = "<group>";
+		};
+		E7450E1C1C5E2C2100212C1D /* StartupThemes.conf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7450E1B1C5E2C2100212C1D /* zh-Hans */,
+				E7450E1D1C5E2C2300212C1D /* Base */,
+			);
+			name = StartupThemes.conf;
 			sourceTree = "<group>";
 		};
 		E7A62FEC1B6609A500F28D73 /* SharelinkMain.storyboard */ = {

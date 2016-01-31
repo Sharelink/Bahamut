@@ -37,13 +37,13 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Themes：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h73-50-7zj">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Themes：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h73-50-7zj">
                                 <rect key="frame" x="20" y="198" width="127" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fnp-gk-acb">
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fnp-gk-acb">
                                 <rect key="frame" x="20" y="227" width="560" height="353"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sKU-Mg-We0">
                                     <size key="itemSize" width="128" height="35"/>
@@ -79,7 +79,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHq-QX-zMb">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHq-QX-zMb">
                                 <rect key="frame" x="464" y="194" width="116" height="30"/>
                                 <state key="normal" title="Random Themes"/>
                                 <connections>
@@ -174,7 +174,7 @@
                         <barButtonItem key="backBarButtonItem" title="Previous" id="M2O-6N-g9a"/>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="pfb-Zc-GBC">
                             <connections>
-                                <segue destination="8LF-BG-56B" kind="show" id="6KC-yz-8KJ"/>
+                                <segue destination="8LF-BG-56B" kind="show" identifier="ShowAddFriends" id="6KC-yz-8KJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -264,7 +264,7 @@
                         <barButtonItem key="backBarButtonItem" title="Previous" id="UI8-nm-SFF"/>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="eq3-7O-cds">
                             <connections>
-                                <segue destination="aan-it-v7W" kind="show" id="CtA-EW-VnN"/>
+                                <segue destination="aan-it-v7W" kind="show" identifier="ShowLastStep" id="CtA-EW-VnN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

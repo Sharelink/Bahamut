@@ -73,6 +73,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             hud.hideAsync(false)
         }
         self.webPageView.hidden = true
+        self.view.backgroundColor = UIColor.blackColor()
         ServiceContainer.instance.removeObserver(self)
     }
     

@@ -36,7 +36,6 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     private var themeService:SharelinkThemeService!
     @IBOutlet weak var randomThemeCollectionView: UICollectionView!{
         didSet{
-            randomThemeCollectionView.collectionViewLayout = UICollectionViewFullFlowLayout()
             randomThemeCollectionView.delegate = self
             randomThemeCollectionView.dataSource = self
             randomThemeCollectionView.backgroundColor = UIColor.whiteColor()
@@ -85,7 +84,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         }
         if DateHelper.isInNewYearVocation()
         {
-            let newYearThemes = ["猴年猴事，新年喜事"]
+            let newYearThemes = ["猴年猴事","新年喜事"]
             themes.insertContentsOf(newYearThemes, at: 0)
         }
         randomThemes = themes

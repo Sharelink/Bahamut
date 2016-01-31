@@ -13,7 +13,9 @@ class UserGuideAddFriendsController: UIViewController
 {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        ServiceContainer.getService(UserService).shareAddLinkMessageToSNS(self)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            ServiceContainer.getService(UserService).shareAddLinkMessageToSNS(self)
+        }
     }
     
     @IBAction func addMore(sender: AnyObject) {

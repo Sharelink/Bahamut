@@ -165,8 +165,8 @@ SHARE_FAILED = "分享失败...";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "需要关注至少一个主题~";
 NEED_INPUT_THEME_NAME = "主题名不能为空~";
-HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来需要完成几个简单的步骤来认识Sharelink~";
-HELLO_MESSAGE_FORMAT_NEW_YEAR = "%@，新年快乐!\n欢迎使用Sharelink！接下来需要完成几个简单的步骤来认识Sharelink~";
+HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来需要完成几个简单步骤快速了解Sharelink！";
+HELLO_MESSAGE_FORMAT_NEW_YEAR = "你好，%@，🐵年快乐!\n欢迎使用Sharelink！接下来需要完成几个简单步骤快速了解Sharelink！";
 FIRST_SHARE_MESSAGE = "我的第一条分享!\ntips:下拉屏幕可以切换分享类型";
 
 //SignInViewController

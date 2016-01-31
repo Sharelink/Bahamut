@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MBProgressHUD
 
 extension AccountService
 {
@@ -17,6 +17,7 @@ extension AccountService
         let profileViewController = NewUserProfileViewController.instanceFromStoryBoard()
         let pnvController = UINavigationController(rootViewController: profileViewController)
         profileViewController.registModel = registModel
+        pnvController.navigationBar.barStyle = nvController.navigationBar.barStyle
         nvController.presentViewController(pnvController, animated: true, completion: nil)
     }
 }
@@ -39,12 +40,26 @@ class NewUserProfileViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
+        ServiceContainer.instance.addObserver(self, selector: "onAllServiceReady:", name: ServiceContainer.AllServicesReady, object: nil)
+    }
+    
+    func onAllServiceReady(_:NSNotification)
+    {
+        if let hud = self.refreshHud
+        {
+            hud.hideAsync(false)
+        }
+        ServiceContainer.instance.removeObserver(self)
+        self.navigationController?.navigationBarHidden = true
+        self.view.hidden = true
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.nickNameTextfield.text = registModel.userName
     }
+    
+    private var refreshHud:MBProgressHUD!
     
     @IBAction func saveProfile()
     {
@@ -55,10 +70,9 @@ class NewUserProfileViewController: UIViewController
             hud.hideAsync(true)
             if isSuc
             {
-                self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
+                self.refreshHud = self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
             }else
             {
-                ServiceContainer.instance.removeObserver(self)
                 self.playToast( msg)
             }
         }

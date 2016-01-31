@@ -36,13 +36,16 @@ public extension Array
     public func messArrayUp() -> [Element]
     {
         var result = self.map{$0}
-        for _ in 0..<self.count
+        for _ in 0..<3
         {
-            let index = Int(arc4random_uniform(UInt32(self.count)))
-            let indexb = Int(arc4random_uniform(UInt32(self.count)))
-            let a = result[index]
-            result[index] = result[indexb]
-            result[indexb] = a
+            for _ in 0..<self.count
+            {
+                let index = Int(arc4random_uniform(UInt32(self.count)))
+                let indexb = Int(arc4random_uniform(UInt32(self.count)))
+                let a = result[index]
+                result[index] = result[indexb]
+                result[indexb] = a
+            }
         }
         return result
     }
