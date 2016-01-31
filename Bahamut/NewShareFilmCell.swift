@@ -150,7 +150,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         let newFilePath = fileService.createLocalStoreFileName(FileType.Video)
         if PersistentFileHelper.moveFile(videoSourcePath, destinationPath: newFilePath)
         {
-            self.rootController.showToast("VIDEO_SAVED".localizedString())
+            self.rootController.playToast("VIDEO_SAVED".localizedString())
             return newFilePath
         }else
         {
@@ -173,7 +173,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
         if String.isNullOrWhiteSpace(filmModel.film)
         {
-            self.rootController.showToast("NO_FILM_SELECTED".localizedString())
+            self.rootController.playToast("NO_FILM_SELECTED".localizedString())
             return false
         }else
         {
@@ -186,9 +186,9 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     {
         newShare.shareType = ShareThingType.shareFilm.rawValue
         let newFilmModel = FilmModel(json: self.filmModel.toJsonString())
-        self.rootController.makeToastActivityWithMessage("",message: "SENDING_FILE".localizedString())
+        let hud = self.rootController.showActivityHudWithMessage("",message: "SENDING_FILE".localizedString())
         self.fileService.sendFileToAliOSS(newFilmModel.film, type: FileType.Video) { (taskId, fileKey) -> Void in
-            self.rootController.hideToastActivity()
+            hud.hideAsync(true)
             ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
             if let fk = fileKey
             {
@@ -224,7 +224,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewFilmShareTask.self, idValue: taskIdentifier)
         {
-            self.rootController.showToast("SEND_FILE_FAILED".localizedString())
+            self.rootController.playToast("SEND_FILE_FAILED".localizedString())
             NewFilmShareTask.deleteObjectArray([task])
         }
     }

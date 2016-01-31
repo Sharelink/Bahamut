@@ -57,7 +57,35 @@ class UrlContentView:UIView
     
     func onTapTitleLable(ges:UITapGestureRecognizer)
     {
-        SimpleBrowser.openUrl(MainViewTabBarController.currentNavicationController, url: model.url)
+        if let a = ges.view
+        {
+            a.animationMaxToMin(0.1, maxScale: 1.1, completion: { () -> Void in
+                if let navc = UIApplication.currentNavigationController
+                {
+                    SimpleBrowser.openUrlWithShare(navc, url: self.model.url)
+                }
+            })
+        }
+    }
+}
+
+extension SimpleBrowser
+{
+    static func openUrlWithShare(currentViewController: UINavigationController,url:String)
+    {
+        let broswer = self.openUrl(currentViewController, url: url)
+        let btn = UIBarButtonItem(image: UIImage.namedImageInSharelink("share_icon"), style: .Plain, target: broswer, action: "shareUrl:")
+        broswer.navigationItem.rightBarButtonItem = btn
+    }
+    
+    func shareUrl(sender:AnyObject?)
+    {
+        let share = ShareThing()
+        share.shareType = ShareThingType.shareUrl.rawValue
+        let urlModel = UrlContentModel()
+        urlModel.url = self.url
+        share.shareContent = urlModel.toJsonString()
+        ServiceContainer.getService(ShareService).showNewShareController(self.navigationController!, shareModel: share, isReshare: false)
     }
 }
 

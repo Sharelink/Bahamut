@@ -10,6 +10,7 @@ VALIDATE_DATA_ERROR = "数据有误";
 NETWORK_ERROR = "网络错误";
 NOT_LOGIN = "没有登录";
 LOGOUTED = "已经注销";
+OTHER_DEVICE_HAD_LOGIN = "另一设备使用相同账号登陆，本设备将退出Sharelink";
 
 //MJRefresh
 RefreshHeaderIdleText = "下拉加载最新分享";
@@ -164,7 +165,9 @@ SHARE_FAILED = "分享失败...";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "需要关注至少一个主题~";
 NEED_INPUT_THEME_NAME = "主题名不能为空~";
-HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink!";
+HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来需要完成几个简单的步骤来认识Sharelink~";
+HELLO_MESSAGE_FORMAT_NEW_YEAR = "%@，新年快乐!\n欢迎使用Sharelink！接下来需要完成几个简单的步骤来认识Sharelink~";
+FIRST_SHARE_MESSAGE = "我的第一条分享!\ntips:下拉屏幕可以切换分享类型";
 
 //SignInViewController
 REFRESHING = "刷新中";
@@ -245,7 +248,8 @@ UNKNOW_SHARELINK_CMD = "非法命令";
 SHARELINK_CMD_TIMEOUT = "命令已经失效";
 SEND_LINK_REQUEST_TO = "发送建立连接请求给 %@";
 LINK_REQUEST_SENDED = "请求已发送";
-ASK_LINK_MSG = "%@ 想与你的Sharelink建立连接!";
+ASK_LINK_MSG = "%@ 想与你在Sharelink建立好友连接!";
+ASK_LINK_MSG_NEW_YEAR = "新春快乐！%@ 想与你在Sharelink建立好友连接!";
 
 //notification format
 NEW_MSG_NOTIFICATION = "你有一条新的消息!";

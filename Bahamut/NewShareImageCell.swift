@@ -79,7 +79,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     override func share(baseShareModel: ShareThing, themes: [SharelinkTheme]) -> Bool {
         if images.count == 0
         {
-            self.rootController.showToast("NO_IMAGE_SELECTED".localizedString())
+            self.rootController.playToast("NO_IMAGE_SELECTED".localizedString())
             return false
         }else
         {
@@ -125,14 +125,13 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     private func postShare(newShare:ShareThing,themes:[SharelinkTheme])
     {
         newShare.shareType = ShareThingType.shareImage.rawValue
-        
-        self.rootController.makeToastActivityWithMessage(nil, message: "PREPARING_SHARE".localizedString())
+        let phud = self.rootController.showActivityHudWithMessage(nil, message: "PREPARING_SHARE".localizedString())
         if let content = generateShareContent()
         {
-            self.rootController.hideToastActivity()
-            self.rootController.makeToastActivityWithMessage("",message:"SENDING_FILE".localizedString())
+            phud.hideAsync(true)
+            let shud = self.rootController.showActivityHudWithMessage("",message:"SENDING_FILE".localizedString())
             self.fileService.sendFileToAliOSS(content.imagesHubFilePath, type: FileType.NoType) { (taskId, fileKey) -> Void in
-                self.rootController.hideToastActivity()
+                shud.hideAsync(true)
                 ProgressTaskWatcher.sharedInstance.addTaskObserver(taskId, delegate: self)
                 if let fk = fileKey
                 {
@@ -147,9 +146,10 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
                 }
             }
         }else{
-            self.rootController.hideToastActivity()
-            self.rootController.showCrossMark("PREPARE_SHARE_ERROR".localizedString())
+            phud.hideAsync(true)
+            self.rootController.playCrossMark("PREPARE_SHARE_ERROR".localizedString())
         }
+        
     }
     
     func taskCompleted(taskIdentifier: String, result: AnyObject!) {
@@ -172,7 +172,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         if let task = PersistentManager.sharedInstance.getModel(NewImageShareTask.self, idValue: taskIdentifier)
         {
-            self.rootController.showToast("SEND_FILE_FAILED".localizedString())
+            self.rootController.playToast("SEND_FILE_FAILED".localizedString())
             NewImageShareTask.deleteObjectArray([task])
         }
     }

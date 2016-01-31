@@ -59,10 +59,10 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
         {
             if theme.isSystemTheme()
             {
-                rootController.showToast("A_DEFAULT_THEME".localizedString())
+                rootController.playToast("A_DEFAULT_THEME".localizedString())
             }else
             {
-                rootController.showToast("A_SHARELINKER_THEME".localizedString())
+                rootController.playToast("A_SHARELINKER_THEME".localizedString())
             }
             return
         }
@@ -81,7 +81,7 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
             {
                 msg = "MODIFY_THEME_ERROR".localizedString()
             }
-            self.rootController.showToast(msg)
+            self.rootController.playToast(msg)
         }
     }
     
@@ -227,7 +227,7 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
             }else
             {
                 let msg = "OPERATE_ERROR".localizedString()
-                self.showToast(msg)
+                self.playToast(msg)
             }
         })
     }
@@ -245,10 +245,10 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
             if isSuc
             {
                 self.initThemes()
-                self.showToast( "FOCUS_THEME_SUCCESS".localizedString())
+                self.playToast( "FOCUS_THEME_SUCCESS".localizedString())
             }else
             {
-                self.showToast( "FOCUS_THEME_ERROR".localizedString())
+                self.playToast( "FOCUS_THEME_ERROR".localizedString())
             }
         }
     }

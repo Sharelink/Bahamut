@@ -44,7 +44,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSI-El-9pH">
-                                            <rect key="frame" x="509" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="509" y="15" width="27" height="27"/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="share">
                                                 <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,8 +53,8 @@
                                                 <action selector="shareToFriends:" destination="cik-6H-2wT" eventType="touchUpInside" id="6Pd-57-Lhg"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IQ-hG-Qs8">
-                                            <rect key="frame" x="65" y="44" width="378" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IQ-hG-Qs8">
+                                            <rect key="frame" x="65" y="44" width="520" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -100,7 +100,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7J-bE-gZK">
-                                            <rect key="frame" x="552" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="552" y="15" width="27" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="27" id="edS-vU-iNM"/>
                                                 <constraint firstAttribute="width" constant="27" id="zG8-ux-yjo"/>
@@ -114,7 +114,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7y-iK-jy7">
-                                            <rect key="frame" x="466" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="466" y="15" width="27" height="27"/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="mail"/>
                                             <connections>
@@ -142,7 +142,7 @@
                                         <constraint firstItem="4IQ-hG-Qs8" firstAttribute="bottom" secondItem="ibm-mk-K7n" secondAttribute="bottom" id="G6T-cc-Aj9"/>
                                         <constraint firstItem="BKg-sm-OVZ" firstAttribute="trailing" secondItem="LIg-zL-cuG" secondAttribute="trailing" constant="-7" id="HZa-1w-TLS"/>
                                         <constraint firstItem="RrM-Si-UN5" firstAttribute="leading" secondItem="ibm-mk-K7n" secondAttribute="trailing" constant="8" symbolic="YES" id="I4j-IZ-3Us"/>
-                                        <constraint firstItem="H7J-bE-gZK" firstAttribute="top" secondItem="RrM-Si-UN5" secondAttribute="top" constant="7" id="PqF-O6-XVO"/>
+                                        <constraint firstItem="H7J-bE-gZK" firstAttribute="top" secondItem="RrM-Si-UN5" secondAttribute="top" id="PqF-O6-XVO"/>
                                         <constraint firstItem="p7y-iK-jy7" firstAttribute="height" secondItem="CSI-El-9pH" secondAttribute="height" id="Qob-Re-Zmk"/>
                                         <constraint firstItem="CSI-El-9pH" firstAttribute="width" secondItem="H7J-bE-gZK" secondAttribute="width" id="SV4-ba-YKn"/>
                                         <constraint firstItem="LIg-zL-cuG" firstAttribute="top" secondItem="ibm-mk-K7n" secondAttribute="bottom" constant="8" id="U2K-eG-H1n"/>
@@ -156,8 +156,14 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="AGf-Xs-fcr" secondAttribute="bottom" id="sAM-Z1-FXd"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="tXf-62-fxC" secondAttribute="trailing" id="scR-pQ-727"/>
                                         <constraint firstItem="Y8Z-QP-U2Z" firstAttribute="centerY" secondItem="AGf-Xs-fcr" secondAttribute="centerY" id="vvF-oO-b1p"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4IQ-hG-Qs8" secondAttribute="trailing" constant="7" id="zKg-gk-ch5"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="H7J-bE-gZK" secondAttribute="trailing" constant="13" id="zM9-ei-hQT"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="1bD-7v-BQh"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <constraints>

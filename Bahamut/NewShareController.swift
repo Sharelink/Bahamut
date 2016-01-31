@@ -194,20 +194,20 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: new share posted notification
     func sharePosted(a:NSNotification)
     {
-        self.showCheckMark("POST_SHARE_SUC".localizedString())
+        self.playCheckMark("POST_SHARE_SUC".localizedString())
         self.titleView.shareQueue--
     }
     
     func sharePostFailed(a:NSNotification)
     {
-        self.showCrossMark("POST_SHARE_FAILED".localizedString())
+        self.playCrossMark("POST_SHARE_FAILED".localizedString())
         self.titleView.shareQueue--
     }
     
     func startPostingShare(a:NSNotification)
     {
         titleView.shareQueue++
-        self.showCheckMark("SHARING".localizedString())
+        self.playCheckMark("SHARING".localizedString())
     }
     
     //MARK: clear view controller
@@ -221,7 +221,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: share type
     private func initDefaultSRCPlugins(){
         self.navigationItem.leftBarButtonItems?.removeAll()
-        if isReshare
+        if let _ = ShareThingType(rawValue: passedShareModel?.shareType ?? "")
         {
             self.currentSRCPlugin = srcService.getSRCPlugin(passedShareModel.shareType)
         }else
@@ -346,9 +346,9 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     //MARK: reshare
     private func reshare()
     {
-        self.makeToastActivityWithMessage("",message: "SHARING".localizedString())
+        let hud = self.showActivityHudWithMessage("",message: "SHARING".localizedString())
         self.shareService.reshare(self.passedShareModel.shareId, message: self.shareMessageCell.shareMessage, tags: self.shareThemeCell.selectedThemes){ isSuc,msg in
-            self.hideToastActivity()
+            hud.hideAsync(true)
             var alert:UIAlertController!
             if isSuc{
                 alert = UIAlertController(title: "SHARE_SUCCESSED".localizedString(), message: nil, preferredStyle: .Alert)

@@ -44,7 +44,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gu-vH-hlL">
-                                            <rect key="frame" x="509" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="509" y="15" width="27" height="27"/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="share">
                                                 <color key="titleColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,8 +53,8 @@
                                                 <action selector="shareToFriends:" destination="mfI-a6-MP0" eventType="touchUpInside" id="SZH-S5-8gP"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GW-d5-wqC">
-                                            <rect key="frame" x="65" y="44" width="378" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题:运动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GW-d5-wqC">
+                                            <rect key="frame" x="65" y="44" width="514" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -100,7 +100,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuY-cn-kaW">
-                                            <rect key="frame" x="552" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="552" y="15" width="27" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="27" id="6tV-QV-SfA"/>
                                                 <constraint firstAttribute="width" constant="27" id="O8s-NY-cSw"/>
@@ -114,7 +114,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnw-tL-Dj9">
-                                            <rect key="frame" x="466" y="22" width="27" height="27"/>
+                                            <rect key="frame" x="466" y="15" width="27" height="27"/>
                                             <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="mail"/>
                                             <connections>
@@ -124,6 +124,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="0gu-vH-hlL" firstAttribute="width" secondItem="HuY-cn-kaW" secondAttribute="width" id="2eI-Tu-JxR"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7GW-d5-wqC" secondAttribute="trailing" constant="13" id="6O8-ob-cgJ"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="o7q-wE-ePJ" secondAttribute="leading" id="6Yp-wB-ZZW"/>
                                         <constraint firstItem="Ew1-q3-HEI" firstAttribute="top" secondItem="xRU-Ss-Aqs" secondAttribute="topMargin" constant="7" id="9Xu-Nf-z8v"/>
                                         <constraint firstItem="HbS-FO-Fz4" firstAttribute="top" secondItem="cpe-2j-WtJ" secondAttribute="bottom" constant="8" id="BUp-yG-UX6"/>
@@ -147,7 +148,7 @@
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="HbS-FO-Fz4" secondAttribute="trailing" id="emt-7q-Kf0"/>
                                         <constraint firstItem="0gu-vH-hlL" firstAttribute="leading" secondItem="pnw-tL-Dj9" secondAttribute="trailing" constant="16" id="iOP-nH-7Mf"/>
                                         <constraint firstItem="pnw-tL-Dj9" firstAttribute="height" secondItem="0gu-vH-hlL" secondAttribute="height" id="ipm-Q1-7oS"/>
-                                        <constraint firstItem="HuY-cn-kaW" firstAttribute="top" secondItem="Ew1-q3-HEI" secondAttribute="top" constant="7" id="jfx-86-A8J"/>
+                                        <constraint firstItem="HuY-cn-kaW" firstAttribute="top" secondItem="Ew1-q3-HEI" secondAttribute="top" id="jfx-86-A8J"/>
                                         <constraint firstItem="EsI-tL-SVm" firstAttribute="leading" secondItem="o7q-wE-ePJ" secondAttribute="trailing" constant="8" id="oAo-xs-suG"/>
                                         <constraint firstItem="0gu-vH-hlL" firstAttribute="height" secondItem="HuY-cn-kaW" secondAttribute="height" id="rNA-OU-iP6"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="HbS-FO-Fz4" secondAttribute="leading" id="rrF-7E-hJ3"/>
@@ -158,6 +159,11 @@
                                         <constraint firstItem="pnw-tL-Dj9" firstAttribute="top" secondItem="0gu-vH-hlL" secondAttribute="top" id="xGn-YU-2dc"/>
                                         <constraint firstItem="HuY-cn-kaW" firstAttribute="leading" secondItem="0gu-vH-hlL" secondAttribute="trailing" constant="16" id="yxC-es-Eto"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Yth-Y1-KWo"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <constraints>

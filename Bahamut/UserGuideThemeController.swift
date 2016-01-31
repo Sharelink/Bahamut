@@ -47,12 +47,13 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     {
         if focusThemeCount > 0 || themeService.getAllCustomThemes().count > 0
         {
+            ServiceContainer.getService(NotificationService).setMute(false)
             performSegueWithIdentifier(UserGuideThemeController.ShowUserGuideAddFriendsControllerSegue, sender: self)
         }else
         {
             themeTextField.shakeAnimationForView()
             SystemSoundHelper.vibrate()
-            self.showToast("NEED_TO_FOCUS_ONE_THEME".localizedString())
+            self.playToast("NEED_TO_FOCUS_ONE_THEME".localizedString())
         }
     }
     
@@ -82,6 +83,11 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
             getHotThemes()
             themes = allRandomThemes.getRandomSubArray(10)
         }
+        if DateHelper.isInNewYearVocation()
+        {
+            let newYearThemes = ["猴年猴事，新年喜事"]
+            themes.insertContentsOf(newYearThemes, at: 0)
+        }
         randomThemes = themes
     }
     
@@ -102,7 +108,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         }
         themeTextField.shakeAnimationForView()
         SystemSoundHelper.vibrate()
-        self.showToast("NEED_INPUT_THEME_NAME".localizedString())
+        self.playToast("NEED_INPUT_THEME_NAME".localizedString())
     }
     
     func tapCell(a:UITapGestureRecognizer)
@@ -134,12 +140,12 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         theme.tagColor = UIColor.themeColor.toHexString()
         if themeService.isThemeExists(theme.data)
         {
-            self.showToast("SAME_THEME_EXISTS".localizedString())
+            self.playToast("SAME_THEME_EXISTS".localizedString())
         }else
         {
-            self.makeToastActivity()
+            let hud = self.showActivityHud()
             themeService.addSharelinkTheme(theme) { (isSuc) -> Void in
-                self.hideToastActivity()
+                hud.hideAsync(true)
                 if isSuc
                 {
                     if theme.tagName == self.themeTextField.text
@@ -147,10 +153,10 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
                         self.themeTextField.text = ""
                     }
                     self.focusThemeCount++
-                    self.showToast("FOCUS_THEME_SUCCESS".localizedString())
+                    self.playToast("FOCUS_THEME_SUCCESS".localizedString())
                 }else
                 {
-                    self.showToast("FOCUS_THEME_ERROR".localizedString())
+                    self.playToast("FOCUS_THEME_ERROR".localizedString())
                 }
             }
         }
@@ -163,6 +169,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         let url = Sharelink.mainBundle().pathForResource("StartupThemes", ofType: "conf")!
         let themesText = PersistentFileHelper.readTextFile(url)!
         allRandomThemes = themesText.split(",")
+        ServiceContainer.getService(NotificationService).setMute(true)
     }
     
     override func viewWillAppear(animated: Bool) {

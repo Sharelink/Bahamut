@@ -22,12 +22,14 @@ class DeveloperMainPanelController: UIViewController
     {
         SharelinkSetting.loginApi = "http://192.168.1.168:8086/Account/AjaxLogin"
         SharelinkSetting.registAccountApi = "http://192.168.1.168:8086/Account/AjaxRegist"
+        self.playToast("Change to 168")
     }
     
     @IBAction func use67Server(sender: AnyObject)
     {
         SharelinkSetting.loginApi = "http://192.168.1.67:8086/Account/AjaxLogin"
         SharelinkSetting.registAccountApi = "http://192.168.1.67:8086/Account/AjaxRegist"
+        self.playToast("Change to 67")
     }
     
     @IBAction func closePanel(sender: AnyObject)
@@ -41,6 +43,7 @@ class DeveloperMainPanelController: UIViewController
     {
         SharelinkSetting.loginApi = "http://auth.sharelink.online:8086/Account/AjaxLogin"
         SharelinkSetting.registAccountApi = "http://auth.sharelink.online:8086/Account/AjaxRegist"
+        self.playToast("Change to remote")
     }
     
     static func showDeveloperMainPanel(viewController:UIViewController)

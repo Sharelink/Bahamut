@@ -10,6 +10,7 @@ VALIDATE_DATA_ERROR = "Validate Data Error";
 NETWORK_ERROR = "Network Error";
 NOT_LOGIN = "Not Login";
 LOGOUTED = "Logout";
+OTHER_DEVICE_HAD_LOGIN = "An Other Device Use The Account Login, This Device Will Logout";
 
 //MJRefresh
 RefreshHeaderIdleText = "Pull To Refresh";
@@ -166,7 +167,9 @@ SHARE_FAILED = "Share Failed";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "Please Focus One Theme At Least~";
 NEED_INPUT_THEME_NAME = "Theme Name Can't Not Be Empty~";
-HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink!";
+HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink! Now complete a few simple steps to learn about Sharelink!";
+HELLO_MESSAGE_FORMAT_NEW_YEAR = "Dear %@, Welcome to Sharelink! Now complete a few simple steps to learn about Sharelink!";
+FIRST_SHARE_MESSAGE = "My first Sharelink share!";
 
 //SignInViewController
 REFRESHING = "Refreshing";
@@ -248,6 +251,7 @@ SHARELINK_CMD_TIMEOUT = "Sharelink Command Timeout";
 SEND_LINK_REQUEST_TO = "Send link request to %@";
 LINK_REQUEST_SENDED = "Ask for link sended";
 ASK_LINK_MSG = "%@ want to link with you in Sharelink!";
+ASK_LINK_MSG_NEW_YEAR = "%@ want to link with you in Sharelink!";
 
 //notification format
 NEW_MSG_NOTIFICATION = "You have a new message!";

@@ -50,16 +50,16 @@ class NewUserProfileViewController: UIViewController
     {
         model.nickName = nickNameTextfield.text
         model.motto = motto.text
-        self.makeToastActivityWithMessage("",message:"REGISTING".localizedString())
+        let hud = self.showActivityHudWithMessage("",message:"REGISTING".localizedString())
         ServiceContainer.getService(AccountService).registNewUser(self.registModel, newUser: model){ isSuc,msg,validateResult in
-            self.hideToastActivity()
+            hud.hideAsync(true)
             if isSuc
             {
-                self.makeToastActivityWithMessage("",message:"REFRESHING".localizedString())
+                self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
             }else
             {
                 ServiceContainer.instance.removeObserver(self)
-                self.showToast( msg)
+                self.playToast( msg)
             }
         }
     }

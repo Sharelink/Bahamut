@@ -11,6 +11,7 @@ import EVReflection
 import CocoaAsyncSocket
 
 let AppTokenInvalided = "AppTokenInvalided"
+let OtherDeviceLoginChicagoServer = "OtherDeviceLoginChicagoServer"
 
 //MARK: Chicago Client
 class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
@@ -31,6 +32,13 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         let route = ChicagoRoute()
         route.ExtName = "SharelinkerValidation"
         route.CmdName = "Login"
+        return route
+    }()
+    
+    static let otherDeviceLoginRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "SharelinkerValidation"
+        route.CmdName = "OtherDeviceLogin"
         return route
     }()
     
@@ -96,6 +104,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         self.addChicagoObserver(ChicagoClient.validationRoute, observer: self, selector: "onValidationReturn:")
         self.addChicagoObserver(ChicagoClient.logoutRoute, observer: self, selector: "onLogoutReturn:")
         self.addChicagoObserver(ChicagoClient.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
+        self.addChicagoObserver(ChicagoClient.otherDeviceLoginRoute, observer: self, selector: "onOtherDeviceLogin:")
     }
     
     func startHeartBeat()
@@ -170,6 +179,14 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     func onLogoutReturn(a:NSNotification)
     {
         close()
+    }
+    
+    func onOtherDeviceLogin(a:NSNotification)
+    {
+        clientState = .ValidatFailed
+        socket.disconnect()
+        self.postNotificationName(OtherDeviceLoginChicagoServer, object: self)
+        NSLog("Chicago:Other Device Login Chicago Server")
     }
     
     func onValidationReturn(a:NSNotification)

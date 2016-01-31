@@ -23,18 +23,9 @@ extension UIViewController
         showAlert(controller)
     }
     
-    func showAlert(alertController:UIAlertController) -> Bool
+    func showAlert(alertController:UIAlertController)
     {
-        if let vc = MainViewTabBarController.currentRootViewController
-        {
-            showAlert(vc, alertController: alertController)
-            return true
-        }else if let vc = MainViewTabBarController.currentNavicationController
-        {
-            showAlert(vc, alertController: alertController)
-            return true
-        }
-        return false
+        showAlert(UIApplication.currentShowingViewController, alertController: alertController)
     }
 }
 
@@ -42,21 +33,21 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
 {
     private(set) static var currentTabBarViewController:MainViewTabBarController!
     
-    static var currentNavicationController:UINavigationController!{
-        if let mc = currentTabBarViewController?.selectedViewController as? UINavigationController
-        {
-            return mc
-        }
-        return nil
-    }
-    
-    static var currentRootViewController:UIViewController!{
-        if let mc = currentTabBarViewController?.selectedViewController?.presentingViewController as? MainNavigationController
-        {
-            return mc.presentedViewController
-        }
-        return nil
-    }
+//    static var currentNavicationController:UINavigationController!{
+//        if let mc = currentTabBarViewController?.selectedViewController as? UINavigationController
+//        {
+//            return mc
+//        }
+//        return nil
+//    }
+//    
+//    static var currentRootViewController:UIViewController!{
+//        if let mc = currentTabBarViewController?.selectedViewController?.presentingViewController as? MainNavigationController
+//        {
+//            return mc.presentedViewController
+//        }
+//        return nil
+//    }
     
     private var notificationService:NotificationService!
     private var messageService:ChatService!

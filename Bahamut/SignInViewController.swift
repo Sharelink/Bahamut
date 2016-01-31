@@ -8,6 +8,7 @@
 
 import UIKit
 import JavaScriptCore
+import MBProgressHUD
 
 @objc protocol SignInViewControllerJSProtocol : JSExport
 {
@@ -59,7 +60,24 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         self.view.backgroundColor = UIColor.whiteColor()
         webPageView = UIWebView(frame: self.view.bounds)
         setBackgroundView()
+        ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
         loginAccountId = UserSetting.lastLoginAccountId
+        refreshWebView()
+    }
+    
+    func allServicesReady(_:NSNotification)
+    {
+        self.view.backgroundColor = UIColor.blackColor()
+        if let hud = self.refreshingHud
+        {
+            hud.hideAsync(false)
+        }
+        self.webPageView.hidden = true
+        ServiceContainer.instance.removeObserver(self)
+    }
+    
+    private func refreshWebView()
+    {
         if loginAccountId != nil{
             authenticate()
         }else
@@ -72,6 +90,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillShow:", name:UIKeyboardWillShowNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillHide:", name:UIKeyboardWillHideNotification, object:nil)
+        if developerShown
+        {
+            developerShown = false
+            refreshWebView()
+        }
     }
     
     func keyboardWillHide(_:NSNotification)
@@ -131,7 +154,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func jsExceptionHandler(context:JSContext!,value:JSValue!) {
-        self.showToast("JS_ERROR".localizedString())
+        self.playToast("JS_ERROR".localizedString())
     }
     
     var registedAccountName:String!
@@ -146,16 +169,17 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         authenticate()
     }
     
+    private var refreshingHud:MBProgressHUD!
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
-        self.makeToastActivityWithMessage("",message: "LOGINING".localizedString() )
+        let hud = self.showActivityHudWithMessage("",message: "LOGINING".localizedString() )
         accountService.validateAccessToken(serverUrl, accountId: accountId, accessToken: accessToken, callback: { (loginSuccess, message) -> Void in
-            self.hideToastActivity()
+            hud.hideAsync(true)
             if loginSuccess{
-                self.makeToastActivityWithMessage("",message:"REFRESHING".localizedString())
+                self.refreshingHud = self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
             }else{
-                self.showToast( message)
+                self.playToast( message)
                 self.authenticate()
             }
             
@@ -214,17 +238,22 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func makeToast(msg:String){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.showToast( msg.localizedString())
+            self.playToast( msg.localizedString())
         }
     }
     
+    private var toastHud:MBProgressHUD!
     func showToastActivity(msg:String? = nil){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            if let hud = self.toastHud
+            {
+                hud.hideAsync(true)
+            }
             if msg == nil
             {
-                self.makeToastActivity()
+                self.toastHud = self.showActivityHud()
             }else{
-                self.makeToastActivityWithMessage("",message: msg!.localizedString())
+                self.toastHud = self.showActivityHudWithMessage("",message: msg!.localizedString())
             }
         }
         
@@ -232,7 +261,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func hideActivity(){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.hideToastActivity()
+            if let hud = self.toastHud
+            {
+                hud.hideAsync(true)
+            }
         }
     }
     
@@ -241,13 +273,14 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     //MARK: Developer Panel
-    
+    private var developerShown = false
     func isShowDeveloperPanel(idpsw: String) -> Bool{
         if idpsw == "godbestyybest"
         {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 UserSetting.isAppstoreReviewing = false
                 DeveloperMainPanelController.showDeveloperMainPanel(self)
+                self.developerShown = true
             }
             return true
         }else

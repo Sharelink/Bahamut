@@ -189,7 +189,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
                 }
             }else
             {
-                self.showToast( "NO_MORE_MESSAGE".localizedString())
+                self.playToast( "NO_MORE_MESSAGE".localizedString())
             }
             self.head.endRefreshing()
         }
@@ -227,7 +227,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     }
     
     @IBAction func back(sender: AnyObject) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.navigationController?.dismissViewControllerAnimated(false, completion: { () -> Void in
             
         })
     }

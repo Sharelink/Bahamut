@@ -44,12 +44,12 @@ class UserGuideFinishViewController: UIViewController
     //MARK: new share posted notification
     func sharePosted(a:NSNotification)
     {
-        self.showCheckMark("POST_SHARE_SUC".localizedString())
+        self.playCheckMark("POST_SHARE_SUC".localizedString())
     }
     
     func sharePostFailed(a:NSNotification)
     {
-        self.showCrossMark("POST_SHARE_FAILED".localizedString())
+        self.playCrossMark("POST_SHARE_FAILED".localizedString())
     }
     
     func tapShare(a:UITapGestureRecognizer)
@@ -58,7 +58,6 @@ class UserGuideFinishViewController: UIViewController
         {
             view.animationMaxToMin(0.1, maxScale: 1.2, completion: { () -> Void in
                 let shareModel = ShareThing()
-                shareModel.shareType = ShareThingType.shareText.rawValue
                 shareModel.message = "FIRST_SHARE_MESSAGE".localizedString()
                 
                 ServiceContainer.getService(ShareService).showNewShareController(self.navigationController!, shareModel: shareModel,isReshare:false)

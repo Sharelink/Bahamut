@@ -19,7 +19,11 @@ class UserGuideStartController: UIViewController {
         super.viewDidLoad()
         self.getHotThemes()
         let userNick = ServiceContainer.getService(UserService).myUserModel.nickName
-        let helloMsg = String(format: "HELLO_MESSAGE_FORMAT".localizedString(), userNick)
+        var helloMsg = String(format: "HELLO_MESSAGE_FORMAT".localizedString(), userNick)
+        if DateHelper.isInNewYearVocation()
+        {
+            helloMsg = String(format: "HELLO_MESSAGE_FORMAT_NEW_YEAR".localizedString(), userNick)
+        }
         helloMessageLabel.text = helloMsg
     }
     

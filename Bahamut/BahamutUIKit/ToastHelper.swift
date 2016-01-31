@@ -10,35 +10,45 @@ import Foundation
 import UIKit
 import MBProgressHUD
 
-func getPresentedViewController() -> UIViewController
+extension UIApplication
 {
-    let rootVc = UIApplication.sharedApplication().keyWindow?.rootViewController
-    let topVc = rootVc
-    if let vc = topVc?.presentedViewController
-    {
-        return vc
+    static var currentShowingViewController:UIViewController{
+        var topVC = UIApplication.sharedApplication().keyWindow?.rootViewController
+        while topVC?.presentedViewController != nil {
+            topVC = topVC?.presentedViewController
+        }
+        if let tvc = topVC as? UITabBarController
+        {
+            if let topVC = tvc.selectedViewController
+            {
+                return topVC
+            }
+        }
+        return topVC!
     }
-    return topVc ?? rootVc ?? UIApplication.sharedApplication().delegate!.window!!.rootViewController!
+    
+    static var currentNavigationController:UINavigationController?{
+        let svc = currentShowingViewController
+        return svc as? UINavigationController ?? svc.navigationController
+    }
 }
 
 typealias HudHiddenCompletedHandler = ()->Void
 
-var toastActivityMap = [UIViewController:MBProgressHUD]()
 var hudCompletionHandler = [MBProgressHUD:HudHiddenCompletedHandler]()
+
+extension MBProgressHUD
+{
+    func hideAsync(animated:Bool)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.hide(animated)
+        }
+    }
+}
 
 extension UIViewController:MBProgressHUDDelegate
 {
-    func hideToastActivity()
-    {
-        if let hud = toastActivityMap.removeValueForKey(self)
-        {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                hud.hide(true)
-            })
-            
-        }
-    }
-    
     public func hudWasHidden(hud: MBProgressHUD!) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             hud.removeFromSuperview()
@@ -50,34 +60,33 @@ extension UIViewController:MBProgressHUDDelegate
         
     }
     
-    func makeToastActivity(completionHandler:HudHiddenCompletedHandler! = nil)
+    func showActivityHud(completionHandler:HudHiddenCompletedHandler! = nil)-> MBProgressHUD
     {
-        let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
-        vc.makeToastActivityWithMessage("", message: "",completionHandler: completionHandler)
+        return showActivityHudWithMessage("", message: "",completionHandler: completionHandler)
     }
     
-    func makeToastActivityWithMessage(title:String!,message:String!,completionHandler:HudHiddenCompletedHandler! = nil)
+    func showActivityHudWithMessage(title:String!,message:String!,completionHandler:HudHiddenCompletedHandler! = nil) -> MBProgressHUD
     {
-        let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
-        let vcView = vc.navigationController?.view ?? vc.view
+        let vc = UIApplication.currentShowingViewController
+        let vcView = vc.view ?? vc.navigationController?.view
         let HUD = MBProgressHUD(view: vcView)
-        HUD.delegate = vc
-        HUD.labelText = title
-        HUD.detailsLabelText = message
-        HUD.square = true
-        HUD.show(true)
-        toastActivityMap[vc] = HUD
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            HUD.delegate = vc
+            HUD.labelText = title
+            HUD.detailsLabelText = message
+            HUD.removeFromSuperViewOnHide = true
+            HUD.square = true
+            HUD.show(true)
             vcView!.addSubview(HUD)
         })
-        
+        return HUD
     }
     
-    func showToast(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playToast(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
-            let vcView = vc.navigationController?.view ?? vc.view
+            let vc = UIApplication.currentShowingViewController
+            let vcView = vc.view ?? vc.navigationController?.view
             
             let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
             // Configure for text only and offset down
@@ -96,11 +105,12 @@ extension UIViewController:MBProgressHUDDelegate
         
     }
     
-    func showCrossMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCrossMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
-            let vcView = vc.navigationController?.view ?? vc.view
+            let vc = UIApplication.currentShowingViewController
+            let vcView = vc.view ?? vc.navigationController?.view
+            
             let hud = MBProgressHUD(view: vcView)
             vcView!.addSubview(hud)
             
@@ -121,11 +131,11 @@ extension UIViewController:MBProgressHUDDelegate
         }
     }
     
-    func showCheckMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCheckMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc:UIViewController! = self.navigationController == nil ? getPresentedViewController() : self
-            let vcView = vc.navigationController?.view ?? vc.view
+            let vc = UIApplication.currentShowingViewController
+            let vcView = vc.view ?? vc.navigationController?.view
             let hud = MBProgressHUD(view: vcView)
             self.navigationController?.view.addSubview(hud)
             

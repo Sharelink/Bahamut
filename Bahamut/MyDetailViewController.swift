@@ -21,7 +21,7 @@ extension UserService
                 currentViewController.navigationController?.pushViewController(controller, animated: true)
             }else
             {
-                currentViewController.showToast( "USER_DATA_NOT_READY_RETRY".localizedString())
+                currentViewController.playToast( "USER_DATA_NOT_READY_RETRY".localizedString())
             }
         }
         
@@ -378,7 +378,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                 })
             }else
             {
-                self.showToast("SET_AVATAR_FAILED".localizedString())
+                self.playToast("SET_AVATAR_FAILED".localizedString())
             }
         }
     }
@@ -393,7 +393,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     self.myInfo.avatarId = fileKey.accessKey
                     self.myInfo.saveModel()
                     self.avatarImageView.image = PersistentManager.sharedInstance.getImage(fileKey.accessKey)
-                    self.showCheckMark("SET_AVATAR_SUC".localizedString())
+                    self.playCheckMark("SET_AVATAR_SUC".localizedString())
                 }
             })
         }
@@ -401,7 +401,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
         taskFileMap.removeValueForKey(taskIdentifier)
-        self.showToast("SET_AVATAR_FAILED".localizedString())
+        self.playToast("SET_AVATAR_FAILED".localizedString())
     }
     
     func aboutSharelink(_:UITapGestureRecognizer)
@@ -449,10 +449,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     if isSuc
                     {
                         self.tableView.reloadData()
-                        self.showCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "NICK".localizedString()))
+                        self.playCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "NICK".localizedString()))
                     }else
                     {
-                        self.showToast(String(format: "SET_KEY_FAILED".localizedString(), "NICK".localizedString()))
+                        self.playToast(String(format: "SET_KEY_FAILED".localizedString(), "NICK".localizedString()))
                     }
                     
                 }
@@ -461,10 +461,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
                     if isSuc
                     {
                         self.tableView.reloadData()
-                        self.showCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "MOTTO".localizedString() ))
+                        self.playCheckMark(String(format: "MODIFY_KEY_SUC".localizedString(), "MOTTO".localizedString() ))
                     }else
                     {
-                        self.showToast(String(format: "SET_KEY_FAILED".localizedString() , "MOTTO".localizedString() ))
+                        self.playToast(String(format: "SET_KEY_FAILED".localizedString() , "MOTTO".localizedString() ))
                     }
                 }
         default: break

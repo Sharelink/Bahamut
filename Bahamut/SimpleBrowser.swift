@@ -44,10 +44,11 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     }
     
     //"SimpleBrowser"
-    static func openUrl(currentViewController:UINavigationController,url:String)
+    
+    static func openUrl(currentViewController:UINavigationController,url:String) -> SimpleBrowser
     {
+        let controller = instanceFromStoryBoard()
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let controller = instanceFromStoryBoard()
             let navController = UINavigationController(rootViewController: controller)
             navController.navigationBar.barStyle = currentViewController.navigationBar.barStyle
             navController.changeNavigationBarColor()
@@ -55,6 +56,7 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
                 controller.url = url;
             })
         }
+        return controller
     }
     
     static func instanceFromStoryBoard() -> SimpleBrowser

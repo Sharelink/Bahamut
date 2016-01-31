@@ -28,6 +28,6 @@ extension UIViewController
 {
     func showAppVersionOnlyTips()
     {
-        self.showToast("App Version Only")
+        self.playToast("App Version Only")
     }
 }

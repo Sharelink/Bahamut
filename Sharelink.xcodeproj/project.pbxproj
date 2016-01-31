@@ -49,7 +49,6 @@
 		E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
 		E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
 		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
-		E71058EE1C5AF3D900D1C0CC /* UserGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */; };
 		E71058F01C5B114600D1C0CC /* UserGuideThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */; };
 		E71058F21C5B118E00D1C0CC /* UserGuideAddFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */; };
 		E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */ = {isa = PBXBuildFile; fileRef = E71058F51C5B226C00D1C0CC /* StartupThemes.conf */; };
@@ -118,6 +117,7 @@
 		E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */; };
 		E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */; };
 		E7443ADE1C2BDF4100CB5C3A /* ThemeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */; };
+		E7450E121C5E249C00212C1D /* UserGuide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7450E141C5E249C00212C1D /* UserGuide.storyboard */; };
 		E74C835B1C590E8F009CF8DB /* ShareChatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD31C174870001C0A47 /* ShareChatEntity.swift */; };
 		E74C835C1C590E8F009CF8DB /* SharelinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */; };
 		E74C835D1C590E8F009CF8DB /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
@@ -509,7 +509,6 @@
 		E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
 		E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
 		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
-		E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserGuide.storyboard; sourceTree = "<group>"; };
 		E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideThemeController.swift; sourceTree = "<group>"; };
 		E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideAddFriendsController.swift; sourceTree = "<group>"; };
 		E71058F51C5B226C00D1C0CC /* StartupThemes.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StartupThemes.conf; sourceTree = "<group>"; };
@@ -586,6 +585,8 @@
 		E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewControllerTitleView.swift; sourceTree = "<group>"; };
 		E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeListViewController.swift; sourceTree = "<group>"; };
 		E7443AE61C2C218C00CB5C3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		E7450E131C5E249C00212C1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserGuide.storyboard; sourceTree = "<group>"; };
+		E7450E191C5E24C600212C1D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UserGuide.storyboard"; sourceTree = "<group>"; };
 		E74C84531C590E8F009CF8DB /* SDKSharelink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKSharelink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E74C84541C590E8F009CF8DB /* SDKSharelink.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SDKSharelink.plist; path = /Users/alexchow/GitHub/bahamut/Bahamut/SDKSharelink.plist; sourceTree = "<absolute>"; };
 		E74C84561C591042009CF8DB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = SRCPlugin/src; sourceTree = SOURCE_ROOT; };
@@ -1118,7 +1119,7 @@
 		E75EE44F1B9A05E200783308 /* UIResource */ = {
 			isa = PBXGroup;
 			children = (
-				E71058ED1C5AF3D900D1C0CC /* UserGuide.storyboard */,
+				E7450E141C5E249C00212C1D /* UserGuide.storyboard */,
 				E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */,
 				E71AF30C1BE4ECCD000BBBF8 /* UIMessage.storyboard */,
 				E7A62FEC1B6609A500F28D73 /* SharelinkMain.storyboard */,
@@ -1861,7 +1862,7 @@
 				E71058F61C5B226C00D1C0CC /* StartupThemes.conf in Resources */,
 				E7D752531C561488002E3D40 /* ShareSDKLocalizable.strings in Resources */,
 				E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */,
-				E71058EE1C5AF3D900D1C0CC /* UserGuide.storyboard in Resources */,
+				E7450E121C5E249C00212C1D /* UserGuide.storyboard in Resources */,
 				E71717501C5713F30097AF64 /* yw_1222.jpg in Resources */,
 				E7AF0CE61C4E6700007C91E2 /* SharelinkSRCIcons.xcassets in Resources */,
 				E7D752ED1C5633C0002E3D40 /* ChatAssets.xcassets in Resources */,
@@ -2328,6 +2329,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		E7450E141C5E249C00212C1D /* UserGuide.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7450E131C5E249C00212C1D /* Base */,
+				E7450E191C5E24C600212C1D /* zh-Hans */,
+			);
+			name = UserGuide.storyboard;
+			sourceTree = "<group>";
+		};
 		E7A62FEC1B6609A500F28D73 /* SharelinkMain.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2656,7 +2666,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D APP_VERSION";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D APP_VERSION -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.ios;
 				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2721,7 +2731,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D APP_VERSION";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D APP_VERSION -D RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.ios;
 				PRODUCT_MODULE_NAME = Bahamut;
 				PRODUCT_NAME = "$(TARGET_NAME)";

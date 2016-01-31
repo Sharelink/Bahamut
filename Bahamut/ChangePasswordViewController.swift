@@ -27,9 +27,9 @@ class ChangePasswordViewController: UIViewController
         {
             showAlert("CONFIRM_PSW".localizedString(), msg: newPsw, actions: [
                 UIAlertAction(title: "YES".localizedString(), style: .Default, handler: { (action) -> Void in
-                    self.makeToastActivity()
+                    let hud = self.showActivityHud()
                     ServiceContainer.getService(AccountService).changePassword(oldPsw, newPsw: newPsw) { (isSuc) -> Void in
-                        self.hideToastActivity()
+                        hud.hideAsync(true)
                         if isSuc
                         {
                             self.showAlert("CHG_PSW_SUC".localizedString(), msg: nil)

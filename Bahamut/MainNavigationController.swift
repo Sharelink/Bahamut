@@ -21,6 +21,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         super.viewDidLoad()
         setWaitingScreen()
         ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: "onOtherDeviceLogin:", name: OtherDeviceLoginChicagoServer, object: nil)
     }
     
     private var launchScr:UIView!
@@ -70,6 +71,16 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         {
             showMainView()
         }
+    }
+    
+    func onOtherDeviceLogin(_:AnyObject)
+    {
+        let alert = UIAlertController(title: nil, message: "OTHER_DEVICE_HAD_LOGIN".localizedString() , preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "I_SEE".localizedString(), style: .Default, handler: { (action) -> Void in
+            ServiceContainer.instance.userLogout()
+            MainNavigationController.start()
+        }))
+        showAlert(self,alertController: alert)
     }
     
     func onAppTokenInvalid(_:AnyObject)
@@ -147,7 +158,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         let userService = ServiceContainer.getService(UserService)
         if userService.isSharelinkerLinked(sharelinkerId)
         {
-            if let navc = MainViewTabBarController.currentNavicationController
+            if let navc = UIApplication.currentNavigationController
             {
                 userService.showUserProfileViewController(navc, userId: sharelinkerId)
             }

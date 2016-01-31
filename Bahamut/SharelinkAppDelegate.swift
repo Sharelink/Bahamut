@@ -46,6 +46,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     public var window: UIWindow?
+    
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureSharelinkBundle()
         configContryAndLang()
@@ -183,12 +184,14 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureUmeng()
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            MobClick.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
-            MobClick.setAppVersion(SharelinkVersion)
-            MobClick.setEncryptEnabled(true)
-            MobClick.setLogEnabled(false)
-        }
+        #if RELEASE
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                MobClick.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
+                MobClick.setAppVersion(SharelinkVersion)
+                MobClick.setEncryptEnabled(true)
+                MobClick.setLogEnabled(false)
+            }
+        #endif
     }
 
     private func configureShareSDK()

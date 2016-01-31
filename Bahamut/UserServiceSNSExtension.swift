@@ -7,6 +7,23 @@
 //
 
 import Foundation
+
+extension DateHelper
+{
+    static func isInNewYearVocation()->Bool{
+        let now = NSDate()
+        let newYearStartTime = DateHelper.generateDate(2016, month: 2, day: 7, hour: 0, minute: 0, second: 0)
+        let lastNewYearVacation = DateHelper.generateDate(2016, month: 2, day: 23, hour: 0, minute: 0, second: 0)
+        if now.timeIntervalSince1970 > newYearStartTime.timeIntervalSince1970 && now.timeIntervalSince1970 < lastNewYearVacation.timeIntervalSince1970
+        {
+            return true
+        }else
+        {
+            return false
+        }
+    }
+}
+
 extension UserService
 {
     
@@ -17,7 +34,13 @@ extension UserService
         let userService = ServiceContainer.getService(UserService)
         let user = userService.myUserModel
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
-        let contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
+        
+        var contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
+        if DateHelper.isInNewYearVocation()
+        {
+            contentMsg = String(format: "ASK_LINK_MSG_NEW_YEAR".localizedString(),user.nickName)
+        }
+        
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
@@ -65,11 +88,11 @@ extension UserService
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
-                viewController.showToast( "SHARE_SUC".localizedString())
+                viewController.playToast( "SHARE_SUC".localizedString())
             }
             else if (state == SSResponseStateFail)
             {
-                viewController.showToast( "SHARE_FAILED".localizedString())
+                viewController.playToast( "SHARE_FAILED".localizedString())
                 NSLog("share fail:%ld,description:%@", error.errorCode(), error.errorDescription());
             }
         }

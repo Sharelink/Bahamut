@@ -53,7 +53,7 @@ class LinkConfirmViewController: UIViewController
                     self.navigationController?.popViewControllerAnimated(true)
                 }else
                 {
-                    self.showToast( "ACCEPT_USER_LINK_FAILED".localizedString())
+                    self.playToast( "ACCEPT_USER_LINK_FAILED".localizedString())
                 }
             }
         }

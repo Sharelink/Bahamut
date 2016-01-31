@@ -240,7 +240,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                     self.userProfileModel.personalVideoId = fileKey.accessKey
                     self.userProfileModel.saveModel()
                     self.updatePersonalFilm()
-                    self.showToast("SET_PROFILE_VIDEO_SUC".localizedString())
+                    self.playToast("SET_PROFILE_VIDEO_SUC".localizedString())
                 }
             })
         }
@@ -248,7 +248,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     }
     
     func taskFailed(taskIdentifier: String, result: AnyObject!) {
-        self.showToast("SET_PROFILE_VIDEO_FAILED".localizedString())
+        self.playToast("SET_PROFILE_VIDEO_FAILED".localizedString())
         taskFileMap.removeValueForKey(taskIdentifier)
     }
     
@@ -300,11 +300,11 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(FileType.Video)
             profileVideoView.filePath = newFilePath
-            self.showToast( "VIDEO_SAVED".localizedString())
+            self.playToast( "VIDEO_SAVED".localizedString())
             saveProfileVideo()
         }else
         {
-            self.showToast( "SAVE_VIDEO_FAILED".localizedString())
+            self.playToast( "SAVE_VIDEO_FAILED".localizedString())
         }
     }
     #endif
@@ -409,7 +409,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         let userService = ServiceContainer.getService(UserService)
         if propertyId == "note"
         {
-            self.makeToastActivityWithMessage("",message:"UPDATING".localizedString())
+            let hud = self.showActivityHudWithMessage("",message:"UPDATING".localizedString())
             if SharelinkerCenterNoteName == newValue
             {
                 let alert = UIAlertController(title: "INVALID_VALUE".localizedString(), message: "USE_ANOTHER_VALUE".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)
@@ -418,7 +418,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
                 return
             }
             userService.setLinkerNoteName(userProfileModel.userId, newNoteName: newValue){ isSuc,msg in
-                self.hideToastActivity()
+                hud.hideAsync(true)
                 if isSuc
                 {
                     self.userProfileModel.noteName = newValue

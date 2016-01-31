@@ -103,6 +103,8 @@ extension UserService: QRStringDelegate
             {
                 let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
                 if let cmd = SharelinkCmd.decodeSharelinkCmd(cmdEncoded)
+                    
+                    
                 {
                     sender.navigationController?.popViewControllerAnimated(true)
                     SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
@@ -111,7 +113,10 @@ extension UserService: QRStringDelegate
             {
                 sender.navigationController?.popViewControllerAnimated(false)
                 dispatch_after(1000*2, dispatch_get_main_queue(), { () -> Void in
-                    SimpleBrowser.openUrl(MainViewTabBarController.currentNavicationController, url: qrString)
+                    if let navc = UIApplication.currentNavigationController
+                    {
+                        SimpleBrowser.openUrl(navc, url: qrString)
+                    }
                 })
             }
         }

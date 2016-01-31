@@ -628,41 +628,15 @@
                                     <action selector="mailToBahamutSharelink:" destination="8DE-tZ-cFX" eventType="touchUpInside" id="nfy-H0-52m"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ase-4O-DrG">
-                                <rect key="frame" x="20" y="110" width="560" height="41"/>
-                                <string key="text">This App is in the primary stage, if you are interest in this project, want to join development or provide help, contact me please. </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:cplover@live.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-lg-2gA">
-                                <rect key="frame" x="20" y="159" width="180" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PS:Indicate subject as Sharelink, thank you." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fs-VG-XWh">
-                                <rect key="frame" x="20" y="188" width="333" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7Fs-VG-XWh" firstAttribute="top" secondItem="xB3-lg-2gA" secondAttribute="bottom" constant="8" symbolic="YES" id="1Wb-WX-Pvd"/>
                             <constraint firstItem="ftb-Tm-XNI" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="trailing" constant="8" symbolic="YES" id="3UX-a1-sNq"/>
                             <constraint firstItem="bce-Lq-eUc" firstAttribute="top" secondItem="V1V-6t-FOv" secondAttribute="bottom" constant="8" symbolic="YES" id="CSb-V3-2U5"/>
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="bottom" constant="8" symbolic="YES" id="GMg-T4-3lh"/>
                             <constraint firstItem="bce-Lq-eUc" firstAttribute="leading" secondItem="dDk-sn-nUN" secondAttribute="leadingMargin" id="JS0-Jp-jXh"/>
-                            <constraint firstItem="ase-4O-DrG" firstAttribute="top" secondItem="e2F-Xo-rqh" secondAttribute="bottom" constant="8" symbolic="YES" id="Jur-7C-f8Y"/>
                             <constraint firstItem="ftb-Tm-XNI" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="top" id="NAF-qS-ZMr"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ase-4O-DrG" secondAttribute="trailing" id="XWs-Vg-cqe"/>
-                            <constraint firstItem="ase-4O-DrG" firstAttribute="leading" secondItem="e2F-Xo-rqh" secondAttribute="leading" id="bek-3z-B3m"/>
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="leading" id="gZg-Zq-0Aq"/>
-                            <constraint firstItem="xB3-lg-2gA" firstAttribute="leading" secondItem="ase-4O-DrG" secondAttribute="leading" id="nwp-aV-LEy"/>
-                            <constraint firstItem="xB3-lg-2gA" firstAttribute="top" secondItem="ase-4O-DrG" secondAttribute="bottom" constant="8" symbolic="YES" id="p5b-fp-96k"/>
-                            <constraint firstItem="7Fs-VG-XWh" firstAttribute="leading" secondItem="xB3-lg-2gA" secondAttribute="leading" id="poC-F5-6dT"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="ftb-Tm-XNI" secondAttribute="leading" id="sqL-Iy-bWf"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="bottom" secondItem="bce-Lq-eUc" secondAttribute="bottom" id="xeJ-NO-BAL"/>
                         </constraints>
@@ -683,7 +657,7 @@
         <image name="heart" width="512" height="512"/>
         <image name="icon_check" width="32" height="32"/>
         <image name="next" width="72" height="72"/>
-        <image name="sharelink" width="512" height="512"/>
+        <image name="sharelink" width="167" height="167"/>
         <image name="unlock" width="512" height="512"/>
     </resources>
 </document>

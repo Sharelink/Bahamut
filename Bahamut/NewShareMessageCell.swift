@@ -38,7 +38,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
             return true
         }else {
             if textView.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) - range.length + text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > NewShareMessageCell.messageLenghtLimit {
-                self.rootController.showToast("MSG_IS_TOO_LONG".localizedString())
+                self.rootController.playToast("MSG_IS_TOO_LONG".localizedString())
                 return false
             }
             else {
@@ -64,15 +64,11 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
         self.shareMessageTextView.text = ""
     }
     
-    private func initReshareMessageCell(){
-        self.shareMessageTextView.text = rootController.passedShareModel.message
-        updateMsgTxtPlaceHolder()
-    }
-    
     override func initCell(){
-        if isReshare
+        if let msg = rootController.passedShareModel?.message
         {
-            initReshareMessageCell()
+            self.shareMessageTextView.text = msg
+            updateMsgTxtPlaceHolder()
         }
     }
 }

@@ -73,7 +73,13 @@ extension SharelinkTheme
             prefix = "📍"
         }else if self.isKeywordTheme()
         {
-            prefix = ""
+            if !String.isNullOrEmpty(self.tagName) && self.tagName.containsString("猴")
+            {
+                prefix = "🐵"
+            }else
+            {
+                prefix = ""
+            }
         }
         if useEmojiPrefix
         {

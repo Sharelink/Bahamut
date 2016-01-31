@@ -43,7 +43,7 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
             self.prepareShare()
         }else
         {
-            self.rootController.showToast("NO_URL_IN_PASTE_BOARD".localizedString())
+            self.rootController.playToast("NO_URL_IN_PASTE_BOARD".localizedString())
         }
     }
     
@@ -103,13 +103,13 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
 
         if String.isNullOrWhiteSpace(shareUrl.text)
         {
-            self.rootController.showToast("LINK_CANT_NULL".localizedString())
+            self.rootController.playToast("LINK_CANT_NULL".localizedString())
             return false
         }else if shareUrl.text! =~ urlRegex
         {
             if urlModel == nil
             {
-                self.rootController.showToast("LINK_URL_NOT_READY".localizedString())
+                self.rootController.playToast("LINK_URL_NOT_READY".localizedString())
                 return false
             }
             let shareContent = urlModel.toJsonString()
@@ -122,7 +122,7 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
             return true
         }
         else{
-            self.rootController.showToast("INVALID_URL".localizedString())
+            self.rootController.playToast("INVALID_URL".localizedString())
             return false
         }
     }
@@ -133,11 +133,21 @@ class NewShareUrlCell: ShareContentCellBase,UITextFieldDelegate{
         if let model = rootController.passedShareModel
         {
             let urlModel = UrlContentModel(json: model.shareContent)
+            if urlModel.url == nil
+            {
+                return
+            }
             self.shareUrl.text = urlModel.url
             self.shareUrl.enabled = false
             self.pasteButton.hidden = true
             self.clearUrlButton.hidden = true
-            self.titleLabel.text = urlModel.title
+            if urlModel.title == nil
+            {
+                loadHtml(urlModel.url)
+            }else
+            {
+                self.titleLabel.text = urlModel.title
+            }
             self.titleLabel.hidden = false
             self.getTitleIndicator.hidden = true
         }
