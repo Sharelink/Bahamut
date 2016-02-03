@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -602,7 +603,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va8-L1-NgU">
-                                <rect key="frame" x="315" y="235" width="67" height="67"/>
+                                <rect key="frame" x="315" y="168" width="67" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="HIJ-de-7ck"/>
                                     <constraint firstAttribute="width" constant="67" id="u0R-HK-bDf"/>
@@ -613,7 +614,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SK0-3V-PTc">
-                                <rect key="frame" x="225" y="235" width="67" height="67"/>
+                                <rect key="frame" x="225" y="168" width="67" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="CUr-mu-fRe"/>
                                     <constraint firstAttribute="height" constant="67" id="fEr-Ng-ZwG"/>
@@ -630,13 +631,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反馈意见" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABx-ze-iQi">
-                                <rect key="frame" x="224" y="310" width="68" height="21"/>
+                                <rect key="frame" x="224" y="243" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商店评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4M-0O-ELq">
-                                <rect key="frame" x="315" y="310" width="68" height="21"/>
+                                <rect key="frame" x="315" y="243" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -646,7 +647,7 @@
                         <constraints>
                             <constraint firstItem="Va8-L1-NgU" firstAttribute="leading" secondItem="SK0-3V-PTc" secondAttribute="trailing" constant="23" id="20V-z6-fHd"/>
                             <constraint firstItem="H4M-0O-ELq" firstAttribute="centerX" secondItem="Va8-L1-NgU" secondAttribute="centerX" id="6uo-XA-mug"/>
-                            <constraint firstItem="Va8-L1-NgU" firstAttribute="centerY" secondItem="lB6-gM-4zc" secondAttribute="centerY" id="DPo-TZ-USz"/>
+                            <constraint firstItem="Va8-L1-NgU" firstAttribute="centerY" secondItem="lB6-gM-4zc" secondAttribute="centerY" multiplier="3/4" id="DPo-TZ-USz"/>
                             <constraint firstItem="SK0-3V-PTc" firstAttribute="centerY" secondItem="Va8-L1-NgU" secondAttribute="centerY" id="GnM-Fi-TSb"/>
                             <constraint firstItem="SK0-3V-PTc" firstAttribute="leading" secondItem="Va8-L1-NgU" secondAttribute="trailing" constant="8" symbolic="YES" id="K2z-LA-ybl"/>
                             <constraint firstItem="Va8-L1-NgU" firstAttribute="centerX" secondItem="lB6-gM-4zc" secondAttribute="centerX" constant="48" id="L5U-FX-rZu"/>

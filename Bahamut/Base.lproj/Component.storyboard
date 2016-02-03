@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -602,7 +603,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNI-kn-rb4">
-                                <rect key="frame" x="315" y="235" width="67" height="67"/>
+                                <rect key="frame" x="315" y="168" width="67" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="PS6-3G-SKa"/>
                                     <constraint firstAttribute="height" constant="67" id="tMX-fN-G8S"/>
@@ -613,7 +614,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2F-Xo-rqh">
-                                <rect key="frame" x="225" y="235" width="67" height="67"/>
+                                <rect key="frame" x="225" y="168" width="67" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="O1Q-nI-01T"/>
                                     <constraint firstAttribute="width" constant="67" id="OHa-MP-hMm"/>
@@ -630,13 +631,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTc-TJ-mBm">
-                                <rect key="frame" x="220" y="310" width="76" height="21"/>
+                                <rect key="frame" x="220" y="243" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vote Me!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ro-Kb-JAX">
-                                <rect key="frame" x="315" y="310" width="68" height="21"/>
+                                <rect key="frame" x="315" y="243" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -650,7 +651,7 @@
                             <constraint firstItem="VTc-TJ-mBm" firstAttribute="top" secondItem="e2F-Xo-rqh" secondAttribute="bottom" constant="8" symbolic="YES" id="FJd-B3-uOg"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="e2F-Xo-rqh" secondAttribute="trailing" constant="23" id="MTI-0H-AKc"/>
                             <constraint firstItem="3ro-Kb-JAX" firstAttribute="centerX" secondItem="XNI-kn-rb4" secondAttribute="centerX" id="QnN-4X-Rv9"/>
-                            <constraint firstItem="XNI-kn-rb4" firstAttribute="centerY" secondItem="dDk-sn-nUN" secondAttribute="centerY" id="ZZn-HA-mWO"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="centerY" secondItem="dDk-sn-nUN" secondAttribute="centerY" multiplier="3/4" id="ZZn-HA-mWO"/>
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="height" secondItem="XNI-kn-rb4" secondAttribute="height" id="lcc-M2-rhh"/>
                             <constraint firstItem="e2F-Xo-rqh" firstAttribute="centerX" secondItem="XNI-kn-rb4" secondAttribute="centerX" id="nud-MQ-hdL"/>
                             <constraint firstItem="XNI-kn-rb4" firstAttribute="centerX" secondItem="dDk-sn-nUN" secondAttribute="centerX" constant="48" id="o0w-5l-rZJ"/>
