@@ -49,7 +49,10 @@ UPDATING = "Updating";
 IGNORE = "Ignore";
 ADD_IMAGE_LIMIT_AT_X = "Only add %@ photos at most";
 HARMFUL_CONTENT = "Harmful Content";
+COPY_SHARE_MESSAGE = "Copy Share Words";
+COPY_SHARE_MESSAGE_SUC = "Words Copied";
 SHARELINK_MOTTO = "Read Your Focus, Share Your Friends Focus!";
+UNKNOW_ACTION = "Unknow Action";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "Camera is not available";
@@ -215,8 +218,9 @@ SAME_THEME_EXISTS = "This theme already focus!";
 
 //User List Controller
 LINK_MESSAGE = "Sharelinker Messages";
-ACCEPT_USER_LINK_FAILED = "Accept userLink error";
-USER_ACCEPT_YOUR_LINK = "Accept your link request";
+ACCEPT_USER_LINK_FAILED = "Accept Userlink Error";
+USER_ACCEPT_YOUR_LINK = "Accept Your Link Request!";
+YOU_ACCEPT_NEW_FRIEND = "Linked With Your Friend!";
 
 //MyDetailViewController
 USER_DATA_NOT_READY_RETRY = "User Data Not Ready,Retry Later";
@@ -244,6 +248,7 @@ SET_AVATAR_FAILED = "Failed";
 
 //
 ASKING_FOR_A_LINK = "%@ want to link with you";
+YOUR_SHOW_NAME = "Your Show Name";
 
 //
 UNKNOW_SHARELINK_CMD = "Unknow Sharelink Command";

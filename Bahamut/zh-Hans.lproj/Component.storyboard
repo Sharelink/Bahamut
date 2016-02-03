@@ -324,68 +324,6 @@
             </objects>
             <point key="canvasLocation" x="566" y="3003"/>
         </scene>
-        <!--关于-->
-        <scene sceneID="vFN-CO-tGw">
-            <objects>
-                <viewController storyboardIdentifier="aboutViewController" title="关于" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hLQ-lq-XCx" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fdB-6Y-082"/>
-                        <viewControllerLayoutGuide type="bottom" id="PHa-ub-KZp"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CMX-fs-zz6">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharelink" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-93-3Ha">
-                                <rect key="frame" x="20" y="8" width="56" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="56" id="7RG-3H-rIx"/>
-                                    <constraint firstAttribute="height" constant="56" id="jJe-zt-YqJ"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKa-35-R8o">
-                                <rect key="frame" x="84" y="8" width="71" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGU-UY-XPh">
-                                <rect key="frame" x="84" y="34" width="105" height="30"/>
-                                <state key="normal" title="去应用商店评价"/>
-                                <connections>
-                                    <action selector="showInAppStore:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="6Hq-kX-0zQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bs0-wW-q1N">
-                                <rect key="frame" x="20" y="72" width="265" height="30"/>
-                                <state key="normal" title="邮箱: bahamut-sharelink@outlook.com"/>
-                                <connections>
-                                    <action selector="mailToBahamutSharelink:" destination="hLQ-lq-XCx" eventType="touchUpInside" id="C1l-iE-lal"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="bs0-wW-q1N" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="leading" id="Cuf-5o-smh"/>
-                            <constraint firstItem="vKa-35-R8o" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="top" id="MRW-zX-npJ"/>
-                            <constraint firstItem="cF2-93-3Ha" firstAttribute="top" secondItem="fdB-6Y-082" secondAttribute="bottom" constant="8" symbolic="YES" id="QJf-dC-84a"/>
-                            <constraint firstItem="zGU-UY-XPh" firstAttribute="bottom" secondItem="cF2-93-3Ha" secondAttribute="bottom" id="VfQ-Xi-sFT"/>
-                            <constraint firstItem="cF2-93-3Ha" firstAttribute="leading" secondItem="CMX-fs-zz6" secondAttribute="leadingMargin" id="bmm-OD-o2r"/>
-                            <constraint firstItem="bs0-wW-q1N" firstAttribute="top" secondItem="cF2-93-3Ha" secondAttribute="bottom" constant="8" symbolic="YES" id="jvW-Ub-4ff"/>
-                            <constraint firstItem="zGU-UY-XPh" firstAttribute="leading" secondItem="vKa-35-R8o" secondAttribute="leading" id="tAY-sC-ZIq"/>
-                            <constraint firstItem="vKa-35-R8o" firstAttribute="leading" secondItem="cF2-93-3Ha" secondAttribute="trailing" constant="8" symbolic="YES" id="tgr-8s-Roo"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <connections>
-                        <outlet property="appImageView" destination="cF2-93-3Ha" id="Hr9-1x-5IH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EkB-1P-Lxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1218" y="3003"/>
-        </scene>
         <!--叮叮叮！-->
         <scene sceneID="O7r-2b-m6O">
             <objects>
@@ -651,13 +589,99 @@
             </objects>
             <point key="canvasLocation" x="-126" y="2339"/>
         </scene>
+        <!--About-->
+        <scene sceneID="HaF-zR-Y8e">
+            <objects>
+                <viewController storyboardIdentifier="aboutViewController" title="About" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eCv-4a-Ggy" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y8T-AY-bBF"/>
+                        <viewControllerLayoutGuide type="bottom" id="YmI-kx-89L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lB6-gM-4zc">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va8-L1-NgU">
+                                <rect key="frame" x="315" y="235" width="67" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="HIJ-de-7ck"/>
+                                    <constraint firstAttribute="width" constant="67" id="u0R-HK-bDf"/>
+                                </constraints>
+                                <state key="normal" title="Vote me in app store" image="heart_circle"/>
+                                <connections>
+                                    <action selector="showInAppStore:" destination="eCv-4a-Ggy" eventType="touchUpInside" id="ij4-Ys-1LV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SK0-3V-PTc">
+                                <rect key="frame" x="225" y="235" width="67" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="67" id="CUr-mu-fRe"/>
+                                    <constraint firstAttribute="height" constant="67" id="fEr-Ng-ZwG"/>
+                                </constraints>
+                                <state key="normal" title="Email: bahamut-sharelink@outlook.com" image="mail_circle"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fEr-Ng-ZwG"/>
+                                        <exclude reference="CUr-mu-fRe"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="mailToBahamutSharelink:" destination="eCv-4a-Ggy" eventType="touchUpInside" id="joj-4Y-h3r"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反馈意见" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABx-ze-iQi">
+                                <rect key="frame" x="224" y="310" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商店评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4M-0O-ELq">
+                                <rect key="frame" x="315" y="310" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Va8-L1-NgU" firstAttribute="leading" secondItem="SK0-3V-PTc" secondAttribute="trailing" constant="23" id="20V-z6-fHd"/>
+                            <constraint firstItem="H4M-0O-ELq" firstAttribute="centerX" secondItem="Va8-L1-NgU" secondAttribute="centerX" id="6uo-XA-mug"/>
+                            <constraint firstItem="Va8-L1-NgU" firstAttribute="centerY" secondItem="lB6-gM-4zc" secondAttribute="centerY" id="DPo-TZ-USz"/>
+                            <constraint firstItem="SK0-3V-PTc" firstAttribute="centerY" secondItem="Va8-L1-NgU" secondAttribute="centerY" id="GnM-Fi-TSb"/>
+                            <constraint firstItem="SK0-3V-PTc" firstAttribute="leading" secondItem="Va8-L1-NgU" secondAttribute="trailing" constant="8" symbolic="YES" id="K2z-LA-ybl"/>
+                            <constraint firstItem="Va8-L1-NgU" firstAttribute="centerX" secondItem="lB6-gM-4zc" secondAttribute="centerX" constant="48" id="L5U-FX-rZu"/>
+                            <constraint firstItem="SK0-3V-PTc" firstAttribute="centerX" secondItem="Va8-L1-NgU" secondAttribute="centerX" id="P4X-es-nah"/>
+                            <constraint firstItem="H4M-0O-ELq" firstAttribute="top" secondItem="Va8-L1-NgU" secondAttribute="bottom" constant="8" id="TkC-4i-o7M"/>
+                            <constraint firstItem="SK0-3V-PTc" firstAttribute="height" secondItem="Va8-L1-NgU" secondAttribute="height" id="Wbk-Hv-LLp"/>
+                            <constraint firstItem="ABx-ze-iQi" firstAttribute="centerX" secondItem="SK0-3V-PTc" secondAttribute="centerX" id="d9T-O5-6OM"/>
+                            <constraint firstItem="SK0-3V-PTc" firstAttribute="width" secondItem="Va8-L1-NgU" secondAttribute="width" id="egf-PV-Y6R"/>
+                            <constraint firstItem="ABx-ze-iQi" firstAttribute="top" secondItem="SK0-3V-PTc" secondAttribute="bottom" constant="8" symbolic="YES" id="qsL-yt-xy8"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="K2z-LA-ybl"/>
+                                <exclude reference="P4X-es-nah"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Sharelink" id="8PU-AY-2fD">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="aQq-6o-wsW"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c6p-og-Phq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218" y="3003"/>
+        </scene>
     </scenes>
     <resources>
         <image name="check" width="512" height="512"/>
         <image name="heart" width="512" height="512"/>
+        <image name="heart_circle" width="128" height="128"/>
         <image name="icon_check" width="32" height="32"/>
+        <image name="mail_circle" width="128" height="128"/>
         <image name="next" width="72" height="72"/>
-        <image name="sharelink" width="167" height="167"/>
         <image name="unlock" width="512" height="512"/>
     </resources>
 </document>

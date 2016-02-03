@@ -68,7 +68,7 @@ extension UserService
         
         publishContent.addSMSUnitWithContent(contentWithUrl)
         
-        publishContent.addFacebookWithContent(contentWithUrl, image: img)
+        //publishContent.addFacebookWithContent(contentWithUrl, image: img)
         
         publishContent.addMailUnitWithSubject(title, content: contentWithUrl, isHTML: false, attachments: nil, to: nil, cc: nil, bcc: nil)
         

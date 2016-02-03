@@ -71,6 +71,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.addInputFunctionView()
         self.initChatRoomListViewController()
         self.addRefreshViews()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapView:"))
         messageService = ServiceContainer.getService(ChatService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         self.initBarBadge()
@@ -98,6 +99,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         super.viewWillDisappear(animated)
         shareChat.inChatView = false
         messageService.leaveChatRoom()
+        self.hideKeyBoard()
         NSNotificationCenter.defaultCenter().removeObserver(self)
         MobClick.endLogPageView("ChatView")
     }
@@ -165,6 +167,12 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     }
     
     //MARK: actions
+    func onTapView(_:UIGestureRecognizer)
+    {
+        hideKeyBoard()
+        hideRommListContainer()
+    }
+    
     func swipeRight(_:UIGestureRecognizer)
     {
         hideRommListContainer()
@@ -248,6 +256,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         if roomContainerTrailiing != nil
         {
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.themeColor
             UIView.beginAnimations(nil, context:nil)
             UIView.setAnimationDuration(0.2)
             UIView.setAnimationCurve(.Linear)
@@ -261,6 +270,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     {
         if roomContainerTrailiing != nil
         {
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
             UIView.beginAnimations(nil, context:nil)
             UIView.setAnimationDuration(0.1)
             UIView.setAnimationCurve(.Linear)

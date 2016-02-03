@@ -49,7 +49,10 @@ UPDATING = "更新中";
 IGNORE = "忽略";
 ADD_IMAGE_LIMIT_AT_X = "最多只能添加%@张图片";
 HARMFUL_CONTENT = "不良信息";
-SHARELINK_MOTTO = "看你想看的，分享你朋友想看的!";
+COPY_SHARE_MESSAGE = "复制分享的文字";
+COPY_SHARE_MESSAGE_SUC = "复制成功";
+SHARELINK_MOTTO = "与身边的人分享和交流喜欢的话题!";
+UNKNOW_ACTION = "未知操作";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "没有发现相机";
@@ -214,7 +217,8 @@ SAME_THEME_EXISTS = "你已经关注了这个主题!";
 //User List Controller
 LINK_MESSAGE = "好友消息";
 ACCEPT_USER_LINK_FAILED = "添加好友失败";
-USER_ACCEPT_YOUR_LINK = "接受了你的请求";
+USER_ACCEPT_YOUR_LINK = "接受了你的请求！";
+YOU_ACCEPT_NEW_FRIEND = "成功添加好友！";
 
 //MyDetailViewController
 USER_DATA_NOT_READY_RETRY = "用户数据没准备好，请稍后重试";
@@ -241,15 +245,16 @@ SET_AVATAR_SUC = "设置头像成功";
 SET_AVATAR_FAILED = "设置头像失败";
 
 //
-ASKING_FOR_A_LINK = "%@ 想与你建立连接。";
+ASKING_FOR_A_LINK = "%@ 请求添加你为好友。";
+YOUR_SHOW_NAME = "显示的名称";
 
 //
 UNKNOW_SHARELINK_CMD = "非法命令";
 SHARELINK_CMD_TIMEOUT = "命令已经失效";
-SEND_LINK_REQUEST_TO = "发送建立连接请求给 %@";
+SEND_LINK_REQUEST_TO = "发送添加好友请求给 %@";
 LINK_REQUEST_SENDED = "请求已发送";
-ASK_LINK_MSG = "%@ 想与你在Sharelink建立好友连接!";
-ASK_LINK_MSG_NEW_YEAR = "新春快乐！%@ 想与你在Sharelink建立好友连接!";
+ASK_LINK_MSG = "%@ 邀请你加入Sharelink!";
+ASK_LINK_MSG_NEW_YEAR = "新春快乐！%@ 邀请你加入Sharelink!";
 
 //notification format
 NEW_MSG_NOTIFICATION = "你有一条新的消息!";

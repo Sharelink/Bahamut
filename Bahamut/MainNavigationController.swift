@@ -164,8 +164,22 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
             }
         }else
         {
+            let title = "SHARELINK".localizedString()
+            let msg = String(format: "SEND_LINK_REQUEST_TO".localizedString(),sharelinkerNick)
+            let alertController = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+            alertController.addTextFieldWithConfigurationHandler({ (textfield) -> Void in
+                textfield.placeholder = "YOUR_SHOW_NAME".localizedString()
+                textfield.borderStyle = .None
+                textfield.text = userService.myUserModel.nickName
+            })
+            
             let yes = UIAlertAction(title: "YES".localizedString() , style: .Default, handler: { (action) -> Void in
-                userService.askSharelinkForLink(sharelinkerId, callback: { (isSuc) -> Void in
+                var askNick = alertController.textFields?[0].text ?? ""
+                if String.isNullOrEmpty(askNick)
+                {
+                    askNick = userService.myUserModel.nickName
+                }
+                userService.askSharelinkForLink(sharelinkerId, askNick:askNick, callback: { (isSuc) -> Void in
                     if isSuc
                     {
                         self.showAlert("Sharelink" ,msg:"LINK_REQUEST_SENDED".localizedString() )
@@ -173,9 +187,9 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
                 })
             })
             let no = UIAlertAction(title: "NO".localizedString(), style: .Cancel,handler:nil)
-            let title = "SHARELINK".localizedString()
-            let msg = String(format: "SEND_LINK_REQUEST_TO".localizedString(),sharelinkerNick)
-            self.showAlert(title, msg:msg, actions: [yes,no])
+            alertController.addAction(no)
+            alertController.addAction(yes)
+            self.showAlert(alertController)
         }
     }
     

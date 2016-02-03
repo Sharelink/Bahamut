@@ -601,51 +601,74 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharelink" translatesAutoresizingMaskIntoConstraints="NO" id="bce-Lq-eUc">
-                                <rect key="frame" x="20" y="8" width="56" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNI-kn-rb4">
+                                <rect key="frame" x="315" y="235" width="67" height="67"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="1XV-zJ-QkF"/>
-                                    <constraint firstAttribute="width" constant="56" id="seb-AI-fXd"/>
+                                    <constraint firstAttribute="width" constant="67" id="PS6-3G-SKa"/>
+                                    <constraint firstAttribute="height" constant="67" id="tMX-fN-G8S"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftb-Tm-XNI">
-                                <rect key="frame" x="84" y="8" width="71" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNI-kn-rb4">
-                                <rect key="frame" x="84" y="34" width="142" height="30"/>
-                                <state key="normal" title="Vote me in app store"/>
+                                <state key="normal" title="Vote me in app store" image="heart_circle"/>
                                 <connections>
                                     <action selector="showInAppStore:" destination="8DE-tZ-cFX" eventType="touchUpInside" id="4t3-rQ-7T4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2F-Xo-rqh">
-                                <rect key="frame" x="20" y="72" width="272" height="30"/>
-                                <state key="normal" title="Email: bahamut-sharelink@outlook.com"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2F-Xo-rqh">
+                                <rect key="frame" x="225" y="235" width="67" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="O1Q-nI-01T"/>
+                                    <constraint firstAttribute="width" constant="67" id="OHa-MP-hMm"/>
+                                </constraints>
+                                <state key="normal" title="Email: bahamut-sharelink@outlook.com" image="mail_circle"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="O1Q-nI-01T"/>
+                                        <exclude reference="OHa-MP-hMm"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="mailToBahamutSharelink:" destination="8DE-tZ-cFX" eventType="touchUpInside" id="nfy-H0-52m"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTc-TJ-mBm">
+                                <rect key="frame" x="220" y="310" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vote Me!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ro-Kb-JAX">
+                                <rect key="frame" x="315" y="310" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ftb-Tm-XNI" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="trailing" constant="8" symbolic="YES" id="3UX-a1-sNq"/>
-                            <constraint firstItem="bce-Lq-eUc" firstAttribute="top" secondItem="V1V-6t-FOv" secondAttribute="bottom" constant="8" symbolic="YES" id="CSb-V3-2U5"/>
-                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="bottom" constant="8" symbolic="YES" id="GMg-T4-3lh"/>
-                            <constraint firstItem="bce-Lq-eUc" firstAttribute="leading" secondItem="dDk-sn-nUN" secondAttribute="leadingMargin" id="JS0-Jp-jXh"/>
-                            <constraint firstItem="ftb-Tm-XNI" firstAttribute="top" secondItem="bce-Lq-eUc" secondAttribute="top" id="NAF-qS-ZMr"/>
-                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="leading" secondItem="bce-Lq-eUc" secondAttribute="leading" id="gZg-Zq-0Aq"/>
-                            <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="ftb-Tm-XNI" secondAttribute="leading" id="sqL-Iy-bWf"/>
-                            <constraint firstItem="XNI-kn-rb4" firstAttribute="bottom" secondItem="bce-Lq-eUc" secondAttribute="bottom" id="xeJ-NO-BAL"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="leading" secondItem="XNI-kn-rb4" secondAttribute="trailing" constant="8" symbolic="YES" id="526-0s-t5V"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="width" secondItem="XNI-kn-rb4" secondAttribute="width" id="8bh-fr-wRf"/>
+                            <constraint firstItem="VTc-TJ-mBm" firstAttribute="centerX" secondItem="e2F-Xo-rqh" secondAttribute="centerX" id="9aG-0g-bM7"/>
+                            <constraint firstItem="VTc-TJ-mBm" firstAttribute="top" secondItem="e2F-Xo-rqh" secondAttribute="bottom" constant="8" symbolic="YES" id="FJd-B3-uOg"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="leading" secondItem="e2F-Xo-rqh" secondAttribute="trailing" constant="23" id="MTI-0H-AKc"/>
+                            <constraint firstItem="3ro-Kb-JAX" firstAttribute="centerX" secondItem="XNI-kn-rb4" secondAttribute="centerX" id="QnN-4X-Rv9"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="centerY" secondItem="dDk-sn-nUN" secondAttribute="centerY" id="ZZn-HA-mWO"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="height" secondItem="XNI-kn-rb4" secondAttribute="height" id="lcc-M2-rhh"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="centerX" secondItem="XNI-kn-rb4" secondAttribute="centerX" id="nud-MQ-hdL"/>
+                            <constraint firstItem="XNI-kn-rb4" firstAttribute="centerX" secondItem="dDk-sn-nUN" secondAttribute="centerX" constant="48" id="o0w-5l-rZJ"/>
+                            <constraint firstItem="e2F-Xo-rqh" firstAttribute="centerY" secondItem="XNI-kn-rb4" secondAttribute="centerY" id="oog-Ep-Brc"/>
+                            <constraint firstItem="3ro-Kb-JAX" firstAttribute="top" secondItem="XNI-kn-rb4" secondAttribute="bottom" constant="8" id="tQW-Oe-RLu"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="526-0s-t5V"/>
+                                <exclude reference="nud-MQ-hdL"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Sharelink" id="gL2-6l-GGd">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="lHB-6X-V5S"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <connections>
-                        <outlet property="appImageView" destination="bce-Lq-eUc" id="6y0-hD-t1Y"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yWj-j3-LFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -655,9 +678,10 @@
     <resources>
         <image name="check" width="512" height="512"/>
         <image name="heart" width="512" height="512"/>
+        <image name="heart_circle" width="128" height="128"/>
         <image name="icon_check" width="32" height="32"/>
+        <image name="mail_circle" width="128" height="128"/>
         <image name="next" width="72" height="72"/>
-        <image name="sharelink" width="167" height="167"/>
         <image name="unlock" width="512" height="512"/>
     </resources>
 </document>

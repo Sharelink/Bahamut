@@ -193,7 +193,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         cell.themeNameLabel.text = randomThemes[indexPath.row]
         cell.layer.cornerRadius = (calSizeLabel.frame.height + 7) / 2
         cell.layer.borderColor = UIColor.themeColor.CGColor
-        cell.layer.borderWidth = 2
+        cell.layer.borderWidth = 1
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
         return cell
     }

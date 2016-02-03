@@ -58,15 +58,25 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     @IBAction func selectFilm(sender: AnyObject) {
-        let files = fileService.getFileModelsOfFileLocalStore(FileType.Video)
-        fileService.showFileCollectionControllerView(self.rootController.navigationController!, files: files,selectionMode:.Single, delegate: self,title:"SELECT_FILM".localizedString())
-        MobClick.event("SelectVideoButton")
+        if let btn = sender as? UIView
+        {
+            btn.animationMaxToMin(0.1, maxScale: 1.1, completion: { () -> Void in
+                let files = self.fileService.getFileModelsOfFileLocalStore(FileType.Video)
+                self.fileService.showFileCollectionControllerView(self.rootController.navigationController!, files: files,selectionMode:.Single, delegate: self,title:"SELECT_FILM".localizedString())
+            })
+            MobClick.event("SelectVideoButton")
+        }
     }
     
     @IBAction func recordFilm(sender: AnyObject) {
         #if APP_VERSION
-        showQuPaiCamera()
-        MobClick.event("RecordVideoButton")
+            if let btn = sender as? UIView
+            {
+                btn.animationMaxToMin(0.1, maxScale: 1.1, completion: { () -> Void in
+                    self.showQuPaiCamera()
+                })
+            }
+            MobClick.event("RecordVideoButton")
         #endif
     }
     

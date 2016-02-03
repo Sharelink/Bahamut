@@ -285,6 +285,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 
                 LinkMessage.saveObjectOfArray(msgs)
                 PersistentManager.sharedInstance.refreshCache(LinkMessage)
+                PersistentManager.sharedInstance.saveAll()
                 self.refreshLinkMessage()
                 let msgsCopy = msgs.filter{$0 != nil}
                 let uInfo = [UserServiceNewLinkMessage:msgsCopy]
@@ -326,6 +327,24 @@ class UserService: NSNotificationCenter,ServiceProtocol
             if let _ = result.returnObject
             {
                 suc = true
+                let askingMsgs = self.linkMessageList.removeElement({ (msg) -> Bool in
+                    return msg.isAskingLinkMessage() && msg.sharelinkerId == userId
+                })
+                PersistentManager.sharedInstance.removeModels(askingMsgs)
+                let acceptLinkMsg = LinkMessage()
+                acceptLinkMsg.type = LinkMessageType.NewLinkAccepted.rawValue
+                acceptLinkMsg.message = "accepted"
+                acceptLinkMsg.sharelinkerId = userId
+                acceptLinkMsg.sharelinkerNick = noteName
+                acceptLinkMsg.avatar = askingMsgs.count > 0 ? askingMsgs[0].avatar : nil
+                acceptLinkMsg.time = NSDate().toLocalDateTimeString()
+                acceptLinkMsg.id = IdUtil.generateUniqueId()
+                acceptLinkMsg.saveModel()
+                
+                PersistentManager.sharedInstance.saveModelChanges()
+                self.linkMessageList.insert(acceptLinkMsg, atIndex: 0)
+                
+                self.postNotificationName(UserService.linkMessageUpdated, object: nil)
                 self.refreshMyLinkedUsers()
             }
             if let handler = callback
@@ -335,11 +354,11 @@ class UserService: NSNotificationCenter,ServiceProtocol
         }
     }
     
-    func askSharelinkForLink(sharelinkerId:String,callback:(isSuc:Bool)->Void)
+    func askSharelinkForLink(sharelinkerId:String,askNick:String,callback:(isSuc:Bool)->Void)
     {
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
-        req.message = String(format: "ASK_LINK_MSG", myUserModel.nickName!)
+        req.message = askNick
         SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }

@@ -585,19 +585,7 @@
                                                 <constraint firstAttribute="height" constant="160" id="zQU-fo-sCk"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-3f-79n">
-                                            <rect key="frame" x="176" y="37" width="64" height="64"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="64" id="dNR-bq-e4Q"/>
-                                                <constraint firstAttribute="height" constant="64" id="uH8-k8-hLw"/>
-                                            </constraints>
-                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="movie17"/>
-                                            <connections>
-                                                <action selector="selectFilm:" destination="V3G-UE-PsS" eventType="touchUpInside" id="YMn-aK-i3H"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQG-Pe-GqB">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQG-Pe-GqB">
                                             <rect key="frame" x="176" y="133" width="64" height="64"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="64" id="iBd-r0-uEP"/>
@@ -607,6 +595,18 @@
                                             <state key="normal" title="Record" image="webcam"/>
                                             <connections>
                                                 <action selector="recordFilm:" destination="V3G-UE-PsS" eventType="touchUpInside" id="Nv0-Mr-Jfl"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-3f-79n">
+                                            <rect key="frame" x="176" y="37" width="64" height="64"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="64" id="dNR-bq-e4Q"/>
+                                                <constraint firstAttribute="height" constant="64" id="uH8-k8-hLw"/>
+                                            </constraints>
+                                            <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="movie_folder"/>
+                                            <connections>
+                                                <action selector="selectFilm:" destination="V3G-UE-PsS" eventType="touchUpInside" id="YMn-aK-i3H"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1218,7 +1218,7 @@
         <image name="heart" width="512" height="512"/>
         <image name="lock" width="512" height="512"/>
         <image name="mail" width="128" height="128"/>
-        <image name="movie17" width="128" height="128"/>
+        <image name="movie_folder" width="128" height="128"/>
         <image name="new" width="24" height="24"/>
         <image name="post" width="24" height="24"/>
         <image name="qr_code" width="24" height="24"/>

@@ -27,11 +27,6 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
         self.changeNavigationBarColor()
     }
     
-    @IBOutlet weak var appImageView: UIImageView!{
-        didSet{
-            appImageView.layer.cornerRadius = 7
-        }
-    }
     @IBAction func showInAppStore(sender: AnyObject)
     {
         let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(SharelinkConfig.bahamutConfig.sharelinkAppStoreId)"
@@ -41,7 +36,7 @@ class AboutViewController: UIViewController,MFMailComposeViewControllerDelegate{
     @IBAction func mailToBahamutSharelink(sender: AnyObject) {
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = self
-        mail.setSubject("")
+        mail.setSubject("Sharelink Feedback")
         mail.setToRecipients([SharelinkConfig.bahamutConfig.sharelinkEmail])
         self.presentViewController(mail, animated: true, completion: nil)
 

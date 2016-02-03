@@ -105,9 +105,9 @@
                                     <action selector="addThemeFocus:" destination="imQ-kT-My5" eventType="touchUpInside" id="9Js-PV-wXp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有共同话题的朋友列表比冗长的好友列表更加珍贵。" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fne-Jw-gC8">
-                                <rect key="frame" x="20" y="577" width="560" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人总是因为一些兴趣、一个地方、某个时间、一次经历而聚集到一起成为朋友。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fne-Jw-gC8">
+                                <rect key="frame" x="20" y="575" width="560" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -153,7 +153,7 @@
             </objects>
             <point key="canvasLocation" x="368" y="425"/>
         </scene>
-        <!--来自朋友的链接？-->
+        <!--来自好友的链接？-->
         <scene sceneID="4Iw-Vh-z25">
             <objects>
                 <viewController id="xZh-Zb-KCa" sceneMemberID="viewController">
@@ -165,10 +165,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次打开好友发给你的链接添加你的好友（微信等App上需要用系统Safari浏览器打开）。不是来自好友邀请链接进来的就请跳过这一步吧！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLb-gc-IWd">
-                                <rect key="frame" x="20" y="72" width="560" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次打开好友发给你的链接添加邀请你加入的好友吧！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLb-gc-IWd">
+                                <rect key="frame" x="20" y="72" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不是通过好友邀请链接使用就请跳过这一步吧！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjB-Oe-iE7">
+                                <rect key="frame" x="20" y="101" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="相比于陌生人，也许与身边的朋友深入交流的友谊更加深厚。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYz-3V-ruu">
+                                <rect key="frame" x="20" y="575" width="560" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -176,10 +188,16 @@
                         <constraints>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="top" secondItem="t9S-np-fnY" secondAttribute="bottom" constant="8" symbolic="YES" id="02V-yM-Dxo"/>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="trailing" secondItem="4qQ-Nb-php" secondAttribute="trailingMargin" id="3OP-hL-Bah"/>
+                            <constraint firstItem="yjB-Oe-iE7" firstAttribute="top" secondItem="OLb-gc-IWd" secondAttribute="bottom" constant="8" symbolic="YES" id="4q1-4m-0nD"/>
+                            <constraint firstItem="YXe-Y5-ac8" firstAttribute="top" secondItem="wYz-3V-ruu" secondAttribute="bottom" constant="8" symbolic="YES" id="XXg-q4-Xwh"/>
+                            <constraint firstItem="wYz-3V-ruu" firstAttribute="leading" secondItem="yjB-Oe-iE7" secondAttribute="leading" id="Xlv-cA-4qW"/>
+                            <constraint firstItem="yjB-Oe-iE7" firstAttribute="leading" secondItem="OLb-gc-IWd" secondAttribute="leading" id="YIs-rN-m2T"/>
+                            <constraint firstItem="wYz-3V-ruu" firstAttribute="trailing" secondItem="yjB-Oe-iE7" secondAttribute="trailing" id="ZV7-kb-Vl1"/>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="leading" secondItem="4qQ-Nb-php" secondAttribute="leadingMargin" id="ff2-Mt-Klt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yjB-Oe-iE7" secondAttribute="trailing" id="z2h-D9-jYg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="来自朋友的链接？" id="wLy-WA-0Im">
+                    <navigationItem key="navigationItem" title="来自好友的链接？" id="wLy-WA-0Im">
                         <barButtonItem key="backBarButtonItem" title="上一步" id="M2O-6N-g9a"/>
                         <barButtonItem key="rightBarButtonItem" title="下一步" id="pfb-Zc-GBC">
                             <connections>
@@ -260,9 +278,9 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="因为一些兴趣、一个地方、某个时间、一次经历把人连接在一起，然后就有了朋友。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-RR-x0t">
-                                <rect key="frame" x="20" y="565" width="560" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有共同话题的朋友列表比冗长的列表更加珍贵。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-RR-x0t">
+                                <rect key="frame" x="20" y="575" width="560" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -271,12 +289,12 @@
                         <constraints>
                             <constraint firstItem="v5T-jp-kbT" firstAttribute="trailing" secondItem="1oL-x3-a7r" secondAttribute="trailingMargin" id="2Ho-N8-hQk"/>
                             <constraint firstItem="Zza-ed-Uvl" firstAttribute="top" secondItem="v5T-jp-kbT" secondAttribute="bottom" constant="8" symbolic="YES" id="CxS-cP-zcx"/>
-                            <constraint firstAttribute="bottom" secondItem="jk0-RR-x0t" secondAttribute="bottom" constant="20" symbolic="YES" id="IlW-BI-Jp9"/>
                             <constraint firstItem="v5T-jp-kbT" firstAttribute="leading" secondItem="1oL-x3-a7r" secondAttribute="leadingMargin" id="T8a-Yz-mJi"/>
                             <constraint firstItem="Zza-ed-Uvl" firstAttribute="trailing" secondItem="v5T-jp-kbT" secondAttribute="trailing" id="bX2-fE-CVD"/>
-                            <constraint firstItem="jk0-RR-x0t" firstAttribute="leading" secondItem="v5T-jp-kbT" secondAttribute="leading" id="gig-bV-9Yr"/>
-                            <constraint firstItem="jk0-RR-x0t" firstAttribute="trailing" secondItem="Zza-ed-Uvl" secondAttribute="trailing" id="nvV-aQ-cfk"/>
+                            <constraint firstItem="jk0-RR-x0t" firstAttribute="trailing" secondItem="Zza-ed-Uvl" secondAttribute="trailing" id="hKn-nD-5gC"/>
+                            <constraint firstItem="jk0-RR-x0t" firstAttribute="leading" secondItem="v5T-jp-kbT" secondAttribute="leading" id="pBV-6K-crt"/>
                             <constraint firstItem="v5T-jp-kbT" firstAttribute="top" secondItem="ReU-Xt-hMo" secondAttribute="bottom" constant="8" symbolic="YES" id="rvw-zI-Dly"/>
+                            <constraint firstItem="J7j-bI-UFd" firstAttribute="top" secondItem="jk0-RR-x0t" secondAttribute="bottom" constant="8" symbolic="YES" id="uxW-ZA-Rax"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="添加朋友" id="zWd-sW-9tK">
@@ -326,20 +344,20 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="换靓照" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZS-sv-Gwj">
-                                <rect key="frame" x="194" y="340" width="39" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <rect key="frame" x="189" y="340" width="48" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看档案" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTr-q2-F2n">
-                                <rect key="frame" x="281" y="340" width="39" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <rect key="frame" x="276" y="340" width="48" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享一个" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bg-aG-tc6">
-                                <rect key="frame" x="361" y="340" width="52" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <rect key="frame" x="355" y="340" width="64" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -349,10 +367,18 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对话往往开始于对朋友的的某件事的关注。" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmr-rg-7gu">
+                                <rect key="frame" x="20" y="575" width="560" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DTr-q2-F2n" firstAttribute="centerX" secondItem="6sA-Jr-qJa" secondAttribute="centerX" id="1SM-El-smR"/>
+                            <constraint firstItem="wmr-rg-7gu" firstAttribute="leading" secondItem="oEN-O9-C0V" secondAttribute="leadingMargin" id="B0f-H9-dzD"/>
+                            <constraint firstItem="mo5-w2-kbV" firstAttribute="top" secondItem="wmr-rg-7gu" secondAttribute="bottom" constant="8" symbolic="YES" id="DsX-t2-zxM"/>
                             <constraint firstItem="SY7-cK-BW2" firstAttribute="centerY" secondItem="6sA-Jr-qJa" secondAttribute="centerY" id="FQA-vx-umq"/>
                             <constraint firstItem="6sA-Jr-qJa" firstAttribute="top" secondItem="t4Q-7p-Zv7" secondAttribute="bottom" constant="67" id="IZg-Pc-lzK"/>
                             <constraint firstItem="rSQ-D4-t78" firstAttribute="centerY" secondItem="6sA-Jr-qJa" secondAttribute="centerY" id="JrU-QT-oIF"/>
@@ -361,16 +387,23 @@
                             <constraint firstItem="4Bg-aG-tc6" firstAttribute="top" secondItem="SY7-cK-BW2" secondAttribute="bottom" constant="8" id="SP8-nr-nSw"/>
                             <constraint firstItem="DTr-q2-F2n" firstAttribute="top" secondItem="6sA-Jr-qJa" secondAttribute="bottom" constant="8" id="STY-hY-U4M"/>
                             <constraint firstItem="rSQ-D4-t78" firstAttribute="width" secondItem="6sA-Jr-qJa" secondAttribute="width" id="Shz-Nj-LNj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wmr-rg-7gu" secondAttribute="trailing" id="Udq-tV-qk8"/>
                             <constraint firstItem="SY7-cK-BW2" firstAttribute="height" secondItem="6sA-Jr-qJa" secondAttribute="height" id="Xha-Fn-zg4"/>
                             <constraint firstItem="t4Q-7p-Zv7" firstAttribute="centerX" secondItem="6sA-Jr-qJa" secondAttribute="centerX" id="Z4k-0g-0Vl"/>
                             <constraint firstItem="6sA-Jr-qJa" firstAttribute="centerY" secondItem="oEN-O9-C0V" secondAttribute="centerY" id="e4O-nV-Xhd"/>
                             <constraint firstItem="rSQ-D4-t78" firstAttribute="height" secondItem="6sA-Jr-qJa" secondAttribute="height" id="e6t-wI-dMj"/>
+                            <constraint firstItem="wmr-rg-7gu" firstAttribute="centerX" secondItem="DTr-q2-F2n" secondAttribute="centerX" id="j12-Ny-rEZ"/>
                             <constraint firstItem="4Bg-aG-tc6" firstAttribute="centerX" secondItem="SY7-cK-BW2" secondAttribute="centerX" id="jVU-L0-1Bk"/>
                             <constraint firstItem="6sA-Jr-qJa" firstAttribute="centerX" secondItem="oEN-O9-C0V" secondAttribute="centerX" id="uD7-mL-j9q"/>
                             <constraint firstItem="DZS-sv-Gwj" firstAttribute="top" secondItem="rSQ-D4-t78" secondAttribute="bottom" constant="8" id="yx9-Vy-vOB"/>
                             <constraint firstItem="SY7-cK-BW2" firstAttribute="leading" secondItem="6sA-Jr-qJa" secondAttribute="trailing" constant="23" id="zDx-4n-ptm"/>
                             <constraint firstItem="SY7-cK-BW2" firstAttribute="width" secondItem="6sA-Jr-qJa" secondAttribute="width" id="zh9-wO-H5h"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="j12-Ny-rEZ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="29o-bT-YCI">
                         <barButtonItem key="backBarButtonItem" title="返回" id="c5h-Ak-AL0"/>

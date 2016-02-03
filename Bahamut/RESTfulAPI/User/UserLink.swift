@@ -7,18 +7,40 @@
 //
 
 import Foundation
+import EVReflection
 
 //MARK: Entities
-public class AULReturn : BahamutObject
+public class AULReturn : EVObject
 {
-    public var newLink:UserLink!
-    public var newUser:Sharelinker!
+    public class AULink: EVObject
+    {
+        public var linkId:String!
+        public var masterUserId:String!
+        public var slaveUserId:String!
+        public var status:String!
+        public var createTime:String!
+    }
+    
+    public class AUUser : EVObject
+    {
+        public var userId:String!
+        public var nickName:String!
+        public var noteName:String!
+        public var avatarId:String!
+        public var personalVideoId:String!
+        public var createTime:String!
+        public var motto:String!
+    }
+    
+    public var newLink:AULink!
+    public var newUser:AUUser!
 }
 
 public enum LinkMessageType:String
 {
     case AskLink = "asklink"
     case AcceptAskLink = "acceptlink"
+    case NewLinkAccepted = "newLinkAccepted"
 }
 
 public class LinkMessage : BahamutObject
@@ -46,6 +68,11 @@ public extension LinkMessage
     public func isAcceptAskLinkMessage() -> Bool
     {
         return LinkMessageType.AcceptAskLink.rawValue == self.type
+    }
+    
+    public func isNewLinkAccepted()->Bool
+    {
+        return LinkMessageType.NewLinkAccepted.rawValue == self.type
     }
 }
 

@@ -170,7 +170,8 @@ class UIShareThing: UIShareCell
     
     @IBAction func showMoreOperate(sender: AnyObject)
     {
-        let alerts = [
+        
+        var alerts = [
             UIAlertAction(title: "HARMFUL_CONTENT".localizedString(), style: .Default, handler: { (action) -> Void in
                 self.showHarmfulContentFeedback()
             }),
@@ -178,6 +179,13 @@ class UIShareThing: UIShareCell
                 
             })
         ]
+        if String.isNullOrEmpty(self.shareModel.message) == false
+        {
+            let action = UIAlertAction(title: "COPY_SHARE_MESSAGE".localizedString(), style: .Default, handler: { (action) -> Void in
+                self.copyShareMessageToPasteBoard()
+            })
+            alerts.insert(action, atIndex: 0)
+        }
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         for al in alerts
         {
@@ -196,6 +204,15 @@ class UIShareThing: UIShareCell
             let str = self.shareModel.shareId as NSString
             reportController.reportTypeLabel.text = "Harmful Share"
             reportController.reportContentTextView.text = "Share Code:\n\(str.base64String())\n"
+        }
+    }
+    
+    private func copyShareMessageToPasteBoard()
+    {
+        if String.isNullOrEmpty(self.shareModel.message) == false
+        {
+            UIPasteboard.generalPasteboard().setValue(self.shareModel.message, forPasteboardType: "public.utf8-plain-text")
+            self.rootController.playToast("COPY_SHARE_MESSAGE_SUC".localizedString())
         }
     }
     

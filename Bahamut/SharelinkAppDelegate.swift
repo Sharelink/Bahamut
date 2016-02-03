@@ -221,7 +221,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func connectGlobalApps()
     {
         //Facebook
-        ShareSDK.connectFacebookWithAppKey(SharelinkConfig.bahamutConfig.facebookAppkey, appSecret: SharelinkConfig.bahamutConfig.facebookAppScrect)
+        //ShareSDK.connectFacebookWithAppKey(SharelinkConfig.bahamutConfig.facebookAppkey, appSecret: SharelinkConfig.bahamutConfig.facebookAppScrect)
         
         //WhatsApp
         ShareSDK.connectWhatsApp()

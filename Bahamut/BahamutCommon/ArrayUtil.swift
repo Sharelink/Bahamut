@@ -11,16 +11,19 @@ import Foundation
 
 public extension Array
 {
-    public mutating func removeElement(predict:(itemInArray:Element) -> Bool)
+    public mutating func removeElement(predict:(itemInArray:Element) -> Bool) ->[Element]
     {
+        var result = [Element]()
         for var i = self.count - 1; i >= 0; i--
         {
             let a = self[i]
             if predict(itemInArray: a)
             {
-                self.removeAtIndex(i)
+                let item = self.removeAtIndex(i)
+                result.append(item)
             }
         }
+        return result
     }
     
     public func toMap<T:NSObject>(m:(elem:Element)-> T) -> [T:Element]

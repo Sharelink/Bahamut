@@ -181,7 +181,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
                 self.refreshingHud = self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
             }else{
                 self.playToast( message)
-                self.authenticate()
             }
             
             }) { (registApiServer) -> Void in

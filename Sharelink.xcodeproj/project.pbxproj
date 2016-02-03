@@ -541,7 +541,6 @@
 		E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKVersionReplaceInterfaces.swift; sourceTree = "<group>"; };
 		E717184D1C5738510097AF64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E7171AA41C5745430097AF64 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
-		E71AF3281BE4FE12000BBBF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E71AF3291BE4FE14000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E71AF32D1BE500A5000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UIMessage.storyboard"; sourceTree = "<group>"; };
 		E71AF32F1BE500BA000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/SharelinkMain.storyboard"; sourceTree = "<group>"; };
@@ -566,6 +565,7 @@
 		E72949A91BF4936E005B7B3A /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuPaiRecordCameraViewController.swift; sourceTree = "<group>"; };
+		E729E2471C61AC8C00EEA4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
 		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		E72F47251B7637AE002674AB /* LinkedUserListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedUserListController.swift; sourceTree = "<group>"; };
@@ -2324,8 +2324,8 @@
 		E71AF3271BE4FE11000BBBF8 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E71AF3281BE4FE12000BBBF8 /* en */,
 				E71AF3291BE4FE14000BBBF8 /* zh-Hans */,
+				E729E2471C61AC8C00EEA4E0 /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

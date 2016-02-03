@@ -32,7 +32,12 @@ class LinkConfirmViewController: UIViewController
     
     private func update()
     {
-        noteNameField.text = linkMessage.sharelinkerNick
+        noteNameField.text = linkMessage.message
+        
+        if linkMessage.message == "ASK_LINK_MSG" //old version before 1.2.1, if all user updated new than 1.2.1,remove this
+        {
+            noteNameField.text = linkMessage.sharelinkerNick
+        }
     }
     
     @IBAction func ignore(sender: AnyObject)
@@ -49,7 +54,6 @@ class LinkConfirmViewController: UIViewController
             ServiceContainer.getService(UserService).acceptUserLink(self.linkMessage.sharelinkerId,noteName: newNote!){ isSuc in
                 if isSuc
                 {
-                    ServiceContainer.getService(UserService).deleteLinkMessage(self.linkMessage.id)
                     self.navigationController?.popViewControllerAnimated(true)
                 }else
                 {

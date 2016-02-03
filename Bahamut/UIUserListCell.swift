@@ -74,7 +74,17 @@ class UIUserListMessageCell: UIUserListCellBase
     private func update()
     {
         noteNameLabel.text = model.sharelinkerNick
-        messageLabel.text = model.isAcceptAskLinkMessage() ? "USER_ACCEPT_YOUR_LINK".localizedString() : model.message
+        if model.isAcceptAskLinkMessage()
+        {
+            
+            messageLabel.text = "USER_ACCEPT_YOUR_LINK".localizedString()
+        }else if model.isNewLinkAccepted()
+        {
+            messageLabel.text = "YOU_ACCEPT_NEW_FRIEND".localizedString()
+        }else
+        {
+            messageLabel.text = model.message
+        }
         self.updateAvatar(model.avatar, avatarImageView: avatar)
     }
 }
@@ -117,9 +127,15 @@ class UIUserListAskingLinkCell: UIUserListCellBase
     
     private func update()
     {
-        userNickLabel.text = "\(model.sharelinkerNick)"
-        messageLabel.text = String(format: "ASKING_FOR_A_LINK".localizedString(),model.sharelinkerNick!)
         updateAvatar(model.avatar, avatarImageView: avatar)
+        
+        userNickLabel.text = "\(model.sharelinkerNick)"
+        messageLabel.text = String(format: "ASKING_FOR_A_LINK".localizedString(),model.message)
+        
+        if model.message == "ASK_LINK_MSG" //old version before 1.2.1, if all user updated new than 1.2.1,remove this
+        {
+            messageLabel.text = String(format: "ASKING_FOR_A_LINK".localizedString(),model.sharelinkerNick)
+        }
     }
     
 }
