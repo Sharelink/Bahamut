@@ -75,8 +75,9 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         var themes:[String]! = nil
         if hotThemes != nil && hotThemes.count > 0
         {
-            var themes = hotThemes.getRandomSubArray(3)
-            themes.appendContentsOf(allRandomThemes.getRandomSubArray(7))
+            themes = hotThemes.getRandomSubArray(3)
+            let rthemes = allRandomThemes.getRandomSubArray(7)
+            themes.appendContentsOf(rthemes)
         }else
         {
             getHotThemes()
