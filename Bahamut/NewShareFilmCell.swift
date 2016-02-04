@@ -22,7 +22,11 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     
     private let filmModel = FilmModel()
     private var filmPlayer:ShareLinkFilmView!
-    @IBOutlet weak var shareContentContainer: UIView!
+    @IBOutlet weak var shareContentContainer: UIView!{
+        didSet{
+            shareContentContainer.backgroundColor = UIColor.clearColor()
+        }
+    }
     @IBOutlet weak var recordFilmBtn: UIButton!
     @IBOutlet weak var selectFilmBtn: UIButton!
     
@@ -38,6 +42,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             filmPlayer = ShareLinkFilmView()
             filmPlayer.playerController.fillMode = AVLayerVideoGravityResizeAspect
             filmPlayer.autoLoad = true
+            filmPlayer.layer.cornerRadius = 7
             shareContentContainer.addSubview(filmPlayer)
         }
         if let model = rootController.passedShareModel
