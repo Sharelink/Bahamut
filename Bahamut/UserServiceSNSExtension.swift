@@ -35,12 +35,7 @@ extension UserService
         let user = userService.myUserModel
         let userHeadIconPath = PersistentManager.sharedInstance.getImageFilePath(user.avatarId)
         
-        var contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
-        if DateHelper.isInNewYearVocation()
-        {
-            contentMsg = String(format: "ASK_LINK_MSG_NEW_YEAR".localizedString(),user.nickName)
-        }
-        
+        let contentMsg = String(format: "ASK_LINK_MSG".localizedString(),user.nickName)
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
