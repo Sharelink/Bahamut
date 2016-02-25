@@ -3,7 +3,7 @@
 //  Bahamut
 //
 //  Created by AlexChow on 15/8/18.
-//  Copyright © 2015年 GStudio. All rights reserved.
+//  Copyright © 2015 GStudio. All rights reserved.
 //
 
 import UIKit
@@ -29,25 +29,9 @@ extension UIViewController
     }
 }
 
-class MainViewTabBarController: UITabBarController ,OrientationsNavigationController,UITabBarControllerDelegate
+class MainViewTabBarController: UITabBarController ,OrientationsNavigationController,UITabBarControllerDelegate,SRCMenuManagerDelegate
 {
     private(set) static var currentTabBarViewController:MainViewTabBarController!
-    
-//    static var currentNavicationController:UINavigationController!{
-//        if let mc = currentTabBarViewController?.selectedViewController as? UINavigationController
-//        {
-//            return mc
-//        }
-//        return nil
-//    }
-//    
-//    static var currentRootViewController:UIViewController!{
-//        if let mc = currentTabBarViewController?.selectedViewController?.presentingViewController as? MainNavigationController
-//        {
-//            return mc.presentedViewController
-//        }
-//        return nil
-//    }
     
     private var notificationService:NotificationService!
     private var messageService:ChatService!
@@ -70,7 +54,15 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         shareService = ServiceContainer.getService(ShareService)
         userService = ServiceContainer.getService(UserService)
         messageService = ServiceContainer.getService(ChatService)
+        configureSRCMenuItem()
         self.delegate = self
+    }
+    
+    private func configureSRCMenuItem()
+    {
+        let img = UIImage.namedImageInSharelink("src_menu_item")!.imageWithRenderingMode(.AlwaysOriginal)
+        self.tabBar.items![2].selectedImage = img
+        self.tabBar.items![2].image = img
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -90,7 +82,29 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.initSRCMenuManager()
         refreshBadges()
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool
+    {
+        if viewController is SRCMenuViewController
+        {
+            if self.srcMenuManager.isMenuShown
+            {
+                self.srcMenuManager.hideMenu()
+            }else
+            {
+                self.beforeShownMenuTabBarIndex = self.selectedIndex
+                self.srcMenuManager.showMenu()
+                self.tabBar.superview?.bringSubviewToFront(self.tabBar)
+            }
+            return true
+        }else
+        {
+            self.srcMenuManager.hideMenu()
+        }
+        return true
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
@@ -117,7 +131,39 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         
     }
     
+    //MARK: SRCMenu
+    static let SRC_MENU_ITEM_SELECTED = "SRC_MENU_ITEM_SELECTED"
+    private var beforeShownMenuTabBarIndex = 0
+    private var srcMenuManager:SRCMenuManager!
+    private func initSRCMenuManager()
+    {
+        if self.srcMenuManager == nil
+        {
+            self.srcMenuManager = SRCMenuManager()
+            let menuTopInset:CGFloat = 0.0
+            let menuBottomInset:CGFloat = self.tabBar.frame.height
+            
+            self.srcMenuManager.initManager(self.view,menuTopInset: menuTopInset,menuBottomInset:menuBottomInset)
+            self.srcMenuManager.delegate = self
+        }
+    }
     
+    //MARK: SRCMenuManagerDelegate
+    func srcMenuDidHidden() {
+        if selectedIndex == 2
+        {
+            self.selectedIndex = beforeShownMenuTabBarIndex
+        }
+    }
+    
+    func srcMenuDidShown() {
+    }
+    
+    func srcMenuItemDidClick(itemView: SRCMenuItemView) {
+        
+    }
+    
+    //MARK: message observer
     private func initObserver()
     {
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
@@ -161,17 +207,18 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     {
         if let newMsgs = a.userInfo?[UserServiceNewLinkMessage] as? [LinkMessage]
         {
-            self.setTabItemBadge(MainViewTabBarController.SharelinkerTabItemBadge, badge: badgeValue[MainViewTabBarController.SharelinkerTabItemBadge] + newMsgs.count)
+            self.setTabItemBadge(MainViewTabBarController.SharelinkerTabItemIndex, badge: badgeValue[MainViewTabBarController.SharelinkerTabItemIndex] + newMsgs.count)
             self.notificationService.playHintSound()
-            refreshBadgeAt(MainViewTabBarController.SharelinkerTabItemBadge)
+            refreshBadgeAt(MainViewTabBarController.SharelinkerTabItemIndex)
         }
     }
     
     //MARK: badge
-    private static let badgeKeys = ["ShareTabItemBadge","ThemeTabItemBadge","SharelinkerTabItemBadge","NewTabItemBadge"]
+    private static let badgeKeys = ["ShareTabItemBadge","ThemeTabItemBadge","SRCMenuTabItemBadge","SharelinkerTabItemBadge","NewTabItemBadge"]
     static let ShareTabItemBadgeIndex = 0
-    static let SharelinkerTabItemBadge = 2
-    private var badgeValue = [0,0,0,0]
+    static let NewShareTabItemIndex = 4
+    static let SharelinkerTabItemIndex = 3
+    private var badgeValue = [0,0,0,0,0]
     
     func reduceTabItemBadge(tabItemIndex:Int,badgeReduce:Int)
     {

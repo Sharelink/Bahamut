@@ -105,7 +105,6 @@
 		E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
 		E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47251B7637AE002674AB /* LinkedUserListController.swift */; };
 		E73681501B96A816004E8B56 /* SharelinkThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */; };
-		E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */; };
 		E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
 		E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */; };
 		E73B32961C40D6BE007E9254 /* HarmfulReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */; };
@@ -207,7 +206,6 @@
 		E74C83B11C590E8F009CF8DB /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABE1C174870001C0A47 /* FileType.swift */; };
 		E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */; };
-		E74C83B41C590E8F009CF8DB /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */; };
 		E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
 		E74C83B61C590E8F009CF8DB /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
 		E74C83B71C590E8F009CF8DB /* SDKVersionReplaceInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */; };
@@ -241,7 +239,6 @@
 		E74C83D41C590E8F009CF8DB /* ShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57951C54AD4C00505B2A /* ShareThing.swift */; };
 		E74C83D51C590E8F009CF8DB /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF351C048C390096C437 /* UploadBaseExtension.swift */; };
 		E74C83D61C590E8F009CF8DB /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
-		E74C83D71C590E8F009CF8DB /* NewUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* NewUserProfileViewController.swift */; };
 		E74C83D81C590E8F009CF8DB /* IDUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234521C0BF5530083E281 /* IDUtil.swift */; };
 		E74C83D91C590E8F009CF8DB /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACA1C174870001C0A47 /* FileMgrEntities.swift */; };
 		E74C83DA1C590E8F009CF8DB /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
@@ -310,6 +307,8 @@
 		E74C844F1C590E8F009CF8DB /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751FA1C561488002E3D40 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E74C84571C591042009CF8DB /* src in Resources */ = {isa = PBXBuildFile; fileRef = E74C84561C591042009CF8DB /* src */; };
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
+		E75E9BD01C7F27900065A389 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */; };
+		E75E9BD11C7F27900065A389 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */; };
 		E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762344D1C0BF5530083E281 /* ArrayUtil.swift */; };
 		E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E76234501C0BF5530083E281 /* MF_Base64Additions.m */; };
 		E76234571C0BF5530083E281 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234511C0BF5530083E281 /* DateHelper.swift */; };
@@ -334,6 +333,8 @@
 		E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
+		E782186D1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */; };
+		E782186E1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -342,7 +343,6 @@
 		E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEA1B67414300D5426B /* UIShareThing.swift */; };
 		E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
-		E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD021B67810200D5426B /* NewUserProfileViewController.swift */; };
 		E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD061B67EA1B00D5426B /* SignInViewController.swift */; };
 		E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD091B67EFE600D5426B /* ServiceProtocol.swift */; };
 		E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
@@ -570,7 +570,6 @@
 		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		E72F47251B7637AE002674AB /* LinkedUserListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedUserListController.swift; sourceTree = "<group>"; };
 		E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkThemeService.swift; sourceTree = "<group>"; };
-		E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserNavigationController.swift; sourceTree = "<group>"; };
 		E73AD00F1B8378A600EE9EA0 /* UIUserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserListCell.swift; sourceTree = "<group>"; };
 		E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarmfulReportViewController.swift; sourceTree = "<group>"; };
@@ -592,6 +591,7 @@
 		E74C84541C590E8F009CF8DB /* SDKSharelink.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SDKSharelink.plist; path = /Users/alexchow/GitHub/bahamut/Bahamut/SDKSharelink.plist; sourceTree = "<absolute>"; };
 		E74C84561C591042009CF8DB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = SRCPlugin/src; sourceTree = SOURCE_ROOT; };
 		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
+		E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E762344D1C0BF5530083E281 /* ArrayUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtil.swift; sourceTree = "<group>"; };
 		E762344F1C0BF5530083E281 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
 		E76234501C0BF5530083E281 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
@@ -618,6 +618,7 @@
 		E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastHelper.swift; sourceTree = "<group>"; };
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
 		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
+		E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCMenuViewController.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -626,7 +627,6 @@
 		E790BCEA1B67414300D5426B /* UIShareThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareThing.swift; sourceTree = "<group>"; };
 		E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIReplyMessage.swift; sourceTree = "<group>"; };
 		E790BCF51B676EAB00D5426B /* UIShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareContent.swift; sourceTree = "<group>"; };
-		E790BD021B67810200D5426B /* NewUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserProfileViewController.swift; sourceTree = "<group>"; };
 		E790BD061B67EA1B00D5426B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E790BD091B67EFE600D5426B /* ServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		E790BD0B1B67F12000D5426B /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
@@ -1073,6 +1073,7 @@
 				E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */,
 				E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */,
 				E70955AB1C4F61C50060A06E /* SRCMenu.swift */,
+				E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */,
 			);
 			name = NewShare;
 			sourceTree = "<group>";
@@ -1221,7 +1222,6 @@
 		E786084D1BA1DEB600E2BECA /* Sharelinker */ = {
 			isa = PBXGroup;
 			children = (
-				E790BD021B67810200D5426B /* NewUserProfileViewController.swift */,
 				E728163C1B7F1A0000A1927E /* UserProfileViewController.swift */,
 				E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */,
 				E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */,
@@ -1698,13 +1698,13 @@
 		E7F7F1CF1C52111000E6D117 /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
+				E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */,
 				E7A62FE51B6609A500F28D73 /* SharelinkAppDelegate.swift */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
 				E71D24BB1C063ECD00E0C31C /* SharelinkSetting.swift */,
 				E71500091C3B7520009185FE /* UserSetting.swift */,
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
-				E73AD00B1B83160900EE9EA0 /* MainViewTabBarController.swift */,
 				E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */,
 			);
 			name = AppMain;
@@ -2052,12 +2052,14 @@
 				E74C839A1C590E8F009CF8DB /* PersistentFileHelper.swift in Sources */,
 				E74C839B1C590E8F009CF8DB /* NewShareThemeCell.swift in Sources */,
 				E74C839C1C590E8F009CF8DB /* PersistentManager.swift in Sources */,
+				E782186E1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */,
 				E74C839D1C590E8F009CF8DB /* UIShareMessage.swift in Sources */,
 				E74C839E1C590E8F009CF8DB /* ShareService.swift in Sources */,
 				E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */,
 				E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */,
 				E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */,
 				E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */,
+				E75E9BD11C7F27900065A389 /* MainViewTabBarController.swift in Sources */,
 				E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */,
 				E74C83A41C590E8F009CF8DB /* File.swift in Sources */,
 				E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */,
@@ -2075,7 +2077,6 @@
 				E74C83B11C590E8F009CF8DB /* FileType.swift in Sources */,
 				E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */,
 				E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */,
-				E74C83B41C590E8F009CF8DB /* MainViewTabBarController.swift in Sources */,
 				E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */,
 				E74C83B61C590E8F009CF8DB /* UploadAliOSSExtension.swift in Sources */,
 				E74C83B71C590E8F009CF8DB /* SDKVersionReplaceInterfaces.swift in Sources */,
@@ -2110,7 +2111,6 @@
 				E74C83D41C590E8F009CF8DB /* ShareThing.swift in Sources */,
 				E74C83D51C590E8F009CF8DB /* UploadBaseExtension.swift in Sources */,
 				E74C83D61C590E8F009CF8DB /* KeyboardAdjustHelper.swift in Sources */,
-				E74C83D71C590E8F009CF8DB /* NewUserProfileViewController.swift in Sources */,
 				E74C83D81C590E8F009CF8DB /* IDUtil.swift in Sources */,
 				E74C83D91C590E8F009CF8DB /* FileMgrEntities.swift in Sources */,
 				E74C83DA1C590E8F009CF8DB /* MyQRViewController.swift in Sources */,
@@ -2169,6 +2169,7 @@
 				E71059061C5BCA3900D1C0CC /* UserGuideFinishViewController.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */,
+				E75E9BD01C7F27900065A389 /* MainViewTabBarController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */,
 				E7AF57A31C54AD4C00505B2A /* SharelinkSDK.swift in Sources */,
@@ -2190,6 +2191,7 @@
 				E73E44BC1B823E9600E0B6EB /* EditThemeViewController.swift in Sources */,
 				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */,
+				E782186D1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */,
 				E70A5ADF1C174870001C0A47 /* BahamutLocalFile.xcdatamodeld in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
@@ -2230,7 +2232,6 @@
 				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */,
 				E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */,
-				E73AD00C1B83160900EE9EA0 /* MainViewTabBarController.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
 				E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */,
 				E717182F1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift in Sources */,
@@ -2267,7 +2268,6 @@
 				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
 				E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
-				E790BD031B67810200D5426B /* NewUserProfileViewController.swift in Sources */,
 				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,
 				E70A5AE01C174870001C0A47 /* FileMgrEntities.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
@@ -2612,7 +2612,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guangjie Zhou (C5V52P9B6L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;
@@ -2697,7 +2697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guangjie Zhou (2BW6TGDJAV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";

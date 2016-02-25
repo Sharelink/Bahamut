@@ -168,7 +168,7 @@ SHARE_FAILED = "分享失败...";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "需要关注至少一个主题~";
 NEED_INPUT_THEME_NAME = "主题名不能为空~";
-HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来需要完成几个简单步骤快速了解Sharelink！";
+HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来请完成几个简单步骤快速了解Sharelink！";
 FIRST_SHARE_MESSAGE = "我的第一条分享!\ntips:下拉屏幕可以切换分享类型";
 
 //SignInViewController
@@ -255,7 +255,9 @@ LINK_REQUEST_SENDED = "请求已发送";
 ASK_LINK_MSG = "%@ 请求添加你为好友。";
 
 //notification format
-NEW_MSG_NOTIFICATION = "你有一条新的消息!";
+NEW_MSG_NOTIFICATION = "你有新的未读消息!";
+NEW_SHARE_NOTIFICATION = "新的分享!";
+NEW_FRI_MSG_NOTIFICATION = "你收到新的好友信息!";
 
 //
 SHARE_SUC = "分享成功!";

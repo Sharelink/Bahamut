@@ -8,6 +8,13 @@
 
 import Foundation
 
+class RegistModel {
+    var registUserServer:String!
+    var accountId:String!
+    var accessToken:String!
+    var userName:String!
+    var region:String!
+}
 
 class AccountService: ServiceProtocol
 {

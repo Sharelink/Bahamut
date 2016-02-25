@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -683,12 +683,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="写下你的想法..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Qp-90p">
-                                            <rect key="frame" x="15" y="15" width="116" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dqx-il-sAN">
                                             <rect key="frame" x="8" y="8" width="584" height="75"/>
                                             <constraints>
@@ -702,6 +696,12 @@
                                                 </mask>
                                             </variation>
                                         </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="写下你的想法..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Qp-90p">
+                                            <rect key="frame" x="15" y="15" width="116" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="dqx-il-sAN" firstAttribute="top" secondItem="Hut-Qp-90p" secondAttribute="top" id="86p-hj-nAp"/>
@@ -1075,11 +1075,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="新的分享" id="24z-CM-1cO">
                         <barButtonItem key="backBarButtonItem" title="返回" id="Nf2-Jg-C3j"/>
-                        <barButtonItem key="leftBarButtonItem" image="SRC" id="5q7-x8-kx8">
-                            <connections>
-                                <action selector="SRCMenuCliecked:" destination="uOJ-Jt-puu" id="7BM-wi-FM9"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="post" id="A6l-ih-Mt6">
                             <connections>
                                 <action selector="share" destination="uOJ-Jt-puu" id="sci-1d-o9J"/>
@@ -1090,9 +1085,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
-                    <connections>
-                        <outlet property="srcMenuButtonItem" destination="5q7-x8-kx8" id="1RT-Af-gEd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6A-C9-1A9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1193,7 +1185,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SRC" width="24" height="24"/>
         <image name="add_link" width="24" height="24"/>
         <image name="add_user" width="72" height="72"/>
         <image name="approve" width="128" height="128"/>

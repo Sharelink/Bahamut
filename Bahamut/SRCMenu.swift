@@ -26,6 +26,7 @@ class SRCMenuItemView: UIView {
 class SRCMenuManager:NSObject,UIScrollViewDelegate
 {
     private var menuTopInset:CGFloat = 0
+    private var menuBottomInset:CGFloat = 0
     private var srcService:SRCService!
     private var rootView:UIView!
     private var srcMenu:UIView!
@@ -33,11 +34,16 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     private var srcMenuPageControl:UIPageControl!
     private var srcItemViews = [SRCMenuItemView]()
     private var loadingSRCTipsLabel:UILabel!
+    var isMenuShown:Bool{
+        return srcMenu.hidden == false
+    }
     var delegate:SRCMenuManagerDelegate!
     
-    func initManager(rootView:UIView,menuTopInset:CGFloat)
+    func initManager(rootView:UIView,menuTopInset:CGFloat,menuBottomInset:CGFloat)
     {
+        self.menuBottomInset = menuBottomInset
         self.menuTopInset = menuTopInset
+        
         self.rootView = rootView
         self.srcService = ServiceContainer.getService(SRCService)
         self.srcService.addObserver(self, selector: "onLoadingPlugins:", name: SRCService.allSRCPluginsLoading, object: nil)
@@ -65,7 +71,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     
     private func initSRCMenu()
     {
-        let srcMenuFrame = CGRectMake(0, menuTopInset, self.rootView.frame.width, self.rootView.frame.height)
+        let srcMenuFrame = CGRectMake(0, menuTopInset, self.rootView.frame.width, self.rootView.frame.height - (self.menuTopInset + self.menuBottomInset))
         self.srcMenu = UIView(frame: srcMenuFrame)
         self.srcMenu.backgroundColor = UIColor.clearColor()
         let blurEffect = UIBlurEffect(style: .Light)
@@ -214,6 +220,8 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         {
             srcService.reloadSRC()
         }
+        
+        self.srcMenu.superview?.bringSubviewToFront(self.srcMenu)
         self.srcMenu.hidden = false
         self.srcMenu.alpha = 0
         UIView.animateWithDuration(0.3, animations: { () -> Void in

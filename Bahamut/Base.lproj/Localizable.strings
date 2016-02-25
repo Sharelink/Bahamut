@@ -170,7 +170,7 @@ SHARE_FAILED = "Share Failed";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "Please Focus One Theme At Least~";
 NEED_INPUT_THEME_NAME = "Theme Name Can't Not Be Empty~";
-HELLO_MESSAGE_FORMAT = "Dear %@, Welcome to Sharelink! Now complete a few simple steps to have a quick look!";
+HELLO_MESSAGE_FORMAT = "Hi %@! \nWelcome to Sharelink! Now Press start button to have a quick look please!";
 FIRST_SHARE_MESSAGE = "My first Sharelink share!";
 
 //SignInViewController
@@ -257,7 +257,9 @@ LINK_REQUEST_SENDED = "Ask for link sended";
 ASK_LINK_MSG = "%@ want to link with you in Sharelink!";
 
 //notification format
-NEW_MSG_NOTIFICATION = "You have a new message!";
+NEW_MSG_NOTIFICATION = "New unread messages!";
+NEW_SHARE_NOTIFICATION = "New shares!";
+NEW_FRI_MSG_NOTIFICATION = "New friends messages!";
 
 //
 SHARE_SUC = "Share Success!";

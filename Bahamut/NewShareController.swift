@@ -80,7 +80,7 @@ class ShareContentCellBase:NewShareCellBase
 }
 
 //MARK:NewShareController
-class NewShareController: UITableViewController,SRCMenuManagerDelegate
+class NewShareController: UITableViewController
 {
     var fileService:FileService!
     var shareService:ShareService!
@@ -104,7 +104,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         }
     }
     var currentSRCPlugin:SRCPlugin!
-    var srcMenuManager:SRCMenuManager!
     
     var shareMessageCell:NewShareMessageCell!
     var shareContentCell:ShareContentCellBase!
@@ -151,7 +150,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //self.initSRCMenuManager()
     }
     
     deinit{
@@ -160,19 +158,7 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
         }
     }
     
-    //Init
-    private func initSRCMenuManager()
-    {
-        if isReshare == false && self.srcMenuManager == nil
-        {
-            self.srcMenuManager = SRCMenuManager()
-            let navBarFrame = self.navigationController!.navigationBar.frame
-            let menuTopInset = navBarFrame.height + navBarFrame.origin.y
-            self.srcMenuManager.initManager(self.view.superview!,menuTopInset: menuTopInset)
-            self.srcMenuManager.delegate = self
-        }
-    }
-    
+    //MARK: Init actions
     private func initTableView()
     {
         self.tableView.estimatedRowHeight = tableView.rowHeight
@@ -289,40 +275,6 @@ class NewShareController: UITableViewController,SRCMenuManagerDelegate
     func refreshContentCellHeight()
     {
         tableView.reloadData()
-    }
-    
-    //MARK: SRCMenu
-    @IBAction func SRCMenuCliecked(sender: AnyObject)
-    {
-        self.srcMenuManager.isMenuHidden ? showSRCMenu() : srcMenuManager.hideMenu()
-    }
-    
-    private func showSRCMenu()
-    {
-        self.srcMenuButtonItem.tintColor = UIColor.orangeColor()
-        self.navigationItem.rightBarButtonItems = nil
-        self.tabBarController!.tabBar.hidden = true
-        self.titleView.titleLabel.text = "MY_PLUGINS".localizedString()
-        self.srcMenuManager.showMenu()
-    }
-    
-    //MARK: SRCMenuManagerDelegate
-    func srcMenuDidHidden() {
-        self.tabBarController!.tabBar.hidden = false
-        self.refreshControllerTitle()
-        self.navigationItem.rightBarButtonItems = [self.shareButtonItem]
-        self.srcMenuButtonItem.tintColor = UIColor.whiteColor()
-    }
-    
-    func srcMenuDidShown() {
-    }
-    
-    func srcMenuItemDidClick(itemView: SRCMenuItemView) {
-        if self.currentSRCPlugin.srcId != itemView.srcPlugin.srcId
-        {
-            self.currentSRCPlugin = itemView.srcPlugin
-            refreshSRCCell(.Left)
-        }
     }
     
     //MARK: post share

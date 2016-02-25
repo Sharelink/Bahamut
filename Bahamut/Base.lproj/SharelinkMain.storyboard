@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -482,12 +482,12 @@
             </objects>
             <point key="canvasLocation" x="-96" y="2070"/>
         </scene>
-        <!--Sharelinker-->
+        <!--Friends-->
         <scene sceneID="x7m-4a-hAj">
             <objects>
                 <navigationController id="VjT-9Z-NQj" customClass="UIUserNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Sharelinker" image="userlink" id="fZq-ca-5yA"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="userlink" id="fZq-ca-5yA"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="roK-tV-Jea">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -518,12 +518,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say Something..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35a-Yj-Iu8">
-                                            <rect key="frame" x="15" y="15" width="129" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="kmA-rd-aZd">
                                             <rect key="frame" x="8" y="8" width="584" height="75"/>
                                             <constraints>
@@ -537,6 +531,12 @@
                                                 </mask>
                                             </variation>
                                         </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say Something..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35a-Yj-Iu8">
+                                            <rect key="frame" x="15" y="15" width="129" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kmA-rd-aZd" firstAttribute="top" secondItem="35a-Yj-Iu8" secondAttribute="top" id="6d7-gY-eP9"/>
@@ -913,11 +913,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="New" id="nDD-up-0bh">
                         <barButtonItem key="backBarButtonItem" title="Back" id="o2Z-gf-fsY"/>
-                        <barButtonItem key="leftBarButtonItem" image="SRC" id="avs-6k-fIP">
-                            <connections>
-                                <action selector="SRCMenuCliecked:" destination="F9P-Xb-xg6" id="SDI-q0-ONR"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="post" id="cCy-zE-xvm">
                             <connections>
                                 <action selector="share" destination="F9P-Xb-xg6" id="jJc-oS-51g"/>
@@ -928,9 +923,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
-                    <connections>
-                        <outlet property="srcMenuButtonItem" destination="avs-6k-fIP" id="lC9-Uc-Pkt"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKA-oy-2DB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1012,12 +1004,12 @@
             </objects>
             <point key="canvasLocation" x="575" y="1335"/>
         </scene>
-        <!--Share-->
+        <!--Shares-->
         <scene sceneID="L20-bk-8FX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="wuC-ja-IW1" customClass="UIOrientationsNavigationController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Share" image="share_icon" id="Sb9-t4-Wis"/>
+                    <tabBarItem key="tabBarItem" title="Shares" image="share_icon" id="Sb9-t4-Wis"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -1047,12 +1039,11 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Pfj-Vd-31U">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.2156862745" green="0.44705882349999998" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="wuC-ja-IW1" kind="relationship" relationship="viewControllers" id="noa-P5-Xu3"/>
                         <segue destination="C54-eI-Wvc" kind="relationship" relationship="viewControllers" id="exl-3Q-e7p"/>
+                        <segue destination="nin-rq-Cx7" kind="relationship" relationship="viewControllers" id="gX7-AZ-xKC"/>
                         <segue destination="VjT-9Z-NQj" kind="relationship" relationship="viewControllers" id="hfR-Y7-RcD"/>
                         <segue destination="IPg-yr-IBk" kind="relationship" relationship="viewControllers" id="UEC-uH-1zT"/>
                     </connections>
@@ -1060,6 +1051,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cX9-YP-9jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-568" y="557"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="cR7-I6-KIB">
+            <objects>
+                <viewController id="nin-rq-Cx7" customClass="SRCMenuViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zpH-ln-gTf"/>
+                        <viewControllerLayoutGuide type="bottom" id="fE8-mg-3FY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="evk-pV-nv2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="src_menu_item" id="JsA-cH-V2L"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z9B-7H-8bM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97" y="557"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LUT-ZZ-T7a">
@@ -1084,11 +1094,11 @@
             </objects>
             <point key="canvasLocation" x="165" y="-189"/>
         </scene>
-        <!--Theme-->
+        <!--Themes-->
         <scene sceneID="DoO-bx-Gbx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C54-eI-Wvc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Theme" image="theme" id="2jy-gC-u8c"/>
+                    <tabBarItem key="tabBarItem" title="Themes" image="theme" id="2jy-gC-u8c"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="OWQ-Np-D3j">
@@ -1210,7 +1220,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SRC" width="24" height="24"/>
         <image name="add_link" width="24" height="24"/>
         <image name="add_user" width="72" height="72"/>
         <image name="approve" width="128" height="128"/>
@@ -1224,6 +1233,7 @@
         <image name="qr_code" width="24" height="24"/>
         <image name="share" width="128" height="128"/>
         <image name="share_icon" width="24" height="24"/>
+        <image name="src_menu_item" width="48" height="48"/>
         <image name="theme" width="24" height="24"/>
         <image name="up" width="128" height="128"/>
         <image name="user" width="24" height="24"/>

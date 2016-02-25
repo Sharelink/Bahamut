@@ -188,6 +188,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
     }
     
+    
+    private var refreshHud:MBProgressHUD!
+    
     func registNewUser(accountId:String,registApi:String,accessToken:String)
     {
         let registModel = RegistModel()
@@ -196,7 +199,22 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         registModel.accountId = accountId
         registModel.userName = registedAccountName ?? "Sharelinker"
         registModel.region = SharelinkSetting.contry.lowercaseString
-        ServiceContainer.getService(AccountService).showRegistNewUserController(self.navigationController!, registModel:registModel)
+        
+        let newUser = Sharelinker()
+        newUser.motto = "Sharelink"
+        newUser.nickName = registedAccountName ?? "Sharelinker"
+        
+        let hud = self.showActivityHudWithMessage("",message:"REGISTING".localizedString())
+        ServiceContainer.getService(AccountService).registNewUser(registModel, newUser: newUser){ isSuc,msg,validateResult in
+            hud.hideAsync(true)
+            if isSuc
+            {
+                self.refreshHud = self.showActivityHudWithMessage("",message:"REFRESHING".localizedString())
+            }else
+            {
+                self.playToast(msg)
+            }
+        }
     }
     
     private func authenticate()
