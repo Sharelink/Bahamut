@@ -274,11 +274,6 @@ class ShareThingsListController: UITableViewController
     
     //MARK: actions
     
-    @IBAction func userSetting(sender:AnyObject)
-    {
-        userService.showMyDetailView(self)
-    }
-    
     func scrollTableViewToTop()
     {
         if self.shareThings.count > 0

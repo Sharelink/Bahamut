@@ -150,7 +150,6 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcItemContainer.contentSize = CGSizeMake(CGFloat(totalPage) * self.srcItemContainer.frame.width, self.srcItemContainer.frame.height)
         
         allSRCPlugins.forIndexEach { (i, p) -> Void in
-            
             let page = i / self.onePageCount
             let indexOfPage = i % self.onePageCount
             let itemRow = indexOfPage / self.rowItemCount

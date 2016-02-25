@@ -307,8 +307,6 @@
 		E74C844F1C590E8F009CF8DB /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751FA1C561488002E3D40 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E74C84571C591042009CF8DB /* src in Resources */ = {isa = PBXBuildFile; fileRef = E74C84561C591042009CF8DB /* src */; };
 		E7555E1A1BA2AE20004C2129 /* UIVideoExplorerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */; };
-		E75E9BD01C7F27900065A389 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */; };
-		E75E9BD11C7F27900065A389 /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */; };
 		E76234551C0BF5530083E281 /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762344D1C0BF5530083E281 /* ArrayUtil.swift */; };
 		E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E76234501C0BF5530083E281 /* MF_Base64Additions.m */; };
 		E76234571C0BF5530083E281 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234511C0BF5530083E281 /* DateHelper.swift */; };
@@ -333,8 +331,6 @@
 		E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
-		E782186D1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */; };
-		E782186E1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */; };
 		E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
@@ -382,6 +378,8 @@
 		E7C0069F1C2DA634005CB638 /* ImageShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */; };
 		E7C006A21C2DA6D3005CB638 /* UIShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */; };
 		E7C006C51C2DB1AB005CB638 /* NewShareImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */; };
+		E7C157FB1C7F50D0009E5CDC /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */; };
+		E7C157FC1C7F50F3009E5CDC /* MainViewTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */; };
 		E7C4F2A31BCFB0470050997B /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A21BCFB0470050997B /* libicucore.tbd */; };
 		E7C4F2A51BCFB0570050997B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A41BCFB0570050997B /* libz.tbd */; };
 		E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A61BCFB0660050997B /* libstdc++.tbd */; };
@@ -591,7 +589,6 @@
 		E74C84541C590E8F009CF8DB /* SDKSharelink.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SDKSharelink.plist; path = /Users/alexchow/GitHub/bahamut/Bahamut/SDKSharelink.plist; sourceTree = "<absolute>"; };
 		E74C84561C591042009CF8DB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = SRCPlugin/src; sourceTree = SOURCE_ROOT; };
 		E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVideoExplorerController.swift; sourceTree = "<group>"; };
-		E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E762344D1C0BF5530083E281 /* ArrayUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtil.swift; sourceTree = "<group>"; };
 		E762344F1C0BF5530083E281 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
 		E76234501C0BF5530083E281 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
@@ -618,7 +615,6 @@
 		E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastHelper.swift; sourceTree = "<group>"; };
 		E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdjustHelper.swift; sourceTree = "<group>"; };
 		E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObject.swift; sourceTree = "<group>"; };
-		E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCMenuViewController.swift; sourceTree = "<group>"; };
 		E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRViewController.swift; sourceTree = "<group>"; };
 		E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRViewController.swift; sourceTree = "<group>"; };
 		E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkConfirmViewController.swift; sourceTree = "<group>"; };
@@ -667,6 +663,7 @@
 		E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShareContent.swift; sourceTree = "<group>"; };
 		E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareCell.swift; sourceTree = "<group>"; };
 		E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareImageCell.swift; sourceTree = "<group>"; };
+		E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTabBarController.swift; sourceTree = "<group>"; };
 		E7C4F2A21BCFB0470050997B /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		E7C4F2A41BCFB0570050997B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E7C4F2A61BCFB0660050997B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1073,7 +1070,6 @@
 				E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */,
 				E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */,
 				E70955AB1C4F61C50060A06E /* SRCMenu.swift */,
-				E782186C1C7EF97E00ACEDB8 /* SRCMenuViewController.swift */,
 			);
 			name = NewShare;
 			sourceTree = "<group>";
@@ -1698,7 +1694,7 @@
 		E7F7F1CF1C52111000E6D117 /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
-				E75E9BCF1C7F27900065A389 /* MainViewTabBarController.swift */,
+				E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */,
 				E7A62FE51B6609A500F28D73 /* SharelinkAppDelegate.swift */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
@@ -2012,6 +2008,7 @@
 				E74C83721C590E8F009CF8DB /* SharelinkSetting.swift in Sources */,
 				E74C83731C590E8F009CF8DB /* UIClientStateHeader.swift in Sources */,
 				E74C83741C590E8F009CF8DB /* ModelExtension.swift in Sources */,
+				E7C157FC1C7F50F3009E5CDC /* MainViewTabBarController.swift in Sources */,
 				E74C83751C590E8F009CF8DB /* SimpleBrowser.swift in Sources */,
 				E74C83761C590E8F009CF8DB /* NewShareController.swift in Sources */,
 				E74C83771C590E8F009CF8DB /* SRCMenu.swift in Sources */,
@@ -2052,14 +2049,12 @@
 				E74C839A1C590E8F009CF8DB /* PersistentFileHelper.swift in Sources */,
 				E74C839B1C590E8F009CF8DB /* NewShareThemeCell.swift in Sources */,
 				E74C839C1C590E8F009CF8DB /* PersistentManager.swift in Sources */,
-				E782186E1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */,
 				E74C839D1C590E8F009CF8DB /* UIShareMessage.swift in Sources */,
 				E74C839E1C590E8F009CF8DB /* ShareService.swift in Sources */,
 				E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */,
 				E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */,
 				E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */,
 				E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */,
-				E75E9BD11C7F27900065A389 /* MainViewTabBarController.swift in Sources */,
 				E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */,
 				E74C83A41C590E8F009CF8DB /* File.swift in Sources */,
 				E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */,
@@ -2169,7 +2164,6 @@
 				E71059061C5BCA3900D1C0CC /* UserGuideFinishViewController.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
 				E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */,
-				E75E9BD01C7F27900065A389 /* MainViewTabBarController.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
 				E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */,
 				E7AF57A31C54AD4C00505B2A /* SharelinkSDK.swift in Sources */,
@@ -2191,7 +2185,6 @@
 				E73E44BC1B823E9600E0B6EB /* EditThemeViewController.swift in Sources */,
 				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */,
-				E782186D1C7EF97E00ACEDB8 /* SRCMenuViewController.swift in Sources */,
 				E70A5ADF1C174870001C0A47 /* BahamutLocalFile.xcdatamodeld in Sources */,
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
@@ -2266,6 +2259,7 @@
 				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
 				E7AF57A41C54AD4C00505B2A /* ShareThing.swift in Sources */,
 				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
+				E7C157FB1C7F50D0009E5CDC /* MainViewTabBarController.swift in Sources */,
 				E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
 				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,

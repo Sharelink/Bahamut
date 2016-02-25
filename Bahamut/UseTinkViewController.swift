@@ -15,8 +15,8 @@ class UseTinkViewController: UIViewController {
     @IBOutlet weak var enableTinkSwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hidesBottomBarWhenPushed = true
         enableTinkSwitch.on = UserSetting.isSettingEnable(TinkTinkTinkSetting)
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

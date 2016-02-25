@@ -12,19 +12,8 @@ extension UserService
 {
     func showMyDetailView(currentViewController:UIViewController)
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            if let myInfo = self.myUserModel
-            {
-                let controller = MyDetailViewController.instanceFromStoryBoard()
-                controller.accountId = UserSetting.lastLoginAccountId
-                controller.myInfo = myInfo
-                currentViewController.navigationController?.pushViewController(controller, animated: true)
-            }else
-            {
-                currentViewController.playToast( "USER_DATA_NOT_READY_RETRY".localizedString())
-            }
-        }
-        
+        let controller = MyDetailViewController.instanceFromStoryBoard()
+        currentViewController.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -104,6 +93,21 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         static let useTink = "useTink"
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        changeNavigationBarColor()
+        let userService = ServiceContainer.getService(UserService)
+        self.accountId = UserSetting.lastLoginAccountId
+        self.myInfo = userService.myUserModel
+        
+        initPropertySet()
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        let uiview = UIView()
+        tableView.backgroundColor = UIColor.footerColor
+        tableView.tableFooterView = uiview
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         MobClick.beginLogPageView("MyDetailView")
@@ -114,8 +118,8 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         MobClick.endLogPageView("MyDetailView")
     }
     
-    var myInfo:Sharelinker!
-    var accountId:String!
+    private var myInfo:Sharelinker!
+    private var accountId:String!
     
     private func initPropertySet()
     {
@@ -169,17 +173,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyLabel = "TINK_TINK_TINK".localizedString()
         propertySet.propertyValue = ""
         textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "useTinkTinkTink:"))
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        changeNavigationBarColor()
-        initPropertySet()
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
-        let uiview = UIView()
-        tableView.backgroundColor = UIColor.footerColor
-        tableView.tableFooterView = uiview
     }
     
     @IBAction func logout(sender: AnyObject)
@@ -472,6 +465,6 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     }
     
     static func instanceFromStoryBoard()->MyDetailViewController{
-        return instanceFromStoryBoard("UserAccount", identifier: "MyDetailViewController",bundle: Sharelink.mainBundle()) as! MyDetailViewController
+        return instanceFromStoryBoard("SharelinkMain", identifier: "MyDetailViewController",bundle: Sharelink.mainBundle()) as! MyDetailViewController
     }
 }

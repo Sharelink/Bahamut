@@ -43,6 +43,7 @@ class UIEditTextPropertyViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hidesBottomBarWhenPushed = true
         updateTextValueView()
         propertyNameLabel.text = model?.propertyLabel
     }

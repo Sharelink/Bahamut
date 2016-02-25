@@ -29,6 +29,11 @@ extension UIViewController
     }
 }
 
+class SRCMenuViewController:UIViewController
+{
+    
+}
+
 class MainViewTabBarController: UITabBarController ,OrientationsNavigationController,UITabBarControllerDelegate,SRCMenuManagerDelegate
 {
     private(set) static var currentTabBarViewController:MainViewTabBarController!
@@ -60,9 +65,10 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     
     private func configureSRCMenuItem()
     {
+        let srcMenu = self.tabBar.items![2]
         let img = UIImage.namedImageInSharelink("src_menu_item")!.imageWithRenderingMode(.AlwaysOriginal)
-        self.tabBar.items![2].selectedImage = img
-        self.tabBar.items![2].image = img
+        srcMenu.image = img
+        srcMenu.selectedImage = img
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -96,6 +102,8 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
             }else
             {
                 self.beforeShownMenuTabBarIndex = self.selectedIndex
+                self.tabBar.backgroundColor = UIColor.clearColor()
+                
                 self.srcMenuManager.showMenu()
                 self.tabBar.superview?.bringSubviewToFront(self.tabBar)
             }
@@ -132,7 +140,6 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     }
     
     //MARK: SRCMenu
-    static let SRC_MENU_ITEM_SELECTED = "SRC_MENU_ITEM_SELECTED"
     private var beforeShownMenuTabBarIndex = 0
     private var srcMenuManager:SRCMenuManager!
     private func initSRCMenuManager()
@@ -140,9 +147,8 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         if self.srcMenuManager == nil
         {
             self.srcMenuManager = SRCMenuManager()
-            let menuTopInset:CGFloat = 0.0
+            let menuTopInset:CGFloat = 23
             let menuBottomInset:CGFloat = self.tabBar.frame.height
-            
             self.srcMenuManager.initManager(self.view,menuTopInset: menuTopInset,menuBottomInset:menuBottomInset)
             self.srcMenuManager.delegate = self
         }
@@ -160,7 +166,10 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     }
     
     func srcMenuItemDidClick(itemView: SRCMenuItemView) {
-        
+        let share = ShareThing()
+        share.shareType = itemView.srcPlugin.shareType
+        let nvController = self.viewControllers![beforeShownMenuTabBarIndex] as! UINavigationController
+        ServiceContainer.getService(ShareService).showNewShareController(nvController, shareModel: share, isReshare: false)
     }
     
     //MARK: message observer

@@ -49,6 +49,12 @@ class ChangePasswordViewController: UIViewController
         }
     }
     
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        self.hidesBottomBarWhenPushed = true
+    }
+    
     static func instanceFromStoryBoard()->ChangePasswordViewController{
         return instanceFromStoryBoard("UserAccount", identifier: "ChangePasswordViewController",bundle: Sharelink.mainBundle()) as! ChangePasswordViewController
     }

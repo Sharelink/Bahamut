@@ -94,15 +94,6 @@ class NewShareController: UITableViewController
     var isReshare:Bool = false
     var passedShareModel:ShareThing!
     
-    //New Share
-    var defaultSRCIndex:Int = 0{
-        didSet{
-            if srcService != nil && self.defaultSRCIndex < srcService.defaultSRCPlugins.count
-            {
-                self.currentSRCPlugin = srcService.defaultSRCPlugins[self.defaultSRCIndex]
-            }
-        }
-    }
     var currentSRCPlugin:SRCPlugin!
     
     var shareMessageCell:NewShareMessageCell!
@@ -128,7 +119,7 @@ class NewShareController: UITableViewController
         self.userService = ServiceContainer.getService(UserService)
         self.srcService = ServiceContainer.getService(SRCService)
         self.changeNavigationBarColor()
-        self.initDefaultSRCPlugins()
+        self.initSRCPlugins()
         self.initTitleView()
         self.shareButtonItem = self.navigationItem.rightBarButtonItem
         self.initTableView()
@@ -205,22 +196,9 @@ class NewShareController: UITableViewController
     }
     
     //MARK: share type
-    private func initDefaultSRCPlugins(){
-        self.navigationItem.leftBarButtonItems?.removeAll()
-        if let _ = ShareThingType(rawValue: passedShareModel?.shareType ?? "")
-        {
-            self.currentSRCPlugin = srcService.getSRCPlugin(passedShareModel.shareType)
-        }else
-        {
-            self.defaultSRCIndex = UserSetting.isAppstoreReviewing ? 1 : 0
-            let header = MJRefreshGifHeader(){
-                self.tableView.mj_header.endRefreshing()
-                self.selectShareType(self.nextDefaultPluginIndex)
-            }
-            self.tableView.mj_header = header
-            header.lastUpdatedTimeLabel?.hidden = true
-            refreshHeaderTitle()
-        }
+    private func initSRCPlugins(){
+        let shareType = passedShareModel?.shareType ?? ShareThingType.shareFilm.rawValue
+        self.currentSRCPlugin = srcService.getSRCPlugin(shareType)
     }
     
     private func refreshControllerTitle()
@@ -232,39 +210,6 @@ class NewShareController: UITableViewController
         {
             self.titleView.titleLabel.text = NewControllerTitleView.defaultTitle
         }
-    }
-    
-    private func refreshHeaderTitle()
-    {
-        let nextSRCPlugin = srcService.defaultSRCPlugins[self.nextDefaultPluginIndex]
-        let header = self.tableView.mj_header as! MJRefreshGifHeader
-        let format = "NEW_SHARE_PULL_SWITCH_TO".localizedString()
-        let headerTitle = nextSRCPlugin.srcHeaderTitle.localizedString()
-        let msg = String(format: format, headerTitle)
-        header.setTitle(msg, forState: .Idle)
-        header.setTitle(msg, forState: .Pulling)
-        header.setTitle(msg, forState: .Refreshing)
-        let headerImage = nextSRCPlugin.srcHeaderIcon
-        header.setImages([headerImage], forState: .Idle)
-    }
-    
-    private var nextDefaultPluginIndex:Int{
-        let index = (self.defaultSRCIndex + 1) % srcService.defaultSRCPlugins.count
-        return index
-    }
-    
-    private func selectShareType(index:Int)
-    {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.defaultSRCIndex = index
-            self.refreshHeaderTitle()
-            self.refreshSRCCell()
-        }
-    }
-    
-    private func refreshSRCCell(animation:UITableViewRowAnimation = .Fade)
-    {
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: animation)
     }
     
     func reloadContentCellHeight()

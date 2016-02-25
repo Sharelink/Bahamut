@@ -593,7 +593,7 @@
         <!--About-->
         <scene sceneID="dO3-5N-PUc">
             <objects>
-                <viewController storyboardIdentifier="aboutViewController" title="About" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8DE-tZ-cFX" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="aboutViewController" title="About" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8DE-tZ-cFX" customClass="AboutViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="V1V-6t-FOv"/>
                         <viewControllerLayoutGuide type="bottom" id="BWm-BZ-ulX"/>
