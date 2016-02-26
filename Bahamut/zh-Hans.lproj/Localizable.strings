@@ -5,6 +5,19 @@
  Created by AlexChow on 15/10/31.
  Copyright © 2015年 GStudio. All rights reserved.
  */
+
+//Date Time
+Sunday = "星期日";
+Monday = "星期一";
+Tuesday = "星期二";
+Wednesday = "星期三";
+Thursday = "星期四";
+Friday = "星期五";
+Saturday = "星期六";
+Today = "今天";
+Tomorrow = "明天";
+Yesterday = "昨天";
+
 //SharelinkSDK
 VALIDATE_DATA_ERROR = "数据有误";
 NETWORK_ERROR = "网络错误";

@@ -145,7 +145,6 @@
                         <barButtonItem key="rightBarButtonItem" title="下一步" id="B9b-44-3lR">
                             <connections>
                                 <action selector="nextStep:" destination="imQ-kT-My5" id="p3K-8V-O2Q"/>
-                                <segue destination="8LF-BG-56B" kind="show" identifier="UserGuideAddFriendsController" id="pnn-WG-AHJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -153,6 +152,7 @@
                     <connections>
                         <outlet property="randomThemeCollectionView" destination="fnp-gk-acb" id="pbP-G8-kzX"/>
                         <outlet property="themeTextField" destination="NNG-hk-ZpW" id="mya-A7-wfF"/>
+                        <segue destination="8LF-BG-56B" kind="show" identifier="UserGuideAddFriendsController" id="5Q4-W0-2DV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KT-2g-FA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -472,6 +472,6 @@
         <image name="share_round" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pnn-WG-AHJ"/>
+        <segue reference="5Q4-W0-2DV"/>
     </inferredMetricsTieBreakers>
 </document>
