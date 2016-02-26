@@ -272,7 +272,7 @@
             </objects>
             <point key="canvasLocation" x="-1438" y="2070"/>
         </scene>
-        <!--Sharelinker-->
+        <!--Friends-->
         <scene sceneID="vir-N7-30o">
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -454,7 +454,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Sharelinker" id="zwT-Iu-aIj">
+                    <navigationItem key="navigationItem" title="Friends" id="zwT-Iu-aIj">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Yk6-tG-t18">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
@@ -1031,9 +1031,10 @@
         <scene sceneID="SvB-a5-mPl">
             <objects>
                 <tabBarController id="501-Fq-5xf" customClass="MainViewTabBarController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Pfj-Vd-31U">
+                    <tabBar key="tabBar" contentMode="scaleToFill" itemPositioning="fill" id="Pfj-Vd-31U">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                     </tabBar>
                     <connections>
                         <segue destination="wuC-ja-IW1" kind="relationship" relationship="viewControllers" id="noa-P5-Xu3"/>
@@ -1091,7 +1092,7 @@
             </objects>
             <point key="canvasLocation" x="-766" y="1335"/>
         </scene>
-        <!--My Themes-->
+        <!--Themes-->
         <scene sceneID="URW-QK-DKE">
             <objects>
                 <tableViewController id="XCA-YB-jN4" customClass="ThemeListViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -1181,7 +1182,7 @@
                             <outlet property="delegate" destination="XCA-YB-jN4" id="w8J-cE-tpK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Themes" id="kde-tD-f4s">
+                    <navigationItem key="navigationItem" title="Themes" id="kde-tD-f4s">
                         <barButtonItem key="backBarButtonItem" title="Back" id="fqX-Su-Vup"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DAW-l8-1i8">
                             <connections>
@@ -1393,7 +1394,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="src_menu_item" id="LPf-8w-DFh"/>
+                    <tabBarItem key="tabBarItem" title="" image="src_menu_item" id="LPf-8w-DFh">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="nT2-5F-hl8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fml-hH-Nsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1417,7 +1420,7 @@
         <image name="share" width="128" height="128"/>
         <image name="share_icon" width="24" height="24"/>
         <image name="shutdown" width="24" height="24"/>
-        <image name="src_menu_item" width="48" height="48"/>
+        <image name="src_menu_item" width="42" height="42"/>
         <image name="theme" width="24" height="24"/>
         <image name="up" width="128" height="128"/>
         <image name="user_info" width="72" height="72"/>

@@ -142,7 +142,7 @@ INVALID_URL = "Invalid Link";
 
 FILES_WAS_DELETED = "%@ files deleted";
 NO_SELECT_THEME_ALERT_TITLE = "No Theme For This Share";
-NO_SELECT_THEME_TIPS = "Only Sharelinkers who focus on your personal theme can see this share";
+NO_SELECT_THEME_TIPS = "Select A Theme For Share Please!";
 SENDING_FILM = "Sending Film";
 NO_FILM_SELECTED = "Select or capture a film please!";
 SEND_FILM_SUC = "Send Film Success";
@@ -170,8 +170,8 @@ SHARE_FAILED = "Share Failed";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "Please Focus One Theme At Least~";
 NEED_INPUT_THEME_NAME = "Theme Name Can't Not Be Empty~";
-HELLO_MESSAGE_FORMAT = "Hi %@! \nWelcome to Sharelink! Now Press start button to have a quick look please!";
-FIRST_SHARE_MESSAGE = "My first Sharelink share!";
+HELLO_MESSAGE_FORMAT = "Hi %@! \n\nWelcome to Sharelink! Now press next button to have a quick look!";
+FIRST_SHARE_MESSAGE = "My first share in Sharelink!";
 
 //SignInViewController
 REFRESHING = "Refreshing";

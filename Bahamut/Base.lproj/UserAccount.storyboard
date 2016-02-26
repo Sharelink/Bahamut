@@ -74,7 +74,7 @@
         <!--Change Password-->
         <scene sceneID="l9J-pk-2AS">
             <objects>
-                <viewController storyboardIdentifier="ChangePasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PJg-gZ-Xly" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangePasswordViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PJg-gZ-Xly" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zwG-wI-B7F"/>
                         <viewControllerLayoutGuide type="bottom" id="pTj-QI-BxZ"/>

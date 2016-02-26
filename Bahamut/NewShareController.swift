@@ -227,12 +227,9 @@ class NewShareController: UITableViewController
     {
         if self.shareThemeCell.selectedThemes.count == 0
         {
-            let alert = UIAlertController(title: "NO_SELECT_THEME_ALERT_TITLE".localizedString(), message: "NO_SELECT_THEME_TIPS".localizedString(), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "CONTINUE".localizedString(), style: UIAlertActionStyle.Default, handler: { (ac) -> Void in
-                self.isReshare ? self.reshare() : self.prepareShare()
-            }))
-            alert.addAction(UIAlertAction(title: "CANCEL".localizedString(), style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil )
+            SystemSoundHelper.vibrate()
+            shareThemeCell.shakeAnimationForView()
+            self.playToast("NO_SELECT_THEME_TIPS".localizedString())
         }else
         {
             self.isReshare ? self.reshare() : self.prepareShare()

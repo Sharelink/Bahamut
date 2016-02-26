@@ -1500,8 +1500,8 @@
 			isa = PBXGroup;
 			children = (
 				E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */,
-				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7AF0CE71C4E6753007C91E2 /* ThemeTypedIcons.xcassets */,
+				E7A62FEF1B6609A500F28D73 /* Images.xcassets */,
 				E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */,
 				E7FDBAB31BC4C1A90017BCEF /* WebAssets */,
 				E7A645341BE9E39E00204D1A /* SharelinkFilm.mp4 */,
@@ -1694,7 +1694,6 @@
 		E7F7F1CF1C52111000E6D117 /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
-				E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */,
 				E7A62FE51B6609A500F28D73 /* SharelinkAppDelegate.swift */,
 				E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */,
 				E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */,
@@ -1702,6 +1701,7 @@
 				E71500091C3B7520009185FE /* UserSetting.swift */,
 				E7657C401B6918DE00FF97FD /* MainNavigationController.swift */,
 				E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */,
+				E7C157FA1C7F50D0009E5CDC /* MainViewTabBarController.swift */,
 			);
 			name = AppMain;
 			sourceTree = "<group>";

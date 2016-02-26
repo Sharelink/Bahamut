@@ -34,6 +34,25 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     private var srcMenuPageControl:UIPageControl!
     private var srcItemViews = [SRCMenuItemView]()
     private var loadingSRCTipsLabel:UILabel!
+    var menuBackgroundImage:UIImage!{
+        didSet{
+            if menuBackgroundImage == nil{
+                if menuBackgroundImageView != nil{
+                    menuBackgroundImageView.removeFromSuperview()
+                }
+            }else
+            {
+                if menuBackgroundImageView == nil{
+                    menuBackgroundImageView = UIImageView()
+                }
+                menuBackgroundImageView.frame = srcMenu.bounds
+                menuBackgroundImageView.image = menuBackgroundImage
+                srcMenu.addSubview(menuBackgroundImageView)
+                srcMenu.sendSubviewToBack(menuBackgroundImageView)
+            }
+        }
+    }
+    private var menuBackgroundImageView:UIImageView!
     var isMenuShown:Bool{
         return srcMenu.hidden == false
     }
@@ -71,7 +90,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
     
     private func initSRCMenu()
     {
-        let srcMenuFrame = CGRectMake(0, menuTopInset, self.rootView.frame.width, self.rootView.frame.height - (self.menuTopInset + self.menuBottomInset))
+        let srcMenuFrame = CGRectMake(0, 0, self.rootView.frame.width, self.rootView.frame.height - self.menuBottomInset)
         self.srcMenu = UIView(frame: srcMenuFrame)
         self.srcMenu.backgroundColor = UIColor.clearColor()
         let blurEffect = UIBlurEffect(style: .Light)
@@ -155,7 +174,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
             let itemRow = indexOfPage / self.rowItemCount
             let itemColumn = indexOfPage % self.rowItemCount
             let x = CGFloat(page) * self.srcItemContainer.frame.width + self.edgeSpace + CGFloat(itemColumn) * (self.itemWidth + self.itemSpace)
-            let y = self.itemTopEdge + CGFloat(itemRow) * (self.itemHeight + self.rowSpace)
+            let y = self.menuTopInset + self.itemTopEdge + CGFloat(itemRow) * (self.itemHeight + self.rowSpace)
             let itemViewFrame = CGRectMake(x,y,self.itemWidth,self.itemHeight)
             let itemView = i < self.srcItemViews.count ? self.srcItemViews[i] : self.newItemView()
             itemView.index = i

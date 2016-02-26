@@ -40,6 +40,7 @@ class UserGuideStartController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let dvc = segue.destinationViewController as? UserGuideThemeController
         {
+            MobClick.event("UserGuide_ToTheme")
             if let ht = self.hotThemes
             {
                 dvc.hotThemes = ht

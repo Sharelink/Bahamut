@@ -52,7 +52,6 @@ class ChangePasswordViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.hidesBottomBarWhenPushed = true
     }
     
     static func instanceFromStoryBoard()->ChangePasswordViewController{

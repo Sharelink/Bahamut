@@ -38,13 +38,51 @@
                                 </variation>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="随机主题：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h73-50-7zj">
-                                <rect key="frame" x="20" y="198" width="85" height="21"/>
+                                <rect key="frame" x="20" y="212" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHq-QX-zMb">
+                                <rect key="frame" x="548" y="206" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="aKg-RQ-tfx"/>
+                                    <constraint firstAttribute="height" constant="32" id="cRj-a7-Jr2"/>
+                                </constraints>
+                                <state key="normal" title="换一换" image="reload_round"/>
+                                <connections>
+                                    <action selector="refreshThemes:" destination="imQ-kT-My5" eventType="touchUpInside" id="SMA-3X-GNT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdS-kS-9br">
+                                <rect key="frame" x="538" y="139" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="99" id="DUu-p6-aUL"/>
+                                    <constraint firstAttribute="width" constant="46" id="KwS-bD-R2A"/>
+                                    <constraint firstAttribute="width" constant="60" id="RKj-se-j9k"/>
+                                    <constraint firstAttribute="height" constant="42" id="aob-SY-Veq"/>
+                                    <constraint firstAttribute="width" constant="42" id="sXS-54-7CF"/>
+                                </constraints>
+                                <state key="normal" title="关注话题" image="check_round"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DUu-p6-aUL"/>
+                                        <exclude reference="KwS-bD-R2A"/>
+                                        <exclude reference="RKj-se-j9k"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addThemeFocus:" destination="imQ-kT-My5" eventType="touchUpInside" id="9Js-PV-wXp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朋友因为都关注某一样东西而成为朋友，也许是兴趣，也可能是一段经历。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fne-Jw-gC8">
+                                <rect key="frame" x="20" y="577" width="560" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fnp-gk-acb">
-                                <rect key="frame" x="20" y="227" width="560" height="353"/>
+                                <rect key="frame" x="20" y="241" width="560" height="328"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sKU-Mg-We0">
                                     <size key="itemSize" width="128" height="35"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -62,7 +100,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sharelink" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpH-ou-F0Y">
                                                     <rect key="frame" x="8" y="4" width="112" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -79,54 +117,22 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHq-QX-zMb">
-                                <rect key="frame" x="535" y="194" width="45" height="30"/>
-                                <state key="normal" title="换一换"/>
-                                <connections>
-                                    <action selector="refreshThemes:" destination="imQ-kT-My5" eventType="touchUpInside" id="SMA-3X-GNT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdS-kS-9br">
-                                <rect key="frame" x="520" y="139" width="60" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="99" id="DUu-p6-aUL"/>
-                                    <constraint firstAttribute="width" constant="46" id="KwS-bD-R2A"/>
-                                    <constraint firstAttribute="width" constant="60" id="RKj-se-j9k"/>
-                                </constraints>
-                                <state key="normal" title="关注话题"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="DUu-p6-aUL"/>
-                                        <exclude reference="KwS-bD-R2A"/>
-                                        <exclude reference="RKj-se-j9k"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addThemeFocus:" destination="imQ-kT-My5" eventType="touchUpInside" id="9Js-PV-wXp"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朋友因为都关注某一样东西而成为朋友，也许是兴趣，也可能是一段经历。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fne-Jw-gC8">
-                                <rect key="frame" x="20" y="577" width="560" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fnp-gk-acb" firstAttribute="leading" secondItem="h73-50-7zj" secondAttribute="leading" id="1iR-fY-M0V"/>
                             <constraint firstItem="fnp-gk-acb" firstAttribute="top" secondItem="h73-50-7zj" secondAttribute="bottom" constant="8" symbolic="YES" id="6Pg-HD-A43"/>
+                            <constraint firstItem="fne-Jw-gC8" firstAttribute="top" secondItem="fnp-gk-acb" secondAttribute="bottom" constant="8" id="6pr-pn-ikj"/>
                             <constraint firstItem="PdS-kS-9br" firstAttribute="top" secondItem="NNG-hk-ZpW" secondAttribute="bottom" constant="8" id="EGz-k5-Ugn"/>
                             <constraint firstItem="T1c-QF-nrL" firstAttribute="leading" secondItem="yvG-Co-OTd" secondAttribute="leadingMargin" id="MMO-wN-mbZ"/>
-                            <constraint firstItem="uHq-QX-zMb" firstAttribute="baseline" secondItem="h73-50-7zj" secondAttribute="baseline" id="PJd-hu-zEO"/>
                             <constraint firstItem="h73-50-7zj" firstAttribute="leading" secondItem="NNG-hk-ZpW" secondAttribute="leading" id="PTF-kQ-tiP"/>
                             <constraint firstItem="T1c-QF-nrL" firstAttribute="top" secondItem="Onu-eQ-FMO" secondAttribute="bottom" constant="8" symbolic="YES" id="PoS-8E-PYI"/>
                             <constraint firstItem="fne-Jw-gC8" firstAttribute="trailing" secondItem="fnp-gk-acb" secondAttribute="trailing" id="RJl-2H-YGW"/>
-                            <constraint firstItem="h73-50-7zj" firstAttribute="top" secondItem="NNG-hk-ZpW" secondAttribute="bottom" constant="67" id="SJc-GR-d4D"/>
+                            <constraint firstItem="h73-50-7zj" firstAttribute="top" secondItem="NNG-hk-ZpW" secondAttribute="bottom" constant="81" id="SJc-GR-d4D"/>
                             <constraint firstItem="fnp-gk-acb" firstAttribute="trailing" secondItem="PdS-kS-9br" secondAttribute="trailing" id="WFV-Sq-ofn"/>
+                            <constraint firstItem="fnp-gk-acb" firstAttribute="top" secondItem="uHq-QX-zMb" secondAttribute="bottom" constant="3" id="bUP-bk-B3M"/>
                             <constraint firstItem="PdS-kS-9br" firstAttribute="trailing" secondItem="yvG-Co-OTd" secondAttribute="trailingMargin" id="c5r-kC-lFS"/>
                             <constraint firstItem="NNG-hk-ZpW" firstAttribute="leading" secondItem="T1c-QF-nrL" secondAttribute="leading" id="daV-bY-F55"/>
-                            <constraint firstAttribute="bottom" secondItem="fnp-gk-acb" secondAttribute="bottom" constant="20" symbolic="YES" id="mQw-h7-fJC"/>
                             <constraint firstItem="uHq-QX-zMb" firstAttribute="trailing" secondItem="PdS-kS-9br" secondAttribute="trailing" id="maH-yk-XqW"/>
                             <constraint firstItem="NNG-hk-ZpW" firstAttribute="top" secondItem="T1c-QF-nrL" secondAttribute="bottom" constant="8" symbolic="YES" id="mtP-xw-Y6M"/>
                             <constraint firstItem="fne-Jw-gC8" firstAttribute="leading" secondItem="fnp-gk-acb" secondAttribute="leading" id="ro0-fs-Ekk"/>
@@ -139,6 +145,7 @@
                         <barButtonItem key="rightBarButtonItem" title="下一步" id="B9b-44-3lR">
                             <connections>
                                 <action selector="nextStep:" destination="imQ-kT-My5" id="p3K-8V-O2Q"/>
+                                <segue destination="8LF-BG-56B" kind="show" identifier="UserGuideAddFriendsController" id="pnn-WG-AHJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -146,7 +153,6 @@
                     <connections>
                         <outlet property="randomThemeCollectionView" destination="fnp-gk-acb" id="pbP-G8-kzX"/>
                         <outlet property="themeTextField" destination="NNG-hk-ZpW" id="mya-A7-wfF"/>
-                        <segue destination="xZh-Zb-KCa" kind="show" identifier="UserGuideAddFriendsController" id="84u-LS-a1Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KT-2g-FA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -156,7 +162,7 @@
         <!--来自好友的链接？-->
         <scene sceneID="4Iw-Vh-z25">
             <objects>
-                <viewController id="xZh-Zb-KCa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddInviterController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xZh-Zb-KCa" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t9S-np-fnY"/>
                         <viewControllerLayoutGuide type="bottom" id="YXe-Y5-ac8"/>
@@ -165,14 +171,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次打开好友发给你的链接。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLb-gc-IWd">
-                                <rect key="frame" x="20" y="72" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLb-gc-IWd">
+                                <rect key="frame" x="20" y="72" width="560" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不是通过好友邀请链接使用就请跳过这一步吧！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjB-Oe-iE7">
-                                <rect key="frame" x="20" y="101" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没有好友邀请链接就请跳过这一步吧！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjB-Oe-iE7">
+                                <rect key="frame" x="20" y="80" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -180,20 +186,38 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有共同话题的朋友列表比冗长的列表更加珍贵。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYz-3V-ruu">
                                 <rect key="frame" x="20" y="577" width="560" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reopen_link_url_img_demo" translatesAutoresizingMaskIntoConstraints="NO" id="8kG-DA-J46">
+                                <rect key="frame" x="20" y="153" width="279" height="205"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="205" id="RIC-f3-BwA"/>
+                                    <constraint firstAttribute="width" constant="279" id="whI-Vy-Tyq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打开好友的邀请链接，类似如下页面" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KoY-g0-cw2">
+                                <rect key="frame" x="20" y="124" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="top" secondItem="t9S-np-fnY" secondAttribute="bottom" constant="8" symbolic="YES" id="02V-yM-Dxo"/>
+                            <constraint firstItem="8kG-DA-J46" firstAttribute="top" secondItem="KoY-g0-cw2" secondAttribute="bottom" constant="8" symbolic="YES" id="0t4-P9-uvF"/>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="trailing" secondItem="4qQ-Nb-php" secondAttribute="trailingMargin" id="3OP-hL-Bah"/>
                             <constraint firstItem="yjB-Oe-iE7" firstAttribute="top" secondItem="OLb-gc-IWd" secondAttribute="bottom" constant="8" symbolic="YES" id="4q1-4m-0nD"/>
+                            <constraint firstItem="8kG-DA-J46" firstAttribute="leading" secondItem="KoY-g0-cw2" secondAttribute="leading" id="JVU-tD-aCz"/>
+                            <constraint firstItem="KoY-g0-cw2" firstAttribute="leading" secondItem="yjB-Oe-iE7" secondAttribute="leading" id="Qgd-tx-e5x"/>
                             <constraint firstItem="YXe-Y5-ac8" firstAttribute="top" secondItem="wYz-3V-ruu" secondAttribute="bottom" constant="8" symbolic="YES" id="XXg-q4-Xwh"/>
                             <constraint firstItem="wYz-3V-ruu" firstAttribute="leading" secondItem="yjB-Oe-iE7" secondAttribute="leading" id="Xlv-cA-4qW"/>
                             <constraint firstItem="yjB-Oe-iE7" firstAttribute="leading" secondItem="OLb-gc-IWd" secondAttribute="leading" id="YIs-rN-m2T"/>
                             <constraint firstItem="wYz-3V-ruu" firstAttribute="trailing" secondItem="yjB-Oe-iE7" secondAttribute="trailing" id="ZV7-kb-Vl1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KoY-g0-cw2" secondAttribute="trailing" id="enw-Jk-9FP"/>
                             <constraint firstItem="OLb-gc-IWd" firstAttribute="leading" secondItem="4qQ-Nb-php" secondAttribute="leadingMargin" id="ff2-Mt-Klt"/>
+                            <constraint firstItem="KoY-g0-cw2" firstAttribute="top" secondItem="yjB-Oe-iE7" secondAttribute="bottom" constant="23" id="g2v-bD-mLm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yjB-Oe-iE7" secondAttribute="trailing" id="z2h-D9-jYg"/>
                         </constraints>
                     </view>
@@ -205,10 +229,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXO-fQ-vKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1024" y="425"/>
+            <point key="canvasLocation" x="1064" y="-301"/>
         </scene>
         <!--Sharelink-->
         <scene sceneID="AYv-yI-9YH">
@@ -228,21 +253,29 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SvV-wc-qG2">
+                                <rect key="frame" x="538" y="101" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="dpN-3K-aym"/>
+                                    <constraint firstAttribute="width" constant="42" id="g5J-U1-rG1"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="next_round"/>
+                                <connections>
+                                    <segue destination="imQ-kT-My5" kind="show" id="FSI-oR-1To"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="prU-c2-ACe" firstAttribute="leading" secondItem="T8w-XU-V3Z" secondAttribute="leadingMargin" id="SSR-hy-jVc"/>
                             <constraint firstItem="prU-c2-ACe" firstAttribute="top" secondItem="yBb-Nv-dEe" secondAttribute="bottom" constant="8" symbolic="YES" id="gbz-71-6Pg"/>
+                            <constraint firstItem="SvV-wc-qG2" firstAttribute="top" secondItem="prU-c2-ACe" secondAttribute="bottom" constant="8" symbolic="YES" id="iDg-3o-Lgq"/>
+                            <constraint firstItem="SvV-wc-qG2" firstAttribute="trailing" secondItem="prU-c2-ACe" secondAttribute="trailing" id="qEQ-ga-LYh"/>
                             <constraint firstItem="prU-c2-ACe" firstAttribute="trailing" secondItem="T8w-XU-V3Z" secondAttribute="trailingMargin" id="zQC-Az-jD3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sharelink" id="vGI-fl-mK1">
                         <barButtonItem key="backBarButtonItem" title="返回" id="Jn2-bN-YWL"/>
-                        <barButtonItem key="rightBarButtonItem" title="开始" id="Vyp-AE-NT9">
-                            <connections>
-                                <segue destination="imQ-kT-My5" kind="show" identifier="ShowUserGuideThemeController" id="XfL-y7-mQ2"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
@@ -265,9 +298,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zza-ed-Uvl">
-                                <rect key="frame" x="520" y="101" width="60" height="30"/>
-                                <state key="normal" title="继续添加"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zza-ed-Uvl">
+                                <rect key="frame" x="538" y="101" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="TnE-wM-zls"/>
+                                    <constraint firstAttribute="height" constant="42" id="dKo-Eq-4xK"/>
+                                </constraints>
+                                <state key="normal" title="继续添加" image="add_round"/>
                                 <connections>
                                     <action selector="addMore:" destination="8LF-BG-56B" eventType="touchUpInside" id="nE9-ga-qc6"/>
                                 </connections>
@@ -278,10 +315,10 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="细想一下，共同话题的朋友就在身边。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-RR-x0t">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="细想一下，身边就有很多有共同话题的朋友。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-RR-x0t">
                                 <rect key="frame" x="20" y="577" width="560" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -308,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rfa-nH-haE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1692" y="425"/>
+            <point key="canvasLocation" x="1064" y="425"/>
         </scene>
         <!--User Guide Finish View Controller-->
         <scene sceneID="wMT-Pr-st4">
@@ -355,8 +392,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享一个" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bg-aG-tc6">
-                                <rect key="frame" x="355" y="340" width="64" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bg-aG-tc6">
+                                <rect key="frame" x="371" y="340" width="32" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -370,7 +407,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="聊天往往开始于朋友分享了一件感兴趣的事。" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmr-rg-7gu">
                                 <rect key="frame" x="20" y="577" width="560" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -421,12 +458,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WNm-8Z-4aL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1692" y="1181"/>
+            <point key="canvasLocation" x="1064" y="1163"/>
         </scene>
     </scenes>
     <resources>
+        <image name="add_round" width="128" height="128"/>
         <image name="camera" width="256" height="256"/>
+        <image name="check_round" width="128" height="128"/>
+        <image name="next_round" width="128" height="128"/>
         <image name="profile" width="128" height="128"/>
+        <image name="reload_round" width="128" height="128"/>
+        <image name="reopen_link_url_img_demo" width="626" height="475"/>
         <image name="share_round" width="128" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="pnn-WG-AHJ"/>
+    </inferredMetricsTieBreakers>
 </document>

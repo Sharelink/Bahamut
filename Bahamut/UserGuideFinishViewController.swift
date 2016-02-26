@@ -34,6 +34,7 @@ class UserGuideFinishViewController: UIViewController
         self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
         self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
         super.viewWillAppear(animated)
+        MobClick.event("UserGuide_ToFinishPage")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -58,6 +59,7 @@ class UserGuideFinishViewController: UIViewController
         {
             view.animationMaxToMin(0.1, maxScale: 1.2, completion: { () -> Void in
                 let shareModel = ShareThing()
+                shareModel.shareType = ShareThingType.shareText.rawValue
                 shareModel.message = "FIRST_SHARE_MESSAGE".localizedString()
                 
                 ServiceContainer.getService(ShareService).showNewShareController(self.navigationController!, shareModel: shareModel,isReshare:false)
@@ -89,6 +91,7 @@ class UserGuideFinishViewController: UIViewController
     
     @IBAction func done(sender: AnyObject) {
         UserSetting.setSetting(NewUserStartGuided, enable: true)
+        MobClick.event("UserGuide_Finished")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

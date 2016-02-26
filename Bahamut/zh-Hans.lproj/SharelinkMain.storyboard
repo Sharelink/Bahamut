@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--分享-->
+        <!--Sharelink-->
         <scene sceneID="kSY-Pg-Hwm">
             <objects>
                 <tableViewController id="c5G-TY-KIz" customClass="ShareThingsListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
@@ -260,7 +260,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="分享" id="jn5-6e-O46">
+                    <navigationItem key="navigationItem" title="Sharelink" id="jn5-6e-O46">
                         <barButtonItem key="backBarButtonItem" title="返回" id="WgG-Dt-AGc"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -1235,8 +1235,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="VN2-PF-jqR"/>
                                                     <exclude reference="4uj-vw-kcd"/>
+                                                    <exclude reference="VN2-PF-jqR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1378,7 +1378,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="src_menu_item" id="T6Z-MS-Tvz"/>
+                    <tabBarItem key="tabBarItem" title="" image="src_menu_item" id="T6Z-MS-Tvz">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="J6d-cX-IB7"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uK8-x6-EwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1402,7 +1404,7 @@
         <image name="share" width="128" height="128"/>
         <image name="share_icon" width="24" height="24"/>
         <image name="shutdown" width="24" height="24"/>
-        <image name="src_menu_item" width="48" height="48"/>
+        <image name="src_menu_item" width="42" height="42"/>
         <image name="theme" width="24" height="24"/>
         <image name="up" width="128" height="128"/>
         <image name="user_info" width="72" height="72"/>

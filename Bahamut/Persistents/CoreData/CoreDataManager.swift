@@ -167,7 +167,6 @@ class CoreDataManager {
     {
         contextLock.lock()
         self.saveContext()
-        NSLog("Core Data Saved")
         contextLock.unlock()
     }
     

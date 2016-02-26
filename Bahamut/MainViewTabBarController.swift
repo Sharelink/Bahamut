@@ -10,6 +10,8 @@ import UIKit
 
 let ALERT_ACTION_OK = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)]
 let ALERT_ACTION_I_SEE = [UIAlertAction(title: "I_SEE".localizedString(), style:.Cancel, handler: nil)]
+
+//MARK: extension show alert
 extension UIViewController
 {
     
@@ -27,11 +29,6 @@ extension UIViewController
     {
         showAlert(UIApplication.currentShowingViewController, alertController: alertController)
     }
-}
-
-class SRCMenuViewController:UIViewController
-{
-    
 }
 
 class MainViewTabBarController: UITabBarController ,OrientationsNavigationController,UITabBarControllerDelegate,SRCMenuManagerDelegate
@@ -67,8 +64,9 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     {
         let srcMenu = self.tabBar.items![2]
         let img = UIImage.namedImageInSharelink("src_menu_item")!.imageWithRenderingMode(.AlwaysOriginal)
+        let sImg = UIImage.namedImageInSharelink("src_menu_item_s")!.imageWithRenderingMode(.AlwaysOriginal)
         srcMenu.image = img
-        srcMenu.selectedImage = img
+        srcMenu.selectedImage = sImg
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -150,6 +148,7 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
             let menuTopInset:CGFloat = 23
             let menuBottomInset:CGFloat = self.tabBar.frame.height
             self.srcMenuManager.initManager(self.view,menuTopInset: menuTopInset,menuBottomInset:menuBottomInset)
+            self.srcMenuManager.menuBackgroundImage = UIImage.namedImageInSharelink("defaultView")
             self.srcMenuManager.delegate = self
         }
     }
@@ -280,4 +279,9 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
             })
         }
     }
+}
+
+//MARK: SRCMenuViewController
+class SRCMenuViewController:UIViewController
+{
 }

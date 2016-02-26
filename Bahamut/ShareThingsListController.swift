@@ -36,6 +36,7 @@ class ShareThingsListController: UITableViewController
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
         refresh()
+        UserSetting.setSetting(NewUserStartGuided, enable: false)
     }
     
     

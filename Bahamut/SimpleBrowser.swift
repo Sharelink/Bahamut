@@ -31,6 +31,24 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
+        leftSwipe.direction = .Left
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "swipeRight:")
+        rightSwipe.direction = .Right
+        
+        self.webView.addGestureRecognizer(leftSwipe)
+        self.webView.addGestureRecognizer(rightSwipe)
+    }
+    
+    func swipeLeft(_:UISwipeGestureRecognizer)
+    {
+        self.webView.goForward()
+    }
+    
+    func swipeRight(_:UISwipeGestureRecognizer)
+    {
+        self.webView.goBack()
     }
     
     @IBAction func back(sender: AnyObject)

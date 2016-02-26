@@ -286,7 +286,7 @@
         <!--更换密码-->
         <scene sceneID="mF8-uA-EI7">
             <objects>
-                <viewController storyboardIdentifier="ChangePasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dk9-7E-Zjl" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangePasswordViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dk9-7E-Zjl" customClass="ChangePasswordViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sR2-gS-nX7"/>
                         <viewControllerLayoutGuide type="bottom" id="Ugr-4z-rfl"/>

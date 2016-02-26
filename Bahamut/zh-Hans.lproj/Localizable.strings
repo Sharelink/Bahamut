@@ -144,7 +144,7 @@ INVALID_URL = "非法链接";
 
 FILES_WAS_DELETED = "%@ 个文件已经删除";
 NO_SELECT_THEME_ALERT_TITLE = "没有选择主题";
-NO_SELECT_THEME_TIPS = "只有关注了你的个人主题才能看到这次分享，是否继续分享？";
+NO_SELECT_THEME_TIPS = "请选择一个分享的主题！";
 SENDING_FILM = "视频发送中";
 NO_FILM_SELECTED = "需要录制或者选择一个视频!";
 SEND_FILM_SUC = "上传视频成功！";
@@ -168,8 +168,8 @@ SHARE_FAILED = "分享失败...";
 //UserGuide
 NEED_TO_FOCUS_ONE_THEME = "需要关注至少一个主题~";
 NEED_INPUT_THEME_NAME = "主题名不能为空~";
-HELLO_MESSAGE_FORMAT = "你好，%@！\n欢迎使用Sharelink！接下来请完成几个简单步骤快速了解Sharelink！";
-FIRST_SHARE_MESSAGE = "我的第一条分享!\ntips:下拉屏幕可以切换分享类型";
+HELLO_MESSAGE_FORMAT = "你好，%@！\n\n欢迎使用Sharelink！接下来请完成几个简单步骤，快速了解Sharelink！";
+FIRST_SHARE_MESSAGE = "我的第一条分享!";
 
 //SignInViewController
 REFRESHING = "刷新中";

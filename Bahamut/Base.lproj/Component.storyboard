@@ -346,7 +346,7 @@
         <!--Harmful Report-->
         <scene sceneID="6NS-6q-7Hi">
             <objects>
-                <viewController storyboardIdentifier="HarmfulReportViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eRc-4a-Fpy" customClass="HarmfulReportViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HarmfulReportViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eRc-4a-Fpy" customClass="HarmfulReportViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7FV-VC-1Bb"/>
                         <viewControllerLayoutGuide type="bottom" id="sgf-hI-KYh"/>
@@ -447,7 +447,7 @@
         <!--Tink Tink Tink !-->
         <scene sceneID="GCd-jp-zDq">
             <objects>
-                <viewController storyboardIdentifier="UseTinkViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ua3-cD-nXF" customClass="UseTinkViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UseTinkViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ua3-cD-nXF" customClass="UseTinkViewController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAm-X9-Mlt"/>
                         <viewControllerLayoutGuide type="bottom" id="3QL-kI-PPP"/>

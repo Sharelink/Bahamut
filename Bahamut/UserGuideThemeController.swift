@@ -46,6 +46,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     {
         if focusThemeCount > 0 || themeService.getAllCustomThemes().count > 0
         {
+            MobClick.event("UserGuide_ToAddInviter")
             ServiceContainer.getService(NotificationService).setMute(false)
             performSegueWithIdentifier(UserGuideThemeController.ShowUserGuideAddFriendsControllerSegue, sender: self)
         }else
@@ -82,11 +83,6 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         {
             getHotThemes()
             themes = allRandomThemes.getRandomSubArray(10)
-        }
-        if DateHelper.isInNewYearVocation()
-        {
-            let newYearThemes = ["猴年猴事","新年喜事"]
-            themes.insertContentsOf(newYearThemes, at: 0)
         }
         randomThemes = themes
     }
@@ -129,6 +125,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     
     private func addTheme(themeName:String)
     {
+        MobClick.event("UserGuide_AddTheme")
         let theme = SharelinkTheme()
         theme.tagId = nil
         theme.tagName = themeName
