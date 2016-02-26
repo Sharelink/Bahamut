@@ -8,7 +8,7 @@
 
 import Foundation
 
-let NewUserStartGuided = "NewUserStartGuided"
+let NewUserStartGuided = "NewUserStartGuidedV2"
 
 class UserGuideStartController: UIViewController {
     
