@@ -12,16 +12,14 @@ import MBProgressHUD
 
 @objc protocol SignInViewControllerJSProtocol : JSExport
 {
-    func makeToast(msg:String)
-    func showToastActivity(msg:String?)
-    func hideActivity()
-    func validateToken(result:String)
-    func finishRegist(accountId:String)
     func alert(msg:String)
     func showPrivacy()
-    func isShowDeveloperPanel(idpsw:String) -> Bool
+    
+    func registAccount(username:String,_ password:String)
+    func loginAccount(username:String,_ password:String)
 }
 
+//MARK: SignInViewController
 class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControllerJSProtocol
 {
     
@@ -159,16 +157,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     var registedAccountName:String!
-    func finishRegist(result:String)
-    {
-        let arrs = result.split("#p")
-        let accountId = arrs[0]
-        let accountName = arrs[1]
-        alert(String(format: "REGIST_SUC_MSG".localizedString(), accountId))
-        self.loginAccountId = accountId
-        self.registedAccountName = accountName
-        authenticate()
-    }
     
     private var refreshingHud:MBProgressHUD!
     func validateToken(serverUrl:String, accountId:String, accessToken: String)
@@ -222,10 +210,10 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         var url = authenticationURL
         if let aId = loginAccountId
         {
-            url = "\(url)?accountId=\(aId)&loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
+            url = "\(url)?accountId=\(aId)"
         }else
         {
-            url = "\(url)?loginApi=\(SharelinkSetting.loginApi)&registApi=\(SharelinkSetting.registAccountApi)"
+            url = "\(url)"
         }
         webViewUrl = url
     }
@@ -237,52 +225,43 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     //MARK: implements jsProtocol
+    func registAccount(username: String,_ password: String) {
+        if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        let hud = self.showActivityHud()
+        SharelinkSDK.sharedInstance.registBahamutAccount(SharelinkSetting.registAccountApi, username: username, passwordOrigin: password, phone_number: nil, email: nil) { (isSuc, errorMsg, registResult) -> Void in
+            hud.hide(false)
+            if isSuc
+            {
+                self.showAlert("REGIST_SUC_TITLE".localizedString(), msg: String(format: "REGIST_SUC_MSG".localizedString(), registResult.accountId))
+                self.loginAccountId = registResult.accountId
+                self.registedAccountName = registResult.accountName
+                self.authenticate()
+            }else{
+                self.playToast(errorMsg.localizedString())
+            }
+        }
+    }
+    
+    func loginAccount(username: String,_ password: String) {
+        if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        let hud = self.showActivityHud()
+        SharelinkSDK.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
+            hud.hide(false)
+            if isSuc
+            {
+                self.validateToken(loginResult.AppServiceUrl, accountId: loginResult.AccountID, accessToken: loginResult.AccessToken)
+            }else
+            {
+                self.playToast(errorMsg.localizedString())
+            }
+        }
+    }
+    
     func alert(msg: String) {
         let alert = UIAlertController(title:"SHARELINK".localizedString(), message: msg.localizedString(), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title:"I_SEE".localizedString(), style: .Cancel){ _ in})
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func validateToken(result:String)
-    {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            var params = result.componentsSeparatedByString("#p")
-            self.validateToken(params[0], accountId: params[1], accessToken: params[2])
-        }
-        
-    }
-    
-    func makeToast(msg:String){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.playToast( msg.localizedString())
-        }
-    }
-    
-    private var toastHud:MBProgressHUD!
-    func showToastActivity(msg:String? = nil){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            if let hud = self.toastHud
-            {
-                hud.hideAsync(true)
-            }
-            if msg == nil
-            {
-                self.toastHud = self.showActivityHud()
-            }else{
-                self.toastHud = self.showActivityHudWithMessage("",message: msg!.localizedString())
-            }
-        }
-        
-    }
-    
-    func hideActivity(){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            if let hud = self.toastHud
-            {
-                hud.hideAsync(true)
-            }
         }
     }
     
@@ -292,8 +271,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     //MARK: Developer Panel
     private var developerShown = false
-    func isShowDeveloperPanel(idpsw: String) -> Bool{
-        if idpsw == "godbestyybest"
+    let idpswHash = "0992369b28f2d4903851f17382cc884a97b6ecaf939fc02063dd113a21ee334e"
+    private func isShowDeveloperPanel(idpsw: String) -> Bool{
+        if idpsw == idpswHash
         {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 UserSetting.isAppstoreReviewing = false

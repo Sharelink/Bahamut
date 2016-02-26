@@ -217,7 +217,8 @@ OPERATE_ERROR = "Operate Error,Please Check Your Network";
 
 //SigninViewController
 REGISTING = "Registing";
-REGIST_SUC_MSG = "Regist Successful,you Sharelink ID is\n %@";
+REGIST_SUC_TITLE = "Regist Successful";
+REGIST_SUC_MSG = "You Sharelink ID:\n%@";
 
 //UserProfileViewController;
 CHANGE_PROFILE_VIDEO = "Change Profile Video";

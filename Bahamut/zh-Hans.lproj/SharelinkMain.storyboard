@@ -539,7 +539,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="501-Fq-5xf" kind="custom" identifier="Show Main Navigation" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="sWa-BH-Q2l"/>
-                        <segue destination="gSG-zD-Igm" kind="custom" identifier="Show Sign View" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="ij8-QM-uEW"/>
+                        <segue destination="gSG-zD-Igm" kind="custom" identifier="Show Sign View" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" animates="NO" id="ij8-QM-uEW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-B4-iBG" userLabel="First Responder" sceneMemberID="firstResponder"/>

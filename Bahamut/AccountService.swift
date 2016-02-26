@@ -65,10 +65,10 @@ class AccountService: ServiceProtocol
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
         UserSetting.lastLoginAccountId = accountId
-        SharelinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error, registApiServer,validateResult) -> Void in
+        SharelinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error,validateResult) -> Void in
             if isNewUser
             {
-                registCallback(registApiServer:registApiServer)
+                registCallback(registApiServer:validateResult.RegistAPIServer)
             }else if error == nil{
                 self.setLogined(validateResult)
                 callback(loginSuccess: true, message: "")

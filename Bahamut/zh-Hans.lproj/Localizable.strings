@@ -215,7 +215,8 @@ OPERATE_ERROR = "操作失败，请检查网络";
 
 //SigninViewController
 REGISTING = "注册中";
-REGIST_SUC_MSG = "注册成功，你的Sharelink ID是\n %@";
+REGIST_SUC_TITLE = "注册成功";
+REGIST_SUC_MSG = "你的Sharelink ID:\n%@";
 
 //UserProfileViewController;
 CHANGE_PROFILE_VIDEO = "修改个人视频";
