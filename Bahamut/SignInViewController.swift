@@ -159,7 +159,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     var registedAccountName:String!
     
     private var refreshingHud:MBProgressHUD!
-    func validateToken(serverUrl:String, accountId:String, accessToken: String)
+    private func validateToken(serverUrl:String, accountId:String, accessToken: String)
     {
         let accountService = ServiceContainer.getService(AccountService)
         let hud = self.showActivityHudWithMessage("",message: "LOGINING".localizedString() )
@@ -244,9 +244,9 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func loginAccount(username: String,_ password: String) {
         if isShowDeveloperPanel("\(username)\(password)".sha256){return}
-        let hud = self.showActivityHud()
+        let hud = self.showActivityHudWithMessage(nil, message: "LOGINING".localizedString())
         SharelinkSDK.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
-            hud.hide(false)
+            hud.hide(true)
             if isSuc
             {
                 self.validateToken(loginResult.AppServiceUrl, accountId: loginResult.AccountID, accessToken: loginResult.AccessToken)

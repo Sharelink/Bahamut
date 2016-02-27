@@ -16,7 +16,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShareThing" rowHeight="180" id="mfI-a6-MP0" customClass="UIShareThing" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="66" width="600" height="180"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="180"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="mfI-a6-MP0" id="xRU-Ss-Aqs">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="179"/>
@@ -188,7 +188,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="RollMessage" rowHeight="87" id="fIm-LP-imR" customClass="UIShareMessage" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="246" width="600" height="87"/>
+                                <rect key="frame" x="0.0" y="266" width="600" height="87"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fIm-LP-imR" id="Zeh-v9-fxv">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
@@ -275,7 +275,7 @@
             <objects>
                 <tableViewController id="zlK-ye-pOd" customClass="LinkedUserListController" customModule="Bahamut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="22" sectionFooterHeight="22" id="wFU-9I-Bug">
-                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -539,7 +539,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="501-Fq-5xf" kind="custom" identifier="Show Main Navigation" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="sWa-BH-Q2l"/>
-                        <segue destination="gSG-zD-Igm" kind="custom" identifier="Show Sign View" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" animates="NO" id="ij8-QM-uEW"/>
+                        <segue destination="gSG-zD-Igm" kind="custom" identifier="Show Sign View" customClass="StartSegue" customModule="Bahamut" customModuleProvider="target" id="ij8-QM-uEW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-B4-iBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1096,7 +1096,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ThemeCell" id="OWz-yJ-p0D" customClass="ThemeCell" customModule="Bahamut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OWz-yJ-p0D" id="xpx-wO-scn">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1196,7 +1196,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyDetailTextPropertyCell" id="Emi-zk-dbK" customClass="MyDetailTextPropertyCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Emi-zk-dbK" id="6V8-cY-DTY">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1247,7 +1247,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyDetailAvatarCell" rowHeight="82" id="aVA-Xj-SfP" customClass="MyDetailAvatarCell" customModule="Bahamut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="600" height="82"/>
+                                        <rect key="frame" x="0.0" y="136" width="600" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aVA-Xj-SfP" id="2e4-qO-vPW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
@@ -1294,7 +1294,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="aboutsharelink" id="QuD-ZE-d5k">
-                                        <rect key="frame" x="0.0" y="198" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="218" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QuD-ZE-d5k" id="464-2Q-hgk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1314,7 +1314,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clearCache" id="Eyk-ED-ZbI">
-                                        <rect key="frame" x="0.0" y="242" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="262" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eyk-ED-ZbI" id="hGr-wn-vnT">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1412,6 +1412,6 @@
         <image name="webcam" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="N2o-I0-qzh"/>
+        <segue reference="sWa-BH-Q2l"/>
     </inferredMetricsTieBreakers>
 </document>
