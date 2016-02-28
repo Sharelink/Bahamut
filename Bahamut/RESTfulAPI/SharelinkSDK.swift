@@ -201,7 +201,7 @@ extension SharelinkSDK
         Alamofire.request(.POST, loginApi, parameters: params).responseObject { (result:Result<LoginResult, NSError>) -> Void in
             if let value = result.value
             {
-                if value.LoginSuccessed == "true"
+                if String.isNullOrEmpty(value.LoginSuccessed) == false && "true" == value.LoginSuccessed
                 {
                     callback(isSuc: true, errorMsg: nil, loginResult: value)
                 }else
