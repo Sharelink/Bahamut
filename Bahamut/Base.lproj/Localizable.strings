@@ -18,7 +18,7 @@ Today = "Today";
 Tomorrow = "Tomorrow";
 Yesterday = "Yesterday";
 
-//SharelinkSDK
+//BahamutRFKit
 VALIDATE_DATA_ERROR = "Validate Data Error";
 NETWORK_ERROR = "Network Error";
 NOT_LOGIN = "Not Login";
@@ -271,9 +271,9 @@ LINK_REQUEST_SENDED = "Ask for link sended";
 ASK_LINK_MSG = "%@ want to link with you in Sharelink!";
 
 //notification format
-NEW_MSG_NOTIFICATION = "New unread messages!";
-NEW_SHARE_NOTIFICATION = "New shares!";
-NEW_FRI_MSG_NOTIFICATION = "New friends messages!";
+NEW_MSG_NOTIFICATION = "New Unread Messages!";
+NEW_SHARE_NOTIFICATION = "New Shares!";
+NEW_FRI_MSG_NOTIFICATION = "New Friends Messages!";
 
 //
 SHARE_SUC = "Share Success!";

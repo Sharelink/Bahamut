@@ -20,10 +20,6 @@ class NotificationService: ServiceProtocol
     private(set) var openVibration:Bool = true
     private var userId:String!
     
-    @objc func appStartInit()
-    {
-    }
-    
     @objc func userLoginInit(userId: String)
     {
         openVibration = UserSetting.isSettingEnable(NotificationService.vibrationEnableKey)

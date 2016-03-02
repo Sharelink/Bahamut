@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RegistModel {
+class RegistSharelinkModel {
     var registUserServer:String!
     var accountId:String!
     var accessToken:String!
@@ -22,13 +22,13 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        SharelinkSDK.sharedInstance.reuse(UserSetting.userId, token: UserSetting.token, shareLinkApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
-        SharelinkSDK.setAppVersion(SharelinkVersion)
-        SharelinkSDK.sharedInstance.startClients()
+        BahamutRFKit.sharedInstance.reuse(UserSetting.userId, token: UserSetting.token, appApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
+        BahamutRFKit.setAppVersion(SharelinkVersion)
+        BahamutRFKit.sharedInstance.startClients()
         ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)
         ChicagoClient.sharedInstance.startHeartBeat()
-        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: SharelinkSDK.appkey, apptoken: UserSetting.token)
+        ChicagoClient.sharedInstance.useValidationInfo(userId, appkey: BahamutRFKit.appkey, apptoken: UserSetting.token)
         self.setServiceReady()
     }
     
@@ -42,11 +42,11 @@ class AccountService: ServiceProtocol
         SharelinkSetting.chicagoServerHost = nil
         SharelinkSetting.chicagoServerHostPort = 0
         UserSetting.userId = nil
-        SharelinkSDK.sharedInstance.cancelToken(){
+        BahamutRFKit.sharedInstance.cancelToken(){
             message in
             
         }
-        SharelinkSDK.sharedInstance.closeClients()
+        BahamutRFKit.sharedInstance.closeClients()
     }
     
     private func setLogined(validateResult:ValidateResult)
@@ -65,7 +65,7 @@ class AccountService: ServiceProtocol
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
     {
         UserSetting.lastLoginAccountId = accountId
-        SharelinkSDK.sharedInstance.validateAccessToken(apiTokenServer, accountId: accountId, accessToken: accessToken) { (isNewUser, error,validateResult) -> Void in
+        BahamutRFKit.sharedInstance.validateAccessToken("\(apiTokenServer)/Tokens", accountId: accountId, accessToken: accessToken) { (isNewUser, error,validateResult) -> Void in
             if isNewUser
             {
                 registCallback(registApiServer:validateResult.RegistAPIServer)
@@ -80,7 +80,7 @@ class AccountService: ServiceProtocol
         }
     }
     
-    func registNewUser(registModel:RegistModel,newUser:Sharelinker,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
+    func registNewUser(registModel:RegistSharelinkModel,newUser:Sharelinker,callback:(isSuc:Bool,msg:String,validateResult:ValidateResult!)->Void)
     {
         let req = RegistNewSharelinkUserRequest()
         req.nickName = newUser.nickName
@@ -89,7 +89,7 @@ class AccountService: ServiceProtocol
         req.accountId = registModel.accountId
         req.apiServerUrl = registModel.registUserServer
         req.region = registModel.region
-        let client = SharelinkSDK.sharedInstance.getBahamutClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req) { (result:SLResult<ValidateResult>) -> Void in
             if result.isFailure
             {
@@ -98,7 +98,7 @@ class AccountService: ServiceProtocol
             {
                 if validateResult.isValidateResultDataComplete()
                 {
-                    SharelinkSDK.sharedInstance.useValidateData(validateResult)
+                    BahamutRFKit.sharedInstance.useValidateData(validateResult)
                     self.setLogined(validateResult)
                     callback(isSuc: true, msg: "REGIST_SUC".localizedString(),validateResult:validateResult)
                 }else
@@ -117,7 +117,7 @@ class AccountService: ServiceProtocol
         let req = ChangeAccountPasswordRequest()
         req.oldPassword = oldPsw.sha256
         req.newPassword = newPsw.sha256
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         client.execute(req) { (result) -> Void in
             if result.isSuccess && String.isNullOrWhiteSpace(result.value) == false && result.value!.lowercaseString == "true"
             {

@@ -1,6 +1,6 @@
 //
 //  ShareThing.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/8/3.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -121,7 +121,7 @@ olderThanThisTime: return the sharethings before this time,except this time,the 
 shareIds: filter,defalut nil
 GET /ShareThings : get user shares,get my share default,if set the userId property,get the share of userId user, with shareIds parameter,will only get the shares which in the shareIds
 */
-public class GetShareThingsRequest: ShareLinkSDKRequestBase
+public class GetShareThingsRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -222,7 +222,7 @@ public class FinishNewShareThingRequest : GetShareThingsRequest
 /*
 POST /ShareThings/Reshare/{pShareId} (newTags,message) //reshare share thing
 */
-public class ReShareRequest:ShareLinkSDKRequestBase
+public class ReShareRequest:BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -260,7 +260,7 @@ public class ReShareRequest:ShareLinkSDKRequestBase
 /*
 GET /ShareThings/ShareIds : return sharethings with id filter
 */
-public class GetShareOfShareIdsRequest: ShareLinkSDKRequestBase
+public class GetShareOfShareIdsRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -279,7 +279,7 @@ public class GetShareOfShareIdsRequest: ShareLinkSDKRequestBase
 /*
 GET /ShareThings/Updated : return updated sharethings ids
 */
-public class GetShareUpdatedMessageRequest: ShareLinkSDKRequestBase
+public class GetShareUpdatedMessageRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -291,7 +291,7 @@ public class GetShareUpdatedMessageRequest: ShareLinkSDKRequestBase
 /*
 DELETE /ShareThings/Updated : clear update message box
 */
-public class ClearShareUpdatedMessageRequest: ShareLinkSDKRequestBase
+public class ClearShareUpdatedMessageRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()

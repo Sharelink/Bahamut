@@ -18,7 +18,7 @@ Today = "今天";
 Tomorrow = "明天";
 Yesterday = "昨天";
 
-//SharelinkSDK
+//BahamutRFKit
 VALIDATE_DATA_ERROR = "数据有误";
 NETWORK_ERROR = "网络错误";
 NOT_LOGIN = "没有登录";

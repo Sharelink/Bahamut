@@ -31,11 +31,11 @@ class ChatService:NSNotificationCenter,ServiceProtocol
     private(set) var chattingShareId:String!
     private var chatMessageServerUrl:String!
     @objc static var ServiceName:String {return "Chat Service"}
-    @objc func appStartInit() {}
+    @objc func appStartInit(appName:String) {}
     
     @objc func userLoginInit(userId: String)
     {
-        self.chatMessageServerUrl = SharelinkSDK.sharedInstance.shareLinkApiServer
+        self.chatMessageServerUrl = BahamutRFKit.sharedInstance.appApiServer
         let route = ChicagoRoute()
         route.ExtName = "NotificationCenter"
         route.CmdName = "UsrNewMsg"
@@ -108,7 +108,7 @@ class ChatService:NSNotificationCenter,ServiceProtocol
     {
         let req = GetNewMessagesRequest()
         req.apiServerUrl = self.chatMessageServerUrl
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
             if var msgs = result.returnObject
             {
@@ -200,7 +200,7 @@ class ChatService:NSNotificationCenter,ServiceProtocol
         req.messageData = msg.msgData
         req.audienceId = audienceId
         req.shareId = shareId
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<Message>) -> Void in
             if result.isSuccess
             {

@@ -135,7 +135,7 @@ public class SharelinkerThemes : BahamutObject
 /*
 GET: /SharelinkTags/ : Get user's all tags from server,return SharelinkTags
 */
-public class GetMyAllTagsRequest: ShareLinkSDKRequestBase
+public class GetMyAllTagsRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -147,7 +147,7 @@ public class GetMyAllTagsRequest: ShareLinkSDKRequestBase
 /*
 POST /SharelinkTags (tagName,tagColor,data,isFocus):add a new user tag to my tags collection
 */
-public class AddNewTagRequest: ShareLinkSDKRequestBase
+public class AddNewTagRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -201,7 +201,7 @@ public class AddNewTagRequest: ShareLinkSDKRequestBase
 /*
 PUT /SharelinkTags/{tagId} ({tagName,tagColor,isFocus,data): update tag name property
 */
-public class UpdateTagRequest:ShareLinkSDKRequestBase
+public class UpdateTagRequest:BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -256,7 +256,7 @@ public class UpdateTagRequest:ShareLinkSDKRequestBase
 /*
 DELETE /SharelinkTags (tagIds) : delete the tags,and all the user has link to this tag will be dislink
 */
-public class RemoveTagsRequest: ShareLinkSDKRequestBase
+public class RemoveTagsRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -274,7 +274,7 @@ public class RemoveTagsRequest: ShareLinkSDKRequestBase
 /*
 GET: /UserTags/{userId} : Get linked user's all tags from server
 */
-public class GetLinkedUserTagsRequest: ShareLinkSDKRequestBase
+public class GetLinkedUserTagsRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -289,7 +289,7 @@ public class GetLinkedUserTagsRequest: ShareLinkSDKRequestBase
     }
 }
 
-public class GetHotThemesRequest : ShareLinkSDKRequestBase
+public class GetHotThemesRequest : BahamutRFRequestBase
 {
     public class HotThemes:BahamutObject
     {

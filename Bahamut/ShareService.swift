@@ -174,7 +174,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     private func requestShare(req:GetShareThingsRequest,callback:((reqShares:[ShareThing]!)->Void)!) -> Bool
     {
         allShareLoaded = false
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient() as! ShareLinkSDKClient
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient() as! BahamutRFClient
         return client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
             var shares:[ShareThing]! = nil
@@ -239,7 +239,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         //Access Network
         let req = GetShareOfShareIdsRequest()
         req.shareIds = shareIds
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
+        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
             var shares:[ShareThing]! = nil
             if result.statusCode == ReturnCode.OK && result.returnObject != nil && result.returnObject.count > 0
             {
@@ -276,7 +276,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     {
         let req = GetShareUpdatedMessageRequest()
         
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
             if var msgs = result.returnObject
             {
                 msgs = msgs.filter{!$0.isInvalidData()} //AlamofireJsonToObject Issue:responseArray will invoke all completeHandler
@@ -313,7 +313,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     {
         let req = ClearShareUpdatedMessageRequest()
         
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
+        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<[ShareUpdatedMessage]>) ->Void in
         }
     }
     
@@ -324,7 +324,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.pShareId = shareId
         req.message = message
         req.tags = tags
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
             {
@@ -347,7 +347,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.message = newShare.message
         req.tags = tags
         req.shareType = newShare.shareType
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         self.postNotificationName(ShareService.startPostingShare, object: nil)
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if result.isSuccess
@@ -370,7 +370,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = FinishNewShareThingRequest()
         req.shareId = shareId
         req.taskSuccess = isCompleted
-        let client = SharelinkSDK.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
         client.execute(req) { (result:SLResult<ShareThing>) -> Void in
             if let _ = result.returnObject
             {
@@ -392,7 +392,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = DeleteVoteRequest()
         req.shareId = shareThingModel.shareId
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
+        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 shareThingModel.voteUsers.removeElement{$0 == myUserId}
@@ -410,7 +410,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let myUserId = ServiceContainer.getService(UserService).myUserId
         let req = AddVoteRequest()
         req.shareId = share.shareId
-        SharelinkSDK.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
+        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
             if result.statusCode == ReturnCode.OK
             {
                 if share.voteUsers == nil{

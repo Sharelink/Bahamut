@@ -23,6 +23,8 @@ var SharelinkName:String{
     return "SHARELINK_NAME".localizedString()
 }
 
+let SharelinkRFAppKey = "5e6c827f2fcb04e8fca80cf72db5ba004508246b"
+
 class BahamutConfigObject:EVObject
 {
     var accountRegistApiUrl:String!

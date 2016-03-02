@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/8/3.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -37,7 +37,7 @@ public class Sharelinker : BahamutObject
 userIds:filter
 GET /Sharelinkers : if not set the property userIds,return all my connnected users,the 1st is myself; set the userIds will return the user info of userIds
 */
-public class GetSharelinkersRequest: ShareLinkSDKRequestBase
+public class GetSharelinkersRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -56,7 +56,7 @@ public class GetSharelinkersRequest: ShareLinkSDKRequestBase
 /*
 PUT /Sharelinkers/NickName (nickName) : update my user profile property
 */
-public class UpdateSharelinkerProfileNickNameRequest  : ShareLinkSDKRequestBase
+public class UpdateSharelinkerProfileNickNameRequest  : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -75,7 +75,7 @@ public class UpdateSharelinkerProfileNickNameRequest  : ShareLinkSDKRequestBase
 /*
 PUT /Sharelinkers/Avatar (newAvatarId) : update my user profile property
 */
-public class UpdateAvatarRequest: ShareLinkSDKRequestBase
+public class UpdateAvatarRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -93,7 +93,7 @@ public class UpdateAvatarRequest: ShareLinkSDKRequestBase
 /*
 PUT /Sharelinkers/ProfileVideo (newProfileVideoId) : update my user profile property
 */
-public class UpdateProfileVideoRequest: ShareLinkSDKRequestBase
+public class UpdateProfileVideoRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -111,7 +111,7 @@ public class UpdateProfileVideoRequest: ShareLinkSDKRequestBase
 /*
 PUT /Sharelinkers (nickName,motto) : update my user profile property
 */
-public class UpdateSharelinkerProfileMottoRequest : ShareLinkSDKRequestBase
+public class UpdateSharelinkerProfileMottoRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -130,7 +130,7 @@ public class UpdateSharelinkerProfileMottoRequest : ShareLinkSDKRequestBase
 /*
 POST /NewSharelinkUsers (nickName)
 */
-public class RegistNewSharelinkUserRequest : ShareLinkSDKRequestBase
+public class RegistNewSharelinkUserRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()

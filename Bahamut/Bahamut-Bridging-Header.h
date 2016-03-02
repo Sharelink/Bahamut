@@ -15,7 +15,7 @@
 #ifndef Bahamut_Bridging_Header_h
 #define Bahamut_Bridging_Header_h
 
-#import "SharelinkSDK.h"
+#import "BahamutRFKit.h"
 
 #import "UIBarButtomItem-Badge/UIButton+Badge.h"
 #import "UIBarButtomItem-Badge/UIbarButtonItem+Badge.h"

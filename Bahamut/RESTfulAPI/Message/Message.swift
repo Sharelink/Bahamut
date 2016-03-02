@@ -1,6 +1,6 @@
 //
 //  Message.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/9/29.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -56,7 +56,7 @@ newerThanTime: get the messages that time newer than this messageId
 chatId:
 GET /Messages/{shareId} : get share messages
 */
-public class GetShareMessageRequest: ShareLinkSDKRequestBase
+public class GetShareMessageRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -81,7 +81,7 @@ public class GetShareMessageRequest: ShareLinkSDKRequestBase
 /*
 GET /Message/New : get all new message from server
 */
-public class GetNewMessagesRequest : ShareLinkSDKRequestBase
+public class GetNewMessagesRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -93,7 +93,7 @@ public class GetNewMessagesRequest : ShareLinkSDKRequestBase
 /*
 DELETE /Message/New : notify all new message received
 */
-public class NotifyNewMessagesReceivedRequest : ShareLinkSDKRequestBase
+public class NotifyNewMessagesReceivedRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -105,7 +105,7 @@ public class NotifyNewMessagesReceivedRequest : ShareLinkSDKRequestBase
 /*
 POST /Message/{shareId} : send a new message to sharelinker of the share
 */
-public class SendMessageRequest : ShareLinkSDKRequestBase
+public class SendMessageRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()

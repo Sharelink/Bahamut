@@ -181,7 +181,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func registNewUser(accountId:String,registApi:String,accessToken:String)
     {
-        let registModel = RegistModel()
+        let registModel = RegistSharelinkModel()
         registModel.accessToken = accessToken
         registModel.registUserServer = registApi
         registModel.accountId = accountId
@@ -228,7 +228,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func registAccount(username: String,_ password: String) {
         if isShowDeveloperPanel("\(username)\(password)".sha256){return}
         let hud = self.showActivityHud()
-        SharelinkSDK.sharedInstance.registBahamutAccount(SharelinkSetting.registAccountApi, username: username, passwordOrigin: password, phone_number: nil, email: nil) { (isSuc, errorMsg, registResult) -> Void in
+        BahamutRFKit.sharedInstance.registBahamutAccount(SharelinkSetting.registAccountApi, username: username, passwordOrigin: password, phone_number: nil, email: nil) { (isSuc, errorMsg, registResult) -> Void in
             hud.hide(false)
             if isSuc
             {
@@ -245,7 +245,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     func loginAccount(username: String,_ password: String) {
         if isShowDeveloperPanel("\(username)\(password)".sha256){return}
         let hud = self.showActivityHudWithMessage(nil, message: "LOGINING".localizedString())
-        SharelinkSDK.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
+        BahamutRFKit.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
             hud.hide(true)
             if isSuc
             {

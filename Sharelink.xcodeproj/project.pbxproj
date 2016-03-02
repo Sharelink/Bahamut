@@ -8,6 +8,46 @@
 
 /* Begin PBXBuildFile section */
 		6D99806989894BE6D8FAA4C7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; };
+		E708ABD11C86D2CE0071104E /* BahamutRFKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */; };
+		E708ABD21C86D2CE0071104E /* BahamutRFClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */; };
+		E708ABD31C86D2CE0071104E /* BahamutRFRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABD01C86D2CE0071104E /* BahamutRFRequestBase.swift */; };
+		E708ABD41C86D2D70071104E /* BahamutRFKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */; };
+		E708ABD51C86D2DA0071104E /* BahamutRFClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */; };
+		E708ABD61C86D2DD0071104E /* BahamutRFRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABD01C86D2CE0071104E /* BahamutRFRequestBase.swift */; };
+		E708ABE41C86D3B60071104E /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE11C86D3B60071104E /* AliOSSFile.swift */; };
+		E708ABE51C86D3B60071104E /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE21C86D3B60071104E /* BahamutFire.swift */; };
+		E708ABE61C86D3B60071104E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE31C86D3B60071104E /* File.swift */; };
+		E708ABE71C86D3BB0071104E /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE11C86D3B60071104E /* AliOSSFile.swift */; };
+		E708ABE81C86D3BE0071104E /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE21C86D3B60071104E /* BahamutFire.swift */; };
+		E708ABE91C86D3C00071104E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABE31C86D3B60071104E /* File.swift */; };
+		E708AC461C86EA4C0071104E /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC371C86EA4C0071104E /* AliOSSManager.swift */; };
+		E708AC471C86EA4C0071104E /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC371C86EA4C0071104E /* AliOSSManager.swift */; };
+		E708AC481C86EA4C0071104E /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC381C86EA4C0071104E /* FetchAliOSSExtension.swift */; };
+		E708AC491C86EA4C0071104E /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC381C86EA4C0071104E /* FetchAliOSSExtension.swift */; };
+		E708AC4A1C86EA4C0071104E /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC391C86EA4C0071104E /* UploadAliOSSExtension.swift */; };
+		E708AC4B1C86EA4C0071104E /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC391C86EA4C0071104E /* UploadAliOSSExtension.swift */; };
+		E708AC4C1C86EA4C0071104E /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3B1C86EA4C0071104E /* FetchBahamutFireExtension.swift */; };
+		E708AC4D1C86EA4C0071104E /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3B1C86EA4C0071104E /* FetchBahamutFireExtension.swift */; };
+		E708AC4E1C86EA4C0071104E /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3C1C86EA4C0071104E /* UploadBahamutFireExtension.swift */; };
+		E708AC4F1C86EA4C0071104E /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3C1C86EA4C0071104E /* UploadBahamutFireExtension.swift */; };
+		E708AC501C86EA4C0071104E /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3D1C86EA4C0071104E /* DownloadExtension.swift */; };
+		E708AC511C86EA4C0071104E /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3D1C86EA4C0071104E /* DownloadExtension.swift */; };
+		E708AC521C86EA4C0071104E /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3E1C86EA4C0071104E /* FileService.swift */; };
+		E708AC531C86EA4C0071104E /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC3E1C86EA4C0071104E /* FileService.swift */; };
+		E708AC581C86EA4C0071104E /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC421C86EA4C0071104E /* UploadBaseExtension.swift */; };
+		E708AC591C86EA4C0071104E /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC421C86EA4C0071104E /* UploadBaseExtension.swift */; };
+		E708AC5A1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC431C86EA4C0071104E /* UtilFileServiceExtension.swift */; };
+		E708AC5B1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC431C86EA4C0071104E /* UtilFileServiceExtension.swift */; };
+		E708AC5C1C86EA4C0071104E /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC441C86EA4C0071104E /* ServiceContainer.swift */; };
+		E708AC5D1C86EA4C0071104E /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC441C86EA4C0071104E /* ServiceContainer.swift */; };
+		E708AC5E1C86EA4C0071104E /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC451C86EA4C0071104E /* ServiceProtocol.swift */; };
+		E708AC5F1C86EA4C0071104E /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC451C86EA4C0071104E /* ServiceProtocol.swift */; };
+		E708AC611C86EB2B0071104E /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC601C86EB2B0071104E /* AccountService.swift */; };
+		E708AC621C86EB2B0071104E /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC601C86EB2B0071104E /* AccountService.swift */; };
+		E708AC8B1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC891C86FB7D0071104E /* UpdateCoreData1.swift */; };
+		E708AC8C1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC891C86FB7D0071104E /* UpdateCoreData1.swift */; };
+		E708AC8D1C86FB7D0071104E /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC8A1C86FB7D0071104E /* UpdateCoreDataHelper.swift */; };
+		E708AC8E1C86FB7D0071104E /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708AC8A1C86FB7D0071104E /* UpdateCoreDataHelper.swift */; };
 		E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */; };
 		E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
@@ -33,22 +73,12 @@
 		E70A5AE91C174870001C0A47 /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD71C174870001C0A47 /* ModelEntity.swift */; };
 		E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD81C174870001C0A47 /* ModelExtension.swift */; };
 		E70A5AEC1C175BB3001C0A47 /* PersistentFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */; };
-		E70A5AEF1C1772E9001C0A47 /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */; };
-		E70A5AF11C177342001C0A47 /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */; };
 		E70C170D1C1D7FA300F2D67F /* NewShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C170C1C1D7FA300F2D67F /* NewShareUrlCell.swift */; };
-		E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */; };
-		E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */; };
-		E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
 		E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */; };
 		E70D11431C085BE900DC6C9A /* defaultAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E70D11421C085BE900DC6C9A /* defaultAvatar.png */; };
 		E70D11471C0865B500DC6C9A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */; };
 		E70E5B391B66906F00CEF3BA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B381B66906F00CEF3BA /* AVFoundation.framework */; };
 		E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
-		E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
-		E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF351C048C390096C437 /* UploadBaseExtension.swift */; };
-		E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
-		E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
-		E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
 		E71058F01C5B114600D1C0CC /* UserGuideThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */; };
 		E71058F21C5B118E00D1C0CC /* UserGuideAddFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */; };
 		E71058F81C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */; };
@@ -102,7 +132,6 @@
 		E72949B21BF4A0ED005B7B3A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */; };
 		E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */; };
 		E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
-		E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
 		E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47251B7637AE002674AB /* LinkedUserListController.swift */; };
 		E73681501B96A816004E8B56 /* SharelinkThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */; };
 		E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
@@ -125,15 +154,12 @@
 		E74C83601C590E8F009CF8DB /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234531C0BF5530083E281 /* RegexUtil.swift */; };
 		E74C83611C590E8F009CF8DB /* ImageShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */; };
 		E74C83621C590E8F009CF8DB /* ChicagoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB71C0EA09D0072A1D7 /* ChicagoClient.swift */; };
-		E74C83631C590E8F009CF8DB /* DownloadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */; };
-		E74C83641C590E8F009CF8DB /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
 		E74C83651C590E8F009CF8DB /* QuPaiRecordCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */; };
 		E74C83661C590E8F009CF8DB /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57981C54AD4C00505B2A /* UserLink.swift */; };
 		E74C83671C590E8F009CF8DB /* ThemeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */; };
 		E74C83681C590E8F009CF8DB /* UseTinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500071C3B7392009185FE /* UseTinkViewController.swift */; };
 		E74C83691C590E8F009CF8DB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
 		E74C836A1C590E8F009CF8DB /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB8F1C0E9C140072A1D7 /* HSL.swift */; };
-		E74C836B1C590E8F009CF8DB /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578D1C54AD4C00505B2A /* AliOSSFile.swift */; };
 		E74C836C1C590E8F009CF8DB /* UIAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */; };
 		E74C836D1C590E8F009CF8DB /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD01C174870001C0A47 /* MessageEntity.swift */; };
 		E74C836E1C590E8F009CF8DB /* SharelinkThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */; };
@@ -148,22 +174,17 @@
 		E74C83771C590E8F009CF8DB /* SRCMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70955AB1C4F61C50060A06E /* SRCMenu.swift */; };
 		E74C83781C590E8F009CF8DB /* LinkedUserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F47251B7637AE002674AB /* LinkedUserListController.swift */; };
 		E74C83791C590E8F009CF8DB /* UserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBB1C0EAB000072A1D7 /* UserGuide.swift */; };
-		E74C837A1C590E8F009CF8DB /* SharelinkSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57931C54AD4C00505B2A /* SharelinkSDK.swift */; };
 		E74C837B1C590E8F009CF8DB /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B26C61B71EC0B008E81D6 /* StartSegue.swift */; };
 		E74C837C1C590E8F009CF8DB /* UIShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */; };
 		E74C837D1C590E8F009CF8DB /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */; };
 		E74C837E1C590E8F009CF8DB /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */; };
-		E74C837F1C590E8F009CF8DB /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578A1C54AD4C00505B2A /* ShareLinkSDKClient.swift */; };
 		E74C83801C590E8F009CF8DB /* UIShareContentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234861C0C3D790083E281 /* UIShareContentFactory.swift */; };
 		E74C83811C590E8F009CF8DB /* ChicagoClientBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB91C0EA0C30072A1D7 /* ChicagoClientBase.swift */; };
-		E74C83821C590E8F009CF8DB /* AliOSSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */; };
 		E74C83831C590E8F009CF8DB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57911C54AD4C00505B2A /* Message.swift */; };
-		E74C83841C590E8F009CF8DB /* FetchAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */; };
 		E74C83851C590E8F009CF8DB /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */; };
 		E74C83861C590E8F009CF8DB /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09E1BCABC1C001BEEAC /* UIButton+Badge.m */; };
 		E74C83871C590E8F009CF8DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
 		E74C83881C590E8F009CF8DB /* ThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */; };
-		E74C83891C590E8F009CF8DB /* UpdateCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */; };
 		E74C838A1C590E8F009CF8DB /* EditThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73E44BB1B823E9600E0B6EB /* EditThemeViewController.swift */; };
 		E74C838B1C590E8F009CF8DB /* MessageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACF1C174870001C0A47 /* MessageEntity+CoreDataProperties.swift */; };
 		E74C838C1C590E8F009CF8DB /* SystemSoundHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */; };
@@ -178,7 +199,6 @@
 		E74C83951C590E8F009CF8DB /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */; };
 		E74C83961C590E8F009CF8DB /* BahamutModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD51C174870001C0A47 /* BahamutModel.xcdatamodeld */; };
 		E74C83971C590E8F009CF8DB /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73EE5271BF1D16B00AB7340 /* AboutViewController.swift */; };
-		E74C83981C590E8F009CF8DB /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD091B67EFE600D5426B /* ServiceProtocol.swift */; };
 		E74C83991C590E8F009CF8DB /* ScanQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608511BA1DF5800E2BECA /* ScanQRViewController.swift */; };
 		E74C839A1C590E8F009CF8DB /* PersistentFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */; };
 		E74C839B1C590E8F009CF8DB /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
@@ -187,17 +207,14 @@
 		E74C839E1C590E8F009CF8DB /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD131B68069A00D5426B /* ShareService.swift */; };
 		E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B32951C40D6BE007E9254 /* HarmfulReportViewController.swift */; };
 		E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF0CE31C4E2CBE007C91E2 /* SRCService.swift */; };
-		E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72F00761B6C94F8007E9E29 /* FileService.swift */; };
 		E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* ChatService.swift */; };
 		E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */; };
-		E74C83A41C590E8F009CF8DB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578F1C54AD4C00505B2A /* File.swift */; };
 		E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD21C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift */; };
 		E74C83A61C590E8F009CF8DB /* ColorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB8C1C0E9C140072A1D7 /* ColorUtil.swift */; };
 		E74C83A71C590E8F009CF8DB /* ToastHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBD1C0EAB400072A1D7 /* ToastHelper.swift */; };
 		E74C83A81C590E8F009CF8DB /* BahamutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */; };
 		E74C83A91C590E8F009CF8DB /* MyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71B00CE1BAB1EEC00BF913B /* MyDetailViewController.swift */; };
 		E74C83AA1C590E8F009CF8DB /* BahamutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */; };
-		E74C83AB1C590E8F009CF8DB /* ShareLinkSDKRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578B1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift */; };
 		E74C83AC1C590E8F009CF8DB /* UIShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEA1B67414300D5426B /* UIShareThing.swift */; };
 		E74C83AD1C590E8F009CF8DB /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E76234501C0BF5530083E281 /* MF_Base64Additions.m */; };
 		E74C83AE1C590E8F009CF8DB /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234511C0BF5530083E281 /* DateHelper.swift */; };
@@ -207,11 +224,8 @@
 		E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */; };
 		E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
-		E74C83B61C590E8F009CF8DB /* UploadAliOSSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */; };
 		E74C83B71C590E8F009CF8DB /* SDKVersionReplaceInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */; };
-		E74C83B81C590E8F009CF8DB /* FetchBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */; };
 		E74C83B91C590E8F009CF8DB /* TextShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2F8461C27F176003C87C5 /* TextShareContent.swift */; };
-		E74C83BA1C590E8F009CF8DB /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0D1B67F44E00D5426B /* AccountService.swift */; };
 		E74C83BB1C590E8F009CF8DB /* UIFileCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E728163A1B7EF2EB00A1927E /* UIFileCollectionController.swift */; };
 		E74C83BC1C590E8F009CF8DB /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
 		E74C83BD1C590E8F009CF8DB /* UIEditTextPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3AA971B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift */; };
@@ -227,7 +241,6 @@
 		E74C83C81C590E8F009CF8DB /* SRCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FF29361C5110DE00F95FE5 /* SRCModels.swift */; };
 		E74C83C91C590E8F009CF8DB /* UIImagePlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3AA9B1B9C332F0094B0D0 /* UIImagePlayerController.swift */; };
 		E74C83CA1C590E8F009CF8DB /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E3E371B6B56A900B27085 /* UserService.swift */; };
-		E74C83CB1C590E8F009CF8DB /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578E1C54AD4C00505B2A /* BahamutFire.swift */; };
 		E74C83CC1C590E8F009CF8DB /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB901C0E9C140072A1D7 /* UIColor.swift */; };
 		E74C83CD1C590E8F009CF8DB /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E74C83CE1C590E8F009CF8DB /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF579B1C54AD4C00505B2A /* Vote.swift */; };
@@ -235,15 +248,12 @@
 		E74C83D01C590E8F009CF8DB /* UUMsgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E795C6DF1BC94DA9003B9EDC /* UUMsgItem.swift */; };
 		E74C83D11C590E8F009CF8DB /* NewCustomSRCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF0CDE1C4DDFF8007C91E2 /* NewCustomSRCCell.swift */; };
 		E74C83D21C590E8F009CF8DB /* ShareLinkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57971C54AD4C00505B2A /* ShareLinkUser.swift */; };
-		E74C83D31C590E8F009CF8DB /* UtilFileServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */; };
 		E74C83D41C590E8F009CF8DB /* ShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57951C54AD4C00505B2A /* ShareThing.swift */; };
-		E74C83D51C590E8F009CF8DB /* UploadBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70FEF351C048C390096C437 /* UploadBaseExtension.swift */; };
 		E74C83D61C590E8F009CF8DB /* KeyboardAdjustHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBF1C0EAB890072A1D7 /* KeyboardAdjustHelper.swift */; };
 		E74C83D81C590E8F009CF8DB /* IDUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234521C0BF5530083E281 /* IDUtil.swift */; };
 		E74C83D91C590E8F009CF8DB /* FileMgrEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACA1C174870001C0A47 /* FileMgrEntities.swift */; };
 		E74C83DA1C590E8F009CF8DB /* MyQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786084F1BA1DF3D00E2BECA /* MyQRViewController.swift */; };
 		E74C83DB1C590E8F009CF8DB /* ShareThingsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCE81B6740C100D5426B /* ShareThingsListController.swift */; };
-		E74C83DC1C590E8F009CF8DB /* UploadBahamutFireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */; };
 		E74C83DD1C590E8F009CF8DB /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09C1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m */; };
 		E74C83DE1C590E8F009CF8DB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC41C174870001C0A47 /* CoreDataManager.swift */; };
 		E74C83DF1C590E8F009CF8DB /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708CD211BC90494000ADD1B /* ChatModel.swift */; };
@@ -257,7 +267,6 @@
 		E74C83E71C590E8F009CF8DB /* FilmShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234821C0C34080083E281 /* FilmShareContent.swift */; };
 		E74C83E81C590E8F009CF8DB /* MessageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD11C174870001C0A47 /* MessageExtension.swift */; };
 		E74C83E91C590E8F009CF8DB /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
-		E74C83EA1C590E8F009CF8DB /* UpdateCoreData1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */; };
 		E74C83ED1C590E8F009CF8DB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */; };
 		E74C83F21C590E8F009CF8DB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A41BCFB0570050997B /* libz.tbd */; };
 		E74C83F31C590E8F009CF8DB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949A91BF4936E005B7B3A /* Photos.framework */; };
@@ -340,9 +349,6 @@
 		E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */; };
 		E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BCF51B676EAB00D5426B /* UIShareContent.swift */; };
 		E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD061B67EA1B00D5426B /* SignInViewController.swift */; };
-		E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD091B67EFE600D5426B /* ServiceProtocol.swift */; };
-		E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0B1B67F12000D5426B /* ServiceContainer.swift */; };
-		E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0D1B67F44E00D5426B /* AccountService.swift */; };
 		E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */; };
 		E790BD121B67FDEF00D5426B /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD111B67FDEF00D5426B /* ChatService.swift */; };
 		E790BD141B68069A00D5426B /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790BD131B68069A00D5426B /* ShareService.swift */; };
@@ -361,13 +367,7 @@
 		E7AF0CE61C4E6700007C91E2 /* SharelinkSRCIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */; };
 		E7AF0CE81C4E6753007C91E2 /* ThemeTypedIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF0CE71C4E6753007C91E2 /* ThemeTypedIcons.xcassets */; };
 		E7AF579C1C54AD4C00505B2A /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57881C54AD4C00505B2A /* Account.swift */; };
-		E7AF579D1C54AD4C00505B2A /* ShareLinkSDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578A1C54AD4C00505B2A /* ShareLinkSDKClient.swift */; };
-		E7AF579E1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578B1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift */; };
-		E7AF579F1C54AD4C00505B2A /* AliOSSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578D1C54AD4C00505B2A /* AliOSSFile.swift */; };
-		E7AF57A01C54AD4C00505B2A /* BahamutFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578E1C54AD4C00505B2A /* BahamutFire.swift */; };
-		E7AF57A11C54AD4C00505B2A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF578F1C54AD4C00505B2A /* File.swift */; };
 		E7AF57A21C54AD4C00505B2A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57911C54AD4C00505B2A /* Message.swift */; };
-		E7AF57A31C54AD4C00505B2A /* SharelinkSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57931C54AD4C00505B2A /* SharelinkSDK.swift */; };
 		E7AF57A41C54AD4C00505B2A /* ShareThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57951C54AD4C00505B2A /* ShareThing.swift */; };
 		E7AF57A51C54AD4C00505B2A /* ShareLinkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57971C54AD4C00505B2A /* ShareLinkUser.swift */; };
 		E7AF57A61C54AD4C00505B2A /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57981C54AD4C00505B2A /* UserLink.swift */; };
@@ -464,6 +464,27 @@
 /* Begin PBXFileReference section */
 		12068C6D6B3CD72448DC90C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E708ABCC1C86D2CE0071104E /* BahamutRFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BahamutRFKit.h; sourceTree = "<group>"; };
+		E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutRFKit.swift; sourceTree = "<group>"; };
+		E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutRFClient.swift; sourceTree = "<group>"; };
+		E708ABD01C86D2CE0071104E /* BahamutRFRequestBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutRFRequestBase.swift; sourceTree = "<group>"; };
+		E708ABE11C86D3B60071104E /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
+		E708ABE21C86D3B60071104E /* BahamutFire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFire.swift; sourceTree = "<group>"; };
+		E708ABE31C86D3B60071104E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		E708AC371C86EA4C0071104E /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
+		E708AC381C86EA4C0071104E /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
+		E708AC391C86EA4C0071104E /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
+		E708AC3B1C86EA4C0071104E /* FetchBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchBahamutFireExtension.swift; sourceTree = "<group>"; };
+		E708AC3C1C86EA4C0071104E /* UploadBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBahamutFireExtension.swift; sourceTree = "<group>"; };
+		E708AC3D1C86EA4C0071104E /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
+		E708AC3E1C86EA4C0071104E /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		E708AC421C86EA4C0071104E /* UploadBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBaseExtension.swift; sourceTree = "<group>"; };
+		E708AC431C86EA4C0071104E /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
+		E708AC441C86EA4C0071104E /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+		E708AC451C86EA4C0071104E /* ServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
+		E708AC601C86EB2B0071104E /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
+		E708AC891C86FB7D0071104E /* UpdateCoreData1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreData1.swift; sourceTree = "<group>"; };
+		E708AC8A1C86FB7D0071104E /* UpdateCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreDataHelper.swift; sourceTree = "<group>"; };
 		E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E708CD1F1BC8F9F0000ADD1B /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
 		E708CD211BC90494000ADD1B /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
@@ -491,22 +512,12 @@
 		E70A5AD71C174870001C0A47 /* ModelEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
 		E70A5AD81C174870001C0A47 /* ModelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelExtension.swift; sourceTree = "<group>"; };
 		E70A5AEB1C175BB3001C0A47 /* PersistentFileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentFileHelper.swift; sourceTree = "<group>"; };
-		E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreData1.swift; sourceTree = "<group>"; };
-		E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCoreDataHelper.swift; sourceTree = "<group>"; };
 		E70C170C1C1D7FA300F2D67F /* NewShareUrlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareUrlCell.swift; sourceTree = "<group>"; };
-		E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBahamutFireExtension.swift; sourceTree = "<group>"; };
-		E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchBahamutFireExtension.swift; sourceTree = "<group>"; };
-		E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilFileServiceExtension.swift; sourceTree = "<group>"; };
 		E70C48BA1BA1331F00F805C3 /* AssetsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsConstants.swift; sourceTree = "<group>"; };
 		E70D11421C085BE900DC6C9A /* defaultAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultAvatar.png; path = SharelinkAssets/defaultAvatar.png; sourceTree = "<group>"; };
 		E70D11461C0865B500DC6C9A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E70E5B381B66906F00CEF3BA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E70E5B3A1B66907900CEF3BA /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadAliOSSExtension.swift; sourceTree = "<group>"; };
-		E70FEF351C048C390096C437 /* UploadBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadBaseExtension.swift; sourceTree = "<group>"; };
-		E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadExtension.swift; sourceTree = "<group>"; };
-		E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAliOSSExtension.swift; sourceTree = "<group>"; };
-		E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSManager.swift; sourceTree = "<group>"; };
 		E71058EF1C5B114600D1C0CC /* UserGuideThemeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideThemeController.swift; sourceTree = "<group>"; };
 		E71058F11C5B118E00D1C0CC /* UserGuideAddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideAddFriendsController.swift; sourceTree = "<group>"; };
 		E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayouts.swift; sourceTree = "<group>"; };
@@ -565,7 +576,6 @@
 		E72949B61BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuPaiRecordCameraViewController.swift; sourceTree = "<group>"; };
 		E729E2471C61AC8C00EEA4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E72B26C61B71EC0B008E81D6 /* StartSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
-		E72F00761B6C94F8007E9E29 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		E72F47251B7637AE002674AB /* LinkedUserListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedUserListController.swift; sourceTree = "<group>"; };
 		E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkThemeService.swift; sourceTree = "<group>"; };
 		E73AD00D1B83166B00EE9EA0 /* UIUserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserNavigationController.swift; sourceTree = "<group>"; };
@@ -624,9 +634,6 @@
 		E790BCEC1B6741B800D5426B /* UIReplyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIReplyMessage.swift; sourceTree = "<group>"; };
 		E790BCF51B676EAB00D5426B /* UIShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareContent.swift; sourceTree = "<group>"; };
 		E790BD061B67EA1B00D5426B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		E790BD091B67EFE600D5426B /* ServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
-		E790BD0B1B67F12000D5426B /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
-		E790BD0D1B67F44E00D5426B /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		E790BD111B67FDEF00D5426B /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		E790BD131B68069A00D5426B /* ShareService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
@@ -645,14 +652,7 @@
 		E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SharelinkSRCIcons.xcassets; sourceTree = "<group>"; };
 		E7AF0CE71C4E6753007C91E2 /* ThemeTypedIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ThemeTypedIcons.xcassets; sourceTree = "<group>"; };
 		E7AF57881C54AD4C00505B2A /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		E7AF578A1C54AD4C00505B2A /* ShareLinkSDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKClient.swift; sourceTree = "<group>"; };
-		E7AF578B1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkSDKRequestBase.swift; sourceTree = "<group>"; };
-		E7AF578D1C54AD4C00505B2A /* AliOSSFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliOSSFile.swift; sourceTree = "<group>"; };
-		E7AF578E1C54AD4C00505B2A /* BahamutFire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFire.swift; sourceTree = "<group>"; };
-		E7AF578F1C54AD4C00505B2A /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		E7AF57911C54AD4C00505B2A /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		E7AF57921C54AD4C00505B2A /* SharelinkSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharelinkSDK.h; sourceTree = "<group>"; };
-		E7AF57931C54AD4C00505B2A /* SharelinkSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkSDK.swift; sourceTree = "<group>"; };
 		E7AF57951C54AD4C00505B2A /* ShareThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareThing.swift; sourceTree = "<group>"; };
 		E7AF57971C54AD4C00505B2A /* ShareLinkUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkUser.swift; sourceTree = "<group>"; };
 		E7AF57981C54AD4C00505B2A /* UserLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLink.swift; sourceTree = "<group>"; };
@@ -884,6 +884,89 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E708ABCB1C86D2CE0071104E /* BahamutRFKit */ = {
+			isa = PBXGroup;
+			children = (
+				E708ABE01C86D3B60071104E /* File */,
+				E708ABCC1C86D2CE0071104E /* BahamutRFKit.h */,
+				E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */,
+				E708ABCE1C86D2CE0071104E /* Base */,
+			);
+			path = BahamutRFKit;
+			sourceTree = "<group>";
+		};
+		E708ABCE1C86D2CE0071104E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */,
+				E708ABD01C86D2CE0071104E /* BahamutRFRequestBase.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E708ABE01C86D3B60071104E /* File */ = {
+			isa = PBXGroup;
+			children = (
+				E708ABE11C86D3B60071104E /* AliOSSFile.swift */,
+				E708ABE21C86D3B60071104E /* BahamutFire.swift */,
+				E708ABE31C86D3B60071104E /* File.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		E708AC341C86EA4C0071104E /* BahamutServiceContainer */ = {
+			isa = PBXGroup;
+			children = (
+				E708AC351C86EA4C0071104E /* FileService */,
+				E708AC441C86EA4C0071104E /* ServiceContainer.swift */,
+				E708AC451C86EA4C0071104E /* ServiceProtocol.swift */,
+			);
+			path = BahamutServiceContainer;
+			sourceTree = "<group>";
+		};
+		E708AC351C86EA4C0071104E /* FileService */ = {
+			isa = PBXGroup;
+			children = (
+				E708AC881C86FB7D0071104E /* UpdateCoreData */,
+				E708AC361C86EA4C0071104E /* AliOSS */,
+				E708AC3A1C86EA4C0071104E /* BahamutFire */,
+				E708AC3D1C86EA4C0071104E /* DownloadExtension.swift */,
+				E708AC3E1C86EA4C0071104E /* FileService.swift */,
+				E708AC421C86EA4C0071104E /* UploadBaseExtension.swift */,
+				E708AC431C86EA4C0071104E /* UtilFileServiceExtension.swift */,
+			);
+			path = FileService;
+			sourceTree = "<group>";
+		};
+		E708AC361C86EA4C0071104E /* AliOSS */ = {
+			isa = PBXGroup;
+			children = (
+				E708AC371C86EA4C0071104E /* AliOSSManager.swift */,
+				E708AC381C86EA4C0071104E /* FetchAliOSSExtension.swift */,
+				E708AC391C86EA4C0071104E /* UploadAliOSSExtension.swift */,
+			);
+			path = AliOSS;
+			sourceTree = "<group>";
+		};
+		E708AC3A1C86EA4C0071104E /* BahamutFire */ = {
+			isa = PBXGroup;
+			children = (
+				E708AC3B1C86EA4C0071104E /* FetchBahamutFireExtension.swift */,
+				E708AC3C1C86EA4C0071104E /* UploadBahamutFireExtension.swift */,
+			);
+			path = BahamutFire;
+			sourceTree = "<group>";
+		};
+		E708AC881C86FB7D0071104E /* UpdateCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E708AC891C86FB7D0071104E /* UpdateCoreData1.swift */,
+				E708AC8A1C86FB7D0071104E /* UpdateCoreDataHelper.swift */,
+			);
+			name = UpdateCoreData;
+			path = Bahamut/UpdateCoreData;
+			sourceTree = SOURCE_ROOT;
+		};
 		E70A5ABC1C174870001C0A47 /* Persistents */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,59 +1030,6 @@
 				E70A5AD81C174870001C0A47 /* ModelExtension.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		E70A5AED1C1772BF001C0A47 /* UpdateCoreData */ = {
-			isa = PBXGroup;
-			children = (
-				E70A5AEE1C1772E9001C0A47 /* UpdateCoreData1.swift */,
-				E70A5AF01C177342001C0A47 /* UpdateCoreDataHelper.swift */,
-			);
-			name = UpdateCoreData;
-			sourceTree = "<group>";
-		};
-		E70C48B31BA122B600F805C3 /* FileService */ = {
-			isa = PBXGroup;
-			children = (
-				E70A5AED1C1772BF001C0A47 /* UpdateCoreData */,
-				E70FEF411C04E1360096C437 /* AliOSS */,
-				E70FEF401C04E1200096C437 /* BahamutFire */,
-				E72F00761B6C94F8007E9E29 /* FileService.swift */,
-				E70C48B81BA12D5000F805C3 /* UtilFileServiceExtension.swift */,
-				E790BD0D1B67F44E00D5426B /* AccountService.swift */,
-				E70FEF351C048C390096C437 /* UploadBaseExtension.swift */,
-				E70FEF3E1C04D0DC0096C437 /* DownloadExtension.swift */,
-			);
-			name = FileService;
-			sourceTree = "<group>";
-		};
-		E70FEF3D1C04CE620096C437 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E790BD091B67EFE600D5426B /* ServiceProtocol.swift */,
-				E790BD0B1B67F12000D5426B /* ServiceContainer.swift */,
-				E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		E70FEF401C04E1200096C437 /* BahamutFire */ = {
-			isa = PBXGroup;
-			children = (
-				E70C48B41BA122DC00F805C3 /* UploadBahamutFireExtension.swift */,
-				E70C48B61BA122F000F805C3 /* FetchBahamutFireExtension.swift */,
-			);
-			name = BahamutFire;
-			sourceTree = "<group>";
-		};
-		E70FEF411C04E1360096C437 /* AliOSS */ = {
-			isa = PBXGroup;
-			children = (
-				E70FEF331C045EEB0096C437 /* UploadAliOSSExtension.swift */,
-				E70FEF421C04E16D0096C437 /* FetchAliOSSExtension.swift */,
-				E70FEF441C04E1EE0096C437 /* AliOSSManager.swift */,
-			);
-			name = AliOSS;
 			sourceTree = "<group>";
 		};
 		E71058EC1C5AF39400D1C0CC /* UserGuide */ = {
@@ -1264,14 +1294,15 @@
 		E790BD081B67EFA000D5426B /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				E70FEF3D1C04CE620096C437 /* Base */,
+				E708AC341C86EA4C0071104E /* BahamutServiceContainer */,
 				E71058F91C5B5F4D00D1C0CC /* UserService */,
 				E7AF0CE21C4E2C9F007C91E2 /* Share */,
 				E795C6DE1BC93A63003B9EDC /* Message */,
-				E70C48B31BA122B600F805C3 /* FileService */,
 				E736814F1B96A816004E8B56 /* SharelinkThemeService.swift */,
 				E712765C1BE2099F00CCCB3F /* NotificationService.swift */,
+				E708AC601C86EB2B0071104E /* AccountService.swift */,
 				E712765E1BE209AD00CCCB3F /* LocationService.swift */,
+				E790BD0F1B67FB4600D5426B /* ServiceConfig.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1348,6 +1379,7 @@
 		E7A62FE21B6609A500F28D73 /* Sharelink */ = {
 			isa = PBXGroup;
 			children = (
+				E708ABCB1C86D2CE0071104E /* BahamutRFKit */,
 				E7D751F71C561488002E3D40 /* Libs */,
 				E70A5ABC1C174870001C0A47 /* Persistents */,
 				E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */,
@@ -1395,11 +1427,7 @@
 			isa = PBXGroup;
 			children = (
 				E7AF57871C54AD4C00505B2A /* Account */,
-				E7AF57891C54AD4C00505B2A /* Base */,
-				E7AF578C1C54AD4C00505B2A /* File */,
 				E7AF57901C54AD4C00505B2A /* Message */,
-				E7AF57921C54AD4C00505B2A /* SharelinkSDK.h */,
-				E7AF57931C54AD4C00505B2A /* SharelinkSDK.swift */,
 				E7AF57941C54AD4C00505B2A /* ShareThing */,
 				E7AF57961C54AD4C00505B2A /* User */,
 				E7AF579A1C54AD4C00505B2A /* Vote */,
@@ -1413,25 +1441,6 @@
 				E7AF57881C54AD4C00505B2A /* Account.swift */,
 			);
 			path = Account;
-			sourceTree = "<group>";
-		};
-		E7AF57891C54AD4C00505B2A /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E7AF578A1C54AD4C00505B2A /* ShareLinkSDKClient.swift */,
-				E7AF578B1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		E7AF578C1C54AD4C00505B2A /* File */ = {
-			isa = PBXGroup;
-			children = (
-				E7AF578D1C54AD4C00505B2A /* AliOSSFile.swift */,
-				E7AF578E1C54AD4C00505B2A /* BahamutFire.swift */,
-				E7AF578F1C54AD4C00505B2A /* File.swift */,
-			);
-			path = File;
 			sourceTree = "<group>";
 		};
 		E7AF57901C54AD4C00505B2A /* Message */ = {
@@ -1987,22 +1996,25 @@
 				E74C835D1C590E8F009CF8DB /* UIUserListCell.swift in Sources */,
 				E74C835E1C590E8F009CF8DB /* UserProfileViewController.swift in Sources */,
 				E74C835F1C590E8F009CF8DB /* LocationService.swift in Sources */,
+				E708ABE81C86D3BE0071104E /* BahamutFire.swift in Sources */,
 				E74C83601C590E8F009CF8DB /* RegexUtil.swift in Sources */,
 				E74C83611C590E8F009CF8DB /* ImageShareContent.swift in Sources */,
 				E74C83621C590E8F009CF8DB /* ChicagoClient.swift in Sources */,
-				E74C83631C590E8F009CF8DB /* DownloadExtension.swift in Sources */,
-				E74C83641C590E8F009CF8DB /* ServiceContainer.swift in Sources */,
+				E708ABE91C86D3C00071104E /* File.swift in Sources */,
+				E708ABD61C86D2DD0071104E /* BahamutRFRequestBase.swift in Sources */,
+				E708AC4B1C86EA4C0071104E /* UploadAliOSSExtension.swift in Sources */,
 				E74C83651C590E8F009CF8DB /* QuPaiRecordCameraViewController.swift in Sources */,
 				E74C83661C590E8F009CF8DB /* UserLink.swift in Sources */,
 				E74C83671C590E8F009CF8DB /* ThemeListViewController.swift in Sources */,
 				E74C83681C590E8F009CF8DB /* UseTinkViewController.swift in Sources */,
 				E74C83691C590E8F009CF8DB /* Player.swift in Sources */,
+				E708AC5F1C86EA4C0071104E /* ServiceProtocol.swift in Sources */,
 				E74C836A1C590E8F009CF8DB /* HSL.swift in Sources */,
-				E74C836B1C590E8F009CF8DB /* AliOSSFile.swift in Sources */,
 				E74C836C1C590E8F009CF8DB /* UIAnimationHelper.swift in Sources */,
 				E74C836D1C590E8F009CF8DB /* MessageEntity.swift in Sources */,
 				E74C836E1C590E8F009CF8DB /* SharelinkThemeService.swift in Sources */,
 				E74C836F1C590E8F009CF8DB /* NewShareTextCell.swift in Sources */,
+				E708AC4D1C86EA4C0071104E /* FetchBahamutFireExtension.swift in Sources */,
 				E74C83701C590E8F009CF8DB /* QRCode.swift in Sources */,
 				E74C83711C590E8F009CF8DB /* ModelEntity.swift in Sources */,
 				E74C83721C590E8F009CF8DB /* SharelinkSetting.swift in Sources */,
@@ -2014,37 +2026,39 @@
 				E74C83771C590E8F009CF8DB /* SRCMenu.swift in Sources */,
 				E74C83781C590E8F009CF8DB /* LinkedUserListController.swift in Sources */,
 				E74C83791C590E8F009CF8DB /* UserGuide.swift in Sources */,
-				E74C837A1C590E8F009CF8DB /* SharelinkSDK.swift in Sources */,
 				E74C837B1C590E8F009CF8DB /* StartSegue.swift in Sources */,
 				E74C837C1C590E8F009CF8DB /* UIShareCell.swift in Sources */,
+				E708AC471C86EA4C0071104E /* AliOSSManager.swift in Sources */,
 				E74C837D1C590E8F009CF8DB /* ChatRoomListViewController.swift in Sources */,
 				E74C837E1C590E8F009CF8DB /* ChangePasswordViewController.swift in Sources */,
-				E74C837F1C590E8F009CF8DB /* ShareLinkSDKClient.swift in Sources */,
 				E74C83801C590E8F009CF8DB /* UIShareContentFactory.swift in Sources */,
+				E708ABE71C86D3BB0071104E /* AliOSSFile.swift in Sources */,
+				E708AC591C86EA4C0071104E /* UploadBaseExtension.swift in Sources */,
 				E74C83811C590E8F009CF8DB /* ChicagoClientBase.swift in Sources */,
-				E74C83821C590E8F009CF8DB /* AliOSSManager.swift in Sources */,
+				E708ABD41C86D2D70071104E /* BahamutRFKit.swift in Sources */,
 				E74C83831C590E8F009CF8DB /* Message.swift in Sources */,
-				E74C83841C590E8F009CF8DB /* FetchAliOSSExtension.swift in Sources */,
 				E74C83851C590E8F009CF8DB /* ProgressTaskWatcher.swift in Sources */,
 				E74C83861C590E8F009CF8DB /* UIButton+Badge.m in Sources */,
+				E708AC4F1C86EA4C0071104E /* UploadBahamutFireExtension.swift in Sources */,
 				E74C83871C590E8F009CF8DB /* AppDelegate.swift in Sources */,
 				E74C83881C590E8F009CF8DB /* ThemeCollectionViewController.swift in Sources */,
-				E74C83891C590E8F009CF8DB /* UpdateCoreDataHelper.swift in Sources */,
 				E74C838A1C590E8F009CF8DB /* EditThemeViewController.swift in Sources */,
 				E74C838B1C590E8F009CF8DB /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E74C838C1C590E8F009CF8DB /* SystemSoundHelper.swift in Sources */,
 				E74C838D1C590E8F009CF8DB /* BahamutLocalFile.xcdatamodeld in Sources */,
+				E708AC8C1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */,
 				E74C838E1C590E8F009CF8DB /* ShareLinkFilmView.swift in Sources */,
 				E74C838F1C590E8F009CF8DB /* NewShareMessageCell.swift in Sources */,
 				E74C83901C590E8F009CF8DB /* ChatViewController.swift in Sources */,
+				E708AC5B1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */,
 				E74C83911C590E8F009CF8DB /* SharelinkCmd.swift in Sources */,
 				E74C83921C590E8F009CF8DB /* PersistentBase.swift in Sources */,
 				E74C83931C590E8F009CF8DB /* LocalFilesExtension.swift in Sources */,
 				E74C83941C590E8F009CF8DB /* MainNavigationController.swift in Sources */,
 				E74C83951C590E8F009CF8DB /* ImageUtil.swift in Sources */,
+				E708AC5D1C86EA4C0071104E /* ServiceContainer.swift in Sources */,
 				E74C83961C590E8F009CF8DB /* BahamutModel.xcdatamodeld in Sources */,
 				E74C83971C590E8F009CF8DB /* AboutViewController.swift in Sources */,
-				E74C83981C590E8F009CF8DB /* ServiceProtocol.swift in Sources */,
 				E74C83991C590E8F009CF8DB /* ScanQRViewController.swift in Sources */,
 				E74C839A1C590E8F009CF8DB /* PersistentFileHelper.swift in Sources */,
 				E74C839B1C590E8F009CF8DB /* NewShareThemeCell.swift in Sources */,
@@ -2053,17 +2067,14 @@
 				E74C839E1C590E8F009CF8DB /* ShareService.swift in Sources */,
 				E74C839F1C590E8F009CF8DB /* HarmfulReportViewController.swift in Sources */,
 				E74C83A01C590E8F009CF8DB /* SRCService.swift in Sources */,
-				E74C83A11C590E8F009CF8DB /* FileService.swift in Sources */,
 				E74C83A21C590E8F009CF8DB /* ChatService.swift in Sources */,
 				E74C83A31C590E8F009CF8DB /* UIUserNavigationController.swift in Sources */,
-				E74C83A41C590E8F009CF8DB /* File.swift in Sources */,
 				E74C83A51C590E8F009CF8DB /* ShareChatEntity+CoreDataProperties.swift in Sources */,
 				E74C83A61C590E8F009CF8DB /* ColorUtil.swift in Sources */,
 				E74C83A71C590E8F009CF8DB /* ToastHelper.swift in Sources */,
 				E74C83A81C590E8F009CF8DB /* BahamutObject.swift in Sources */,
 				E74C83A91C590E8F009CF8DB /* MyDetailViewController.swift in Sources */,
 				E74C83AA1C590E8F009CF8DB /* BahamutConfig.swift in Sources */,
-				E74C83AB1C590E8F009CF8DB /* ShareLinkSDKRequestBase.swift in Sources */,
 				E74C83AC1C590E8F009CF8DB /* UIShareThing.swift in Sources */,
 				E74C83AD1C590E8F009CF8DB /* MF_Base64Additions.m in Sources */,
 				E74C83AE1C590E8F009CF8DB /* DateHelper.swift in Sources */,
@@ -2071,13 +2082,11 @@
 				E74C83B01C590E8F009CF8DB /* NewShareImageCell.swift in Sources */,
 				E74C83B11C590E8F009CF8DB /* FileType.swift in Sources */,
 				E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */,
+				E708ABD51C86D2DA0071104E /* BahamutRFClient.swift in Sources */,
 				E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */,
 				E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */,
-				E74C83B61C590E8F009CF8DB /* UploadAliOSSExtension.swift in Sources */,
 				E74C83B71C590E8F009CF8DB /* SDKVersionReplaceInterfaces.swift in Sources */,
-				E74C83B81C590E8F009CF8DB /* FetchBahamutFireExtension.swift in Sources */,
 				E74C83B91C590E8F009CF8DB /* TextShareContent.swift in Sources */,
-				E74C83BA1C590E8F009CF8DB /* AccountService.swift in Sources */,
 				E74C83BB1C590E8F009CF8DB /* UIFileCollectionController.swift in Sources */,
 				E74C83BC1C590E8F009CF8DB /* UIShareContent.swift in Sources */,
 				E74C83BD1C590E8F009CF8DB /* UIEditTextPropertyViewController.swift in Sources */,
@@ -2089,28 +2098,29 @@
 				E74C83C41C590E8F009CF8DB /* NewShareUrlCell.swift in Sources */,
 				E74C83C51C590E8F009CF8DB /* ControllerExtension.swift in Sources */,
 				E74C83C61C590E8F009CF8DB /* UserSetting.swift in Sources */,
+				E708AC621C86EB2B0071104E /* AccountService.swift in Sources */,
+				E708AC511C86EA4C0071104E /* DownloadExtension.swift in Sources */,
 				E74C83C71C590E8F009CF8DB /* ArrayUtil.swift in Sources */,
 				E71059011C5BAB1500D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E74C83C81C590E8F009CF8DB /* SRCModels.swift in Sources */,
 				E74C83C91C590E8F009CF8DB /* UIImagePlayerController.swift in Sources */,
 				E74C83CA1C590E8F009CF8DB /* UserService.swift in Sources */,
-				E74C83CB1C590E8F009CF8DB /* BahamutFire.swift in Sources */,
 				E74C83CC1C590E8F009CF8DB /* UIColor.swift in Sources */,
+				E708AC531C86EA4C0071104E /* FileService.swift in Sources */,
 				E74C83CD1C590E8F009CF8DB /* UIReplyMessage.swift in Sources */,
+				E708AC491C86EA4C0071104E /* FetchAliOSSExtension.swift in Sources */,
 				E74C83CE1C590E8F009CF8DB /* Vote.swift in Sources */,
 				E74C83CF1C590E8F009CF8DB /* Account.swift in Sources */,
 				E74C83D01C590E8F009CF8DB /* UUMsgItem.swift in Sources */,
 				E74C83D11C590E8F009CF8DB /* NewCustomSRCCell.swift in Sources */,
 				E74C83D21C590E8F009CF8DB /* ShareLinkUser.swift in Sources */,
-				E74C83D31C590E8F009CF8DB /* UtilFileServiceExtension.swift in Sources */,
 				E74C83D41C590E8F009CF8DB /* ShareThing.swift in Sources */,
-				E74C83D51C590E8F009CF8DB /* UploadBaseExtension.swift in Sources */,
 				E74C83D61C590E8F009CF8DB /* KeyboardAdjustHelper.swift in Sources */,
 				E74C83D81C590E8F009CF8DB /* IDUtil.swift in Sources */,
 				E74C83D91C590E8F009CF8DB /* FileMgrEntities.swift in Sources */,
 				E74C83DA1C590E8F009CF8DB /* MyQRViewController.swift in Sources */,
+				E708AC8E1C86FB7D0071104E /* UpdateCoreDataHelper.swift in Sources */,
 				E74C83DB1C590E8F009CF8DB /* ShareThingsListController.swift in Sources */,
-				E74C83DC1C590E8F009CF8DB /* UploadBahamutFireExtension.swift in Sources */,
 				E74C83DD1C590E8F009CF8DB /* UIBarButtonItem+Badge.m in Sources */,
 				E74C83DE1C590E8F009CF8DB /* CoreDataManager.swift in Sources */,
 				E74C83DF1C590E8F009CF8DB /* ChatModel.swift in Sources */,
@@ -2124,7 +2134,6 @@
 				E74C83E71C590E8F009CF8DB /* FilmShareContent.swift in Sources */,
 				E74C83E81C590E8F009CF8DB /* MessageExtension.swift in Sources */,
 				E74C83E91C590E8F009CF8DB /* StringHelper.swift in Sources */,
-				E74C83EA1C590E8F009CF8DB /* UpdateCoreData1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2139,9 +2148,9 @@
 				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
 				E76234591C0BF5530083E281 /* RegexUtil.swift in Sources */,
 				E7C0069F1C2DA634005CB638 /* ImageShareContent.swift in Sources */,
+				E708AC581C86EA4C0071104E /* UploadBaseExtension.swift in Sources */,
 				E76DEBB81C0EA09D0072A1D7 /* ChicagoClient.swift in Sources */,
-				E70FEF3F1C04D0DC0096C437 /* DownloadExtension.swift in Sources */,
-				E790BD0C1B67F12000D5426B /* ServiceContainer.swift in Sources */,
+				E708AC8D1C86FB7D0071104E /* UpdateCoreDataHelper.swift in Sources */,
 				E72949B71BF4AC11005B7B3A /* QuPaiRecordCameraViewController.swift in Sources */,
 				E71058F81C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift in Sources */,
 				E7AF57A61C54AD4C00505B2A /* UserLink.swift in Sources */,
@@ -2149,7 +2158,6 @@
 				E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */,
 				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */,
-				E7AF579F1C54AD4C00505B2A /* AliOSSFile.swift in Sources */,
 				E70A572A1C1EA0140031A0C5 /* UIAnimationHelper.swift in Sources */,
 				E70A5AE41C174870001C0A47 /* MessageEntity.swift in Sources */,
 				E73681501B96A816004E8B56 /* SharelinkThemeService.swift in Sources */,
@@ -2162,26 +2170,25 @@
 				E70A5AEA1C174870001C0A47 /* ModelExtension.swift in Sources */,
 				E71E07831BE38DE000B1F69D /* SimpleBrowser.swift in Sources */,
 				E71059061C5BCA3900D1C0CC /* UserGuideFinishViewController.swift in Sources */,
+				E708ABE41C86D3B60071104E /* AliOSSFile.swift in Sources */,
 				E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */,
+				E708AC4C1C86EA4C0071104E /* FetchBahamutFireExtension.swift in Sources */,
 				E70955AC1C4F61C50060A06E /* SRCMenu.swift in Sources */,
 				E72F47261B7637AE002674AB /* LinkedUserListController.swift in Sources */,
+				E708AC5C1C86EA4C0071104E /* ServiceContainer.swift in Sources */,
 				E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */,
-				E7AF57A31C54AD4C00505B2A /* SharelinkSDK.swift in Sources */,
 				E72B26C71B71EC0B008E81D6 /* StartSegue.swift in Sources */,
 				E7C006A21C2DA6D3005CB638 /* UIShareCell.swift in Sources */,
 				E708CD201BC8F9F0000ADD1B /* ChatRoomListViewController.swift in Sources */,
 				E70D11471C0865B500DC6C9A /* ChangePasswordViewController.swift in Sources */,
-				E7AF579D1C54AD4C00505B2A /* ShareLinkSDKClient.swift in Sources */,
+				E708AC521C86EA4C0071104E /* FileService.swift in Sources */,
 				E76234871C0C3D790083E281 /* UIShareContentFactory.swift in Sources */,
 				E76DEBBA1C0EA0C30072A1D7 /* ChicagoClientBase.swift in Sources */,
-				E70FEF451C04E1EE0096C437 /* AliOSSManager.swift in Sources */,
 				E7AF57A21C54AD4C00505B2A /* Message.swift in Sources */,
-				E70FEF431C04E16D0096C437 /* FetchAliOSSExtension.swift in Sources */,
 				E76DEBB31C0EA0300072A1D7 /* ProgressTaskWatcher.swift in Sources */,
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
 				E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */,
-				E70A5AF11C177342001C0A47 /* UpdateCoreDataHelper.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* EditThemeViewController.swift in Sources */,
 				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */,
@@ -2189,6 +2196,7 @@
 				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
+				E708ABD11C86D2CE0071104E /* BahamutRFKit.swift in Sources */,
 				E76DEBB41C0EA0300072A1D7 /* SharelinkCmd.swift in Sources */,
 				E70A5ADA1C174870001C0A47 /* PersistentBase.swift in Sources */,
 				E70A5AE11C174870001C0A47 /* LocalFilesExtension.swift in Sources */,
@@ -2196,7 +2204,6 @@
 				E76DEB971C0E9C140072A1D7 /* ImageUtil.swift in Sources */,
 				E70A5AE81C174870001C0A47 /* BahamutModel.xcdatamodeld in Sources */,
 				E73EE5281BF1D16B00AB7340 /* AboutViewController.swift in Sources */,
-				E790BD0A1B67EFE600D5426B /* ServiceProtocol.swift in Sources */,
 				E78608521BA1DF5800E2BECA /* ScanQRViewController.swift in Sources */,
 				E70A5AEC1C175BB3001C0A47 /* PersistentFileHelper.swift in Sources */,
 				E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */,
@@ -2205,17 +2212,17 @@
 				E790BD141B68069A00D5426B /* ShareService.swift in Sources */,
 				E73B32961C40D6BE007E9254 /* HarmfulReportViewController.swift in Sources */,
 				E7AF0CE41C4E2CBE007C91E2 /* SRCService.swift in Sources */,
-				E72F00771B6C94F8007E9E29 /* FileService.swift in Sources */,
+				E708ABD21C86D2CE0071104E /* BahamutRFClient.swift in Sources */,
 				E790BD121B67FDEF00D5426B /* ChatService.swift in Sources */,
 				E73AD00E1B83166B00EE9EA0 /* UIUserNavigationController.swift in Sources */,
-				E7AF57A11C54AD4C00505B2A /* File.swift in Sources */,
 				E70A5AE61C174870001C0A47 /* ShareChatEntity+CoreDataProperties.swift in Sources */,
+				E708ABE61C86D3B60071104E /* File.swift in Sources */,
 				E76DEB931C0E9C140072A1D7 /* ColorUtil.swift in Sources */,
 				E76DEBBE1C0EAB400072A1D7 /* ToastHelper.swift in Sources */,
 				E76DEBC21C0F202B0072A1D7 /* BahamutObject.swift in Sources */,
+				E708AC8B1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */,
 				E71B00CF1BAB1EEC00BF913B /* MyDetailViewController.swift in Sources */,
 				E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */,
-				E7AF579E1C54AD4C00505B2A /* ShareLinkSDKRequestBase.swift in Sources */,
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
 				E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */,
 				E76234571C0BF5530083E281 /* DateHelper.swift in Sources */,
@@ -2226,16 +2233,16 @@
 				E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */,
 				E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
-				E70FEF341C045EEB0096C437 /* UploadAliOSSExtension.swift in Sources */,
+				E708AC5E1C86EA4C0071104E /* ServiceProtocol.swift in Sources */,
 				E717182F1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift in Sources */,
-				E70C48B71BA122F000F805C3 /* FetchBahamutFireExtension.swift in Sources */,
 				E7F2F8471C27F176003C87C5 /* TextShareContent.swift in Sources */,
-				E790BD0E1B67F44E00D5426B /* AccountService.swift in Sources */,
 				E728163B1B7EF2EB00A1927E /* UIFileCollectionController.swift in Sources */,
 				E790BCF61B676EAB00D5426B /* UIShareContent.swift in Sources */,
 				E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */,
 				E76DEBB51C0EA0300072A1D7 /* SharelinkCmdManager.swift in Sources */,
 				E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */,
+				E708AC481C86EA4C0071104E /* FetchAliOSSExtension.swift in Sources */,
+				E708AC5A1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */,
 				E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */,
 				E70C48BB1BA1331F00F805C3 /* AssetsConstants.swift in Sources */,
 				E790BD071B67EA1B00D5426B /* SignInViewController.swift in Sources */,
@@ -2248,25 +2255,28 @@
 				E7FF29371C5110DE00F95FE5 /* SRCModels.swift in Sources */,
 				E7A3AA9C1B9C332F0094B0D0 /* UIImagePlayerController.swift in Sources */,
 				E79E3E381B6B56A900B27085 /* UserService.swift in Sources */,
-				E7AF57A01C54AD4C00505B2A /* BahamutFire.swift in Sources */,
 				E76DEB961C0E9C140072A1D7 /* UIColor.swift in Sources */,
 				E790BCED1B6741B800D5426B /* UIReplyMessage.swift in Sources */,
+				E708AC501C86EA4C0071104E /* DownloadExtension.swift in Sources */,
 				E7AF57A81C54AD4C00505B2A /* Vote.swift in Sources */,
+				E708AC4A1C86EA4C0071104E /* UploadAliOSSExtension.swift in Sources */,
 				E7AF579C1C54AD4C00505B2A /* Account.swift in Sources */,
 				E795C6E01BC94DA9003B9EDC /* UUMsgItem.swift in Sources */,
 				E7AF0CDF1C4DDFF8007C91E2 /* NewCustomSRCCell.swift in Sources */,
 				E7AF57A51C54AD4C00505B2A /* ShareLinkUser.swift in Sources */,
-				E70C48B91BA12D5000F805C3 /* UtilFileServiceExtension.swift in Sources */,
+				E708AC611C86EB2B0071104E /* AccountService.swift in Sources */,
+				E708ABE51C86D3B60071104E /* BahamutFire.swift in Sources */,
 				E7AF57A41C54AD4C00505B2A /* ShareThing.swift in Sources */,
-				E70FEF361C048C390096C437 /* UploadBaseExtension.swift in Sources */,
 				E7C157FB1C7F50D0009E5CDC /* MainViewTabBarController.swift in Sources */,
 				E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
+				E708ABD31C86D2CE0071104E /* BahamutRFRequestBase.swift in Sources */,
 				E76234581C0BF5530083E281 /* IDUtil.swift in Sources */,
 				E70A5AE01C174870001C0A47 /* FileMgrEntities.swift in Sources */,
+				E708AC4E1C86EA4C0071104E /* UploadBahamutFireExtension.swift in Sources */,
+				E708AC461C86EA4C0071104E /* AliOSSManager.swift in Sources */,
 				E78608501BA1DF3D00E2BECA /* MyQRViewController.swift in Sources */,
 				E790BCE91B6740C100D5426B /* ShareThingsListController.swift in Sources */,
-				E70C48B51BA122DC00F805C3 /* UploadBahamutFireExtension.swift in Sources */,
 				E73CB09F1BCABC1C001BEEAC /* UIBarButtonItem+Badge.m in Sources */,
 				E70A5ADD1C174870001C0A47 /* CoreDataManager.swift in Sources */,
 				E708CD221BC90494000ADD1B /* ChatModel.swift in Sources */,
@@ -2281,7 +2291,6 @@
 				E76234831C0C34080083E281 /* FilmShareContent.swift in Sources */,
 				E70A5AE51C174870001C0A47 /* MessageExtension.swift in Sources */,
 				E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */,
-				E70A5AEF1C1772E9001C0A47 /* UpdateCoreData1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

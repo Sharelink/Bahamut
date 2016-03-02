@@ -14,7 +14,7 @@ class LocationService:NSNotificationCenter,ServiceProtocol,CLLocationManagerDele
     @objc static var ServiceName:String{return "Location Service"}
     static let hereUpdated = "hereUpdated"
     private var locationManager:CLLocationManager!
-    @objc func appStartInit() {
+    @objc func appStartInit(appName:String) {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest

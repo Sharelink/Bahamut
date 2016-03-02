@@ -112,7 +112,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         }
     }
     
-    let screenWaitTimeInterval = 0.7
+    let screenWaitTimeInterval = 0.3
     private func showSignView()
     {
         NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: "waitTimeShowSignView:", userInfo: nil, repeats: false)

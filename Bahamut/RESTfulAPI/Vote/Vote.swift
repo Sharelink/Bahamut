@@ -1,6 +1,6 @@
 //
 //  Vote.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/8/3.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -25,7 +25,7 @@ public class Vote: BahamutObject
 /*
 GET /Votes/{shareId} : return the shareId's votes
 */
-public class VotesRequestBase : ShareLinkSDKRequestBase
+public class VotesRequestBase : BahamutRFRequestBase
 {
     public override init() {
         super.init()

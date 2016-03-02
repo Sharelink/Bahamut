@@ -1,6 +1,6 @@
 //
 //  UserLink.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/8/3.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -106,7 +106,7 @@ public enum UserLinkStatus : Int
 
 //MARK: Requests
 
-public class AcceptAskingLinkRequest: ShareLinkSDKRequestBase
+public class AcceptAskingLinkRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -127,7 +127,7 @@ public class AcceptAskingLinkRequest: ShareLinkSDKRequestBase
     }
 }
 
-public class DeleteLinkMessagesRequest : ShareLinkSDKRequestBase
+public class DeleteLinkMessagesRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -136,7 +136,7 @@ public class DeleteLinkMessagesRequest : ShareLinkSDKRequestBase
     }
 }
 
-public class GetLinkMessagesRequest : ShareLinkSDKRequestBase
+public class GetLinkMessagesRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -145,7 +145,7 @@ public class GetLinkMessagesRequest : ShareLinkSDKRequestBase
     }
 }
 
-public class AddUserLinkRequest: ShareLinkSDKRequestBase
+public class AddUserLinkRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -169,7 +169,7 @@ public class AddUserLinkRequest: ShareLinkSDKRequestBase
 /*
 GET /UserLinks : get my all userlinks
 */
-public class GetUserLinksRequest : ShareLinkSDKRequestBase
+public class GetUserLinksRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -178,7 +178,7 @@ public class GetUserLinksRequest : ShareLinkSDKRequestBase
     }
 }
 
-public class UpdateLinkedUserNoteNameRequest : ShareLinkSDKRequestBase
+public class UpdateLinkedUserNoteNameRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
@@ -202,7 +202,7 @@ public class UpdateLinkedUserNoteNameRequest : ShareLinkSDKRequestBase
 /*
 PUT /UserLinks (status,userId): update my userlink status with other people
 */
-public class UpdateUserLinkStatusWithOtherRequest: ShareLinkSDKRequestBase
+public class UpdateUserLinkStatusWithOtherRequest: BahamutRFRequestBase
 {
     public override init() {
         super.init()

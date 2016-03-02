@@ -50,7 +50,9 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureSharelinkBundle()
         configContryAndLang()
+        configureBahamutRFKit()
         initService()
+        AliOSSManager.sharedInstance.initManager(SharelinkConfig.bahamutConfig.AliOssAccessKey, aliOssSecretKey: SharelinkConfig.bahamutConfig.AliOssSecretKey)
         loadUI()
         configureImagePicker()
         
@@ -70,6 +72,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     var isSDKVersion:Bool
     {
         return true
+    }
+    
+    private func configureBahamutRFKit()
+    {
+        BahamutRFKit.appkey = SharelinkRFAppKey
     }
     
     private func configureSharelinkBundle()
@@ -99,7 +106,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func initService()
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            ServiceContainer.instance.initContainer()
+            ServiceContainer.instance.initContainer(SharelinkConfig.appName, services: ServiceConfig.Services)
         }
     }
     

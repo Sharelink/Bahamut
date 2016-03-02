@@ -1,6 +1,6 @@
 //
 //  Account.swift
-//  SharelinkSDK
+//  BahamutRFKit
 //
 //  Created by AlexChow on 15/8/3.
 //  Copyright (c) 2015年 GStudio. All rights reserved.
@@ -32,7 +32,7 @@ public class Account : BahamutObject
 /*
 GET /Accounts : return my account information
 */
-public class GetAccountRequest: ShareLinkSDKRequestBase
+public class GetAccountRequest: BahamutRFRequestBase
 {
     public override init()
     {
@@ -46,7 +46,7 @@ public class GetAccountRequest: ShareLinkSDKRequestBase
 /*
 PUT /Accounts : update my account properties
 */
-public class UpdateAccountNameRequest: ShareLinkSDKRequestBase
+public class UpdateAccountNameRequest: BahamutRFRequestBase
 {
     public override init()
     {
@@ -66,7 +66,7 @@ public class UpdateAccountNameRequest: ShareLinkSDKRequestBase
 /*
 PUT /Accounts : update my account properties
 */
-public class UpdateAccountBirthdateRequest: ShareLinkSDKRequestBase
+public class UpdateAccountBirthdateRequest: BahamutRFRequestBase
 {
     public override init()
     {
@@ -87,7 +87,7 @@ public class UpdateAccountBirthdateRequest: ShareLinkSDKRequestBase
 /*
 PUT /Accounts/Password (oldPassword,newPassword) : change bahamut account password
 */
-public class ChangeAccountPasswordRequest : ShareLinkSDKRequestBase
+public class ChangeAccountPasswordRequest : BahamutRFRequestBase
 {
     public override init() {
         super.init()
