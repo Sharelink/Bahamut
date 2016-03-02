@@ -22,8 +22,9 @@ class AccountService: ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        BahamutRFKit.sharedInstance.reuse(UserSetting.userId, token: UserSetting.token, appApiServer: SharelinkSetting.shareLinkApiServer, fileApiServer: SharelinkSetting.fileApiServer)
-        BahamutRFKit.setAppVersion(SharelinkVersion)
+        BahamutRFKit.sharedInstance.resetUser(userId,token:UserSetting.token)
+        BahamutRFKit.sharedInstance.reuseApiServer(userId, token:UserSetting.token,appApiServer:SharelinkSetting.shareLinkApiServer)
+        BahamutRFKit.sharedInstance.reuseFileApiServer(userId, token:UserSetting.token,fileApiServer:SharelinkSetting.fileApiServer)
         BahamutRFKit.sharedInstance.startClients()
         ChicagoClient.sharedInstance.start()
         ChicagoClient.sharedInstance.connect(SharelinkSetting.chicagoServerHost, port: SharelinkSetting.chicagoServerHostPort)

@@ -106,7 +106,9 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    let fileService = ServiceContainer.getService(FileService)
+    let fileService = {
+        return ServiceContainer.getService(FileService)
+    }()
     var userProfileModel:Sharelinker!
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId

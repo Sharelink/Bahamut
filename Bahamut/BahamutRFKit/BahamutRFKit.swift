@@ -40,18 +40,24 @@ class BahamutRFKit
         BahamutRFKit.version = version
     }
     
-    func reuse(userId:String,token:String!,appApiServer:String,fileApiServer:String)
+    func reuseApiServer(userId:String, token:String,appApiServer:String)
+    {
+        self.appApiServer = appApiServer
+        let sharelinkClient = BahamutRFClient(apiServer:self.appApiServer,userId:userId,token:token)
+        clients.updateValue(sharelinkClient, forKey: BahamutRFClientType)
+    }
+    
+    func reuseFileApiServer(userId:String, token:String,fileApiServer:String)
+    {
+        self.fileApiServer = fileApiServer
+        let fileClient = BahamutFireClient(fileApiServer:self.fileApiServer,userId:userId,token:token)
+        clients.updateValue(fileClient, forKey: BahamutFireClientType)
+    }
+    
+    func resetUser(userId:String, token:String)
     {
         self.userId = userId
         self.token = token
-        self.fileApiServer = fileApiServer
-        self.appApiServer = appApiServer
-        clients.removeAll()
-        let sharelinkClient = BahamutRFClient(apiServer:self.appApiServer,userId:self.userId,token:self.token)
-        clients.updateValue(sharelinkClient, forKey: BahamutRFClientType)
-        
-        let fileClient = BahamutFireClient(fileApiServer:self.fileApiServer,userId:self.userId,token:self.token)
-        clients.updateValue(fileClient, forKey: BahamutFireClientType)
     }
     
     func startClients()
