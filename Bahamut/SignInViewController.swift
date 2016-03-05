@@ -176,10 +176,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
     }
     
-    
     private var refreshHud:MBProgressHUD!
-    
-    func registNewUser(accountId:String,registApi:String,accessToken:String)
+    private func registNewUser(accountId:String,registApi:String,accessToken:String)
     {
         let registModel = RegistSharelinkModel()
         registModel.accessToken = accessToken
@@ -227,6 +225,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     //MARK: implements jsProtocol
     func registAccount(username: String,_ password: String) {
         if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        self.hideKeyBoard()
+        MobClick.event("CLICK_REGIST")
         let hud = self.showActivityHud()
         BahamutRFKit.sharedInstance.registBahamutAccount(SharelinkSetting.registAccountApi, username: username, passwordOrigin: password, phone_number: nil, email: nil) { (isSuc, errorMsg, registResult) -> Void in
             hud.hide(false)
@@ -244,6 +244,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func loginAccount(username: String,_ password: String) {
         if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        self.hideKeyBoard()
         let hud = self.showActivityHudWithMessage(nil, message: "LOGINING".localizedString())
         BahamutRFKit.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
             hud.hide(true)

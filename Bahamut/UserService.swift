@@ -70,7 +70,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         #if APP_VERSION
         ShareSDK.cancelAuthWithType(ShareTypeFacebook)
         #endif
-        SharelinkCmdManager.sharedInstance.clearHandler()
+        BahamutCmdManager.sharedInstance.clearHandler()
         ChicagoClient.sharedInstance.removeObserver(self)
         myUserModel = nil
         linkMessageList.removeAll()
@@ -102,6 +102,8 @@ class UserService: NSNotificationCenter,ServiceProtocol
             }else if self.myUserModel != nil
             {
                 self.initLinkedUsers()
+            }else{
+                ServiceContainer.instance.postInitServiceFailed("INIT_USER_DATA_ERROR")
             }
         })
         if myUserModel != nil
@@ -127,7 +129,6 @@ class UserService: NSNotificationCenter,ServiceProtocol
                 self.postNotificationName(UserService.baseUserDataInited, object: self)
                 self.setServiceReady()
             }
-            self.getNewLinkMessageFromServer()
         }
     }
     
@@ -368,12 +369,12 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func generateSharelinkLinkMeCmd() -> String
     {
         let expriedAt = NSDate(timeIntervalSinceNow: 7 * 24 * 3600)
-        return SharelinkCmd.generateSharelinkCmdEncoded("linkMe", args: UserSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
+        return BahamutCmd.generateBahamutCmdEncoded("linkMe", args: UserSetting.userId,self.myUserModel.nickName,expriedAt.toDateTimeString())
     }
     
     func generateSharelinkerQrString() -> String
     {
-        return SharelinkCmd.buildSharelinkCmdUrl(generateSharelinkLinkMeCmd())
+        return BahamutCmd.buildBahamutCmdUrl(generateSharelinkLinkMeCmd())
     }
     
     

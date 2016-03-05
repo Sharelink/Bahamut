@@ -20,7 +20,10 @@ extension UIViewController
     
     func hideKeyBoard()
     {
-        self.view.endEditing(true)
+        if self.view != nil
+        {
+            self.view.endEditing(true)
+        }
     }
 }
 

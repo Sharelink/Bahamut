@@ -51,6 +51,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
         configureSharelinkBundle()
         configContryAndLang()
         configureAliOSSManager()
+        configureBahamutCmd()
         configureBahamutRFKit()
         configureImagePicker()
         
@@ -71,6 +72,11 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     var isSDKVersion:Bool
     {
         return true
+    }
+    
+    private func configureBahamutCmd()
+    {
+        BahamutCmd.signBahamutCmdSchema("sharelink")
     }
     
     private func configureAliOSSManager()
@@ -279,7 +285,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     public func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        if url.scheme == BahamutCmd.cmdUrlSchema
         {
             return handleSharelinkUrl(url)
         }else
@@ -293,7 +299,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     public func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        if url.scheme == BahamutCmd.cmdUrlSchema
         {
             return handleSharelinkUrl(url)
         }else
@@ -313,10 +319,10 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func handleSharelinkUrl(url:NSURL) -> Bool
     {
-        if url.scheme == SharelinkCmd.sharelinkUrlSchema
+        if url.scheme == BahamutCmd.cmdUrlSchema
         {
-            let cmd = SharelinkCmd.getCmdFromUrl(url.absoluteString)
-            SharelinkCmdManager.sharedInstance.pushCmd(cmd)
+            let cmd = BahamutCmd.getCmdFromUrl(url.absoluteString)
+            BahamutCmdManager.sharedInstance.pushCmd(cmd)
         }
         return true
     }
@@ -351,7 +357,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
                 UserService.lastRefreshLinkedUserTime = NSDate()
                 ServiceContainer.getService(UserService).refreshMyLinkedUsers()
             }
-            SharelinkCmdManager.sharedInstance.handleCmdQueue()
+            BahamutCmdManager.sharedInstance.handleCmdQueue()
         }
     }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 @objc
-class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegate
+class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
 {
     struct SegueIdentifier
     {
@@ -73,6 +73,16 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         }
     }
     
+    func initServicesFailed(a:AnyObject)
+    {
+        ServiceContainer.instance.removeObserver(self)
+        let reason = a.userInfo![InitServiceFailedReason] as! String
+        let action = UIAlertAction(title: "OK".localizedString(), style: .Cancel) { (action) -> Void in
+            MainNavigationController.start()
+        }
+        self.showAlert(nil, msg: reason, actions: [action])
+    }
+    
     func onOtherDeviceLogin(_:AnyObject)
     {
         let alert = UIAlertController(title: nil, message: "OTHER_DEVICE_HAD_LOGIN".localizedString() , preferredStyle: .Alert)
@@ -96,6 +106,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     private func go()
     {
         ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "initServicesFailed:", name: ServiceContainer.ServiceInitFailed, object: nil)
         if UserSetting.isUserLogined
         {
             if ServiceContainer.isAllServiceReady
@@ -130,7 +141,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
     
     func waitTimeShowMainView(_:AnyObject?)
     {
-        SharelinkCmdManager.sharedInstance.registHandler(self)
+        BahamutCmdManager.sharedInstance.registHandler(self)
         self.performSegueWithIdentifier(SegueIdentifier.ShowMainView, sender: self)
         if self.launchScr != nil
         {
@@ -193,7 +204,7 @@ class MainNavigationController: UINavigationController,HandleSharelinkCmdDelegat
         }
     }
     
-    func handleSharelinkCmd(method: String, args: [String],object:AnyObject?) {
+    func handleBahamutCmd(method: String, args: [String],object:AnyObject?) {
         switch method
         {
         case "linkMe":linkMe(method, args: args, object: object)

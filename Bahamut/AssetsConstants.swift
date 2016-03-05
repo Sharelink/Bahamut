@@ -12,6 +12,9 @@ import UIKit
 struct FilmAssetsConstants
 {
     static let SharelinkFilm = "SharelinkFilm.mp4"
+    static var SharelinkFilmFilePath:String = {
+        return Sharelink.mainBundle().pathForResource("SharelinkFilm", ofType:"mp4")!
+    }()
 }
 
 struct  ImageAssetsConstants

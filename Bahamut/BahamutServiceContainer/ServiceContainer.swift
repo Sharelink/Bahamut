@@ -8,9 +8,12 @@
 
 import Foundation
 
+let InitServiceFailedReason = "ServiceInitFailed"
+
 class ServiceContainer:NSNotificationCenter
 {
     static let AllServicesReady = "AllServicesReady"
+    static let ServiceInitFailed = "ServiceInitFailed"
     static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
     private var serviceList:[ServiceProtocol]!
@@ -40,6 +43,12 @@ class ServiceContainer:NSNotificationCenter
                 handler(ServiceContainer.appName)
             }
         }
+    }
+    
+    func postInitServiceFailed(reason:String)
+    {
+        self.userLogout()
+        self.postNotificationName(ServiceContainer.ServiceInitFailed, object: nil, userInfo: [InitServiceFailedReason:reason])
     }
     
     func userLogin(userId:String)

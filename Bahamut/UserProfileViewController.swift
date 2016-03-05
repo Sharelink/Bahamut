@@ -375,9 +375,10 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         {
             return
         }
-        profileVideoView.fileFetcher = ServiceContainer.getService(FileService).getFileFetcherOfFileId(FileType.Video)
+        profileVideoView.fileFetcher = fileService.getFileFetcherOfFileId(FileType.Video)
         if String.isNullOrWhiteSpace(userProfileModel.personalVideoId)
         {
+            profileVideoView.fileFetcher = fileService.getFileFetcherOfFilePath(.Video)
             profileVideoView.filePath = FilmAssetsConstants.SharelinkFilm
         }else
         {

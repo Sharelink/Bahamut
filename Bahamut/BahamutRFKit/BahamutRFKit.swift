@@ -138,6 +138,8 @@ class LoginResult: EVObject
     var AppServerIP:String!
     var AppServerPort:String!
     var AppServiceUrl:String!
+    var BindMobile:String!
+    var BindEmail:String!
     
     //error msg
     var msg:String!

@@ -92,22 +92,22 @@ extension UserService: QRStringDelegate
 {    
     func QRdealString(sender:ScanQRViewController,qrString: String)
     {
-        if SharelinkCmd.isSharelinkCmdUrl(qrString)
+        if BahamutCmd.isBahamutCmdUrl(qrString)
         {
             sender.navigationController?.popViewControllerAnimated(true)
-            let cmd = SharelinkCmd.getCmdFromUrl(qrString)
-            SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
+            let cmd = BahamutCmd.getCmdFromUrl(qrString)
+            BahamutCmdManager.sharedInstance.handleBahamutCmdWithMainQueue(cmd)
         }else if qrString.hasBegin("http://") || qrString.hasBegin("https://")
         {
             if qrString.hasPrefix(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)
             {
                 let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
-                if let cmd = SharelinkCmd.decodeSharelinkCmd(cmdEncoded)
+                if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
                     
                     
                 {
                     sender.navigationController?.popViewControllerAnimated(true)
-                    SharelinkCmdManager.sharedInstance.handleSharelinkCmdWithMainQueue(cmd)
+                    BahamutCmdManager.sharedInstance.handleBahamutCmdWithMainQueue(cmd)
                 }
             }else
             {

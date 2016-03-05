@@ -62,6 +62,7 @@ class NewShareMessageCell: NewShareCellBase,UITextViewDelegate
     
     override func clear() {
         self.shareMessageTextView.text = ""
+        updateMsgTxtPlaceHolder()
     }
     
     override func initCell(){

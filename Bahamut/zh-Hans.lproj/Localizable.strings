@@ -66,6 +66,7 @@ COPY_SHARE_MESSAGE = "复制分享的文字";
 COPY_SHARE_MESSAGE_SUC = "复制成功";
 SHARELINK_MOTTO = "与身边的人分享和交流喜欢的话题!";
 UNKNOW_ACTION = "未知操作";
+INIT_USER_DATA_ERROR = "获取用户数据失败，请重新登录!";
 
 //Image Picker
 "CAMERA_NOT_AVAILABLE" = "没有发现相机";
