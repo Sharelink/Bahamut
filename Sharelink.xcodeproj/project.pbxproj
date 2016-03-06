@@ -1144,6 +1144,21 @@
 			name = SDKVersion;
 			sourceTree = "<group>";
 		};
+		E75A703E1C8C1E8C0029F0BD /* BaseArch */ = {
+			isa = PBXGroup;
+			children = (
+				E76DEBB61C0EA0790072A1D7 /* ChicagoClient */,
+				E708AC341C86EA4C0071104E /* BahamutServiceContainer */,
+				E762344C1C0BF5530083E281 /* BahamutCommon */,
+				E76DEB8B1C0E99B10072A1D7 /* BahamutUIKit */,
+				E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */,
+				E70A5ABC1C174870001C0A47 /* Persistents */,
+				E708ABCB1C86D2CE0071104E /* BahamutRFKit */,
+				E7EB9A321C87F6DC002F96FB /* BahamutCmd */,
+			);
+			name = BaseArch;
+			sourceTree = "<group>";
+		};
 		E75EE44F1B9A05E200783308 /* UIResource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1285,7 +1300,6 @@
 		E790BD081B67EFA000D5426B /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				E708AC341C86EA4C0071104E /* BahamutServiceContainer */,
 				E71058F91C5B5F4D00D1C0CC /* UserService */,
 				E7AF0CE21C4E2C9F007C91E2 /* Share */,
 				E795C6DE1BC93A63003B9EDC /* Message */,
@@ -1329,11 +1343,11 @@
 		E79E3E3A1B6B591800B27085 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E7AF57861C54AD4C00505B2A /* RESTfulAPI */,
 				E7F7F1CF1C52111000E6D117 /* AppMain */,
 				E71058FE1C5B6C9900D1C0CC /* DeveloperPanel */,
 				E71058EC1C5AF39400D1C0CC /* UserGuide */,
 				E74246491C3A296A00BA564F /* UIViews */,
-				E76DEBB61C0EA0790072A1D7 /* ChicagoClient */,
 				E7F225FE1BC646F00034B745 /* UIMessage */,
 				E7949A231B7F2D55003F7C37 /* UIFile */,
 				E7B664FD1B6B78EA00032495 /* UIComponent */,
@@ -1370,16 +1384,10 @@
 		E7A62FE21B6609A500F28D73 /* Sharelink */ = {
 			isa = PBXGroup;
 			children = (
-				E7EB9A321C87F6DC002F96FB /* BahamutCmd */,
-				E708ABCB1C86D2CE0071104E /* BahamutRFKit */,
+				E75A703E1C8C1E8C0029F0BD /* BaseArch */,
 				E7D751F71C561488002E3D40 /* Libs */,
-				E70A5ABC1C174870001C0A47 /* Persistents */,
-				E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */,
-				E76DEB8B1C0E99B10072A1D7 /* BahamutUIKit */,
 				E76234641C0C0D350083E281 /* JSharelink */,
-				E762344C1C0BF5530083E281 /* BahamutCommon */,
 				E75EE44F1B9A05E200783308 /* UIResource */,
-				E7AF57861C54AD4C00505B2A /* RESTfulAPI */,
 				E79E3E3A1B6B591800B27085 /* Source */,
 				E7B665011B6B8EA200032495 /* Assets */,
 				E7AF5DB91C551BD900505B2A /* Entry */,

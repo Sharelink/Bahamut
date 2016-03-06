@@ -119,17 +119,21 @@ class BahamutRFKit
 }
 
 //MARK: Auth models
-class RegistResult:EVObject
+class MsgResult:EVObject
+{
+    var msg:String!
+}
+
+class RegistResult:MsgResult
 {
     var suc:Bool = false
-    var msg:String!
     
     //regist info
     var accountId:String!
     var accountName:String!
 }
 
-class LoginResult: EVObject
+class LoginResult: MsgResult
 {
     var LoginSuccessed:String!
     var AccountID:String!
@@ -141,8 +145,6 @@ class LoginResult: EVObject
     var BindMobile:String!
     var BindEmail:String!
     
-    //error msg
-    var msg:String!
 }
 
 class ValidateResult : EVObject
@@ -219,6 +221,28 @@ extension BahamutRFKit
                 }
             }else{
                 callback(isSuc: false, errorMsg: "NETWORK_ERROR", loginResult: nil)
+            }
+        }
+    }
+    
+    func changeAccountPassword(authServerApi:String,appkey:String, appToken:String,accountId:String,userId:String,originPassword:String,newPassword:String,callback:(suc:Bool,msg:String!)->Void)
+    {
+        let params =
+        [
+            "appkey":appkey,
+            "appToken":appToken,
+            "accountId":accountId,
+            "userId":userId,
+            "originPassword":originPassword,
+            "newPassword":newPassword
+        ]
+        Alamofire.request(.PUT, "\(authServerApi)/Password", parameters: params).responseObject { (result:Result<MsgResult, NSError>) -> Void in
+            if result.isSuccess
+            {
+                callback(suc: true, msg: nil)
+            }else
+            {
+                callback(suc: false, msg: result.value?.msg ?? "SERVER_ERROR")
             }
         }
     }

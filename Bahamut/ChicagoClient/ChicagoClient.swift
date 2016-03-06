@@ -13,38 +13,26 @@ import CocoaAsyncSocket
 let AppTokenInvalided = "AppTokenInvalided"
 let OtherDeviceLoginChicagoServer = "OtherDeviceLoginChicagoServer"
 
-//MARK: Chicago Client
-class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
+//MARK: ChicagoClient Common Route
+class ChicagoClientCommonRoute
 {
-    private static let heartBeatJson = "{}"
-    private static let heartBeatRoute:ChicagoRoute = {
-        let route = ChicagoRoute()
-        route.ExtName = "HeartBeat"
-        route.CmdName = "Beat"
-        return route
-    }()
-    
-    private static var heartBeatTimer:NSTimer!
-    private static var lastHeartBeatTime:NSDate!
-    private static var heartBeatInterval:NSTimeInterval = 42
-    
     static let validationRoute:ChicagoRoute = {
         let route = ChicagoRoute()
-        route.ExtName = "SharelinkerValidation"
+        route.ExtName = "BahamutUserValidation"
         route.CmdName = "Login"
         return route
     }()
     
     static let otherDeviceLoginRoute:ChicagoRoute = {
         let route = ChicagoRoute()
-        route.ExtName = "SharelinkerValidation"
+        route.ExtName = "BahamutUserValidation"
         route.CmdName = "OtherDeviceLogin"
         return route
     }()
     
     private static let logoutRoute:ChicagoRoute = {
         let route = ChicagoRoute()
-        route.ExtName = "SharelinkerValidation"
+        route.ExtName = "BahamutUserValidation"
         route.CmdName = "Logout"
         return route
     }()
@@ -55,6 +43,38 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         route.CmdName = "RegistDeviceToken"
         return route
     }()
+    
+    private static let bahamutAppNotificationRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "NotificationCenter"
+        route.CmdName = "BahamutNotify"
+        return route
+    }()
+    
+    private static let heartBeatRoute:ChicagoRoute = {
+        let route = ChicagoRoute()
+        route.ExtName = "HeartBeat"
+        route.CmdName = "Beat"
+        return route
+    }()
+}
+
+
+//MARK: Bahamut App Notification Model
+let BahamutAppNotificationValue = "BahamutAppNotificationValue"
+class BahamutAppNotification:EVObject
+{
+    var NotificationType:String!
+    var Info:String!
+}
+
+//MARK: Chicago Client
+class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
+{
+    private static let heartBeatJson = "{}"
+    private static var heartBeatTimer:NSTimer!
+    private static var lastHeartBeatTime:NSDate!
+    private static var heartBeatInterval:NSTimeInterval = 42
     
     class ValidationInfo: EVObject
     {
@@ -69,6 +89,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     private(set) var userId:String!
     
     private var deviceTokenSended:Bool = false
+    private var deviceToken:String!
     private var sendDeviceTokenLock = NSRecursiveLock()
     
     private(set) var host:String!
@@ -101,10 +122,11 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         socket = AsyncSocket()
         socket.setDelegate(self)
         
-        self.addChicagoObserver(ChicagoClient.validationRoute, observer: self, selector: "onValidationReturn:")
-        self.addChicagoObserver(ChicagoClient.logoutRoute, observer: self, selector: "onLogoutReturn:")
-        self.addChicagoObserver(ChicagoClient.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
-        self.addChicagoObserver(ChicagoClient.otherDeviceLoginRoute, observer: self, selector: "onOtherDeviceLogin:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.validationRoute, observer: self, selector: "onValidationReturn:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.logoutRoute, observer: self, selector: "onLogoutReturn:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.otherDeviceLoginRoute, observer: self, selector: "onOtherDeviceLogin:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.bahamutAppNotificationRoute, observer: self, selector: "onBahamutAppNotification:")
     }
     
     func startHeartBeat()
@@ -146,19 +168,20 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     private func validate()
     {
-        sendChicagoMessage(ChicagoClient.validationRoute, json: validationInfo.toJsonString())
+        sendChicagoMessage(ChicagoClientCommonRoute.validationRoute, json: validationInfo.toJsonString())
     }
     
     func registDeviceToken(deviceToken:String!)
     {
         sendDeviceTokenLock.lock()
+        self.deviceToken = deviceToken
         if String.isNullOrWhiteSpace(deviceToken) || deviceTokenSended || clientState != .Validated
         {
             return
         }else
         {
             deviceTokenSended = true
-            sendChicagoMessage(ChicagoClient.registDeviceTokenRoute, json: "{ \"DeviceToken\":\"\(deviceToken)\" }")
+            sendChicagoMessage(ChicagoClientCommonRoute.registDeviceTokenRoute, json: "{ \"DeviceToken\":\"\(deviceToken)\" }")
         }
         sendDeviceTokenLock.unlock()
     }
@@ -170,7 +193,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
             ChicagoClient.heartBeatTimer = nil
         }
         self.clientState = .UserLogout
-        if sendChicagoMessage(ChicagoClient.logoutRoute, json: validationInfo.toJsonString())
+        if sendChicagoMessage(ChicagoClientCommonRoute.logoutRoute, json: validationInfo.toJsonString())
         {
             self.clientState = .Closed
         }
@@ -189,6 +212,26 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         NSLog("Chicago:Other Device Login Chicago Server")
     }
     
+    func onBahamutAppNotification(a:NSNotification)
+    {
+        if let json = a.userInfo?[ChicagoClientReturnJsonValue] as? String
+        {
+            let notification = BahamutAppNotification(json:json)
+            self.postNotificationName("BahamutAppNotify:\(notification.NotificationType)", object: self, userInfo: [BahamutAppNotificationValue:notification])
+        }
+        
+    }
+    
+    func addBahamutAppNotificationObserver(observer:AnyObject,notificationType:String,selector:Selector,object:AnyObject?)
+    {
+        self.addObserver(observer, selector: selector, name: "BahamutAppNotify:\(notificationType)", object: object)
+    }
+    
+    func removeBahamutAppNotificationObserver(observer:AnyObject,notificationType:String,object:AnyObject?)
+    {
+        self.removeObserver(observer, name: "BahamutAppNotify:\(notificationType)", object: object)
+    }
+    
     func onValidationReturn(a:NSNotification)
     {
         class ValidationReturn:EVObject
@@ -203,7 +246,10 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 {
                     clientState = .Validated
                     ChicagoClient.lastHeartBeatTime = NSDate()
-                    self.registDeviceToken(SharelinkSetting.deviceToken)
+                    if String.isNullOrWhiteSpace(self.deviceToken) == false
+                    {
+                        self.registDeviceToken(self.deviceToken)
+                    }
                 }else
                 {
                     clientState = .ValidatFailed
@@ -228,7 +274,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
                 socket.disconnect()
             }else
             {
-                sendChicagoMessage(ChicagoClient.heartBeatRoute, json: ChicagoClient.heartBeatJson)
+                sendChicagoMessage(ChicagoClientCommonRoute.heartBeatRoute, json: ChicagoClient.heartBeatJson)
             }
         }
     }
