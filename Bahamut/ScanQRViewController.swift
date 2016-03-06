@@ -99,9 +99,9 @@ extension UserService: QRStringDelegate
             BahamutCmdManager.sharedInstance.handleBahamutCmdWithMainQueue(cmd)
         }else if qrString.hasBegin("http://") || qrString.hasBegin("https://")
         {
-            if qrString.hasPrefix(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)
+            if qrString.hasPrefix(SharelinkConfig.bahamutConfig.bahamutAppOuterExecutorUrlPrefix)
             {
-                let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix, withString: "")
+                let cmdEncoded = qrString.stringByReplacingOccurrencesOfString(SharelinkConfig.bahamutConfig.bahamutAppOuterExecutorUrlPrefix, withString: "")
                 if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
                     
                     

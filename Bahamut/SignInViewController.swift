@@ -267,7 +267,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func showPrivacy() {
-        SimpleBrowser.openUrl(self.navigationController!, url: SharelinkConfig.bahamutConfig.sharelinkPrivacyPage)
+        SimpleBrowser.openUrl(self.navigationController!, url: SharelinkConfig.bahamutConfig.appPrivacyPage)
     }
     
     //MARK: Developer Panel

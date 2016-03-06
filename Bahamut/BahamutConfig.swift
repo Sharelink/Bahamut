@@ -30,14 +30,14 @@ class BahamutConfigObject:EVObject
     var accountRegistApiUrl:String!
     var accountLoginApiUrl:String!
     
-    var sharelinkPrivacyPage:String!
-    var sharelinkEmail:String!
-    var sharelinkOuterExecutorUrlPrefix:String!
+    var appPrivacyPage:String!
+    var bahamutAppEmail:String!
+    var bahamutAppOuterExecutorUrlPrefix:String!
     
     var AliOssAccessKey:String!
     var AliOssSecretKey:String!
     
-    var sharelinkAppStoreId:String!
+    var AppStoreId:String!
     
     var umengAppkey:String!
     var shareSDKAppkey:String!

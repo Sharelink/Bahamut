@@ -39,7 +39,7 @@ extension UserService
         let title = "Sharelink"
         
         let linkMeCmd = userService.generateSharelinkLinkMeCmd()
-        let url = "\(SharelinkConfig.bahamutConfig.sharelinkOuterExecutorUrlPrefix)\(linkMeCmd)"
+        let url = "\(SharelinkConfig.bahamutConfig.bahamutAppOuterExecutorUrlPrefix)\(linkMeCmd)"
         
         let contentWithUrl = "\(contentMsg)\n\(url)"
         
