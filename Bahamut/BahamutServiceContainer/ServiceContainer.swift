@@ -43,6 +43,7 @@ class ServiceContainer:NSNotificationCenter
                 handler(ServiceContainer.appName)
             }
         }
+        NSLog("Init Service Container Completed")
     }
     
     func postInitServiceFailed(reason:String)

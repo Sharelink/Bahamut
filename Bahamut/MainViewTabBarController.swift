@@ -8,29 +8,6 @@
 
 import UIKit
 
-let ALERT_ACTION_OK = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)]
-let ALERT_ACTION_I_SEE = [UIAlertAction(title: "I_SEE".localizedString(), style:.Cancel, handler: nil)]
-
-//MARK: extension show alert
-extension UIViewController
-{
-    
-    func showAlert(title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)])
-    {
-        let controller = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        for ac in actions
-        {
-            controller.addAction(ac)
-        }
-        showAlert(controller)
-    }
-    
-    func showAlert(alertController:UIAlertController)
-    {
-        showAlert(UIApplication.currentShowingViewController, alertController: alertController)
-    }
-}
-
 class MainViewTabBarController: UITabBarController ,OrientationsNavigationController,UITabBarControllerDelegate,SRCMenuManagerDelegate
 {
     private(set) static var currentTabBarViewController:MainViewTabBarController!

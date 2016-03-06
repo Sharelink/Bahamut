@@ -116,9 +116,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func initService()
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            ServiceContainer.instance.initContainer(SharelinkConfig.appName, services: ServiceConfig.Services)
-        }
+        ServiceContainer.instance.initContainer(SharelinkConfig.appName, services: ServiceConfig.Services)
     }
     
     private func configContryAndLang()
