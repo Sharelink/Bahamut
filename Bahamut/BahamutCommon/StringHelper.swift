@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CommonCrypto
 
 extension String {
     var md5 : String{

@@ -193,9 +193,13 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
             ChicagoClient.heartBeatTimer = nil
         }
         self.clientState = .UserLogout
-        if sendChicagoMessage(ChicagoClientCommonRoute.logoutRoute, json: validationInfo.toJsonString())
-        {
-            self.clientState = .Closed
+        if validationInfo != nil{
+            if sendChicagoMessage(ChicagoClientCommonRoute.logoutRoute, json: validationInfo.toJsonString())
+            {
+                self.clientState = .Closed
+            }
+        }else{
+            close()
         }
     }
     
@@ -400,7 +404,9 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     func close()
     {
-        ChicagoClient.heartBeatTimer.invalidate()
+        if let timer = ChicagoClient.heartBeatTimer{
+            timer.invalidate()
+        }
         ChicagoClient.heartBeatTimer = nil
         self.clientState = .Closed
         socket.disconnect()

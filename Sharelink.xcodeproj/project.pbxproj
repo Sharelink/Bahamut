@@ -264,7 +264,6 @@
 		E74C83E61C590E8F009CF8DB /* SharelinkAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A62FE51B6609A500F28D73 /* SharelinkAppDelegate.swift */; };
 		E74C83E71C590E8F009CF8DB /* FilmShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234821C0C34080083E281 /* FilmShareContent.swift */; };
 		E74C83E81C590E8F009CF8DB /* MessageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD11C174870001C0A47 /* MessageExtension.swift */; };
-		E74C83E91C590E8F009CF8DB /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
 		E74C83ED1C590E8F009CF8DB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949B11BF4A0ED005B7B3A /* CoreTelephony.framework */; };
 		E74C83F21C590E8F009CF8DB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A41BCFB0570050997B /* libz.tbd */; };
 		E74C83F31C590E8F009CF8DB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72949A91BF4936E005B7B3A /* Photos.framework */; };
@@ -319,7 +318,6 @@
 		E76234571C0BF5530083E281 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234511C0BF5530083E281 /* DateHelper.swift */; };
 		E76234581C0BF5530083E281 /* IDUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234521C0BF5530083E281 /* IDUtil.swift */; };
 		E76234591C0BF5530083E281 /* RegexUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234531C0BF5530083E281 /* RegexUtil.swift */; };
-		E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
 		E76234831C0C34080083E281 /* FilmShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234821C0C34080083E281 /* FilmShareContent.swift */; };
 		E76234851C0C34770083E281 /* UrlShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234841C0C34770083E281 /* UrlShareContent.swift */; };
 		E76234871C0C3D790083E281 /* UIShareContentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234861C0C3D790083E281 /* UIShareContentFactory.swift */; };
@@ -371,6 +369,8 @@
 		E7AF57A81C54AD4C00505B2A /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF579B1C54AD4C00505B2A /* Vote.swift */; };
 		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E7B615F31BCFCAFD00D0831C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B615F21BCFCAFD00D0831C /* MessageUI.framework */; };
+		E7BCC3A21C8F4C58009C7CEA /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
+		E7BCC3A31C8F4C59009C7CEA /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
 		E7C0069F1C2DA634005CB638 /* ImageShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */; };
 		E7C006A21C2DA6D3005CB638 /* UIShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */; };
 		E7C006C51C2DB1AB005CB638 /* NewShareImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */; };
@@ -549,7 +549,6 @@
 		E71717441C5713F30097AF64 /* yw_1222.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222.jpg; sourceTree = "<group>"; };
 		E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKVersionReplaceInterfaces.swift; sourceTree = "<group>"; };
 		E717184D1C5738510097AF64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		E7171AA41C5745430097AF64 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		E71AF3291BE4FE14000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E71AF32D1BE500A5000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/UIMessage.storyboard"; sourceTree = "<group>"; };
 		E71AF32F1BE500BA000BBBF8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/SharelinkMain.storyboard"; sourceTree = "<group>"; };
@@ -658,6 +657,7 @@
 		E7AF579B1C54AD4C00505B2A /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B615F21BCFCAFD00D0831C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E7BCC3A11C8F4753009C7CEA /* module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShareContent.swift; sourceTree = "<group>"; };
 		E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareCell.swift; sourceTree = "<group>"; };
 		E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareImageCell.swift; sourceTree = "<group>"; };
@@ -1186,7 +1186,6 @@
 				E76234541C0BF5530083E281 /* StringHelper.swift */,
 				E762345B1C0BF56C0083E281 /* BahamutCommon.h */,
 				E76DEBC11C0F202B0072A1D7 /* BahamutObject.swift */,
-				E7171AA41C5745430097AF64 /* module.map */,
 				E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */,
 			);
 			path = BahamutCommon;
@@ -1401,6 +1400,7 @@
 		E7A62FE31B6609A500F28D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E7BCC3A11C8F4753009C7CEA /* module.map */,
 				E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */,
 				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
@@ -2056,6 +2056,7 @@
 				E74C838C1C590E8F009CF8DB /* SystemSoundHelper.swift in Sources */,
 				E74C838D1C590E8F009CF8DB /* BahamutLocalFile.xcdatamodeld in Sources */,
 				E708AC8C1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */,
+				E7BCC3A31C8F4C59009C7CEA /* StringHelper.swift in Sources */,
 				E74C838E1C590E8F009CF8DB /* ShareLinkFilmView.swift in Sources */,
 				E74C838F1C590E8F009CF8DB /* NewShareMessageCell.swift in Sources */,
 				E74C83901C590E8F009CF8DB /* ChatViewController.swift in Sources */,
@@ -2141,7 +2142,6 @@
 				E74C83E61C590E8F009CF8DB /* SharelinkAppDelegate.swift in Sources */,
 				E74C83E71C590E8F009CF8DB /* FilmShareContent.swift in Sources */,
 				E74C83E81C590E8F009CF8DB /* MessageExtension.swift in Sources */,
-				E74C83E91C590E8F009CF8DB /* StringHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2197,6 +2197,7 @@
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
 				E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */,
+				E7BCC3A21C8F4C58009C7CEA /* StringHelper.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* EditThemeViewController.swift in Sources */,
 				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */,
@@ -2298,7 +2299,6 @@
 				E7A62FE61B6609A500F28D73 /* SharelinkAppDelegate.swift in Sources */,
 				E76234831C0C34080083E281 /* FilmShareContent.swift in Sources */,
 				E70A5AE51C174870001C0A47 /* MessageExtension.swift in Sources */,
-				E762345A1C0BF5530083E281 /* StringHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2620,6 +2620,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2643,6 +2644,7 @@
 					"COCOAPODS=1",
 					"APP_VERSION=1",
 				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
@@ -2693,7 +2695,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_INCLUDE_PATHS = "${PROJECT_DIR}/**";
+				SWIFT_INCLUDE_PATHS = Bahamut/;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2705,6 +2707,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bahamut/Bahamut.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2727,6 +2730,7 @@
 					"COCOAPODS=1",
 					"APP_VERSION=1",
 				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
@@ -2758,7 +2762,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_INCLUDE_PATHS = "${PROJECT_DIR}/**";
+				SWIFT_INCLUDE_PATHS = Bahamut/;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				TARGETED_DEVICE_FAMILY = 1;

@@ -119,7 +119,7 @@ class BahamutRFKit
 }
 
 //MARK: Auth models
-class MsgResult:EVObject
+class MsgResult:BahamutObject
 {
     var msg:String!
 }
