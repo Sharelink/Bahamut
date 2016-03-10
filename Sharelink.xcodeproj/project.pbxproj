@@ -658,7 +658,6 @@
 		E7AF579B1C54AD4C00505B2A /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B615F21BCFCAFD00D0831C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		E7BCC3A11C8F4753009C7CEA /* module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShareContent.swift; sourceTree = "<group>"; };
 		E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareCell.swift; sourceTree = "<group>"; };
 		E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareImageCell.swift; sourceTree = "<group>"; };
@@ -1395,7 +1394,6 @@
 		E7A62FE31B6609A500F28D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E7BCC3A11C8F4753009C7CEA /* module.map */,
 				E7CB5CEC1BFAFEEE00098DD4 /* Bahamut.entitlements */,
 				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
