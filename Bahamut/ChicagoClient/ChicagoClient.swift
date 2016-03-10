@@ -16,12 +16,6 @@ let OtherDeviceLoginChicagoServer = "OtherDeviceLoginChicagoServer"
 //MARK: ChicagoClient Common Route
 class ChicagoClientCommonRoute
 {
-    static let validationRouteOld:ChicagoRoute = {
-        let route = ChicagoRoute()
-        route.ExtName = "SharelinkerValidation"
-        route.CmdName = "Login"
-        return route
-    }()
     
     static let validationRoute:ChicagoRoute = {
         let route = ChicagoRoute()
@@ -128,7 +122,6 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         
         socket = AsyncSocket()
         socket.setDelegate(self)
-        self.addChicagoObserver(ChicagoClientCommonRoute.validationRouteOld, observer: self, selector: "onValidationReturn:")
         self.addChicagoObserver(ChicagoClientCommonRoute.validationRoute, observer: self, selector: "onValidationReturn:")
         self.addChicagoObserver(ChicagoClientCommonRoute.logoutRoute, observer: self, selector: "onLogoutReturn:")
         self.addChicagoObserver(ChicagoClientCommonRoute.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
@@ -175,7 +168,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     
     private func validate()
     {
-        sendChicagoMessage(ChicagoClientCommonRoute.validationRouteOld, json: validationInfo.toJsonString())
+        sendChicagoMessage(ChicagoClientCommonRoute.validationRoute, json: validationInfo.toJsonString())
     }
     
     func registDeviceToken(deviceToken:String!)

@@ -64,7 +64,7 @@ ADD_IMAGE_LIMIT_AT_X = "Only add %@ photos at most";
 HARMFUL_CONTENT = "Harmful Content";
 COPY_SHARE_MESSAGE = "Copy Share Words";
 COPY_SHARE_MESSAGE_SUC = "Words Copied";
-SHARELINK_MOTTO = "Read Your Focus, Share Your Friends Focus!";
+SHARELINK_MOTTO = "Share With Friends On Your Focus!";
 UNKNOW_ACTION = "Unknow Action";
 INIT_USER_DATA_ERROR = "Get User Data Error, Retry Login Please!";
 

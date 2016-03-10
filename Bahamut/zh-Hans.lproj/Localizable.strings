@@ -64,7 +64,7 @@ ADD_IMAGE_LIMIT_AT_X = "最多只能添加%@张图片";
 HARMFUL_CONTENT = "不良信息";
 COPY_SHARE_MESSAGE = "复制分享的文字";
 COPY_SHARE_MESSAGE_SUC = "复制成功";
-SHARELINK_MOTTO = "与身边的人分享和交流喜欢的话题!";
+SHARELINK_MOTTO = "与朋友分享和交流喜欢的话题!";
 UNKNOW_ACTION = "未知操作";
 INIT_USER_DATA_ERROR = "获取用户数据失败，请重新登录!";
 
