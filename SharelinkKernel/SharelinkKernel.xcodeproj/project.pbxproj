@@ -33,7 +33,6 @@
 
 /* Begin PBXBuildFile section */
 		E71058F41C5B140800D1C0CC /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71058F31C5B140800D1C0CC /* ChatService.swift */; };
-		E71718501C573BB90097AF64 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = E717184F1C573BB90097AF64 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E71719D41C5743D80097AF64 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71718AC1C5743D80097AF64 /* FileType.swift */; };
 		E71719D51C5743D80097AF64 /* PersistentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71718AD1C5743D80097AF64 /* PersistentBase.swift */; };
 		E71719D61C5743D80097AF64 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71718AE1C5743D80097AF64 /* PersistentManager.swift */; };
@@ -202,7 +201,6 @@
 		E7171A9F1C5744920097AF64 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D7562E1C564839002E3D40 /* AVFoundation.framework */; };
 		E7171AA01C5744920097AF64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D7562F1C564839002E3D40 /* CoreGraphics.framework */; };
 		E7171AA11C5744920097AF64 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D756301C564839002E3D40 /* JavaScriptCore.framework */; };
-		E7171AA51C5745ED0097AF64 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E717183D1C57364B0097AF64 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E7171AA91C574B640097AF64 /* ChatFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71718761C5743D80097AF64 /* ChatFramework.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E7171AC71C576B4D0097AF64 /* KernelResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E7171AC61C576B4D0097AF64 /* KernelResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7171ACD1C576B830097AF64 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E71719891C5743D80097AF64 /* Images.xcassets */; };
@@ -232,22 +230,9 @@
 		E7F7AB8C1C5868C800C5A6FA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F7AB8B1C5868C800C5A6FA /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E7171AA71C574B100097AF64 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E7AF57AA1C54AE8400505B2A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E717183C1C57364B0097AF64;
-			remoteInfo = CommonCrypto;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		E71058F31C5B140800D1C0CC /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
-		E717183D1C57364B0097AF64 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E71718411C57364B0097AF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E717184B1C5738260097AF64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		E717184F1C573BB90097AF64 /* CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
 		E71718511C573C080097AF64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E71718521C573C080097AF64 /* Pods.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E71718601C57437E0097AF64 /* SharelinkKernel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SharelinkKernel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -457,20 +442,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E71718391C57364B0097AF64 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E717185C1C57437E0097AF64 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E7F7AB8C1C5868C800C5A6FA /* CoreFoundation.framework in Frameworks */,
 				E7F7AB8A1C5868B200C5A6FA /* UIKit.framework in Frameworks */,
-				E7171AA51C5745ED0097AF64 /* CommonCrypto.framework in Frameworks */,
 				E7171A891C5744920097AF64 /* Security.framework in Frameworks */,
 				E7171A8A1C5744920097AF64 /* AudioToolbox.framework in Frameworks */,
 				E7171A8B1C5744920097AF64 /* MapKit.framework in Frameworks */,
@@ -511,15 +488,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E717183E1C57364B0097AF64 /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				E717184F1C573BB90097AF64 /* CommonCrypto.h */,
-				E71718411C57364B0097AF64 /* Info.plist */,
-			);
-			path = CommonCrypto;
-			sourceTree = "<group>";
-		};
 		E71718531C573C080097AF64 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1152,7 +1120,6 @@
 				E717190E1C5743D80097AF64 /* RESTfulAPI */,
 				E71719871C5743D80097AF64 /* Source */,
 				E717199E1C5743D80097AF64 /* Assets */,
-				E717183E1C57364B0097AF64 /* CommonCrypto */,
 				E71718611C57437F0097AF64 /* SharelinkKernel */,
 				E71718531C573C080097AF64 /* Pods */,
 				E7171AC51C576B4D0097AF64 /* KernelResource */,
@@ -1164,7 +1131,6 @@
 		E7AF57B31C54AE8400505B2A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E717183D1C57364B0097AF64 /* CommonCrypto.framework */,
 				E71718601C57437E0097AF64 /* SharelinkKernel.framework */,
 				E7171AC41C576B4D0097AF64 /* SharelinkKernel.bundle */,
 			);
@@ -1209,14 +1175,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		E717183A1C57364B0097AF64 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E71718501C573BB90097AF64 /* CommonCrypto.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E717185D1C57437E0097AF64 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1241,24 +1199,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		E717183C1C57364B0097AF64 /* CommonCrypto */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E71718421C57364B0097AF64 /* Build configuration list for PBXNativeTarget "CommonCrypto" */;
-			buildPhases = (
-				E71718381C57364B0097AF64 /* Sources */,
-				E71718391C57364B0097AF64 /* Frameworks */,
-				E717183A1C57364B0097AF64 /* Headers */,
-				E717183B1C57364B0097AF64 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CommonCrypto;
-			productName = CommonCrypto;
-			productReference = E717183D1C57364B0097AF64 /* CommonCrypto.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		E717185F1C57437E0097AF64 /* SharelinkKernel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E71718651C57437F0097AF64 /* Build configuration list for PBXNativeTarget "SharelinkKernel" */;
@@ -1271,7 +1211,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E7171AA81C574B100097AF64 /* PBXTargetDependency */,
 			);
 			name = SharelinkKernel;
 			productName = SharelinkKernel;
@@ -1306,9 +1245,6 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Sharelink;
 				TargetAttributes = {
-					E717183C1C57364B0097AF64 = {
-						CreatedOnToolsVersion = 7.2;
-					};
 					E717185F1C57437E0097AF64 = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -1336,7 +1272,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E717183C1C57364B0097AF64 /* CommonCrypto */,
 				E717185F1C57437E0097AF64 /* SharelinkKernel */,
 				E7171AC31C576B4D0097AF64 /* KernelResource */,
 				E73C75411C57CC1C00C89702 /* MergeSharelinkKernel */,
@@ -1346,13 +1281,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E717183B1C57364B0097AF64 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E717185E1C57437E0097AF64 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1432,13 +1360,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E71718381C57364B0097AF64 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E717185B1C57437E0097AF64 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1597,14 +1518,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		E7171AA81C574B100097AF64 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E717183C1C57364B0097AF64 /* CommonCrypto */;
-			targetProxy = E7171AA71C574B100097AF64 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		E71718E61C5743D80097AF64 /* BahamutCommonLocalized.strings */ = {
 			isa = PBXVariantGroup;
@@ -1672,48 +1585,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		E71718431C57364B0097AF64 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E71718441C57364B0097AF64 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = online.sharelink.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		E71718661C57437F0097AF64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E71718511C573C080097AF64 /* Pods.debug.xcconfig */;
@@ -1965,15 +1836,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E71718421C57364B0097AF64 /* Build configuration list for PBXNativeTarget "CommonCrypto" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E71718431C57364B0097AF64 /* Debug */,
-				E71718441C57364B0097AF64 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		E71718651C57437F0097AF64 /* Build configuration list for PBXNativeTarget "SharelinkKernel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

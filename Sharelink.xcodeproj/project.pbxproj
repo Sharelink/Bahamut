@@ -181,7 +181,6 @@
 		E74C83801C590E8F009CF8DB /* UIShareContentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234861C0C3D790083E281 /* UIShareContentFactory.swift */; };
 		E74C83811C590E8F009CF8DB /* ChicagoClientBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB91C0EA0C30072A1D7 /* ChicagoClientBase.swift */; };
 		E74C83831C590E8F009CF8DB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57911C54AD4C00505B2A /* Message.swift */; };
-		E74C83851C590E8F009CF8DB /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */; };
 		E74C83861C590E8F009CF8DB /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E73CB09E1BCABC1C001BEEAC /* UIButton+Badge.m */; };
 		E74C83871C590E8F009CF8DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
 		E74C83881C590E8F009CF8DB /* ThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */; };
@@ -327,7 +326,6 @@
 		E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB8F1C0E9C140072A1D7 /* HSL.swift */; };
 		E76DEB961C0E9C140072A1D7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB901C0E9C140072A1D7 /* UIColor.swift */; };
 		E76DEB971C0E9C140072A1D7 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */; };
-		E76DEBB31C0EA0300072A1D7 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */; };
 		E76DEBB81C0EA09D0072A1D7 /* ChicagoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB71C0EA09D0072A1D7 /* ChicagoClient.swift */; };
 		E76DEBBA1C0EA0C30072A1D7 /* ChicagoClientBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBB91C0EA0C30072A1D7 /* ChicagoClientBase.swift */; };
 		E76DEBBC1C0EAB000072A1D7 /* UserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEBBB1C0EAB000072A1D7 /* UserGuide.swift */; };
@@ -424,6 +422,10 @@
 		E7EB9A361C87F6DC002F96FB /* BahamutCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A331C87F6DC002F96FB /* BahamutCmd.swift */; };
 		E7EB9A371C87F6DC002F96FB /* BahamutCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */; };
 		E7EB9A381C87F6DC002F96FB /* BahamutCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */; };
+		E7ED39031C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */; };
+		E7ED39041C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */; };
+		E7ED39051C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */; };
+		E7ED39061C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */; };
 		E7F2F8471C27F176003C87C5 /* TextShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2F8461C27F176003C87C5 /* TextShareContent.swift */; };
 		E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
 		E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */; };
@@ -615,7 +617,6 @@
 		E76DEB8F1C0E9C140072A1D7 /* HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		E76DEB901C0E9C140072A1D7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
-		E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
 		E76DEBB71C0EA09D0072A1D7 /* ChicagoClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChicagoClient.swift; sourceTree = "<group>"; };
 		E76DEBB91C0EA0C30072A1D7 /* ChicagoClientBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChicagoClientBase.swift; sourceTree = "<group>"; };
 		E76DEBBB1C0EAB000072A1D7 /* UserGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuide.swift; sourceTree = "<group>"; };
@@ -727,6 +728,8 @@
 		E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewController.swift; sourceTree = "<group>"; };
 		E7EB9A331C87F6DC002F96FB /* BahamutCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCmd.swift; sourceTree = "<group>"; };
 		E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCmdManager.swift; sourceTree = "<group>"; };
+		E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutTaskQueue.swift; sourceTree = "<group>"; };
+		E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7F2F8461C27F176003C87C5 /* TextShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextShareContent.swift; sourceTree = "<group>"; };
 		E7F7F1D01C52116800E6D117 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1147,11 +1150,11 @@
 		E75A703E1C8C1E8C0029F0BD /* BaseArch */ = {
 			isa = PBXGroup;
 			children = (
+				E7ED39001C91BCC1002126F4 /* BahamutTask */,
 				E76DEBB61C0EA0790072A1D7 /* ChicagoClient */,
 				E708AC341C86EA4C0071104E /* BahamutServiceContainer */,
 				E762344C1C0BF5530083E281 /* BahamutCommon */,
 				E76DEB8B1C0E99B10072A1D7 /* BahamutUIKit */,
-				E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */,
 				E70A5ABC1C174870001C0A47 /* Persistents */,
 				E708ABCB1C86D2CE0071104E /* BahamutRFKit */,
 				E7EB9A321C87F6DC002F96FB /* BahamutCmd */,
@@ -1231,14 +1234,6 @@
 				E76DEB901C0E9C140072A1D7 /* UIColor.swift */,
 			);
 			path = DynamicColor;
-			sourceTree = "<group>";
-		};
-		E76DEBAE1C0EA0300072A1D7 /* ProgressTaskWatcher */ = {
-			isa = PBXGroup;
-			children = (
-				E76DEBAF1C0EA0300072A1D7 /* ProgressTaskWatcher.swift */,
-			);
-			path = ProgressTaskWatcher;
 			sourceTree = "<group>";
 		};
 		E76DEBB61C0EA0790072A1D7 /* ChicagoClient */ = {
@@ -1698,6 +1693,15 @@
 			path = BahamutCmd;
 			sourceTree = "<group>";
 		};
+		E7ED39001C91BCC1002126F4 /* BahamutTask */ = {
+			isa = PBXGroup;
+			children = (
+				E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */,
+				E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */,
+			);
+			path = BahamutTask;
+			sourceTree = "<group>";
+		};
 		E7F225FE1BC646F00034B745 /* UIMessage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2023,6 +2027,7 @@
 				E74C836E1C590E8F009CF8DB /* SharelinkThemeService.swift in Sources */,
 				E74C836F1C590E8F009CF8DB /* NewShareTextCell.swift in Sources */,
 				E708AC4D1C86EA4C0071104E /* FetchBahamutFireExtension.swift in Sources */,
+				E7ED39041C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */,
 				E74C83701C590E8F009CF8DB /* QRCode.swift in Sources */,
 				E74C83711C590E8F009CF8DB /* ModelEntity.swift in Sources */,
 				E74C83721C590E8F009CF8DB /* SharelinkSetting.swift in Sources */,
@@ -2046,7 +2051,6 @@
 				E74C83811C590E8F009CF8DB /* ChicagoClientBase.swift in Sources */,
 				E708ABD41C86D2D70071104E /* BahamutRFKit.swift in Sources */,
 				E74C83831C590E8F009CF8DB /* Message.swift in Sources */,
-				E74C83851C590E8F009CF8DB /* ProgressTaskWatcher.swift in Sources */,
 				E74C83861C590E8F009CF8DB /* UIButton+Badge.m in Sources */,
 				E708AC4F1C86EA4C0071104E /* UploadBahamutFireExtension.swift in Sources */,
 				E74C83871C590E8F009CF8DB /* AppDelegate.swift in Sources */,
@@ -2121,6 +2125,7 @@
 				E74C83CF1C590E8F009CF8DB /* Account.swift in Sources */,
 				E74C83D01C590E8F009CF8DB /* UUMsgItem.swift in Sources */,
 				E74C83D11C590E8F009CF8DB /* NewCustomSRCCell.swift in Sources */,
+				E7ED39061C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */,
 				E74C83D21C590E8F009CF8DB /* ShareLinkUser.swift in Sources */,
 				E74C83D41C590E8F009CF8DB /* ShareThing.swift in Sources */,
 				E74C83D61C590E8F009CF8DB /* KeyboardAdjustHelper.swift in Sources */,
@@ -2193,7 +2198,6 @@
 				E76234871C0C3D790083E281 /* UIShareContentFactory.swift in Sources */,
 				E76DEBBA1C0EA0C30072A1D7 /* ChicagoClientBase.swift in Sources */,
 				E7AF57A21C54AD4C00505B2A /* Message.swift in Sources */,
-				E76DEBB31C0EA0300072A1D7 /* ProgressTaskWatcher.swift in Sources */,
 				E73CB0A01BCABC1C001BEEAC /* UIButton+Badge.m in Sources */,
 				E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */,
@@ -2207,6 +2211,7 @@
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E708ABD11C86D2CE0071104E /* BahamutRFKit.swift in Sources */,
+				E7ED39031C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */,
 				E70A5ADA1C174870001C0A47 /* PersistentBase.swift in Sources */,
 				E70A5AE11C174870001C0A47 /* LocalFilesExtension.swift in Sources */,
 				E7657C411B6918DE00FF97FD /* MainNavigationController.swift in Sources */,
@@ -2276,6 +2281,7 @@
 				E708AC611C86EB2B0071104E /* AccountService.swift in Sources */,
 				E708ABE51C86D3B60071104E /* BahamutFire.swift in Sources */,
 				E7AF57A41C54AD4C00505B2A /* ShareThing.swift in Sources */,
+				E7ED39051C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */,
 				E7C157FB1C7F50D0009E5CDC /* MainViewTabBarController.swift in Sources */,
 				E71059001C5B6CD300D1C0CC /* DeveloperMainPanelController.swift in Sources */,
 				E76DEBC01C0EAB890072A1D7 /* KeyboardAdjustHelper.swift in Sources */,
@@ -2651,8 +2657,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut",
+					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
@@ -2695,9 +2701,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_INCLUDE_PATHS = Bahamut/;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bahamut/Bahamut-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -2737,8 +2744,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut",
+					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
@@ -2762,9 +2769,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_INCLUDE_PATHS = Bahamut/;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/alexchow/GitHub/bahamut/Bahamut/Bahamut/Bahamut-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bahamut/Bahamut-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

@@ -30,6 +30,19 @@ extension BahamutObject
     }
 }
 
+extension Array
+{
+    func saveBahamutObjectModels(){
+        if self.count > 0 && (self.first! is BahamutObject){
+            self.forEach({ (element) -> () in
+                if let e = element as? BahamutObject{
+                    e.saveModel()
+                }
+            })
+        }
+    }
+}
+
 class ModelExtensionConstant
 {
     static let coreDataModelId = "BahamutModel"

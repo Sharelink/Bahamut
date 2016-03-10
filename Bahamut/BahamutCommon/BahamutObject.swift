@@ -23,6 +23,8 @@ public class BahamutObject : EVObject
     }
 }
 
+typealias BahamutObjectArray = Array<BahamutObject>
+
 
 //MARK: Sort
 class Sortable : BahamutObject
