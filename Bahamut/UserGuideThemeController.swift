@@ -60,7 +60,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     private func getHotThemes()
     {
         let req = GetHotThemesRequest()
-        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<GetHotThemesRequest.HotThemes>) -> Void in
+        BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<GetHotThemesRequest.HotThemes>) -> Void in
             if let result = result.returnObject
             {
                 if let themes = result.themes

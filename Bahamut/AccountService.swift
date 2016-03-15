@@ -118,7 +118,7 @@ class AccountService: ServiceProtocol
         let req = ChangeAccountPasswordRequest()
         req.oldPassword = oldPsw.sha256
         req.newPassword = newPsw.sha256
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req) { (result) -> Void in
             if result.isSuccess && String.isNullOrWhiteSpace(result.value) == false && result.value!.lowercaseString == "true"
             {

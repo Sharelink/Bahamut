@@ -131,7 +131,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
     func refreshMyAllSharelinkThemes()
     {
         let req = GetMyAllTagsRequest()
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<[SharelinkTheme]>) -> Void in
             if let tags = result.returnObject
             {
@@ -171,7 +171,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         req.data = theme.data
         req.isShowToLinkers = theme.showToLinkers == "true"
         req.type = theme.type
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req, callback: { (result:SLResult<SharelinkTheme>) -> Void in
             var suc = false
             if let newTheme = result.returnObject
@@ -196,7 +196,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         }
         let req = RemoveTagsRequest()
         req.tagIds = themes.map{$0.tagId}
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             var suc = false
             if result.statusCode == ReturnCode.OK
@@ -222,7 +222,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         req.isShowToLinkers = theme.showToLinkers
         req.type = theme.type
         req.data = theme.data
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             var suc = false
             if result.statusCode == ReturnCode.OK
@@ -246,7 +246,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         let result = PersistentManager.sharedInstance.getModel(SharelinkerThemes.self, idValue: userId)
         let req = GetLinkedUserTagsRequest()
         req.userId = userId
-        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<[SharelinkTheme]>) -> Void in
+        BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<[SharelinkTheme]>) -> Void in
             if let uthemes = result.returnObject
             {
                 let userThemes = SharelinkerThemes()

@@ -43,8 +43,8 @@ class BahamutRFKit
     func reuseApiServer(userId:String, token:String,appApiServer:String)
     {
         self.appApiServer = appApiServer
-        let sharelinkClient = BahamutRFClient(apiServer:self.appApiServer,userId:userId,token:token)
-        clients.updateValue(sharelinkClient, forKey: BahamutRFClientType)
+        let client = BahamutRFClient(apiServer:self.appApiServer,userId:userId,token:token)
+        clients.updateValue(client, forKey: BahamutRFClientType)
     }
     
     func reuseFileApiServer(userId:String, token:String,fileApiServer:String)
@@ -100,13 +100,6 @@ class BahamutRFKit
     }
     
     func getBahamutClient() -> ClientProtocal
-    {
-        let client = BahamutRFClient()
-        client.setClientStart()
-        return client
-    }
-    
-    func getShareLinkClient() -> ClientProtocal
     {
         return clients[BahamutRFClientType]!
     }

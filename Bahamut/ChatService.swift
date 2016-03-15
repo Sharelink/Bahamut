@@ -108,7 +108,7 @@ class ChatService:NSNotificationCenter,ServiceProtocol
     {
         let req = GetNewMessagesRequest()
         req.apiServerUrl = self.chatMessageServerUrl
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req) { (result:SLResult<[Message]>) -> Void in
             if var msgs = result.returnObject
             {
@@ -200,7 +200,7 @@ class ChatService:NSNotificationCenter,ServiceProtocol
         req.messageData = msg.msgData
         req.audienceId = audienceId
         req.shareId = shareId
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req) { (result:SLResult<Message>) -> Void in
             if result.isSuccess
             {

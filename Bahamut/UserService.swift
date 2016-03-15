@@ -184,7 +184,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         //request server
         let req = GetSharelinkersRequest()
         req.userIds = [userId]
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result: SLResult<[Sharelinker]>) -> Void in
             var newestUser:Sharelinker!
             var msg:String! = nil
@@ -210,7 +210,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func refreshMyLinkedUsers()
     {
         let req = GetUserLinksRequest()
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient() as! BahamutRFClient
+        let client = BahamutRFKit.sharedInstance.getBahamutClient() as! BahamutRFClient
         client.execute(req) { (result:SLResult<[UserLink]>) -> Void in
             
             if result.statusCode == ReturnCode.OK
@@ -274,7 +274,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     func getNewLinkMessageFromServer()
     {
         let req = GetLinkMessagesRequest()
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req) { (result:SLResult<[LinkMessage]>) -> Void in
             if var msgs = result.returnObject
             {
@@ -302,7 +302,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
 
     private func clearServerLinkMessages()
     {
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         let dreq = DeleteLinkMessagesRequest()
         client.execute(dreq, callback: { (result:SLResult<BahamutObject>) -> Void in
             
@@ -323,7 +323,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = AcceptAskingLinkRequest()
         req.sharelinkerId = userId
         req.noteName = noteName
-        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
+        BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<AULReturn>) -> Void in
             var suc = false
             if let _ = result.returnObject
             {
@@ -360,7 +360,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
         req.message = askNick
-        BahamutRFKit.sharedInstance.getShareLinkClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
+        BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }
         
@@ -384,7 +384,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = UpdateLinkedUserNoteNameRequest()
         req.newNoteName = newNoteName
         req.userId = userId
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -408,7 +408,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = UpdateAvatarRequest()
         req.newAvatarId = newAvatarId
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -435,7 +435,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = UpdateProfileVideoRequest()
         req.newProfileVideoId = newVideoId
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
@@ -463,7 +463,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = UpdateSharelinkerProfileNickNameRequest()
         req.nickName = newNick
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             if result.statusCode == ReturnCode.OK
@@ -485,7 +485,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     {
         let req = UpdateSharelinkerProfileMottoRequest()
         req.motto = newMotto
-        let client = BahamutRFKit.sharedInstance.getShareLinkClient()
+        let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             if result.statusCode == ReturnCode.OK

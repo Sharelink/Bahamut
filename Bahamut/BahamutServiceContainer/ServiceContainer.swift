@@ -8,7 +8,7 @@
 
 import Foundation
 
-let InitServiceFailedReason = "ServiceInitFailed"
+let InitServiceFailedReason = "InitServiceFailedReason"
 
 class ServiceContainer:NSNotificationCenter
 {
