@@ -360,6 +360,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let req = AddUserLinkRequest()
         req.otherUserId = sharelinkerId
         req.message = askNick
+        MobClick.event("SendAskLinkRequest")
         BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<BahamutObject>) -> Void in
             callback(isSuc: result.isSuccess)
         }

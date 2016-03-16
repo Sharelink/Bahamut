@@ -1,5 +1,5 @@
 //
-//  ShareLinkFilmView.swift
+//  BahamutFilmView.swift
 //  Bahamut
 //
 //  Created by AlexChow on 15/8/11.
@@ -10,12 +10,11 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
-//MARK: ShareLinkFilmView
-public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
+//MARK: BahamutFilmView
+public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
 {
     
     //MARK: Inits
-    
     convenience init()
     {
         self.init(frame: CGRectZero)
@@ -29,7 +28,10 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        fatalError("can't init from xib,please use addSubview() to load this view")
+        super.init(coder: aDecoder)
+        initControls()
+        initGestures()
+        setNoVideo()
     }
     
     
@@ -71,7 +73,9 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     
-    //MARK: ui properties
+    //MARK: properties
+    var delegate:PlayerDelegate!
+    
     private var timer:NSTimer!{
         didSet{
             
@@ -114,7 +118,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         didSet{
             refreshButton.userInteractionEnabled = true
             refreshButton.frame = CGRectMake(0, 0, 48, 48)
-            refreshButton.image = UIImage.namedImageInSharelink("refresh")
+            refreshButton.image = UIImage(named:"refresh")
             refreshButton.hidden = true
             refreshButton.center = self.center
             refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "refreshButtonClick:"))
@@ -125,7 +129,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var playButton:UIImageView!{
         didSet{
             playButton.frame = CGRectMake(0, 0, 48, 48)
-            playButton.image = UIImage.namedImageInSharelink( "playGray")
+            playButton.image = UIImage(named: "playGray")
             playButton.hidden = false
             playButton.center = self.center
             self.addSubview(playButton)
@@ -135,7 +139,7 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var noFileImage:UIImageView!{
         didSet{
             noFileImage.frame = CGRectMake(0, 0, 48, 48)
-            noFileImage.image = UIImage.namedImageInSharelink( "delete")
+            noFileImage.image = UIImage(named:"delete")
             noFileImage.hidden = true
             noFileImage.center = self.center
             self.addSubview(noFileImage)
@@ -450,11 +454,16 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         {
             player.playFromBeginning()
         }
+        if let handler = delegate?.playerBufferingStateDidChange{
+            handler(player)
+        }
     }
     
     public func playerPlaybackDidEnd(player: Player)
     {
-        
+        if let handler = delegate?.playerPlaybackDidEnd{
+            handler(player)
+        }
     }
     
     public func playerPlaybackStateDidChange(player: Player)
@@ -471,21 +480,29 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             playButton.hidden = true
             refreshButton.hidden = false
         }
+        
+        if let handler = delegate?.playerPlaybackStateDidChange{
+            handler(player)
+        }
     }
     
     public func playerPlaybackWillStartFromBeginning(player: Player)
     {
-        
+        if let handler = delegate?.playerPlaybackWillStartFromBeginning{
+            handler(player)
+        }
     }
     
     public func playerReady(player: Player)
     {
-        
+        if let handler = delegate?.playerReady{
+            handler(player)
+        }
     }
     
     //MARK: show player
     
-    class SharelinkFilmPlayerLayer : UIView
+    class BahamutFilmPlayerLayer : UIView
     {
         override init(frame: CGRect)
         {
@@ -512,11 +529,11 @@ public class ShareLinkFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         let frame = CGRectMake(0, 0, width, width)
         let container = UIView(frame: frame)
         container.center = view.center
-        let playerView = ShareLinkFilmView(frame: frame)
+        let playerView = BahamutFilmView(frame: frame)
         playerView.autoLoad = true
         playerView.playerController.playbackLoops = false
         playerView.fileFetcher = fileFetcer
-        let layer = SharelinkFilmPlayerLayer(frame: view.bounds)
+        let layer = BahamutFilmPlayerLayer(frame: view.bounds)
         view.addSubview(layer)
         layer.addSubview(container)
         container.addSubview(playerView)

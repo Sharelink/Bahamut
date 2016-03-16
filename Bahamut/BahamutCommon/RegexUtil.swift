@@ -25,13 +25,9 @@ public struct RegexMatcher {
     }
     
     func match(input: String) -> Bool {
-        if let matches = regex?.matchesInString(input,
-            options: [],
-            range: NSMakeRange(0, input.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))) {
-                return matches.count > 0
-        } else {
-            return false
-        }
+        let range = NSMakeRange(0, input.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        let matches = regex?.matchesInString(input, options: [],range: range)
+        return matches?.count > 0
     }
     
     func matchFirstString(input:String) -> String?{

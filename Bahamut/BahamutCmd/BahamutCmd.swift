@@ -77,9 +77,9 @@ class BahamutCmd
         return [String]()
     }
     
-    static func getCmdFromUrl(sharelinkCmdUrl:String) -> String
+    static func getCmdFromUrl(bahamutCmdUrl:String) -> String
     {
-        let cmdEncoded = sharelinkCmdUrl.substringFromIndex(cmdUrlSchemaUrlPrefix.endIndex)
+        let cmdEncoded = bahamutCmdUrl.substringFromIndex(cmdUrlSchemaUrlPrefix.endIndex)
         return decodeBahamutCmd(cmdEncoded)
     }
     

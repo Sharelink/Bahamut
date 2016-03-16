@@ -234,6 +234,29 @@ public extension NSDate
 
 public extension NSDate
 {
+    public func isAfter(date:NSDate) -> Bool
+    {
+        return self.timeIntervalSince1970 > date.timeIntervalSince1970
+    }
+    
+    public func ge(date:NSDate) -> Bool
+    {
+        return self.timeIntervalSince1970 >= date.timeIntervalSince1970
+    }
+    
+    public func isBefore(date:NSDate) -> Bool
+    {
+        return self.timeIntervalSince1970 < date.timeIntervalSince1970
+    }
+    
+    public func le(date:NSDate) -> Bool
+    {
+        return self.timeIntervalSince1970 <= date.timeIntervalSince1970
+    }
+}
+
+public extension NSDate
+{
     public func toFriendlyString(formatter:NSDateFormatter! = nil) -> String
     {
         let interval = -self.timeIntervalSinceNow

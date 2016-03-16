@@ -25,7 +25,7 @@ class FilmContent: UIShareContentDelegate
     
     func refresh(sender: UIShareContent, share: ShareThing?)
     {
-        let mediaPlayer = sender.contentView as! ShareLinkFilmView
+        let mediaPlayer = sender.contentView as! BahamutFilmView
         mediaPlayer.filePath = nil
         if let json = share?.shareContent
         {
@@ -51,7 +51,7 @@ class FilmContent: UIShareContentDelegate
     
     func getContentView(sender: UIShareContent, share: ShareThing?)-> UIView
     {
-        let player = ShareLinkFilmView(frame: CGRectMake(0,0,148,148))
+        let player = BahamutFilmView(frame: CGRectMake(0,0,148,148))
         player.layer.cornerRadius = 7
         player.autoLoad = false
         player.autoPlay = true

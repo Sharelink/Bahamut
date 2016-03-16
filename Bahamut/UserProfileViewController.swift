@@ -79,7 +79,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
 {
 
     //MARK: properties
-    private var profileVideoView:ShareLinkFilmView!{
+    private var profileVideoView:BahamutFilmView!{
         didSet{
             profileVideoViewContainer.addSubview(profileVideoView)
             profileVideoViewContainer.sendSubviewToBack(profileVideoView)
@@ -163,7 +163,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if profileVideoView == nil
         {
             let frame = profileVideoViewContainer.bounds
-            profileVideoView = ShareLinkFilmView(frame: frame)
+            profileVideoView = BahamutFilmView(frame: frame)
             profileVideoView.backgroundColor = UIColor.whiteColor()
             profileVideoView.playerController.fillMode = AVLayerVideoGravityResizeAspectFill
             profileVideoView.autoPlay = true
@@ -331,7 +331,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
         let fileModel = itemModel as! UIFileCollectionCellModel
-        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
+        BahamutFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
     //MARK: update

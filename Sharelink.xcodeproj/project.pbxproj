@@ -158,7 +158,6 @@
 		E74C83661C590E8F009CF8DB /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57981C54AD4C00505B2A /* UserLink.swift */; };
 		E74C83671C590E8F009CF8DB /* ThemeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7443ADD1C2BDF4100CB5C3A /* ThemeListViewController.swift */; };
 		E74C83681C590E8F009CF8DB /* UseTinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500071C3B7392009185FE /* UseTinkViewController.swift */; };
-		E74C83691C590E8F009CF8DB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
 		E74C836A1C590E8F009CF8DB /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76DEB8F1C0E9C140072A1D7 /* HSL.swift */; };
 		E74C836C1C590E8F009CF8DB /* UIAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A57291C1EA0140031A0C5 /* UIAnimationHelper.swift */; };
 		E74C836D1C590E8F009CF8DB /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AD01C174870001C0A47 /* MessageEntity.swift */; };
@@ -188,7 +187,6 @@
 		E74C838B1C590E8F009CF8DB /* MessageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ACF1C174870001C0A47 /* MessageEntity+CoreDataProperties.swift */; };
 		E74C838C1C590E8F009CF8DB /* SystemSoundHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */; };
 		E74C838D1C590E8F009CF8DB /* BahamutLocalFile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70A5AC81C174870001C0A47 /* BahamutLocalFile.xcdatamodeld */; };
-		E74C838E1C590E8F009CF8DB /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E74C838F1C590E8F009CF8DB /* NewShareMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E723871D1BFC1BD600247A35 /* NewShareMessageCell.swift */; };
 		E74C83901C590E8F009CF8DB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798102D1BC6C38B002F35A5 /* ChatViewController.swift */; };
 		E74C83921C590E8F009CF8DB /* PersistentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABF1C174870001C0A47 /* PersistentBase.swift */; };
@@ -219,7 +217,6 @@
 		E74C83AF1C590E8F009CF8DB /* UrlShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234841C0C34770083E281 /* UrlShareContent.swift */; };
 		E74C83B01C590E8F009CF8DB /* NewShareImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C006C41C2DB1AB005CB638 /* NewShareImageCell.swift */; };
 		E74C83B11C590E8F009CF8DB /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A5ABE1C174870001C0A47 /* FileType.swift */; };
-		E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E742464A1C3A2A1F00BA564F /* NewControllerTitleView.swift */; };
 		E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78608531BA1DF8000E2BECA /* LinkConfirmViewController.swift */; };
 		E74C83B71C590E8F009CF8DB /* SDKVersionReplaceInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717182E1C571D7C0097AF64 /* SDKVersionReplaceInterfaces.swift */; };
@@ -365,7 +362,6 @@
 		E7AF57A61C54AD4C00505B2A /* UserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57981C54AD4C00505B2A /* UserLink.swift */; };
 		E7AF57A71C54AD4C00505B2A /* UserTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF57991C54AD4C00505B2A /* UserTheme.swift */; };
 		E7AF57A81C54AD4C00505B2A /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF579B1C54AD4C00505B2A /* Vote.swift */; };
-		E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */; };
 		E7B615F31BCFCAFD00D0831C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B615F21BCFCAFD00D0831C /* MessageUI.framework */; };
 		E7BCC3A21C8F4C58009C7CEA /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
 		E7BCC3A31C8F4C59009C7CEA /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76234541C0BF5530083E281 /* StringHelper.swift */; };
@@ -384,8 +380,6 @@
 		E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB5CED1BFAFEEE00098DD4 /* AudioToolbox.framework */; };
 		E7CB5D321BFB8CBB00098DD4 /* NewShareThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */; };
 		E7CB5D341BFB958700098DD4 /* NewShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB5D331BFB958700098DD4 /* NewShareController.swift */; };
-		E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2341B7CC0D800F34CE0 /* Player.swift */; };
-		E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */; };
 		E7D7518C1C55C75D002E3D40 /* SharelinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */; };
 		E7D751951C55DFA7002E3D40 /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */; };
 		E7D7519F1C55E64E002E3D40 /* ChatFrameworkLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */; };
@@ -418,6 +412,12 @@
 		E7D752E91C562FEA002E3D40 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751FA1C561488002E3D40 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7D752ED1C5633C0002E3D40 /* ChatAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */; };
 		E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */; };
+		E7E237DD1C998B11008FF893 /* BahamutFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DA1C998B11008FF893 /* BahamutFilmView.swift */; };
+		E7E237DE1C998B11008FF893 /* BahamutFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DA1C998B11008FF893 /* BahamutFilmView.swift */; };
+		E7E237DF1C998B11008FF893 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DB1C998B11008FF893 /* Player.swift */; };
+		E7E237E01C998B11008FF893 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DB1C998B11008FF893 /* Player.swift */; };
+		E7E237E11C998B11008FF893 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DC1C998B11008FF893 /* KDCircularProgress.swift */; };
+		E7E237E21C998B11008FF893 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E237DC1C998B11008FF893 /* KDCircularProgress.swift */; };
 		E7EB9A351C87F6DC002F96FB /* BahamutCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A331C87F6DC002F96FB /* BahamutCmd.swift */; };
 		E7EB9A361C87F6DC002F96FB /* BahamutCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A331C87F6DC002F96FB /* BahamutCmd.swift */; };
 		E7EB9A371C87F6DC002F96FB /* BahamutCmdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */; };
@@ -656,7 +656,6 @@
 		E7AF57981C54AD4C00505B2A /* UserLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLink.swift; sourceTree = "<group>"; };
 		E7AF57991C54AD4C00505B2A /* UserTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTheme.swift; sourceTree = "<group>"; };
 		E7AF579B1C54AD4C00505B2A /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
-		E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkFilmView.swift; sourceTree = "<group>"; };
 		E7B615F21BCFCAFD00D0831C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E7C0069E1C2DA634005CB638 /* ImageShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShareContent.swift; sourceTree = "<group>"; };
 		E7C006A11C2DA6D3005CB638 /* UIShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareCell.swift; sourceTree = "<group>"; };
@@ -674,8 +673,6 @@
 		E7CB5D311BFB8CBB00098DD4 /* NewShareThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareThemeCell.swift; sourceTree = "<group>"; };
 		E7CB5D331BFB958700098DD4 /* NewShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewShareController.swift; sourceTree = "<group>"; };
 		E7D0DAEC1C5CF87A00F838F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
-		E7D5A2341B7CC0D800F34CE0 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		E7D7518B1C55C75D002E3D40 /* SharelinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharelinkExtensions.swift; sourceTree = "<group>"; };
 		E7D751961C55DFA7002E3D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
 		E7D751981C55DFAA002E3D40 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
@@ -725,6 +722,9 @@
 		E7D7523B1C561488002E3D40 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatAssets.xcassets; sourceTree = "<group>"; };
 		E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewController.swift; sourceTree = "<group>"; };
+		E7E237DA1C998B11008FF893 /* BahamutFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFilmView.swift; sourceTree = "<group>"; };
+		E7E237DB1C998B11008FF893 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		E7E237DC1C998B11008FF893 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		E7EB9A331C87F6DC002F96FB /* BahamutCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCmd.swift; sourceTree = "<group>"; };
 		E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCmdManager.swift; sourceTree = "<group>"; };
 		E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutTaskQueue.swift; sourceTree = "<group>"; };
@@ -1213,6 +1213,8 @@
 			isa = PBXGroup;
 			children = (
 				E76DEB8E1C0E9C140072A1D7 /* DynamicColor */,
+				E7E237D91C998B11008FF893 /* BahamutFilmView */,
+				E7E237DC1C998B11008FF893 /* KDCircularProgress.swift */,
 				E71058F71C5B2C2300D1C0CC /* UICollectionViewFlowLayouts.swift */,
 				E76DEB911C0E9C140072A1D7 /* ImageUtil.swift */,
 				E70A572B1C1EA01C0031A0C5 /* SystemSoundHelper.swift */,
@@ -1483,10 +1485,7 @@
 			children = (
 				E73CB09A1BCABC1C001BEEAC /* UIBarButtomItem-Badge */,
 				E78608551BA1E28A00E2BECA /* QRCode.swift */,
-				E7D5A2361B7CC1A400F34CE0 /* KDCircularProgress.swift */,
 				E72B26C61B71EC0B008E81D6 /* StartSegue.swift */,
-				E7D5A2341B7CC0D800F34CE0 /* Player.swift */,
-				E7B5219B1B79AD08001C2AE4 /* ShareLinkFilmView.swift */,
 				E73E44B71B81CC9D00E0B6EB /* UIResourceExplorerController.swift */,
 				E7A3AA9B1B9C332F0094B0D0 /* UIImagePlayerController.swift */,
 				E7555E191BA2AE20004C2129 /* UIVideoExplorerController.swift */,
@@ -1680,6 +1679,15 @@
 				E7D7523B1C561488002E3D40 /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.2.0;
+			sourceTree = "<group>";
+		};
+		E7E237D91C998B11008FF893 /* BahamutFilmView */ = {
+			isa = PBXGroup;
+			children = (
+				E7E237DA1C998B11008FF893 /* BahamutFilmView.swift */,
+				E7E237DB1C998B11008FF893 /* Player.swift */,
+			);
+			path = BahamutFilmView;
 			sourceTree = "<group>";
 		};
 		E7EB9A321C87F6DC002F96FB /* BahamutCmd */ = {
@@ -2017,7 +2025,6 @@
 				E74C83661C590E8F009CF8DB /* UserLink.swift in Sources */,
 				E74C83671C590E8F009CF8DB /* ThemeListViewController.swift in Sources */,
 				E74C83681C590E8F009CF8DB /* UseTinkViewController.swift in Sources */,
-				E74C83691C590E8F009CF8DB /* Player.swift in Sources */,
 				E708AC5F1C86EA4C0071104E /* ServiceProtocol.swift in Sources */,
 				E74C836A1C590E8F009CF8DB /* HSL.swift in Sources */,
 				E74C836C1C590E8F009CF8DB /* UIAnimationHelper.swift in Sources */,
@@ -2028,6 +2035,7 @@
 				E7ED39041C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */,
 				E74C83701C590E8F009CF8DB /* QRCode.swift in Sources */,
 				E74C83711C590E8F009CF8DB /* ModelEntity.swift in Sources */,
+				E7E237E21C998B11008FF893 /* KDCircularProgress.swift in Sources */,
 				E74C83721C590E8F009CF8DB /* SharelinkSetting.swift in Sources */,
 				E74C83731C590E8F009CF8DB /* UIClientStateHeader.swift in Sources */,
 				E74C83741C590E8F009CF8DB /* ModelExtension.swift in Sources */,
@@ -2059,7 +2067,6 @@
 				E74C838D1C590E8F009CF8DB /* BahamutLocalFile.xcdatamodeld in Sources */,
 				E708AC8C1C86FB7D0071104E /* UpdateCoreData1.swift in Sources */,
 				E7BCC3A31C8F4C59009C7CEA /* StringHelper.swift in Sources */,
-				E74C838E1C590E8F009CF8DB /* ShareLinkFilmView.swift in Sources */,
 				E74C838F1C590E8F009CF8DB /* NewShareMessageCell.swift in Sources */,
 				E74C83901C590E8F009CF8DB /* ChatViewController.swift in Sources */,
 				E708AC5B1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */,
@@ -2092,7 +2099,6 @@
 				E74C83AF1C590E8F009CF8DB /* UrlShareContent.swift in Sources */,
 				E74C83B01C590E8F009CF8DB /* NewShareImageCell.swift in Sources */,
 				E74C83B11C590E8F009CF8DB /* FileType.swift in Sources */,
-				E74C83B21C590E8F009CF8DB /* KDCircularProgress.swift in Sources */,
 				E708ABD51C86D2DA0071104E /* BahamutRFClient.swift in Sources */,
 				E74C83B31C590E8F009CF8DB /* NewControllerTitleView.swift in Sources */,
 				E74C83B51C590E8F009CF8DB /* LinkConfirmViewController.swift in Sources */,
@@ -2103,6 +2109,7 @@
 				E74C83BD1C590E8F009CF8DB /* UIEditTextPropertyViewController.swift in Sources */,
 				E74C83BF1C590E8F009CF8DB /* UIResourceExplorerController.swift in Sources */,
 				E74C83C01C590E8F009CF8DB /* ServiceConfig.swift in Sources */,
+				E7E237DE1C998B11008FF893 /* BahamutFilmView.swift in Sources */,
 				E74C83C11C590E8F009CF8DB /* AssetsConstants.swift in Sources */,
 				E74C83C21C590E8F009CF8DB /* SignInViewController.swift in Sources */,
 				E74C83C41C590E8F009CF8DB /* NewShareUrlCell.swift in Sources */,
@@ -2138,6 +2145,7 @@
 				E74C83DF1C590E8F009CF8DB /* ChatModel.swift in Sources */,
 				E74C83E01C590E8F009CF8DB /* Bahamut.xcdatamodeld in Sources */,
 				E74C83E11C590E8F009CF8DB /* BahamutMessage.xcdatamodeld in Sources */,
+				E7E237E01C998B11008FF893 /* Player.swift in Sources */,
 				E74C83E21C590E8F009CF8DB /* UserTheme.swift in Sources */,
 				E74C83E31C590E8F009CF8DB /* UIVideoExplorerController.swift in Sources */,
 				E74C83E41C590E8F009CF8DB /* NotificationService.swift in Sources */,
@@ -2167,7 +2175,6 @@
 				E7AF57A61C54AD4C00505B2A /* UserLink.swift in Sources */,
 				E7443ADE1C2BDF4100CB5C3A /* ThemeListViewController.swift in Sources */,
 				E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */,
-				E7D5A2351B7CC0D800F34CE0 /* Player.swift in Sources */,
 				E76DEB951C0E9C140072A1D7 /* HSL.swift in Sources */,
 				E70A572A1C1EA0140031A0C5 /* UIAnimationHelper.swift in Sources */,
 				E70A5AE41C174870001C0A47 /* MessageEntity.swift in Sources */,
@@ -2200,12 +2207,12 @@
 				E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */,
 				E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */,
 				E7BCC3A21C8F4C58009C7CEA /* StringHelper.swift in Sources */,
+				E7E237E11C998B11008FF893 /* KDCircularProgress.swift in Sources */,
 				E73E44BC1B823E9600E0B6EB /* EditThemeViewController.swift in Sources */,
 				E70A5AE31C174870001C0A47 /* MessageEntity+CoreDataProperties.swift in Sources */,
 				E70A572C1C1EA01C0031A0C5 /* SystemSoundHelper.swift in Sources */,
 				E7EB9A371C87F6DC002F96FB /* BahamutCmdManager.swift in Sources */,
 				E70A5ADF1C174870001C0A47 /* BahamutLocalFile.xcdatamodeld in Sources */,
-				E7B5219C1B79AD08001C2AE4 /* ShareLinkFilmView.swift in Sources */,
 				E723871E1BFC1BD600247A35 /* NewShareMessageCell.swift in Sources */,
 				E798102E1BC6C38B002F35A5 /* ChatViewController.swift in Sources */,
 				E708ABD11C86D2CE0071104E /* BahamutRFKit.swift in Sources */,
@@ -2241,7 +2248,6 @@
 				E76234851C0C34770083E281 /* UrlShareContent.swift in Sources */,
 				E7C006C51C2DB1AB005CB638 /* NewShareImageCell.swift in Sources */,
 				E70A5AD91C174870001C0A47 /* FileType.swift in Sources */,
-				E7D5A2371B7CC1A400F34CE0 /* KDCircularProgress.swift in Sources */,
 				E742464B1C3A2A1F00BA564F /* NewControllerTitleView.swift in Sources */,
 				E71058FB1C5B5FA000D1C0CC /* UserServiceSNSExtension.swift in Sources */,
 				E78608541BA1DF8000E2BECA /* LinkConfirmViewController.swift in Sources */,
@@ -2253,6 +2259,7 @@
 				E7A3AA981B9C0A650094B0D0 /* UIEditTextPropertyViewController.swift in Sources */,
 				E7EB9A351C87F6DC002F96FB /* BahamutCmd.swift in Sources */,
 				E73E44B81B81CC9D00E0B6EB /* UIResourceExplorerController.swift in Sources */,
+				E7E237DD1C998B11008FF893 /* BahamutFilmView.swift in Sources */,
 				E708AC481C86EA4C0071104E /* FetchAliOSSExtension.swift in Sources */,
 				E708AC5A1C86EA4C0071104E /* UtilFileServiceExtension.swift in Sources */,
 				E790BD101B67FB4600D5426B /* ServiceConfig.swift in Sources */,
@@ -2302,6 +2309,7 @@
 				E72387201BFC1C0900247A35 /* NewShareFilmCell.swift in Sources */,
 				E7A62FE61B6609A500F28D73 /* SharelinkAppDelegate.swift in Sources */,
 				E76234831C0C34080083E281 /* FilmShareContent.swift in Sources */,
+				E7E237DF1C998B11008FF893 /* Player.swift in Sources */,
 				E70A5AE51C174870001C0A47 /* MessageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

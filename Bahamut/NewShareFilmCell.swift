@@ -21,7 +21,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     }
     
     private let filmModel = FilmModel()
-    private var filmPlayer:ShareLinkFilmView!
+    private var filmPlayer:BahamutFilmView!
     @IBOutlet weak var shareContentContainer: UIView!{
         didSet{
             shareContentContainer.backgroundColor = UIColor.clearColor()
@@ -39,7 +39,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     private func initFilmPlayer()
     {
         if filmPlayer == nil{
-            filmPlayer = ShareLinkFilmView()
+            filmPlayer = BahamutFilmView()
             filmPlayer.playerController.fillMode = AVLayerVideoGravityResizeAspect
             filmPlayer.autoLoad = true
             filmPlayer.layer.cornerRadius = 7
@@ -100,7 +100,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
     
     func resourceExplorerOpenItem(itemModel: UIResrouceItemModel, sender: UIResourceExplorerController!) {
         let fileModel = itemModel as! UIFileCollectionCellModel
-        ShareLinkFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
+        BahamutFilmView.showPlayer(sender, uri: fileModel.filePath, fileFetcer: FilePathFileFetcher.shareInstance)
     }
     
     func resourceExplorerDeleteItem(itemModels: [UIResrouceItemModel], sender: UIResourceExplorerController!) {

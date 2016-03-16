@@ -47,7 +47,7 @@ class ModelExtensionConstant
 {
     static let coreDataModelId = "BahamutModel"
     
-    static let modelArrCacheName = "[Sharelink.AllModel]"
+    static let modelArrCacheName = "[Bahamut.AllModel]"
     
     static let idFieldName = "id"
     static let entityName = "ModelEntity"
@@ -156,7 +156,7 @@ extension PersistentManager
     {
         let typename = type.description()
         let cache = getCache(ModelExtensionConstant.modelArrCacheName)
-        let predicate = NSPredicate(format: "\(ModelExtensionConstant.idFieldName) LIKE %@", argumentArray: ["\(typename)*"])
+        let predicate = NSPredicate(format: "\(ModelExtensionConstant.idFieldName) LIKE %@", argumentArray: ["\(typename):*"])
         let result = ModelExtension.defaultInstance.coreData.getCells(ModelExtensionConstant.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
             return T(json: entity.serializableValue)

@@ -83,6 +83,7 @@ extension UserService
         ShareSDK.showShareActionSheet(container, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil) { (type, state, statusInfo, error, end) -> Void in
             if (state == SSResponseStateSuccess)
             {
+                MobClick.event("SendAddLinkRequestToSNS")
                 viewController.playToast( "SHARE_SUC".localizedString())
             }
             else if (state == SSResponseStateFail)
