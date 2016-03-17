@@ -115,18 +115,8 @@ class AccountService: ServiceProtocol
     
     func changePassword(oldPsw:String,newPsw:String,callback:(isSuc:Bool)->Void)
     {
-        let req = ChangeAccountPasswordRequest()
-        req.oldPassword = oldPsw.sha256
-        req.newPassword = newPsw.sha256
-        let client = BahamutRFKit.sharedInstance.getBahamutClient()
-        client.execute(req) { (result) -> Void in
-            if result.isSuccess && String.isNullOrWhiteSpace(result.value) == false && result.value!.lowercaseString == "true"
-            {
-                callback(isSuc: true)
-            }else
-            {
-                callback(isSuc: false)
-            }
+        BahamutRFKit.sharedInstance.changeAccountPassword(SharelinkConfig.bahamutConfig.accountApiUrlPrefix, appkey: VessageConfig.appKey, appToken: BahamutRFKit.sharedInstance.token, accountId: UserSetting.lastLoginAccountId, userId: UserSetting.userId, originPassword: oldPsw, newPassword: newPsw){ suc,msg in
+            callback(isSuc:suc)
         }
     }
 }

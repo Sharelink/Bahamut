@@ -226,13 +226,13 @@ extension BahamutRFKit
             "appToken":appToken,
             "accountId":accountId,
             "userId":userId,
-            "originPassword":originPassword,
-            "newPassword":newPassword
+            "originPassword":originPassword.sha256,
+            "newPassword":newPassword.sha256
         ]
         Alamofire.request(.PUT, "\(authServerApi)/Password", parameters: params).responseObject { (result:Result<MsgResult, NSError>) -> Void in
             if result.isSuccess
             {
-                callback(suc: true, msg: nil)
+                callback(suc: true, msg: result.value?.msg)
             }else
             {
                 callback(suc: false, msg: result.value?.msg ?? "SERVER_ERROR")

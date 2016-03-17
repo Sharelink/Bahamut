@@ -27,6 +27,7 @@ let SharelinkRFAppKey = "5e6c827f2fcb04e8fca80cf72db5ba004508246b"
 
 class BahamutConfigObject:EVObject
 {
+    var accountApiUrlPrefix:String!
     var accountRegistApiUrl:String!
     var accountLoginApiUrl:String!
     
