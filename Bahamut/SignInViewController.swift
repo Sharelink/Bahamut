@@ -65,6 +65,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     func allServicesReady(_:NSNotification)
     {
+        ServiceContainer.instance.removeObserver(self)
         self.view.backgroundColor = UIColor.blackColor()
         if let hud = self.refreshingHud
         {
@@ -72,7 +73,6 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         }
         self.webPageView.hidden = true
         self.view.backgroundColor = UIColor.blackColor()
-        ServiceContainer.instance.removeObserver(self)
     }
     
     private func refreshWebView()

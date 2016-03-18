@@ -50,6 +50,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     }
     
     func deInitController(){
+        ServiceContainer.instance.removeObserver(self)
         ChicagoClient.sharedInstance.removeObserver(self)
     }
     

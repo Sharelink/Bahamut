@@ -35,9 +35,22 @@ class ShareThingsListController: UITableViewController
         self.shareService = ServiceContainer.getService(ShareService)
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
         refresh()
     }
     
+    func onServiceLogout(sender:AnyObject)
+    {
+        if userService != nil
+        {
+            ChicagoClient.sharedInstance.removeObserver(self)
+            ServiceContainer.instance.removeObserver(self)
+            userService.removeObserver(self)
+            messageService.removeObserver(self)
+            shareService.removeObserver(self)
+            userService = nil
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)

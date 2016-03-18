@@ -53,14 +53,6 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         initObserver()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillAppear(animated)
-        MainViewTabBarController.currentTabBarViewController = nil
-        ServiceContainer.getService(ChatService).removeObserver(self)
-        ServiceContainer.getService(ShareService).removeObserver(self)
-        ServiceContainer.getService(UserService).removeObserver(self)
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initSRCMenuManager()
@@ -154,6 +146,20 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
         messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
         shareService.addObserver(self, selector: "shareUpdatedMsgReceived:", name: ShareService.newShareMessagesUpdated, object: nil)
         userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+    }
+    
+    func onServiceLogout(sender:AnyObject)
+    {
+        if userService != nil
+        {
+            MainViewTabBarController.currentTabBarViewController = nil
+            ServiceContainer.instance.removeObserver(self)
+            userService.removeObserver(self)
+            shareService.removeObserver(self)
+            messageService.removeObserver(self)
+            userService = nil
+        }
     }
     
     func newChatMessageReceived(aNotification:NSNotification)

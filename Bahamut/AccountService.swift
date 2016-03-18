@@ -115,7 +115,7 @@ class AccountService: ServiceProtocol
     
     func changePassword(oldPsw:String,newPsw:String,callback:(isSuc:Bool)->Void)
     {
-        BahamutRFKit.sharedInstance.changeAccountPassword(SharelinkConfig.bahamutConfig.accountApiUrlPrefix, appkey: VessageConfig.appKey, appToken: BahamutRFKit.sharedInstance.token, accountId: UserSetting.lastLoginAccountId, userId: UserSetting.userId, originPassword: oldPsw, newPassword: newPsw){ suc,msg in
+        BahamutRFKit.sharedInstance.changeAccountPassword(SharelinkConfig.bahamutConfig.accountApiUrlPrefix, appkey: SharelinkRFAppKey, appToken: BahamutRFKit.sharedInstance.token, accountId: UserSetting.lastLoginAccountId, userId: UserSetting.userId, originPassword: oldPsw, newPassword: newPsw){ suc,msg in
             callback(isSuc:suc)
         }
     }

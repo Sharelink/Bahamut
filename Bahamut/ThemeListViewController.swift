@@ -129,8 +129,19 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         self.initThemes()
         self.themeService = ServiceContainer.getService(SharelinkThemeService)
         self.themeService.addObserver(self, selector: "themesUpdated:", name: SharelinkThemeService.themesUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.changeNavigationBarColor()
+    }
+    
+    func onServiceLogout(sender:AnyObject)
+    {
+        if themeService != nil
+        {
+            ServiceContainer.instance.removeObserver(self)
+            themeService.removeObserver(self)
+            themeService = nil
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -154,10 +165,6 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-    deinit{
-        self.themeService.removeObserver(self)
     }
     
     //MARK: init

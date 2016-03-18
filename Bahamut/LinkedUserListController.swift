@@ -23,19 +23,23 @@ class LinkedUserListController: UITableViewController
     
     private(set) var fileService:FileService!
     
-    private(set) var userService:UserService!{
-        didSet{
-            userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
-            userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
-            userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
-        }
-    }
+    private(set) var userService:UserService!
     
     private var isShowing:Bool = false
     
     private(set) var notificationService:NotificationService!
     
     //MARK: notify
+    func onServiceLogout(sender:AnyObject)
+    {
+        if userService != nil
+        {
+            ServiceContainer.instance.removeObserver(self)
+            userService.removeObserver(self)
+            userService = nil
+        }
+    }
+    
     func myLinkedUsersUpdated(sender:AnyObject)
     {
         dispatch_async(dispatch_get_main_queue()){()->Void in
@@ -62,14 +66,6 @@ class LinkedUserListController: UITableViewController
         myLinkedUsersUpdated(userService)
     }
     
-    deinit
-    {
-        if userService != nil
-        {
-            userService.removeObserver(self)
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavigationBarColor()
@@ -83,7 +79,15 @@ class LinkedUserListController: UITableViewController
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.notificationService = ServiceContainer.getService(NotificationService)
+        self.initObservers()
         refresh()
+    }
+    
+    func initObservers(){
+        userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
+        userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
+        userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -9,11 +9,17 @@
 import Foundation
 
 let InitServiceFailedReason = "InitServiceFailedReason"
+let ServiceContainerNotifyService = "ServiceContainerNotifyService"
 
 class ServiceContainer:NSNotificationCenter
 {
     static let AllServicesReady = "AllServicesReady"
     static let ServiceInitFailed = "ServiceInitFailed"
+    
+    static let OnServicesWillLogin = "OnServicesWillLogin"
+    static let OnServicesWillLogout = "OnServicesWillLogout"
+    static let OnServiceReady = "OnServiceReady"
+    
     static let instance:ServiceContainer = ServiceContainer()
     private var serviceDict:[String:ServiceProtocol]!
     private var serviceList:[ServiceProtocol]!
@@ -61,6 +67,7 @@ class ServiceContainer:NSNotificationCenter
             serviceReady[name] = false
         }
         serviceReadyLock.unlock()
+        self.postNotificationName(ServiceContainer.OnServicesWillLogin, object: self)
         serviceList.forEach { (service) -> () in
             if let initHandler = service.userLoginInit
             {
@@ -76,6 +83,7 @@ class ServiceContainer:NSNotificationCenter
         serviceReadyLock.lock()
         serviceReady.removeAll()
         serviceReadyLock.unlock()
+        self.postNotificationName(ServiceContainer.OnServicesWillLogout, object: self)
         serviceList.forEach { (service) -> () in
             if let logoutHandler = service.userLogout
             {
@@ -112,6 +120,7 @@ class ServiceContainer:NSNotificationCenter
         instance.serviceReady[T.ServiceName] = true
         instance.serviceReadyLock.unlock()
         NSLog("\(T.ServiceName) Ready!")
+        instance.postNotificationName(ServiceContainer.OnServiceReady, object: instance, userInfo: [ServiceContainerNotifyService:service])
         if isAllServiceReady
         {
             NSLog("All Services Ready!")

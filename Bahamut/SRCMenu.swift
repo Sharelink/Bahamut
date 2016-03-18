@@ -67,12 +67,23 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcService = ServiceContainer.getService(SRCService)
         self.srcService.addObserver(self, selector: "onLoadingPlugins:", name: SRCService.allSRCPluginsLoading, object: nil)
         self.srcService.addObserver(self, selector: "onPluginsLoaded:", name: SRCService.allSRCPluginsReloaded, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
         self.initSRCMenu()
         self.initItemLayoutAttributes()
         self.reloadSRCMenuItems()
     }
     
     //MARK: notification
+    func onServiceLogout(sender:AnyObject)
+    {
+        if srcService != nil
+        {
+            ServiceContainer.instance.removeObserver(self)
+            srcService.removeObserver(self)
+            srcService = nil
+        }
+    }
+    
     func onLoadingPlugins(_:NSNotification)
     {
         self.srcItemViews.forEach{$0.removeFromSuperview()}

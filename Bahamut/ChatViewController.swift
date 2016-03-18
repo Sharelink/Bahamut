@@ -71,7 +71,6 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.addInputFunctionView()
         self.initChatRoomListViewController()
         self.addRefreshViews()
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapView:"))
         messageService = ServiceContainer.getService(ChatService)
         ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
         self.initBarBadge()
@@ -167,11 +166,6 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     }
     
     //MARK: actions
-    func onTapView(_:UIGestureRecognizer)
-    {
-        hideKeyBoard()
-        hideRommListContainer()
-    }
     
     func swipeRight(_:UIGestureRecognizer)
     {

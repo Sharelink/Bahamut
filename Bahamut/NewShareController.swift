@@ -114,15 +114,16 @@ class NewShareController: UITableViewController
     //MARK: life circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
         self.fileService = ServiceContainer.getService(FileService)
         self.userService = ServiceContainer.getService(UserService)
         self.srcService = ServiceContainer.getService(SRCService)
-        self.changeNavigationBarColor()
         self.initSRCPlugins()
         self.initTitleView()
         self.shareButtonItem = self.navigationItem.rightBarButtonItem
         self.initTableView()
+        self.initObservers()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -143,12 +144,6 @@ class NewShareController: UITableViewController
         super.viewDidAppear(animated)
     }
     
-    deinit{
-        if shareService != nil{
-            shareService.removeObserver(self)
-        }
-    }
-    
     //MARK: Init actions
     private func initTableView()
     {
@@ -162,10 +157,25 @@ class NewShareController: UITableViewController
     {
         self.titleView = NewControllerTitleView.instanceFromXib()
         self.titleView.frame = CGRectMake(0, 0, 128, 32)
+        self.navigationItem.titleView = self.titleView
+    }
+    
+    private func initObservers()
+    {
         self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
         self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
         self.shareService.addObserver(self, selector: "startPostingShare:", name: ShareService.startPostingShare, object: nil)
-        self.navigationItem.titleView = self.titleView
+        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+    }
+    
+    func onServiceLogout(sender:AnyObject)
+    {
+        if shareService != nil
+        {
+            ServiceContainer.instance.removeObserver(self)
+            shareService.removeObserver(self)
+            shareService = nil
+        }
     }
     
     //MARK: new share posted notification
