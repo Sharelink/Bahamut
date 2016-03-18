@@ -199,7 +199,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             var suc = false
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 PersistentManager.sharedInstance.removeModels(themes)
                 self.postNotificationName(SharelinkThemeService.themesUpdated, object: self)
@@ -225,7 +225,7 @@ class SharelinkThemeService : NSNotificationCenter, ServiceProtocol
         let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req, callback: { (result:SLResult<BahamutObject>) -> Void in
             var suc = false
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 theme.saveModel()
                 PersistentManager.sharedInstance.refreshCache(SharelinkTheme)

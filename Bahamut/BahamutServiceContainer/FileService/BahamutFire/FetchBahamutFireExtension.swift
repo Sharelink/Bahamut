@@ -25,7 +25,7 @@ extension FileService
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
         client.downloadFile(fireInfo.accessKey,filePath: tmpFilePath).progress(progress).response{ (request, response, result, error) -> Void in
             self.fetchingFinished(fireInfo.fileId)
-            if error == nil && response?.statusCode == ReturnCode.OK.rawValue && PersistentFileHelper.fileSizeOf(tmpFilePath) > 0
+            if error == nil && response?.statusCode == 200 && PersistentFileHelper.fileSizeOf(tmpFilePath) > 0
             {
                 PersistentFileHelper.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
                 callback(filePath:absoluteFilePath)

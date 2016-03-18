@@ -17,7 +17,7 @@ extension FileService
     {
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
         client.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 if let fileAccessInfo = result.returnObject
                 {
@@ -34,7 +34,7 @@ extension FileService
     {
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
         client.execute(req) { (result:SLResult<FileAccessInfoList>) -> Void in
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 if let list = result.returnObject
                 {

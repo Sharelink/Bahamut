@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 extension UIView
 {
@@ -35,6 +36,31 @@ class UIAnimationHelper {
     private var animationCompleted = [UIView:AnimationCompletedHandler]()
     private static let instance = UIAnimationHelper()
 
+    static func animationPageCurlView(view:UIView,duration:NSTimeInterval,completion:AnimationCompletedHandler! = nil){
+        
+        // 获取到当前的View
+        
+        let viewLayer = view.layer
+        
+        
+        // 设置动画
+        
+        let animation = CATransition()
+        
+        animation.duration = duration
+        
+        animation.type = "pageCurl"
+        
+        animation.subtype = kCATransitionFromBottom
+        
+        
+        // 添加上动画
+        viewLayer.addAnimation(animation, forKey: nil)
+        
+        playAnimation(view, animation: animation, key: "animationPageCurl", completion: completion)
+    }
+
+    
     static func shakeAnimationForView(view:UIView,repeatTimes:Float,completion:AnimationCompletedHandler! = nil){
         
         // 获取到当前的View

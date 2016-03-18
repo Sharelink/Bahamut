@@ -188,7 +188,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         client.execute(req){ (result: SLResult<[Sharelinker]>) -> Void in
             var newestUser:Sharelinker!
             var msg:String! = nil
-            if result.statusCode != ReturnCode.OK
+            if result.isFailure
             {
                 newestUser = nil
                 msg = result.originResult.description
@@ -213,13 +213,13 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let client = BahamutRFKit.sharedInstance.getBahamutClient() as! BahamutRFClient
         client.execute(req) { (result:SLResult<[UserLink]>) -> Void in
             
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 if let userLinks:[UserLink] = result.returnObject
                 {
                     let usersReq = GetSharelinkersRequest()
                     client.execute(usersReq) { (result:SLResult<[Sharelinker]>) -> Void in
-                        if result.statusCode == ReturnCode.OK
+                        if result.isSuccess
                         {
                             if let users:[Sharelinker] = result.returnObject
                             {
@@ -389,7 +389,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 isSuc = true
             }else
@@ -413,7 +413,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 isSuc = true
                 self.myUserModel.avatarId = newAvatarId
@@ -440,7 +440,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
             var msg:String! = nil
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 isSuc = true
                 self.myUserModel.personalVideoId = newVideoId
@@ -467,7 +467,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 isSuc = true
                 self.myUserModel.nickName = newNick
@@ -489,7 +489,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
         let client = BahamutRFKit.sharedInstance.getBahamutClient()
         client.execute(req){ (result:SLResult<BahamutObject>) -> Void in
             var isSuc:Bool = false
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 isSuc = true
                 self.myUserModel.motto = newMotto

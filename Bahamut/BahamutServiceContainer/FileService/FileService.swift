@@ -150,24 +150,24 @@ class FileService: ServiceProtocol {
         }
     }
     
-    func getLocalStoreDirPathOfFileType(fileType:FileType) -> String
+    private func createLocalStoreDirPathOfFileType(fileType:FileType) -> String
     {
-        return getLocalStoreDirUrlOfFileType(fileType).path!
+        return createLocalStoreDirUrlOfFileType(fileType).path!
     }
     
-    func getLocalStoreDirUrlOfFileType(fileType:FileType) -> NSURL
+    private func createLocalStoreDirUrlOfFileType(fileType:FileType) -> NSURL
     {
         return localStorePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
     }
     
     func createLocalStoreFileName(fileType:FileType) -> String
     {
-        return getLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
     }
     
     func getLocalStoreDirFileURLs(fileType:FileType) -> [NSURL]
     {
-        let dirURL = getLocalStoreDirUrlOfFileType(fileType)
+        let dirURL = createLocalStoreDirUrlOfFileType(fileType)
         do{
             let files = try fileManager.contentsOfDirectoryAtURL(dirURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
             return files

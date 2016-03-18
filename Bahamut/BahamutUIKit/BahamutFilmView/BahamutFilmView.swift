@@ -82,11 +82,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    var fileFetcher:FileFetcher!{
-        didSet{
-            
-        }
-    }
+    var fileFetcher:FileFetcher!
     
     private(set) var playerController:Player!{
         didSet{
@@ -181,10 +177,13 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     public var filePath:String!
         {
         didSet{
-            if filePath == nil
-            {
+            if filePath != oldValue{
+                playerController.stop()
                 setNoVideo()
-            }else
+                loading = false
+                loaded = false
+            }
+            if filePath != nil
             {
                 noFileImage.hidden = true
                 playButton.hidden = false

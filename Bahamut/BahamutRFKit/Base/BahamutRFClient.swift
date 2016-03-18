@@ -27,7 +27,7 @@ public class SLResult<T>
     public var returnObject:T!{
         return originResult?.value ?? nil
     }
-    public var statusCode:ReturnCode!;
+    public var statusCode:Int!;
     public var isFailure:Bool{
         return originResult?.isFailure ?? true
     }
@@ -131,9 +131,9 @@ public class BahamutRFClient : ClientProtocal
                 slResult.originResult = result
                 if let responseCode = response?.statusCode
                 {
-                    slResult.statusCode = ReturnCode(rawValue:responseCode)
+                    slResult.statusCode = responseCode
                 }else{
-                    slResult.statusCode = ReturnCode(rawValue:999)
+                    slResult.statusCode = 999
                 }
                 callback(result: slResult)
             }
@@ -166,50 +166,13 @@ public class BahamutRFClient : ClientProtocal
                 slResult.originResult = result
                 if let responseCode = response?.statusCode
                 {
-                    slResult.statusCode = ReturnCode(rawValue:responseCode)
+                    slResult.statusCode = responseCode
                 }else{
-                    slResult.statusCode = ReturnCode(rawValue:999)
+                    slResult.statusCode = 999
                 }
                 callback(result: slResult)
             }
         }
         return true
     }
-}
-
-public class ReturnStatus
-{
-    public var returnCode:ReturnCode!
-    public var isError:Bool!
-    public var message:String!
-}
-
-public struct ReturnCodeDetail
-{
-    let code:Int
-    let DescriptionEN:String
-    let DescriptionCN:String
-    init(code:Int, DescriptionEN:String, DescriptionCN:String)
-    {
-        self.code = code
-        self.DescriptionCN = DescriptionCN
-        self.DescriptionEN = DescriptionEN
-    }
-}
-
-public enum ReturnCode : Int
-{
-    case UnkownError = 999
-    case OK = 200
-    case Created = 201
-    case NotModified = 304
-    case BadRequest = 400
-    case Unauthorized = 401
-    case Forbidden = 403
-    case NotFound = 404
-    case MethodNotAllowed = 405
-    case Gone = 410
-    case UnsupportedMediaType = 415
-    case UnprocessableEntity =  422
-    case TooManyRequest = 429
 }

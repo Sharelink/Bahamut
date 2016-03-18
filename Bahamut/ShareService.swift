@@ -178,7 +178,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         return client.execute(req) { (result:SLResult<[ShareThing]>) -> Void in
             
             var shares:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 if let newValues:[ShareThing] = result.returnObject
                 {
@@ -241,7 +241,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         req.shareIds = shareIds
         BahamutRFKit.sharedInstance.getBahamutClient().execute(req) { (result:SLResult<[ShareThing]>) ->Void in
             var shares:[ShareThing]! = nil
-            if result.statusCode == ReturnCode.OK && result.returnObject != nil && result.returnObject.count > 0
+            if result.isSuccess && result.returnObject != nil && result.returnObject.count > 0
             {
                 shares = result.returnObject!
                 ShareThing.saveObjectOfArray(shares)
@@ -393,7 +393,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = DeleteVoteRequest()
         req.shareId = shareThingModel.shareId
         BahamutRFKit.sharedInstance.getBahamutClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 shareThingModel.voteUsers.removeElement{$0 == myUserId}
                 shareThingModel.saveModel()
@@ -411,7 +411,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
         let req = AddVoteRequest()
         req.shareId = share.shareId
         BahamutRFKit.sharedInstance.getBahamutClient().execute(req){ (result:SLResult<BahamutObject>) -> Void in
-            if result.statusCode == ReturnCode.OK
+            if result.isSuccess
             {
                 if share.voteUsers == nil{
                     share.voteUsers = [myUserId]
