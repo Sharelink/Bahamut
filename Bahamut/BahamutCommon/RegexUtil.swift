@@ -53,6 +53,29 @@ precedence 130
 }
 
 public func =~(lhs: String, rhs: String) -> Bool {
-    return RegexMatcher(rhs).match(lhs)
+    
+    if let _ = lhs.rangeOfString(rhs, options: .RegularExpressionSearch) {
+        return true
+    }
+    return false
+}
+
+//MARK: String Util
+extension String{
+    func isMobileNumber() -> Bool{
+        return self =~ "^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\\d{8}$"
+    }
+    
+    func isEmail() -> Bool{
+        return self =~ "^\\w+[-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
+    }
+    
+    func isPassword() -> Bool{
+        return self =~ "^[a-zA-Z]\\w{5,17}$"
+    }
+    
+    func isUsername() -> Bool{
+        return self =~ "^[_a-zA-Z0-9\\u4e00-\\u9fa5]{2,23}$"
+    }
 }
 
