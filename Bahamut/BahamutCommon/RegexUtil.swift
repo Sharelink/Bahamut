@@ -71,7 +71,7 @@ extension String{
     }
     
     func isPassword() -> Bool{
-        return self =~ "^[a-zA-Z]\\w{5,17}$"
+        return self =~ "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,22}$"
     }
     
     func isUsername() -> Bool{

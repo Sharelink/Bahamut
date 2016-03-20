@@ -88,94 +88,96 @@ extension UIViewController:MBProgressHUDDelegate
         return showActivityHudWithMessage("", message: "",completionHandler: completionHandler)
     }
     
-    func showActivityHudWithMessage(title:String!,message:String!,completionHandler:HudHiddenCompletedHandler! = nil) -> MBProgressHUD
+    func showActivityHudWithMessage(title:String!,message:String!,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil) -> MBProgressHUD
     {
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
         let HUD = MBProgressHUD(view: vcView)
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            HUD.delegate = vc
-            HUD.labelText = title
-            HUD.detailsLabelText = message
-            HUD.removeFromSuperViewOnHide = true
-            HUD.square = true
-            HUD.show(true)
+        HUD.delegate = vc
+        HUD.labelText = title
+        HUD.detailsLabelText = message
+        HUD.removeFromSuperViewOnHide = true
+        HUD.square = true
+        if async{
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vcView!.addSubview(HUD)
+                HUD.show(true)
+            })
+        }else{
             vcView!.addSubview(HUD)
-        })
+            HUD.show(true)
+        }
         return HUD
     }
     
-    func playToast(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playToast(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc = UIApplication.currentShowingViewController
-            let vcView = vc.view ?? vc.navigationController?.view
-            
-            let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDMode.Text
-            hud.labelText = msg
-            hud.margin = 10;
-            hud.delegate = vc
-            if let handler = completionHandler
-            {
-                hudCompletionHandler[hud] = handler
+        let vc = UIApplication.currentShowingViewController
+        let vcView = vc.view ?? vc.navigationController?.view
+        
+        let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDMode.Text
+        hud.labelText = msg
+        hud.margin = 10;
+        hud.delegate = vc
+        if let handler = completionHandler
+        {
+            hudCompletionHandler[hud] = handler
+        }
+        hud.removeFromSuperViewOnHide = true
+        if async
+        {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                hud.show(true)
+                hud.hide(true, afterDelay: 2)
             }
-            hud.removeFromSuperViewOnHide = true
+        }else
+        {
             hud.show(true)
-            hud.hide(true, afterDelay: 1)
+            hud.hide(true, afterDelay: 2)
         }
         
     }
     
-    func playCrossMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCrossMark(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc = UIApplication.currentShowingViewController
-            let vcView = vc.view ?? vc.navigationController?.view
-            
-            let hud = MBProgressHUD(view: vcView)
-            vcView!.addSubview(hud)
-            
-            hud.customView = UIImageView(image: UIImage(named: "Crossmark"))
-            
-            // Set custom view mode
-            hud.mode = MBProgressHUDMode.CustomView
-            hud.removeFromSuperViewOnHide = true
-            hud.delegate = vc
-            hud.labelText = msg
-            hud.square = true
-            if let handler = completionHandler
-            {
-                hudCompletionHandler[hud] = handler
-            }
-            hud.show(true)
-            hud.hide(true, afterDelay: 1)
-        }
+        playImageMark(msg, image: UIImage(named: "Crossmark")!, async: async, completionHandler: completionHandler)
     }
     
-    func playCheckMark(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCheckMark(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let vc = UIApplication.currentShowingViewController
-            let vcView = vc.view ?? vc.navigationController?.view
-            let hud = MBProgressHUD(view: vcView)
-            self.navigationController?.view.addSubview(hud)
-            
-            hud.customView = UIImageView(image: UIImage(named: "Checkmark"))
-            hud.removeFromSuperViewOnHide = true
-            // Set custom view mode
-            hud.mode = MBProgressHUDMode.CustomView
-            
-            hud.delegate = vc
-            hud.labelText = msg
-            hud.square = true
-            if let handler = completionHandler
-            {
-                hudCompletionHandler[hud] = handler
+        playImageMark(msg, image: UIImage(named: "Checkmark")!, async: async, completionHandler: completionHandler)
+    }
+    
+    func playImageMark(msg:String,image:UIImage,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil){
+        let vc = UIApplication.currentShowingViewController
+        let vcView = vc.view ?? vc.navigationController?.view
+        let hud = MBProgressHUD(view: vcView)
+        vcView!.addSubview(hud)
+        
+        hud.customView = UIImageView(image: image)
+        hud.removeFromSuperViewOnHide = true
+        // Set custom view mode
+        hud.mode = MBProgressHUDMode.CustomView
+        
+        hud.delegate = vc
+        hud.labelText = msg
+        hud.square = true
+        if let handler = completionHandler
+        {
+            hudCompletionHandler[hud] = handler
+        }
+        if async
+        {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                hud.show(true)
+                hud.hide(true, afterDelay: 2)
             }
+        }else
+        {
             hud.show(true)
-            hud.hide(true, afterDelay: 1)
+            hud.hide(true, afterDelay: 2)
         }
     }
     

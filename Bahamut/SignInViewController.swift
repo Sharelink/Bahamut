@@ -172,6 +172,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             }
             
             }) { (registApiServer) -> Void in
+                hud.hideAsync(true)
                 self.registNewUser(accountId,registApi: registApiServer,accessToken:accessToken)
         }
     }

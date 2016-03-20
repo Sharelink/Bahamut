@@ -101,7 +101,12 @@ class BahamutRFKit
     
     func getBahamutClient() -> ClientProtocal
     {
-        return clients[BahamutRFClientType]!
+        if let client =  clients[BahamutRFClientType]{
+            return client
+        }
+        let client = BahamutRFClient()
+        client.setClientStart()
+        return client
     }
     
     func getBahamutFireClient() -> BahamutFireClient
