@@ -181,7 +181,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         }else
         {
             deviceTokenSended = true
-            sendChicagoMessage(ChicagoClientCommonRoute.registDeviceTokenRoute, json: "{ \"DeviceToken\":\"\(deviceToken)\" }")
+            sendChicagoMessage(ChicagoClientCommonRoute.registDeviceTokenRoute, json: "{ \"DeviceToken\":\"\(deviceToken)\",\"DeviceType\":\"iOS\" }")
         }
         sendDeviceTokenLock.unlock()
     }

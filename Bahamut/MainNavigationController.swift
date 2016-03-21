@@ -91,7 +91,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
             ServiceContainer.instance.userLogout()
             MainNavigationController.start()
         }))
-        showAlert(self,alertController: alert)
+        self.showAlert(alert)
     }
     
     func onAppTokenInvalid(_:AnyObject)
@@ -101,7 +101,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
             ServiceContainer.instance.userLogout()
             MainNavigationController.start()
         }))
-        showAlert(self,alertController: alert)
+        self.showAlert(alert)
     }
     
     private func go()

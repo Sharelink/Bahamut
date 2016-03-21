@@ -74,6 +74,7 @@ class BahamutRFKit
         {
             client.setClientClose()
         }
+        clients.removeAll()
     }
 
     func useValidateData(validateResult:ValidateResult)
@@ -208,16 +209,21 @@ extension BahamutRFKit
     {
         let params = ["username":accountInfo,"password":passwordOrigin.sha256,"appkey":BahamutRFKit.appkey]
         Alamofire.request(.POST, loginApi, parameters: params).responseObject { (result:Result<LoginResult, NSError>) -> Void in
-            if let value = result.value
-            {
-                if String.isNullOrEmpty(value.LoginSuccessed) == false && "true" == value.LoginSuccessed
+            if result.isSuccess{
+                if let value = result.value
                 {
-                    callback(isSuc: true, errorMsg: nil, loginResult: value)
-                }else
-                {
-                    callback(isSuc: false, errorMsg: value.msg, loginResult: nil)
+                    if String.isNullOrEmpty(value.LoginSuccessed) == false && "true" == value.LoginSuccessed
+                    {
+                        callback(isSuc: true, errorMsg: nil, loginResult: value)
+                    }else
+                    {
+                        callback(isSuc: false, errorMsg: value.msg ?? "NETWORK_ERROR", loginResult: nil)
+                    }
+                }else{
+                    callback(isSuc: false, errorMsg: "NETWORK_ERROR", loginResult: nil)
                 }
-            }else{
+            }
+            else{
                 callback(isSuc: false, errorMsg: "NETWORK_ERROR", loginResult: nil)
             }
         }
