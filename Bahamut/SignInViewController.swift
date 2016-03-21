@@ -225,7 +225,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     //MARK: implements jsProtocol
     func registAccount(username: String,_ password: String) {
-        if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        if DeveloperMainPanelController.isShowDeveloperPanel(self,id:username,psw:password){
+            self.developerShown = true
+            return
+        }
+        
         self.hideKeyBoard()
         MobClick.event("CLICK_REGIST")
         let hud = self.showActivityHud()
@@ -244,7 +248,11 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     }
     
     func loginAccount(username: String,_ password: String) {
-        if isShowDeveloperPanel("\(username)\(password)".sha256){return}
+        if DeveloperMainPanelController.isShowDeveloperPanel(self,id:username,psw:password){
+            self.developerShown = true
+            return
+        }
+        
         self.hideKeyBoard()
         let hud = self.showActivityHudWithMessage(nil, message: "LOGINING".localizedString())
         BahamutRFKit.sharedInstance.loginBahamutAccount(SharelinkSetting.loginApi, accountInfo: username, passwordOrigin: password) { (isSuc, errorMsg, loginResult) -> Void in
@@ -273,19 +281,5 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     //MARK: Developer Panel
     private var developerShown = false
-    let idpswHash = "0992369b28f2d4903851f17382cc884a97b6ecaf939fc02063dd113a21ee334e"
-    private func isShowDeveloperPanel(idpsw: String) -> Bool{
-        if idpsw == idpswHash
-        {
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                UserSetting.isAppstoreReviewing = false
-                DeveloperMainPanelController.showDeveloperMainPanel(self)
-                self.developerShown = true
-            }
-            return true
-        }else
-        {
-            return false
-        }
-    }
+    
 }

@@ -32,6 +32,13 @@ public class DateHelper
         return formatter
     }()
     
+    private static let localDateTimeSimpleFomatter:NSDateFormatter = {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yy/MM/dd HH:mm"
+        formatter.timeZone = NSTimeZone()
+        return formatter
+    }()
+    
     private static let localDateTimeFomatter:NSDateFormatter = {
         var formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -86,6 +93,11 @@ public class DateHelper
             return dateFomatter.dateFromString(d)
         }
         return nil
+    }
+    
+    public class func toLocalDateTimeSimpleString(date:NSDate) -> String
+    {
+        return localDateTimeSimpleFomatter.stringFromDate(date)
     }
     
     public class func toLocalDateTimeString(date:NSDate) -> String
@@ -155,6 +167,11 @@ public extension NSDate
     public func toLocalDateTimeString() -> String
     {
         return DateHelper.toLocalDateTimeString(self)
+    }
+    
+    public func toLocalDateTimeSimpleString() -> String
+    {
+        return DateHelper.toLocalDateTimeSimpleString(self)
     }
 }
 

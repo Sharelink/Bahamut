@@ -46,7 +46,22 @@ class DeveloperMainPanelController: UIViewController
         self.playToast("Change to remote")
     }
     
-    static func showDeveloperMainPanel(viewController:UIViewController)
+    private static let idpswHash = "0992369b28f2d4903851f17382cc884a97b6ecaf939fc02063dd113a21ee334e"
+    static func isShowDeveloperPanel(controller:UIViewController,id:String,psw: String) -> Bool{
+        if "\(id)\(psw)".sha256 == idpswHash
+        {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                UserSetting.isAppstoreReviewing = false
+                DeveloperMainPanelController.showDeveloperMainPanel(controller)
+            }
+            return true
+        }else
+        {
+            return false
+        }
+    }
+    
+    private static func showDeveloperMainPanel(viewController:UIViewController)
     {
         let controller = instanceFromStoryBoard("DeveloperPanel", identifier: "DeveloperMainPanelController",bundle: Sharelink.mainBundle())
         let navController = UINavigationController(rootViewController: controller)
