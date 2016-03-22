@@ -451,6 +451,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     public func playerBufferingStateDidChange(player: Player) {
         if player.playbackState! == .Stopped && player.bufferingState == BufferingState.Ready && autoPlay
         {
+            autoPlay = isPlaybackLoops
             player.playFromBeginning()
         }
         if let handler = delegate?.playerBufferingStateDidChange{

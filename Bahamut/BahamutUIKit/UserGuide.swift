@@ -59,7 +59,7 @@ class UserGuide:NSObject
     
     private func showNextImage()
     {
-        self.showingIndex++
+        self.showingIndex += 1
         if showingIndex >= self.guideImages.count
         {
             self.viewController.dismissViewControllerAnimated(false, completion: {

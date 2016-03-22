@@ -84,7 +84,7 @@ class SortableObjectList<T:Sortable>
     {
         var result = [T]()
         let lastIndex = min(list.count,startIndex + pageNum)
-        for var i = startIndex; i < lastIndex;i++
+        for i in startIndex ..< lastIndex
         {
             result.append(list[i])
         }

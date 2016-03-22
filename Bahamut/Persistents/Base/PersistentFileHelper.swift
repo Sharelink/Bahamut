@@ -61,7 +61,13 @@ class PersistentFileHelper
             return true
         }catch let err as NSError
         {
-            NSLog("Move file error:%@", err.description)
+            if fileExists(sourcePath) == false{
+                NSLog("No Source File:%@", sourcePath)
+            }else if fileExists(destinationPath){
+                NSLog("Destination Dir Not Exists:%@", destinationPath)
+            }else{
+                NSLog("Move file error:%@", err.description)
+            }
             return false
         }
     }

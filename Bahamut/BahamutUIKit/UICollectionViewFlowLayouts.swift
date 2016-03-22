@@ -25,7 +25,7 @@ class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
                 let currentLayoutAttributes = answer[i];
                 let prevLayoutAttributes = answer[i - 1];
                 let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
-                lineItemCount++
+                lineItemCount += 1
                 if(origin + self.minimumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
                     var frame = currentLayoutAttributes.frame;
                     frame.origin.x = origin + minimumSpacing;

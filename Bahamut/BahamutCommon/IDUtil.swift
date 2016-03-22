@@ -15,7 +15,8 @@ class IdUtil
     static func generateUniqueId() -> String
     {
         seedLock.lock()
-        let s = seed++
+        let s = seed + 1
+        seed += 1
         if seed == Int.max
         {
             seed = 0

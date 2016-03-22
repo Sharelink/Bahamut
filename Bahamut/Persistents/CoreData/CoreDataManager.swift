@@ -150,7 +150,7 @@ class CoreDataManager {
     {
         var saveFlag = false
         contextLock.lock()
-        changeTimes++
+        changeTimes += 1
         if changeTimes >= 23
         {
             saveFlag = true

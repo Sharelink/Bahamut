@@ -14,7 +14,8 @@ public extension Array
     public mutating func removeElement(predict:(itemInArray:Element) -> Bool) ->[Element]
     {
         var result = [Element]()
-        for var i = self.count - 1; i >= 0; i--
+        let start = self.count - 1
+        for i in start...0
         {
             let a = self[i]
             if predict(itemInArray: a)
@@ -72,7 +73,8 @@ public extension Array
     {
         var i = 0
         self.forEach { (element) -> () in
-            body(i: i++, element: element)
+            body(i: i + 1, element: element)
+            i += 1
         }
     }
 }

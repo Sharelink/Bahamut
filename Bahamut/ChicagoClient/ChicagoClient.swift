@@ -353,7 +353,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         {
             return
         }
-        reConnectFailedTimes++
+        reConnectFailedTimes += 1
         if reConnectFailedTimes < 3
         {
             start()
