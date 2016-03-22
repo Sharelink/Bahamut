@@ -79,6 +79,21 @@ public extension Array
     }
 }
 
+public extension Array
+{
+    public mutating func swapElement(aIndex:Int,bIndex:Int) -> Bool
+    {
+        if self.count > aIndex && self.count > bIndex
+        {
+            let tmp = self[aIndex]
+            self[aIndex] = self[bIndex]
+            self[bIndex] = tmp
+            return true
+        }
+        return false
+    }
+}
+
 public class ArrayUtil
 {
     public static func groupWithLatinLetter<T:AnyObject>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]

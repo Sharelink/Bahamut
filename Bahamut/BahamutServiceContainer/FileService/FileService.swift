@@ -69,7 +69,7 @@ class FileService: ServiceProtocol {
     }
     
     @objc func userLogout(userId: String) {
-        PersistentManager.sharedInstance.clearTmpDir()
+        PersistentManager.sharedInstance.resetTmpDir()
         PersistentManager.sharedInstance.clearCache()
         PersistentManager.sharedInstance.release()
     }
