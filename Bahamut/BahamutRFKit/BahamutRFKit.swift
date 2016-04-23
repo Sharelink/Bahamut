@@ -148,6 +148,8 @@ class LoginResult: MsgResult
 
 class ValidateResult : EVObject
 {
+    var Succeed = false
+    
     //validate success part
     var UserId:String!
     var AppToken:String!
