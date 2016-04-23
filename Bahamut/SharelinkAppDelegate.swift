@@ -201,12 +201,10 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func configureUmeng()
     {
         #if RELEASE
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                MobClick.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
-                MobClick.setAppVersion(SharelinkVersion)
-                MobClick.setEncryptEnabled(true)
-                MobClick.setLogEnabled(false)
-            }
+            MobClick.setAppVersion(SharelinkVersion)
+            MobClick.setEncryptEnabled(true)
+            MobClick.setLogEnabled(false)
+            MobClick.startWithAppkey(SharelinkConfig.bahamutConfig.umengAppkey, reportPolicy: BATCH, channelId: nil)
         #endif
     }
 

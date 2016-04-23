@@ -224,7 +224,7 @@ extension BahamutRFKit
                 }
             }
             else{
-                callback(isSuc: false, errorMsg: "NETWORK_ERROR", loginResult: nil)
+                callback(isSuc: false, errorMsg: result.value?.msg ?? "NETWORK_ERROR", loginResult: nil)
             }
         }
     }

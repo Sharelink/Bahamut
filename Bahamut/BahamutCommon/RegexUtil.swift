@@ -67,7 +67,7 @@ extension String{
     }
     
     func isEmail() -> Bool{
-        return self =~ "^\\w+[-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
+        return self =~ "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
     }
     
     func isPassword() -> Bool{

@@ -26,6 +26,11 @@ class SystemSoundHelper
         AudioServicesPlaySystemSound(1105)
     }
     
+    static func cameraShutter()
+    {
+        AudioServicesPlayAlertSound(1108)
+    }
+    
     static func playSound(systemSoundId:SystemSoundID)
     {
         AudioServicesPlaySystemSound(systemSoundId)
