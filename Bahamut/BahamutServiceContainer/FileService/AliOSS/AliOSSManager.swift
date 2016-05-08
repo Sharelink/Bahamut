@@ -82,7 +82,8 @@ class AliOSSManager
         let req = OSSGetObjectRequest()
         req.bucketName = bucket
         req.objectKey = objkey
-        req.downloadToFileURL = NSURL(fileURLWithPath: filePath)
+        let tmpFileUrl = PersistentManager.sharedInstance.tmpUrl.URLByAppendingPathComponent(PersistentFileHelper.generateTmpFileName())
+        req.downloadToFileURL = tmpFileUrl
         func downloadProgress(bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
         {
             let persent = Float( totalByteWritten * 100 / totalBytesExpectedToWrite)
@@ -94,11 +95,14 @@ class AliOSSManager
         task.continueWithBlock { (task) -> AnyObject! in
             if task.error == nil
             {
-                NSLog("OSS Download Success")
-            }else{
-                NSLog("OSS Download Failed")
+                if PersistentFileHelper.moveFile(tmpFileUrl.path!, destinationPath: filePath){
+                    NSLog("OSS Download Success")
+                    taskCompleted(isSuc: true, task: task)
+                    return nil
+                }
             }
-            taskCompleted(isSuc: task.error == nil, task: task)
+            NSLog("OSS Download Failed")
+            taskCompleted(isSuc: false, task: task)
             return nil
         }
     }

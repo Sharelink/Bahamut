@@ -39,7 +39,7 @@ class UserGuide:NSObject
         imgController.view.frame = (UIApplication.sharedApplication().keyWindow?.bounds)!
         imageView = UIImageView(frame: imgController.view.bounds)
         imgController.view.addSubview(imageView)
-        self.imgController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapImage:"))
+        self.imgController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuide.onTapImage(_:))))
     }
     
     func deInitUserGuide()

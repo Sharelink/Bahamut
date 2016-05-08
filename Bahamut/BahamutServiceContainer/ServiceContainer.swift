@@ -13,8 +13,8 @@ let ServiceContainerNotifyService = "ServiceContainerNotifyService"
 
 class ServiceContainer:NSNotificationCenter
 {
-    static let AllServicesReady = "AllServicesReady"
-    static let ServiceInitFailed = "ServiceInitFailed"
+    static let OnAllServicesReady = "AllServicesReady"
+    static let OnServiceInitFailed = "ServiceInitFailed"
     
     static let OnServicesWillLogin = "OnServicesWillLogin"
     static let OnServicesWillLogout = "OnServicesWillLogout"
@@ -55,7 +55,7 @@ class ServiceContainer:NSNotificationCenter
     func postInitServiceFailed(reason:String)
     {
         self.userLogout()
-        self.postNotificationName(ServiceContainer.ServiceInitFailed, object: nil, userInfo: [InitServiceFailedReason:reason])
+        self.postNotificationName(ServiceContainer.OnServiceInitFailed, object: nil, userInfo: [InitServiceFailedReason:reason])
     }
     
     func userLogin(userId:String)
@@ -125,7 +125,7 @@ class ServiceContainer:NSNotificationCenter
         {
             NSLog("All Services Ready!")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                instance.postNotificationName(ServiceContainer.AllServicesReady, object: instance)
+                instance.postNotificationName(ServiceContainer.OnAllServicesReady, object: instance)
             })
         }
     }

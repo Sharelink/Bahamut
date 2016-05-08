@@ -65,6 +65,7 @@ class MyDetailAvatarCell:UITableViewCell
     
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
+            avatarImageView.clipsToBounds = true
             avatarImageView.layer.cornerRadius = 7
         }
     }

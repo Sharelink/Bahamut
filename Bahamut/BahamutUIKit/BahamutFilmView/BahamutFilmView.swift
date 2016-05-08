@@ -53,14 +53,14 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         refreshButton = UIImageView()
         playButton = UIImageView()
         noFileImage = UIImageView()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerTime:", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BahamutFilmView.timerTime(_:)), userInfo: nil, repeats: true)
         initObserver()
     }
     
     private func initGestures()
     {
-        let clickVideoGesture = UITapGestureRecognizer(target: self, action: "playOrPausePlayer:")
-        let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: "switchFullScreenOnOff:")
+        let clickVideoGesture = UITapGestureRecognizer(target: self, action: #selector(BahamutFilmView.playOrPausePlayer(_:)))
+        let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: #selector(BahamutFilmView.switchFullScreenOnOff(_:)))
         doubleClickVideoGesture.numberOfTapsRequired = 2
         clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
         self.addGestureRecognizer(clickVideoGesture)
@@ -70,7 +70,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     private func initObserver()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BahamutFilmView.didChangeStatusBarOrientation(_:)), name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     
     //MARK: properties
@@ -117,7 +117,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             refreshButton.image = UIImage(named:"refresh")
             refreshButton.hidden = true
             refreshButton.center = self.center
-            refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "refreshButtonClick:"))
+            refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(BahamutFilmView.refreshButtonClick(_:))))
             self.addSubview(refreshButton)
         }
     }
@@ -507,7 +507,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         override init(frame: CGRect)
         {
             super.init(frame: frame)
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeView:"))
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BahamutFilmPlayerLayer.closeView(_:))))
             self.backgroundColor = UIColor.blackColor()
         }
         

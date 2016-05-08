@@ -46,8 +46,8 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
     func registerForKeyboardNotifications(views:[UIView])
     {
         keyBoardAdjuetResponderViews = views
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardChanged:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     private var keyBoardAdjuetResponderViews = [UIView]()
