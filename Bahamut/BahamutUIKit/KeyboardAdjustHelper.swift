@@ -100,7 +100,7 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
                 responderView.constraints.count
                 for c in responderView.constraints
                 {
-                    if (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view) && c.firstAttribute == .Bottom
+                    if c.firstAttribute == .Bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
                     {
                         c.constant = c.constant + offset
                     }
@@ -116,7 +116,7 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
                     return
                 }
                 responderView.constraints.forEach({ (c) -> () in
-                    if (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view) && c.firstAttribute == .Bottom
+                    if c.firstAttribute == .Bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
                     {
                         c.constant = c.constant - offset
                     }
