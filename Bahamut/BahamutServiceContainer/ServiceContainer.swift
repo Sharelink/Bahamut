@@ -130,6 +130,13 @@ class ServiceContainer:NSNotificationCenter
         }
     }
     
+    private static func setServiceNotReady<T:ServiceProtocol>(service:T)
+    {
+        instance.serviceReadyLock.lock()
+        instance.serviceReady[T.ServiceName] = false
+        instance.serviceReadyLock.unlock()
+    }
+    
     static var isAllServiceReady:Bool{
         if let list = self.instance.serviceList
         {
@@ -167,6 +174,10 @@ extension ServiceProtocol
 {
     func setServiceReady()
     {
+        ServiceContainer.setServiceReady(self)
+    }
+    
+    func setServiceNotReady() {
         ServiceContainer.setServiceReady(self)
     }
     

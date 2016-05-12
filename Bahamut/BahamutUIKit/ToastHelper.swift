@@ -33,8 +33,9 @@ extension UIApplication
     }
 }
 
-let ALERT_ACTION_OK = [UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)]
-let ALERT_ACTION_I_SEE = [UIAlertAction(title: "I_SEE".localizedString(), style:.Cancel, handler: nil)]
+let ALERT_ACTION_OK = UIAlertAction(title: "OK".localizedString(), style:.Cancel, handler: nil)
+let ALERT_ACTION_I_SEE = UIAlertAction(title: "I_SEE".localizedString(), style:.Cancel, handler: nil)
+let ALERT_ACTION_CANCEL = UIAlertAction(title: "CANCEL".localizedString(), style:.Cancel, handler: nil)
 
 //MARK: extension show alert
 extension UIViewController

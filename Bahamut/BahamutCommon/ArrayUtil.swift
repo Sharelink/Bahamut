@@ -15,7 +15,7 @@ public extension Array
     {
         let start = self.count - 1
         var result = [Element]()
-        for i in start.stride(to: 0, by: -1) {
+        for i in start.stride(through: 0, by: -1) {
             let a = self[i]
             if predict(itemInArray: a)
             {
