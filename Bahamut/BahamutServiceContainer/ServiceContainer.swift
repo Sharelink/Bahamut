@@ -17,7 +17,9 @@ class ServiceContainer:NSNotificationCenter
     static let OnServiceInitFailed = "ServiceInitFailed"
     
     static let OnServicesWillLogin = "OnServicesWillLogin"
+    static let OnServicesDidLogin = "OnServicesDidLogin"
     static let OnServicesWillLogout = "OnServicesWillLogout"
+    static let OnServicesDidLogout = "OnServicesDidLogout"
     static let OnServiceReady = "OnServiceReady"
     
     static let instance:ServiceContainer = ServiceContainer()
@@ -76,6 +78,7 @@ class ServiceContainer:NSNotificationCenter
                 })
             }
         }
+        self.postNotificationName(ServiceContainer.OnServicesDidLogin, object: self)
     }
     
     func userLogout()
@@ -90,6 +93,7 @@ class ServiceContainer:NSNotificationCenter
                 logoutHandler(userId)
             }
         }
+        self.postNotificationName(ServiceContainer.OnServicesDidLogout, object: self)
     }
     
     private func addService(serviceName:String,service:ServiceProtocol)
