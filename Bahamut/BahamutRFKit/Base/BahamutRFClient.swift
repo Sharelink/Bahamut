@@ -85,7 +85,8 @@ public class BahamutRFClient : ClientProtocal
     {
         if clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
         {
-            let error = Error.errorWithCode(Error.Code.StatusCodeValidationFailed, failureReason: "concurrent request times limit")
+            let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
+            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
             let res = Result<String,NSError>.Failure(error)
             callback(result: res)
             return false
@@ -93,15 +94,15 @@ public class BahamutRFClient : ClientProtocal
         request.incRequest()
         setReqApi(request)
         setReqHeader(request)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"]).responseString(completionHandler: { (response) -> Void in
-                request.decRequest()
-                if self.clientStarted == false
-                {
-                    return
-                }
-                callback(result: response.result)
-            })
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
+        req.response(queue: queue, responseSerializer: Request.stringResponseSerializer(encoding: nil)) { (response:Response<String, NSError>) in
+            request.decRequest()
+            if self.clientStarted == false
+            {
+                return
+            }
+            callback(result: response.result)
         }
         return true
     }
@@ -111,7 +112,8 @@ public class BahamutRFClient : ClientProtocal
         if clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
         {
             let err = SLResult<[T]>()
-            let error = Error.errorWithCode(Error.Code.StatusCodeValidationFailed, failureReason: "concurrent request times limit")
+            let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
+            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
             err.originResult = Result<[T],NSError>.Failure(error)
             err.originResult = nil
             callback(result: err)
@@ -120,24 +122,26 @@ public class BahamutRFClient : ClientProtocal
         request.incRequest()
         setReqApi(request)
         setReqHeader(request)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"]).responseArray { (_, response, result:Result<[T],NSError>) -> Void in
-                request.decRequest()
-                if self.clientStarted == false
-                {
-                    return
-                }
-                let slResult = SLResult<[T]>()
-                slResult.originResult = result
-                if let responseCode = response?.statusCode
-                {
-                    slResult.statusCode = responseCode
-                }else{
-                    slResult.statusCode = 999
-                }
-                callback(result: slResult)
+        
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
+        req.responseArray(queue) { (_, response, result:Result<[T],NSError>) -> Void in
+            request.decRequest()
+            if self.clientStarted == false
+            {
+                return
             }
+            let slResult = SLResult<[T]>()
+            slResult.originResult = result
+            if let responseCode = response?.statusCode
+            {
+                slResult.statusCode = responseCode
+            }else{
+                slResult.statusCode = 999
+            }
+            callback(result: slResult)
         }
+        
         return true
     }
     
@@ -146,7 +150,8 @@ public class BahamutRFClient : ClientProtocal
         if  clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
         {
             let err = SLResult<T>()
-            let error = Error.errorWithCode(Error.Code.StatusCodeValidationFailed, failureReason: "concurrent request times limit")
+            let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
+            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
             err.originResult = Result<T,NSError>.Failure(error)
             err.originResult = nil
             callback(result: err)
@@ -155,23 +160,23 @@ public class BahamutRFClient : ClientProtocal
         request.incRequest()
         setReqApi(request)
         setReqHeader(request)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"]).responseObject { (_, response, result:Result<T,NSError>) -> Void in
-                request.decRequest()
-                if self.clientStarted == false
-                {
-                    return
-                }
-                let slResult = SLResult<T>()
-                slResult.originResult = result
-                if let responseCode = response?.statusCode
-                {
-                    slResult.statusCode = responseCode
-                }else{
-                    slResult.statusCode = 999
-                }
-                callback(result: slResult)
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
+        req.responseObject(queue) { (_, response, result:Result<T,NSError>) -> Void in
+            request.decRequest()
+            if self.clientStarted == false
+            {
+                return
             }
+            let slResult = SLResult<T>()
+            slResult.originResult = result
+            if let responseCode = response?.statusCode
+            {
+                slResult.statusCode = responseCode
+            }else{
+                slResult.statusCode = 999
+            }
+            callback(result: slResult)
         }
         return true
     }

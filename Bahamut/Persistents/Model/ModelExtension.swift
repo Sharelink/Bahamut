@@ -141,6 +141,7 @@ extension PersistentManager
             {
                 let jsonString = entity.serializableValue
                 let model = T(json: jsonString)
+                
                 cache.setObject(model, forKey: model.getObjectUniqueIdValue())
             }
         }
