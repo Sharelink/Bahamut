@@ -119,7 +119,7 @@ extension PersistentManager
             if let cellModel = ModelExtension.defaultInstance.coreData.getCellById(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValue: indexIdValue) as? ModelEntity
             {
                 let jsonString = cellModel.serializableValue
-                let model = T(json: jsonString)
+                let model = T(json:jsonString)
                 cache.setObject(model, forKey: idValue)
                 return model
             }
@@ -140,8 +140,8 @@ extension PersistentManager
             for entity in cells
             {
                 let jsonString = entity.serializableValue
-                let model = T(json: jsonString)
                 
+                let model = T(json:jsonString)
                 cache.setObject(model, forKey: model.getObjectUniqueIdValue())
             }
         }
@@ -160,7 +160,9 @@ extension PersistentManager
         let predicate = NSPredicate(format: "\(ModelExtensionConstant.idFieldName) LIKE %@", argumentArray: ["\(typename):*"])
         let result = ModelExtension.defaultInstance.coreData.getCells(ModelExtensionConstant.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
-            return T(json: entity.serializableValue)
+            
+            let model = T(json:entity.serializableValue)
+            return model
         }
         cache.setObject(result, forKey: typename)
         return result
