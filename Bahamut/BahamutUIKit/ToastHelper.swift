@@ -111,34 +111,25 @@ extension UIViewController:MBProgressHUDDelegate
         return HUD
     }
     
-    func playToast(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playToast(msg:String,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
-        
-        let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDMode.Text
-        hud.labelText = msg
-        hud.margin = 10;
-        hud.delegate = vc
-        if let handler = completionHandler
-        {
-            hudCompletionHandler[hud] = handler
-        }
-        hud.removeFromSuperViewOnHide = true
-        if async
-        {
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                hud.show(true)
-                hud.hide(true, afterDelay: 2)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDMode.Text
+            hud.labelText = msg
+            hud.margin = 10;
+            hud.delegate = vc
+            if let handler = completionHandler
+            {
+                hudCompletionHandler[hud] = handler
             }
-        }else
-        {
+            hud.removeFromSuperViewOnHide = true
             hud.show(true)
             hud.hide(true, afterDelay: 2)
         }
-        
     }
     
     func playCrossMark(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
@@ -151,7 +142,7 @@ extension UIViewController:MBProgressHUDDelegate
         playImageMark(msg, image: UIImage(named: "Checkmark")!, async: async, completionHandler: completionHandler)
     }
     
-    func playImageMark(msg:String,image:UIImage,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil){
+    private func playImageMarkCore(msg:String,image:UIImage,completionHandler:HudHiddenCompletedHandler!){
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
         let hud = MBProgressHUD(view: vcView)
@@ -169,16 +160,20 @@ extension UIViewController:MBProgressHUDDelegate
         {
             hudCompletionHandler[hud] = handler
         }
+        hud.show(true)
+        hud.hide(true, afterDelay: 2)
+        
+    }
+    
+    func playImageMark(msg:String,image:UIImage,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil){
         if async
         {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                hud.show(true)
-                hud.hide(true, afterDelay: 2)
+                self.playImageMarkCore(msg, image: image, completionHandler: completionHandler)
             }
         }else
         {
-            hud.show(true)
-            hud.hide(true, afterDelay: 2)
+            self.playImageMarkCore(msg, image: image, completionHandler: completionHandler)
         }
     }
     
