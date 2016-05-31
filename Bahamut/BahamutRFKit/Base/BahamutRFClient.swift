@@ -102,7 +102,9 @@ public class BahamutRFClient : ClientProtocal
             {
                 return
             }
-            callback(result: response.result)
+            dispatch_async(dispatch_get_main_queue(), {
+                callback(result: response.result)
+            })
         }
         return true
     }
@@ -139,7 +141,9 @@ public class BahamutRFClient : ClientProtocal
             }else{
                 slResult.statusCode = 999
             }
-            callback(result: slResult)
+            dispatch_async(dispatch_get_main_queue(), {
+                callback(result: slResult)
+            })
         }
         
         return true
@@ -176,7 +180,9 @@ public class BahamutRFClient : ClientProtocal
             }else{
                 slResult.statusCode = 999
             }
-            callback(result: slResult)
+            dispatch_async(dispatch_get_main_queue(), {
+                callback(result: slResult)
+            })
         }
         return true
     }
