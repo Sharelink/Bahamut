@@ -23,6 +23,7 @@ class ServiceContainer:NSNotificationCenter
     static let OnServiceReady = "OnServiceReady"
     
     static let instance:ServiceContainer = ServiceContainer()
+    private var containerInited = false
     private var serviceDict:[String:ServiceProtocol]!
     private var serviceList:[ServiceProtocol]!
     private let serviceReadyLock = NSRecursiveLock()
@@ -36,6 +37,9 @@ class ServiceContainer:NSNotificationCenter
     
     func initContainer(appName:String,services:ServiceListDict)
     {
+        if containerInited {
+            return
+        }
         ServiceContainer.appName = appName
         serviceDict = [String:ServiceProtocol]()
         serviceList = [ServiceProtocol]()
@@ -128,9 +132,7 @@ class ServiceContainer:NSNotificationCenter
         if isAllServiceReady
         {
             NSLog("All Services Ready!")
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                instance.postNotificationName(ServiceContainer.OnAllServicesReady, object: instance)
-            })
+            instance.postNotificationNameWithMainAsync(ServiceContainer.OnAllServicesReady, object: instance,userInfo: nil)
         }
     }
     

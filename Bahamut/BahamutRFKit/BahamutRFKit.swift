@@ -79,11 +79,11 @@ class BahamutRFKit
 
     func useValidateData(validateResult:ValidateResult)
     {
-        self.userId = validateResult.UserId
-        self.token = validateResult.AppToken
-        self.fileApiServer = validateResult.FileAPIServer
-        self.appApiServer = validateResult.APIServer
-        let chicagoStrs = validateResult.ChicagoServer.split(":")
+        self.userId = validateResult.userId
+        self.token = validateResult.appToken
+        self.fileApiServer = validateResult.fileAPIServer
+        self.appApiServer = validateResult.apiServer
+        let chicagoStrs = validateResult.chicagoServer.split(":")
         self.chicagoServerHost = chicagoStrs[0]
         self.chicagoServerPort = UInt16(chicagoStrs[1])!
     }
@@ -134,15 +134,15 @@ class RegistResult:MsgResult
 
 class LoginResult: MsgResult
 {
-    var LoginSuccessed:String!
-    var AccountID:String!
-    var AccountName:String!
-    var AccessToken:String!
-    var AppServerIP:String!
-    var AppServerPort:String!
-    var AppServiceUrl:String!
-    var BindMobile:String!
-    var BindEmail:String!
+    var loginSuccessed:String!
+    var accountID:String!
+    var accountName:String!
+    var accessToken:String!
+    var appServerIP:String!
+    var appServerPort:String!
+    var appServiceUrl:String!
+    var bindMobile:String!
+    var bindEmail:String!
     
 }
 
@@ -151,27 +151,27 @@ class ValidateResult : EVObject
     var Succeed = false
     
     //validate success part
-    var UserId:String!
-    var AppToken:String!
-    var APIServer:String!
-    var FileAPIServer:String!
-    var ChicagoServer:String!
+    var userId:String!
+    var appToken:String!
+    var apiServer:String!
+    var fileAPIServer:String!
+    var chicagoServer:String!
     
     //new user part
-    var RegistAPIServer:String!
+    var registAPIServer:String!
     
     func isValidateResultDataComplete() -> Bool
     {
-        if RegistAPIServer != nil
+        if registAPIServer != nil
         {
             return true
         }else
         {
-            return (UserId != nil &&
-                AppToken != nil &&
-                FileAPIServer != nil &&
-                APIServer != nil &&
-                ChicagoServer != nil
+            return (userId != nil &&
+                appToken != nil &&
+                fileAPIServer != nil &&
+                apiServer != nil &&
+                chicagoServer != nil
             )
         }
     }
@@ -214,7 +214,7 @@ extension BahamutRFKit
             if result.isSuccess{
                 if let value = result.value
                 {
-                    if String.isNullOrEmpty(value.LoginSuccessed) == false && "true" == value.LoginSuccessed
+                    if String.isNullOrEmpty(value.loginSuccessed) == false && "true" == value.loginSuccessed
                     {
                         callback(isSuc: true, errorMsg: nil, loginResult: value)
                     }else
@@ -263,7 +263,7 @@ extension BahamutRFKit
                 {
                     if validateResult.isValidateResultDataComplete()
                     {
-                        if validateResult.RegistAPIServer != nil
+                        if !String.isNullOrEmpty(validateResult.registAPIServer)
                         {
                             callback(isNewUser: true,error: nil,validateResult: validateResult)
                         }else

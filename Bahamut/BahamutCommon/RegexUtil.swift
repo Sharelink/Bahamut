@@ -63,7 +63,7 @@ public func =~(lhs: String, rhs: String) -> Bool {
 //MARK: String Util
 extension String{
     func isMobileNumber() -> Bool{
-        return self =~ "^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\\d{8}$"
+        return self =~ "^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$"
     }
     
     func isEmail() -> Bool{
