@@ -29,8 +29,8 @@ class UIClientStateHeader: UIView {
     func initHeader()
     {
         startConnect()
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "reconnectChicagoClient:"))
+        ChicagoClient.sharedInstance.addObserver(self, selector: #selector(UIClientStateHeader.chicagoClientStateChanged(_:)), name: ChicagoClientStateChanged, object: nil)
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIClientStateHeader.reconnectChicagoClient(_:))))
     }
     
     func reconnectChicagoClient(_:UIGestureRecognizer)

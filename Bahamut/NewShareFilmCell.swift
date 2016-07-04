@@ -115,7 +115,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
             do
             {
                 try NSFileManager.defaultManager().removeItemAtPath(fm.filePath)
-                sum++
+                sum += 1
             }catch let error as NSError{
                 NSLog(error.description)
             }

@@ -84,10 +84,10 @@ class LinkedUserListController: UITableViewController
     }
     
     func initObservers(){
-        userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.userListUpdated, object: nil)
-        userService.addObserver(self, selector: "linkMessageUpdated:", name: UserService.linkMessageUpdated, object: nil)
-        userService.addObserver(self, selector: "myLinkedUsersUpdated:", name: UserService.myUserInfoRefreshed, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        userService.addObserver(self, selector: #selector(LinkedUserListController.myLinkedUsersUpdated(_:)), name: UserService.userListUpdated, object: nil)
+        userService.addObserver(self, selector: #selector(LinkedUserListController.linkMessageUpdated(_:)), name: UserService.linkMessageUpdated, object: nil)
+        userService.addObserver(self, selector: #selector(LinkedUserListController.myLinkedUsersUpdated(_:)), name: UserService.myUserInfoRefreshed, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(LinkedUserListController.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -23,9 +23,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
             {
                 oldValue.removeObserver(self)
             }
-            shareChat.addObserver(self, selector: "chatHubNewMessageChanged:", name: ShareChatHubNewMessageChanged, object: nil)
-            shareChat.addObserver(self, selector: "currentChatChanged:", name: ChatHubCurrentChatModelChanged, object: nil)
-            shareChat.addObserver(self, selector: "currentChatMessageChanged:", name: ChatHubCurrentChatMessageChanged, object: nil)
+            shareChat.addObserver(self, selector: #selector(ChatViewController.chatHubNewMessageChanged(_:)), name: ShareChatHubNewMessageChanged, object: nil)
+            shareChat.addObserver(self, selector: #selector(ChatViewController.currentChatChanged(_:)), name: ChatHubCurrentChatModelChanged, object: nil)
+            shareChat.addObserver(self, selector: #selector(ChatViewController.currentChatMessageChanged(_:)), name: ChatHubCurrentChatMessageChanged, object: nil)
             shareChat.currentChatModel = shareChat.getSortChats().first
             chatRoomBadgeValue = shareChat.newMessage
         }
@@ -72,7 +72,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
         self.initChatRoomListViewController()
         self.addRefreshViews()
         messageService = ServiceContainer.getService(ChatService)
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: #selector(ChatViewController.chicagoClientStateChanged(_:)), name: ChicagoClientStateChanged, object: nil)
         self.initBarBadge()
     }
     
@@ -84,9 +84,9 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillShowNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardChange:", name:UIKeyboardWillHideNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"tableViewScrollToBottom:", name:UIKeyboardDidShowNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.keyboardChange(_:)), name:UIKeyboardWillShowNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.keyboardChange(_:)), name:UIKeyboardWillHideNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.tableViewScrollToBottom(_:)), name:UIKeyboardDidShowNotification, object:nil)
         shareChat.inChatView = true
         chatTableViewScrollToBottom()
         messageService.setChatAtShare(shareChat.shareId)
@@ -159,7 +159,7 @@ class ChatViewController:UIViewController,UUInputFunctionViewDelegate,UUMessageC
     
     func initBarBadge()
     {
-        let item = UIBarButtonItem(image: UIImage.namedImageInSharelink("chatting_users"), style: .Plain, target: self, action: "clickChatRoomItem:")
+        let item = UIBarButtonItem(image: UIImage.namedImageInSharelink("chatting_users"), style: .Plain, target: self, action: #selector(ChatViewController.clickChatRoomItem(_:)))
         navigationItem.rightBarButtonItem = item
         item.badgeBGColor = UIColor.redColor()
         item.badge.layer.cornerRadius = 10

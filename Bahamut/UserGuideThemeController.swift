@@ -149,7 +149,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
                     {
                         self.themeTextField.text = ""
                     }
-                    self.focusThemeCount++
+                    self.focusThemeCount += 1
                     self.playToast("FOCUS_THEME_SUCCESS".localizedString())
                 }else
                 {
@@ -162,7 +162,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         themeService = ServiceContainer.getService(SharelinkThemeService)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapView:"))
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuideThemeController.tapView(_:))))
         let url = Sharelink.mainBundle().pathForResource("StartupThemes", ofType: "conf")!
         let themesText = PersistentFileHelper.readTextFile(url)!
         allRandomThemes = themesText.split(",")
@@ -192,7 +192,7 @@ class UserGuideThemeController: UIViewController,UICollectionViewDelegate,UIColl
         cell.layer.cornerRadius = (calSizeLabel.frame.height + 7) / 2
         cell.layer.borderColor = UIColor.themeColor.CGColor
         cell.layer.borderWidth = 1
-        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuideThemeController.tapCell(_:))))
         return cell
     }
     

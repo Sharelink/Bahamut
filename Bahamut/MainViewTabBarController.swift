@@ -143,10 +143,10 @@ class MainViewTabBarController: UITabBarController ,OrientationsNavigationContro
     //MARK: message observer
     private func initObserver()
     {
-        messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
-        shareService.addObserver(self, selector: "shareUpdatedMsgReceived:", name: ShareService.newShareMessagesUpdated, object: nil)
-        userService.addObserver(self, selector: "newLinkMessageUpdated:", name: UserService.newLinkMessageUpdated, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        messageService.addObserver(self, selector: #selector(MainViewTabBarController.newChatMessageReceived(_:)), name: ChatService.messageServiceNewMessageReceived, object: nil)
+        shareService.addObserver(self, selector: #selector(MainViewTabBarController.shareUpdatedMsgReceived(_:)), name: ShareService.newShareMessagesUpdated, object: nil)
+        userService.addObserver(self, selector: #selector(MainViewTabBarController.newLinkMessageUpdated(_:)), name: UserService.newLinkMessageUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(MainViewTabBarController.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
     }
     
     func onServiceLogout(sender:AnyObject)

@@ -217,7 +217,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
             let msgFormat = "ADD_IMAGE_LIMIT_AT_X".localizedString()
             let msg = String(format:msgFormat,"\(mostImagesLimit)")
             let alert = UIAlertController(title: msg, message: nil, preferredStyle: .Alert)
-            alert.addAction(ALERT_ACTION_I_SEE.first!)
+            alert.addAction(ALERT_ACTION_I_SEE)
             self.imagePicker.presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -276,15 +276,15 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         {
             cell.imageView.image = NewShareImageCell.AddImage
             cell.imageView.layer.borderWidth = 0
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "addImage:"))
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(NewShareImageCell.addImage(_:))))
         }else
         {
             cell.imageView.image = images[indexPath.row]
             cell.imageView.layer.borderWidth = 1
             if !rootController.isReshare
             {
-                let tapGes = UITapGestureRecognizer(target: self, action: "tapImage:")
-                let doubleTapGes = UITapGestureRecognizer(target: self, action: "doubleTapImage:")
+                let tapGes = UITapGestureRecognizer(target: self, action: #selector(NewShareImageCell.tapImage(_:)))
+                let doubleTapGes = UITapGestureRecognizer(target: self, action: #selector(NewShareImageCell.doubleTapImage(_:)))
                 doubleTapGes.numberOfTapsRequired = 2
                 tapGes.requireGestureRecognizerToFail(doubleTapGes)
                 cell.addGestureRecognizer(tapGes)

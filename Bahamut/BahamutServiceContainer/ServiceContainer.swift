@@ -193,3 +193,11 @@ extension ServiceProtocol
     }
 }
 
+//MARK: NSNotificationCenter Extension
+extension NSNotificationCenter{
+    func postNotificationNameWithMainAsync(aName: String, object: AnyObject?, userInfo: [NSObject : AnyObject]?){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.postNotificationName(aName, object: object, userInfo: userInfo)
+        }
+    }
+}

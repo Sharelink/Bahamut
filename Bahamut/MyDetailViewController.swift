@@ -128,7 +128,7 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyIdentifier = InfoIds.nickName
         propertySet.propertyLabel = "NICK".localizedString()
         propertySet.propertyValue = myInfo.nickName
-        textPropertyCells.append(MyDetailCellModel(propertySet: propertySet, editable: true, selector: "tapTextProperty:"))
+        textPropertyCells.append(MyDetailCellModel(propertySet: propertySet, editable: true, selector: #selector(MyDetailViewController.tapTextProperty(_:))))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.level
@@ -161,19 +161,19 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         propertySet.propertyLabel = "MOTTO".localizedString()
         propertySet.propertyValue = myInfo.motto
         propertySet.isOneLineValue = false
-        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "tapTextProperty:"))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: #selector(MyDetailViewController.tapTextProperty(_:))))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.changePsw
         propertySet.propertyLabel = "CHANGE_PSW".localizedString()
         propertySet.propertyValue = ""
-        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "changePassword:"))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: #selector(MyDetailViewController.changePassword(_:))))
         
         propertySet = UIEditTextPropertySet()
         propertySet.propertyIdentifier = InfoIds.useTink
         propertySet.propertyLabel = "TINK_TINK_TINK".localizedString()
         propertySet.propertyValue = ""
-        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: "useTinkTinkTink:"))
+        textPropertyCells.append(MyDetailCellModel(propertySet:propertySet,editable:true, selector: #selector(MyDetailViewController.useTinkTinkTink(_:))))
     }
     
     @IBAction func logout(sender: AnyObject)
@@ -259,12 +259,12 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
         }else if indexPath.section == 1
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailViewController.clearCacheCellReuseId,forIndexPath: indexPath)
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clearTempDir:"))
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MyDetailViewController.clearTempDir(_:))))
             return cell
         }else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailViewController.aboutSharelinkReuseId,forIndexPath: indexPath)
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "aboutSharelink:"))
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MyDetailViewController.aboutSharelink(_:))))
             return cell
         }
     }
@@ -301,10 +301,10 @@ class MyDetailViewController: UIViewController,UITableViewDataSource,UIEditTextP
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(MyDetailAvatarCell.reuseIdentifier) as! MyDetailAvatarCell
         
-        let tapCell = UITapGestureRecognizer(target: self, action: "tapAvatarCell:")
+        let tapCell = UITapGestureRecognizer(target: self, action: #selector(MyDetailViewController.tapAvatarCell(_:)))
         cell.addGestureRecognizer(tapCell)
         ServiceContainer.getService(FileService).setAvatar(cell.avatarImageView, iconFileId: myInfo.avatarId)
-        let tapIcon = UITapGestureRecognizer(target: self, action: "tapAvatar:")
+        let tapIcon = UITapGestureRecognizer(target: self, action: #selector(MyDetailViewController.tapAvatar(_:)))
         cell.avatarImageView?.addGestureRecognizer(tapIcon)
         cell.avatarImageView.userInteractionEnabled = true
         avatarImageView = cell.avatarImageView

@@ -62,7 +62,7 @@ class UserService: NSNotificationCenter,ServiceProtocol
     
     @objc func userLoginInit(userId:String)
     {
-        ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: "onNewLinkMessage:")
+        ChicagoClient.sharedInstance.addChicagoObserver(linkMessageRoute, observer: self, selector: #selector(UserService.onNewLinkMessage(_:)))
         self.initServiceBaseData()
     }
     

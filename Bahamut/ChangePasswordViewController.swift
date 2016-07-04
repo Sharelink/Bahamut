@@ -21,7 +21,7 @@ class ChangePasswordViewController: UIViewController
             return
         }else if oldPsw == newPsw
         {
-            showAlert("OLD_NEW_PSW_SAME".localizedString(), msg: nil, actions: ALERT_ACTION_I_SEE)
+            showAlert("OLD_NEW_PSW_SAME".localizedString(), msg: nil, actions: [ALERT_ACTION_I_SEE])
         }
         else if newPsw =~ "^[A-Za-z0-9_\\@\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,23}$"
         {

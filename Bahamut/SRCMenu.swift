@@ -65,9 +65,9 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         
         self.rootView = rootView
         self.srcService = ServiceContainer.getService(SRCService)
-        self.srcService.addObserver(self, selector: "onLoadingPlugins:", name: SRCService.allSRCPluginsLoading, object: nil)
-        self.srcService.addObserver(self, selector: "onPluginsLoaded:", name: SRCService.allSRCPluginsReloaded, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        self.srcService.addObserver(self, selector: #selector(SRCMenuManager.onLoadingPlugins(_:)), name: SRCService.allSRCPluginsLoading, object: nil)
+        self.srcService.addObserver(self, selector: #selector(SRCMenuManager.onPluginsLoaded(_:)), name: SRCService.allSRCPluginsReloaded, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(SRCMenuManager.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
         self.initSRCMenu()
         self.initItemLayoutAttributes()
         self.reloadSRCMenuItems()
@@ -116,7 +116,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         self.srcItemContainer.backgroundColor = UIColor.clearColor()
         self.srcMenuPageControl = UIPageControl(frame:CGRectMake(0,srcMenuFrame.height - 98,srcMenuFrame.width,7))
         self.srcMenu.addSubview(self.srcItemContainer)
-        self.srcMenu.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideSRCMenu:"))
+        self.srcMenu.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SRCMenuManager.hideSRCMenu(_:))))
         self.srcItemContainer.addSubview(self.srcMenuPageControl)
         self.srcMenu.addSubview(self.srcMenuPageControl)
         self.srcMenu.hidden = true
@@ -215,7 +215,7 @@ class SRCMenuManager:NSObject,UIScrollViewDelegate
         nameLabel.textAlignment = .Center
         itemView.addSubview(nameLabel)
         itemView.nameLabel = nameLabel
-        itemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "srcItemClicked:"))
+        itemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SRCMenuManager.srcItemClicked(_:))))
         itemView.userInteractionEnabled = true
         self.srcItemViews.append(itemView)
         return itemView

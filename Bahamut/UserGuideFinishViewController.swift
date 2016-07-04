@@ -18,21 +18,21 @@ class UserGuideFinishViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shareImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapShare:"))
+        shareImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuideFinishViewController.tapShare(_:))))
         shareImgView.userInteractionEnabled = true
         
-        userProfileImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapProfile:"))
+        userProfileImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuideFinishViewController.tapProfile(_:))))
         userProfileImgView.userInteractionEnabled = true
         
-        userSettingImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapSetting:"))
+        userSettingImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuideFinishViewController.tapSetting(_:))))
         userSettingImgView.userInteractionEnabled = true
         
         shareService = ServiceContainer.getService(ShareService)
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
-        self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
+        self.shareService.addObserver(self, selector: #selector(UserGuideFinishViewController.sharePosted(_:)), name: ShareService.newSharePosted, object: nil)
+        self.shareService.addObserver(self, selector: #selector(UserGuideFinishViewController.sharePostFailed(_:)), name: ShareService.newSharePostFailed, object: nil)
         super.viewWillAppear(animated)
         MobClick.event("UserGuide_ToFinishPage")
     }

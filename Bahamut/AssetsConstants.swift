@@ -68,7 +68,7 @@ class UserGuideAssetsConstants
             }else{
                 return imgs
             }
-            i++
+            i += 1
         }while(true)
     }
 }

@@ -131,7 +131,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     
     func bindTapActions()
     {
-        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "avatarTapped:"))
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.avatarTapped(_:))))
     }
     
     func avatarTapped(_:UITapGestureRecognizer)

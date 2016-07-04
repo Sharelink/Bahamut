@@ -27,14 +27,14 @@ class NewShareThemeCell: NewShareCellBase,ThemeCollectionViewControllerDelegate,
     
     private var themeHubController:ThemeCollectionViewController!{
         didSet{
-            ServiceContainer.getService(SharelinkThemeService).addObserver(self, selector: "onUserThemeUpdated:", name: SharelinkThemeService.themesUpdated, object: nil)
+            ServiceContainer.getService(SharelinkThemeService).addObserver(self, selector: #selector(NewShareThemeCell.onUserThemeUpdated(_:)), name: SharelinkThemeService.themesUpdated, object: nil)
             themeHubController.delegate = self
         }
     }
     
     override var rootController:NewShareController!{
         didSet{
-            rootView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapView:"))
+            rootView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(NewShareThemeCell.tapView(_:))))
         }
     }
     

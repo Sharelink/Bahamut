@@ -166,7 +166,7 @@ class ThemeCollectionViewController: UICollectionViewController,UICollectionView
         }
         
         cell.indexPath = indexPath
-        cell.addGestureRecognizer(UITapGestureRecognizer(target: self,action:"tagDidTap:"))
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(ThemeCollectionViewController.tagDidTap(_:))))
         
         //Redraw
         let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.BottomLeft , .TopLeft], cornerRadii: CGSizeMake(23.0, 23.0))

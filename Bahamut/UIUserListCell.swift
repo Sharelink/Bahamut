@@ -14,7 +14,7 @@ class UIUserListCellBase: UITableViewCell
     var rootController:LinkedUserListController!{
         didSet{
             if oldValue == nil{
-                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onCellTapped:"))
+                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIUserListCellBase.onCellTapped(_:))))
             }
         }
     }
@@ -50,7 +50,7 @@ class UIUserListMessageCell: UIUserListCellBase
         didSet{
             avatar.layer.cornerRadius = 3.0
             avatar.userInteractionEnabled = true
-            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIUserListMessageCell.showAvatar(_:))))
         }
     }
     
@@ -103,7 +103,7 @@ class UIUserListAskingLinkCell: UIUserListCellBase
         didSet{
             avatar.layer.cornerRadius = 3.0
             avatar.userInteractionEnabled = true
-            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIUserListMessageCell.showAvatar(_:))))
         }
     }
     
@@ -156,7 +156,7 @@ class UIUserListCell: UIUserListCellBase
             //TODO: cancel hidden when level model completed
             levelLabel.hidden = true
             levelLabel.userInteractionEnabled = true
-            levelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showLevelRule:"))
+            levelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIUserListCell.showLevelRule(_:))))
         }
     }
 
@@ -164,7 +164,7 @@ class UIUserListCell: UIUserListCellBase
         didSet{
             avatarImageView.layer.cornerRadius = 3.0
             avatarImageView.userInteractionEnabled = true
-            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIUserListMessageCell.showAvatar(_:))))
         }
     }
     
@@ -174,7 +174,7 @@ class UIUserListCell: UIUserListCellBase
     {
         let title = "LEVEL_RULE_TITLE".localizedString()
         let msg = "LEVEL_RULE_DESC".localizedString()
-        self.rootController.showAlert(title, msg: msg, actions: ALERT_ACTION_I_SEE)
+        self.rootController.showAlert(title, msg: msg, actions: [ALERT_ACTION_I_SEE])
     }
     
     override func onCellTapped(a: UITapGestureRecognizer) {

@@ -137,7 +137,7 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
             }
             deleteDelegate(willDeleteItems,sender: self)
         }
-        for var i = 0 ;i < items.count; i++
+        for i in 0  ..< items.count
         {
             items[i] = items[i].filter{ !$0.editModeSelected }
         }
@@ -207,9 +207,9 @@ class UIResourceExplorerController: UIViewController,UICollectionViewDelegate,UI
         cell.model.cell = cell
         cell.model.indexPath = indexPath
         
-        let doubleClick = UITapGestureRecognizer(target: self, action: "openItem:")
+        let doubleClick = UITapGestureRecognizer(target: self, action: #selector(UIResourceExplorerController.openItem(_:)))
         doubleClick.numberOfTapsRequired = 2
-        let selectTap = UITapGestureRecognizer(target: self, action: "selectItem:")
+        let selectTap = UITapGestureRecognizer(target: self, action: #selector(UIResourceExplorerController.selectItem(_:)))
         selectTap.requireGestureRecognizerToFail(doubleClick)
         cell.addGestureRecognizer(selectTap)
         cell.addGestureRecognizer(doubleClick)

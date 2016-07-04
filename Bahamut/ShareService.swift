@@ -71,7 +71,7 @@ class ShareService: NSNotificationCenter,ServiceProtocol
     @objc func userLoginInit(userId:String)
     {
         resetSortObjectList()
-        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: "newShareMessagesNotify:")
+        ChicagoClient.sharedInstance.addChicagoObserver(shareUpdatedNotifyRoute, observer: self, selector: #selector(ShareService.newShareMessagesNotify(_:)))
         self.setServiceReady()
         self.getNewShareMessageFromServer()
     }

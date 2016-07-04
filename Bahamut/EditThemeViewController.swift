@@ -46,19 +46,19 @@ class EditThemeViewController: UIViewController
     @IBOutlet weak var isFocusImgView: UIImageView!{
         didSet{
             isFocusImgView.userInteractionEnabled = true
-            isFocusImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onIsFocusClicked:"))
+            isFocusImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EditThemeViewController.onIsFocusClicked(_:))))
         }
     }
     @IBOutlet weak var isShowToFriendsImgView: UIImageView!{
         didSet{
             isShowToFriendsImgView.userInteractionEnabled = true
-            isShowToFriendsImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onIsShowToFriendsClicked:"))
+            isShowToFriendsImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EditThemeViewController.onIsShowToFriendsClicked(_:))))
         }
     }
     @IBOutlet weak var themeColorView: UIView!{
         didSet{
             themeColorView.layer.cornerRadius = 3
-            themeColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectColor:"))
+            themeColorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EditThemeViewController.selectColor(_:))))
         }
     }
     

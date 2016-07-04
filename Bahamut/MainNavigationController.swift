@@ -19,9 +19,10 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ServiceContainer.instance.initContainer(SharelinkConfig.appName, services: ServiceConfig.Services)
         setWaitingScreen()
-        ChicagoClient.sharedInstance.addObserver(self, selector: "onAppTokenInvalid:", name: AppTokenInvalided, object: nil)
-        ChicagoClient.sharedInstance.addObserver(self, selector: "onOtherDeviceLogin:", name: OtherDeviceLoginChicagoServer, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onAppTokenInvalid(_:)), name: AppTokenInvalided, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onOtherDeviceLogin(_:)), name: OtherDeviceLoginChicagoServer, object: nil)
     }
     
     private var launchScr:UIView!
@@ -106,8 +107,8 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     
     private func go()
     {
-        ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "initServicesFailed:", name: ServiceContainer.ServiceInitFailed, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(MainNavigationController.allServicesReady(_:)), name: ServiceContainer.OnAllServicesReady, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(MainNavigationController.initServicesFailed(_:)), name: ServiceContainer.OnServiceInitFailed, object: nil)
         if UserSetting.isUserLogined
         {
             if ServiceContainer.isAllServiceReady
@@ -127,7 +128,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     let screenWaitTimeInterval = 0.3
     private func showSignView()
     {
-        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: "waitTimeShowSignView:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: #selector(MainNavigationController.waitTimeShowSignView(_:)), userInfo: nil, repeats: false)
     }
     
     func waitTimeShowSignView(_:AnyObject?)
@@ -137,7 +138,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     
     private func showMainView()
     {
-        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: "waitTimeShowMainView:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(screenWaitTimeInterval, target: self, selector: #selector(MainNavigationController.waitTimeShowMainView(_:)), userInfo: nil, repeats: false)
     }
     
     func waitTimeShowMainView(_:AnyObject?)

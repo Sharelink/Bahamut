@@ -26,7 +26,7 @@ class ShareChatHub : NSNotificationCenter
     var me:Sharelinker!
     var shareId:String!{
         didSet{
-            ServiceContainer.getService(ChatService).addObserver(self, selector: "newChatModelCreated:", name: NewChatModelsCreated, object: nil)
+            ServiceContainer.getService(ChatService).addObserver(self, selector: #selector(ShareChatHub.newChatModelCreated(_:)), name: NewChatModelsCreated, object: nil)
         }
     }
     private var _chats:[ChatModel] = [ChatModel]()
@@ -64,7 +64,7 @@ class ShareChatHub : NSNotificationCenter
     
     func addChatModel(chatModel:ChatModel)
     {
-        chatModel.addObserver(self, selector: "chatModelChanged:", name: ChatModelNewMessageChanged, object: nil)
+        chatModel.addObserver(self, selector: #selector(ShareChatHub.chatModelChanged(_:)), name: ChatModelNewMessageChanged, object: nil)
         _chats.insert(chatModel, atIndex: 0)
     }
     
@@ -125,7 +125,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
         userService = ServiceContainer.getService(UserService)
         fileService = ServiceContainer.getService(FileService)
         shareService = ServiceContainer.getService(ShareService)
-        messageService.addObserver(self, selector: "receiveNewMessage:", name: ChatService.messageServiceNewMessageReceived, object: self.chatId)
+        messageService.addObserver(self, selector: #selector(ChatModel.receiveNewMessage(_:)), name: ChatService.messageServiceNewMessageReceived, object: self.chatId)
     }
     
     deinit
@@ -236,7 +236,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 {
                     items.first?.previousTime = lastMsg.timeString
                 }
-                for var i:Int = items.count - 1; i >= 0; i--
+                for i in items.count.stride(through: 0, by: -1)
                 {
                     if i > 0
                     {
@@ -269,7 +269,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             }
         }
         items = items.reverse()
-        for var i:Int = items.count - 1; i >= 0; i--
+        for i in items.count.stride(through: 0, by: -1)
         {
             if i > 0
             {

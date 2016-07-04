@@ -193,7 +193,7 @@ class ImageContent:NSObject,UIShareContentDelegate
                     img.userInteractionEnabled = true
                     img.clipsToBounds = true
                     img.contentMode = .ScaleAspectFill
-                    let tapGes = UITapGestureRecognizer(target: self, action: "onTapImageView:")
+                    let tapGes = UITapGestureRecognizer(target: self, action: #selector(ImageContent.onTapImageView(_:)))
                     img.addGestureRecognizer(tapGes)
                     imageViews.append(img)
                     

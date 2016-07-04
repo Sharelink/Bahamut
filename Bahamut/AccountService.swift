@@ -52,15 +52,15 @@ class AccountService: ServiceProtocol
     
     private func setLogined(validateResult:ValidateResult)
     {
-        UserSetting.token = validateResult.AppToken
+        UserSetting.token = validateResult.appToken
         UserSetting.isUserLogined = true
-        SharelinkSetting.shareLinkApiServer = validateResult.APIServer
-        SharelinkSetting.fileApiServer = validateResult.FileAPIServer
-        let chicagoStrs = validateResult.ChicagoServer.split(":")
+        SharelinkSetting.shareLinkApiServer = validateResult.apiServer
+        SharelinkSetting.fileApiServer = validateResult.fileAPIServer
+        let chicagoStrs = validateResult.chicagoServer.split(":")
         SharelinkSetting.chicagoServerHost = chicagoStrs[0]
         SharelinkSetting.chicagoServerHostPort = UInt16(chicagoStrs[1])!
-        UserSetting.userId = validateResult.UserId
-        ServiceContainer.instance.userLogin(validateResult.UserId)
+        UserSetting.userId = validateResult.userId
+        ServiceContainer.instance.userLogin(validateResult.userId)
     }
 
     func validateAccessToken(apiTokenServer:String, accountId:String, accessToken: String,callback:(loginSuccess:Bool,message:String)->Void,registCallback:((registApiServer:String!)->Void)! = nil)
@@ -69,11 +69,11 @@ class AccountService: ServiceProtocol
         BahamutRFKit.sharedInstance.validateAccessToken("\(apiTokenServer)/Tokens", accountId: accountId, accessToken: accessToken) { (isNewUser, error,validateResult) -> Void in
             if isNewUser
             {
-                registCallback(registApiServer:validateResult.RegistAPIServer)
+                registCallback(registApiServer:validateResult.registAPIServer)
             }else if error == nil{
                 self.setLogined(validateResult)
                 callback(loginSuccess: true, message: "")
-                MobClick.profileSignInWithPUID(validateResult.UserId)
+                MobClick.profileSignInWithPUID(validateResult.userId)
             }else{
                 callback(loginSuccess: false, message: "VALIDATE_ACCTOKEN_FAILED".localizedString())
             }

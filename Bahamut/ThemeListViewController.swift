@@ -30,7 +30,7 @@ class ThemeCell: UITableViewCell,EditThemeViewControllerDelegate
     @IBOutlet weak var themeColorView: UIView!{
         didSet{
             themeColorView.layer.cornerRadius = 7
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "modifyTheme:"))
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ThemeCell.modifyTheme(_:))))
         }
     }
     static let privateImageIcon = UIImage.namedImageInSharelink("lock")!
@@ -128,8 +128,8 @@ class ThemeListViewController: UITableViewController,EditThemeViewControllerDele
         self.initTableView()
         self.initThemes()
         self.themeService = ServiceContainer.getService(SharelinkThemeService)
-        self.themeService.addObserver(self, selector: "themesUpdated:", name: SharelinkThemeService.themesUpdated, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        self.themeService.addObserver(self, selector: #selector(ThemeListViewController.themesUpdated(_:)), name: SharelinkThemeService.themesUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(ThemeListViewController.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.changeNavigationBarColor()
     }

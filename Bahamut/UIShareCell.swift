@@ -22,7 +22,7 @@ class UIShareCell : UITableViewCell
         didSet{
             if oldValue == nil{                
                 self.userInteractionEnabled = true
-                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapCell:"))
+                self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIShareCell.tapCell(_:))))
             }
         }
     }

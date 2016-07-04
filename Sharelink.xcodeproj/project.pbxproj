@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D99806989894BE6D8FAA4C7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; };
+		43118002D82A7CDF6285D443 /* Pods_Sharelink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85689B00CE730F8A76E9E13E /* Pods_Sharelink.framework */; };
 		E708ABD11C86D2CE0071104E /* BahamutRFKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */; };
 		E708ABD21C86D2CE0071104E /* BahamutRFClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */; };
 		E708ABD31C86D2CE0071104E /* BahamutRFRequestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E708ABD01C86D2CE0071104E /* BahamutRFRequestBase.swift */; };
@@ -92,6 +92,10 @@
 		E712765D1BE2099F00CCCB3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765C1BE2099F00CCCB3F /* NotificationService.swift */; };
 		E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712765E1BE209AD00CCCB3F /* LocationService.swift */; };
 		E71276611BE20BC600CCCB3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71276601BE20BC600CCCB3F /* CoreLocation.framework */; };
+		E713E6FF1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E713E6FD1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a */; };
+		E713E7001D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E713E6FD1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a */; };
+		E713E7041D2A534F0096E99C /* CommonValueCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E713E7021D2A534F0096E99C /* CommonValueCast.swift */; };
+		E713E7051D2A534F0096E99C /* BahamutObjectSortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E713E7031D2A534F0096E99C /* BahamutObjectSortable.swift */; };
 		E71500081C3B7392009185FE /* UseTinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500071C3B7392009185FE /* UseTinkViewController.swift */; };
 		E715000A1C3B7520009185FE /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71500091C3B7520009185FE /* UserSetting.swift */; };
 		E71717451C5713F30097AF64 /* ALBBFullSecurityGuard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71717381C5713F30097AF64 /* ALBBFullSecurityGuard.framework */; };
@@ -286,7 +290,6 @@
 		E74C84181C590E8F009CF8DB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C4F2A21BCFB0470050997B /* libicucore.tbd */; };
 		E74C841C1C590E8F009CF8DB /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */; };
 		E74C841D1C590E8F009CF8DB /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70E5B3A1B66907900CEF3BA /* AVKit.framework */; };
-		E74C841F1C590E8F009CF8DB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12068C6D6B3CD72448DC90C7 /* Pods.framework */; };
 		E74C84201C590E8F009CF8DB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E717184D1C5738510097AF64 /* Security.framework */; };
 		E74C84241C590E8F009CF8DB /* defaultAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E70D11421C085BE900DC6C9A /* defaultAvatar.png */; };
 		E74C84271C590E8F009CF8DB /* Component.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71AF3171BE4EEF9000BBBF8 /* Component.storyboard */; };
@@ -407,8 +410,6 @@
 		E7D7525D1C561488002E3D40 /* ShareSDKFlatShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E7D752321C561488002E3D40 /* ShareSDKFlatShareViewUI.bundle */; };
 		E7D7525E1C561488002E3D40 /* ShareSDKFlatShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D752331C561488002E3D40 /* ShareSDKFlatShareViewUI.framework */; };
 		E7D7525F1C561488002E3D40 /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D752341C561488002E3D40 /* ShareSDKShareActionSheet.framework */; };
-		E7D752601C561488002E3D40 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D752361C561488002E3D40 /* libMobClickLibrary.a */; };
-		E7D752611C561488002E3D40 /* libUMessage_Sdk_1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D7523A1C561488002E3D40 /* libUMessage_Sdk_1.2.0.a */; };
 		E7D752E91C562FEA002E3D40 /* ChatFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7D751FA1C561488002E3D40 /* ChatFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7D752ED1C5633C0002E3D40 /* ChatAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */; };
 		E7D8DCDA1BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */; };
@@ -465,7 +466,10 @@
 
 /* Begin PBXFileReference section */
 		12068C6D6B3CD72448DC90C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		537A4A8C190A04A29636044F /* Pods_SDKSharelink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKSharelink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85689B00CE730F8A76E9E13E /* Pods_Sharelink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sharelink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D44204FF54AD362B123864E /* Pods-Sharelink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sharelink.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sharelink/Pods-Sharelink.release.xcconfig"; sourceTree = "<group>"; };
+		C9C97F7AAA4DFC21D441ACFD /* Pods-Sharelink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sharelink.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sharelink/Pods-Sharelink.debug.xcconfig"; sourceTree = "<group>"; };
 		E708ABCC1C86D2CE0071104E /* BahamutRFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BahamutRFKit.h; sourceTree = "<group>"; };
 		E708ABCD1C86D2CE0071104E /* BahamutRFKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutRFKit.swift; sourceTree = "<group>"; };
 		E708ABCF1C86D2CE0071104E /* BahamutRFClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutRFClient.swift; sourceTree = "<group>"; };
@@ -531,6 +535,10 @@
 		E712765C1BE2099F00CCCB3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E712765E1BE209AD00CCCB3F /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E71276601BE20BC600CCCB3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E713E6FD1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
+		E713E6FE1D2A0D910096E99C /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		E713E7021D2A534F0096E99C /* CommonValueCast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonValueCast.swift; sourceTree = "<group>"; };
+		E713E7031D2A534F0096E99C /* BahamutObjectSortable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutObjectSortable.swift; sourceTree = "<group>"; };
 		E71500071C3B7392009185FE /* UseTinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseTinkViewController.swift; sourceTree = "<group>"; };
 		E71500091C3B7520009185FE /* UserSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		E715000B1C3B7B0F009185FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Component.storyboard; sourceTree = "<group>"; };
@@ -715,11 +723,6 @@
 		E7D752321C561488002E3D40 /* ShareSDKFlatShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKFlatShareViewUI.bundle; sourceTree = "<group>"; };
 		E7D752331C561488002E3D40 /* ShareSDKFlatShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKFlatShareViewUI.framework; sourceTree = "<group>"; };
 		E7D752341C561488002E3D40 /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
-		E7D752361C561488002E3D40 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		E7D752371C561488002E3D40 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
-		E7D752381C561488002E3D40 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
-		E7D7523A1C561488002E3D40 /* libUMessage_Sdk_1.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.2.0.a; sourceTree = "<group>"; };
-		E7D7523B1C561488002E3D40 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatAssets.xcassets; sourceTree = "<group>"; };
 		E7D8DCD91BA5C8CA00DB6C11 /* ThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewController.swift; sourceTree = "<group>"; };
 		E7E237DA1C998B11008FF893 /* BahamutFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutFilmView.swift; sourceTree = "<group>"; };
@@ -740,7 +743,6 @@
 		E7FDBAB31BC4C1A90017BCEF /* WebAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAssets; sourceTree = "<group>"; };
 		E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		E7FF29361C5110DE00F95FE5 /* SRCModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCModels.swift; sourceTree = "<group>"; };
-		EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -771,10 +773,10 @@
 				E74C84121C590E8F009CF8DB /* ChatFramework.framework in Frameworks */,
 				E74C84161C590E8F009CF8DB /* libstdc++.tbd in Frameworks */,
 				E74C84171C590E8F009CF8DB /* AudioToolbox.framework in Frameworks */,
+				E713E7001D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a in Frameworks */,
 				E74C84181C590E8F009CF8DB /* libicucore.tbd in Frameworks */,
 				E74C841C1C590E8F009CF8DB /* JavaScriptCore.framework in Frameworks */,
 				E74C841D1C590E8F009CF8DB /* AVKit.framework in Frameworks */,
-				E74C841F1C590E8F009CF8DB /* Pods.framework in Frameworks */,
 				E74C84201C590E8F009CF8DB /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -783,7 +785,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7D752611C561488002E3D40 /* libUMessage_Sdk_1.2.0.a in Frameworks */,
 				E72949B21BF4A0ED005B7B3A /* CoreTelephony.framework in Frameworks */,
 				E717174F1C5713F30097AF64 /* UTMini.framework in Frameworks */,
 				E7D752571C561488002E3D40 /* TencentOpenAPI.framework in Frameworks */,
@@ -793,6 +794,7 @@
 				E72949AA1BF4936E005B7B3A /* Photos.framework in Frameworks */,
 				E7D7524A1C561488002E3D40 /* FacebookConnection.framework in Frameworks */,
 				E717174C1C5713F30097AF64 /* TAESDK.framework in Frameworks */,
+				E713E6FF1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a in Frameworks */,
 				E708CD1C1BC8C09F000ADD1B /* CoreGraphics.framework in Frameworks */,
 				E72949A71BF49209005B7B3A /* CoreMedia.framework in Frameworks */,
 				E72949A51BF49201005B7B3A /* AssetsLibrary.framework in Frameworks */,
@@ -828,27 +830,26 @@
 				E7C4F2A71BCFB0660050997B /* libstdc++.tbd in Frameworks */,
 				E7CB5CEE1BFAFEEE00098DD4 /* AudioToolbox.framework in Frameworks */,
 				E7C4F2A31BCFB0470050997B /* libicucore.tbd in Frameworks */,
-				E7D752601C561488002E3D40 /* libMobClickLibrary.a in Frameworks */,
 				E7D7525B1C561488002E3D40 /* libWeChatSDK.a in Frameworks */,
 				E7D7524B1C561488002E3D40 /* MailConnection.framework in Frameworks */,
 				E7FDBAB61BC4EC560017BCEF /* JavaScriptCore.framework in Frameworks */,
 				E70E5B3B1B66907900CEF3BA /* AVKit.framework in Frameworks */,
 				E7D7525F1C561488002E3D40 /* ShareSDKShareActionSheet.framework in Frameworks */,
-				6D99806989894BE6D8FAA4C7 /* Pods.framework in Frameworks */,
 				E7171AA61C5747D50097AF64 /* Security.framework in Frameworks */,
 				E71717461C5713F30097AF64 /* ALBBHotpatch.framework in Frameworks */,
 				E7D7525E1C561488002E3D40 /* ShareSDKFlatShareViewUI.framework in Frameworks */,
+				43118002D82A7CDF6285D443 /* Pods_Sharelink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A86D96ED0EE82317F95B25D /* Pods */ = {
+		4F9326AFD26BF9EDEB0ABEA9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */,
-				56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */,
+				C9C97F7AAA4DFC21D441ACFD /* Pods-Sharelink.debug.xcconfig */,
+				8D44204FF54AD362B123864E /* Pods-Sharelink.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -882,6 +883,8 @@
 				E708CD1B1BC8C09F000ADD1B /* CoreGraphics.framework */,
 				E7FDBAB51BC4EC560017BCEF /* JavaScriptCore.framework */,
 				12068C6D6B3CD72448DC90C7 /* Pods.framework */,
+				537A4A8C190A04A29636044F /* Pods_SDKSharelink.framework */,
+				85689B00CE730F8A76E9E13E /* Pods_Sharelink.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1062,6 +1065,15 @@
 			name = DeveloperPanel;
 			sourceTree = "<group>";
 		};
+		E713E6FC1D2A0D910096E99C /* UMessageSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E713E6FD1D2A0D910096E99C /* libUMessage_Sdk_1.3.0.a */,
+				E713E6FE1D2A0D910096E99C /* UMessage.h */,
+			);
+			path = UMessageSDK;
+			sourceTree = "<group>";
+		};
 		E71500061C3B733D009185FE /* UISettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1181,6 +1193,8 @@
 			isa = PBXGroup;
 			children = (
 				E762344E1C0BF5530083E281 /* Base64 */,
+				E713E7021D2A534F0096E99C /* CommonValueCast.swift */,
+				E713E7031D2A534F0096E99C /* BahamutObjectSortable.swift */,
 				E76234511C0BF5530083E281 /* DateHelper.swift */,
 				E762344D1C0BF5530083E281 /* ArrayUtil.swift */,
 				E76234521C0BF5530083E281 /* IDUtil.swift */,
@@ -1361,9 +1375,9 @@
 			isa = PBXGroup;
 			children = (
 				E7A62FE21B6609A500F28D73 /* Sharelink */,
-				7A86D96ED0EE82317F95B25D /* Pods */,
 				D1311D6FD64F106598012550 /* Frameworks */,
 				E7A62FE11B6609A500F28D73 /* Products */,
+				4F9326AFD26BF9EDEB0ABEA9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1548,11 +1562,10 @@
 		E7D751F71C561488002E3D40 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				E713E6FC1D2A0D910096E99C /* UMessageSDK */,
 				E71717371C5713F30097AF64 /* QuPaiSDK */,
 				E7D751F81C561488002E3D40 /* ChatFramework */,
 				E7D752091C561488002E3D40 /* ShareSDK */,
-				E7D752351C561488002E3D40 /* Umeng */,
-				E7D752391C561488002E3D40 /* UMessage_Sdk_1.2.0 */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -1662,25 +1675,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		E7D752351C561488002E3D40 /* Umeng */ = {
-			isa = PBXGroup;
-			children = (
-				E7D752361C561488002E3D40 /* libMobClickLibrary.a */,
-				E7D752371C561488002E3D40 /* MobClick.h */,
-				E7D752381C561488002E3D40 /* MobClickSocialAnalytics.h */,
-			);
-			path = Umeng;
-			sourceTree = "<group>";
-		};
-		E7D752391C561488002E3D40 /* UMessage_Sdk_1.2.0 */ = {
-			isa = PBXGroup;
-			children = (
-				E7D7523A1C561488002E3D40 /* libUMessage_Sdk_1.2.0.a */,
-				E7D7523B1C561488002E3D40 /* UMessage.h */,
-			);
-			path = UMessage_Sdk_1.2.0;
-			sourceTree = "<group>";
-		};
 		E7E237D91C998B11008FF893 /* BahamutFilmView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1740,12 +1734,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E74C84501C590E8F009CF8DB /* Build configuration list for PBXNativeTarget "SDKSharelink" */;
 			buildPhases = (
-				E74C83591C590E8F009CF8DB /* Check Pods Manifest.lock */,
 				E74C835A1C590E8F009CF8DB /* Sources */,
 				E74C83EB1C590E8F009CF8DB /* Frameworks */,
 				E74C84231C590E8F009CF8DB /* Resources */,
-				E74C844C1C590E8F009CF8DB /* Embed Pods Frameworks */,
-				E74C844D1C590E8F009CF8DB /* Copy Pods Resources */,
 				E74C844E1C590E8F009CF8DB /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -1761,14 +1752,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E7A630021B6609A500F28D73 /* Build configuration list for PBXNativeTarget "Sharelink" */;
 			buildPhases = (
-				94168F7710FC70B9633834AA /* Check Pods Manifest.lock */,
+				7C402393A79C1C2CBDFC654F /* 📦 Check Pods Manifest.lock */,
 				E7A62FDC1B6609A500F28D73 /* Sources */,
 				E7A62FDD1B6609A500F28D73 /* Frameworks */,
 				E7A62FDE1B6609A500F28D73 /* Resources */,
-				D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */,
-				5E5B533462BB1C9FCE028608 /* Copy Pods Resources */,
 				E7D751E61C560FAF002E3D40 /* Embed Frameworks */,
 				E736964E1C5A4570009AEC62 /* ShellScript */,
+				0AD5AD07458BC224E2DD91FE /* 📦 Embed Pods Frameworks */,
+				BBBD44B2B40A40F07F6DB7B5 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1899,29 +1890,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5E5B533462BB1C9FCE028608 /* Copy Pods Resources */ = {
+		0AD5AD07458BC224E2DD91FE /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sharelink/Pods-Sharelink-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		94168F7710FC70B9633834AA /* Check Pods Manifest.lock */ = {
+		7C402393A79C1C2CBDFC654F /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1929,19 +1920,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D28A50F4C8BC5250128327F8 /* Embed Pods Frameworks */ = {
+		BBBD44B2B40A40F07F6DB7B5 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sharelink/Pods-Sharelink-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E736964E1C5A4570009AEC62 /* ShellScript */ = {
@@ -1956,51 +1947,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\nif [ $ARCHS = 'x86_64' -o $CONFIGURATION = 'Debug' ]\nthen\n    exit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
-		};
-		E74C83591C590E8F009CF8DB /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E74C844C1C590E8F009CF8DB /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E74C844D1C590E8F009CF8DB /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2161,6 +2107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E70A5AE71C174870001C0A47 /* ShareChatEntity.swift in Sources */,
+				E713E7041D2A534F0096E99C /* CommonValueCast.swift in Sources */,
 				E7D7518C1C55C75D002E3D40 /* SharelinkExtensions.swift in Sources */,
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
@@ -2245,6 +2192,7 @@
 				E790BCEB1B67414300D5426B /* UIShareThing.swift in Sources */,
 				E76234561C0BF5530083E281 /* MF_Base64Additions.m in Sources */,
 				E76234571C0BF5530083E281 /* DateHelper.swift in Sources */,
+				E713E7051D2A534F0096E99C /* BahamutObjectSortable.swift in Sources */,
 				E76234851C0C34770083E281 /* UrlShareContent.swift in Sources */,
 				E7C006C51C2DB1AB005CB638 /* NewShareImageCell.swift in Sources */,
 				E70A5AD91C174870001C0A47 /* FileType.swift in Sources */,
@@ -2421,7 +2369,6 @@
 /* Begin XCBuildConfiguration section */
 		E74C84511C590E8F009CF8DB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
@@ -2448,6 +2395,8 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessageSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2477,7 +2426,6 @@
 		};
 		E74C84521C590E8F009CF8DB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
@@ -2503,6 +2451,8 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessageSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -2630,7 +2580,7 @@
 		};
 		E7A630031B6609A500F28D73 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAA9324D62B459B4C6CC6210 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C9C97F7AAA4DFC21D441ACFD /* Pods-Sharelink.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2650,13 +2600,18 @@
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/QQConnectSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/UI",
+					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"APP_VERSION=1",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics\"",
+				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
@@ -2667,8 +2622,7 @@
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessageSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -2689,6 +2643,8 @@
 					"\"$CONFIGURATION_BUILD_DIR/MBProgressHUD.framework/Headers\"",
 					"-iquote",
 					"\"$CONFIGURATION_BUILD_DIR/MJRefresh.framework/Headers\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2718,7 +2674,7 @@
 		};
 		E7A630041B6609A500F28D73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56B0F0D44FA2545D49ED69C4 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 8D44204FF54AD362B123864E /* Pods-Sharelink.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2737,13 +2693,18 @@
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/QQConnectSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/UI",
+					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"APP_VERSION=1",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics\"",
+				);
 				INFOPLIST_FILE = Bahamut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
@@ -2754,8 +2715,7 @@
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/Bahamut/Libs/Umeng",
-					"$(PROJECT_DIR)/Bahamut/Libs/UMessage_Sdk_1.2.0",
+					"$(PROJECT_DIR)/Bahamut/Libs/UMessageSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

@@ -182,7 +182,7 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
                 if CGRectContainsRect(scanFrame, obj.bounds) {
                     
-                    if currentDetectedCount++ > maxDetectedCount {
+                    if currentDetectedCount > maxDetectedCount {
                         session.stopRunning()
                         
                         completedCallBack!(stringValue: codeObject.stringValue)
@@ -191,6 +191,7 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
                             removeAllLayers()
                         }
                     }
+                    currentDetectedCount += 1
                     
                     // transform codeObject
                     drawCodeCorners(previewLayer.transformedMetadataObjectForMetadataObject(codeObject) as! AVMetadataMachineReadableCodeObject)
@@ -233,11 +234,12 @@ public class QRCode: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         var point = CGPoint()
         
         var index = 0
-        CGPointMakeWithDictionaryRepresentation((points[index++] as! CFDictionary), &point)
+        CGPointMakeWithDictionaryRepresentation((points[index] as! CFDictionary), &point)
         path.moveToPoint(point)
-        
+        index += 1
         while index < points.count {
-            CGPointMakeWithDictionaryRepresentation((points[index++] as! CFDictionary), &point)
+            CGPointMakeWithDictionaryRepresentation((points[index] as! CFDictionary), &point)
+            index += 1
             path.addLineToPoint(point)
         }
         path.closePath()

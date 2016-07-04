@@ -30,7 +30,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         didSet{
             refreshButton.titleLabel?.text = "LOAD_IMG_ERROR".localizedString()
             refreshButton.hidden = true
-            refreshButton.addTarget(self, action: "refreshButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            refreshButton.addTarget(self, action: #selector(UIFetchImageView.refreshButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(refreshButton)
         }
     }
@@ -96,7 +96,7 @@ class UIFetchImageView: UIScrollView,UIScrollViewDelegate
         self.minimumZoomScale = 1
         self.maximumZoomScale = 2
         self.userInteractionEnabled = true
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: "doubleTap:")
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(UIFetchImageView.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         self.addGestureRecognizer(doubleTapGesture)
         
@@ -320,8 +320,8 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate,LoadImageOb
             scrollView.addSubview(uiImageView)
             images.append(uiImageView)
         }
-        let tapGesture = UITapGestureRecognizer(target: self, action: "tapScollView:")
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: "doubleTapScollView:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIImagePlayerController.tapScollView(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(UIImagePlayerController.doubleTapScollView(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         tapGesture.requireGestureRecognizerToFail(doubleTapGesture)
         tapGesture.delaysTouchesBegan = true
@@ -331,7 +331,7 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate,LoadImageOb
     
     private func initObserver()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStatusBarOrientation:", name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIImagePlayerController.didChangeStatusBarOrientation(_:)), name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     
     private func deinitObserver()
@@ -350,7 +350,7 @@ class UIImagePlayerController: UIViewController,UIScrollViewDelegate,LoadImageOb
         let imageWidth = svFrame.width
         let imageHeight = svFrame.height
         let pageSize = imageWidth + spaceOfItem
-        for var i:Int = 0; i < images.count;i++
+        for i:Int in 0 ..< images.count
         {
             let imageX = CGFloat(integerLiteral: i) * pageSize
             let frame = CGRectMake( imageX , 0, imageWidth, imageHeight)

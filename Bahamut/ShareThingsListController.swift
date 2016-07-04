@@ -28,14 +28,14 @@ class ShareThingsListController: UITableViewController
         fileService = ServiceContainer.getService(FileService)
         messageService = ServiceContainer.getService(ChatService)
         notificationService = ServiceContainer.getService(NotificationService)
-        ChicagoClient.sharedInstance.addObserver(self, selector: "chicagoClientStateChanged:", name: ChicagoClientStateChanged, object: nil)
+        ChicagoClient.sharedInstance.addObserver(self, selector: #selector(ShareThingsListController.chicagoClientStateChanged(_:)), name: ChicagoClientStateChanged, object: nil)
         initTableView()
         initRefresh()
         changeNavigationBarColor()
         self.shareService = ServiceContainer.getService(ShareService)
-        messageService.addObserver(self, selector: "newChatMessageReceived:", name: ChatService.messageServiceNewMessageReceived, object: nil)
-        shareService.addObserver(self, selector: "shareUpdatedReceived:", name: ShareService.shareUpdated, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        messageService.addObserver(self, selector: #selector(ShareThingsListController.newChatMessageReceived(_:)), name: ChatService.messageServiceNewMessageReceived, object: nil)
+        shareService.addObserver(self, selector: #selector(ShareThingsListController.shareUpdatedReceived(_:)), name: ShareService.shareUpdated, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(ShareThingsListController.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
         refresh()
     }
     

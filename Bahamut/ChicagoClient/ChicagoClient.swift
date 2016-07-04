@@ -122,21 +122,23 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         
         socket = AsyncSocket()
         socket.setDelegate(self)
-        self.addChicagoObserver(ChicagoClientCommonRoute.validationRoute, observer: self, selector: "onValidationReturn:")
-        self.addChicagoObserver(ChicagoClientCommonRoute.logoutRoute, observer: self, selector: "onLogoutReturn:")
-        self.addChicagoObserver(ChicagoClientCommonRoute.heartBeatRoute, observer: self, selector: "onHeartBeatReturn:")
-        self.addChicagoObserver(ChicagoClientCommonRoute.otherDeviceLoginRoute, observer: self, selector: "onOtherDeviceLogin:")
-        self.addChicagoObserver(ChicagoClientCommonRoute.bahamutAppNotificationRoute, observer: self, selector: "onBahamutAppNotification:")
+        self.addChicagoObserver(ChicagoClientCommonRoute.validationRoute, observer: self, selector: #selector(ChicagoClient.onValidationReturn(_:)))
+        self.addChicagoObserver(ChicagoClientCommonRoute.logoutRoute, observer: self, selector: #selector(ChicagoClient.onLogoutReturn(_:)))
+        self.addChicagoObserver(ChicagoClientCommonRoute.heartBeatRoute, observer: self, selector: #selector(ChicagoClient.onHeartBeatReturn(_:)))
+        self.addChicagoObserver(ChicagoClientCommonRoute.otherDeviceLoginRoute, observer: self, selector: #selector(ChicagoClient.onOtherDeviceLogin(_:)))
+        self.addChicagoObserver(ChicagoClientCommonRoute.bahamutAppNotificationRoute, observer: self, selector: #selector(ChicagoClient.onBahamutAppNotification(_:)))
     }
     
     func startHeartBeat()
     {
-        ChicagoClient.heartBeatTimer = NSTimer.scheduledTimerWithTimeInterval(ChicagoClient.heartBeatInterval, target: self, selector: "heartBeat:", userInfo: nil, repeats: true)
+        ChicagoClient.heartBeatTimer = NSTimer.scheduledTimerWithTimeInterval(ChicagoClient.heartBeatInterval, target: self, selector: #selector(ChicagoClient.heartBeat(_:)), userInfo: nil, repeats: true)
     }
     
     private func incTag() -> Int
     {
-        return tag++
+        let t = tag
+        tag += 1
+        return t
     }
     
     private func sendMessage(data:NSData) -> Int

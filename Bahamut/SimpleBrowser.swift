@@ -31,10 +31,10 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SimpleBrowser.swipeLeft(_:)))
         leftSwipe.direction = .Left
         
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "swipeRight:")
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SimpleBrowser.swipeRight(_:)))
         rightSwipe.direction = .Right
         
         self.webView.addGestureRecognizer(leftSwipe)

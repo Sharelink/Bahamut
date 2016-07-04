@@ -23,13 +23,12 @@
 #import <ChatFramework/ChatFramework.h>
 
 #ifdef APP_VERSION
+#import "UMMobClick/MobClick.h"
 #import "UMessage.h"
 #import <ShareSDK/ShareSDK.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
-#import "MobClick.h"
-#import "MobClickSocialAnalytics.h"
 #import <TAESDK/TaeSDK.h>
 #import <ALBBQuPaiPlugin/ALBBQuPaiPluginPluginServiceProtocol.h>
 #import <ALBBQuPaiPlugin/QPEffect.h>
@@ -37,4 +36,4 @@
 #import "TaeSDKExtension.h"
 #endif
 
-#endif /* Bahamut_Bridging_Header_h */
+#endif

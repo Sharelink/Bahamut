@@ -57,13 +57,13 @@ class UIShareThing: UIShareCell
         didSet{
             avatarImageView.layer.cornerRadius = 7
             avatarImageView.userInteractionEnabled = true
-            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIShareThing.showAvatar(_:))))
         }
     }
     @IBOutlet weak var userNicknameLabel: UILabel!{
         didSet{
             userNicknameLabel.userInteractionEnabled = true
-            userNicknameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
+            userNicknameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIShareThing.showUserProfile(_:))))
         }
     }
     @IBOutlet weak var shareButton: UIButton!{

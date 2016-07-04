@@ -39,12 +39,12 @@ class ChatService:NSNotificationCenter,ServiceProtocol
         let route = ChicagoRoute()
         route.ExtName = "NotificationCenter"
         route.CmdName = "UsrNewMsg"
-        ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: "newMessage:")
+        ChicagoClient.sharedInstance.addChicagoObserver(route, observer: self, selector: #selector(ChatService.newMessage(_:)))
         
         let chatServerChangedRoute = ChicagoRoute()
         chatServerChangedRoute.ExtName = "NotificationCenter"
         route.CmdName = "ChatServerChanged"
-        ChicagoClient.sharedInstance.addChicagoObserver(chatServerChangedRoute, observer: self, selector: "chatServerChanged:")
+        ChicagoClient.sharedInstance.addChicagoObserver(chatServerChangedRoute, observer: self, selector: #selector(ChatService.chatServerChanged(_:)))
         
         self.setServiceReady()
         self.getMessageFromServer()

@@ -162,10 +162,10 @@ class NewShareController: UITableViewController
     
     private func initObservers()
     {
-        self.shareService.addObserver(self, selector: "sharePosted:", name: ShareService.newSharePosted, object: nil)
-        self.shareService.addObserver(self, selector: "sharePostFailed:", name: ShareService.newSharePostFailed, object: nil)
-        self.shareService.addObserver(self, selector: "startPostingShare:", name: ShareService.startPostingShare, object: nil)
-        ServiceContainer.instance.addObserver(self, selector: "onServiceLogout:", name: ServiceContainer.OnServicesWillLogout, object: nil)
+        self.shareService.addObserver(self, selector: #selector(NewShareController.sharePosted(_:)), name: ShareService.newSharePosted, object: nil)
+        self.shareService.addObserver(self, selector: #selector(NewShareController.sharePostFailed(_:)), name: ShareService.newSharePostFailed, object: nil)
+        self.shareService.addObserver(self, selector: #selector(NewShareController.startPostingShare(_:)), name: ShareService.startPostingShare, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(NewShareController.onServiceLogout(_:)), name: ServiceContainer.OnServicesWillLogout, object: nil)
     }
     
     func onServiceLogout(sender:AnyObject)
@@ -182,18 +182,18 @@ class NewShareController: UITableViewController
     func sharePosted(a:NSNotification)
     {
         self.playCheckMark("POST_SHARE_SUC".localizedString())
-        self.titleView.shareQueue--
+        self.titleView.shareQueue -= 1
     }
     
     func sharePostFailed(a:NSNotification)
     {
         self.playCrossMark("POST_SHARE_FAILED".localizedString())
-        self.titleView.shareQueue--
+        self.titleView.shareQueue -= 1
     }
     
     func startPostingShare(a:NSNotification)
     {
-        titleView.shareQueue++
+        titleView.shareQueue += 1
         self.playCheckMark("SHARING".localizedString())
     }
     

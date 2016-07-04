@@ -21,7 +21,7 @@ class UrlContentView:UIView
         if titleLable == nil
         {
             self.backgroundColor = UIColor.headerColor
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTapTitleLable:"))
+            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UrlContentView.onTapTitleLable(_:))))
             titleLable = UILabel()
             titleLable.textAlignment = .Left
             titleLable.numberOfLines = 2
@@ -74,7 +74,7 @@ extension SimpleBrowser
     static func openUrlWithShare(currentViewController: UINavigationController,url:String)
     {
         let broswer = self.openUrl(currentViewController, url: url)
-        let btn = UIBarButtonItem(image: UIImage.namedImageInSharelink("share_icon"), style: .Plain, target: broswer, action: "shareUrl:")
+        let btn = UIBarButtonItem(image: UIImage.namedImageInSharelink("share_icon"), style: .Plain, target: broswer, action: #selector(SimpleBrowser.shareUrl(_:)))
         broswer.navigationItem.rightBarButtonItem = btn
     }
     

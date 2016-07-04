@@ -58,7 +58,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
         self.view.backgroundColor = UIColor.whiteColor()
         webPageView = UIWebView(frame: self.view.bounds)
         setBackgroundView()
-        ServiceContainer.instance.addObserver(self, selector: "allServicesReady:", name: ServiceContainer.AllServicesReady, object: nil)
+        ServiceContainer.instance.addObserver(self, selector: #selector(SignInViewController.allServicesReady(_:)), name: ServiceContainer.OnAllServicesReady, object: nil)
         loginAccountId = UserSetting.lastLoginAccountId
         refreshWebView()
     }
@@ -87,8 +87,8 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillShow:", name:UIKeyboardWillShowNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillHide:", name:UIKeyboardWillHideNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SignInViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SignInViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object:nil)
         if developerShown
         {
             developerShown = false
@@ -259,7 +259,7 @@ class SignInViewController: UIViewController,UIWebViewDelegate,SignInViewControl
             hud.hide(true)
             if isSuc
             {
-                self.validateToken(loginResult.AppServiceUrl, accountId: loginResult.AccountID, accessToken: loginResult.AccessToken)
+                self.validateToken(loginResult.appServiceUrl, accountId: loginResult.accountID, accessToken: loginResult.accessToken)
             }else
             {
                 self.playToast(errorMsg.localizedString())

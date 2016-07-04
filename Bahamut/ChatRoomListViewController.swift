@@ -65,7 +65,7 @@ class ChatRoomListViewController: UIViewController ,UITableViewDataSource, UITab
             {
                 oldValue.removeObserver(self)
             }
-            shareChat.addObserver(self, selector: "chatHubNewMessageChanged:", name: ShareChatHubNewMessageChanged, object: nil)
+            shareChat.addObserver(self, selector: #selector(ChatRoomListViewController.chatHubNewMessageChanged(_:)), name: ShareChatHubNewMessageChanged, object: nil)
         }
     }
     

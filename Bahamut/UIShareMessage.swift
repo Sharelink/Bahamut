@@ -16,7 +16,7 @@ class UIShareMessage:UIShareCell
     @IBOutlet weak var noteNameLabel: UILabel!{
         didSet{
             noteNameLabel.userInteractionEnabled = true
-            noteNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showUserProfile:"))
+            noteNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIShareMessage.showUserProfile(_:))))
             
         }
     }
@@ -24,7 +24,7 @@ class UIShareMessage:UIShareCell
         didSet{
             avatarImageView.layer.cornerRadius = 7
             avatarImageView.userInteractionEnabled = true
-            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "showAvatar:"))
+            avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIShareMessage.showAvatar(_:))))
         }
     }
     @IBOutlet weak var messageLabel: UILabel!
