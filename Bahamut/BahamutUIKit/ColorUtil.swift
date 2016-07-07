@@ -27,8 +27,9 @@ struct ColorSets
     static let footerColor = UIColor(colorLiteralRed: 0.92, green: 0.92, blue: 0.92, alpha: 1)
     
     static var themeColor = UIColor(hexString: "#438ccb")
-    static var navicationBarColor = UIColor(hexString: "#438ccb")
-    static var navicationBarTintColor = UIColor.whiteColor()
+    static var navBarBcgColor = UIColor(hexString: "#438ccb")
+    static var navBarTintColor = UIColor.whiteColor()
+    static var navBarTitleColor = UIColor.whiteColor()
 }
 
 
@@ -46,12 +47,16 @@ extension UIColor
         return ColorSets.themeColor
     }
     
-    static var navicationBarColor:UIColor{
-        return ColorSets.navicationBarColor
+    static var navBarBcgColor:UIColor{
+        return ColorSets.navBarBcgColor
     }
     
-    static var navicationBarTintColor:UIColor{
-        return ColorSets.navicationBarTintColor
+    static var navBarTintColor:UIColor{
+        return ColorSets.navBarTintColor
+    }
+    
+    static var navBarTitleColor:UIColor{
+        return ColorSets.navBarTitleColor
     }
     
     static func getRondomColorIn(colors:[UIColor]) -> UIColor

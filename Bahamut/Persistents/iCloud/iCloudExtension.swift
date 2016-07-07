@@ -51,6 +51,6 @@ class iCloudExtension:NSObject,iCloudDocumentDelegate,iCloudDelegate,PersistentE
     }
     
     func iCloudDocumentErrorOccured(error: NSError!) {
-        
+        NSLog("iCloud", error.description)
     }
 }

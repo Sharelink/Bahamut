@@ -29,13 +29,14 @@ extension UIViewController
 {
     func changeNavigationBarColor()
     {
-        self.navigationController?.navigationBar.barTintColor = UIColor.navicationBarColor
-        self.navigationController?.navigationBar.tintColor = UIColor.navicationBarTintColor
+        self.navigationController?.navigationBar.barTintColor = UIColor.navBarBcgColor
+        self.navigationController?.navigationBar.tintColor = UIColor.navBarTintColor
         
         if let nav = self as? UINavigationController
         {
-            nav.navigationBar.barTintColor = UIColor.navicationBarColor
-            nav.navigationBar.tintColor = UIColor.navicationBarTintColor
+            nav.navigationBar.barTintColor = UIColor.navBarBcgColor
+            nav.navigationBar.tintColor = UIColor.navBarTintColor
+
         }
     }
 }

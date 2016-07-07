@@ -236,7 +236,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
                 {
                     items.first?.previousTime = lastMsg.timeString
                 }
-                for i in items.count.stride(through: 0, by: -1)
+                for i in (items.count - 1).stride(through: 0, by: -1)
                 {
                     if i > 0
                     {
@@ -269,7 +269,7 @@ class ChatModel : NSNotificationCenter,UUMegItemDataSource
             }
         }
         items = items.reverse()
-        for i in items.count.stride(through: 0, by: -1)
+        for i in (items.count - 1).stride(through: 0, by: -1)
         {
             if i > 0
             {

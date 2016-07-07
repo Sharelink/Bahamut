@@ -106,9 +106,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         }
     }
     
-    let fileService = {
-        return ServiceContainer.getService(FileService)
-    }()
+    var fileService:FileService!
     var userProfileModel:Sharelinker!
     var isMyProfile:Bool{
         return userProfileModel.userId == ServiceContainer.getService(UserService).myUserId
@@ -117,6 +115,7 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
     //MARK: init
     override func viewDidLoad() {
         super.viewDidLoad()
+        fileService = ServiceContainer.getService(FileService)
         initProfileVideoView()
         initThemes()
     }

@@ -72,7 +72,7 @@ public extension Array
     {
         var i = 0
         self.forEach { (element) -> () in
-            body(i: i + 1, element: element)
+            body(i: i, element: element)
             i += 1
         }
     }

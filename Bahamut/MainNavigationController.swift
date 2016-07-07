@@ -19,7 +19,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ServiceContainer.instance.initContainer(SharelinkConfig.appName, services: ServiceConfig.Services)
+        ServiceContainer.instance.initContainer("Sharelink", services: ServiceConfig.Services)
         setWaitingScreen()
         ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onAppTokenInvalid(_:)), name: AppTokenInvalided, object: nil)
         ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onOtherDeviceLogin(_:)), name: OtherDeviceLoginChicagoServer, object: nil)

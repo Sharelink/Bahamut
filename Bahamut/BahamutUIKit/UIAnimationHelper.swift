@@ -11,6 +11,14 @@ import QuartzCore
 
 extension UIView
 {
+    func startFlash(duration:NSTimeInterval = 0.8) {
+        UIAnimationHelper.flashView(self, duration: duration)
+    }
+    
+    func stopFlash() {
+        UIAnimationHelper.stopFlashView(self)
+    }
+    
     func shakeAnimationForView(repeatTimes:Float = 3,completion:AnimationCompletedHandler! = nil)
     {
         UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes,completion: completion)
@@ -159,5 +167,22 @@ class UIAnimationHelper {
             UIAnimationHelper.instance.animationCompleted[view] = handler
         }
         view.layer.addAnimation(animation, forKey: key)
+    }
+    
+    static func flashView(view:UIView,duration:NSTimeInterval = 0.8) {
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 1.0
+        animation.toValue = 0.0
+        animation.autoreverses = true
+        animation.duration = duration
+        animation.repeatCount = MAXFLOAT
+        animation.removedOnCompletion = false
+        animation.fillMode = kCAFillModeForwards
+        animation.timingFunction=CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        view.layer.addAnimation(animation, forKey: "Flash")
+    }
+    
+    static func stopFlashView(view:UIView) {
+        view.layer.removeAnimationForKey("Flash")
     }
 }
