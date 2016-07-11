@@ -427,6 +427,7 @@
 		E7ED39041C91BCC1002126F4 /* BahamutTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */; };
 		E7ED39051C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */; };
 		E7ED39061C91BCC1002126F4 /* ProgressTaskWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */; };
+		E7F1BB361D33401D00D1C899 /* BahamutConfigJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1BB351D33401D00D1C899 /* BahamutConfigJson.swift */; };
 		E7F2F8471C27F176003C87C5 /* TextShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2F8461C27F176003C87C5 /* TextShareContent.swift */; };
 		E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
 		E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */; };
@@ -732,6 +733,7 @@
 		E7EB9A341C87F6DC002F96FB /* BahamutCmdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCmdManager.swift; sourceTree = "<group>"; };
 		E7ED39011C91BCC1002126F4 /* BahamutTaskQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutTaskQueue.swift; sourceTree = "<group>"; };
 		E7ED39021C91BCC1002126F4 /* ProgressTaskWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTaskWatcher.swift; sourceTree = "<group>"; };
+		E7F1BB351D33401D00D1C899 /* BahamutConfigJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutConfigJson.swift; sourceTree = "<group>"; };
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7F2F8461C27F176003C87C5 /* TextShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextShareContent.swift; sourceTree = "<group>"; };
 		E7F7F1D01C52116800E6D117 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1417,6 +1419,7 @@
 				E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */,
 				E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */,
 				E7450E1C1C5E2C2100212C1D /* StartupThemes.conf */,
+				E7F1BB351D33401D00D1C899 /* BahamutConfigJson.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1752,14 +1755,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E7A630021B6609A500F28D73 /* Build configuration list for PBXNativeTarget "Sharelink" */;
 			buildPhases = (
-				7C402393A79C1C2CBDFC654F /* 📦 Check Pods Manifest.lock */,
+				7C402393A79C1C2CBDFC654F /* [CP] Check Pods Manifest.lock */,
 				E7A62FDC1B6609A500F28D73 /* Sources */,
 				E7A62FDD1B6609A500F28D73 /* Frameworks */,
 				E7A62FDE1B6609A500F28D73 /* Resources */,
 				E7D751E61C560FAF002E3D40 /* Embed Frameworks */,
 				E736964E1C5A4570009AEC62 /* ShellScript */,
-				0AD5AD07458BC224E2DD91FE /* 📦 Embed Pods Frameworks */,
-				BBBD44B2B40A40F07F6DB7B5 /* 📦 Copy Pods Resources */,
+				0AD5AD07458BC224E2DD91FE /* [CP] Embed Pods Frameworks */,
+				BBBD44B2B40A40F07F6DB7B5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1890,14 +1893,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AD5AD07458BC224E2DD91FE /* 📦 Embed Pods Frameworks */ = {
+		0AD5AD07458BC224E2DD91FE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1905,14 +1908,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sharelink/Pods-Sharelink-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7C402393A79C1C2CBDFC654F /* 📦 Check Pods Manifest.lock */ = {
+		7C402393A79C1C2CBDFC654F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1920,14 +1923,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BBBD44B2B40A40F07F6DB7B5 /* 📦 Copy Pods Resources */ = {
+		BBBD44B2B40A40F07F6DB7B5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1946,7 +1949,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nif [ $ARCHS = 'x86_64' -o $CONFIGURATION = 'Debug' ]\nthen\n    exit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
+			shellScript = "/*\nif [ $ARCHS = 'x86_64' -o $CONFIGURATION = 'Debug' ]\nthen\nexit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n*/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2110,6 +2113,7 @@
 				E713E7041D2A534F0096E99C /* CommonValueCast.swift in Sources */,
 				E7D7518C1C55C75D002E3D40 /* SharelinkExtensions.swift in Sources */,
 				E73AD0101B8378A600EE9EA0 /* UIUserListCell.swift in Sources */,
+				E7F1BB361D33401D00D1C899 /* BahamutConfigJson.swift in Sources */,
 				E728163D1B7F1A0000A1927E /* UserProfileViewController.swift in Sources */,
 				E712765F1BE209AD00CCCB3F /* LocationService.swift in Sources */,
 				E76234591C0BF5530083E281 /* RegexUtil.swift in Sources */,
@@ -2592,6 +2596,7 @@
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Bahamut",
 					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
 					"$(PROJECT_DIR)/Bahamut/Libs/QuPaiSDK",
@@ -2600,7 +2605,6 @@
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/QQConnectSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/UI",
-					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2685,6 +2689,7 @@
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_EXTENSION = "";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Bahamut",
 					"$(PROJECT_DIR)/Bahamut/Libs/ChatFramework",
 					"$(PROJECT_DIR)/Bahamut/Libs/QuPaiSDK",
@@ -2693,7 +2698,6 @@
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/Extend/QQConnectSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK",
 					"$(PROJECT_DIR)/Bahamut/Libs/ShareSDK/UI",
-					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",

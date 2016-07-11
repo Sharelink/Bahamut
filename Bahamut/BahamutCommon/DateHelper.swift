@@ -177,36 +177,36 @@ public extension NSDate
 
 public extension NSDate
 {
-    var totalSecondsSince1970:Int{
-        return Int(timeIntervalSince1970)
+    var totalSecondsSince1970:NSNumber{
+        return NSNumber(double:timeIntervalSince1970)
     }
     
-    var totalMinutesSince1970:Int{
-        return totalSecondsSince1970 / 60
+    var totalMinutesSince1970:NSNumber{
+        return totalSecondsSince1970.doubleValue / 60
     }
     
-    var totalHoursSince1970:Int{
-        return totalMinutesSince1970 / 60
+    var totalHoursSince1970:NSNumber{
+        return totalMinutesSince1970.doubleValue / 60
     }
     
-    var totalDaysSince1970:Int{
-        return totalHoursSince1970 / 24
+    var totalDaysSince1970:NSNumber{
+        return totalHoursSince1970.doubleValue / 24
     }
     
-    var totalSecondsSinceNow:Int{
-        return Int(timeIntervalSinceNow)
+    var totalSecondsSinceNow:NSNumber{
+        return NSNumber(double: timeIntervalSinceNow)
     }
     
-    var totalMinutesSinceNow:Int{
-        return totalSecondsSinceNow / 60
+    var totalMinutesSinceNow:NSNumber{
+        return totalSecondsSinceNow.doubleValue / 60
     }
     
-    var totalHoursSinceNow:Int{
-        return totalMinutesSinceNow / 60
+    var totalHoursSinceNow:NSNumber{
+        return totalMinutesSinceNow.doubleValue / 60
     }
     
-    var totalDaysSinceNow:Int{
-        return totalHoursSinceNow / 24
+    var totalDaysSinceNow:NSNumber{
+        return totalHoursSinceNow.doubleValue / 24
     }
 }
 
@@ -283,13 +283,16 @@ public extension NSDate
         }
         else if interval < 3600
         {
-            return String(format:LocalizedString("X_MINUTES_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalMinutesSinceNow))")
+            let mins = String(format: "%.0f", abs(self.totalMinutesSinceNow.doubleValue))
+            return String(format:LocalizedString("X_MINUTES_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),mins)
         }else if interval < 3600 * 24
         {
-            return String(format:LocalizedString("X_HOURS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalHoursSinceNow))")
+            let hours = String(format: "%.0f", abs(self.totalHoursSinceNow.doubleValue))
+            return String(format:LocalizedString("X_HOURS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),hours)
         }else if interval < 3600 * 24 * 7
         {
-            return String(format:LocalizedString("X_DAYS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),"\(abs(self.totalDaysSinceNow))")
+            let days = String(format: "%.0f", abs(self.totalDaysSinceNow.doubleValue))
+            return String(format:LocalizedString("X_DAYS_AGO", tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle()),days)
         }else if formatter == nil
         {
             return self.toLocalDateString()

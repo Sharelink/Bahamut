@@ -90,7 +90,7 @@ class PersistentFileHelper
     }
     
     static func generateTmpFileName()->String{
-        return "\(Int(NSDate().timeIntervalSince1970 * 1000))_\(rand() % 100)"
+        return "\(String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000))_\(rand() % 100)"
     }
     
 }

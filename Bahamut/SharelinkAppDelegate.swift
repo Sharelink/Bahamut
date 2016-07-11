@@ -92,25 +92,8 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func configureSharelinkBundle()
     {
         Sharelink.isSDKVersion = isSDKVersion
-        loadBahamutConfig("BahamutConfig")
-    }
-    
-    private func loadBahamutConfig(configName:String)
-    {
-        if let bahamutConfigPath = Sharelink.mainBundle().pathForResource(configName, ofType: "json")
-        {
-            if let json = PersistentFileHelper.readTextFile(bahamutConfigPath)
-            {
-                let config = BahamutConfigObject(json: json)
-                SharelinkConfig.bahamutConfig = config
-            }else
-            {
-                fatalError("Load Config File Error!")
-            }
-        }else
-        {
-            fatalError("No Config File!")
-        }
+        let config = BahamutConfigObject(dictionary: BahamutConfigJson)
+        SharelinkConfig.bahamutConfig = config
     }
     
     private func configContryAndLang()

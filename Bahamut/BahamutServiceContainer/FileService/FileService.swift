@@ -162,7 +162,7 @@ class FileService: ServiceProtocol {
     
     func createLocalStoreFileName(fileType:FileType) -> String
     {
-        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(PersistentFileHelper.generateTmpFileName())\(fileType.FileSuffix)").path!
     }
     
     func getLocalStoreDirFileURLs(fileType:FileType) -> [NSURL]

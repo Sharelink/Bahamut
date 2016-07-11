@@ -80,7 +80,7 @@ class PersistentManager
     {
         if fileName == nil
         {
-            return tmpUrl.URLByAppendingPathComponent("\(Int(NSDate().timeIntervalSince1970))\(fileType.FileSuffix)").path!
+            return tmpUrl.URLByAppendingPathComponent("\(NSNumber(double:NSDate().timeIntervalSince1970).integerValue)\(fileType.FileSuffix)").path!
         }else
         {
             return tmpUrl.URLByAppendingPathComponent("\(fileName)\(fileType.FileSuffix)").path!
