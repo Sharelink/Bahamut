@@ -35,10 +35,10 @@ class BahamutConfigObject:EVObject
     var bahamutAppEmail:String!
     var bahamutAppOuterExecutorUrlPrefix:String!
     
-    var AliOssAccessKey:String!
-    var AliOssSecretKey:String!
+    var aliOssAccessKey:String!
+    var aliOssSecretKey:String!
     
-    var AppStoreId:String!
+    var appStoreId:String!
     
     var umengAppkey:String!
     var shareSDKAppkey:String!

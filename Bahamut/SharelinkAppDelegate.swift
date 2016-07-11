@@ -80,7 +80,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureAliOSSManager()
     {
-        AliOSSManager.sharedInstance.initManager(SharelinkConfig.bahamutConfig.AliOssAccessKey, aliOssSecretKey: SharelinkConfig.bahamutConfig.AliOssSecretKey)
+        AliOSSManager.sharedInstance.initManager(SharelinkConfig.bahamutConfig.aliOssAccessKey, aliOssSecretKey: SharelinkConfig.bahamutConfig.aliOssSecretKey)
     }
     
     private func configureBahamutRFKit()
