@@ -70,7 +70,7 @@ class AliOSSManager
             {
                 NSLog("OSS Upload Success")
             }else{
-                NSLog("OSS Upload Failed %@",task.error.description)
+                NSLog("OSS Upload Failed %@",task.error?.description ?? "Unknow Error")
             }
             taskCompleted(isSuc: task.error == nil)
             return nil

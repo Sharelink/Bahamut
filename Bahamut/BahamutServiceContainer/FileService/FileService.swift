@@ -38,6 +38,12 @@ extension FileService
     }
 }
 
+extension ServiceContainer{
+    static func getFileService() -> FileService{
+        return ServiceContainer.getService(FileService)
+    }
+}
+
 //MARK: FileService
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "File Service"}

@@ -75,6 +75,8 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     //MARK: properties
     var delegate:PlayerDelegate!
+    var progressDelegate:ProgressTaskDelegate!
+    
     
     private var timer:NSTimer!{
         didSet{
@@ -238,11 +240,13 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
                 self.loaded = true
                 self.clearThumb()
                 self.refreshUI()
+                self.progressDelegate?.taskCompleted(fileIdentifier, result: result)
             }else
             {
                 self.taskFailed(fileIdentifier, result: result)
                 self.refreshUI()
             }
+            
         }
         
         
@@ -250,6 +254,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     public func taskProgress(fileIdentifier: String, persent: Float) {
         self.fileProgress.setProgressValue(persent / 100)
+        self.progressDelegate?.taskProgress?(fileIdentifier, persent: persent)
     }
     
     public func taskFailed(fileIdentifier: String, result: AnyObject!)
@@ -260,6 +265,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             self.refreshButton.hidden = false
             self.playButton.hidden = true
             self.playerController.reset()
+            self.progressDelegate?.taskFailed?(fileIdentifier, result: result)
         }
         
     }
