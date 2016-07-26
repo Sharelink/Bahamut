@@ -72,7 +72,7 @@ public class BahamutRFClient : ClientProtocal
     {
         req.headers.updateValue(userId, forKey: "userId")
         req.headers.updateValue(token, forKey: "token")
-        req.version = BahamutRFKit.version
+        req.version = BahamutRFKit.appVersion
         return req
     }
     
@@ -102,9 +102,14 @@ public class BahamutRFClient : ClientProtocal
             {
                 return
             }
+            
             dispatch_async(dispatch_get_main_queue(), {
                 callback(result: response.result)
             })
+            
+            if response.response?.statusCode == 401{
+                BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
+            }
         }
         return true
     }
@@ -133,6 +138,7 @@ public class BahamutRFClient : ClientProtocal
             {
                 return
             }
+            
             let slResult = SLResult<[T]>()
             slResult.originResult = result
             if let responseCode = response?.statusCode
@@ -144,6 +150,10 @@ public class BahamutRFClient : ClientProtocal
             dispatch_async(dispatch_get_main_queue(), {
                 callback(result: slResult)
             })
+            
+            if response?.statusCode == 401{
+                BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
+            }
         }
         
         return true
@@ -183,6 +193,10 @@ public class BahamutRFClient : ClientProtocal
             dispatch_async(dispatch_get_main_queue(), {
                 callback(result: slResult)
             })
+            
+            if response?.statusCode == 401{
+                BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
+            }
         }
         return true
     }

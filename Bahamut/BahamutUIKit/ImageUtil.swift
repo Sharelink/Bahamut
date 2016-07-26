@@ -25,7 +25,7 @@ class ImageUtil
         
         gen.appliesPreferredTrackTransform = true
         
-        let time:CMTime = CMTimeMakeWithSeconds(1, asset.duration.timescale);
+        let time:CMTime = CMTimeMakeWithSeconds(1, asset.duration.timescale)
         
         do{
             let image:CGImageRef = try gen.copyCGImageAtTime(time,actualTime:nil)
@@ -104,15 +104,95 @@ extension UIImage
     func scaleToSize(asize:CGSize,quality:CGFloat = 1) -> UIImage
     {
         let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality)!)!
-        UIGraphicsBeginImageContext(asize);
-        imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height));
-        let newimage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        return newimage;
+        UIGraphicsBeginImageContext(asize)
+        imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height))
+        let newimage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newimage
     }
     
     func generateImageDataOfQuality(quality:CGFloat) -> NSData?
     {
         return UIImageJPEGRepresentation(self, quality)
+    }
+    
+}
+
+extension UIView{
+    func viewToImage()->UIImage{
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return screenshot
+    }
+}
+
+extension UIImageView{
+    
+    func convertPointFromImage(imagePoint:CGPoint) -> CGPoint? {
+        if self.image == nil{
+            return nil
+        }
+        var viewPoint = imagePoint
+        
+        let imageSize = self.image!.size
+        let viewSize  = self.bounds.size
+        
+        let ratioX = viewSize.width / imageSize.width
+        let ratioY = viewSize.height / imageSize.height
+        
+        let contentMode = self.contentMode
+        
+        var scale:CGFloat = 0
+        
+        if (contentMode == .ScaleAspectFit) {
+            scale = min(ratioX, ratioY)
+        }
+        else /*if (contentMode == UIViewContentModeScaleAspectFill)*/ {
+            scale = max(ratioX, ratioY)
+        }
+        
+        viewPoint.x *= scale
+        viewPoint.y *= scale
+        
+        viewPoint.x += (viewSize.width  - imageSize.width  * scale) / 2.0
+        viewPoint.y += (viewSize.height - imageSize.height * scale) / 2.0
+        
+        return viewPoint
+    }
+    
+    func convertRectFromImage(imageRect:CGRect) -> CGRect?{
+        if self.image == nil{
+            return nil
+        }
+        var viewRect = imageRect
+        
+        let imageSize = self.image!.size
+        let viewSize  = self.bounds.size
+        
+        let ratioX = viewSize.width / imageSize.width
+        let ratioY = viewSize.height / imageSize.height
+        
+        let contentMode = self.contentMode
+        
+        var scale:CGFloat = 0
+        
+        if (contentMode == .ScaleAspectFit) {
+            scale = min(ratioX, ratioY)
+        }
+        else /*if (contentMode == UIViewContentModeScaleAspectFill)*/ {
+            scale = max(ratioX, ratioY)
+        }
+        
+        viewRect.origin.x *= scale
+        viewRect.origin.y *= scale
+        viewRect.size.width *= scale
+        viewRect.size.height *= scale
+        
+        viewRect.origin.x += (viewSize.width  - imageSize.width  * scale) / 2.0
+        viewRect.origin.y += (viewSize.height - imageSize.height * scale) / 2.0
+        
+        return viewRect
     }
 }

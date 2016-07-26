@@ -14,10 +14,11 @@ let BahamutRFClientType = "BahamutRFClientType"
 let BahamutFireClientType = "BahamutFireClientType"
 
 //MARK: BahamutRFKit
-class BahamutRFKit
+class BahamutRFKit:NSNotificationCenter
 {
+    static let onTokenInvalidated = "onTokenInvalidated"
     static var appkey = "no_key"
-    private(set) static var version:String = "1.0"
+    private(set) static var appVersion:String = "1.0"
     private(set) var accountId:String!
     private(set) var userId:String!
     private(set) var token:String!
@@ -29,15 +30,13 @@ class BahamutRFKit
     
     private var clients:[String:ClientProtocal] = [String:ClientProtocal]()
     
-    private init(){}
-    
     static let sharedInstance: BahamutRFKit = {
         return BahamutRFKit()
     }()
     
-    static func setAppVersion(version:String)
+    static func setRFKitAppVersion(version:String)
     {
-        BahamutRFKit.version = version
+        BahamutRFKit.appVersion = version
     }
     
     func reuseApiServer(userId:String, token:String,appApiServer:String)
