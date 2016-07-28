@@ -67,16 +67,17 @@ extension FileService
         req.fileId = fileId
         let bahamutFireClient = BahamutRFKit.sharedInstance.getBahamutFireClient()
         bahamutFireClient.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
-            if let fa = result.returnObject
-            {
-                fa.saveModel()
-                self.startFetch(fa,fileTyp: fileType,callback: callback)
-            }else
-            {
-                self.fetchingFinished(fileId)
-                callback(filePath: nil)
-                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
+            if result.isSuccess{
+                if let fa = result.returnObject
+                {
+                    fa.saveModel()
+                    self.startFetch(fa,fileTyp: fileType,callback: callback)
+                    return
+                }
             }
+            self.fetchingFinished(fileId)
+            callback(filePath: nil)
+            ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
         }
         
     }

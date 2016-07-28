@@ -36,12 +36,10 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-        if playerController != nil
-        {
-            playerController.path = nil
-            playerController.reset()
-        }
+        releasePlayer()
+        #if DEBUG
+            print("BahamutFilmView Deinited")
+        #endif
     }
     
     func initControls()
@@ -73,21 +71,30 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BahamutFilmView.didChangeStatusBarOrientation(_:)), name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
     }
     
+    func releasePlayer() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        timer?.invalidate()
+        timer = nil
+        self.delegate = nil
+        playerController?.path = nil
+        playerController?.reset()
+        playerController = nil
+    }
+    
     //MARK: properties
     var delegate:PlayerDelegate!
-    var progressDelegate:ProgressTaskDelegate!
+    weak var progressDelegate:ProgressTaskDelegate!
     
     
-    private var timer:NSTimer!{
-        didSet{
-            
-        }
-    }
+    private var timer:NSTimer!
     
     var fileFetcher:FileFetcher!
     
-    private(set) var playerController:Player!{
+    weak private(set) var playerController:Player!{
         didSet{
+            if playerController == nil {
+                return
+            }
             playerController.reset()
             self.playerController.delegate = self
             self.addSubview(playerController.view)
@@ -380,11 +387,11 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     func timerTime(_:NSTimer)
     {
-        if self.playerController.playbackState != .Playing
+        if self.playerController?.playbackState != .Playing
         {
             return
         }
-        if let currentFilm = self.playerController.player.currentItem
+        if let currentFilm = self.playerController?.player?.currentItem
         {
             let a = CMTimeGetSeconds(currentFilm.currentTime())
             let b = CMTimeGetSeconds(currentFilm.duration)

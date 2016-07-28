@@ -32,7 +32,7 @@ class TaskRecord
     var result:AnyObject!
     var state = TaskState.Created
     var subTaskOfQueueTask:ProgressQueueTask!
-    var delegate:ProgressTaskDelegate!
+    weak var delegate:ProgressTaskDelegate!
 }
 
 //MARK: TO DO: finish this

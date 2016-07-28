@@ -31,7 +31,7 @@ extension UIViewController
 
 class ControllerViewAdjustByKeyboardProxy : NSObject
 {
-    private var controller:UIViewController!
+    private weak var controller:UIViewController!
     
     init(controller:UIViewController)
     {
