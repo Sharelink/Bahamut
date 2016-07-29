@@ -121,17 +121,19 @@ public class Player: UIViewController {
 
             self.setupPlayerItem(nil)
 
-            filepath = newValue
-            if NSFileManager.defaultManager().fileExistsAtPath(filepath)
-            {
-                let localURL: NSURL? = NSURL(fileURLWithPath: newValue)
-                let asset = AVURLAsset(URL: localURL!, options: .None)
-                self.setupAsset(asset)
-            }else{
-                let remoteUrl = NSURL(string: filepath)
-                let asset = AVURLAsset(URL: remoteUrl!, options: .None)
-                self.setupAsset(asset)
+            if let filepath = newValue{
+                if NSFileManager.defaultManager().fileExistsAtPath(filepath)
+                {
+                    let localURL: NSURL? = NSURL(fileURLWithPath: newValue)
+                    let asset = AVURLAsset(URL: localURL!, options: .None)
+                    self.setupAsset(asset)
+                }else{
+                    let remoteUrl = NSURL(string: filepath)
+                    let asset = AVURLAsset(URL: remoteUrl!, options: .None)
+                    self.setupAsset(asset)
+                }
             }
+            
         }
     }
     

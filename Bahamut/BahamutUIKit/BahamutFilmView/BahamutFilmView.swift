@@ -85,12 +85,11 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var delegate:PlayerDelegate!
     weak var progressDelegate:ProgressTaskDelegate!
     
-    
     private var timer:NSTimer!
     
     var fileFetcher:FileFetcher!
     
-    weak private(set) var playerController:Player!{
+    private(set) var playerController:Player!{
         didSet{
             if playerController == nil {
                 return
