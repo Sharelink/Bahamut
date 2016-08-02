@@ -86,7 +86,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     private func configureBahamutRFKit()
     {
         BahamutRFKit.appkey = SharelinkRFAppKey
-        BahamutRFKit.setAppVersion(SharelinkVersion)
+        BahamutRFKit.setRFKitAppVersion(SharelinkVersion)
     }
     
     private func configureSharelinkBundle()

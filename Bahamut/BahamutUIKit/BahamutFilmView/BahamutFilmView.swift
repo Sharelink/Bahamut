@@ -298,7 +298,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
 
     
-    private var isVideoFullScreen:Bool = false{
+    private(set) var isVideoFullScreen:Bool = false{
         didSet{
             if canSwitchToFullScreen
             {

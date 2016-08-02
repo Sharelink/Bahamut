@@ -15,14 +15,20 @@ class IdFileFetcher: FileFetcher
     func startFetch(fileId: String, delegate: ProgressTaskDelegate)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            let fileService = ServiceContainer.getService(FileService)
-            if let path = fileService.getFilePath(fileId, type: self.fileType){
-                delegate.taskCompleted(fileId, result: path)
-            }else
-            {
-                ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
-                fileService.fetchFile(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
-                })
+            if let path = NSBundle.mainBundle().pathForResource("\(fileId)", ofType:""){
+                if PersistentFileHelper.fileExists(path){
+                    delegate.taskCompleted(fileId, result: path)
+                }
+            }else{
+                let fileService = ServiceContainer.getService(FileService)
+                if let path = fileService.getFilePath(fileId, type: self.fileType){
+                    delegate.taskCompleted(fileId, result: path)
+                }else
+                {
+                    ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
+                    fileService.fetchFile(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
+                    })
+                }
             }
         }
     }

@@ -59,6 +59,23 @@ class BahamutCmdManager
         }
     }
     
+    func handleBahamutEncodedCmd(cmdEncoded:String,object:AnyObject? = nil) {
+        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
+        handleBahamutCmd(cmd,object: object)
+    }
+    
+    func handleBahamutEncodedCmdWithMainQueue(cmdEncoded:String,object:AnyObject? = nil)
+    {
+        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
+        handleBahamutCmdWithMainQueue(cmd,object: object)
+    }
+    
+    func handleBahamutEncodedCmdWithGlobalQueue(cmdEncoded:String,object:AnyObject? = nil)
+    {
+        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
+        handleBahamutCmdWithGlobalQueue(cmd, object: object)
+    }
+    
     func handleBahamutCmd(cmd:String,object:AnyObject? = nil)
     {
         

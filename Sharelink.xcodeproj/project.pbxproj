@@ -304,7 +304,6 @@
 		E74C84341C590E8F009CF8DB /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751971C55DFA7002E3D40 /* BahamutCommonLocalized.strings */; };
 		E74C84381C590E8F009CF8DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E71AF3271BE4FE11000BBBF8 /* Localizable.strings */; };
 		E74C843E1C590E8F009CF8DB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A62FF11B6609A500F28D73 /* LaunchScreen.xib */; };
-		E74C84401C590E8F009CF8DB /* BahamutConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */; };
 		E74C84451C590E8F009CF8DB /* SharelinkSRCIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7AF0CE51C4E6700007C91E2 /* SharelinkSRCIcons.xcassets */; };
 		E74C84461C590E8F009CF8DB /* ChatAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D752EC1C5633C0002E3D40 /* ChatAssets.xcassets */; };
 		E74C84471C590E8F009CF8DB /* ChatFrameworkLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */; };
@@ -430,7 +429,6 @@
 		E7F1BB361D33401D00D1C899 /* BahamutConfigJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1BB351D33401D00D1C899 /* BahamutConfigJson.swift */; };
 		E7F2F8471C27F176003C87C5 /* TextShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2F8461C27F176003C87C5 /* TextShareContent.swift */; };
 		E7F7F1D11C52116800E6D117 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7F1D01C52116800E6D117 /* AppDelegate.swift */; };
-		E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */; };
 		E7F7F32A1C524C9900E6D117 /* Entry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7F7F3291C524C9900E6D117 /* Entry.storyboard */; };
 		E7FD584F1BCBB58400E42C95 /* BahamutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */; };
 		E7FD58511BCBDB4D00E42C95 /* UIViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7FD58501BCBDB4D00E42C95 /* UIViews.xib */; };
@@ -737,7 +735,6 @@
 		E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bahamut-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7F2F8461C27F176003C87C5 /* TextShareContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextShareContent.swift; sourceTree = "<group>"; };
 		E7F7F1D01C52116800E6D117 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BahamutConfig.json; sourceTree = "<group>"; };
 		E7F7F3291C524C9900E6D117 /* Entry.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Entry.storyboard; sourceTree = "<group>"; };
 		E7FD584E1BCBB58400E42C95 /* BahamutConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutConfig.swift; sourceTree = "<group>"; };
 		E7FD58501BCBDB4D00E42C95 /* UIViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIViews.xib; sourceTree = "<group>"; };
@@ -1416,7 +1413,6 @@
 				E7F227551BC662AC0034B745 /* Bahamut-Bridging-Header.h */,
 				E7A62FE41B6609A500F28D73 /* Info.plist */,
 				E71AF3271BE4FE11000BBBF8 /* Localizable.strings */,
-				E7F7F1D21C5214B200E6D117 /* BahamutConfig.json */,
 				E7D751A11C55E64E002E3D40 /* ChatFrameworkLocalized.strings */,
 				E7450E1C1C5E2C2100212C1D /* StartupThemes.conf */,
 				E7F1BB351D33401D00D1C899 /* BahamutConfigJson.swift */,
@@ -1846,7 +1842,6 @@
 				E74C84381C590E8F009CF8DB /* Localizable.strings in Resources */,
 				E74C843E1C590E8F009CF8DB /* LaunchScreen.xib in Resources */,
 				E71059021C5BAB6A00D1C0CC /* DeveloperPanel.storyboard in Resources */,
-				E74C84401C590E8F009CF8DB /* BahamutConfig.json in Resources */,
 				E74C84451C590E8F009CF8DB /* SharelinkSRCIcons.xcassets in Resources */,
 				E74C84461C590E8F009CF8DB /* ChatAssets.xcassets in Resources */,
 				E74C84471C590E8F009CF8DB /* ChatFrameworkLocalized.strings in Resources */,
@@ -1876,7 +1871,6 @@
 				E71AF3251BE4FE11000BBBF8 /* Localizable.strings in Resources */,
 				E7D752581C561488002E3D40 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E7A62FF31B6609A500F28D73 /* LaunchScreen.xib in Resources */,
-				E7F7F1D31C5214B200E6D117 /* BahamutConfig.json in Resources */,
 				E7450E1A1C5E2C2100212C1D /* StartupThemes.conf in Resources */,
 				E7D752531C561488002E3D40 /* ShareSDKLocalizable.strings in Resources */,
 				E71058FD1C5B6C7300D1C0CC /* DeveloperPanel.storyboard in Resources */,
