@@ -241,8 +241,8 @@ extension BahamutRFKit
             "originPassword":originPassword.sha256,
             "newPassword":newPassword.sha256
         ]
-        Alamofire.request(.PUT, "\(authServerApi)/Password", parameters: params).responseObject { (result:Result<MsgResult, NSError>) -> Void in
-            if result.isSuccess
+        Alamofire.request(.PUT, "\(authServerApi)/Password", parameters: params).responseObject { (_, response, result:Result<MsgResult,NSError>) in
+            if response?.statusCode == 200
             {
                 callback(suc: true, msg: result.value?.msg)
             }else
