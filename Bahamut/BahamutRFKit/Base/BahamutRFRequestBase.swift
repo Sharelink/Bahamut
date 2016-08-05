@@ -12,12 +12,14 @@ import Alamofire
 
 public class BahamutRFRequestBase : NSObject
 {
+    public static let maxRequestNoLimitCount:Int32 = 0
     static var requestCount = [String:Int32]()
     static let lock:NSRecursiveLock = NSRecursiveLock()
     
     public func getMaxRequestCount() -> Int32{
         return 1
     }
+    
     public func incRequest()
     {
         let typeName = self.classForCoder.description()
@@ -34,7 +36,19 @@ public class BahamutRFRequestBase : NSObject
         BahamutRFRequestBase.lock.unlock()
     }
     
-    public func getCurrentRequestCount() -> Int32
+    public func isRequestLimited() -> Bool{
+        let maxCount = getMaxRequestCount()
+        let limited = maxCount != BahamutRFRequestBase.maxRequestNoLimitCount && getCurrentRequestCount() >= maxCount
+        #if DEBUG
+            if limited {
+                let typeName = self.classForCoder.description()
+                print("\(typeName) Is Limited")
+            }
+        #endif
+        return limited
+    }
+    
+    private func getCurrentRequestCount() -> Int32
     {
         let typeName = self.classForCoder.description()
         var result:Int32 = 0

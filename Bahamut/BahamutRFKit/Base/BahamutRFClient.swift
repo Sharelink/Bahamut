@@ -83,7 +83,7 @@ public class BahamutRFClient : ClientProtocal
     
     public func execute(request: BahamutRFRequestBase, callback: (result: Result<String,NSError>) -> Void) -> Bool
     {
-        if clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
+        if clientStarted == false || request.isRequestLimited()
         {
             let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
             let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
@@ -116,7 +116,7 @@ public class BahamutRFClient : ClientProtocal
     
     public func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<[T]>)->Void) -> Bool
     {
-        if clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
+        if clientStarted == false || request.isRequestLimited()
         {
             let err = SLResult<[T]>()
             let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
@@ -161,7 +161,7 @@ public class BahamutRFClient : ClientProtocal
     
     public func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<T>)->Void) -> Bool
     {
-        if  clientStarted == false || request.getCurrentRequestCount() >= request.getMaxRequestCount()
+        if  clientStarted == false || request.isRequestLimited()
         {
             let err = SLResult<T>()
             let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]

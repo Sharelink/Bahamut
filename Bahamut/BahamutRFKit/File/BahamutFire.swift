@@ -68,6 +68,10 @@ public class GetBahamutFireRequest : BahamutRFRequestBase
             self.api = "/BahamutFires/\(fileId)"
         }
     }
+    
+    public override func getMaxRequestCount() -> Int32 {
+        return BahamutRFRequestBase.maxRequestNoLimitCount
+    }
 }
 
 /*
@@ -92,5 +96,9 @@ public class NewBahamutFireRequest : BahamutRFRequestBase
         didSet{
             self.paramenters["fileSize"] = "\(fileSize)"
         }
+    }
+    
+    public override func getMaxRequestCount() -> Int32 {
+        return BahamutRFRequestBase.maxRequestNoLimitCount
     }
 }

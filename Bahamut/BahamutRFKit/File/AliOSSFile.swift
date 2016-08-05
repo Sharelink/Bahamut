@@ -20,6 +20,10 @@ public class NewAliOSSFileAccessInfoRequest : BahamutRFRequestBase
         self.method = .POST
     }
     
+    public override func getMaxRequestCount() -> Int32 {
+        return BahamutRFRequestBase.maxRequestNoLimitCount
+    }
+    
     public var fileType:FileType! = .NoType{
         didSet{
             self.paramenters["fileType"] = "\(fileType.rawValue)"
@@ -61,5 +65,9 @@ public class NewAliOSSFileAccessInfoListRequest : BahamutRFRequestBase
                 self.paramenters["fileSizes"] = fileSizes.map{"\($0)"}.joinWithSeparator("#")
             }
         }
+    }
+    
+    public override func getMaxRequestCount() -> Int32 {
+        return BahamutRFRequestBase.maxRequestNoLimitCount
     }
 }
