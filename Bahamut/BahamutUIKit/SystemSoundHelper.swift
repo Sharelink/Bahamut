@@ -13,26 +13,28 @@ class SystemSoundHelper
 {
     static func vibrate()
     {
-        AudioServicesPlaySystemSound(1011)
+        playSound(1011)
     }
     
     static func keyTink()
     {
-        AudioServicesPlaySystemSound(1103)
+        playSound(1103)
     }
     
     static func keyTock()
     {
-        AudioServicesPlaySystemSound(1105)
+        playSound(1105)
     }
     
     static func cameraShutter()
     {
-        AudioServicesPlayAlertSound(1108)
+        playSound(1108)
     }
     
     static func playSound(systemSoundId:SystemSoundID)
     {
-        AudioServicesPlaySystemSound(systemSoundId)
+        dispatch_async(dispatch_get_main_queue()) {
+            AudioServicesPlaySystemSound(systemSoundId)
+        }
     }
 }
