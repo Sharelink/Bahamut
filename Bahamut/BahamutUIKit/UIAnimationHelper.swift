@@ -169,7 +169,7 @@ class UIAnimationHelper {
         view.layer.addAnimation(animation, forKey: key)
     }
     
-    static func flashView(view:UIView,duration:NSTimeInterval = 0.8,autoStop:Bool = false,stopAfterMs:UInt64 = 3000) {
+    static func flashView(view:UIView,duration:NSTimeInterval = 0.8,autoStop:Bool = false,stopAfterMs:UInt64 = 3000,completion:AnimationCompletedHandler! = nil) {
         let animation = CABasicAnimation(keyPath: "opacity")
         animation.fromValue = 1.0
         animation.toValue = 0.0
@@ -184,6 +184,7 @@ class UIAnimationHelper {
             let time = dispatch_time(DISPATCH_TIME_NOW, NSNumber(unsignedLongLong: NSEC_PER_MSEC * stopAfterMs).longLongValue)
             dispatch_after(time, dispatch_get_main_queue(), {
                 stopFlashView(view)
+                completion?()
             })
         }
     }
