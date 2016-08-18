@@ -75,7 +75,7 @@ extension SharelinkThemeService
 }
 
 //MARK:UserProfileViewController
-class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,QupaiSDKDelegate,UIResourceExplorerDelegate,ThemeCollectionViewControllerDelegate,ProgressTaskDelegate
+class UserProfileViewController: UIViewController,UIEditTextPropertyViewControllerDelegate,UIResourceExplorerDelegate,ThemeCollectionViewControllerDelegate,ProgressTaskDelegate,QupaiSDKDelegate
 {
 
     //MARK: properties
@@ -285,11 +285,14 @@ class UserProfileViewController: UIViewController,UIEditTextPropertyViewControll
         if let qpController = QuPaiRecordCamera().getQuPaiController(self)
         {
             self.presentViewController(qpController, animated: true, completion: nil)
+        }else{
+            self.playToast("Camera Not Ready")
         }
     }
     
     #if APP_VERSION
-    func qupaiSDK(sdk: ALBBQuPaiPluginPluginServiceProtocol!, compeleteVideoPath videoPath: String!, thumbnailPath: String!) {
+    
+    func qupaiSDK(sdk: QupaiSDKDelegate!, compeleteVideoPath videoPath: String!, thumbnailPath: String!) {
         self.dismissViewControllerAnimated(false, completion: nil)
         if videoPath == nil
         {

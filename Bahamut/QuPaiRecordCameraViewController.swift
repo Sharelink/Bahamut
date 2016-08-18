@@ -9,29 +9,26 @@
 import Foundation
 import UIKit
 
+protocol QupaiSDKDelegate {
+    
+}
+
 class QuPaiRecordCamera
 {
     func getQuPaiController(delegate:QupaiSDKDelegate,sec:Int = 30) -> UINavigationController?
     {
         #if APP_VERSION
-        let taeSdk = TaeSDK.sharedInstance()
-        if let sdk = taeSdk.getQuPaiSDk()
+/*
+        if let sdk = QupaiSDK.shared()
         {
             sdk.delegte  = delegate
-            let recordController = sdk.createRecordViewControllerWithMaxDuration(CGFloat(sec),
-                bitRate: 800 * 1000,
-                thumbnailCompressionQuality: 0.3,
-                watermarkImage: nil,
-                watermarkPosition: QupaiSDKWatermarkPosition.TopRight,
-                tintColor: UIColor.themeColor,
-                enableMoreMusic: false,
-                enableImport: false,
-                enableVideoEffect: true)
             
+            let recordController = sdk.createRecordViewControllerWithMinDuration(5,maxDuration:CGFloat(sec),bitRate: 800 * 1000)
             let navigation = UINavigationController(rootViewController: recordController)
             navigation.navigationBarHidden = true
             return navigation
         }
+ */
         #endif
         return nil
     }

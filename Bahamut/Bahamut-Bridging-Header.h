@@ -29,11 +29,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
-#import <TAESDK/TaeSDK.h>
-#import <ALBBQuPaiPlugin/ALBBQuPaiPluginPluginServiceProtocol.h>
-#import <ALBBQuPaiPlugin/QPEffect.h>
-#import <ALBBQuPaiPlugin/QPEffectMusic.h>
-#import "TaeSDKExtension.h"
+//#import <QPSDK/QPSDK.h>
 #endif
 
 #endif

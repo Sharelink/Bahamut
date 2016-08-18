@@ -151,11 +151,7 @@ public class SharelinkAppDelegate: UIResponder, UIApplicationDelegate {
     
     private func initQuPai()
     {
-        TaeSDK.sharedInstance().asyncInit({ () -> Void in
-            NSLog("TaeSDK Inited")
-            }) { (error) -> Void in
-                fatalError(error.description)
-        }
+        
     }
     
     private func configureUmeng()

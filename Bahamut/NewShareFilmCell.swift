@@ -144,7 +144,7 @@ class NewShareFilmCell: ShareContentCellBase,QupaiSDKDelegate,UIResourceExplorer
         }
     }
     
-    func qupaiSDK(sdk: ALBBQuPaiPluginPluginServiceProtocol!, compeleteVideoPath videoPath: String!, thumbnailPath: String!)
+    func qupaiSDK(sdk: QupaiSDKDelegate!, compeleteVideoPath videoPath: String!, thumbnailPath: String!)
     {
         self.rootController.dismissViewControllerAnimated(false, completion: nil)
         if videoPath != nil
