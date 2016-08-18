@@ -21,6 +21,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
         super.viewDidLoad()
         ServiceContainer.instance.initContainer("Sharelink", services: ServiceConfig.Services)
         setWaitingScreen()
+        BahamutRFKit.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onAppTokenInvalid(_:)), name: BahamutRFKit.onTokenInvalidated, object: nil)
         ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onAppTokenInvalid(_:)), name: AppTokenInvalided, object: nil)
         ChicagoClient.sharedInstance.addObserver(self, selector: #selector(MainNavigationController.onOtherDeviceLogin(_:)), name: OtherDeviceLoginChicagoServer, object: nil)
     }
@@ -53,6 +54,7 @@ class MainNavigationController: UINavigationController,HandleBahamutCmdDelegate
     func deInitController(){
         ServiceContainer.instance.removeObserver(self)
         ChicagoClient.sharedInstance.removeObserver(self)
+        BahamutRFKit.sharedInstance.removeObserver(self)
     }
     
     override func viewDidAppear(animated: Bool) {

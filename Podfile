@@ -16,7 +16,7 @@ target 'Sharelink' do
     
     pod 'MNReachabilitySwift', '~> 0.0.2'
     
-    pod 'AliyunOSSiOS', '~> 2.2.0'
+    pod 'AliyunOSSiOS', '~> 2.5.0'
     
     pod 'UMengAnalytics'
     

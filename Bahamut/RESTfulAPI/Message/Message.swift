@@ -114,18 +114,9 @@ public class SendMessageRequest : BahamutRFRequestBase
     }
     
     //No limit request
-    public override func getCurrentRequestCount() -> Int32 {
-        return 0
-    }
     
     public override func getMaxRequestCount() -> Int32 {
-        return 1
-    }
-    
-    public override func incRequest() {
-    }
-    
-    public override func decRequest() {
+        return BahamutRFRequestBase.maxRequestNoLimitCount
     }
     
     public var time:NSDate!{

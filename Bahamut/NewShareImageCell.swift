@@ -207,10 +207,10 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
     }
     
     //MAARK: image picker delegate
-    func wrapperDidPress(images: [UIImage]) {
+    func wrapperDidPress(imagePicker: ImagePickerController,images: [UIImage]) {
     }
     
-    func doneButtonDidPress(newImages: [UIImage]) {
+    func doneButtonDidPress(imagePicker: ImagePickerController,images newImages: [UIImage]) {
         let mostImagesLimit = NewShareImageCell.maxImagePostCount
         if mostImagesLimit < newImages.count
         {
@@ -228,7 +228,7 @@ class NewShareImageCell: ShareContentCellBase,UICollectionViewDataSource,UIColle
         })
     }
     
-    func cancelButtonDidPress() {
+    func cancelButtonDidPress(imagePicker: ImagePickerController) {
         
     }
     

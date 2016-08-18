@@ -70,7 +70,7 @@ class BahamutAppNotification:EVObject
 }
 
 //MARK: Chicago Client
-class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
+class ChicagoClient :NSNotificationCenter,GCDAsyncSocketDelegate
 {
     private static let heartBeatJson = "{}"
     private static var heartBeatTimer:NSTimer!
@@ -83,7 +83,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         var AppToken:String!
         var Appkey:String!
     }
-    private var socket:AsyncSocket!
+    private var socket:GCDAsyncSocket!
     
     private(set) var validationInfo:ValidationInfo!
     private(set) var appToken:String!
@@ -120,8 +120,8 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     override init() {
         super.init()
         
-        socket = AsyncSocket()
-        socket.setDelegate(self)
+        socket = GCDAsyncSocket()
+        socket.setDelegate(self,delegateQueue: dispatch_get_main_queue())
         self.addChicagoObserver(ChicagoClientCommonRoute.validationRoute, observer: self, selector: #selector(ChicagoClient.onValidationReturn(_:)))
         self.addChicagoObserver(ChicagoClientCommonRoute.logoutRoute, observer: self, selector: #selector(ChicagoClient.onLogoutReturn(_:)))
         self.addChicagoObserver(ChicagoClientCommonRoute.heartBeatRoute, observer: self, selector: #selector(ChicagoClient.onHeartBeatReturn(_:)))
@@ -308,11 +308,11 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
     }
     
     //MARK: socket delegate
-    func onSocket(sock: AsyncSocket!, shouldTimeoutWriteWithTag tag: Int, elapsed: NSTimeInterval, bytesDone length: UInt) -> NSTimeInterval {
+    func onSocket(sock: GCDAsyncSocket!, shouldTimeoutWriteWithTag tag: Int, elapsed: NSTimeInterval, bytesDone length: UInt) -> NSTimeInterval {
         return 16
     }
     
-    func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
+    func onSocket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int)
     {
         if tag == ChicagoClient.readHeadTag
         {
@@ -331,16 +331,16 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         }
     }
     
-    func onSocket(sock: AsyncSocket!, didWriteDataWithTag tag: Int)
+    func onSocket(sock: GCDAsyncSocket!, didWriteDataWithTag tag: Int)
     {
         
     }
     
-    func onSocketWillConnect(sock: AsyncSocket!) -> Bool {
+    func onSocketWillConnect(sock: GCDAsyncSocket!) -> Bool {
         return true
     }
     
-    func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16)
+    func onSocket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16)
     {
         clientState = .Connected
         reConnectFailedTimes = 0;
@@ -348,7 +348,7 @@ class ChicagoClient :NSNotificationCenter,AsyncSocketDelegate
         validate()
     }
     
-    func onSocketDidDisconnect(sock: AsyncSocket!)
+    func onSocketDidDisconnect(sock: GCDAsyncSocket!)
     {
         deviceTokenSended = false
         if clientState == .Closed || clientState == .ValidatFailed

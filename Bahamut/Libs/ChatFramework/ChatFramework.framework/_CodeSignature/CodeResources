@@ -46,7 +46,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JGwhylzFScZrQFt6+G6J9rkkHoc=
+		VFrAHnu4J3Sy2CLPucbpnnFDy+I=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -56,49 +56,126 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/ACMacros.h</key>
-		<data>
-		pgT7BkGiJwr8Nbe9I+8gOcyUCxI=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			pgT7BkGiJwr8Nbe9I+8gOcyUCxI=
+			</data>
+			<key>hash2</key>
+			<data>
+			Y55GiDl5qnsyvoM3sOESndM7Nvqz2qqHEGq4rZ2O2Yw=
+			</data>
+		</dict>
 		<key>Headers/ChatFramework.h</key>
-		<data>
-		/H+IyIAnewukIVdB6g8se3adP04=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			/H+IyIAnewukIVdB6g8se3adP04=
+			</data>
+			<key>hash2</key>
+			<data>
+			oPJY/zHy4aSKrqF6mvvJHKWBRdEX4t2HVf2JAYzHirE=
+			</data>
+		</dict>
 		<key>Headers/UUAVAudioPlayer.h</key>
-		<data>
-		+3GhsFsbQZEbZdLHDaJON7lQ+8o=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			+3GhsFsbQZEbZdLHDaJON7lQ+8o=
+			</data>
+			<key>hash2</key>
+			<data>
+			dg8WBN+7zZsdfzfKdWV8ogf90o66sKokgAzNeQk3Z6U=
+			</data>
+		</dict>
 		<key>Headers/UUImageAvatarBrowser.h</key>
-		<data>
-		GFWF/oruiHk6avUzSzH29YbYH7s=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			GFWF/oruiHk6avUzSzH29YbYH7s=
+			</data>
+			<key>hash2</key>
+			<data>
+			r2RD/RExcEw1iacXITmVsTA/Gne/O+/YGCOjb4CpNpg=
+			</data>
+		</dict>
 		<key>Headers/UUInputFunctionView.h</key>
-		<data>
-		3C58xxbBldBi0ajbIP5afX9FLCo=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			3C58xxbBldBi0ajbIP5afX9FLCo=
+			</data>
+			<key>hash2</key>
+			<data>
+			sTwg1m+A85JJ3tLoFCs6UfPUxlJcOEkl84zgVUFsB24=
+			</data>
+		</dict>
 		<key>Headers/UUMessage.h</key>
-		<data>
-		f8lGavSMtk/+4thnj8+X/UAJbYk=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			f8lGavSMtk/+4thnj8+X/UAJbYk=
+			</data>
+			<key>hash2</key>
+			<data>
+			mNZCrXbYv0u98pl8s6GGtj3xAGshxAb0Y2hqypECRUE=
+			</data>
+		</dict>
 		<key>Headers/UUMessageCell.h</key>
-		<data>
-		BnI+VivDJO/VrYaNU6AU6DLKwjM=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			BnI+VivDJO/VrYaNU6AU6DLKwjM=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZPrcKKbM/7A2cmpn2+q50KkBpApu0kXfcfB+IHQizwA=
+			</data>
+		</dict>
 		<key>Headers/UUMessageContentButton.h</key>
-		<data>
-		jXbH6kOI0OpqU0gewL/q/zfoPOw=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			jXbH6kOI0OpqU0gewL/q/zfoPOw=
+			</data>
+			<key>hash2</key>
+			<data>
+			Mx3njNrlt14PWw/XTf07ylVVIZDpnUO/AcGbWOE8/qU=
+			</data>
+		</dict>
 		<key>Headers/UUMessageFrame.h</key>
-		<data>
-		dHCrQXBAtUDN2TTWMtf1uzzBK0M=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			dHCrQXBAtUDN2TTWMtf1uzzBK0M=
+			</data>
+			<key>hash2</key>
+			<data>
+			/PphItKb8shWT83t9ggrD4/v0wFaQTIQ6tLKk4RzQ1k=
+			</data>
+		</dict>
 		<key>Headers/UUProgressHUD.h</key>
-		<data>
-		HePJzzHNGnOcgTmA6adriMAhZA0=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			HePJzzHNGnOcgTmA6adriMAhZA0=
+			</data>
+			<key>hash2</key>
+			<data>
+			hTB2pM7UDBhyJ6GaJGzSdv0NxqCcA9pF9GuwWjBYQfM=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		B2RNgYdMlfglHt+3TgPc4d0XCDw=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			B2RNgYdMlfglHt+3TgPc4d0XCDw=
+			</data>
+			<key>hash2</key>
+			<data>
+			a5AS2vqdVScKxEK3jJguvT/vMw7gq3Ml70xHDrPTLos=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>
