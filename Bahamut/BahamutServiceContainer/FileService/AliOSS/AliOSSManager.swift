@@ -77,6 +77,20 @@ class AliOSSManager
         }
     }
     
+    func getConstrainURL(serverEndpoint:String,bucket:String,objkey:String,taskCompleted:(objUrl:String?)->Void)
+    {
+        let ossClient = getOSSClient(serverEndpoint)
+        let task = ossClient.presignConstrainURLWithBucketName(bucket, withObjectKey: objkey, withExpirationInterval: 10 * 60)
+        task.continueWithBlock { (task) -> AnyObject? in
+            if let str = task.result as? NSString{
+                taskCompleted(objUrl: str as String)
+            }else{
+                taskCompleted(objUrl: nil)
+            }
+            return task
+        }
+    }
+    
     func download(serverEndpoint:String,bucket:String,objkey:String,filePath:String,progress:(persent:Float)->Void,taskCompleted:(isSuc:Bool,task:OSSTask)->Void)
     {
         let req = OSSGetObjectRequest()
