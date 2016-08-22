@@ -35,7 +35,7 @@ class TaskRecord
     weak var delegate:ProgressTaskDelegate!
 }
 
-//MARK: TO DO: finish this
+//MARK:ProgressQueueTask
 class ProgressQueueTask:NSObject,ProgressTaskDelegate
 {
     let queueTaskId = IdUtil.generateUniqueId()

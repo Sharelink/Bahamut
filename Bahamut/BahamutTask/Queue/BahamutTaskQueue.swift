@@ -33,12 +33,15 @@ public class BahamutTaskQueue:NSNotificationCenter{
         
     }
     
-    public func initHandlers(handlers:[String:BahamutTaskQueueStepHandler]){
-        stepHandler.removeAll()
+    public func useHandlers(handlers:[String:BahamutTaskQueueStepHandler]){
         handlers.forEach { (id,handler) in
-            stepHandler.updateValue(handler, forKey: id)
+            self.useHandler(id,handler: handler)
         }
-        stepHandler.values.forEach{$0.initHandler(self)}
+    }
+    
+    public func useHandler(key:String,handler:BahamutTaskQueueStepHandler){
+        stepHandler.updateValue(handler, forKey: key)
+        handler.initHandler(self)
     }
     
     private func releaseHandlers(){

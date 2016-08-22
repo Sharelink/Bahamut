@@ -49,6 +49,29 @@ extension FileService
 //MARK: Download FileService Extension
 extension FileService
 {
+    
+    func getCachedFileAccessInfo(fileId:String)->FileAccessInfo? {
+        return PersistentManager.sharedInstance.getModel(FileAccessInfo.self, idValue: fileId)
+    }
+    
+    func fetchFileAccessInfo(fileId:String,callback:(FileAccessInfo?)->Void) {
+        let req = GetBahamutFireRequest()
+        req.fileId = fileId
+        let bahamutFireClient = BahamutRFKit.sharedInstance.getBahamutFireClient()
+        bahamutFireClient.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
+            if result.isSuccess{
+                if let fa = result.returnObject
+                {
+                    fa.saveModel()
+                    callback(fa)
+                    return
+                }
+            }
+            self.fetchingFinished(fileId)
+            callback(nil)
+        }
+    }
+    
     func fetchFile(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
         if String.isNullOrWhiteSpace(fileId)
@@ -61,7 +84,7 @@ extension FileService
             return
         }
         setFetching(fileId)
-        if let fa = PersistentManager.sharedInstance.getModel(FileAccessInfo.self, idValue: fileId)
+        if let fa = getCachedFileAccessInfo(fileId)
         {
             if String.isNullOrWhiteSpace(fa.expireAt) || fa.expireAt.dateTimeOfString.timeIntervalSinceNow > 0
             {
@@ -69,23 +92,16 @@ extension FileService
                 return
             }
         }
-        let req = GetBahamutFireRequest()
-        req.fileId = fileId
-        let bahamutFireClient = BahamutRFKit.sharedInstance.getBahamutFireClient()
-        bahamutFireClient.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
-            if result.isSuccess{
-                if let fa = result.returnObject
-                {
-                    fa.saveModel()
-                    self.startFetch(fa,fileTyp: fileType,callback: callback)
-                    return
-                }
+        fetchFileAccessInfo(fileId) { (fileAccessInfo) in
+            if let fa = fileAccessInfo
+            {
+                self.startFetch(fa,fileTyp: fileType,callback: callback)
+            }else{
+                self.fetchingFinished(fileId)
+                callback(filePath: nil)
+                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
             }
-            self.fetchingFinished(fileId)
-            callback(filePath: nil)
-            ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
         }
-        
     }
     
     private func startFetch(fa:FileAccessInfo,fileTyp:FileType,callback:(filePath:String!) -> Void)
