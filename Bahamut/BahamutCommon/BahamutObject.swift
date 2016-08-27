@@ -21,6 +21,10 @@ public class BahamutObject : EVObject
     {
         return valueForKey(getObjectUniqueIdName()) as! String
     }
+    
+    public func copyToObject<T:BahamutObject>(t:T.Type) -> T{
+        return T(json:self.toJsonString())
+    }
 }
 
 typealias BahamutObjectArray = Array<BahamutObject>
