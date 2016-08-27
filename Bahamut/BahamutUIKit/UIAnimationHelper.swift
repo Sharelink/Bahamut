@@ -193,3 +193,12 @@ class UIAnimationHelper {
         view.layer.removeAnimationForKey("Flash")
     }
 }
+
+func dispatch_after(ms:UInt64,queue:dispatch_queue_t,handler:()->Void) {
+    let time = dispatch_time(DISPATCH_TIME_NOW, NSNumber(unsignedLongLong: NSEC_PER_MSEC * ms).longLongValue)
+    dispatch_after(time, queue,handler)
+}
+
+func dispatch_main_queue_after(ms:UInt64,handler:()->Void) {
+    dispatch_after(ms, queue: dispatch_get_main_queue(), handler: handler)
+}
