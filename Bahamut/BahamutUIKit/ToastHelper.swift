@@ -66,14 +66,14 @@ extension MBProgressHUD
     func hideAsync(animated:Bool)
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.hide(animated)
+            self.hideAnimated(animated)
         }
     }
 }
 
 extension UIViewController:MBProgressHUDDelegate
 {
-    public func hudWasHidden(hud: MBProgressHUD!) {
+    public func hudWasHidden(hud: MBProgressHUD) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             hud.removeFromSuperview()
             if let handler = hudCompletionHandler.removeValueForKey(hud)
@@ -93,20 +93,20 @@ extension UIViewController:MBProgressHUDDelegate
     {
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
-        let HUD = MBProgressHUD(view: vcView)
+        let HUD = MBProgressHUD(view: vcView!)
         HUD.delegate = vc
-        HUD.labelText = title
-        HUD.detailsLabelText = message
+        HUD.label.text = title
+        HUD.detailsLabel.text = message
         HUD.removeFromSuperViewOnHide = true
         HUD.square = true
         if async{
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 vcView!.addSubview(HUD)
-                HUD.show(true)
+                HUD.showAnimated(true)
             })
         }else{
             vcView!.addSubview(HUD)
-            HUD.show(true)
+            HUD.showAnimated(true)
         }
         return HUD
     }
@@ -116,10 +116,10 @@ extension UIViewController:MBProgressHUDDelegate
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let hud = MBProgressHUD.showHUDAddedTo(vcView, animated: true)
+            let hud = MBProgressHUD.showHUDAddedTo(vcView!, animated: true)
             // Configure for text only and offset down
             hud.mode = MBProgressHUDMode.Text
-            hud.labelText = msg
+            hud.label.text = msg
             hud.margin = 10;
             hud.delegate = vc
             if let handler = completionHandler
@@ -127,8 +127,8 @@ extension UIViewController:MBProgressHUDDelegate
                 hudCompletionHandler[hud] = handler
             }
             hud.removeFromSuperViewOnHide = true
-            hud.show(true)
-            hud.hide(true, afterDelay: 2)
+            hud.showAnimated(true)
+            hud.hideAnimated(true, afterDelay: 2)
         }
     }
     
@@ -145,7 +145,7 @@ extension UIViewController:MBProgressHUDDelegate
     private func playImageMarkCore(msg:String,image:UIImage,completionHandler:HudHiddenCompletedHandler!){
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
-        let hud = MBProgressHUD(view: vcView)
+        let hud = MBProgressHUD(view: vcView!)
         vcView!.addSubview(hud)
         
         hud.customView = UIImageView(image: image)
@@ -154,14 +154,14 @@ extension UIViewController:MBProgressHUDDelegate
         hud.mode = MBProgressHUDMode.CustomView
         
         hud.delegate = vc
-        hud.labelText = msg
+        hud.label.text = msg
         hud.square = true
         if let handler = completionHandler
         {
             hudCompletionHandler[hud] = handler
         }
-        hud.show(true)
-        hud.hide(true, afterDelay: 2)
+        hud.showAnimated(true)
+        hud.hideAnimated(true, afterDelay: 2)
         
     }
     

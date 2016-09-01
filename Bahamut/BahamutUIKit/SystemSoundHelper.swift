@@ -33,8 +33,17 @@ class SystemSoundHelper
     
     static func playSound(systemSoundId:SystemSoundID)
     {
-        dispatch_async(dispatch_get_main_queue()) {
-            AudioServicesPlaySystemSound(systemSoundId)
-        }
+        AudioServicesPlaySystemSound(systemSoundId)
+    }
+    
+    static func playSound(url:NSURL){
+        let id = createAudio(url)
+        playSound(id)
+    }
+    
+    static func createAudio(url:NSURL) -> SystemSoundID{
+        var id:SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(url, &id)
+        return id
     }
 }
