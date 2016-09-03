@@ -40,7 +40,7 @@ class CoreDataManager {
             do{
                 try self.deleteObjects(objs)
             }catch let error as NSError{
-                NSLog(error.description)
+                debugLog(error.description)
             }
         }
     }
@@ -78,8 +78,8 @@ class CoreDataManager {
             }
             saveContextDelay()
         }catch let ex as NSError{
-            NSLog(ex.description)
-            NSLog("delete entity:\(entityName) error")
+            debugLog(ex.description)
+            debugLog("delete entity:\(entityName) error")
         }
     }
     
@@ -95,7 +95,7 @@ class CoreDataManager {
                 return item as! NSManagedObject
             }
         }catch let error as NSError{
-            NSLog(error.description)
+            debugLog(error.description)
             return [NSManagedObject]()
         }
     }
@@ -204,7 +204,7 @@ class CoreDataManager {
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            debugLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             
             abort()
         }
@@ -249,7 +249,7 @@ class CoreDataManager {
                 // Replace this implementation with code to handle the error appropriately.
                 // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
-                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                debugLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
             }
         }
@@ -263,8 +263,8 @@ class CoreDataManager {
         do{
             try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
         }catch let err as NSError{
-            NSLog(err.debugDescription)
-            NSLog("Destroy Db File Error:\(dbFileUrl.path)")
+            debugLog(err.debugDescription)
+            debugLog("Destroy Db File Error:\(dbFileUrl.path)")
         }
         contextLock.unlock()
     }

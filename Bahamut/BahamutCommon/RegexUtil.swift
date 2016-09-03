@@ -20,7 +20,7 @@ public struct RegexMatcher {
         }catch let error as NSError
         {
             regex = nil
-            NSLog(error.description)
+            debugLog(error.description)
         }
     }
     

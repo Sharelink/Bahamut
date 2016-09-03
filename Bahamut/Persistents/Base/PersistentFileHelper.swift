@@ -62,11 +62,11 @@ class PersistentFileHelper
         }catch let err as NSError
         {
             if fileExists(sourcePath) == false{
-                NSLog("No Source File:%@", sourcePath)
+                debugLog("No Source File:%@", sourcePath)
             }else if fileExists(destinationPath){
-                NSLog("Destination Dir Not Exists:%@", destinationPath)
+                debugLog("Destination Dir Not Exists:%@", destinationPath)
             }else{
-                NSLog("Move file error:%@", err.description)
+                debugLog("Move file error:%@", err.description)
             }
             return false
         }
@@ -90,7 +90,7 @@ class PersistentFileHelper
     }
     
     static func generateTmpFileName()->String{
-        return "\(String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000))_\(rand() % 100)"
+        return "\(String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000))_\(random() % 100)"
     }
     
 }

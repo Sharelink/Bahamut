@@ -28,3 +28,9 @@ public class BahamutObject : EVObject
 }
 
 typealias BahamutObjectArray = Array<BahamutObject>
+
+func debugLog(format: String, _ args: CVarArgType...) {
+    #if DEBUG
+        print("\(NSDate().toAccurateDateTimeString()): \(String(format: format, arguments: args))")
+    #endif
+}

@@ -55,7 +55,7 @@ class ServiceContainer:NSNotificationCenter
                 handler(ServiceContainer.appName)
             }
         }
-        NSLog("Init Service Container Completed")
+        debugLog("Init Service Container Completed")
     }
     
     func postInitServiceFailed(reason:String)
@@ -127,11 +127,11 @@ class ServiceContainer:NSNotificationCenter
         }
         instance.serviceReady[T.ServiceName] = true
         instance.serviceReadyLock.unlock()
-        NSLog("\(T.ServiceName) Ready!")
+        debugLog("\(T.ServiceName) Ready!")
         instance.postNotificationName(ServiceContainer.OnServiceReady, object: instance, userInfo: [ServiceContainerNotifyService:service])
         if isAllServiceReady
         {
-            NSLog("All Services Ready!")
+            debugLog("All Services Ready!")
             instance.postNotificationNameWithMainAsync(ServiceContainer.OnAllServicesReady, object: instance,userInfo: nil)
         }
     }

@@ -86,7 +86,7 @@ class FileService: ServiceProtocol {
             try fileManager.removeItemAtURL(localStorePathUrl)
         }catch
         {
-            NSLog("clearLocalStoreFiles Failed")
+            debugLog("clearLocalStoreFiles Failed")
         }
     }
 

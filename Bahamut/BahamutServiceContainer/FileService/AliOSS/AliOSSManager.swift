@@ -68,9 +68,9 @@ class AliOSSManager
         task.continueWithBlock { (task) -> AnyObject! in
             if task.error == nil
             {
-                NSLog("OSS File Uploaded")
+                debugLog("OSS File Uploaded")
             }else{
-                NSLog("Upload OSS File Failed: %@",task.error?.description ?? "Unknow Error")
+                debugLog("Upload OSS File Failed: %@",task.error?.description ?? "Unknow Error")
             }
             taskCompleted(isSuc: task.error == nil)
             return nil
@@ -110,12 +110,12 @@ class AliOSSManager
             if task.error == nil
             {
                 if PersistentFileHelper.moveFile(tmpFileUrl.path!, destinationPath: filePath){
-                    NSLog("OSS File Fetched")
+                    debugLog("OSS File Fetched")
                     taskCompleted(isSuc: true, task: task)
                     return nil
                 }
             }
-            NSLog("Fetch OSS File Failed")
+            debugLog("Fetch OSS File Failed")
             taskCompleted(isSuc: false, task: task)
             return nil
         }

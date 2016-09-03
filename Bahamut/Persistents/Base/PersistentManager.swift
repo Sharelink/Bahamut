@@ -55,7 +55,7 @@ class PersistentManager
                 return true
             }catch let error as NSError
             {
-                NSLog(error.description)
+                debugLog(error.description)
                 return false
             }
         }else
@@ -96,7 +96,7 @@ class PersistentManager
                 try NSFileManager.defaultManager().createDirectoryAtPath(tmpUrl.path!, withIntermediateDirectories: true, attributes: nil)
             }catch
             {
-                NSLog("create tmp dir error")
+                debugLog("create tmp dir error")
             }
         }
     }
@@ -108,7 +108,7 @@ class PersistentManager
             try NSFileManager.defaultManager().removeItemAtPath(tmpUrl.path!)
         }catch
         {
-            NSLog("clearTmpDir error")
+            debugLog("clearTmpDir error")
         }
     }
     
@@ -132,10 +132,10 @@ class PersistentManager
             if let rootpath = rootUrl.path
             {
                 try NSFileManager.defaultManager().removeItemAtPath(rootpath)
-                NSLog("Root Dir Removed")
+                debugLog("Root Dir Removed")
             }
         }catch{
-            NSLog("Root Dir Remove Error")
+            debugLog("Root Dir Remove Error")
         }
         
     }
