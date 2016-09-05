@@ -179,6 +179,12 @@ extension PersistentManager
         return getAllModel(type)
     }
     
+    func removeAllModels<T:BahamutObject>(type:T.Type) -> [T]{
+        let arr = getAllModel(type)
+        removeModels(arr)
+        return arr
+    }
+    
     func refreshCache<T:BahamutObject>(type:T.Type)
     {
         getAllModel(type)
