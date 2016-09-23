@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-extension UIView
+extension UIView:CAAnimationDelegate
 {
     func startFlash(duration:NSTimeInterval = 0.8) {
         UIAnimationHelper.flashView(self, duration: duration)
@@ -29,7 +29,7 @@ extension UIView
         UIAnimationHelper.animationMaxToMin(self,duration:duration,maxScale: maxScale,completion: completion)
     }
     
-    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if let handler = UIAnimationHelper.instance.animationCompleted.removeValueForKey(self)
         {
             handler()

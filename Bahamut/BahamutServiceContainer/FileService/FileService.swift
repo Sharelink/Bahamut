@@ -100,9 +100,9 @@ class FileService: ServiceProtocol {
     
     private func initPersistentsExtensions(userId:String)
     {
-        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl,momdBundle: mondBundle)
-        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite"),momdBundle: mondBundle)
-        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite"),momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite")!,documentDirUrl: self.documentsPathUrl,momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite")!,momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite")!,momdBundle: mondBundle)
         if let updater = self.coreDataUpdater
         {
             updater.update(userId)
@@ -163,12 +163,12 @@ class FileService: ServiceProtocol {
     
     private func createLocalStoreDirUrlOfFileType(fileType:FileType) -> NSURL
     {
-        return localStorePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
+        return localStorePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")!
     }
     
     func createLocalStoreFileName(fileType:FileType) -> String
     {
-        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(PersistentFileHelper.generateTmpFileName())\(fileType.FileSuffix)").path!
+        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(PersistentFileHelper.generateTmpFileName())\(fileType.FileSuffix)")!.path!
     }
     
     func getLocalStoreDirFileURLs(fileType:FileType) -> [NSURL]

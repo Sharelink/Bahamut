@@ -106,7 +106,7 @@ extension UIImage
         let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality)!)!
         UIGraphicsBeginImageContext(asize)
         imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height))
-        let newimage = UIGraphicsGetImageFromCurrentImageContext()
+        let newimage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newimage
     }
@@ -122,7 +122,7 @@ extension UIView{
     func viewToImage()->UIImage{
         UIGraphicsBeginImageContext(self.bounds.size)
         self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return screenshot
     }

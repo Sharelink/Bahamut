@@ -113,7 +113,7 @@ extension PersistentManager
         {
             relativePath = fileExistsPath
         }
-        let absolutePath = rootUrl.URLByAppendingPathComponent(relativePath).path!
+        let absolutePath = rootUrl.URLByAppendingPathComponent(relativePath)!.path!
         if NSFileManager.defaultManager().fileExistsAtPath(absolutePath)
         {
             if let fileEntity = getStorageFileEntity(fileId)
@@ -156,7 +156,7 @@ extension PersistentManager
     {
         let localStoreFileDir = LocalFilesExtension.defaultInstance.fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
         let fileName = "\(fileId)\(fileType.FileSuffix)"
-        return localStoreFileDir.URLByAppendingPathComponent(fileName).path!
+        return localStoreFileDir!.URLByAppendingPathComponent(fileName)!.path!
     }
     
     func getFilePathFromCachePath(fileId:String,type:FileType!) -> String!

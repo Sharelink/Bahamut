@@ -96,7 +96,7 @@ class AliOSSManager
         let req = OSSGetObjectRequest()
         req.bucketName = bucket
         req.objectKey = objkey
-        let tmpFileUrl = PersistentManager.sharedInstance.tmpUrl.URLByAppendingPathComponent(PersistentFileHelper.generateTmpFileName())
+        let tmpFileUrl = PersistentManager.sharedInstance.tmpUrl.URLByAppendingPathComponent(PersistentFileHelper.generateTmpFileName())!
         req.downloadToFileURL = tmpFileUrl
         func downloadProgress(bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
         {

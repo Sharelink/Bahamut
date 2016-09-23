@@ -40,7 +40,7 @@ class PersistentManager
     {
         for item in FileType.allValues
         {
-            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")
+            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")!
             createDir(dir)
         }
     }
@@ -80,10 +80,10 @@ class PersistentManager
     {
         if fileName == nil
         {
-            return tmpUrl.URLByAppendingPathComponent("\(NSNumber(double:NSDate().timeIntervalSince1970).integerValue)\(fileType.FileSuffix)").path!
+            return tmpUrl.URLByAppendingPathComponent("\(NSNumber(double:NSDate().timeIntervalSince1970).integerValue)\(fileType.FileSuffix)")!.path!
         }else
         {
-            return tmpUrl.URLByAppendingPathComponent("\(fileName)\(fileType.FileSuffix)").path!
+            return tmpUrl.URLByAppendingPathComponent("\(fileName)\(fileType.FileSuffix)")!.path!
         }
     }
     
@@ -122,7 +122,7 @@ class PersistentManager
     
     func getAbsoluteFilePath(relativePath:String) -> String
     {
-        return rootUrl.URLByAppendingPathComponent(relativePath).path!
+        return rootUrl.URLByAppendingPathComponent(relativePath)!.path!
     }
     
     func clearRootDir()
