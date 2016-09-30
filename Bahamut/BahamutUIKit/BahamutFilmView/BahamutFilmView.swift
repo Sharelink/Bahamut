@@ -163,7 +163,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             fileProgress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
             fileProgress.center = self.center
             self.addSubview(fileProgress)
-            fileProgress.setProgressValue(0)
+            fileProgress.angle = 0
         }
     }
     //MARK: thumb
@@ -229,17 +229,18 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         loading = true
         refreshButton.hidden = true
         playButton.hidden = true
-        fileProgress.setProgressValue(0)
+        fileProgress.angle = 0
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
     public func taskCompleted(fileIdentifier: String, result: AnyObject!)
     {
-        self.fileProgress.setProgressValue(0)
+        self.fileProgress.angle = 0
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false
             self.playButton.hidden = false
             self.refreshButton.hidden = true
+            self.fileProgress.hidden = true
             if let video = result as? String
             {
                 self.playerController.path = video
@@ -259,17 +260,18 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
     
     public func taskProgress(fileIdentifier: String, persent: Float) {
-        self.fileProgress.setProgressValue(persent / 100)
+        self.fileProgress.angle = Double(360 * persent / 100)
         self.progressDelegate?.taskProgress?(fileIdentifier, persent: persent)
     }
     
     public func taskFailed(fileIdentifier: String, result: AnyObject!)
     {
-        fileProgress.setProgressValue(0)
+        fileProgress.angle = 0
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loading = false
             self.refreshButton.hidden = false
             self.playButton.hidden = true
+            self.fileProgress.hidden = true
             self.playerController.reset()
             self.progressDelegate?.taskFailed?(fileIdentifier, result: result)
         }
