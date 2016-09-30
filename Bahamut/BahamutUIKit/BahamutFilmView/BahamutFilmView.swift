@@ -152,7 +152,6 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     private var fileProgress: KDCircularProgress!{
         didSet{
-            
             fileProgress.startAngle = -90
             fileProgress.progressThickness = 0.2
             fileProgress.trackThickness = 0.7
@@ -230,6 +229,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         refreshButton.hidden = true
         playButton.hidden = true
         fileProgress.angle = 0
+        fileProgress.hidden = false
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
