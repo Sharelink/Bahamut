@@ -132,12 +132,12 @@ extension UIViewController:MBProgressHUDDelegate
         }
     }
     
-    func playCrossMark(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCrossMark(msg:String = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         playImageMark(msg, image: UIImage(named: "bahamut_crossmark")!, async: async, completionHandler: completionHandler)
     }
     
-    func playCheckMark(msg:String,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCheckMark(msg:String = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         playImageMark(msg, image: UIImage(named: "bahamut_checkmark")!, async: async, completionHandler: completionHandler)
     }
