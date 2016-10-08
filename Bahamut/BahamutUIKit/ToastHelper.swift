@@ -132,17 +132,17 @@ extension UIViewController:MBProgressHUDDelegate
         }
     }
     
-    func playCrossMark(msg:String = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCrossMark(msg:String? = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         playImageMark(msg, image: UIImage(named: "bahamut_crossmark")!, async: async, completionHandler: completionHandler)
     }
     
-    func playCheckMark(msg:String = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
+    func playCheckMark(msg:String? = "",async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil)
     {
         playImageMark(msg, image: UIImage(named: "bahamut_checkmark")!, async: async, completionHandler: completionHandler)
     }
     
-    private func playImageMarkCore(msg:String,image:UIImage,completionHandler:HudHiddenCompletedHandler!){
+    private func playImageMarkCore(msg:String?,image:UIImage,completionHandler:HudHiddenCompletedHandler!){
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
         let hud = MBProgressHUD(view: vcView!)
@@ -165,7 +165,7 @@ extension UIViewController:MBProgressHUDDelegate
         
     }
     
-    func playImageMark(msg:String,image:UIImage,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil){
+    func playImageMark(msg:String?,image:UIImage,async:Bool = true,completionHandler:HudHiddenCompletedHandler! = nil){
         if async
         {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
