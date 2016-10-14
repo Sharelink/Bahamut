@@ -81,16 +81,6 @@ extension PersistentManager
         LocalFilesExtension.defaultInstance.clearFileCacheDir()
     }
     
-    func deleteStorageFile(fileId:String)
-    {
-        if let entity = getStorageFileEntity(fileId)
-        {
-            let filePath = entity.getObsoluteFilePath()
-            LocalFilesExtension.defaultInstance.coreData.deleteObject(entity)
-            PersistentFileHelper.deleteFile(filePath)
-        }
-    }
-    
     func bindFileIdAndPath(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?
     {
         if PersistentFileHelper.storeFile(data, filePath: filePath)
@@ -150,6 +140,18 @@ extension PersistentManager
         {
             return nil
         }
+    }
+    
+    func deleteStorageFileEntityAndFile(fileId:String) -> Bool {
+        var deleted = false
+        if let fe = getStorageFileEntity(fileId) {
+            if let path = fe.getObsoluteFilePath(){
+                PersistentFileHelper.deleteFile(path)
+                deleted = true
+            }
+            LocalFilesExtension.defaultInstance.coreData.deleteObject(fe)
+        }
+        return deleted
     }
     
     func createCacheFileName(fileId:String,fileType:FileType) -> String

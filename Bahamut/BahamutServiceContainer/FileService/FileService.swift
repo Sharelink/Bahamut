@@ -156,6 +156,17 @@ class FileService: ServiceProtocol {
         }
     }
     
+    func removeFile(fileId:String,type:FileType) -> Bool {
+        if PersistentManager.sharedInstance.deleteStorageFileEntityAndFile(fileId){
+            return true
+        }else if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
+        {
+            return PersistentFileHelper.deleteFile(path)
+        }else{
+            return false
+        }
+    }
+    
     private func createLocalStoreDirPathOfFileType(fileType:FileType) -> String
     {
         return createLocalStoreDirUrlOfFileType(fileType).path!
