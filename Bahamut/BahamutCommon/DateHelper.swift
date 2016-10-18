@@ -10,7 +10,9 @@ import Foundation
 let BahamutCommonLocalizedTableName = "BahamutCommonLocalized"
 public class DateHelper
 {
-    
+    public static var UnixTimeSpanTotalMilliseconds:Int64{
+        return Int64(NSDate().timeIntervalSince1970 * 1000)
+    }
     private static let accurateDateTimeFomatter:NSDateFormatter = {
         var formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
