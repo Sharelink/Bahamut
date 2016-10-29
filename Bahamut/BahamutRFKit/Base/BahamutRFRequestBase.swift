@@ -22,6 +22,7 @@ public class BahamutRFRequestBase : NSObject
     
     public func incRequest()
     {
+        
         let typeName = self.classForCoder.description()
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() + 1

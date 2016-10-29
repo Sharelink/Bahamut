@@ -32,7 +32,7 @@ class TaskRecord
     var result:AnyObject!
     var state = TaskState.Created
     var subTaskOfQueueTask:ProgressQueueTask!
-    weak var delegate:ProgressTaskDelegate!
+    var delegate:ProgressTaskDelegate!
 }
 
 //MARK:ProgressQueueTask
@@ -96,7 +96,13 @@ class ProgressTaskWatcher
     
     private func removeTaskObserver(taskIdentifier:String)
     {
-        dict.removeValueForKey(taskIdentifier)
+        if let list = dict.removeValueForKey(taskIdentifier){
+            list.forEach({ a in
+                if let record = a as? TaskRecord{
+                    record.delegate = nil
+                }
+            })
+        }
     }
     
     func setProgress(taskIdentifier:String,persent:Float)

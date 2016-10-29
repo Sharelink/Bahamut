@@ -26,8 +26,9 @@ class IdFileFetcher: FileFetcher
                 }else
                 {
                     ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: delegate)
-                    fileService.fetchFile(fileId, fileType: self.fileType, callback: { (filePath) -> Void in
-                    })
+                    fileService.fetchFile(fileId, fileType: self.fileType){ filePath in
+                        
+                    }
                 }
             }
         }
@@ -71,6 +72,19 @@ extension FileService
             callback(nil)
         }
     }
+
+    private class CallbackTaskDelegate:NSObject,ProgressTaskDelegate {
+        var callback:((filePath:String!) -> Void)?
+
+        @objc func taskCompleted(taskIdentifier:String,result:AnyObject!){
+            callback?(filePath:result as? String)
+        }
+
+        @objc func taskFailed(taskIdentifier:String,result:AnyObject!){
+            callback?(filePath:nil)
+        }
+    }
+    
     
     func fetchFile(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
     {
@@ -79,39 +93,57 @@ extension FileService
             callback(filePath: nil)
             return
         }
+        let d = CallbackTaskDelegate()
+        d.callback = callback    
+        ProgressTaskWatcher.sharedInstance.addTaskObserver(fileId, delegate: d)
+
         if isFetching(fileId)
         {
             return
         }
         setFetching(fileId)
+                
         if let fa = getCachedFileAccessInfo(fileId)
         {
             if String.isNullOrWhiteSpace(fa.expireAt) || fa.expireAt.dateTimeOfString.timeIntervalSinceNow > 0
             {
-                startFetch(fa,fileTyp: fileType,callback: callback)
+                startFetch(fa,fileTyp: fileType)
                 return
             }
         }
+
         fetchFileAccessInfo(fileId) { (fileAccessInfo) in
             if let fa = fileAccessInfo
             {
-                self.startFetch(fa,fileTyp: fileType,callback: callback)
+                self.startFetch(fa,fileTyp: fileType)
             }else{
                 self.fetchingFinished(fileId)
-                callback(filePath: nil)
                 ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
             }
         }
     }
     
-    private func startFetch(fa:FileAccessInfo,fileTyp:FileType,callback:(filePath:String!) -> Void)
+    private func startFetch(fa:FileAccessInfo,fileTyp:FileType)
     {
+        func progress(fid:String,persent:Float)
+        {
+            ProgressTaskWatcher.sharedInstance.setProgress(fid, persent: persent)
+        }
+
+        func finishCallback(fid:String,absoluteFilePath:String?){
+            if String.isNullOrWhiteSpace(absoluteFilePath){
+                ProgressTaskWatcher.sharedInstance.missionFailed(fid, result: nil)
+            }else{
+                ProgressTaskWatcher.sharedInstance.missionCompleted(fid, result: absoluteFilePath)
+            }
+        }
+
         if fa.isServerTypeAliOss()
         {
-            self.fetchFromAliOSS(fa, fileType: fileTyp, callback: callback)
+            self.fetchFromAliOSS(fa, fileType: fileTyp, progress:progress, callback: finishCallback)
         }else
         {
-            self.fetchBahamutFire(fa, fileType: fileTyp, callback: callback)
+            self.fetchBahamutFire(fa, fileType: fileTyp, progress:progress, callback: finishCallback)
         }
     }
 }

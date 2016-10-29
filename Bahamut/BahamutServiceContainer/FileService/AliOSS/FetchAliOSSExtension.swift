@@ -23,15 +23,15 @@ extension FileAccessInfo
 extension FileService
 {
     
-    func fetchFromAliOSS(fileAccessInfo:FileAccessInfo,fileType:FileType,callback:(filePath:String!) -> Void)
+    func fetchFromAliOSS(fileAccessInfo:FileAccessInfo,fileType:FileType,progress:(fid:String,persent:Float)->Void,callback:(fid:String,filePath:String!) -> Void)
     {
         let bucket = fileAccessInfo.bucket
         let objkey = fileAccessInfo.fileId
         let server = fileAccessInfo.server
         let fileId = fileAccessInfo.fileId
-        func progress(persent:Float)
-        {
-            ProgressTaskWatcher.sharedInstance.setProgress(fileId, persent: persent)
+        
+        func progress(persent:Float){
+            progress(fid:fileId,persent:persent)
         }
         
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fileId, fileType: fileType)
@@ -42,13 +42,11 @@ extension FileService
             if isSuc
             {
                 PersistentFileHelper.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
-                callback(filePath:absoluteFilePath)
-                ProgressTaskWatcher.sharedInstance.missionCompleted(fileId, result: absoluteFilePath)
+                callback(fid:fileId, filePath:absoluteFilePath)
             }else
             {
                 PersistentFileHelper.deleteFile(tmpFilePath)
-                callback(filePath:nil)
-                ProgressTaskWatcher.sharedInstance.missionFailed(fileId, result: nil)
+                callback(fid:fileId, filePath:nil)
             }
         }
     }
