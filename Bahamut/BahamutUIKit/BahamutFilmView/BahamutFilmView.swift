@@ -121,10 +121,8 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var refreshButton:UIImageView!{
         didSet{
             refreshButton.userInteractionEnabled = true
-            refreshButton.frame = CGRectMake(0, 0, 48, 48)
             refreshButton.image = UIImage(named:"refresh")
             refreshButton.hidden = true
-            refreshButton.center = self.center
             refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(BahamutFilmView.refreshButtonClick(_:))))
             self.addSubview(refreshButton)
         }
@@ -132,20 +130,17 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     var playButton:UIImageView!{
         didSet{
-            playButton.frame = CGRectMake(0, 0, 48, 48)
             playButton.image = UIImage(named: "playGray")
             playButton.hidden = false
-            playButton.center = self.center
+            
             self.addSubview(playButton)
         }
     }
     
     var noFileImage:UIImageView!{
         didSet{
-            noFileImage.frame = CGRectMake(0, 0, 48, 48)
             noFileImage.image = UIImage(named:"delete")
             noFileImage.hidden = true
-            noFileImage.center = self.center
             self.addSubview(noFileImage)
         }
     }
@@ -277,6 +272,29 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
         
     }
+    
+    public override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        if minScreenFrame == nil
+        {
+            self.minScreenFrame = rect
+        }
+        if originContainer == nil
+        {
+            self.originContainer = self.superview
+        }
+        
+        self.fileProgress.center = self.center
+        self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
+        self.playerController.view.frame = rect
+        self.thumbImageView.frame = self.bounds
+        noFileImage?.frame = CGRectMake(0, 0, 36, 36)
+        noFileImage?.center = self.center
+        playButton?.frame = CGRectMake(0, 0, 36, 36)
+        playButton?.center = self.center
+        refreshButton?.frame = CGRectMake(0, 0, 36, 36)
+        refreshButton?.center = self.center
+    }
 
     //MARK: actions
     func refreshButtonClick(_:UIButton)
@@ -284,7 +302,6 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         startLoadVideo()
     }
 
-    
     func didChangeStatusBarOrientation(_: NSNotification)
     {
         if isVideoFullScreen
@@ -341,42 +358,11 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         originContainer.addSubview(self)
         refreshUI()
     }
-
-    public override func layoutSubviews()
-    {
-        if let frame = superview?.bounds
-        {
-            self.frame = frame
-        }else
-        {
-            return
-        }
-        
-        if minScreenFrame == nil
-        {
-            self.minScreenFrame = self.frame
-        }
-        if originContainer == nil
-        {
-            self.originContainer = self.superview
-        }
-        
-        self.fileProgress.center = self.center
-        self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
-        self.playerController.view.frame = self.bounds
-        self.thumbImageView.frame = self.bounds
-        self.refreshButton.center = self.center
-        self.playButton.center = self.center
-        self.noFileImage.center = self.center
-        
-        super.layoutSubviews()
-    }
     
     private func refreshUI()
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.superview?.bringSubviewToFront(self)
-            
             self.bringSubviewToFront(self.fileProgress)
             self.bringSubviewToFront(self.timeLine)
             self.bringSubviewToFront(self.refreshButton)
