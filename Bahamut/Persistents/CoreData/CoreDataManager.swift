@@ -36,7 +36,7 @@ class CoreDataManager {
     func deleteCellByIds(entityName:String, idFieldName:String, idValues:[String])
     {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let objs = self.getCellsByIds(entityName, idFieldName: idFieldName, idValues: idValues)
+            let objs = (self.getCellsByIds(entityName, idFieldName: idFieldName, idValues: idValues)?.filter{$0 != nil}.map{$0!}) ?? [NSManagedObject]()
             do{
                 try self.deleteObjects(objs)
             }catch let error as NSError{
@@ -84,19 +84,18 @@ class CoreDataManager {
     }
     
     //MARK: Query
-    func getCellsByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject]
+    func getCellsByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject?]?
     {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
         request.returnsObjectsAsFaults = false
         do{
             let resultSet = try getEntityContext().executeFetchRequest(request)
-            return resultSet.map{ item -> NSManagedObject in
-                return item as! NSManagedObject
+            return resultSet.map{ item -> NSManagedObject? in
+                return item as? NSManagedObject
             }
-        }catch let error as NSError{
-            debugLog(error.description)
-            return [NSManagedObject]()
+        }catch _ as NSError{
+            return nil
         }
     }
     

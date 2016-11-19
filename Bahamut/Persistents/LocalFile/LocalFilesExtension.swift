@@ -128,11 +128,7 @@ extension PersistentManager
         {
             return nil
         }
-        let cache = getCache(LocalFileExtensionConstant.fileEntityName)
-        if let fileEntity = cache.objectForKey(fileId) as? FileInfoEntity
-        {
-            return fileEntity
-        }else if let fileEntity = LocalFilesExtension.defaultInstance.coreData.getCellById(LocalFileExtensionConstant.fileEntityName,
+        if let fileEntity = LocalFilesExtension.defaultInstance.coreData.getCellById(LocalFileExtensionConstant.fileEntityName,
             idFieldName: LocalFileExtensionConstant.fileEntityIdFieldName, idValue: fileId) as? FileInfoEntity
         {
             return fileEntity
@@ -189,23 +185,23 @@ extension PersistentManager
     
     func getImage(fileId:String?,bundle:NSBundle? = NSBundle.mainBundle()) -> UIImage?
     {
-        if fileId == nil
-        {
+        if String.isNullOrWhiteSpace(fileId) {
             return nil
         }
-        let cache = getCache("UIImage")
-        if let image = cache.objectForKey(fileId!) as? UIImage
+        let fid = fileId!
+        let typeName = "UIImage"
+        if let image = getCachedModel(typeName, modelId: fid) as? UIImage
         {
             return image
-        }else if let image = UIImage(named: fileId!,inBundle: bundle,compatibleWithTraitCollection:nil)
+        }else if let image = UIImage(named: fid,inBundle: bundle,compatibleWithTraitCollection:nil)
         {
-            cache.setObject(image, forKey: fileId!)
+            cacheModel(typeName, modelId: fid, model: image)
             return image
-        }else if let path = getImageFilePath(fileId)
+        }else if let path = getImageFilePath(fid)
         {
             if let image = UIImage(contentsOfFile: path)
             {
-                cache.setObject(image, forKey: fileId!)
+                cacheModel(typeName, modelId: fid, model: image)
                 return image
             }
         }

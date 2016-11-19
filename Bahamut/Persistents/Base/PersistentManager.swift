@@ -15,7 +15,7 @@ import CoreData
 class PersistentManager
 {
     static let sharedInstance: PersistentManager = {return PersistentManager()}()
-    private var nsCacheDict = [String:NSCache]()
+    private var nsCache = NSCache()
     private(set) var rootUrl:NSURL!
     private(set) var tmpUrl:NSURL!
     private var extensions = [PersistentExtensionProtocol]()
@@ -141,24 +141,17 @@ class PersistentManager
     }
     
     //MARK: model cache
-    func getCache(typename:String) -> NSCache
-    {
-        if let typeCache = nsCacheDict[typename]
-        {
-            return typeCache
-        }else{
-            let typeCache = NSCache()
-            nsCacheDict[typename] = typeCache
-            return typeCache
-        }
+    func cacheModel(typename:String,modelId:String,model:AnyObject) {
+        nsCache.setObject(model, forKey: "\(typename)_\(modelId)")
+    }
+    
+    func getCachedModel(typename:String,modelId:String) -> AnyObject? {
+        return nsCache.objectForKey("\(typename)_\(modelId)")
     }
     
     func clearCache()
     {
-        for (_,cache) in nsCacheDict
-        {
-            cache.removeAllObjects()
-        }
+        nsCache.removeAllObjects()
     }
 
     //MARK: db context

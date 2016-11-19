@@ -96,7 +96,6 @@ extension PersistentManager
     func clearAllModelData()
     {
         ModelExtension.defaultInstance.coreData.deleteAll(ModelExtensionConstant.entityName)
-        clearCache()
     }
     
     func getModel<T:BahamutObject>(type:T.Type,idValue:String) -> T?
@@ -106,57 +105,42 @@ extension PersistentManager
             return nil
         }
         let typename = type.description()
-        let cache = getCache(typename)
-        
-        //get from cache
-        if let model = cache.objectForKey(idValue) as? T
+        //read from core data
+        let indexIdValue = "\(typename):\(idValue)"
+        if let cellModel = ModelExtension.defaultInstance.coreData.getCellById(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValue: indexIdValue) as? ModelEntity
         {
+            let jsonString = cellModel.serializableValue
+            let model = T(json:jsonString)
             return model
-        }else
-        {
-            //read from core data
-            let indexIdValue = "\(typename):\(idValue)"
-            if let cellModel = ModelExtension.defaultInstance.coreData.getCellById(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValue: indexIdValue) as? ModelEntity
-            {
-                let jsonString = cellModel.serializableValue
-                let model = T(json:jsonString)
-                cache.setObject(model, forKey: idValue)
-                return model
-            }
         }
+        
         return nil
     }
     
-    func getModels<T:BahamutObject>(type:T.Type ,idValues:[String]) -> [T]
+    func getModels<T:BahamutObject>(type:T.Type ,idValues:[String]) -> [T?]?
     {
-        let typename = type.description()
-        let cache = getCache(typename)
-        let notCacheIds = idValues.filter{
-            cache.objectForKey($0) == nil
-            }.map{"\(typename):\($0)"}
-        
-        if let cells = ModelExtension.defaultInstance.coreData.getCellsByIds(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValues: notCacheIds)as? [ModelEntity]
+        if let cells = ModelExtension.defaultInstance.coreData.getCellsByIds(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValues: idValues) as? [ModelEntity?]
         {
+            var result = [T?]()
             for entity in cells
             {
-                let jsonString = entity.serializableValue
-                
-                let model = T(json:jsonString)
-                cache.setObject(model, forKey: model.getObjectUniqueIdValue())
+                if let et = entity{
+                    let jsonString = et.serializableValue
+                    let model = T(json:jsonString)
+                    result.append(model)
+                }else{
+                    result.append(nil)
+                }
             }
+            return result
+        }else{
+            return nil
         }
-        
-        let result = idValues.map{
-            cache.objectForKey($0) as? T
-        }
-        
-        return result.filter{$0 != nil}.map{$0!}
     }
     
     func getAllModel<T:BahamutObject>(type:T.Type) -> [T]
     {
         let typename = type.description()
-        let cache = getCache(ModelExtensionConstant.modelArrCacheName)
         let predicate = NSPredicate(format: "\(ModelExtensionConstant.idFieldName) LIKE %@", argumentArray: ["\(typename):*"])
         let result = ModelExtension.defaultInstance.coreData.getCells(ModelExtensionConstant.entityName,predicate: predicate).map{ obj -> T in
             let entity = obj as! ModelEntity
@@ -164,18 +148,11 @@ extension PersistentManager
             let model = T(json:entity.serializableValue)
             return model
         }
-        cache.setObject(result, forKey: typename)
         return result
     }
     
     func getAllModelFromCache<T:BahamutObject>(type:T.Type) -> [T]
     {
-        let typename = type.description()
-        let cache = getCache(ModelExtensionConstant.modelArrCacheName)
-        if let result = cache.objectForKey(typename) as? [T]
-        {
-            return result
-        }
         return getAllModel(type)
     }
     
@@ -192,9 +169,6 @@ extension PersistentManager
     
     func clearArrCache<T:BahamutObject>(type:T.Type)
     {
-        let typeName = type.description()
-        let arrCache = getCache(ModelExtensionConstant.modelArrCacheName)
-        arrCache.removeObjectForKey(typeName)
     }
     
     func removeModel<T:BahamutObject>(model:T)
@@ -209,13 +183,12 @@ extension PersistentManager
             return
         }
         let typeName = models.first!.classForCoder.description()
-        let cache = getCache(typeName)
         let idValues = models.map { (model) -> String in
             let idValue = model.getObjectUniqueIdValue()
-            cache.removeObjectForKey(idValue)
             return "\(typeName):\(idValue)"
         }
         ModelExtension.defaultInstance.coreData.deleteCellByIds(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValues: idValues)
+        saveModelChanges()
         clearArrCache(T)
     }
     
@@ -223,11 +196,8 @@ extension PersistentManager
     {
         //save in cache
         let typeName = model.classForCoder.description()
-        let nsCache = self.getCache(typeName)
         let idValue = model.getObjectUniqueIdValue()
         let indexIdValue = "\(typeName):\(idValue)"
-        nsCache.setObject(model, forKey: idValue)
-        //save in coredata
         var jsonString = model.toJsonString()
         jsonString = jsonString.split("\n").map{$0.trim()}.joinWithSeparator("")
         if let cellModel = ModelExtension.defaultInstance.coreData.getCellById(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValue: indexIdValue) as? ModelEntity
