@@ -99,12 +99,13 @@ class CoreDataManager {
         }
     }
     
-    func getCells(entityName:String,predicate:NSPredicate?,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
+    func getCells(entityName:String,predicate:NSPredicate?,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
     {
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
+        request.fetchOffset = offset
         if limit != -1
         {
             request.fetchLimit = limit
@@ -120,11 +121,12 @@ class CoreDataManager {
         return [NSManagedObject]()
     }
     
-    func getCellsById(entityName:String, idFieldName:String, idValue:String,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]?
+    func getCellsById(entityName:String, idFieldName:String, idValue:String,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]?
     {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) = %@", argumentArray: [idValue])
         request.sortDescriptors = sortDescriptors
+        request.fetchOffset = offset
         if limit != -1
         {
             request.fetchLimit = limit

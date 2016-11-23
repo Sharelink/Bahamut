@@ -205,10 +205,12 @@ extension PersistentManager
             cellModel.serializableValue = jsonString
         }else
         {
-            let cellModel = ModelExtension.defaultInstance.coreData.insertNewCell(ModelExtensionConstant.entityName) as? ModelEntity
-            cellModel?.serializableValue = jsonString
-            cellModel?.id = indexIdValue
-            cellModel?.modelType = typeName
+            if let cellModel = ModelExtension.defaultInstance.coreData.insertNewCell(ModelExtensionConstant.entityName) as? ModelEntity{
+                cellModel.serializableValue = jsonString
+                cellModel.id = indexIdValue
+                cellModel.modelType = typeName
+            }
+            
         }
         ModelExtension.defaultInstance.coreData.saveContextDelay()
     }

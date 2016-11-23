@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="FileInfoEntity" representedClassName=".FileInfoEntity" syncable="YES">
-        <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="fileId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="localPath" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="UploadTask" representedClassName=".UploadTask" syncable="YES">
         <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fileServerUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="fileType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="localPath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
         <element name="FileInfoEntity" positionX="-63" positionY="-18" width="128" height="90"/>
