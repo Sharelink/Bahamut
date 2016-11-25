@@ -310,15 +310,23 @@ extension DateHelper
     static func generateDate(year:Int = 1970,month:Int = 1,day:Int = 1,hour:Int = 0,minute:Int = 0, second:NSTimeInterval = 0) -> NSDate
     {
         var s = second
-        var m = month
+        var M = month
+        var m = minute
         var d = day
+        var h = hour
+        if hour < 0 || hour > 23{
+            h = 0
+        }
+        if minute > 60 || minute < 0  {
+            m = 0
+        }
         if second > 60 || second < 0
         {
             s = 0
         }
-        if month <= 0
+        if month <= 0 || month > 12
         {
-            m = 1
+            M = 1
         }
         if day <= 0
         {
@@ -327,7 +335,7 @@ extension DateHelper
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         formatter.timeZone = NSTimeZone.systemTimeZone()
-        let dateString = String(format: "%04d-%02d-%02d %02d:%02d:%06.3f", year,month,d,hour,m,s)
+        let dateString = String(format: "%04d-%02d-%02d %02d:%02d:%06.3f", year,M,d,h,m,s)
         return formatter.dateFromString(dateString)!
     }
 }
