@@ -176,6 +176,19 @@ extension PersistentManager
         removeModels([model])
     }
     
+    func removeModels<T:BahamutObject>(m:T,idArray:[String]) {
+        if idArray.count == 0 {
+            return
+        }
+        let typeName = m.classForCoder.description()
+        let idValues = idArray.map { (id) -> String in
+            return "\(typeName):\(id)"
+        }
+        ModelExtension.defaultInstance.coreData.deleteCellByIds(ModelExtensionConstant.entityName, idFieldName: ModelExtensionConstant.idFieldName, idValues: idValues)
+        saveModelChanges()
+        clearArrCache(T)
+    }
+    
     func removeModels<T:BahamutObject>(models:[T])
     {
         if models.count == 0

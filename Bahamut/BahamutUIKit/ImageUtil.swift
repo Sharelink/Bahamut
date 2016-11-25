@@ -98,12 +98,13 @@ extension UIImage
 }
 
 extension UIView{
-    func viewToImage()->UIImage{
-        UIGraphicsBeginImageContext(self.bounds.size)
+    func viewToImage()->UIImage?{
+        
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.mainScreen().scale)
         self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return screenshot
+        return image
     }
 }
 
