@@ -9,3 +9,7 @@ JUST_NOW = "刚刚";
 X_MINUTES_AGO = "%@ 分钟前";
 X_HOURS_AGO = "%@ 小时前";
 X_DAYS_AGO = "%@ 天前";
+
+TAKE_NEW_PHOTO = "拍照";
+SELECT_PHOTO = "从相册中选择";
+CANCEL = "取消";

@@ -64,25 +64,25 @@ extension UIImage
 extension UIImage
 {
     
-    func scaleToWidthOf(width:CGFloat,quality:CGFloat = 1) -> UIImage
+    func scaleToWidthOf(width:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
         let originWidth = self.size.width
         let a = width / originWidth
         let size = CGSizeMake(width, self.size.height * a)
-        return scaleToSize(size,quality: quality)
+        return scaleToSize(size,quality: quality,isPNG: isPNG)
     }
     
-    func scaleToHeightOf(height:CGFloat,quality:CGFloat = 1) -> UIImage
+    func scaleToHeightOf(height:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
         let originHeight = self.size.height
         let a = height / originHeight
         let size = CGSizeMake(self.size.width * a, height)
-        return scaleToSize(size,quality: quality)
+        return scaleToSize(size,quality: quality,isPNG: isPNG)
     }
     
-    func scaleToSize(asize:CGSize,quality:CGFloat = 1) -> UIImage
+    func scaleToSize(asize:CGSize,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
-        let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality)!)!
+        let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality,isPNG: isPNG)!)!
         UIGraphicsBeginImageContext(asize)
         imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height))
         let newimage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -90,7 +90,7 @@ extension UIImage
         return newimage
     }
     
-    func generateImageDataOfQuality(quality:CGFloat) -> NSData?
+    func generateImageDataOfQuality(quality:CGFloat,isPNG:Bool = false) -> NSData?
     {
         return UIImageJPEGRepresentation(self, quality)
     }

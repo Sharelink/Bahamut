@@ -9,3 +9,7 @@ JUST_NOW = "New";
 X_MINUTES_AGO = "%@ minutes ago";
 X_HOURS_AGO = "%@ hours ago";
 X_DAYS_AGO = "%@ days ago";
+
+TAKE_NEW_PHOTO = "Camera";
+SELECT_PHOTO = "Photo Library";
+CANCEL = "Cancel";
