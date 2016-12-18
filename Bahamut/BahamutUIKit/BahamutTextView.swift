@@ -52,6 +52,7 @@ class BahamutTextView: UITextView {
         placeHolderLabel?.textAlignment = placeHolderTextAlign
         placeHolderLabel?.font = self.font
         placeHolderLabel?.text = placeHolder
-        placeHolderLabel?.frame = CGRectMake(6, 6, self.bounds.size.width - 12, self.bounds.size.height - 12)
+        placeHolderLabel?.frame = CGRectMake(6, 8, self.bounds.size.width - 12, self.bounds.size.height - 12)
+        placeHolderLabel?.sizeToFit()
     }
 }

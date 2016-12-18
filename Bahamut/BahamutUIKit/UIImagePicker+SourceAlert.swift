@@ -12,7 +12,8 @@ import UIKit
 extension UIImagePickerController{
     static func showUIImagePickerAlert(viewController:UIViewController,title:String!,message:String!,allowsEditing:Bool = false,alertStyle:UIAlertControllerStyle = .ActionSheet) -> UIImagePickerController{
         let imagePicker = UIImagePickerController()
-        let alert = UIAlertController(title: title, message: message, preferredStyle: alertStyle)
+        let style = UIDevice.currentDevice().userInterfaceIdiom == .Phone ? alertStyle : .Alert
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         let camera = UIAlertAction(title: "TAKE_NEW_PHOTO".bahamutCommonLocalizedString, style: .Default) { _ in
             imagePicker.sourceType = .Camera
             imagePicker.allowsEditing = allowsEditing

@@ -57,6 +57,16 @@ extension UIViewController
     }
 }
 
+extension UIAlertController{
+    static func create(title title:String? = nil,message:String? = nil,preferredStyle:UIAlertControllerStyle = .Alert) -> UIAlertController {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            return UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        }else{
+            return UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        }
+    }
+}
+
 typealias HudHiddenCompletedHandler = ()->Void
 
 var hudCompletionHandler = [MBProgressHUD:HudHiddenCompletedHandler]()
@@ -179,6 +189,9 @@ extension UIViewController:MBProgressHUDDelegate
     
     func showAlert(presentRootController:UIViewController,alertController:UIAlertController)
     {
+        if #available(iOS 9.0, *) {
+            alertController.preferredAction = alertController.actions.filter{$0.style == .Default}.first
+        }
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             presentRootController.presentViewController(alertController, animated: true, completion: nil)
         })
