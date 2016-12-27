@@ -15,6 +15,7 @@ class AliOSSManager
     private var ossClientMap = [String:OSSClient]()
     private var ossClientConfig:OSSClientConfiguration!
     private var credential:OSSPlainTextAKSKPairCredentialProvider!
+    var openSSL:Bool = false
     func initManager(aliOssAccessKey:String, aliOssSecretKey:String)
     {
         let conf = OSSClientConfiguration()
@@ -31,13 +32,14 @@ class AliOSSManager
     
     func getOSSClient(endPoint:String) -> OSSClient
     {
-        if let client  = ossClientMap[endPoint]
+        let ep = openSSL ? endPoint.stringByReplacingOccurrencesOfString("http://", withString: "https://", options: .CaseInsensitiveSearch, range: nil) : endPoint
+        if let client  = ossClientMap[ep]
         {
             return client
         }else
         {
-            let client = OSSClient(endpoint: endPoint, credentialProvider: credential,clientConfiguration: self.ossClientConfig)
-            ossClientMap[endPoint] = client
+            let client = OSSClient(endpoint: ep, credentialProvider: credential,clientConfiguration: self.ossClientConfig)
+            ossClientMap[ep] = client
             return client
         }
     }

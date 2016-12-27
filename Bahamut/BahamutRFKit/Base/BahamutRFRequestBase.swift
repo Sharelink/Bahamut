@@ -62,17 +62,6 @@ public class BahamutRFRequestBase : NSObject
         return result
     }
     
-    public var version:String!{
-        didSet{
-            if String.isNullOrWhiteSpace(version)
-            {
-                headers[version] = "1.0"
-            }else
-            {
-                headers[version] = version
-            }
-        }
-    }
     public var method:Alamofire.Method! = Method.GET
     public var apiServerUrl:String!
     public var api:String!

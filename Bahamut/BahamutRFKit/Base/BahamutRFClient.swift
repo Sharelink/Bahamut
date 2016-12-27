@@ -21,6 +21,17 @@ public protocol ClientProtocal
     func execute(request:BahamutRFRequestBase,callback:(result:Result<String,NSError>)->Void) -> Bool
 }
 
+
+public protocol BahamutRFClientDelegate{
+    
+    func bahamutClientWillSetHeaders(client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientWillSetApi(client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientDidSetHeaders(client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientDidSetApi(client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientWillPerformRequest(client:BahamutRFClient,request:BahamutRFRequestBase)
+    
+}
+
 public class SLResult<T>
 {
     public var originResult:Result<T,NSError>!;
@@ -39,6 +50,8 @@ public class SLResult<T>
 
 public class BahamutRFClient : ClientProtocal
 {
+    public var delegate:BahamutRFClientDelegate?
+    
     public private(set) var userId:String
     public private(set) var token:String
     public private(set) var apiServer:String
@@ -72,7 +85,9 @@ public class BahamutRFClient : ClientProtocal
     {
         req.headers.updateValue(userId, forKey: "userId")
         req.headers.updateValue(token, forKey: "token")
-        req.version = BahamutRFKit.appVersion
+        req.headers["ver"] = BahamutRFKit.appVersion
+        req.headers["build"] = "\(BahamutRFKit.appVersionCode)"
+        req.headers["pm"] = BahamutRFKit.platform
         return req
     }
     
@@ -92,9 +107,18 @@ public class BahamutRFClient : ClientProtocal
             return false
         }
         request.incRequest()
+        
+        delegate?.bahamutClientWillSetApi(self, request: request)
         setReqApi(request)
+        delegate?.bahamutClientDidSetApi(self, request: request)
+        
+        delegate?.bahamutClientWillSetHeaders(self, request: request)
         setReqHeader(request)
+        delegate?.bahamutClientDidSetHeaders(self, request: request)
+        
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        delegate?.bahamutClientWillPerformRequest(self, request: request)
+        
         let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
         req.response(queue: queue, responseSerializer: Request.stringResponseSerializer(encoding: nil)) { (response:Response<String, NSError>) in
             request.decRequest()
@@ -127,10 +151,17 @@ public class BahamutRFClient : ClientProtocal
             return false
         }
         request.incRequest()
+        delegate?.bahamutClientWillSetApi(self, request: request)
         setReqApi(request)
+        delegate?.bahamutClientDidSetApi(self, request: request)
+        
+        delegate?.bahamutClientWillSetHeaders(self, request: request)
         setReqHeader(request)
+        delegate?.bahamutClientDidSetHeaders(self, request: request)
         
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        delegate?.bahamutClientWillPerformRequest(self, request: request)
+        
         let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
         req.responseArray(queue) { (_, response, result:Result<[T],NSError>) -> Void in
             request.decRequest()
@@ -172,9 +203,17 @@ public class BahamutRFClient : ClientProtocal
             return false
         }
         request.incRequest()
+        delegate?.bahamutClientWillSetApi(self, request: request)
         setReqApi(request)
+        delegate?.bahamutClientDidSetApi(self, request: request)
+        
+        delegate?.bahamutClientWillSetHeaders(self, request: request)
         setReqHeader(request)
+        delegate?.bahamutClientDidSetHeaders(self, request: request)
+        
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        delegate?.bahamutClientWillPerformRequest(self, request: request)
+        
         let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
         req.responseObject(queue) { (_, response, result:Result<T,NSError>) -> Void in
             request.decRequest()

@@ -22,7 +22,36 @@ class BahamutFireClient : BahamutRFClient
         req.headers.updateValue(BahamutRFKit.appkey, forKey: "appkey")
         return super.setReqHeader(req)
     }
+}
+
+private let BahamutFireClientType = "BahamutFireClientType"
+
+extension BahamutRFKit{
+    var fileApiServer:String!{
+        get{
+            return userInfos["fileApiServer"] as? String
+        }
+        set{
+            userInfos["fileApiServer"] = newValue
+            
+        }
+    }
     
+    func reuseFileApiServer(userId:String, token:String,fileApiServer:String) -> ClientProtocal
+    {
+        self.fileApiServer = fileApiServer
+        let fileClient = BahamutFireClient(fileApiServer:self.fileApiServer,userId:userId,token:token)
+        return useClient(fileClient, clientKey: BahamutFireClientType)
+    }
+    
+    func getBahamutFireClient() -> BahamutFireClient
+    {
+        return clients[BahamutFireClientType] as! BahamutFireClient
+    }
+}
+
+//MARK: Bahamut Fire Bucket Extension
+extension BahamutFireClient{
     func sendFile(sendFileKey:FileAccessInfo,filePath:String)->Request
     {
         return sendFile(sendFileKey, filePathUrl: NSURL(fileURLWithPath: filePath))
