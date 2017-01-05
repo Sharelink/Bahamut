@@ -10,6 +10,10 @@ import UIKit
 import CoreMedia
 import AVFoundation
 
+public protocol BahamutFilmViewDelegate{
+    func bahamutFilmViewOnDraw(sender:BahamutFilmView,rect:CGRect)
+}
+
 //MARK: BahamutFilmView
 public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
 {
@@ -84,6 +88,8 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     //MARK: properties
     var delegate:PlayerDelegate!
     weak var progressDelegate:ProgressTaskDelegate!
+    var viewDelegate:BahamutFilmViewDelegate?
+    
     
     private var timer:NSTimer!
     
@@ -294,6 +300,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         playButton?.center = self.center
         refreshButton?.frame = CGRectMake(0, 0, 36, 36)
         refreshButton?.center = self.center
+        viewDelegate?.bahamutFilmViewOnDraw(self, rect: rect)
     }
 
     //MARK: actions
