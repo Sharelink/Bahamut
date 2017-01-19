@@ -21,6 +21,7 @@ class BahamutTextView: UITextView {
         didSet{
             placeHolderLabel?.text = placeHolder
             placeHolderLabel?.hidden = !String.isNullOrEmpty(text)
+            placeHolderLabel?.numberOfLines = 0
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BahamutTextView.onTextChanged(_:)), name: UITextViewTextDidChangeNotification, object: self)
         }
     }
