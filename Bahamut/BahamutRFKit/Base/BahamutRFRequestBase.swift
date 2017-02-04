@@ -22,8 +22,7 @@ public class BahamutRFRequestBase : NSObject
     
     public func incRequest()
     {
-        
-        let typeName = self.classForCoder.description()
+        let typeName = "\(self.dynamicType)"
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() + 1
         BahamutRFRequestBase.lock.unlock()
@@ -31,7 +30,7 @@ public class BahamutRFRequestBase : NSObject
     
     public func decRequest()
     {
-        let typeName = self.classForCoder.description()
+        let typeName = "\(self.dynamicType)"
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() - 1
         BahamutRFRequestBase.lock.unlock()
@@ -42,7 +41,7 @@ public class BahamutRFRequestBase : NSObject
         let limited = maxCount != BahamutRFRequestBase.maxRequestNoLimitCount && getCurrentRequestCount() >= maxCount
         #if DEBUG
             if limited {
-                let typeName = self.classForCoder.description()
+                let typeName = "\(self.dynamicType)"
                 print("\(typeName) Is Limited")
             }
         #endif
@@ -51,7 +50,7 @@ public class BahamutRFRequestBase : NSObject
     
     private func getCurrentRequestCount() -> Int32
     {
-        let typeName = self.classForCoder.description()
+        let typeName = "\(self.dynamicType)"
         var result:Int32 = 0
         BahamutRFRequestBase.lock.lock()
         if let value = BahamutRFRequestBase.requestCount[typeName]
