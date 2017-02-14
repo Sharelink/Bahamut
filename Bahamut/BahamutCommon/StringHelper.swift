@@ -60,6 +60,26 @@ public extension String
 }
 
 public extension String{
+    public static func jsonStringWithDictionary(dict:NSDictionary) -> String?{
+        do{
+            let j = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
+            return String(data: j, encoding: NSUTF8StringEncoding)
+        }catch{
+            return nil
+        }
+    }
+    
+    public static func miniJsonStringWithDictionary(dict:NSDictionary) -> String?{
+        do{
+            let j = try NSJSONSerialization.dataWithJSONObject(dict,options: NSJSONWritingOptions(rawValue: UInt(0)))
+            return String(data: j, encoding: NSUTF8StringEncoding)
+        }catch{
+            return nil
+        }
+    }
+}
+
+public extension String{
     //分割字符
     public func split(s:String)->[String]{
         if s.isEmpty{
