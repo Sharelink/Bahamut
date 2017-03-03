@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIImagePickerController{
-    static func showUIImagePickerAlert(viewController:UIViewController,title:String!,message:String!,allowsEditing:Bool = false,alertStyle:UIAlertControllerStyle = .ActionSheet) -> UIImagePickerController{
+    static func showUIImagePickerAlert(viewController:UIViewController,title:String!,message:String!,allowsEditing:Bool = false,alertStyle:UIAlertControllerStyle = .ActionSheet,extraAlertAction:[UIAlertAction]? = nil) -> UIImagePickerController{
         let imagePicker = UIImagePickerController()
         let style = UIDevice.currentDevice().userInterfaceIdiom == .Phone ? alertStyle : .Alert
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
@@ -37,6 +37,13 @@ extension UIImagePickerController{
             album.setValue(albumIcon, forKey: "image")
         }
         alert.addAction(album)
+        
+        if let exActs = extraAlertAction{
+            for ac in exActs {
+                alert.addAction(ac)
+            }
+        }
+        
         alert.addAction(UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style: .Cancel){ _ in})
         viewController.presentViewController(alert, animated: true, completion: nil)
         return imagePicker
