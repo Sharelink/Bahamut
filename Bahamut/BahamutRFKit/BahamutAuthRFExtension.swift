@@ -13,6 +13,7 @@ import Alamofire
 //MARK: Auth models
 class MsgResult:BahamutObject
 {
+    var code:Int = 0
     var msg:String!
 }
 
