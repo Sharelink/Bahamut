@@ -40,33 +40,32 @@ extension FileService
 //            task.fileKeys = fileKeys
 //            task.finishFileCount = 0
 //            
-//            task.saveModel()
 //            
 //            //MARK: TO DO: finish queue upload
 //        })
 //    }
     
-    func sendFileToAliOSS(localFilePath:String,type:FileType,callback:(taskId:String,fileKey:FileAccessInfo!)->Void)
+    func sendFileToAliOSS(_ localFilePath:String,type:FileType,callback:@escaping (_ taskId:String,_ fileKey:FileAccessInfo?)->Void)
     {
         self.prepareUpload(localFilePath, req: generateAliOSSUploadRequest(localFilePath, type: type)) { (taskId, fileKey) -> Void in
-            if fileKey != nil
+            if let fk = fileKey,let tid = taskId
             {
-                callback(taskId: taskId, fileKey: fileKey)
+                callback(tid, fk)
                 
-                AliOSSManager.sharedInstance.upload(fileKey.server,bucket: fileKey.bucket, objkey: fileKey.fileId, filePath: localFilePath, progress: { (persent) -> Void in
-                    ProgressTaskWatcher.sharedInstance.setProgress(taskId, persent: persent)
+                AliOSSManager.sharedInstance.upload(fk.server,bucket: fk.bucket, objkey: fk.fileId, filePath: localFilePath, progress: { (persent) -> Void in
+                    ProgressTaskWatcher.sharedInstance.setProgress(taskId!, persent: persent)
                     }, taskCompleted: { (isSuc) -> Void in
-                        self.uploadTaskCompleted(taskId, fileKey: fileKey, isSuc: isSuc)
+                        self.uploadTaskCompleted(tid, fileKey: fk, isSuc: isSuc)
                 })
             }else{
                 let failTaskId = IdUtil.generateUniqueId()
-                callback(taskId: failTaskId, fileKey: nil)
+                callback(failTaskId, nil)
                 ProgressTaskWatcher.sharedInstance.missionFailed(failTaskId, result: FileServiceUploadTask)
             }
         }
     }
     
-    private func generateAliOSSUploadRequest(localfilePath:String,type:FileType) -> NewAliOSSFileAccessInfoRequest!
+    fileprivate func generateAliOSSUploadRequest(_ localfilePath:String,type:FileType) -> NewAliOSSFileAccessInfoRequest!
     {
         let req = NewAliOSSFileAccessInfoRequest()
         let fileSize = PersistentFileHelper.fileSizeOf(localfilePath)

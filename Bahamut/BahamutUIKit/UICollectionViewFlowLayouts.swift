@@ -13,19 +13,19 @@ class UICollectionViewFullFlowLayout: UICollectionViewFlowLayout {
     
     var minimumSpacing:CGFloat = 7
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        if var answer = super.layoutAttributesForElementsInRect(rect)
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        if var answer = super.layoutAttributesForElements(in: rect)
         {
             var lineContentWidth:CGFloat = 0
             var avgInterval:CGFloat = 0
-            let cellWidth = self.collectionViewContentSize().width
+            let cellWidth = self.collectionViewContentSize.width
             var lineItemCount = 0
             var lineStartIndex = 0
             for i in 1..<answer.count
             {
                 let currentLayoutAttributes = answer[i];
                 let prevLayoutAttributes = answer[i - 1];
-                let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
+                let origin = prevLayoutAttributes.frame.maxX;
                 lineItemCount += 1
                 if(origin + self.minimumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
                     var frame = currentLayoutAttributes.frame;
@@ -57,15 +57,15 @@ class UICollectionViewMaxWhiteSpaceFlowLayout: UICollectionViewFlowLayout {
     
     var minimumSpacing:CGFloat = 7
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        if var answer = super.layoutAttributesForElementsInRect(rect)
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        if var answer = super.layoutAttributesForElements(in: rect)
         {
-            let cellWidth = self.collectionViewContentSize().width
+            let cellWidth = self.collectionViewContentSize.width
             for i in 1..<answer.count
             {
                 let currentLayoutAttributes = answer[i];
                 let prevLayoutAttributes = answer[i - 1];
-                let origin = CGRectGetMaxX(prevLayoutAttributes.frame);
+                let origin = prevLayoutAttributes.frame.maxX;
                 if(origin + minimumSpacing + currentLayoutAttributes.frame.size.width < cellWidth) {
                     var frame = currentLayoutAttributes.frame;
                     frame.origin.x = origin + minimumSpacing;

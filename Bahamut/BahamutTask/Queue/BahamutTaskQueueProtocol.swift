@@ -9,13 +9,13 @@
 import Foundation
 
 public protocol BahamutTaskQueueStepHandler{
-    func initHandler(queue:BahamutTaskQueue)
+    func initHandler(_ queue:BahamutTaskQueue)
     func releaseHandler()
-    func doTask(queue:BahamutTaskQueue,task:BahamutQueueTask)
+    func doTask(_ queue:BahamutTaskQueue,task:BahamutQueueTask)
 }
 
-public class BahamutQueueTask:BahamutObject{
-    override public func getObjectUniqueIdName() -> String {
+open class BahamutQueueTask:BahamutObject{
+    override open func getObjectUniqueIdName() -> String {
         return "taskId"
     }
     

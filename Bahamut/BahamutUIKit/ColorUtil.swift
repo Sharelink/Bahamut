@@ -13,13 +13,13 @@ struct ColorSets
 {
     static let textColors:[UIColor] =
     [
-        UIColor.redColor(),
-        UIColor.orangeColor(),
-        UIColor.greenColor(),
-        UIColor.cyanColor(),
-        UIColor.blueColor(),
-        UIColor.purpleColor(),
-        UIColor.blackColor(),
+        UIColor.red,
+        UIColor.orange,
+        UIColor.green,
+        UIColor.cyan,
+        UIColor.blue,
+        UIColor.purple,
+        UIColor.black,
         themeColor
     ]
     
@@ -28,8 +28,8 @@ struct ColorSets
     
     static var themeColor = UIColor(hexString: "#438ccb")
     static var navBarBcgColor = UIColor(hexString: "#438ccb")
-    static var navBarTintColor = UIColor.whiteColor()
-    static var navBarTitleColor = UIColor.whiteColor()
+    static var navBarTintColor = UIColor.white
+    static var navBarTitleColor = UIColor.white
 }
 
 
@@ -59,7 +59,7 @@ extension UIColor
         return ColorSets.navBarTitleColor
     }
     
-    static func getRondomColorIn(colors:[UIColor]) -> UIColor
+    static func getRondomColorIn(_ colors:[UIColor]) -> UIColor
     {
         let index = Int(arc4random_uniform(UInt32(colors.count)))
         return colors[index]

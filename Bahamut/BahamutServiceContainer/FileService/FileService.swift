@@ -10,15 +10,15 @@ import Foundation
 //MARK: FileFetcher
 protocol FileFetcher
 {
-    func startFetch(resourceUri:String,delegate:ProgressTaskDelegate)
+    func startFetch(_ resourceUri:String,delegate:ProgressTaskDelegate)
 }
 
 //MARK: FilePathFileFetcher
 class FilePathFileFetcher: FileFetcher
 {
     var fileType:FileType!;
-    func startFetch(filepath: String, delegate: ProgressTaskDelegate) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+    func startFetch(_ filepath: String, delegate: ProgressTaskDelegate) {
+        DispatchQueue.global().async {
             delegate.taskCompleted(filepath, result: filepath)
         }
     }
@@ -30,7 +30,7 @@ class FilePathFileFetcher: FileFetcher
 
 extension FileService
 {
-    func getFileFetcherOfFilePath(fileType:FileType) -> FileFetcher
+    func getFileFetcherOfFilePath(_ fileType:FileType) -> FileFetcher
     {
         let fetcher = FilePathFileFetcher()
         fetcher.fileType = fileType
@@ -40,7 +40,7 @@ extension FileService
 
 extension ServiceContainer{
     static func getFileService() -> FileService{
-        return ServiceContainer.getService(FileService)
+        return ServiceContainer.getService(FileService.self)
     }
 }
 
@@ -48,25 +48,25 @@ extension ServiceContainer{
 class FileService: ServiceProtocol {
     @objc static var ServiceName:String {return "File Service"}
     
-    private(set) var fileManager:NSFileManager!
-    private(set) var documentsPathUrl:NSURL!
-    private(set) var localStorePathUrl:NSURL!
-    private var fetchingIdMap = [String:String]()
-    private var uploadingIdMap = [String:String]()
-    private var mondBundle:NSBundle!
-    private var coreDataUpdater:PersistentUpdateProtocol!
+    fileprivate(set) var fileManager:FileManager!
+    fileprivate(set) var documentsPathUrl:URL!
+    fileprivate(set) var localStorePathUrl:URL!
+    fileprivate var fetchingIdMap = [String:String]()
+    fileprivate var uploadingIdMap = [String:String]()
+    fileprivate var mondBundle:Bundle!
+    fileprivate var coreDataUpdater:PersistentUpdateProtocol!
     
-    init(mondBundle:NSBundle,coreDataUpdater:PersistentUpdateProtocol?)
+    init(mondBundle:Bundle,coreDataUpdater:PersistentUpdateProtocol?)
     {
         self.mondBundle = mondBundle
         self.coreDataUpdater = coreDataUpdater
     }
     
-    @objc func appStartInit(appName:String) {
+    @objc func appStartInit(_ appName:String) {
         PersistentManager.sharedInstance.appInit(appName)
     }
     
-    @objc func userLoginInit(userId: String) {
+    @objc func userLoginInit(_ userId: String) {
         initUserFoldersWithUserId(userId)
         initPersistentsExtensions(userId)
         fetchingIdMap.removeAll()
@@ -74,7 +74,7 @@ class FileService: ServiceProtocol {
         self.setServiceReady()
     }
     
-    @objc func userLogout(userId: String) {
+    @objc func userLogout(_ userId: String) {
         PersistentManager.sharedInstance.resetTmpDir()
         PersistentManager.sharedInstance.clearCache()
         PersistentManager.sharedInstance.release()
@@ -83,7 +83,7 @@ class FileService: ServiceProtocol {
     func clearLocalStoreFiles()
     {
         do{
-            try fileManager.removeItemAtURL(localStorePathUrl)
+            try fileManager.removeItem(at: localStorePathUrl)
         }catch
         {
             debugLog("clearLocalStoreFiles Failed")
@@ -91,18 +91,18 @@ class FileService: ServiceProtocol {
     }
 
     
-    private func initUserFoldersWithUserId(userId:String)
+    fileprivate func initUserFoldersWithUserId(_ userId:String)
     {
-        fileManager = NSFileManager.defaultManager()
+        fileManager = FileManager.default
         initDocumentUrl(userId)
         initLocalStoreDir()
     }
     
-    private func initPersistentsExtensions(userId:String)
+    fileprivate func initPersistentsExtensions(_ userId:String)
     {
-        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.URLByAppendingPathComponent("file.sqlite")!,documentDirUrl: self.documentsPathUrl,momdBundle: mondBundle)
-        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.URLByAppendingPathComponent("model.sqlite")!,momdBundle: mondBundle)
-        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.URLByAppendingPathComponent("message.sqlite")!,momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useLocalFilesExtension(self.documentsPathUrl.appendingPathComponent("file.sqlite"),documentDirUrl: self.documentsPathUrl,momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useModelExtension(self.documentsPathUrl.appendingPathComponent("model.sqlite"),momdBundle: mondBundle)
+        PersistentManager.sharedInstance.useMessageExtension(self.documentsPathUrl.appendingPathComponent("message.sqlite"),momdBundle: mondBundle)
         if let updater = self.coreDataUpdater
         {
             updater.update(userId)
@@ -110,34 +110,34 @@ class FileService: ServiceProtocol {
     }
     
     
-    private func initDocumentUrl(userId:String)
+    fileprivate func initDocumentUrl(_ userId:String)
     {
-        documentsPathUrl = PersistentManager.sharedInstance.rootUrl.URLByAppendingPathComponent(userId)
+        documentsPathUrl = PersistentManager.sharedInstance.rootUrl.appendingPathComponent(userId)
         PersistentManager.sharedInstance.createDir(documentsPathUrl)
     }
     
-    private func initLocalStoreDir()
+    fileprivate func initLocalStoreDir()
     {
-        localStorePathUrl = documentsPathUrl.URLByAppendingPathComponent("localStore")
+        localStorePathUrl = documentsPathUrl.appendingPathComponent("localStore")
         PersistentManager.sharedInstance.initFileDir(localStorePathUrl)
     }
 
-    private var fetchingLock = NSRecursiveLock()
-    func setFetching(fileId:String)
+    fileprivate var fetchingLock = NSRecursiveLock()
+    func setFetching(_ fileId:String)
     {
         fetchingLock.lock()
         self.fetchingIdMap[fileId] = "true"
         fetchingLock.unlock()
     }
     
-    func fetchingFinished(fileId:String)
+    func fetchingFinished(_ fileId:String)
     {
         fetchingLock.lock()
-        self.fetchingIdMap.removeValueForKey(fileId)
+        self.fetchingIdMap.removeValue(forKey: fileId)
         fetchingLock.unlock()
     }
     
-    func isFetching(fileId:String) -> Bool
+    func isFetching(_ fileId:String) -> Bool
     {
         fetchingLock.lock()
         let flag = fetchingIdMap.keys.contains(fileId)
@@ -145,7 +145,7 @@ class FileService: ServiceProtocol {
         return flag
     }
     
-    func getFilePath(fileId:String!,type:FileType!) -> String!
+    func getFilePath(_ fileId:String!,type:FileType!) -> String!
     {
         if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
         {
@@ -156,7 +156,7 @@ class FileService: ServiceProtocol {
         }
     }
     
-    func removeFile(fileId:String,type:FileType) -> Bool {
+    func removeFile(_ fileId:String,type:FileType) -> Bool {
         if PersistentManager.sharedInstance.deleteStorageFileEntityAndFile(fileId){
             return true
         }else if let path = PersistentManager.sharedInstance.getFilePathFromCachePath(fileId, type: type)
@@ -167,37 +167,37 @@ class FileService: ServiceProtocol {
         }
     }
     
-    private func createLocalStoreDirPathOfFileType(fileType:FileType) -> String
+    fileprivate func createLocalStoreDirPathOfFileType(_ fileType:FileType) -> String
     {
-        return createLocalStoreDirUrlOfFileType(fileType).path!
+        return createLocalStoreDirUrlOfFileType(fileType).path
     }
     
-    private func createLocalStoreDirUrlOfFileType(fileType:FileType) -> NSURL
+    fileprivate func createLocalStoreDirUrlOfFileType(_ fileType:FileType) -> URL
     {
-        return localStorePathUrl.URLByAppendingPathComponent("\(fileType.rawValue)")!
+        return localStorePathUrl.appendingPathComponent("\(fileType.rawValue)")
     }
     
-    func createLocalStoreFileName(fileType:FileType) -> String
+    func createLocalStoreFileName(_ fileType:FileType) -> String
     {
-        return createLocalStoreDirUrlOfFileType(fileType).URLByAppendingPathComponent("\(PersistentFileHelper.generateTmpFileName())\(fileType.FileSuffix)")!.path!
+        return createLocalStoreDirUrlOfFileType(fileType).appendingPathComponent("\(PersistentFileHelper.generateTmpFileName())\(fileType.FileSuffix)").path
     }
     
-    func getLocalStoreDirFileURLs(fileType:FileType) -> [NSURL]
+    func getLocalStoreDirFileURLs(_ fileType:FileType) -> [URL]
     {
         let dirURL = createLocalStoreDirUrlOfFileType(fileType)
         do{
-            let files = try fileManager.contentsOfDirectoryAtURL(dirURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            let files = try fileManager.contentsOfDirectory(at: dirURL, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             return files
         }catch
         {
-            return [NSURL]()
+            return [URL]()
         }
     }
     
-    func getLocalStoreDirFiles(fileType:FileType) -> [String]
+    func getLocalStoreDirFiles(_ fileType:FileType) -> [String]
     {
         return getLocalStoreDirFileURLs(fileType).map({ (url) -> String in
-            return url.path!
+            return url.path
         })
     }
 

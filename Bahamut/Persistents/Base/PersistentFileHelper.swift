@@ -11,12 +11,12 @@ import Foundation
 //MARK: PersistentFileHelper
 class PersistentFileHelper
 {
-    static func readTextFile(fileUrl:NSURL) -> String?
+    static func readTextFile(_ fileUrl:URL) -> String?
     {
-        return readTextFile(fileUrl.path!)
+        return readTextFile(fileUrl.path)
     }
     
-    static func readTextFile(filePath:String) -> String?
+    static func readTextFile(_ filePath:String) -> String?
     {
         do
         {
@@ -27,37 +27,38 @@ class PersistentFileHelper
         }
     }
     
-    static func isDirectory(url:NSURL) -> Bool
+    static func isDirectory(_ url:URL) -> Bool
     {
         var isDir = ObjCBool(true)
-        return NSFileManager.defaultManager().fileExistsAtPath(url.path!,isDirectory: &isDir)
+        return FileManager.default.fileExists(atPath: url.path,isDirectory: &isDir)
     }
     
-    static func fileExists(fileUrl:NSURL) -> Bool
+    static func fileExists(_ fileUrl:URL) -> Bool
     {
-        return fileExists(fileUrl.path!)
+        return fileExists(fileUrl.path)
     }
     
-    static func fileExists(filePath:String) -> Bool
+    static func fileExists(_ filePath:String) -> Bool
     {
-        return NSFileManager.defaultManager().fileExistsAtPath(filePath)
+        return FileManager.default.fileExists(atPath: filePath)
     }
     
-    static func fileSizeOf(localfilePath:String) -> Int
+    static func fileSizeOf(_ localfilePath:String) -> Int
     {
         do{
-            let fileSize = try NSFileManager.defaultManager().attributesOfItemAtPath(localfilePath)[NSFileSize] as! Int
+            let fileSize = try FileManager.default.attributesOfItem(atPath: localfilePath)[FileAttributeKey.size] as! Int
             return fileSize
         }catch{
             return -1
         }
     }
     
-    static func moveFile(sourcePath:String,destinationPath:String) -> Bool
+    @discardableResult
+    static func moveFile(_ sourcePath:String,destinationPath:String) -> Bool
     {
         do
         {
-            try NSFileManager.defaultManager().moveItemAtPath(sourcePath, toPath: destinationPath)
+            try FileManager.default.moveItem(atPath: sourcePath, toPath: destinationPath)
             return true
         }catch let err as NSError
         {
@@ -72,16 +73,18 @@ class PersistentFileHelper
         }
     }
     
-    static func storeFile(data:NSData, filePath:String) -> Bool
+    @discardableResult
+    static func storeFile(_ data:Data, filePath:String) -> Bool
     {
-        return NSFileManager.defaultManager().createFileAtPath(filePath, contents: data, attributes: nil)
+        return FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
     }
     
-    static func deleteFile(filePath:String) -> Bool
+    @discardableResult
+    static func deleteFile(_ filePath:String) -> Bool
     {
         do
         {
-            try NSFileManager.defaultManager().removeItemAtPath(filePath)
+            try FileManager.default.removeItem(atPath: filePath)
             return true
         }catch
         {
@@ -90,7 +93,7 @@ class PersistentFileHelper
     }
     
     static func generateTmpFileName()->String{
-        return "\(String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000))_\(random() % 100)"
+        return "\(String(format: "%.0f", Date().timeIntervalSince1970 * 1000))_\(random() % 100)"
     }
     
 }

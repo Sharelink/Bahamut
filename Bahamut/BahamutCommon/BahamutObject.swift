@@ -10,20 +10,37 @@ import Foundation
 import EVReflection
 
 //MARK:BahamutObject
-public class BahamutObject : EVObject
+
+extension EVObject{
+    
+    static func fromJsonString<T:EVObject>(json:String?,_ t:T) -> T{
+        let dict = EVReflection.dictionaryFromJson(json)
+        return EVReflection.setPropertiesfromDictionary(dict, anyObject: t)
+    }
+    
+    static func fromDictionary<T:EVObject>(dict:NSDictionary,_ t:T) -> T{
+        return EVReflection.setPropertiesfromDictionary(dict, anyObject: t)
+    }
+    
+    func toJsonString() -> String {
+        return toJsonString(ConversionOptions.DefaultSerialize, prettyPrinted: false)
+    }
+}
+
+open class BahamutObject : EVObject
 {
-    public func getObjectUniqueIdName() -> String
+    open func getObjectUniqueIdName() -> String
     {
         return "id"
     }
     
-    public func getObjectUniqueIdValue() -> String
+    open func getObjectUniqueIdValue() -> String
     {
-        return valueForKey(getObjectUniqueIdName()) as! String
+        return value(forKey: getObjectUniqueIdName()) as! String
     }
     
-    public func copyToObject<T:BahamutObject>(t:T.Type) -> T{
-        return T(json:self.toJsonString())
+    open func copyToObject<T:BahamutObject>(_ t:T.Type) -> T where T:BahamutObject{
+        return EVReflection.setPropertiesfromDictionary(self.toDictionary(), anyObject: T())
     }
 }
 

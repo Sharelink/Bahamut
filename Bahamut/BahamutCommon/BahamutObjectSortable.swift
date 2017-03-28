@@ -12,7 +12,7 @@ import Foundation
 class Sortable : BahamutObject
 {
     var compareValue:AnyObject!
-    func isOrderedBefore(b:Sortable) -> Bool
+    func isOrderedBefore(_ b:Sortable) -> Bool
     {
         return false
     }
@@ -20,21 +20,21 @@ class Sortable : BahamutObject
 
 class SortableObjectList<T:Sortable>
 {
-    private(set) var list:[T] = [T]()
+    fileprivate(set) var list:[T] = [T]()
     init(initList:[T])
     {
         setSortableItems(initList)
     }
     
-    private func sort()
+    fileprivate func sort()
     {
-        let newList = list.sort { (a,b) -> Bool in
+        let newList = list.sorted { (a,b) -> Bool in
             a.isOrderedBefore(b)
         }
         list = newList
     }
     
-    func setSortableItems(items:[T]!)
+    func setSortableItems(_ items:[T]!)
     {
         if items == nil || items.count == 0
         {
@@ -47,7 +47,7 @@ class SortableObjectList<T:Sortable>
         self.sort()
     }
     
-    private func setSortableItem(item:T)
+    fileprivate func setSortableItem(_ item:T)
     {
         for obj in list
         {
@@ -58,11 +58,11 @@ class SortableObjectList<T:Sortable>
                 return
             }
         }
-        list.insert(item, atIndex: 0)
+        list.insert(item, at: 0)
         item.saveModel()
     }
     
-    func getSortedObjects(startIndex:Int,pageNum:Int) -> [T]
+    func getSortedObjects(_ startIndex:Int,pageNum:Int) -> [T]
     {
         var result = [T]()
         let lastIndex = min(list.count,startIndex + pageNum)

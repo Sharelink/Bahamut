@@ -18,5 +18,5 @@ protocol PersistentExtensionProtocol
 
 protocol PersistentUpdateProtocol
 {
-    func update(obj:AnyObject?)
+    func update(_ obj:Any?)
 }

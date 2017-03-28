@@ -12,11 +12,11 @@ import CoreData
 
 //MARK: CoreDataManager
 class CoreDataManager {
-    private var changeTimes = 0
-    private let contextLock = NSRecursiveLock()
+    fileprivate var changeTimes = 0
+    fileprivate let contextLock = NSRecursiveLock()
     
-    private var coreDataModelId = "Bahamut"
-    private var dbFileUrl:NSURL!
+    fileprivate var coreDataModelId = "Bahamut"
+    fileprivate var dbFileUrl:URL!
 
     func getEntityContext()-> NSManagedObjectContext
     {
@@ -27,15 +27,15 @@ class CoreDataManager {
     }
     
     //MARK: New
-    func insertNewCell(entityName:String)->NSManagedObject
+    func insertNewCell(_ entityName:String)->NSManagedObject
     {
-        return NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: getEntityContext()) 
+        return NSEntityDescription.insertNewObject(forEntityName: entityName, into: getEntityContext()) 
     }
     
     //MARK: Delete
-    func deleteCellByIds(entityName:String, idFieldName:String, idValues:[String])
+    func deleteCellByIds(_ entityName:String, idFieldName:String, idValues:[String])
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.async { () -> Void in
             let objs = (self.getCellsByIds(entityName, idFieldName: idFieldName, idValues: idValues)?.filter{$0 != nil}.map{$0!}) ?? [NSManagedObject]()
             do{
                 try self.deleteObjects(objs)
@@ -45,36 +45,36 @@ class CoreDataManager {
         }
     }
     
-    func deleteCellById(entityName:String, idFieldName:String, idValue:String)
+    func deleteCellById(_ entityName:String, idFieldName:String, idValue:String)
     {
         deleteCellByIds(entityName, idFieldName: idFieldName, idValues: [idValue])
     }
     
-    func deleteObject(object:NSManagedObject)
+    func deleteObject(_ object:NSManagedObject)
     {
-        getEntityContext().deleteObject(object)
+        getEntityContext().delete(object)
     }
     
-    func deleteObjects(objects:[NSManagedObject]) throws
+    func deleteObjects(_ objects:[NSManagedObject]) throws
     {
         let context = getEntityContext()
         for obj in objects
         {
-            context.deleteObject(obj)
+            context.delete(obj)
         }
         saveContextDelay()
     }
     
-    func deleteAll(entityName:String)
+    func deleteAll(_ entityName:String)
     {
-        let request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.returnsObjectsAsFaults = false
         do{
             let context = getEntityContext()
-            let resultSet = try context.executeFetchRequest(request).map{$0 as! NSManagedObject}
+            let resultSet = try context.fetch(request).map{$0 as! NSManagedObject}
             for obj in resultSet
             {
-                context.deleteObject(obj)
+                context.delete(obj)
             }
             saveContextDelay()
         }catch let ex as NSError{
@@ -84,13 +84,13 @@ class CoreDataManager {
     }
     
     //MARK: Query
-    func getCellsByIds(entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject?]?
+    func getCellsByIds(_ entityName:String, idFieldName:String, idValues:[String])->[NSManagedObject?]?
     {
-        let request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) IN %@", argumentArray: [idValues])
         request.returnsObjectsAsFaults = false
         do{
-            let resultSet = try getEntityContext().executeFetchRequest(request)
+            let resultSet = try getEntityContext().fetch(request)
             return resultSet.map{ item -> NSManagedObject? in
                 return item as? NSManagedObject
             }
@@ -99,9 +99,9 @@ class CoreDataManager {
         }
     }
     
-    func getCells(entityName:String,predicate:NSPredicate?,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
+    func getCells(_ entityName:String,predicate:NSPredicate?,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]
     {
-        let request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.returnsObjectsAsFaults = false
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
@@ -111,7 +111,7 @@ class CoreDataManager {
             request.fetchLimit = limit
         }
         do{
-            let resultSet = try getEntityContext().executeFetchRequest(request)
+            let resultSet = try getEntityContext().fetch(request)
             return resultSet.map{ item -> NSManagedObject in
                 return item as! NSManagedObject
             }
@@ -121,9 +121,9 @@ class CoreDataManager {
         return [NSManagedObject]()
     }
     
-    func getCellsById(entityName:String, idFieldName:String, idValue:String,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]?
+    func getCellsById(_ entityName:String, idFieldName:String, idValue:String,offset:Int = 0,limit:Int = -1,sortDescriptors:[NSSortDescriptor]! = nil) -> [NSManagedObject]?
     {
-        let request = NSFetchRequest(entityName: entityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.predicate = NSPredicate(format: "\(idFieldName) = %@", argumentArray: [idValue])
         request.sortDescriptors = sortDescriptors
         request.fetchOffset = offset
@@ -133,7 +133,7 @@ class CoreDataManager {
         }
         request.returnsObjectsAsFaults = false
         do{
-            let resultSet = try getEntityContext().executeFetchRequest(request)
+            let resultSet = try getEntityContext().fetch(request)
             return resultSet as? [NSManagedObject]
         }catch{
             
@@ -141,7 +141,7 @@ class CoreDataManager {
         return nil
     }
     
-    func getCellById(entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
+    func getCellById(_ entityName:String, idFieldName:String, idValue:String) -> NSManagedObject?
     {
         return getCellsById(entityName, idFieldName: idFieldName, idValue: idValue)?.first
     }
@@ -149,18 +149,20 @@ class CoreDataManager {
     //MARK: Update
     func saveContextDelay()
     {
-        var saveFlag = false
         contextLock.lock()
+        var saveFlag = false
         changeTimes += 1
         if changeTimes >= 23
         {
             saveFlag = true
             changeTimes = 0
         }
-        contextLock.unlock()
         if saveFlag
         {
+            contextLock.unlock()
             saveNow()
+        }else{
+            contextLock.unlock()
         }
     }
     
@@ -174,32 +176,32 @@ class CoreDataManager {
     //MARK: Base Managed Core Data Object
     var managedObjectModel: NSManagedObjectModel!
     
-    private func initManagedObjectModel(momdBundle:NSBundle){
+    fileprivate func initManagedObjectModel(_ momdBundle:Bundle){
         if managedObjectModel == nil{
             // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-            let modelURL = momdBundle.URLForResource(self.coreDataModelId, withExtension: "momd")!
-            managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
+            let modelURL = momdBundle.url(forResource: self.coreDataModelId, withExtension: "momd")!
+            managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
         }
     }
     
-    private var persistentStoreCoordinator: NSPersistentStoreCoordinator?
+    fileprivate var persistentStoreCoordinator: NSPersistentStoreCoordinator?
     
-    private func initPersistentStoreCoordinator(momdBundle:NSBundle) -> NSPersistentStoreCoordinator{
+    fileprivate func initPersistentStoreCoordinator(_ momdBundle:Bundle) -> NSPersistentStoreCoordinator{
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         initManagedObjectModel(momdBundle)
-        let optionsDictionary = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(bool: true),NSInferMappingModelAutomaticallyOption:NSNumber(bool: true)]
+        let optionsDictionary = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(value: true as Bool),NSInferMappingModelAutomaticallyOption:NSNumber(value: true as Bool)]
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let currentPersistentStore = dbFileUrl
         let failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: currentPersistentStore, options: optionsDictionary)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: currentPersistentStore, options: optionsDictionary)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
             
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
@@ -213,14 +215,14 @@ class CoreDataManager {
         return coordinator
     }
     
-    func initManager(coreDataModelId:String!,dbFileUrl:NSURL,momdBundle:NSBundle)
+    func initManager(_ coreDataModelId:String!,dbFileUrl:URL,momdBundle:Bundle)
     {
         contextLock.lock()
         self.coreDataModelId = coreDataModelId
         self.dbFileUrl = dbFileUrl
         self.persistentStoreCoordinator = initPersistentStoreCoordinator(momdBundle)
         let coordinator = self.persistentStoreCoordinator
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         contextLock.unlock()
     }
@@ -234,11 +236,11 @@ class CoreDataManager {
         contextLock.unlock()
     }
     
-    private(set) var managedObjectContext: NSManagedObjectContext!
+    fileprivate(set) var managedObjectContext: NSManagedObjectContext!
     
     // MARK: - Core Data Saving support
     
-    private func saveContext () {
+    fileprivate func saveContext () {
         if managedObjectContext == nil
         {
             return
@@ -262,7 +264,7 @@ class CoreDataManager {
         deinitManager()
         contextLock.lock()
         do{
-            try NSFileManager.defaultManager().removeItemAtURL(dbFileUrl)
+            try FileManager.default.removeItem(at: dbFileUrl)
         }catch let err as NSError{
             debugLog(err.debugDescription)
             debugLog("Destroy Db File Error:\(dbFileUrl.path)")

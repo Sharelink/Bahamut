@@ -12,9 +12,9 @@ import Foundation
 protocol ServiceProtocol
 {
     static var ServiceName:String {get}
-    optional func appStartInit(appName:String)
-    optional func userLoginInit(userId:String)
-    optional func userLogout(userId:String)
+    @objc optional func appStartInit(_ appName:String)
+    @objc optional func userLoginInit(_ userId:String)
+    @objc optional func userLogout(_ userId:String)
 }
 
 typealias ServiceListDict = [(String,ServiceProtocol)]

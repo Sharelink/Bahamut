@@ -8,9 +8,9 @@
 import UIKit
 
 //MARK:NoStatusBarViewController
-public class NoStatusBarViewController :UIViewController
+open class NoStatusBarViewController :UIViewController
 {
-    public override func prefersStatusBarHidden() -> Bool {
+    open override var prefersStatusBarHidden : Bool {
         return true
     }
 }
@@ -18,10 +18,10 @@ public class NoStatusBarViewController :UIViewController
 //MARK: instanceFromStoryBoard
 extension UIViewController
 {
-    static func instanceFromStoryBoard(storyBoardName:String,identifier:String,bundle:NSBundle = NSBundle.mainBundle()) -> UIViewController
+    static func instanceFromStoryBoard(_ storyBoardName:String,identifier:String,bundle:Bundle = Bundle.main) -> UIViewController
     {
         let storyBoard = UIStoryboard(name: storyBoardName, bundle: bundle)
-        return storyBoard.instantiateViewControllerWithIdentifier(identifier)
+        return storyBoard.instantiateViewController(withIdentifier: identifier)
     }
 }
 
@@ -53,8 +53,8 @@ class UIOrientationsNavigationController: UINavigationController ,OrientationsNa
     func supportedViewOrientations() -> UIInterfaceOrientationMask {
         if lockOrientationPortrait
         {
-            return UIInterfaceOrientationMask.Portrait
+            return UIInterfaceOrientationMask.portrait
         }
-        return UIInterfaceOrientationMask.All
+        return UIInterfaceOrientationMask.all
     }
 }

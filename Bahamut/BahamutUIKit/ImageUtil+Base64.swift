@@ -9,20 +9,20 @@
 import Foundation
 extension ImageUtil{
     
-    static func getVideoThumbImageBase64String(videoURL:String,compressionQuality: CGFloat) -> String?
+    static func getVideoThumbImageBase64String(_ videoURL:String,compressionQuality: CGFloat) -> String?
     {
         if let thumbData = getVideoThumbImageData(videoURL, compressionQuality: compressionQuality)
         {
-            return thumbData.base64UrlEncodedString()
+            return (thumbData as NSData).base64UrlEncodedString()
         }
         return nil
     }
     
-    static func getVideoThumbImageBase64String(base64:String) -> UIImage?
+    static func getVideoThumbImageBase64String(_ base64:String) -> UIImage?
     {
         if let thumbData = NSData(base64UrlEncodedString: base64)
         {
-            if let thumb = UIImage(data: thumbData, scale: 1.0)
+            if let thumb = UIImage(data: thumbData as Data, scale: 1.0)
             {
                 return thumb
             }

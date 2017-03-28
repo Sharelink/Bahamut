@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 extension UIImagePickerController{
-    static func showUIImagePickerAlert(viewController:UIViewController,title:String!,message:String!,allowsEditing:Bool = false,alertStyle:UIAlertControllerStyle = .ActionSheet,extraAlertAction:[UIAlertAction]? = nil) -> UIImagePickerController{
+    static func showUIImagePickerAlert(_ viewController:UIViewController,title:String!,message:String!,allowsEditing:Bool = false,alertStyle:UIAlertControllerStyle = .actionSheet,extraAlertAction:[UIAlertAction]? = nil) -> UIImagePickerController{
         let imagePicker = UIImagePickerController()
-        let style = UIDevice.currentDevice().userInterfaceIdiom == .Phone ? alertStyle : .Alert
+        let style = UIDevice.current.userInterfaceIdiom == .phone ? alertStyle : .alert
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-        let camera = UIAlertAction(title: "TAKE_NEW_PHOTO".bahamutCommonLocalizedString, style: .Default) { _ in
-            imagePicker.sourceType = .Camera
+        let camera = UIAlertAction(title: "TAKE_NEW_PHOTO".bahamutCommonLocalizedString, style: .default) { _ in
+            imagePicker.sourceType = .camera
             imagePicker.allowsEditing = allowsEditing
-            viewController.presentViewController(imagePicker, animated: true, completion: nil)
+            viewController.present(imagePicker, animated: true, completion: nil)
         }
         
-        if let cameraIcon = UIImage(named: "avartar_camera")?.imageWithRenderingMode(.AlwaysOriginal) {
+        if let cameraIcon = UIImage(named: "avartar_camera")?.withRenderingMode(.alwaysOriginal) {
             camera.setValue(cameraIcon, forKey: "image")
         }
         
@@ -28,12 +28,12 @@ extension UIImagePickerController{
             alert.addAction(camera)
         }
         
-        let album = UIAlertAction(title:"SELECT_PHOTO".bahamutCommonLocalizedString, style: .Default) { _ in
-            imagePicker.sourceType = .PhotoLibrary
+        let album = UIAlertAction(title:"SELECT_PHOTO".bahamutCommonLocalizedString, style: .default) { _ in
+            imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = allowsEditing
-            viewController.presentViewController(imagePicker, animated: true, completion: nil)
+            viewController.present(imagePicker, animated: true, completion: nil)
         }
-        if let albumIcon = UIImage(named: "avartar_select")?.imageWithRenderingMode(.AlwaysOriginal){
+        if let albumIcon = UIImage(named: "avartar_select")?.withRenderingMode(.alwaysOriginal){
             album.setValue(albumIcon, forKey: "image")
         }
         alert.addAction(album)
@@ -44,8 +44,8 @@ extension UIImagePickerController{
             }
         }
         
-        alert.addAction(UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style: .Cancel){ _ in})
-        viewController.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style: .cancel){ _ in})
+        viewController.present(alert, animated: true, completion: nil)
         return imagePicker
     }
 }

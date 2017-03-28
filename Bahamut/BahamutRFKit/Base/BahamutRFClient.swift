@@ -11,51 +11,56 @@ import EVReflection
 import Alamofire
 import AlamofireJsonToObjects
 
-public protocol ClientProtocal
+open class ClientProtocal
 {
-    func setClientStart()
-    func setClientClose()
-    func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<T>)->Void) -> Bool
-    func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<[T]>)->Void) -> Bool
+    func setClientStart(){}
+    func setClientClose(){}
     
-    func execute(request:BahamutRFRequestBase,callback:(result:Result<String,NSError>)->Void) -> Bool
+    @discardableResult
+    func execute<T:EVObject>(_ request:BahamutRFRequestBase,callback:@escaping (_ result:SLResult<T>)->Void) -> Bool{ return false }
+    
+    @discardableResult
+    func execute<T:EVObject>(_ request:BahamutRFRequestBase,callback:@escaping (_ result:SLResult<[T]>)->Void) -> Bool{ return false }
+    
+    @discardableResult
+    func execute(_ request:BahamutRFRequestBase,callback:@escaping (_ result:Result<String>)->Void) -> Bool{ return false }
 }
-
 
 public protocol BahamutRFClientDelegate{
     
-    func bahamutClientWillSetHeaders(client:BahamutRFClient,request:BahamutRFRequestBase)
-    func bahamutClientWillSetApi(client:BahamutRFClient,request:BahamutRFRequestBase)
-    func bahamutClientDidSetHeaders(client:BahamutRFClient,request:BahamutRFRequestBase)
-    func bahamutClientDidSetApi(client:BahamutRFClient,request:BahamutRFRequestBase)
-    func bahamutClientWillPerformRequest(client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientWillSetHeaders(_ client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientWillSetApi(_ client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientDidSetHeaders(_ client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientDidSetApi(_ client:BahamutRFClient,request:BahamutRFRequestBase)
+    func bahamutClientWillPerformRequest(_ client:BahamutRFClient,request:BahamutRFRequestBase)
     
 }
 
-public class SLResult<T>
+open class SLResult<T>
 {
-    public var originResult:Result<T,NSError>!;
-    public var returnObject:T!{
+    open var originResult:Result<T>!;
+    open var returnObject:T!{
         return originResult?.value ?? nil
     }
-    public var statusCode:Int!;
-    public var isFailure:Bool{
+    open var statusCode:Int!;
+    open var isFailure:Bool{
         return originResult?.isFailure ?? true
     }
     
-    public var isSuccess:Bool{
+    open var isSuccess:Bool{
         return originResult?.isSuccess ?? false
     }
 }
 
-public class BahamutRFClient : ClientProtocal
+open class BahamutRFClient : ClientProtocal
 {
-    public var delegate:BahamutRFClientDelegate?
     
-    public private(set) var userId:String
-    public private(set) var token:String
-    public private(set) var apiServer:String
-    private var clientStarted:Bool = false
+    open var delegate:BahamutRFClientDelegate?
+    
+    open fileprivate(set) var userId:String
+    open fileprivate(set) var token:String
+    open fileprivate(set) var apiServer:String
+    fileprivate var clientStarted:Bool = false
     
     init(apiServer:String, userId:String, token:String)
     {
@@ -64,24 +69,25 @@ public class BahamutRFClient : ClientProtocal
         self.token = token
     }
     
-    init()
+    override init()
     {
         self.apiServer = ""
         self.userId = ""
         self.token = ""
     }
     
-    public func setClientClose()
+    open override func setClientClose()
     {
         clientStarted = false
     }
     
-    public func setClientStart()
+    open override func setClientStart()
     {
         clientStarted = true
     }
     
-    func setReqHeader(req:BahamutRFRequestBase) -> BahamutRFRequestBase
+    @discardableResult
+    func setReqHeader(_ req:BahamutRFRequestBase) -> BahamutRFRequestBase
     {
         req.headers.updateValue(userId, forKey: "userId")
         req.headers.updateValue(token, forKey: "token")
@@ -91,19 +97,19 @@ public class BahamutRFClient : ClientProtocal
         return req
     }
     
-    private func setReqApi(req:BahamutRFRequestBase)
+    fileprivate func setReqApi(_ req:BahamutRFRequestBase)
     {
         req.api = req.apiServerUrl != nil ? req.apiServerUrl + req.api : self.apiServer + req.api
     }
     
-    public func execute(request: BahamutRFRequestBase, callback: (result: Result<String,NSError>) -> Void) -> Bool
+    @discardableResult
+    public override func execute(_ request: BahamutRFRequestBase, callback: @escaping (_ result: Result<String>) -> Void) -> Bool
     {
         if clientStarted == false || request.isRequestLimited()
         {
             let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
-            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
-            let res = Result<String,NSError>.Failure(error)
-            callback(result: res)
+            let res = Result<String>.failure(NSError.init(domain: "BahamutRFClient", code: 403, userInfo: userInfo))
+            callback(res)
             return false
         }
         request.incRequest()
@@ -116,20 +122,21 @@ public class BahamutRFClient : ClientProtocal
         setReqHeader(request)
         delegate?.bahamutClientDidSetHeaders(self, request: request)
         
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let queue = DispatchQueue.global()
         delegate?.bahamutClientWillPerformRequest(self, request: request)
         
-        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
-        req.response(queue: queue, responseSerializer: Request.stringResponseSerializer(encoding: nil)) { (response:Response<String, NSError>) in
+        let req = Alamofire.request(request.api, method: request.method, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate(contentType: ["application/json"])
+        
+        req.responseString(queue: queue) { (response) in
             request.decRequest()
             if self.clientStarted == false
             {
                 return
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
-                callback(result: response.result)
-            })
+            DispatchQueue.main.async {
+                callback(response.result)
+            }
             
             if response.response?.statusCode == 401{
                 BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
@@ -138,16 +145,15 @@ public class BahamutRFClient : ClientProtocal
         return true
     }
     
-    public func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<[T]>)->Void) -> Bool
-    {
-        if clientStarted == false || request.isRequestLimited()
+    @discardableResult
+    public override func execute<T : EVObject>(_ request: BahamutRFRequestBase, callback: @escaping (SLResult<T>) -> Void) -> Bool{
+        if  clientStarted == false || request.isRequestLimited()
         {
-            let err = SLResult<[T]>()
+            let err = SLResult<T>()
             let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
-            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
-            err.originResult = Result<[T],NSError>.Failure(error)
-            err.originResult = nil
-            callback(result: err)
+            let res = Result<T>.failure(NSError.init(domain: "BahamutRFClient", code: 403, userInfo: userInfo))
+            err.originResult = res
+            callback(err)
             return false
         }
         request.incRequest()
@@ -159,11 +165,60 @@ public class BahamutRFClient : ClientProtocal
         setReqHeader(request)
         delegate?.bahamutClientDidSetHeaders(self, request: request)
         
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let queue = DispatchQueue.global()
         delegate?.bahamutClientWillPerformRequest(self, request: request)
         
-        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
-        req.responseArray(queue) { (_, response, result:Result<[T],NSError>) -> Void in
+        let req = Alamofire.request(request.api,method: request.method,  parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate(contentType: ["application/json"])
+        req.responseObject(queue: queue) { (result:DataResponse<T>) in
+            request.decRequest()
+            if self.clientStarted == false
+            {
+                return
+            }
+            let slResult = SLResult<T>()
+            slResult.originResult = result.result
+            if let responseCode = result.response?.statusCode
+            {
+                slResult.statusCode = responseCode
+            }else{
+                slResult.statusCode = 999
+            }
+            
+            DispatchQueue.main.async {
+                callback(slResult)
+            }
+            
+            if result.response?.statusCode == 401{
+                BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
+            }
+        }
+        return true
+    }
+    
+    @discardableResult
+    public override func execute<T : EVObject>(_ request: BahamutRFRequestBase, callback: @escaping (SLResult<[T]>) -> Void) -> Bool{
+        if clientStarted == false || request.isRequestLimited()
+        {
+            let err = SLResult<[T]>()
+            let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
+            err.originResult = Result<[T]>.failure(NSError.init(domain: "BahamutRFClient", code: 403, userInfo: userInfo))
+            callback(err)
+            return false
+        }
+        request.incRequest()
+        delegate?.bahamutClientWillSetApi(self, request: request)
+        setReqApi(request)
+        delegate?.bahamutClientDidSetApi(self, request: request)
+        
+        delegate?.bahamutClientWillSetHeaders(self, request: request)
+        setReqHeader(request)
+        delegate?.bahamutClientDidSetHeaders(self, request: request)
+        
+        let queue = DispatchQueue.global()
+        delegate?.bahamutClientWillPerformRequest(self, request: request)
+        
+        let req = Alamofire.request(request.api,method:request.method,  parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate(contentType: ["application/json"])
+        req.responseArray(queue: queue) { (result:DataResponse<[T]>) -> Void in
             request.decRequest()
             if self.clientStarted == false
             {
@@ -171,72 +226,24 @@ public class BahamutRFClient : ClientProtocal
             }
             
             let slResult = SLResult<[T]>()
-            slResult.originResult = result
-            if let responseCode = response?.statusCode
+            slResult.originResult = result.result
+            if let responseCode = result.response?.statusCode
             {
                 slResult.statusCode = responseCode
             }else{
                 slResult.statusCode = 999
             }
-            dispatch_async(dispatch_get_main_queue(), {
-                callback(result: slResult)
-            })
             
-            if response?.statusCode == 401{
+            DispatchQueue.main.async {
+                callback(slResult)
+            }
+            
+            if result.response?.statusCode == 401{
                 BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
             }
         }
         
         return true
     }
-    
-    public func execute<T:EVObject>(request:BahamutRFRequestBase,callback:(result:SLResult<T>)->Void) -> Bool
-    {
-        if  clientStarted == false || request.isRequestLimited()
-        {
-            let err = SLResult<T>()
-            let userInfo = [NSLocalizedFailureReasonErrorKey: "concurrent request times limit"]
-            let error = NSError(domain: Error.Domain, code: Error.Code.StatusCodeValidationFailed.rawValue, userInfo: userInfo)
-            err.originResult = Result<T,NSError>.Failure(error)
-            err.originResult = nil
-            callback(result: err)
-            return false
-        }
-        request.incRequest()
-        delegate?.bahamutClientWillSetApi(self, request: request)
-        setReqApi(request)
-        delegate?.bahamutClientDidSetApi(self, request: request)
-        
-        delegate?.bahamutClientWillSetHeaders(self, request: request)
-        setReqHeader(request)
-        delegate?.bahamutClientDidSetHeaders(self, request: request)
-        
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        delegate?.bahamutClientWillPerformRequest(self, request: request)
-        
-        let req = Alamofire.request(request.method, request.api, parameters: request.paramenters, encoding: request.encoding, headers: request.headers).validate().validate(contentType: ["application/json"])
-        req.responseObject(queue) { (_, response, result:Result<T,NSError>) -> Void in
-            request.decRequest()
-            if self.clientStarted == false
-            {
-                return
-            }
-            let slResult = SLResult<T>()
-            slResult.originResult = result
-            if let responseCode = response?.statusCode
-            {
-                slResult.statusCode = responseCode
-            }else{
-                slResult.statusCode = 999
-            }
-            dispatch_async(dispatch_get_main_queue(), {
-                callback(result: slResult)
-            })
-            
-            if response?.statusCode == 401{
-                BahamutRFKit.sharedInstance.postNotificationNameWithMainAsync(BahamutRFKit.onTokenInvalidated, object: BahamutRFKit.sharedInstance, userInfo: nil)
-            }
-        }
-        return true
-    }
+ 
 }

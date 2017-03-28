@@ -11,15 +11,15 @@ import UIKit
 import AVFoundation
 class ImageUtil
 {
-    class func getVideoThumbImage(videoURL:String) -> UIImage?
+    class func getVideoThumbImage(_ videoURL:String) -> UIImage?
     {
         return generateThumb(videoURL)
     }
     
-    class func generateThumb(videoURL:String) -> UIImage?
+    class func generateThumb(_ videoURL:String) -> UIImage?
     {
         var thumb:UIImage!
-        let asset:AVURLAsset = AVURLAsset(URL: NSURL(fileURLWithPath:videoURL))
+        let asset:AVURLAsset = AVURLAsset(url: URL(fileURLWithPath:videoURL))
         
         let gen:AVAssetImageGenerator = AVAssetImageGenerator(asset:asset)
         
@@ -28,8 +28,8 @@ class ImageUtil
         let time:CMTime = CMTimeMakeWithSeconds(1, asset.duration.timescale)
         
         do{
-            let image:CGImageRef = try gen.copyCGImageAtTime(time,actualTime:nil)
-            thumb = UIImage(CGImage: image)
+            let image:CGImage = try gen.copyCGImage(at: time,actualTime:nil)
+            thumb = UIImage(cgImage: image)
             return thumb
         }catch
         {
@@ -37,7 +37,7 @@ class ImageUtil
         }
     }
     
-    class func getVideoThumbImageData(videoURL:String,compressionQuality: CGFloat) -> NSData?
+    class func getVideoThumbImageData(_ videoURL:String,compressionQuality: CGFloat) -> Data?
     {
         if let thumb:UIImage = generateThumb(videoURL)
         {
@@ -46,7 +46,7 @@ class ImageUtil
         return nil
     }
     
-    class func getImageThumbImage(imageURL:String) -> UIImage?
+    class func getImageThumbImage(_ imageURL:String) -> UIImage?
     {
         return UIImage(contentsOfFile: imageURL)
     }
@@ -55,42 +55,42 @@ class ImageUtil
 
 extension UIImage
 {
-    static func namedImageInBundle(named:String, inBundle:NSBundle) -> UIImage?
+    static func namedImageInBundle(_ named:String, inBundle:Bundle) -> UIImage?
     {
-        return UIImage(named: named, inBundle: inBundle, compatibleWithTraitCollection: nil)
+        return UIImage(named: named, in: inBundle, compatibleWith: nil)
     }
 }
 
 extension UIImage
 {
     
-    func scaleToWidthOf(width:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
+    func scaleToWidthOf(_ width:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
         let originWidth = self.size.width
         let a = width / originWidth
-        let size = CGSizeMake(width, self.size.height * a)
+        let size = CGSize(width: width, height: self.size.height * a)
         return scaleToSize(size,quality: quality,isPNG: isPNG)
     }
     
-    func scaleToHeightOf(height:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
+    func scaleToHeightOf(_ height:CGFloat,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
         let originHeight = self.size.height
         let a = height / originHeight
-        let size = CGSizeMake(self.size.width * a, height)
+        let size = CGSize(width: self.size.width * a, height: height)
         return scaleToSize(size,quality: quality,isPNG: isPNG)
     }
     
-    func scaleToSize(asize:CGSize,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
+    func scaleToSize(_ asize:CGSize,quality:CGFloat = 1,isPNG:Bool = false) -> UIImage
     {
         let imgCopy = UIImage(data: self.generateImageDataOfQuality(quality,isPNG: isPNG)!)!
         UIGraphicsBeginImageContext(asize)
-        imgCopy.drawInRect(CGRectMake(0, 0, asize.width, asize.height))
+        imgCopy.draw(in: CGRect(x: 0, y: 0, width: asize.width, height: asize.height))
         let newimage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newimage
     }
     
-    func generateImageDataOfQuality(quality:CGFloat,isPNG:Bool = false) -> NSData?
+    func generateImageDataOfQuality(_ quality:CGFloat,isPNG:Bool = false) -> Data?
     {
         return UIImageJPEGRepresentation(self, quality)
     }
@@ -100,8 +100,8 @@ extension UIImage
 extension UIView{
     func viewToImage()->UIImage?{
         
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.mainScreen().scale)
-        self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.main.scale)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
@@ -110,7 +110,7 @@ extension UIView{
 
 extension UIImageView{
     
-    func convertPointFromImage(imagePoint:CGPoint) -> CGPoint? {
+    func convertPointFromImage(_ imagePoint:CGPoint) -> CGPoint? {
         if self.image == nil{
             return nil
         }
@@ -126,7 +126,7 @@ extension UIImageView{
         
         var scale:CGFloat = 0
         
-        if (contentMode == .ScaleAspectFit) {
+        if (contentMode == .scaleAspectFit) {
             scale = min(ratioX, ratioY)
         }
         else /*if (contentMode == UIViewContentModeScaleAspectFill)*/ {
@@ -142,7 +142,7 @@ extension UIImageView{
         return viewPoint
     }
     
-    func convertRectFromImage(imageRect:CGRect) -> CGRect?{
+    func convertRectFromImage(_ imageRect:CGRect) -> CGRect?{
         if self.image == nil{
             return nil
         }
@@ -158,7 +158,7 @@ extension UIImageView{
         
         var scale:CGFloat = 0
         
-        if (contentMode == .ScaleAspectFit) {
+        if (contentMode == .scaleAspectFit) {
             scale = min(ratioX, ratioY)
         }
         else /*if (contentMode == UIViewContentModeScaleAspectFill)*/ {

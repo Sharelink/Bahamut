@@ -11,31 +11,37 @@ import Foundation
 let InitServiceFailedReason = "InitServiceFailedReason"
 let ServiceContainerNotifyService = "ServiceContainerNotifyService"
 
-class ServiceContainer:NSNotificationCenter
+extension String{
+    func asNotificationName() -> Notification.Name {
+        return Notification.Name(self)
+    }
+}
+
+class ServiceContainer:NotificationCenter
 {
-    static let OnAllServicesReady = "AllServicesReady"
-    static let OnServiceInitFailed = "ServiceInitFailed"
+    static let OnAllServicesReady = "AllServicesReady".asNotificationName()
+    static let OnServiceInitFailed = "ServiceInitFailed".asNotificationName()
     
-    static let OnServicesWillLogin = "OnServicesWillLogin"
-    static let OnServicesDidLogin = "OnServicesDidLogin"
-    static let OnServicesWillLogout = "OnServicesWillLogout"
-    static let OnServicesDidLogout = "OnServicesDidLogout"
-    static let OnServiceReady = "OnServiceReady"
+    static let OnServicesWillLogin = "OnServicesWillLogin".asNotificationName()
+    static let OnServicesDidLogin = "OnServicesDidLogin".asNotificationName()
+    static let OnServicesWillLogout = "OnServicesWillLogout".asNotificationName()
+    static let OnServicesDidLogout = "OnServicesDidLogout".asNotificationName()
+    static let OnServiceReady = "OnServiceReady".asNotificationName()
     
     static let instance:ServiceContainer = ServiceContainer()
-    private var containerInited = false
-    private var serviceDict:[String:ServiceProtocol]!
-    private var serviceList:[ServiceProtocol]!
-    private let serviceReadyLock = NSRecursiveLock()
-    private var serviceReady = [String:Bool]()
-    private var userId:String!
-    private(set) static var appName = "BahamutServiceContainer"
-    private override init()
+    fileprivate var containerInited = false
+    fileprivate var serviceDict:[String:ServiceProtocol]!
+    fileprivate var serviceList:[ServiceProtocol]!
+    fileprivate let serviceReadyLock = NSRecursiveLock()
+    fileprivate var serviceReady = [String:Bool]()
+    fileprivate var userId:String!
+    fileprivate(set) static var appName = "BahamutServiceContainer"
+    fileprivate override init()
     {
         
     }
     
-    func initContainer(appName:String,services:ServiceListDict)
+    func initContainer(_ appName:String,services:ServiceListDict)
     {
         if containerInited {
             return
@@ -58,13 +64,13 @@ class ServiceContainer:NSNotificationCenter
         debugLog("Init Service Container Completed")
     }
     
-    func postInitServiceFailed(reason:String)
+    func postInitServiceFailed(_ reason:String)
     {
         self.userLogout()
-        self.postNotificationName(ServiceContainer.OnServiceInitFailed, object: nil, userInfo: [InitServiceFailedReason:reason])
+        self.post(name: ServiceContainer.OnServiceInitFailed, object: nil, userInfo: [InitServiceFailedReason:reason])
     }
     
-    func userLogin(userId:String)
+    func userLogin(_ userId:String)
     {
         self.userId = userId
         serviceReadyLock.lock()
@@ -73,16 +79,16 @@ class ServiceContainer:NSNotificationCenter
             serviceReady[name] = false
         }
         serviceReadyLock.unlock()
-        self.postNotificationName(ServiceContainer.OnServicesWillLogin, object: self)
+        self.post(name: ServiceContainer.OnServicesWillLogin, object: self)
         serviceList.forEach { (service) -> () in
             if let initHandler = service.userLoginInit
             {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     initHandler(userId)
                 })
             }
         }
-        self.postNotificationName(ServiceContainer.OnServicesDidLogin, object: self)
+        self.post(name: ServiceContainer.OnServicesDidLogin, object: self)
     }
     
     func userLogout()
@@ -90,33 +96,33 @@ class ServiceContainer:NSNotificationCenter
         serviceReadyLock.lock()
         serviceReady.removeAll()
         serviceReadyLock.unlock()
-        self.postNotificationName(ServiceContainer.OnServicesWillLogout, object: self)
+        self.post(name: ServiceContainer.OnServicesWillLogout, object: self)
         serviceList.forEach { (service) -> () in
             if let logoutHandler = service.userLogout
             {
                 logoutHandler(userId)
             }
         }
-        self.postNotificationName(ServiceContainer.OnServicesDidLogout, object: self)
+        self.post(name: ServiceContainer.OnServicesDidLogout, object: self)
     }
     
-    private func addService(serviceName:String,service:ServiceProtocol)
+    fileprivate func addService(_ serviceName:String,service:ServiceProtocol)
     {
         serviceList.append(service)
         serviceDict[serviceName] = service
     }
     
-    static func getService(serviceName:String) -> ServiceProtocol?
+    static func getService(_ serviceName:String) -> ServiceProtocol?
     {
         return instance.serviceDict[serviceName]
     }
     
-    static func getService<T:ServiceProtocol>(type:T.Type) -> T
+    static func getService<T:ServiceProtocol>(_ type:T.Type) -> T
     {
         return getService(T.ServiceName) as! T
     }
     
-    private static func setServiceReady<T:ServiceProtocol>(service:T)
+    fileprivate static func setServiceReady<T:ServiceProtocol>(_ service:T)
     {
         instance.serviceReadyLock.lock()
         let value = instance.serviceReady[T.ServiceName]
@@ -128,7 +134,7 @@ class ServiceContainer:NSNotificationCenter
         instance.serviceReady[T.ServiceName] = true
         instance.serviceReadyLock.unlock()
         debugLog("\(T.ServiceName) Ready!")
-        instance.postNotificationName(ServiceContainer.OnServiceReady, object: instance, userInfo: [ServiceContainerNotifyService:service])
+        instance.post(name: ServiceContainer.OnServiceReady, object: instance, userInfo: [ServiceContainerNotifyService:service])
         if isAllServiceReady
         {
             debugLog("All Services Ready!")
@@ -136,7 +142,7 @@ class ServiceContainer:NSNotificationCenter
         }
     }
     
-    private static func setServiceNotReady<T:ServiceProtocol>(service:T)
+    fileprivate static func setServiceNotReady<T:ServiceProtocol>(_ service:T)
     {
         instance.serviceReadyLock.lock()
         instance.serviceReady[T.ServiceName] = false
@@ -161,7 +167,7 @@ class ServiceContainer:NSNotificationCenter
         
     }
     
-    static func isServiceReady(serviceName:String) -> Bool
+    static func isServiceReady(_ serviceName:String) -> Bool
     {
         if let isReady = instance.serviceReady[serviceName]
         {
@@ -170,7 +176,7 @@ class ServiceContainer:NSNotificationCenter
         return false
     }
     
-    static func isServiceReady<T:ServiceProtocol>(service:T) -> Bool
+    static func isServiceReady<T:ServiceProtocol>(_ service:T) -> Bool
     {
         return isServiceReady(T.ServiceName)
     }
@@ -194,10 +200,10 @@ extension ServiceProtocol
 }
 
 //MARK: NSNotificationCenter Extension
-extension NSNotificationCenter{
-    func postNotificationNameWithMainAsync(aName: String, object: AnyObject?, userInfo: [NSObject : AnyObject]?){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.postNotificationName(aName, object: object, userInfo: userInfo)
+extension NotificationCenter{
+    func postNotificationNameWithMainAsync(_ aName: Notification.Name, object: AnyObject?, userInfo: [AnyHashable: Any]?){
+        DispatchQueue.main.async { () -> Void in
+            self.post(name: aName, object: object, userInfo: userInfo)
         }
     }
 }

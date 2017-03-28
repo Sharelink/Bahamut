@@ -22,7 +22,7 @@ class IdUtil
             seed = 0
         }
         seedLock.unlock()
-        let code = "\(NSDate().toAccurateDateTimeString())_\(s)"
+        let code = "\(Date().toAccurateDateTimeString())_\(s)"
         return code.md5
     }
 }

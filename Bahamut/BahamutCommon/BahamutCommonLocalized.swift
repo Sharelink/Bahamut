@@ -11,6 +11,6 @@ import Foundation
 let BahamutCommonLocalizedTableName = "BahamutCommonLocalized"
 extension String{
     var bahamutCommonLocalizedString:String{
-        return LocalizedString(self, tableName: BahamutCommonLocalizedTableName, bundle: NSBundle.mainBundle())
+        return LocalizedString(self, tableName: BahamutCommonLocalizedTableName, bundle: Bundle.main)
     }
 }

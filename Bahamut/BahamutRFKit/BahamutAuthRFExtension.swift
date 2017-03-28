@@ -80,7 +80,7 @@ extension BahamutRFKit
             return userInfos["accountId"] as? String
         }
         set{
-            userInfos["accountId"] = newValue
+            userInfos["accountId"] = newValue as AnyObject??
         }
     }
     
@@ -89,7 +89,7 @@ extension BahamutRFKit
             return userInfos["userId"] as? String
         }
         set{
-            userInfos["userId"] = newValue
+            userInfos["userId"] = newValue as AnyObject??
         }
     }
     
@@ -98,7 +98,7 @@ extension BahamutRFKit
             return userInfos["token"] as? String
         }
         set{
-            userInfos["token"] = newValue
+            userInfos["token"] = newValue as AnyObject??
         }
     }
     
@@ -108,16 +108,16 @@ extension BahamutRFKit
             return userInfos["chicagoServerHost"] as? String
         }
         set{
-            userInfos["chicagoServerHost"] = newValue
+            userInfos["chicagoServerHost"] = newValue as AnyObject??
         }
     }
     
     var chicagoServerPort:UInt16{
         get{
-            return (userInfos["chicagoServerPort"] as? NSNumber)?.unsignedShortValue ?? 0
+            return (userInfos["chicagoServerPort"] as? NSNumber)?.uint16Value ?? 0
         }
         set{
-            userInfos["chicagoServerPort"] = NSNumber(unsignedShort: newValue)
+            userInfos["chicagoServerPort"] = NSNumber(value: newValue as UInt16)
         }
     }
     
@@ -126,17 +126,17 @@ extension BahamutRFKit
             return userInfos["tokenApi"] as? String
         }
         set{
-            userInfos["tokenApi"] = newValue
+            userInfos["tokenApi"] = newValue as AnyObject??
         }
     }
     
-    func resetUser(userId:String, token:String)
+    func resetUser(_ userId:String, token:String)
     {
         self.userId = userId
         self.token = token
     }
     
-    func useValidateData(validateResult:ValidateResult)
+    func useValidateData(_ validateResult:ValidateResult)
     {
         self.userId = validateResult.userId
         self.token = validateResult.appToken
@@ -147,7 +147,7 @@ extension BahamutRFKit
         self.chicagoServerPort = UInt16(chicagoStrs[1])!
     }
     
-    func registBahamutAccount(registApi:String, username:String, passwordOrigin:String, phone_number:String!, email:String!,callback:(isSuc:Bool,errorMsg:String!,registResult:RegistResult!)->Void)
+    func registBahamutAccount(_ registApi:String, username:String, passwordOrigin:String, phone_number:String!, email:String!,callback:@escaping (_ isSuc:Bool,_ errorMsg:String?,_ registResult:RegistResult?)->Void)
     {
         var params = ["username":username,"password":passwordOrigin.sha256,"appkey":BahamutRFKit.appkey]
         if String.isNullOrWhiteSpace(phone_number) == false
@@ -158,47 +158,47 @@ extension BahamutRFKit
         {
             params["email"] = email
         }
-        Alamofire.request(.POST, registApi, parameters: params).responseObject { (result:Result<RegistResult, NSError>) -> Void in
+        Alamofire.request(registApi, method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseObject { (result:DataResponse<RegistResult>) in
             if let suc = result.value?.suc
             {
                 if suc
                 {
-                    callback(isSuc: true, errorMsg: nil, registResult: result.value)
+                    callback(true, nil, result.value)
                 }else
                 {
-                    callback(isSuc: false, errorMsg: result.value?.msg, registResult: nil)
+                    callback(false, result.value?.msg, nil)
                 }
             }else{
-                callback(isSuc: false, errorMsg: "NETWORK_ERROR", registResult: nil)
+                callback(false, "NETWORK_ERROR", nil)
             }
         }
     }
     
-    func loginBahamutAccount(loginApi:String, accountInfo:String, passwordOrigin:String,callback:(isSuc:Bool,errorMsg:String!,loginResult:LoginResult!)->Void)
+    func loginBahamutAccount(_ loginApi:String, accountInfo:String, passwordOrigin:String,callback:@escaping (_ isSuc:Bool,_ errorMsg:String?,_ loginResult:LoginResult?)->Void)
     {
         let params = ["username":accountInfo,"password":passwordOrigin.sha256,"appkey":BahamutRFKit.appkey]
-        Alamofire.request(.POST, loginApi, parameters: params).responseObject { (result:Result<LoginResult, NSError>) -> Void in
-            if result.isSuccess{
+        Alamofire.request(loginApi, method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseObject { (result:DataResponse<LoginResult>) -> Void in
+            if result.result.isSuccess{
                 if let value = result.value
                 {
                     if String.isNullOrEmpty(value.loginSuccessed) == false && "true" == value.loginSuccessed
                     {
-                        callback(isSuc: true, errorMsg: nil, loginResult: value)
+                        callback(true, nil, value)
                     }else
                     {
-                        callback(isSuc: false, errorMsg: value.msg ?? "NETWORK_ERROR", loginResult: nil)
+                        callback(false, value.msg ?? "NETWORK_ERROR", nil)
                     }
                 }else{
-                    callback(isSuc: false, errorMsg: "NETWORK_ERROR", loginResult: nil)
+                    callback(false, "NETWORK_ERROR", nil)
                 }
             }
             else{
-                callback(isSuc: false, errorMsg: result.value?.msg ?? "NETWORK_ERROR", loginResult: nil)
+                callback(false, result.value?.msg ?? "NETWORK_ERROR", nil)
             }
         }
     }
     
-    func changeAccountPassword(authServerApi:String,appkey:String, appToken:String,accountId:String,userId:String,originPassword:String,newPassword:String,callback:(suc:Bool,msg:String!)->Void)
+    func changeAccountPassword(_ authServerApi:String,appkey:String, appToken:String,accountId:String,userId:String,originPassword:String,newPassword:String,callback:@escaping (_ suc:Bool,_ msg:String?)->Void)
     {
         let params =
             [
@@ -209,22 +209,26 @@ extension BahamutRFKit
                 "originPassword":originPassword.sha256,
                 "newPassword":newPassword.sha256
         ]
-        Alamofire.request(.PUT, "\(authServerApi)/Password", parameters: params).responseObject { (_, response, result:Result<MsgResult,NSError>) in
-            if response?.statusCode == 200
+        let urlString = "\(authServerApi)/Password"
+        
+        Alamofire.request(urlString, method: .put, parameters: params, encoding: URLEncoding.default, headers: nil).responseObject { (result:DataResponse<MsgResult>) in
+            
+            if result.response?.statusCode == 200
             {
-                callback(suc: true, msg: result.value?.msg)
+                callback(true, result.value?.msg)
             }else
             {
-                callback(suc: false, msg: result.value?.msg ?? "SERVER_ERROR")
+                callback(false, result.value?.msg ?? "SERVER_ERROR")
             }
         }
     }
     
-    func validateAccessToken(tokenApi:String,accountId:String,accessToken:String,callback:(isNewUser:Bool,error:String!,validateResult:ValidateResult! )->Void)
+    func validateAccessToken(_ tokenApi:String,accountId:String,accessToken:String,callback:@escaping (_ isNewUser:Bool,_ error:String?,_ validateResult:ValidateResult?)->Void)
     {
         self.tokenApi = tokenApi
-        Alamofire.request(Method.GET, tokenApi, parameters: ["appkey":BahamutRFKit.appkey,"accountId":accountId,"accessToken":accessToken]).responseObject { (req, response,result:Result<ValidateResult,NSError>) -> Void in
-            if result.isSuccess
+        let params = ["appkey":BahamutRFKit.appkey,"accountId":accountId,"accessToken":accessToken]
+        Alamofire.request(tokenApi, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseObject { (result:DataResponse<ValidateResult>) -> Void in
+            if result.result.isSuccess
             {
                 if let validateResult = result.value
                 {
@@ -232,33 +236,34 @@ extension BahamutRFKit
                     {
                         if !String.isNullOrEmpty(validateResult.registAPIServer)
                         {
-                            callback(isNewUser: true,error: nil,validateResult: validateResult)
+                            callback(true,nil,validateResult)
                         }else
                         {
                             self.useValidateData(validateResult)
-                            callback(isNewUser: false,error: nil,validateResult: validateResult)
+                            callback(false,nil,validateResult)
                         }
                     }else
                     {
-                        callback(isNewUser: false,error: "VALIDATE_DATA_ERROR",validateResult: nil)
+                        callback(false,"VALIDATE_DATA_ERROR",nil)
                     }
                 }
             }else{
                 
-                callback(isNewUser: false,error: "NETWORK_ERROR",validateResult: nil)
+                callback(false,"NETWORK_ERROR",nil)
             }
         }
     }
     
-    func cancelToken(finishCallback:(message:String!) ->Void)
+    func cancelToken(_ finishCallback:@escaping (_ message:String?) ->Void)
     {
         if tokenApi == nil
         {
-            finishCallback(message: "NOT_LOGIN")
+            finishCallback("NOT_LOGIN")
             return
         }
-        Alamofire.request(Method.DELETE, tokenApi, parameters: ["userId":userId,"appToken":token,"appkey":BahamutRFKit.appkey]).responseObject { (result:Result<EVObject,NSError>) -> Void in
-            finishCallback(message: "LOGOUTED")
+        let params = ["userId":userId,"appToken":token,"appkey":BahamutRFKit.appkey]
+        Alamofire.request(tokenApi, method: .delete, parameters: params, encoding: URLEncoding.default, headers: nil).responseObject { (result:DataResponse<EVObject>) in
+            finishCallback("LOGOUTED")
         }
     }
 }

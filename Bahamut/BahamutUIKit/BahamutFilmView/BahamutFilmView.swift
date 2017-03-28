@@ -9,19 +9,20 @@
 import UIKit
 import CoreMedia
 import AVFoundation
+import KDCircularProgress
 
 public protocol BahamutFilmViewDelegate{
-    func bahamutFilmViewOnDraw(sender:BahamutFilmView,rect:CGRect)
+    func bahamutFilmViewOnDraw(_ sender:BahamutFilmView,rect:CGRect)
 }
 
 //MARK: BahamutFilmView
-public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
+open class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
 {
     
     //MARK: Inits
     convenience init()
     {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
     
     override init(frame: CGRect) {
@@ -55,28 +56,28 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         refreshButton = UIImageView()
         playButton = UIImageView()
         noFileImage = UIImageView()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BahamutFilmView.timerTime(_:)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BahamutFilmView.timerTime(_:)), userInfo: nil, repeats: true)
         initObserver()
     }
     
-    private func initGestures()
+    fileprivate func initGestures()
     {
         let clickVideoGesture = UITapGestureRecognizer(target: self, action: #selector(BahamutFilmView.playOrPausePlayer(_:)))
         let doubleClickVideoGesture = UITapGestureRecognizer(target: self, action: #selector(BahamutFilmView.switchFullScreenOnOff(_:)))
         doubleClickVideoGesture.numberOfTapsRequired = 2
-        clickVideoGesture.requireGestureRecognizerToFail(doubleClickVideoGesture)
+        clickVideoGesture.require(toFail: doubleClickVideoGesture)
         self.addGestureRecognizer(clickVideoGesture)
         self.addGestureRecognizer(doubleClickVideoGesture)
     }
     
     
-    private func initObserver()
+    fileprivate func initObserver()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BahamutFilmView.didChangeStatusBarOrientation(_:)), name: UIApplicationDidChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+        NotificationCenter.default.addObserver(self, selector: #selector(BahamutFilmView.didChangeStatusBarOrientation(_:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: UIApplication.shared)
     }
     
     func releasePlayer() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         timer?.invalidate()
         timer = nil
         self.delegate = nil
@@ -91,11 +92,11 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var viewDelegate:BahamutFilmViewDelegate?
     
     
-    private var timer:NSTimer!
+    fileprivate var timer:Timer!
     
     var fileFetcher:FileFetcher!
     
-    private(set) var playerController:Player!{
+    fileprivate(set) var playerController:Player!{
         didSet{
             if playerController == nil {
                 return
@@ -109,26 +110,26 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    private var thumbImageView:UIImageView!{
+    fileprivate var thumbImageView:UIImageView!{
         didSet{
-            thumbImageView.hidden = true
+            thumbImageView.isHidden = true
             self.addSubview(thumbImageView)
         }
     }
 
-    private var timeLine: UIProgressView!{
+    fileprivate var timeLine: UIProgressView!{
         didSet{
             self.addSubview(timeLine)
-            timeLine.hidden = true
-            timeLine.backgroundColor = UIColor.clearColor()
+            timeLine.isHidden = true
+            timeLine.backgroundColor = UIColor.clear
         }
     }
     
     var refreshButton:UIImageView!{
         didSet{
-            refreshButton.userInteractionEnabled = true
+            refreshButton.isUserInteractionEnabled = true
             refreshButton.image = UIImage(named:"refresh")
-            refreshButton.hidden = true
+            refreshButton.isHidden = true
             refreshButton.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(BahamutFilmView.refreshButtonClick(_:))))
             self.addSubview(refreshButton)
         }
@@ -137,7 +138,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var playButton:UIImageView!{
         didSet{
             playButton.image = UIImage(named: "playGray")
-            playButton.hidden = false
+            playButton.isHidden = false
             
             self.addSubview(playButton)
         }
@@ -146,12 +147,12 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     var noFileImage:UIImageView!{
         didSet{
             noFileImage.image = UIImage(named:"delete")
-            noFileImage.hidden = true
+            noFileImage.isHidden = true
             self.addSubview(noFileImage)
         }
     }
     
-    private var fileProgress: KDCircularProgress!{
+    fileprivate var fileProgress: KDCircularProgress!{
         didSet{
             fileProgress.startAngle = -90
             fileProgress.progressThickness = 0.2
@@ -159,30 +160,30 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             fileProgress.clockwise = true
             fileProgress.gradientRotateSpeed = 2
             fileProgress.roundedCorners = true
-            fileProgress.glowMode = .Forward
-            fileProgress.setColors(UIColor.cyanColor() ,UIColor.whiteColor(), UIColor.magentaColor())
+            fileProgress.glowMode = .forward
+            fileProgress.set(colors: UIColor.cyan ,UIColor.white, UIColor.magenta)
             fileProgress.center = self.center
             self.addSubview(fileProgress)
             fileProgress.angle = 0
         }
     }
     //MARK: thumb
-    public func setThumb(img:UIImage)
+    open func setThumb(_ img:UIImage)
     {
         self.thumbImageView.image = img
-        self.thumbImageView.hidden = false
+        self.thumbImageView.isHidden = false
         self.refreshUI()
     }
     
-    public func clearThumb()
+    open func clearThumb()
     {
         self.thumbImageView.image = nil
-        self.thumbImageView.hidden = true
+        self.thumbImageView.isHidden = true
         self.refreshUI()
     }
     
     //MARK: film file
-    public var filePath:String!
+    open var filePath:String!
         {
         didSet{
             if filePath != oldValue{
@@ -193,8 +194,8 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
             }
             if filePath != nil
             {
-                noFileImage.hidden = true
-                playButton.hidden = false
+                noFileImage.isHidden = true
+                playButton.isHidden = false
                 if autoLoad
                 {
                     startLoadVideo()
@@ -209,10 +210,10 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         {
             playerController.reset()
         }
-        noFileImage.hidden = false
-        playButton.hidden = true
-        refreshButton.hidden = true
-        self.backgroundColor = UIColor.blackColor()
+        noFileImage.isHidden = false
+        playButton.isHidden = true
+        refreshButton.isHidden = true
+        self.backgroundColor = UIColor.black
         self.refreshUI()
     }
     
@@ -227,21 +228,21 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
         loaded = false
         loading = true
-        refreshButton.hidden = true
-        playButton.hidden = true
+        refreshButton.isHidden = true
+        playButton.isHidden = true
         fileProgress.angle = 0
-        fileProgress.hidden = false
+        fileProgress.isHidden = false
         fileFetcher.startFetch(filePath,delegate: self)
     }
     
-    public func taskCompleted(fileIdentifier: String, result: AnyObject!)
+    open func taskCompleted(_ fileIdentifier: String, result: Any!)
     {
         self.fileProgress.angle = 0
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.async { () -> Void in
             self.loading = false
-            self.playButton.hidden = false
-            self.refreshButton.hidden = true
-            self.fileProgress.hidden = true
+            self.playButton.isHidden = false
+            self.refreshButton.isHidden = true
+            self.fileProgress.isHidden = true
             if let video = result as? String
             {
                 self.playerController.path = video
@@ -260,27 +261,27 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         
     }
     
-    public func taskProgress(fileIdentifier: String, persent: Float) {
+    open func taskProgress(_ fileIdentifier: String, persent: Float) {
         self.fileProgress.angle = Double(360 * persent / 100)
         self.progressDelegate?.taskProgress?(fileIdentifier, persent: persent)
     }
     
-    public func taskFailed(fileIdentifier: String, result: AnyObject!)
+    open func taskFailed(_ fileIdentifier: String, result: Any!)
     {
         fileProgress.angle = 0
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.async { () -> Void in
             self.loading = false
-            self.refreshButton.hidden = false
-            self.playButton.hidden = true
-            self.fileProgress.hidden = true
+            self.refreshButton.isHidden = false
+            self.playButton.isHidden = true
+            self.fileProgress.isHidden = true
             self.playerController.reset()
             self.progressDelegate?.taskFailed?(fileIdentifier, result: result)
         }
         
     }
     
-    public override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    open override func draw(_ rect: CGRect) {
+        super.draw(rect)
         if minScreenFrame == nil
         {
             self.minScreenFrame = rect
@@ -291,14 +292,14 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
         
         self.fileProgress.center = self.center
-        self.timeLine.frame = CGRectMake(0, self.frame.height - 2, self.frame.width, 2)
+        self.timeLine.frame = CGRect(x: 0, y: self.frame.height - 2, width: self.frame.width, height: 2)
         self.playerController.view.frame = rect
         self.thumbImageView.frame = self.bounds
-        noFileImage?.frame = CGRectMake(0, 0, 36, 36)
+        noFileImage?.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
         noFileImage?.center = self.center
-        playButton?.frame = CGRectMake(0, 0, 36, 36)
+        playButton?.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
         playButton?.center = self.center
-        refreshButton?.frame = CGRectMake(0, 0, 36, 36)
+        refreshButton?.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
         refreshButton?.center = self.center
         viewDelegate?.bahamutFilmViewOnDraw(self, rect: rect)
     }
@@ -309,13 +310,13 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         startLoadVideo()
     }
 
-    func didChangeStatusBarOrientation(_: NSNotification)
+    func didChangeStatusBarOrientation(_: Notification)
     {
         if isVideoFullScreen
         {
-            if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
+            if let wFrame = UIApplication.shared.keyWindow?.bounds
             {
-                UIApplication.sharedApplication().keyWindow?.addSubview(self)
+                UIApplication.shared.keyWindow?.addSubview(self)
                 self.frame = wFrame
                 refreshUI()
             }
@@ -324,7 +325,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
 
     
-    private(set) var isVideoFullScreen:Bool = false{
+    fileprivate(set) var isVideoFullScreen:Bool = false{
         didSet{
             if canSwitchToFullScreen
             {
@@ -340,48 +341,48 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     
     //MARK: UI refresh
     
-    private var minScreenFrame:CGRect!
-    private var originContainer:UIView!
-    private func scaleToMax()
+    fileprivate var minScreenFrame:CGRect!
+    fileprivate var originContainer:UIView!
+    fileprivate func scaleToMax()
     {
-        if let wFrame = UIApplication.sharedApplication().keyWindow?.bounds
+        if let wFrame = UIApplication.shared.keyWindow?.bounds
         {
             self.removeFromSuperview()
             self.frame = wFrame
-            UIApplication.sharedApplication().keyWindow?.addSubview(self)
-            timeLine.hidden = !showTimeLine
+            UIApplication.shared.keyWindow?.addSubview(self)
+            timeLine.isHidden = !showTimeLine
             refreshUI()
         }
         
     }
 
     
-    private func scaleToMin()
+    fileprivate func scaleToMin()
     {
         if originContainer == nil {return}
         self.removeFromSuperview()
         self.frame = minScreenFrame
-        self.timeLine.hidden = true
+        self.timeLine.isHidden = true
         originContainer.addSubview(self)
         refreshUI()
     }
     
-    private func refreshUI()
+    fileprivate func refreshUI()
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.superview?.bringSubviewToFront(self)
-            self.bringSubviewToFront(self.fileProgress)
-            self.bringSubviewToFront(self.timeLine)
-            self.bringSubviewToFront(self.refreshButton)
-            self.bringSubviewToFront(self.playButton)
-            self.bringSubviewToFront(self.noFileImage)
+        DispatchQueue.main.async { () -> Void in
+            self.superview?.bringSubview(toFront: self)
+            self.bringSubview(toFront: self.fileProgress)
+            self.bringSubview(toFront: self.timeLine)
+            self.bringSubview(toFront: self.refreshButton)
+            self.bringSubview(toFront: self.playButton)
+            self.bringSubview(toFront: self.noFileImage)
         }
         
     }
     
-    func timerTime(_:NSTimer)
+    func timerTime(_:Timer)
     {
-        if self.playerController?.playbackState != .Playing
+        if self.playerController?.playbackState != .playing
         {
             return
         }
@@ -397,24 +398,24 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
 
     //MARK: player control
 
-    public var autoPlay:Bool = false
-    public var autoLoad:Bool = false
-    public var canSwitchToFullScreen = true
+    open var autoPlay:Bool = false
+    open var autoLoad:Bool = false
+    open var canSwitchToFullScreen = true
     
-    public var showTimeLine:Bool = true{
+    open var showTimeLine:Bool = true{
         didSet{
             if timeLine != nil
             {
-                timeLine.hidden = !showTimeLine
+                timeLine.isHidden = !showTimeLine
             }
             if self.isVideoFullScreen == false
             {
-                self.timeLine.hidden = true
+                self.timeLine.isHidden = true
             }
         }
     }
     
-    public var isMute:Bool = true{
+    open var isMute:Bool = true{
         didSet{
             if playerController != nil
             {
@@ -423,7 +424,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    public var isPlaybackLoops:Bool = true{
+    open var isPlaybackLoops:Bool = true{
         didSet{
             if playerController != nil
             {
@@ -437,10 +438,10 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         autoPlay = true
         if loaded
         {
-            if playerController.playbackState == PlaybackState.Stopped
+            if playerController.playbackState == PlaybackState.stopped
             {
                 playerController.playFromBeginning()
-            }else if playerController.playbackState != PlaybackState.Playing
+            }else if playerController.playbackState != PlaybackState.playing
             {
                 playerController.playFromCurrentTime()
             }else
@@ -455,8 +456,8 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
     }
     
     //MARK: playerDelegate
-    public func playerBufferingStateDidChange(player: Player) {
-        if player.playbackState! == .Stopped && player.bufferingState == BufferingState.Ready && autoPlay
+    open func playerBufferingStateDidChange(_ player: Player) {
+        if player.playbackState! == .stopped && player.bufferingState == BufferingState.ready && autoPlay
         {
             autoPlay = isPlaybackLoops
             player.playFromBeginning()
@@ -466,26 +467,26 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    public func playerPlaybackDidEnd(player: Player)
+    open func playerPlaybackDidEnd(_ player: Player)
     {
         if let handler = delegate?.playerPlaybackDidEnd{
             handler(player)
         }
     }
     
-    public func playerPlaybackStateDidChange(player: Player)
+    open func playerPlaybackStateDidChange(_ player: Player)
     {
 
         switch player.playbackState!
         {
-        case PlaybackState.Playing:
-            playButton.hidden = true
-        case PlaybackState.Stopped:fallthrough
-        case PlaybackState.Paused:
-            playButton.hidden = false
-        case .Failed:
-            playButton.hidden = true
-            refreshButton.hidden = false
+        case PlaybackState.playing:
+            playButton.isHidden = true
+        case PlaybackState.stopped:fallthrough
+        case PlaybackState.paused:
+            playButton.isHidden = false
+        case .failed:
+            playButton.isHidden = true
+            refreshButton.isHidden = false
         }
         
         if let handler = delegate?.playerPlaybackStateDidChange{
@@ -493,14 +494,14 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    public func playerPlaybackWillStartFromBeginning(player: Player)
+    open func playerPlaybackWillStartFromBeginning(_ player: Player)
     {
         if let handler = delegate?.playerPlaybackWillStartFromBeginning{
             handler(player)
         }
     }
     
-    public func playerReady(player: Player)
+    open func playerReady(_ player: Player)
     {
         if let handler = delegate?.playerReady{
             handler(player)
@@ -515,7 +516,7 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         {
             super.init(frame: frame)
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BahamutFilmPlayerLayer.closeView(_:))))
-            self.backgroundColor = UIColor.blackColor()
+            self.backgroundColor = UIColor.black
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -528,12 +529,12 @@ public class BahamutFilmView: UIView,ProgressTaskDelegate,PlayerDelegate
         }
     }
     
-    static func showPlayer(currentController:UIViewController,uri:String,fileFetcer:FileFetcher)
+    static func showPlayer(_ currentController:UIViewController,uri:String,fileFetcer:FileFetcher)
     {
         
         let view = currentController.view.window!
         let width = min(view.bounds.width, view.bounds.height)
-        let frame = CGRectMake(0, 0, width, width)
+        let frame = CGRect(x: 0, y: 0, width: width, height: width)
         let container = UIView(frame: frame)
         container.center = view.center
         let playerView = BahamutFilmView(frame: frame)

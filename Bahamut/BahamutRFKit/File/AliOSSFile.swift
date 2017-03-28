@@ -11,26 +11,26 @@ import Foundation
 /*
 POST /AliOSSFiles (fileType,fileSize) : get a new send file key for upload task
 */
-public class NewAliOSSFileAccessInfoRequest : BahamutRFRequestBase
+open class NewAliOSSFileAccessInfoRequest : BahamutRFRequestBase
 {
     public override init()
     {
         super.init()
         self.api = "/AliOSSFiles"
-        self.method = .POST
+        self.method = .post
     }
     
-    public override func getMaxRequestCount() -> Int32 {
+    open override func getMaxRequestCount() -> Int32 {
         return BahamutRFRequestBase.maxRequestNoLimitCount
     }
     
-    public var fileType:FileType! = .NoType{
+    open var fileType:FileType! = .noType{
         didSet{
-            self.paramenters["fileType"] = "\(fileType.rawValue)"
+            self.paramenters["fileType"] = "\(fileType!.rawValue)"
         }
     }
     
-    public var fileSize:Int = 512 * 1024{ //byte
+    open var fileSize:Int = 512 * 1024{ //byte
         didSet{
             self.paramenters["fileSize"] = "\(fileSize)"
         }
@@ -40,34 +40,34 @@ public class NewAliOSSFileAccessInfoRequest : BahamutRFRequestBase
 /*
 POST /AliOSSFiles/List (fileTypes,fileSizes) : get a new send files key for upload task
 */
-public class NewAliOSSFileAccessInfoListRequest : BahamutRFRequestBase
+open class NewAliOSSFileAccessInfoListRequest : BahamutRFRequestBase
 {
     public override init()
     {
         super.init()
         self.api = "/AliOSSFiles/List"
-        self.method = .POST
+        self.method = .post
     }
     
-    public var fileTypes:[FileType]!{
+    open var fileTypes:[FileType]!{
         didSet{
             if fileTypes != nil && fileTypes.count > 0
             {
-                self.paramenters["fileTypes"] = fileTypes.map{"\($0.rawValue)"}.joinWithSeparator("#")
+                self.paramenters["fileTypes"] = fileTypes.map{"\($0.rawValue)"}.joined(separator: "#")
             }
         }
     }
     
-    public var fileSizes:[Int]!{ //byte
+    open var fileSizes:[Int]!{ //byte
         didSet{
             if fileSizes != nil && fileSizes.count > 0
             {
-                self.paramenters["fileSizes"] = fileSizes.map{"\($0)"}.joinWithSeparator("#")
+                self.paramenters["fileSizes"] = fileSizes.map{"\($0)"}.joined(separator: "#")
             }
         }
     }
     
-    public override func getMaxRequestCount() -> Int32 {
+    open override func getMaxRequestCount() -> Int32 {
         return BahamutRFRequestBase.maxRequestNoLimitCount
     }
 }

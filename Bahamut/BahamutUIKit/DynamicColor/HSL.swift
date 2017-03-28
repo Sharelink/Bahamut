@@ -104,7 +104,7 @@ internal struct HSL {
   func toUIColor() -> UIColor {
     let lightness  = min(1, max(0, l))
     let saturation = min(1, max(0, s))
-    let hue        = h % 1
+    let hue        = h.truncatingRemainder(dividingBy: 1)
     
     var m2: CGFloat = 0
 
@@ -125,7 +125,7 @@ internal struct HSL {
   }
 
   /// Hue to RGB helper function
-  private func hueToRGB(m1: CGFloat, m2: CGFloat, h: CGFloat) -> CGFloat {
+  fileprivate func hueToRGB(_ m1: CGFloat, m2: CGFloat, h: CGFloat) -> CGFloat {
     var hue = h
 
     if hue < 0 {
@@ -160,7 +160,7 @@ internal struct HSL {
 
   :returns: A HSL color with the hue changed.
   */
-  func adjustHue(amount: CGFloat) -> HSL {
+  func adjustHue(_ amount: CGFloat) -> HSL {
     return HSL(hue: h + amount, saturation: s, lightness: l, alpha: a)
   }
 
@@ -171,7 +171,7 @@ internal struct HSL {
 
   :returns: A lighter HSL color.
   */
-  func lighten(amount: CGFloat) -> HSL {
+  func lighten(_ amount: CGFloat) -> HSL {
     return HSL(hue: h, saturation: s, lightness: l + amount, alpha: a)
   }
 
@@ -182,7 +182,7 @@ internal struct HSL {
   
   :returns: A darker HSL color.
   */
-  func darken(amount: CGFloat) -> HSL {
+  func darken(_ amount: CGFloat) -> HSL {
     return HSL(hue: h, saturation: s, lightness: l - amount, alpha: a)
   }
 
@@ -193,7 +193,7 @@ internal struct HSL {
 
   :returns: A HSL color more saturated.
   */
-  func saturate(amount: CGFloat) -> HSL {
+  func saturate(_ amount: CGFloat) -> HSL {
     return HSL(hue: h, saturation: s + amount, lightness: l, alpha: a)
   }
 
@@ -204,7 +204,7 @@ internal struct HSL {
 
   :returns: A HSL color less saturated.
   */
-  func desaturate(amount: CGFloat) -> HSL {
+  func desaturate(_ amount: CGFloat) -> HSL {
     return HSL(hue: h, saturation: s - amount, lightness: l, alpha: a)
   }
 }

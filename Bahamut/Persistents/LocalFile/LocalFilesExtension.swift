@@ -32,18 +32,18 @@ extension FileInfoEntity
 class LocalFilesExtension: PersistentExtensionProtocol
 {
     static var defaultInstance:LocalFilesExtension!
-    private(set) var coreData = CoreDataManager()
-    private(set) var fileCacheDirUrl:NSURL!
+    fileprivate(set) var coreData = CoreDataManager()
+    fileprivate(set) var fileCacheDirUrl:URL!
     
-    func initFileCacheDir(documentUrl:NSURL)
+    func initFileCacheDir(_ documentUrl:URL)
     {
-        fileCacheDirUrl = documentUrl.URLByAppendingPathComponent("caches")
+        fileCacheDirUrl = documentUrl.appendingPathComponent("caches")
         PersistentManager.sharedInstance.initFileDir(fileCacheDirUrl)
     }
     
     func clearFileCacheDir()
     {
-        PersistentFileHelper.deleteFile(LocalFilesExtension.defaultInstance.fileCacheDirUrl.path!)
+        PersistentFileHelper.deleteFile(LocalFilesExtension.defaultInstance.fileCacheDirUrl.path)
         PersistentManager.sharedInstance.initFileDir(LocalFilesExtension.defaultInstance.fileCacheDirUrl)
     }
     
@@ -67,7 +67,7 @@ class LocalFilesExtension: PersistentExtensionProtocol
 extension PersistentManager
 {
     
-    func useLocalFilesExtension(dbFileUrl:NSURL,documentDirUrl:NSURL,momdBundle:NSBundle){
+    func useLocalFilesExtension(_ dbFileUrl:URL,documentDirUrl:URL,momdBundle:Bundle){
         self.useExtension(LocalFilesExtension()) { (ext) -> Void in
             LocalFilesExtension.defaultInstance = ext
             let cdmid = LocalFileExtensionConstant.coreDataModelId
@@ -81,7 +81,7 @@ extension PersistentManager
         LocalFilesExtension.defaultInstance.clearFileCacheDir()
     }
     
-    func bindFileIdAndPath(fileId:String,data:NSData, filePath:String) -> FileInfoEntity?
+    func bindFileIdAndPath(_ fileId:String,data:Data, filePath:String) -> FileInfoEntity?
     {
         if PersistentFileHelper.storeFile(data, filePath: filePath)
         {
@@ -92,19 +92,20 @@ extension PersistentManager
         }
     }
     
-    func bindFileIdAndPath(fileId:String,fileExistsPath:String) -> FileInfoEntity?
+    func bindFileIdAndPath(_ fileId:String,fileExistsPath:String) -> FileInfoEntity?
     {
         var relativePath:String!
-        if let index = fileExistsPath.rangeOfString(rootUrl.path!)?.last
+        
+        if let index = fileExistsPath.range(of: rootUrl.path)?.upperBound
         {
-            let i = index.advancedBy(2) //advance 2 to trim '/' operator
-            relativePath = fileExistsPath.substringFromIndex(i)
+            let i = fileExistsPath.index(index, offsetBy: 1) //Trim charater /
+            relativePath = fileExistsPath.substring(from: i)
         }else
         {
             relativePath = fileExistsPath
         }
-        let absolutePath = rootUrl.URLByAppendingPathComponent(relativePath)!.path!
-        if NSFileManager.defaultManager().fileExistsAtPath(absolutePath)
+        let absolutePath = rootUrl.appendingPathComponent(relativePath).path
+        if FileManager.default.fileExists(atPath: absolutePath)
         {
             if let fileEntity = getStorageFileEntity(fileId)
             {
@@ -122,7 +123,7 @@ extension PersistentManager
         return nil
     }
 
-    func getStorageFileEntity(fileId:String!) -> FileInfoEntity?
+    func getStorageFileEntity(_ fileId:String!) -> FileInfoEntity?
     {
         if fileId == nil || fileId.isEmpty
         {
@@ -138,7 +139,7 @@ extension PersistentManager
         }
     }
     
-    func deleteStorageFileEntityAndFile(fileId:String) -> Bool {
+    func deleteStorageFileEntityAndFile(_ fileId:String) -> Bool {
         var deleted = false
         if let fe = getStorageFileEntity(fileId) {
             if let path = fe.getObsoluteFilePath(){
@@ -150,30 +151,30 @@ extension PersistentManager
         return deleted
     }
     
-    func createCacheFileName(fileId:String,fileType:FileType) -> String
+    func createCacheFileName(_ fileId:String,fileType:FileType) -> String
     {
-        let localStoreFileDir = LocalFilesExtension.defaultInstance.fileCacheDirUrl.URLByAppendingPathComponent("\(fileType.rawValue)")
+        let localStoreFileDir = LocalFilesExtension.defaultInstance.fileCacheDirUrl.appendingPathComponent("\(fileType.rawValue)")
         let fileName = "\(fileId)\(fileType.FileSuffix)"
-        return localStoreFileDir!.URLByAppendingPathComponent(fileName)!.path!
+        return localStoreFileDir.appendingPathComponent(fileName).path
     }
     
-    func getFilePathFromCachePath(fileId:String,type:FileType!) -> String!
+    func getFilePathFromCachePath(_ fileId:String,type:FileType!) -> String!
     {
         let path = createCacheFileName(fileId,fileType: type)
-        if NSFileManager.defaultManager().fileExistsAtPath(path)
+        if FileManager.default.fileExists(atPath: path)
         {
             return path
         }
         return nil
     }
     
-    func getImageFilePath(fileId:String?) -> String!
+    func getImageFilePath(_ fileId:String?) -> String!
     {
         if fileId == nil
         {
             return nil
         }
-        if let path = getFilePathFromCachePath(fileId!, type: FileType.Image)
+        if let path = getFilePathFromCachePath(fileId!, type: FileType.image)
         {
             return path
         }else if let entify = getStorageFileEntity(fileId)
@@ -183,7 +184,7 @@ extension PersistentManager
         return nil
     }
     
-    func getImage(fileId:String?,bundle:NSBundle? = NSBundle.mainBundle()) -> UIImage?
+    func getImage(_ fileId:String?,bundle:Bundle? = Bundle.main) -> UIImage?
     {
         if String.isNullOrWhiteSpace(fileId) {
             return nil
@@ -193,7 +194,7 @@ extension PersistentManager
         if let image = getCachedModel(typeName, modelId: fid) as? UIImage
         {
             return image
-        }else if let image = UIImage(named: fid,inBundle: bundle,compatibleWithTraitCollection:nil)
+        }else if let image = UIImage(named: fid,in: bundle,compatibleWith:nil)
         {
             cacheModel(typeName, modelId: fid, model: image)
             return image

@@ -16,12 +16,12 @@ extension MessageEntity {
     @NSManaged var shareId: String
     @NSManaged var chatId: String
     @NSManaged var isRead: NSNumber
-    @NSManaged var msgData: NSData
+    @NSManaged var msgData: Data
     @NSManaged var msgId: String
     @NSManaged var senderId: String
     @NSManaged var msgText: String
     @NSManaged var type: String
-    @NSManaged var time: NSDate
+    @NSManaged var time: Date
     @NSManaged var isSend: NSNumber
     @NSManaged var sendFailed: NSNumber
 }

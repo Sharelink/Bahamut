@@ -17,43 +17,43 @@ class BahamutTextView: UITextView {
         }
     }
     
-    private(set) var placeHolderLabel:UILabel?{
+    fileprivate(set) var placeHolderLabel:UILabel?{
         didSet{
             placeHolderLabel?.text = placeHolder
-            placeHolderLabel?.hidden = !String.isNullOrEmpty(text)
+            placeHolderLabel?.isHidden = !String.isNullOrEmpty(text)
             placeHolderLabel?.numberOfLines = 0
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BahamutTextView.onTextChanged(_:)), name: UITextViewTextDidChangeNotification, object: self)
+            NotificationCenter.default.addObserver(self, selector: #selector(BahamutTextView.onTextChanged(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: self)
         }
     }
     
     override var text: String!{
         didSet{
-            placeHolderLabel?.hidden = !String.isNullOrEmpty(text)
+            placeHolderLabel?.isHidden = !String.isNullOrEmpty(text)
         }
     }
     
-    func onTextChanged(a:NSNotification) {
-        placeHolderLabel?.hidden = !String.isNullOrEmpty(text)
+    func onTextChanged(_ a:Notification) {
+        placeHolderLabel?.isHidden = !String.isNullOrEmpty(text)
     }
     
-    var placeHolderTextAlign:NSTextAlignment = .Left{
+    var placeHolderTextAlign:NSTextAlignment = .left{
         didSet{
             placeHolderLabel?.textAlignment = placeHolderTextAlign
         }
     }
     
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         if placeHolderLabel == nil {
             self.enablesReturnKeyAutomatically = true
             placeHolderLabel = UILabel()
-            placeHolderLabel?.textColor = UIColor.lightGrayColor()
+            placeHolderLabel?.textColor = UIColor.lightGray
             self.addSubview(placeHolderLabel!)
         }
         placeHolderLabel?.textAlignment = placeHolderTextAlign
         placeHolderLabel?.font = self.font
         placeHolderLabel?.text = placeHolder
-        placeHolderLabel?.frame = CGRectMake(6, 8, self.bounds.size.width - 12, self.bounds.size.height - 12)
+        placeHolderLabel?.frame = CGRect(x: 6, y: 8, width: self.bounds.size.width - 12, height: self.bounds.size.height - 12)
         placeHolderLabel?.sizeToFit()
     }
 }

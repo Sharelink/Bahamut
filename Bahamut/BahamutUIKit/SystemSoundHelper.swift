@@ -31,19 +31,19 @@ class SystemSoundHelper
         playSound(1108)
     }
     
-    static func playSound(systemSoundId:SystemSoundID)
+    static func playSound(_ systemSoundId:SystemSoundID)
     {
         AudioServicesPlaySystemSound(systemSoundId)
     }
     
-    static func playSound(url:NSURL){
+    static func playSound(_ url:URL){
         let id = createAudio(url)
         playSound(id)
     }
     
-    static func createAudio(url:NSURL) -> SystemSoundID{
+    static func createAudio(_ url:URL) -> SystemSoundID{
         var id:SystemSoundID = 0
-        AudioServicesCreateSystemSoundID(url, &id)
+        AudioServicesCreateSystemSoundID(url as CFURL, &id)
         return id
     }
 }

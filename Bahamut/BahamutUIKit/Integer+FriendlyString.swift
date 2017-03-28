@@ -8,7 +8,7 @@
 
 import Foundation
 
-func intToBadgeString(value:Int!) -> String?{
+func intToBadgeString(_ value:Int!) -> String?{
     if value == nil {
         return nil
     }
@@ -18,7 +18,7 @@ func intToBadgeString(value:Int!) -> String?{
     if value > 99 {
         return "99+"
     }
-    return "\(value)"
+    return "\(value!)"
 }
 
 extension Int64{

@@ -10,47 +10,54 @@ import Foundation
 import EVReflection
 import Alamofire
 
-public class BahamutRFRequestBase : NSObject
+open class BahamutRFRequestBase : NSObject
 {
-    public static let maxRequestNoLimitCount:Int32 = 0
+    open static let maxRequestNoLimitCount:Int32 = 0
     static var requestCount = [String:Int32]()
     static let lock:NSRecursiveLock = NSRecursiveLock()
     
-    public func getMaxRequestCount() -> Int32{
+    open var method:HTTPMethod = .get
+    open var apiServerUrl:String!
+    open var api:String!
+    open var encoding = URLEncoding.default
+    internal(set) var paramenters:[String:String] = [String:String]()
+    open var headers:[String:String] = [String:String]()
+    
+    open func getMaxRequestCount() -> Int32{
         return 1
     }
     
-    public func incRequest()
+    open func incRequest()
     {
-        let typeName = "\(self.dynamicType)"
+        let typeName = "\(type(of: self))"
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() + 1
         BahamutRFRequestBase.lock.unlock()
     }
     
-    public func decRequest()
+    open func decRequest()
     {
-        let typeName = "\(self.dynamicType)"
+        let typeName = "\(type(of: self))"
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() - 1
         BahamutRFRequestBase.lock.unlock()
     }
     
-    public func isRequestLimited() -> Bool{
+    open func isRequestLimited() -> Bool{
         let maxCount = getMaxRequestCount()
         let limited = maxCount != BahamutRFRequestBase.maxRequestNoLimitCount && getCurrentRequestCount() >= maxCount
         #if DEBUG
             if limited {
-                let typeName = "\(self.dynamicType)"
+                let typeName = "\(type(of: self))"
                 print("\(typeName) Is Limited")
             }
         #endif
         return limited
     }
     
-    private func getCurrentRequestCount() -> Int32
+    fileprivate func getCurrentRequestCount() -> Int32
     {
-        let typeName = "\(self.dynamicType)"
+        let typeName = "\(type(of: self))"
         var result:Int32 = 0
         BahamutRFRequestBase.lock.lock()
         if let value = BahamutRFRequestBase.requestCount[typeName]
@@ -60,11 +67,4 @@ public class BahamutRFRequestBase : NSObject
         BahamutRFRequestBase.lock.unlock()
         return result
     }
-    
-    public var method:Alamofire.Method! = Method.GET
-    public var apiServerUrl:String!
-    public var api:String!
-    public var encoding: ParameterEncoding = ParameterEncoding.URL
-    internal(set) var paramenters:[String:String] = [String:String]()
-    public var headers:[String:String] = [String:String]()
 }

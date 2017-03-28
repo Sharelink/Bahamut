@@ -10,28 +10,28 @@ import Foundation
 import EVReflection
 import Alamofire
 
-public class FileAccessInfoList : BahamutObject
+open class FileAccessInfoList : BahamutObject
 {
     var files:[FileAccessInfo]!
 }
 
-public class FileAccessInfo : BahamutObject
+open class FileAccessInfo : BahamutObject
 {
-    public override func getObjectUniqueIdName() -> String {
+    open override func getObjectUniqueIdName() -> String {
         return "fileId"
     }
-    public var fileId:String! //the unique id
-    public var server:String!
-    public var accessKey:String! //local use this as Id
-    public var bucket:String!
-    public var expireAt:String!
-    public var serverType:String!
+    open var fileId:String! //the unique id
+    open var server:String!
+    open var accessKey:String! //local use this as Id
+    open var bucket:String!
+    open var expireAt:String!
+    open var serverType:String!
 }
 
-public class SendFileResult : BahamutObject
+open class SendFileResult : BahamutObject
 {
-    public var isFinished:Bool!
-    public var message:String!
+    open var isFinished:Bool!
+    open var message:String!
 }
 
 

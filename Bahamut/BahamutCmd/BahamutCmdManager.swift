@@ -11,14 +11,14 @@ import Foundation
 //MARK: BahamutCmdManager
 class BahamutCmdManager
 {
-    private(set) static var sharedInstance:BahamutCmdManager = {
+    fileprivate(set) static var sharedInstance:BahamutCmdManager = {
        return BahamutCmdManager()
     }()
     
-    private var handlerList = [HandleBahamutCmdDelegate]()
-    private var handlerCmdQueue = [(String,AnyObject?)]()
+    fileprivate var handlerList = [HandleBahamutCmdDelegate]()
+    fileprivate var handlerCmdQueue = [(String,AnyObject?)]()
     
-    func pushCmd(cmd:String,object:AnyObject? = nil)
+    func pushCmd(_ cmd:String,object:AnyObject? = nil)
     {
         handlerCmdQueue.append((cmd,object))
     }
@@ -33,7 +33,7 @@ class BahamutCmdManager
         }
     }
     
-    func removeHandler(handler:HandleBahamutCmdDelegate)
+    func removeHandler(_ handler:HandleBahamutCmdDelegate)
     {
         handlerList.removeElement { (itemInArray) -> Bool in
             let a = itemInArray as! NSObject
@@ -46,7 +46,7 @@ class BahamutCmdManager
         }
     }
     
-    func registHandler(handler:HandleBahamutCmdDelegate)
+    func registHandler(_ handler:HandleBahamutCmdDelegate)
     {
         let exists = handlerList.contains{
             let a = $0 as! NSObject
@@ -59,24 +59,31 @@ class BahamutCmdManager
         }
     }
     
-    func handleBahamutEncodedCmd(cmdEncoded:String,object:AnyObject? = nil) {
-        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
-        handleBahamutCmd(cmd,object: object)
+    @discardableResult
+    func handleBahamutEncodedCmd(_ cmdEncoded:String,object:AnyObject? = nil) {
+        if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
+            handleBahamutCmd(cmd,object: object)
+        }
     }
     
-    func handleBahamutEncodedCmdWithMainQueue(cmdEncoded:String,object:AnyObject? = nil)
+    @discardableResult
+    func handleBahamutEncodedCmdWithMainQueue(_ cmdEncoded:String,object:AnyObject? = nil)
     {
-        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
-        handleBahamutCmdWithMainQueue(cmd,object: object)
+        if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
+            handleBahamutCmdWithMainQueue(cmd,object: object)
+        }
     }
     
-    func handleBahamutEncodedCmdWithGlobalQueue(cmdEncoded:String,object:AnyObject? = nil)
+    @discardableResult
+    func handleBahamutEncodedCmdWithGlobalQueue(_ cmdEncoded:String,object:AnyObject? = nil)
     {
-        let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded)
-        handleBahamutCmdWithGlobalQueue(cmd, object: object)
+        if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
+            handleBahamutCmdWithGlobalQueue(cmd, object: object)
+        }
     }
     
-    func handleBahamutCmd(cmd:String,object:AnyObject? = nil)
+    @discardableResult
+    func handleBahamutCmd(_ cmd:String,object:AnyObject? = nil)
     {
         
         if let method = BahamutCmd.getCmdMethod(cmd)
@@ -90,16 +97,16 @@ class BahamutCmdManager
         
     }
     
-    func handleBahamutCmdWithMainQueue(cmd:String,object:AnyObject? = nil)
+    func handleBahamutCmdWithMainQueue(_ cmd:String,object:AnyObject? = nil)
     {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.async { () -> Void in
             self.handleBahamutCmd(cmd,object: object)
         }
     }
     
-    func handleBahamutCmdWithGlobalQueue(cmd:String,object:AnyObject? = nil)
+    func handleBahamutCmdWithGlobalQueue(_ cmd:String,object:AnyObject? = nil)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+        DispatchQueue.global().async { () -> Void in
             self.handleBahamutCmd(cmd,object: object)
         }
     }

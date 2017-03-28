@@ -13,8 +13,8 @@ import UIKit
 extension UIViewController
 {
     
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         hideKeyBoard()
     }
     
@@ -22,7 +22,7 @@ extension UIViewController
     {
         if let v = self.view
         {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
                 v.endEditing(false)
             })
         }
@@ -31,7 +31,7 @@ extension UIViewController
 
 class ControllerViewAdjustByKeyboardProxy : NSObject
 {
-    private weak var controller:UIViewController!
+    fileprivate weak var controller:UIViewController!
     
     init(controller:UIViewController)
     {
@@ -40,24 +40,24 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
     
     func removeObserverForKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func registerForKeyboardNotifications(views:[UIView])
+    func registerForKeyboardNotifications(_ views:[UIView])
     {
         keyBoardAdjuetResponderViews = views
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    private var keyBoardAdjuetResponderViews = [UIView]()
+    fileprivate var keyBoardAdjuetResponderViews = [UIView]()
     
-    private var offset:CGFloat = 0
-    func keyboardChanged(aNotification:NSNotification)
+    fileprivate var offset:CGFloat = 0
+    func keyboardChanged(_ aNotification:Notification)
     {
         if let userInfo = aNotification.userInfo
         {
-            if let responderView = (keyBoardAdjuetResponderViews.filter{$0.isFirstResponder()}.first)
+            if let responderView = (keyBoardAdjuetResponderViews.filter{$0.isFirstResponder}.first)
             {
                 self.adjustViewAdaptKeyboard(aNotification.name, userInfo: userInfo, responderView: responderView)
             }
@@ -67,40 +67,39 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
     
     var viewOriginHeight:CGFloat!
     
-    private func adjustViewAdaptKeyboard(keyboardNotification:String,userInfo:[NSObject:AnyObject] ,responderView:UIView)
+    fileprivate func adjustViewAdaptKeyboard(_ keyboardNotification:NSNotification.Name,userInfo:[AnyHashable: Any] ,responderView:UIView)
     {
         if viewOriginHeight == nil
         {
             viewOriginHeight = controller.view.frame.size.height
         }
         let info = userInfo
-        if !responderView.isFirstResponder()
+        if !responderView.isFirstResponder
         {
             return
         }
-        if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
+        if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
         {
             let tfFrame = responderView.frame
             
-            if keyboardNotification == UIKeyboardDidShowNotification
+            if keyboardNotification == NSNotification.Name.UIKeyboardDidShow
             {
                 offset = tfFrame.origin.y + tfFrame.size.height + 7 - kbFrame.origin.y
                 if offset <= 0
                 {
                     return
                 }
-                var animationDuration:NSTimeInterval
+                var animationDuration:TimeInterval
                 var animationCurve:UIViewAnimationCurve
                 let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! Int
                 animationCurve = UIViewAnimationCurve(rawValue: curve)!
-                animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+                animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
                 UIView.beginAnimations(nil, context:nil)
                 UIView.setAnimationDuration(animationDuration)
                 UIView.setAnimationCurve(animationCurve)
-                responderView.constraints.count
                 for c in responderView.constraints
                 {
-                    if c.firstAttribute == .Bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
+                    if c.firstAttribute == .bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
                     {
                         c.constant = c.constant + offset
                     }
@@ -116,7 +115,7 @@ class ControllerViewAdjustByKeyboardProxy : NSObject
                     return
                 }
                 responderView.constraints.forEach({ (c) -> () in
-                    if c.firstAttribute == .Bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
+                    if c.firstAttribute == .bottom && (c.firstItem as! NSObject == controller.view || c.secondItem as! NSObject == controller.view)
                     {
                         c.constant = c.constant - offset
                     }

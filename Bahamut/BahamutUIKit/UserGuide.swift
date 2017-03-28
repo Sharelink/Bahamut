@@ -12,14 +12,14 @@ import UIKit
 //MARK: UserGuide
 class UserGuide:NSObject
 {
-    private var viewController:UIViewController!
-    private var guideImages:[UIImage]!
-    private var userId:String!
-    private var showingIndex:Int = 0
-    private var imgController:NoStatusBarViewController!
-    private var imageView:UIImageView!
-    private var isInited:Bool = false
-    func initGuide<T:UIViewController>(controller:T,userId:String,guideImgs:[UIImage])
+    fileprivate var viewController:UIViewController!
+    fileprivate var guideImages:[UIImage]!
+    fileprivate var userId:String!
+    fileprivate var showingIndex:Int = 0
+    fileprivate var imgController:NoStatusBarViewController!
+    fileprivate var imageView:UIImageView!
+    fileprivate var isInited:Bool = false
+    func initGuide<T:UIViewController>(_ controller:T,userId:String,guideImgs:[UIImage])
     {
         viewController = controller
         guideImages = guideImgs
@@ -28,15 +28,15 @@ class UserGuide:NSObject
         isInited = true
         
         let className = T.description()
-        firstTimeStoreKey = "showGuideMark:\(self.userId)\(className)"
+        firstTimeStoreKey = "showGuideMark:\(self.userId!)\(className)"
     }
     
-    private var firstTimeStoreKey:String!
+    fileprivate var firstTimeStoreKey:String!
     
-    private func initImageViewController()
+    fileprivate func initImageViewController()
     {
         imgController = NoStatusBarViewController()
-        imgController.view.frame = (UIApplication.sharedApplication().keyWindow?.bounds)!
+        imgController.view.frame = (UIApplication.shared.keyWindow?.bounds)!
         imageView = UIImageView(frame: imgController.view.bounds)
         imgController.view.addSubview(imageView)
         self.imgController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UserGuide.onTapImage(_:))))
@@ -57,12 +57,12 @@ class UserGuide:NSObject
         showNextImage()
     }
     
-    private func showNextImage()
+    fileprivate func showNextImage()
     {
         self.showingIndex += 1
         if showingIndex >= self.guideImages.count
         {
-            self.viewController.dismissViewControllerAnimated(false, completion: {
+            self.viewController.dismiss(animated: false, completion: {
                 self.deInitUserGuide()
             })
         }else
@@ -76,7 +76,7 @@ class UserGuide:NSObject
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
             self.showingIndex = -1
-            self.viewController.presentViewController(imgController, animated: true, completion: {
+            self.viewController.present(imgController, animated: true, completion: {
                 self.showNextImage()
             })
             return true
@@ -89,10 +89,10 @@ class UserGuide:NSObject
         if isInited && self.guideImages != nil && self.guideImages.count > 0
         {
             let key = firstTimeStoreKey
-            let showed = NSUserDefaults.standardUserDefaults().boolForKey(key)
+            let showed = UserDefaults.standard.bool(forKey: key!)
             if !showed
             {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: key)
+                UserDefaults.standard.set(true, forKey: key!)
                 return showGuide()
             }else
             {

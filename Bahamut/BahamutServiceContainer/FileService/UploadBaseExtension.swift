@@ -22,11 +22,11 @@ let FileServiceUploadTask = "FileServiceUploadTask"
 
 extension FileService
 {
-    func uploadTaskCompleted(taskId:String,fileKey:FileAccessInfo,isSuc:Bool)
+    func uploadTaskCompleted(_ taskId:String,fileKey:FileAccessInfo,isSuc:Bool)
     {
-        if isSuc
+        if isSuc,let uploadTask = self.getUploadTask(fileKey.fileId)
         {
-            let uploadTask = self.getUploadTask(fileKey.fileId)
+            
             LocalFilesExtension.defaultInstance.coreData.deleteObject(uploadTask)
             ProgressTaskWatcher.sharedInstance.missionCompleted(taskId, result: FileServiceUploadTask)
         }else
@@ -35,24 +35,24 @@ extension FileService
         }
     }
     
-    func prepareUpload(localFilePath:String,req:BahamutRFRequestBase,callback:(taskId:String!,fileKey:FileAccessInfo!)->Void)
+    func prepareUpload(_ localFilePath:String,req:BahamutRFRequestBase,callback:@escaping (_ taskId:String?,_ fileKey:FileAccessInfo?)->Void)
     {
         self.requestFileAccessInfo(req, callback: { (fileKey) -> Void in
-            if fileKey != nil
+            if let fk = fileKey
             {
-                if let uploadTask = self.addUploadTask(fileKey, filePath: localFilePath)
+                if let uploadTask = self.addUploadTask(fk, filePath: localFilePath)
                 {
                     let taskKey = "uploadTask:\(uploadTask.fileId)"
-                    callback(taskId: taskKey, fileKey: fileKey)
+                    callback(taskKey, fileKey)
                     return
                 }
                 
             }
-            callback(taskId: nil, fileKey: nil)
+            callback(nil, nil)
         })
     }
     
-    private func getUploadTask(fileId:String) -> UploadTask!
+    fileprivate func getUploadTask(_ fileId:String) -> UploadTask!
     {
         if let uploadTask = LocalFilesExtension.defaultInstance.coreData.getCellById(LocalFileExtensionConstant.uploadTaskEntityName, idFieldName: LocalFileExtensionConstant.uploadTaskEntityIdFieldName, idValue: fileId) as? UploadTask
         {
@@ -61,9 +61,9 @@ extension FileService
         return nil
     }
     
-    private func addUploadTask(sendFileKey:FileAccessInfo,filePath:String) -> UploadTask?
+    fileprivate func addUploadTask(_ sendFileKey:FileAccessInfo,filePath:String) -> UploadTask?
     {
-        if !fileManager.fileExistsAtPath(filePath)
+        if !fileManager.fileExists(atPath: filePath)
         {
             return nil
         }

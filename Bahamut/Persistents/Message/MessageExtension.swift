@@ -25,7 +25,7 @@ class MessageExtensionConstant
 class MessageExtension: PersistentExtensionProtocol
 {
     static var defaultInstance:MessageExtension!
-    private(set) var coreData = CoreDataManager()
+    fileprivate(set) var coreData = CoreDataManager()
     
     func releaseExtension() {
         coreData.deinitManager()
@@ -45,7 +45,7 @@ class MessageExtension: PersistentExtensionProtocol
 
 extension PersistentManager
 {
-    func useMessageExtension(dbFileUrl:NSURL,momdBundle:NSBundle)
+    func useMessageExtension(_ dbFileUrl:URL,momdBundle:Bundle)
     {
         self.useExtension(MessageExtension()) { (ext) -> Void in
             MessageExtension.defaultInstance = ext
@@ -59,7 +59,7 @@ extension PersistentManager
         MessageExtension.defaultInstance.coreData.deleteAll(MessageExtensionConstant.messageEntityName)
     }
     
-    func getShareChats(shareId:String) -> [ShareChatEntity]
+    func getShareChats(_ shareId:String) -> [ShareChatEntity]
     {
         if let result = MessageExtension.defaultInstance.coreData.getCellsById(MessageExtensionConstant.chatEntityName, idFieldName: MessageExtensionConstant.chatEntityShareIdFieldName, idValue: shareId) as? [ShareChatEntity]
         {
@@ -70,7 +70,7 @@ extension PersistentManager
         }
     }
     
-    func getShareChat(chatId:String) -> ShareChatEntity!
+    func getShareChat(_ chatId:String) -> ShareChatEntity!
     {
         if let result = MessageExtension.defaultInstance.coreData.getCellById(MessageExtensionConstant.chatEntityName,idFieldName: MessageExtensionConstant.chatEntityChatIdFieldName, idValue: chatId) as? ShareChatEntity
         {
@@ -79,10 +79,10 @@ extension PersistentManager
         return nil
     }
     
-    func getMessage(chatId:String,limit:Int = 7,beforeTime:NSDate! = nil) -> [MessageEntity]
+    func getMessage(_ chatId:String,limit:Int = 7,beforeTime:Date! = nil) -> [MessageEntity]
     {
         let sortDesc = NSSortDescriptor(key: "time", ascending: false)
-        let predict = NSPredicate(format: "\(MessageExtensionConstant.messageEntityChatIdFieldName) = %@ and time < %@", argumentArray: [chatId,beforeTime ?? NSDate()])
+        let predict = NSPredicate(format: "\(MessageExtensionConstant.messageEntityChatIdFieldName) = %@ and time < %@", argumentArray: [chatId,beforeTime ?? Date()])
         if let result = MessageExtension.defaultInstance.coreData.getCells(MessageExtensionConstant.messageEntityName, predicate: predict, limit: limit, sortDescriptors: [sortDesc]) as? [MessageEntity]
         {
             return result
@@ -90,7 +90,7 @@ extension PersistentManager
         return [MessageEntity]()
     }
     
-    func getMessage(msgId:String) -> MessageEntity!
+    func getMessage(_ msgId:String) -> MessageEntity!
     {
         if let result = MessageExtension.defaultInstance.coreData.getCellById(MessageExtensionConstant.messageEntityName,idFieldName: MessageExtensionConstant.messageEntityMessageIdFieldName, idValue: msgId) as? MessageEntity
         {
@@ -99,7 +99,7 @@ extension PersistentManager
         return nil
     }
     
-    func getNewMessage(msgId:String) -> MessageEntity!
+    func getNewMessage(_ msgId:String) -> MessageEntity!
     {
         if getMessage(msgId) == nil
         {
@@ -112,7 +112,7 @@ extension PersistentManager
         return nil
     }
     
-    func saveNewChat(shareId:String,chatId:String) -> ShareChatEntity!
+    func saveNewChat(_ shareId:String,chatId:String) -> ShareChatEntity!
     {
         if getShareChat(chatId) == nil
         {

@@ -11,26 +11,27 @@ import Foundation
 
 public extension Array
 {
-    public mutating func removeElement(predict:(itemInArray:Element) -> Bool) ->[Element]
+    @discardableResult
+    public mutating func removeElement(_ predict:(_ itemInArray:Element) -> Bool) ->[Element]
     {
         let start = self.count - 1
         var result = [Element]()
-        for i in start.stride(through: 0, by: -1) {
+        for i in stride(from: start, through: 0, by: -1) {
             let a = self[i]
-            if predict(itemInArray: a)
+            if predict(a)
             {
-                let item = self.removeAtIndex(i)
+                let item = self.remove(at: i)
                 result.append(item)
             }
         }
         return result
     }
     
-    public func toMap<T:NSObject>(m:(elem:Element)-> T) -> [T:Element]
+    public func toMap<T:NSObject>(_ m:(_ elem:Element)-> T) -> [T:Element]
     {
         var result = [T:Element]()
         for e in self{
-            let key = m(elem: e)
+            let key = m(e)
             result[key] = e
         }
         return result
@@ -53,11 +54,12 @@ public extension Array
         return result
     }
     
-    public func getRandomSubArray(subArrayCount:Int) -> [Element]
+    public func getRandomSubArray(_ subArrayCount:Int) -> [Element]
     {
         var result = [Element]()
         let messArray = self.messArrayUp()
-        for i in 0..<min(messArray.count , subArrayCount)
+        
+        for i in 0..<Swift.min(messArray.count,subArrayCount)
         {
             result.append(messArray[i])
         }
@@ -68,11 +70,11 @@ public extension Array
 
 public extension Array
 {
-    public func forIndexEach(body:(i:Int,element:Element)->Void)
+    public func forIndexEach(_ body:(_ i:Int,_ element:Element)->Void)
     {
         var i = 0
         self.forEach { (element) -> () in
-            body(i: i, element: element)
+            body(i, element)
             i += 1
         }
     }
@@ -80,7 +82,7 @@ public extension Array
 
 public extension Array
 {
-    public mutating func swapElement(aIndex:Int,bIndex:Int) -> Bool
+    public mutating func swapElement(_ aIndex:Int,bIndex:Int) -> Bool
     {
         if self.count > aIndex && self.count > bIndex
         {
@@ -93,9 +95,9 @@ public extension Array
     }
 }
 
-public class ArrayUtil
+open class ArrayUtil
 {
-    public static func groupWithLatinLetter<T:AnyObject>(items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]
+    open static func groupWithLatinLetter<T:AnyObject>(_ items:[T],orderBy:(T)->String) -> [(latinLetter:String,items:[T])]
     {
         var dict = [String:NSMutableArray]()
         for index in 0...25
@@ -109,22 +111,22 @@ public class ArrayUtil
         for item in items
         {
             let orderString = orderBy(item)
-            let orderCFString:CFMutableStringRef = CFStringCreateMutableCopy(nil, 0, orderString);
+            let orderCFString:CFMutableString = CFStringCreateMutableCopy(nil, 0, orderString as CFString!);
             CFStringTransform(orderCFString,nil, kCFStringTransformToLatin, false)
             CFStringTransform(orderCFString, nil, kCFStringTransformStripDiacritics, false)
             
             let stringName = orderCFString as String
-            let n = stringName.startIndex.advancedBy(1)
-            let prefix = stringName.uppercaseString.substringToIndex(n)
+            let n = stringName.characters.index(stringName.startIndex, offsetBy: 1)
+            let prefix = stringName.uppercased().substring(to: n)
             var list = dict[prefix]
             if list == nil
             {
                 list = dict["#"]
             }
-            list?.addObject(item)
+            list?.add(item)
         }
         var result = dict.map {(latinLetter:$0.0, items:$0.1.map{$0 as! T}) }
-        result.sortInPlace{$0.0 < $1.0}
+        result.sort{$0.0 < $1.0}
         return result
     }
 }

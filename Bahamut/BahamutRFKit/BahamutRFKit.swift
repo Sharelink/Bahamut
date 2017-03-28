@@ -11,9 +11,9 @@ import EVReflection
 import Alamofire
 
 //MARK: BahamutRFKit
-class BahamutRFKit:NSNotificationCenter
+class BahamutRFKit:NotificationCenter
 {
-    static let onTokenInvalidated = "onTokenInvalidated"
+    static let onTokenInvalidated = "onTokenInvalidated".asNotificationName()
     
     static var appkey = "no_key"
     static var appVersion:String = "1.0"
@@ -22,13 +22,13 @@ class BahamutRFKit:NSNotificationCenter
     
     var userInfos = [String:AnyObject?]()
     
-    private(set) var clients:[String:ClientProtocal] = [String:ClientProtocal]()
+    fileprivate(set) var clients:[String:ClientProtocal] = [String:ClientProtocal]()
     
     static let sharedInstance: BahamutRFKit = {
         return BahamutRFKit()
     }()
     
-    func useClient(client:ClientProtocal,clientKey:String) -> ClientProtocal {
+    func useClient(_ client:ClientProtocal,clientKey:String) -> ClientProtocal {
         clients.updateValue(client, forKey: clientKey)
         return client
     }

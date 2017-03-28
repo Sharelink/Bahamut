@@ -12,15 +12,15 @@ import Foundation
 class IdFileFetcher: FileFetcher
 {
     var fileType:FileType!;
-    func startFetch(fileId: String, delegate: ProgressTaskDelegate)
+    func startFetch(_ fileId: String, delegate: ProgressTaskDelegate)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            if let path = NSBundle.mainBundle().pathForResource("\(fileId)", ofType:""){
+        DispatchQueue.global().async { () -> Void in
+            if let path = Bundle.main.path(forResource: "\(fileId)", ofType:""){
                 if PersistentFileHelper.fileExists(path){
                     delegate.taskCompleted(fileId, result: path)
                 }
             }else{
-                let fileService = ServiceContainer.getService(FileService)
+                let fileService = ServiceContainer.getFileService()
                 if let path = fileService.getFilePath(fileId, type: self.fileType){
                     delegate.taskCompleted(fileId, result: path)
                 }else
@@ -38,7 +38,7 @@ class IdFileFetcher: FileFetcher
 extension FileService
 {
     
-    func getFileFetcherOfFileId(fileType:FileType) -> FileFetcher
+    func getFileFetcherOfFileId(_ fileType:FileType) -> FileFetcher
     {
         let fetcher = IdFileFetcher()
         fetcher.fileType = fileType
@@ -51,11 +51,11 @@ extension FileService
 extension FileService
 {
     
-    func getCachedFileAccessInfo(fileId:String)->FileAccessInfo? {
+    func getCachedFileAccessInfo(_ fileId:String)->FileAccessInfo? {
         return PersistentManager.sharedInstance.getModel(FileAccessInfo.self, idValue: fileId)
     }
     
-    func fetchFileAccessInfo(fileId:String,callback:(FileAccessInfo?)->Void) {
+    func fetchFileAccessInfo(_ fileId:String,callback:@escaping (FileAccessInfo?)->Void) {
         let req = GetBahamutFireRequest()
         req.fileId = fileId
         let bahamutFireClient = BahamutRFKit.sharedInstance.getBahamutFireClient()
@@ -73,24 +73,24 @@ extension FileService
         }
     }
 
-    private class CallbackTaskDelegate:NSObject,ProgressTaskDelegate {
-        var callback:((filePath:String!) -> Void)?
+    fileprivate class CallbackTaskDelegate:NSObject,ProgressTaskDelegate {
+        var callback:((_ filePath:String?) -> Void)?
 
-        @objc func taskCompleted(taskIdentifier:String,result:AnyObject!){
-            callback?(filePath:result as? String)
+        @objc func taskCompleted(_ taskIdentifier:String,result:Any!){
+            callback?(result as? String)
         }
 
-        @objc func taskFailed(taskIdentifier:String,result:AnyObject!){
-            callback?(filePath:nil)
+        @objc func taskFailed(_ taskIdentifier:String,result:Any!){
+            callback?(nil)
         }
     }
     
     
-    func fetchFile(fileId:String,fileType:FileType,callback:(filePath:String!) -> Void)
+    func fetchFile(_ fileId:String,fileType:FileType,callback:@escaping (_ filePath:String?) -> Void)
     {
         if String.isNullOrWhiteSpace(fileId)
         {
-            callback(filePath: nil)
+            callback(nil)
             return
         }
         let d = CallbackTaskDelegate()
@@ -123,14 +123,14 @@ extension FileService
         }
     }
     
-    private func startFetch(fa:FileAccessInfo,fileTyp:FileType)
+    fileprivate func startFetch(_ fa:FileAccessInfo,fileTyp:FileType)
     {
-        func progress(fid:String,persent:Float)
+        func progress(_ fid:String,persent:Float)
         {
             ProgressTaskWatcher.sharedInstance.setProgress(fid, persent: persent)
         }
 
-        func finishCallback(fid:String,absoluteFilePath:String?){
+        func finishCallback(_ fid:String,absoluteFilePath:String?){
             if String.isNullOrWhiteSpace(absoluteFilePath){
                 ProgressTaskWatcher.sharedInstance.missionFailed(fid, result: nil)
             }else{

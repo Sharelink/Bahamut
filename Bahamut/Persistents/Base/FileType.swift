@@ -9,36 +9,36 @@
 import Foundation
 public enum FileType : Int
 {
-    case Raw = 0
-    case NoType = 126
-    case Other = 127
-    case Text = 128
-    case Sound = 129
-    case Video = 130
-    case Image = 131
+    case raw = 0
+    case noType = 126
+    case other = 127
+    case text = 128
+    case sound = 129
+    case video = 130
+    case image = 131
     
-    static let allValues = [Raw, NoType, Other, Text, Sound, Video, Image]
+    static let allValues = [raw, noType, other, text, sound, video, image]
     
     var FileSuffix:String
         {
             return FileType.getFileTypeFileSuffix(self)
     }
     
-    static func getFileTypeFileSuffix(type:FileType) -> String
+    static func getFileTypeFileSuffix(_ type:FileType) -> String
     {
         switch type
         {
-        case .Image: return ".png"
-        case .NoType: return ""
-        case .Other: return ""
-        case .Raw: return ".bin"
-        case .Sound:return ".mp3"
-        case .Text:return ".txt"
-        case .Video:return ".mp4"
+        case .image: return ".png"
+        case .noType: return ""
+        case .other: return ""
+        case .raw: return ".bin"
+        case .sound:return ".mp3"
+        case .text:return ".txt"
+        case .video:return ".mp4"
         }
     }
     
-    static func getFileType(rawValue:Int) -> FileType
+    static func getFileType(_ rawValue:Int) -> FileType
     {
         for type in allValues
         {
@@ -47,20 +47,20 @@ public enum FileType : Int
                 return type
             }
         }
-        return Raw
+        return raw
     }
     
-    static func getFileTypeByFileId(fileId:String) -> FileType
+    static func getFileTypeByFileId(_ fileId:String) -> FileType
     {
         for type in allValues
         {
             let fileTypePettern:String =
             "^(*)\(getFileTypeFileSuffix(type))$"
-            if fileTypePettern =~ fileId
+            if fileTypePettern.isRegexMatch(pattern:fileId)
             {
                 return type
             }
         }
-        return Raw
+        return raw
     }
 }

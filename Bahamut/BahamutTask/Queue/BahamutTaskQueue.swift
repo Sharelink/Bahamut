@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class BahamutTaskQueue:NSNotificationCenter{
-    static let onTaskStepError = "onTaskStepError"
-    static let onTaskProgress = "onTaskProgress"
-    static let onTaskFinished = "onTaskFinished"
-    static let onTaskCanceled = "onTaskCanceled"
+open class BahamutTaskQueue:NotificationCenter{
+    static let onTaskStepError = "onTaskStepError".asNotificationName()
+    static let onTaskProgress = "onTaskProgress".asNotificationName()
+    static let onTaskFinished = "onTaskFinished".asNotificationName()
+    static let onTaskCanceled = "onTaskCanceled".asNotificationName()
     
-    private var stepHandler = [String:BahamutTaskQueueStepHandler]()
+    fileprivate var stepHandler = [String:BahamutTaskQueueStepHandler]()
     
     static var defaultInstance:BahamutTaskQueue = {
         return BahamutTaskQueue()
@@ -24,45 +24,43 @@ public class BahamutTaskQueue:NSNotificationCenter{
         return UIApplication.currentShowingViewController
     }
     
-    public func initQueue(userId:String){
+    open func initQueue(_ userId:String){
         
     }
     
-    public func releaseQueue() {
+    open func releaseQueue() {
         releaseHandlers()
         
     }
     
-    public func useHandlers(handlers:[String:BahamutTaskQueueStepHandler]){
+    open func useHandlers(_ handlers:[String:BahamutTaskQueueStepHandler]){
         handlers.forEach { (id,handler) in
             self.useHandler(id,handler: handler)
         }
     }
     
-    public func useHandler(key:String,handler:BahamutTaskQueueStepHandler){
+    open func useHandler(_ key:String,handler:BahamutTaskQueueStepHandler){
         stepHandler.updateValue(handler, forKey: key)
         handler.initHandler(self)
     }
     
-    private func releaseHandlers(){
+    fileprivate func releaseHandlers(){
         stepHandler.values.forEach{$0.releaseHandler()}
         stepHandler.removeAll()
     }
     
-    private func getBahamutQueueTaskByTaskId(taskId:String) -> BahamutQueueTask?{
+    fileprivate func getBahamutQueueTaskByTaskId(_ taskId:String) -> BahamutQueueTask?{
         return PersistentManager.sharedInstance.getModel(BahamutQueueTask.self, idValue: taskId)
     }
     
-    func pushTask(queueTask:BahamutQueueTask) {
+    func pushTask(_ queueTask:BahamutQueueTask) {
         queueTask.taskId = IdUtil.generateUniqueId()
         queueTask.currentStep = -1
-        queueTask.saveModel()
         nextStep(queueTask)
     }
     
-    func nextStep(task:BahamutQueueTask) {
+    func nextStep(_ task:BahamutQueueTask) {
         task.currentStep += 1
-        task.saveModel()
         if task.isFinish() {
             finishTask(task)
         }else{
@@ -70,34 +68,34 @@ public class BahamutTaskQueue:NSNotificationCenter{
         }
     }
     
-    private func finishTask(task:BahamutQueueTask){
-        var userInfo = [NSObject:AnyObject]()
+    fileprivate func finishTask(_ task:BahamutQueueTask){
+        var userInfo = [AnyHashable: Any]()
         userInfo.updateValue(task, forKey: kBahamutQueueTaskValue)
         PersistentManager.sharedInstance.removeModel(task)
         self.postNotificationNameWithMainAsync(BahamutTaskQueue.onTaskFinished, object: self, userInfo: userInfo)
         self.notifyTaskStepProgress(task, stepIndex: task.currentStep, stepProgress: 0)
         #if DEBUG
-            print("BahamutQueueTaskId:\(task.taskId) -> Finished")
+            print("BahamutQueueTaskId:\(task.taskId!) -> Finished")
         #endif
     }
     
-    func notifyTaskStepProgress(task:BahamutQueueTask,stepIndex:Int,stepProgress:Float) {
+    func notifyTaskStepProgress(_ task:BahamutQueueTask,stepIndex:Int,stepProgress:Float) {
         
         let totalSteps = Float(task.steps.count)
         let stepProgressInTask = 1 / totalSteps * stepProgress
         let finishedProgress = Float(stepIndex) / totalSteps + stepProgressInTask
         
-        var userInfo = [NSObject:AnyObject]()
+        var userInfo = [AnyHashable: Any]()
         userInfo.updateValue(task, forKey: kBahamutQueueTaskValue)
         userInfo.updateValue(finishedProgress, forKey: kBahamutQueueTaskProgressValue)
         self.postNotificationNameWithMainAsync(BahamutTaskQueue.onTaskProgress, object: self, userInfo: userInfo)
         #if DEBUG
-            print("BahamutQueueTaskId:\(task.taskId) -> Progress:\(finishedProgress * 100)%")
+            print("BahamutQueueTaskId:\(task.taskId!) -> Progress:\(finishedProgress * 100)%")
         #endif
     }
     
-    func doTaskStepError(task:BahamutQueueTask,message:String?) {
-        var userInfo = [NSObject:AnyObject]()
+    func doTaskStepError(_ task:BahamutQueueTask,message:String?) {
+        var userInfo = [AnyHashable: Any]()
         userInfo.updateValue(task, forKey: kBahamutQueueTaskValue)
         if let msg = message{
             userInfo.updateValue(msg, forKey: kBahamutQueueTaskMessageValue)
@@ -105,8 +103,8 @@ public class BahamutTaskQueue:NSNotificationCenter{
         self.postNotificationNameWithMainAsync(BahamutTaskQueue.onTaskStepError, object: self, userInfo: userInfo)
     }
     
-    func cancelTask(task:BahamutQueueTask,message:String?) {
-        var userInfo = [NSObject:AnyObject]()
+    func cancelTask(_ task:BahamutQueueTask,message:String?) {
+        var userInfo = [AnyHashable: Any]()
         userInfo.updateValue(task, forKey: kBahamutQueueTaskValue)
         if let msg = message{
             userInfo.updateValue(msg, forKey: kBahamutQueueTaskMessageValue)
@@ -114,16 +112,16 @@ public class BahamutTaskQueue:NSNotificationCenter{
         PersistentManager.sharedInstance.removeModel(task)
         self.postNotificationNameWithMainAsync(BahamutTaskQueue.onTaskCanceled, object: self, userInfo: userInfo)
         #if DEBUG
-            print("BahamutQueueTaskId:\(task.taskId) -> Canceled")
+            print("BahamutQueueTaskId:\(task.taskId!) -> Canceled")
         #endif
     }
     
-    func startTask(task:BahamutQueueTask)  {
+    func startTask(_ task:BahamutQueueTask)  {
         notifyTaskStepProgress(task, stepIndex: task.currentStep, stepProgress: 0)
         if let step = task.getCurrentStep(){
             if let handler = self.stepHandler[step]{
                 #if DEBUG
-                    print("BahamutQueueTaskId:\(task.taskId) -> Do Work:\(step)")
+                    print("BahamutQueueTaskId:\(task.taskId!) -> Do Work:\(step)")
                 #endif
                 handler.doTask(self, task: task)
             }

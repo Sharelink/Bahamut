@@ -17,7 +17,7 @@ class BahamutFireClient : BahamutRFClient
         super.init(apiServer: fileApiServer, userId: userId, token: token)
     }
     
-    override func setReqHeader(req: BahamutRFRequestBase) -> BahamutRFRequestBase
+    override func setReqHeader(_ req: BahamutRFRequestBase) -> BahamutRFRequestBase
     {
         req.headers.updateValue(BahamutRFKit.appkey, forKey: "appkey")
         return super.setReqHeader(req)
@@ -32,12 +32,13 @@ extension BahamutRFKit{
             return userInfos["fileApiServer"] as? String
         }
         set{
-            userInfos["fileApiServer"] = newValue
+            userInfos["fileApiServer"] = newValue as AnyObject??
             
         }
     }
     
-    func reuseFileApiServer(userId:String, token:String,fileApiServer:String) -> ClientProtocal
+    @discardableResult
+    func reuseFileApiServer(_ userId:String, token:String,fileApiServer:String) -> ClientProtocal
     {
         self.fileApiServer = fileApiServer
         let fileClient = BahamutFireClient(fileApiServer:self.fileApiServer,userId:userId,token:token)
@@ -52,53 +53,54 @@ extension BahamutRFKit{
 
 //MARK: Bahamut Fire Bucket Extension
 extension BahamutFireClient{
-    func sendFile(sendFileKey:FileAccessInfo,filePath:String)->Request
+    func sendFile(_ sendFileKey:FileAccessInfo,filePath:String)->UploadRequest
     {
-        return sendFile(sendFileKey, filePathUrl: NSURL(fileURLWithPath: filePath))
+        return sendFile(sendFileKey, filePathUrl: URL(fileURLWithPath: filePath))
     }
     
-    func sendFile(sendFileKey:FileAccessInfo,filePathUrl:NSURL)->Request
+    func sendFile(_ sendFileKey:FileAccessInfo,filePathUrl:URL)->UploadRequest
     {
-        let headers :[String:String] = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
-        return Manager.sharedInstance.upload(Method.POST, sendFileKey.server, headers: headers, file: filePathUrl)
+        let headers:HTTPHeaders = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
+        return Alamofire.upload(filePathUrl, to: sendFileKey.server, method: .post, headers: headers)
+        //return Alamofire.upload(Method.post, sendFileKey.server, headers: headers, file: filePathUrl)
     }
     
-    func sendFile(sendFileKey:FileAccessInfo,fileData:NSData)->Request
+    func sendFile(_ sendFileKey:FileAccessInfo,fileData:Data)->UploadRequest
     {
-        let headers :[String:String] = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
-        return Manager.sharedInstance.upload(.POST, sendFileKey.server, headers: headers, data: fileData)
+        let headers :HTTPHeaders = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
+        return Alamofire.upload(fileData, to: sendFileKey.server, method: .post, headers: headers)
+        //return Alamofire.upload(.post, sendFileKey.server, headers: headers, data: fileData)
     }
     
-    func downloadFile(fileId:String,filePath:String) -> Request
+    func downloadFile(_ fileId:String,filePath:String) -> DownloadRequest
     {
-        let headers :[String:String] = ["userId":self.userId,"token":self.token,"appkey":BahamutRFKit.appkey]
+        let headers :HTTPHeaders = ["userId":self.userId,"token":self.token,"appkey":BahamutRFKit.appkey]
         let fileUrl = "\(self.apiServer)/Files/\(fileId)"
-        let req = Manager.sharedInstance.download(Method.GET, fileUrl , headers: headers){ temporaryURL, response in
-            return NSURL(fileURLWithPath: filePath)
+        return Alamofire.download(fileUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) { (url, response) -> (destinationURL: URL, options: DownloadRequest.DownloadOptions) in
+            return (URL(fileURLWithPath: filePath),DownloadRequest.DownloadOptions.removePreviousFile)
         }
-        return req
     }
 }
 
 /*
 Get /BahamutFires/{fileId} : get a file request key for upload task
 */
-public class GetBahamutFireRequest : BahamutRFRequestBase
+open class GetBahamutFireRequest : BahamutRFRequestBase
 {
     public override init()
     {
         super.init()
         self.api = "/BahamutFires"
-        self.method = .GET
+        self.method = .get
     }
     
-    public var fileId:String!{
+    open var fileId:String!{
         didSet{
-            self.api = "/BahamutFires/\(fileId)"
+            self.api = "/BahamutFires/\(fileId!)"
         }
     }
     
-    public override func getMaxRequestCount() -> Int32 {
+    open override func getMaxRequestCount() -> Int32 {
         return BahamutRFRequestBase.maxRequestNoLimitCount
     }
 }
@@ -106,28 +108,28 @@ public class GetBahamutFireRequest : BahamutRFRequestBase
 /*
 POST /Files (fileType,fileSize) : get a new send file key for upload task
 */
-public class NewBahamutFireRequest : BahamutRFRequestBase
+open class NewBahamutFireRequest : BahamutRFRequestBase
 {
     public override init()
     {
         super.init()
         self.api = "/BahamutFires"
-        self.method = .POST
+        self.method = .post
     }
     
-    public var fileType:FileType! = .NoType{
+    open var fileType:FileType! = .noType{
         didSet{
             self.paramenters["fileType"] = "\(fileType.rawValue)"
         }
     }
     
-    public var fileSize:Int = 512 * 1024{ //byte
+    open var fileSize:Int = 512 * 1024{ //byte
         didSet{
             self.paramenters["fileSize"] = "\(fileSize)"
         }
     }
     
-    public override func getMaxRequestCount() -> Int32 {
+    open override func getMaxRequestCount() -> Int32 {
         return BahamutRFRequestBase.maxRequestNoLimitCount
     }
 }

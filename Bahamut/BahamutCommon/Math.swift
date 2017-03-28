@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 class Math {
-    static func distanceOf2Points(p1:CGPoint,p2:CGPoint) -> Double{
+    static func distanceOf2Points(_ p1:CGPoint,p2:CGPoint) -> Double{
         return sqrt(pow(Double(p1.x) - Double(p2.x), 2) - pow(Double(p1.y) - Double(p2.y), 2))
     }
 }
 
 func random() -> Int {
-    return NSNumber(unsignedInt: arc4random()).integerValue
+    return NSNumber(value: arc4random() as UInt32).intValue
 }
 
-func debugLog(format: String, _ args: CVarArgType...) {
+func debugLog(_ format: String, _ args: CVarArg...) {
     #if DEBUG
-        print("\(NSDate().toAccurateDateTimeString()): \(String(format: format, arguments: args))")
+        print("\(Date().toAccurateDateTimeString()): \(String(format: format, arguments: args))")
     #endif
 }

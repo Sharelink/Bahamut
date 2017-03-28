@@ -12,18 +12,18 @@ import CoreData
 
 class ShareChatEntity: NSManagedObject {
 
-    func addUser(userId:String)
+    func addUser(_ userId:String)
     {
-        if (chatUsers.containsString("\(userId)")) == true
+        if (chatUsers.contains("\(userId)")) == true
         {
             return
         }
-        chatUsers.appendContentsOf("\(userId);")
+        chatUsers.append("\(userId);")
     }
     
-    func removeUser(userId:String)
+    func removeUser(_ userId:String)
     {
-        chatUsers = chatUsers.stringByReplacingOccurrencesOfString("\(userId);", withString: "")
+        chatUsers = chatUsers.replacingOccurrences(of: "\(userId);", with: "")
     }
     
     func getUsers() -> [String]

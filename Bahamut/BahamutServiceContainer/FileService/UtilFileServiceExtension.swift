@@ -13,7 +13,7 @@ import UIKit
 //MARK: Bahamut Request File Access Info
 extension FileService
 {
-    func requestFileAccessInfo(req:BahamutRFRequestBase,callback:(fileKey:FileAccessInfo!) -> Void)
+    func requestFileAccessInfo(_ req:BahamutRFRequestBase,callback:@escaping (_ fileKey:FileAccessInfo?) -> Void)
     {
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
         client.execute(req) { (result:SLResult<FileAccessInfo>) -> Void in
@@ -22,15 +22,15 @@ extension FileService
                 if let fileAccessInfo = result.returnObject
                 {
                     fileAccessInfo.saveModel()
-                    callback(fileKey: fileAccessInfo)
+                    callback(fileAccessInfo)
                     return
                 }
             }
-            callback(fileKey: nil)
+            callback(nil)
         }
     }
     
-    func requestFileAccessInfoList(req:BahamutRFRequestBase,callback:(fileKeys:[FileAccessInfo]!) -> Void)
+    func requestFileAccessInfoList(_ req:BahamutRFRequestBase,callback:@escaping (_ fileKeys:[FileAccessInfo]?) -> Void)
     {
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
         client.execute(req) { (result:SLResult<FileAccessInfoList>) -> Void in
@@ -39,11 +39,11 @@ extension FileService
                 if let list = result.returnObject
                 {
                     FileAccessInfo.saveObjectOfArray(list.files)
-                    callback(fileKeys: list.files)
+                    callback(list.files)
                     return
                 }
             }
-            callback(fileKeys: nil)
+            callback(nil)
         }
     }
     

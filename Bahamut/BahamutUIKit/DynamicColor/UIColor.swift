@@ -42,8 +42,8 @@ public extension DynamicColor {
   :param: hexString A hexa-decimal color string representation.
   */
   public convenience init(hexString: String) {
-    let hexString = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-    let scanner   = NSScanner(string: hexString)
+    let hexString = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    let scanner   = Scanner(string: hexString)
 
     if (hexString.hasPrefix("#")) {
       scanner.scanLocation = 1
@@ -51,7 +51,7 @@ public extension DynamicColor {
 
     var color: UInt32 = 0
 
-    if scanner.scanHexInt(&color) {
+    if scanner.scanHexInt32(&color) {
       self.init(hex: color)
     }
     else {
@@ -194,7 +194,7 @@ public extension DynamicColor {
 
   :returns: true if the receiver and the string are equals, otherwise false.
   */
-  public func isEqualToHexString(hexString: String) -> Bool {
+  public func isEqualToHexString(_ hexString: String) -> Bool {
     return self.toHexString() == hexString
   }
 
@@ -205,7 +205,7 @@ public extension DynamicColor {
 
   :returns: true if the receiver and the integer are equals, otherwise false.
   */
-  public func isEqualToHex(hex: UInt32) -> Bool {
+  public func isEqualToHex(_ hex: UInt32) -> Bool {
     return self.toHex() == hex
   }
 
@@ -218,7 +218,7 @@ public extension DynamicColor {
 
   :returns: A UIColor object with the hue changed.
   */
-  public final func adjustedHueColor(amount: CGFloat) -> UIColor {
+  public final func adjustedHueColor(_ amount: CGFloat) -> UIColor {
     return HSL(color: self).adjustHue(amount).toUIColor()
   }
 
@@ -253,7 +253,7 @@ public extension DynamicColor {
 
   :returns: A lighter UIColor.
   */
-  public final func lightenColor(amount: CGFloat) -> UIColor {
+  public final func lightenColor(_ amount: CGFloat) -> UIColor {
     let normalizedAmount = min(1, max(0, amount))
 
     return HSL(color: self).lighten(normalizedAmount).toUIColor()
@@ -277,7 +277,7 @@ public extension DynamicColor {
 
   :returns: A darker UIColor.
   */
-  public final func darkenColor(amount: CGFloat) -> UIColor {
+  public final func darkenColor(_ amount: CGFloat) -> UIColor {
     let normalizedAmount = min(1, max(0, amount))
 
     return HSL(color: self).darken(normalizedAmount).toUIColor()
@@ -301,7 +301,7 @@ public extension DynamicColor {
 
   :returns: A UIColor more saturated.
   */
-  public final func saturateColor(amount: CGFloat) -> UIColor {
+  public final func saturateColor(_ amount: CGFloat) -> UIColor {
     let normalizedAmount = min(1, max(0, amount))
 
     return HSL(color: self).saturate(normalizedAmount).toUIColor()
@@ -325,7 +325,7 @@ public extension DynamicColor {
 
   :returns: A UIColor less saturated.
   */
-  public final func desaturateColor(amount: CGFloat) -> UIColor {
+  public final func desaturateColor(_ amount: CGFloat) -> UIColor {
     let normalizedAmount = min(1, max(0, amount))
     
     return HSL(color: self).desaturate(normalizedAmount).toUIColor()
@@ -367,7 +367,7 @@ public extension DynamicColor {
   
   :returns: A color object corresponding to the two colors object mixed together.
   */
-  public final func mixWithColor(color: UIColor, weight: CGFloat = 0.5) -> UIColor {
+  public final func mixWithColor(_ color: UIColor, weight: CGFloat = 0.5) -> UIColor {
     let normalizedWeight = min(1, max(0, weight))
 
     let c1 = toRGBAComponents()
@@ -394,8 +394,8 @@ public extension DynamicColor {
 
   :returns: A lighter UIColor.
   */
-  public final func tintColor(amount: CGFloat = 0.2) -> UIColor {
-    return mixWithColor(UIColor.whiteColor(), weight: amount)
+  public final func tintColor(_ amount: CGFloat = 0.2) -> UIColor {
+    return mixWithColor(UIColor.white, weight: amount)
   }
 
   /**
@@ -405,7 +405,7 @@ public extension DynamicColor {
 
   :returns: A darker UIColor.
   */
-  public final func shadeColor(amount: CGFloat = 0.2) -> UIColor {
-    return mixWithColor(UIColor.blackColor(), weight: amount)
+  public final func shadeColor(_ amount: CGFloat = 0.2) -> UIColor {
+    return mixWithColor(UIColor.black, weight: amount)
   }
 }

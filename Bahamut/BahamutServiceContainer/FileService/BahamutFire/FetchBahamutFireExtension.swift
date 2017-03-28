@@ -13,28 +13,25 @@ import Foundation
 extension FileService
 {
 
-    func fetchBahamutFire(fireInfo:FileAccessInfo,fileType:FileType, progress:(fid:String,persent:Float)->Void, callback:(fid:String,filePath:String!) -> Void)
+    func fetchBahamutFire(_ fireInfo:FileAccessInfo,fileType:FileType, progress:@escaping (_ fid:String,_ persent:Float)->Void, callback:@escaping (_ fid:String,_ filePath:String?) -> Void)
     {
         let absoluteFilePath = PersistentManager.sharedInstance.createCacheFileName(fireInfo.fileId, fileType: fileType)
         let tmpFilePath = PersistentManager.sharedInstance.createTmpFileName(fileType)
         
-        func progress(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
-        {
-            let persent = Float(totalBytesRead * 100 / totalBytesExpectedToRead)
-            progress(fid:fireInfo.fileId, persent:persent)
-        }
-
         let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
-        client.downloadFile(fireInfo.accessKey,filePath: tmpFilePath).progress(progress).response{ (request, response, result, error) -> Void in
+        client.downloadFile(fireInfo.accessKey,filePath: tmpFilePath).downloadProgress(closure: { (progressObj) in
+            progress(fireInfo.fileId, Float(progressObj.fractionCompleted * 100.0))
+        }).response { (response) in
             self.fetchingFinished(fireInfo.fileId)
-            if error == nil && response?.statusCode == 200 && PersistentFileHelper.fileSizeOf(tmpFilePath) > 0
+            
+            if response.response != nil && response.response!.statusCode == 200 && PersistentFileHelper.fileSizeOf(tmpFilePath) > 0
             {
                 PersistentFileHelper.moveFile(tmpFilePath, destinationPath: absoluteFilePath)
-                callback(fid:fireInfo.fileId, filePath:absoluteFilePath)
+                callback(fireInfo.fileId, absoluteFilePath)
             }else
             {
                 PersistentFileHelper.deleteFile(tmpFilePath)
-                callback(fid:fireInfo.fileId, filePath:nil)
+                callback(fireInfo.fileId, nil)
             }
         }
     }

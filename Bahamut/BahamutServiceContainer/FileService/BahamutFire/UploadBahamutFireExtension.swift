@@ -10,29 +10,27 @@ import Foundation
 
 extension FileService
 {
-    private func sendBahamutFire(localFilePath:String,type:FileType,callback:(taskId:String,fileKey:FileAccessInfo!)->Void)
+    fileprivate func sendBahamutFire(_ localFilePath:String,type:FileType,callback:@escaping (_ taskId:String,_ fileKey:FileAccessInfo?)->Void)
     {
         if let req = generateBahamutFireFileIdReq(localFilePath, type: type)
         {
             self.prepareUpload(localFilePath, req: req, callback: { (taskId, fileKey) -> Void in
-                if taskId != nil
+                if let tid = taskId,let fk = fileKey
                 {
-                    callback(taskId: taskId, fileKey: fileKey)
+                    callback(tid, fk)
                     let client = BahamutRFKit.sharedInstance.getBahamutFireClient()
-                    func progressCallback(bytesRead:Int64, totalBytesRead:Int64, totalBytesExpectedToRead:Int64)
+                    func progressCallback(progress:Progress)
                     {
-                        let persent = Float( totalBytesRead * 100 / totalBytesExpectedToRead)
-                        ProgressTaskWatcher.sharedInstance.setProgress(taskId, persent: persent)
+                        ProgressTaskWatcher.sharedInstance.setProgress(tid, persent: Float(100.0 * progress.fractionCompleted))
                     }
-                    
-                    client.sendFile(fileKey, filePath: localFilePath).progress(progressCallback).responseJSON { (response) -> Void in
-                        self.uploadTaskCompleted(taskId, fileKey: fileKey, isSuc: response.result.isSuccess)
-                    }
+                    client.sendFile(fk, filePath: localFilePath).uploadProgress(closure: progressCallback).responseJSON(completionHandler: { (response) in
+                        self.uploadTaskCompleted(tid, fileKey: fk, isSuc: response.result.isSuccess)
+                    })
 
                 }else
                 {
                     let failTaskId = IdUtil.generateUniqueId()
-                    callback(taskId: failTaskId, fileKey: nil)
+                    callback(failTaskId, nil)
                     ProgressTaskWatcher.sharedInstance.missionFailed(failTaskId, result: FileServiceUploadTask)
                 }
                 
@@ -40,7 +38,7 @@ extension FileService
         }
     }
     
-    private func generateBahamutFireFileIdReq(localfilePath:String,type:FileType) -> BahamutRFRequestBase!
+    fileprivate func generateBahamutFireFileIdReq(_ localfilePath:String,type:FileType) -> BahamutRFRequestBase!
     {
         let req = NewBahamutFireRequest()
         let fileSize = PersistentFileHelper.fileSizeOf(localfilePath)

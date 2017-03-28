@@ -15,43 +15,44 @@ import CoreData
 class PersistentManager
 {
     static let sharedInstance: PersistentManager = {return PersistentManager()}()
-    private var nsCache = NSCache()
-    private(set) var rootUrl:NSURL!
-    private(set) var tmpUrl:NSURL!
-    private var extensions = [PersistentExtensionProtocol]()
+    fileprivate var nsCache = NSCache<AnyObject, AnyObject>()
+    fileprivate(set) var rootUrl:URL!
+    fileprivate(set) var tmpUrl:URL!
+    fileprivate var extensions = [PersistentExtensionProtocol]()
     
-    func appInit(appName:String)
+    func appInit(_ appName:String)
     {
-        rootUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0].URLByAppendingPathComponent(appName)
-        tmpUrl = rootUrl.URLByAppendingPathComponent("tmp")
+        rootUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(appName)
+        tmpUrl = rootUrl.appendingPathComponent("tmp")
         createTmpDir()
     }
     
-    func useExtension<T:PersistentExtensionProtocol>(ext:T,action:((ext:T)->Void)! = nil)
+    func useExtension<T:PersistentExtensionProtocol>(_ ext:T,action:((_ ext:T)->Void)! = nil)
     {
         self.extensions.append(ext)
         if let handler = action
         {
-            handler(ext: ext)
+            handler(ext)
         }
     }
     
-    func initFileDir(parentDirUrl:NSURL)
+    func initFileDir(_ parentDirUrl:URL)
     {
         for item in FileType.allValues
         {
-            let dir = parentDirUrl.URLByAppendingPathComponent("\(item.rawValue)")!
+            let dir = parentDirUrl.appendingPathComponent("\(item.rawValue)")
             createDir(dir)
         }
     }
     
-    func createDir(dir:NSURL) -> Bool
+    @discardableResult
+    func createDir(_ dir:URL) -> Bool
     {
-        if NSFileManager.defaultManager().fileExistsAtPath(dir.path!) == false
+        if FileManager.default.fileExists(atPath: dir.path) == false
         {
             do
             {
-                try NSFileManager.defaultManager().createDirectoryAtPath(dir.path!, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: dir.path, withIntermediateDirectories: true, attributes: nil)
                 return true
             }catch let error as NSError
             {
@@ -65,8 +66,8 @@ class PersistentManager
     }
     
     //MARK: tmp file
-    
-    func storeTempFile(data:NSData,fileType:FileType) -> String!
+    @discardableResult
+    func storeTempFile(_ data:Data,fileType:FileType) -> String!
     {
         let path = createTmpFileName(fileType)
         if PersistentFileHelper.storeFile(data, filePath: path)
@@ -76,24 +77,25 @@ class PersistentManager
         return nil
     }
     
-    func createTmpFileName(fileType:FileType,fileName:String! = nil) -> String
+    @discardableResult
+    func createTmpFileName(_ fileType:FileType,fileName:String! = nil) -> String
     {
         if fileName == nil
         {
-            return tmpUrl.URLByAppendingPathComponent("\(NSNumber(double:NSDate().timeIntervalSince1970).integerValue)\(fileType.FileSuffix)")!.path!
+            return tmpUrl.appendingPathComponent("\(NSNumber(value: Date().timeIntervalSince1970 as Double).intValue)\(fileType.FileSuffix)").path
         }else
         {
-            return tmpUrl.URLByAppendingPathComponent("\(fileName)\(fileType.FileSuffix)")!.path!
+            return tmpUrl.appendingPathComponent("\(fileName!)\(fileType.FileSuffix)").path
         }
     }
     
     func createTmpDir()
     {
-        if NSFileManager.defaultManager().fileExistsAtPath(tmpUrl.path!) == false
+        if FileManager.default.fileExists(atPath: tmpUrl.path) == false
         {
             do
             {
-                try NSFileManager.defaultManager().createDirectoryAtPath(tmpUrl.path!, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: tmpUrl.path, withIntermediateDirectories: true, attributes: nil)
             }catch
             {
                 debugLog("create tmp dir error")
@@ -105,7 +107,7 @@ class PersistentManager
     {
         do
         {
-            try NSFileManager.defaultManager().removeItemAtPath(tmpUrl.path!)
+            try FileManager.default.removeItem(atPath: tmpUrl.path)
         }catch
         {
             debugLog("clearTmpDir error")
@@ -120,20 +122,18 @@ class PersistentManager
     
     //MARK: root dir
     
-    func getAbsoluteFilePath(relativePath:String) -> String
+    func getAbsoluteFilePath(_ relativePath:String) -> String
     {
-        return rootUrl.URLByAppendingPathComponent(relativePath)!.path!
+        return rootUrl.appendingPathComponent(relativePath).path
     }
     
     func clearRootDir()
     {
         do
         {
-            if let rootpath = rootUrl.path
-            {
-                try NSFileManager.defaultManager().removeItemAtPath(rootpath)
-                debugLog("Root Dir Removed")
-            }
+            let rootpath = rootUrl.path
+            try FileManager.default.removeItem(atPath: rootpath)
+            debugLog("Root Dir Removed")
         }catch{
             debugLog("Root Dir Remove Error")
         }
@@ -141,12 +141,12 @@ class PersistentManager
     }
     
     //MARK: model cache
-    func cacheModel(typename:String,modelId:String,model:AnyObject) {
-        nsCache.setObject(model, forKey: "\(typename)_\(modelId)")
+    func cacheModel(_ typename:String,modelId:String,model:AnyObject) {
+        nsCache.setObject(model, forKey: "\(typename)_\(modelId)" as AnyObject)
     }
     
-    func getCachedModel(typename:String,modelId:String) -> AnyObject? {
-        return nsCache.objectForKey("\(typename)_\(modelId)")
+    func getCachedModel(_ typename:String,modelId:String) -> AnyObject? {
+        return nsCache.object(forKey: "\(typename)_\(modelId)" as AnyObject)
     }
     
     func clearCache()

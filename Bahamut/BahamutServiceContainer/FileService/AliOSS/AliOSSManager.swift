@@ -12,16 +12,16 @@ import AliyunOSSiOS
 //MARK: AliOSSManager
 class AliOSSManager
 {
-    private var ossClientMap = [String:OSSClient]()
-    private var ossClientConfig:OSSClientConfiguration!
-    private var credential:OSSPlainTextAKSKPairCredentialProvider!
+    fileprivate var ossClientMap = [String:OSSClient]()
+    fileprivate var ossClientConfig:OSSClientConfiguration!
+    fileprivate var credential:OSSPlainTextAKSKPairCredentialProvider!
     var openSSL:Bool = false
-    func initManager(aliOssAccessKey:String, aliOssSecretKey:String)
+    func initManager(_ aliOssAccessKey:String, aliOssSecretKey:String)
     {
         let conf = OSSClientConfiguration()
         conf.maxRetryCount = 3
         conf.timeoutIntervalForRequest = 30
-        conf.timeoutIntervalForResource = 24 * 60 * 60
+        conf.timeoutIntervalForResource = TimeInterval(24 * 60 * 60)
         self.ossClientConfig = conf
         self.credential = OSSPlainTextAKSKPairCredentialProvider(plainTextAccessKey: aliOssAccessKey, secretKey: aliOssSecretKey)
     }
@@ -30,9 +30,9 @@ class AliOSSManager
         return AliOSSManager()
     }()
     
-    func getOSSClient(endPoint:String) -> OSSClient
+    func getOSSClient(_ endPoint:String) -> OSSClient
     {
-        let ep = openSSL ? endPoint.stringByReplacingOccurrencesOfString("http://", withString: "https://", options: .CaseInsensitiveSearch, range: nil) : endPoint
+        let ep = openSSL ? endPoint.replacingOccurrences(of: "http://", with: "https://", options: .caseInsensitive, range: nil) : endPoint
         if let client  = ossClientMap[ep]
         {
             return client
@@ -44,83 +44,84 @@ class AliOSSManager
         }
     }
     
-    func upload(serverEndpoint:String,bucket:String,objkey:String,filePath:String,progress:(persent:Float)->Void,taskCompleted:(isSuc:Bool)->Void){
+    func upload(_ serverEndpoint:String,bucket:String,objkey:String,filePath:String,progress:@escaping (_ persent:Float)->Void,taskCompleted:@escaping (_ isSuc:Bool)->Void){
         let putReq = OSSPutObjectRequest()
-        putReq.uploadingFileURL = NSURL(fileURLWithPath: filePath)
+        putReq.uploadingFileURL = URL(fileURLWithPath: filePath)
         upload(serverEndpoint,bucket: bucket,objkey: objkey,req: putReq, progress: progress, taskCompleted: taskCompleted)
     }
     
-    func uploadData(serverEndpoint:String,bucket:String,objkey:String,data:NSData,progress:(persent:Float)->Void,taskCompleted:(isSuc:Bool)->Void){
+    func uploadData(_ serverEndpoint:String,bucket:String,objkey:String,data:Data,progress:@escaping (_ persent:Float)->Void,taskCompleted:@escaping (_ isSuc:Bool)->Void){
         let putReq = OSSPutObjectRequest()
         putReq.uploadingData = data
         upload(serverEndpoint,bucket: bucket,objkey: objkey,req: putReq, progress: progress, taskCompleted: taskCompleted)
     }
     
-    private func upload(serverEndpoint:String,bucket:String,objkey:String,req:OSSPutObjectRequest,progress:(persent:Float)->Void,taskCompleted:(isSuc:Bool)->Void){
+    fileprivate func upload(_ serverEndpoint:String,bucket:String,objkey:String,req:OSSPutObjectRequest,progress:@escaping (_ persent:Float)->Void,taskCompleted:@escaping (_ isSuc:Bool)->Void){
         req.bucketName = bucket
         req.objectKey = objkey
-        func uploadProgress(bytesSent:Int64, totalByteSent:Int64, totalBytesExpectedToSend:Int64)
+        func uploadProgress(_ bytesSent:Int64, totalByteSent:Int64, totalBytesExpectedToSend:Int64)
         {
             let persent = Float( totalByteSent * 100 / totalBytesExpectedToSend)
-            progress(persent: persent)
+            progress(persent)
         }
         let ossClient = getOSSClient(serverEndpoint)
         req.uploadProgress = uploadProgress
         let task = ossClient.putObject(req)
-        task.continueWithBlock { (task) -> AnyObject! in
+        task.continue({ (task) -> Any? in
             if task.error == nil
             {
                 debugLog("OSS File Uploaded")
             }else{
-                debugLog("Upload OSS File Failed: %@",task.error?.description ?? "Unknow Error")
+                debugLog("Upload OSS File Failed: %@",task.error?.localizedDescription ?? "Unknow Error")
             }
-            taskCompleted(isSuc: task.error == nil)
+            taskCompleted(task.error == nil)
             return nil
-        }
+        })
     }
     
-    func getConstrainURL(serverEndpoint:String,bucket:String,objkey:String,taskCompleted:(objUrl:String?)->Void)
+    func getConstrainURL(_ serverEndpoint:String,bucket:String,objkey:String,taskCompleted:@escaping (_ objUrl:String?)->Void)
     {
         let ossClient = getOSSClient(serverEndpoint)
-        let task = ossClient.presignConstrainURLWithBucketName(bucket, withObjectKey: objkey, withExpirationInterval: 10 * 60)
-        task.continueWithBlock { (task) -> AnyObject? in
+        let task = ossClient.presignConstrainURL(withBucketName: bucket, withObjectKey: objkey, withExpirationInterval: 10 * 60)
+        task.continue({ (task) -> Any? in
             if let str = task.result as? NSString{
-                taskCompleted(objUrl: str as String)
+                taskCompleted(str as String)
             }else{
-                taskCompleted(objUrl: nil)
+                taskCompleted(nil)
             }
             return task
-        }
+        })
     }
     
-    func download(serverEndpoint:String,bucket:String,objkey:String,filePath:String,progress:(persent:Float)->Void,taskCompleted:(isSuc:Bool,task:OSSTask)->Void)
+    func download(_ serverEndpoint:String,bucket:String,objkey:String,filePath:String,progress:@escaping (_ persent:Float)->Void,taskCompleted:@escaping (_ isSuc:Bool,_ task:OSSTask<AnyObject>)->Void)
     {
         let req = OSSGetObjectRequest()
         req.bucketName = bucket
         req.objectKey = objkey
-        let tmpFileUrl = PersistentManager.sharedInstance.tmpUrl.URLByAppendingPathComponent(PersistentFileHelper.generateTmpFileName())!
+        let tmpFileUrl = PersistentManager.sharedInstance.tmpUrl.appendingPathComponent(PersistentFileHelper.generateTmpFileName())
         req.downloadToFileURL = tmpFileUrl
-        func downloadProgress(bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
+        func downloadProgress(_ bytesWritten:Int64, totalByteWritten:Int64, totalBytesExpectedToWrite:Int64)
         {
             let persent = Float( totalByteWritten * 100 / totalBytesExpectedToWrite)
-            progress(persent: persent)
+            progress(persent)
         }
         req.downloadProgress = downloadProgress
         let ossClient = getOSSClient(serverEndpoint)
         let task = ossClient.getObject(req)
-        task.continueWithBlock { (task) -> AnyObject! in
+        task.continue({ (task) -> Any? in
             if task.error == nil
             {
-                if PersistentFileHelper.moveFile(tmpFileUrl.path!, destinationPath: filePath){
+                if PersistentFileHelper.moveFile(tmpFileUrl.path, destinationPath: filePath){
                     debugLog("OSS File Fetched")
-                    taskCompleted(isSuc: true, task: task)
+                    taskCompleted(true, task)
                     return nil
                 }
             }
             debugLog("Fetch OSS File Failed")
-            taskCompleted(isSuc: false, task: task)
+            taskCompleted(false, task)
             return nil
-        }
+        })
+        
     }
     
 }

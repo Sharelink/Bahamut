@@ -15,11 +15,12 @@ extension BahamutRFKit{
             return userInfos["appApiServer"] as? String
         }
         set{
-            userInfos["appApiServer"] = newValue
+            userInfos["appApiServer"] = newValue as AnyObject??
         }
     }
     
-    func reuseApiServer(userId:String, token:String,appApiServer:String) -> ClientProtocal
+    @discardableResult
+    func reuseApiServer(_ userId:String, token:String,appApiServer:String) -> ClientProtocal
     {
         self.appApiServer = appApiServer
         let client = BahamutRFClient(apiServer:self.appApiServer,userId:userId,token:token)

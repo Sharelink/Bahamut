@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class StringHelper
+open class StringHelper
 {
-    public static func IntToLetter(letterIndex:Int) -> Character
+    open static func IntToLetter(_ letterIndex:Int) -> Character
     {
-        return (Character(UnicodeScalar(letterIndex)))
+        return (Character(UnicodeScalar(letterIndex)!))
     }
     
-    public static func IntToLetterString(letterIndex:Int) -> String
+    open static func IntToLetterString(_ letterIndex:Int) -> String
     {
         return "\(IntToLetter(letterIndex))"
     }
@@ -23,15 +23,15 @@ public class StringHelper
 
 public extension String {
     
-    public func toUTF8EncodingData() -> NSData!
+    public func toUTF8EncodingData() -> Data!
     {
-        return self.dataUsingEncoding(NSUTF8StringEncoding)
+        return self.data(using: String.Encoding.utf8)
     }
 }
 public extension String
 {
     
-    public static func isNullOrEmpty(value:String?) -> Bool
+    public static func isNullOrEmpty(_ value:String?) -> Bool
     {
         if let v = value
         {
@@ -46,33 +46,33 @@ public extension String
         }
     }
     
-    public static func isNullOrWhiteSpace(value:String?) -> Bool
+    public static func isNullOrWhiteSpace(_ value:String?) -> Bool
     {
         if isNullOrEmpty(value)
         {
             return true
         }else
         {
-            let v = value?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let v = value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             return isNullOrEmpty(v)
         }
     }
 }
 
 public extension String{
-    public static func jsonStringWithDictionary(dict:NSDictionary) -> String?{
+    public static func jsonStringWithDictionary(_ dict:NSDictionary) -> String?{
         do{
-            let j = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
-            return String(data: j, encoding: NSUTF8StringEncoding)
+            let j = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            return String(data: j, encoding: String.Encoding.utf8)
         }catch{
             return nil
         }
     }
     
-    public static func miniJsonStringWithDictionary(dict:NSDictionary) -> String?{
+    public static func miniJsonStringWithDictionary(_ dict:NSDictionary) -> String?{
         do{
-            let j = try NSJSONSerialization.dataWithJSONObject(dict,options: NSJSONWritingOptions(rawValue: UInt(0)))
-            return String(data: j, encoding: NSUTF8StringEncoding)
+            let j = try JSONSerialization.data(withJSONObject: dict,options: JSONSerialization.WritingOptions(rawValue: UInt(0)))
+            return String(data: j, encoding: String.Encoding.utf8)
         }catch{
             return nil
         }
@@ -81,7 +81,7 @@ public extension String{
 
 public extension String{
     //分割字符
-    public func split(s:String)->[String]{
+    public func split(_ s:String)->[String]{
         if s.isEmpty{
             var x = [String]()
             for y in self.characters{
@@ -89,22 +89,22 @@ public extension String{
             }
             return x
         }
-        return self.componentsSeparatedByString(s)
+        return self.components(separatedBy: s)
     }
     //去掉左右空格
     public func trim()->String{
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     //是否包含字符串
-    public func has(s:String)->Bool{
-        if (self.rangeOfString(s) != nil) {
+    public func has(_ s:String)->Bool{
+        if (self.range(of: s) != nil) {
             return true
         }else{
             return false
         }
     }
     //是否包含前缀
-    public func hasBegin(s:String)->Bool{
+    public func hasBegin(_ s:String)->Bool{
         if self.hasPrefix(s) {
             return true
         }else{
@@ -112,7 +112,7 @@ public extension String{
         }
     }
     //是否包含后缀
-    public func hasEnd(s:String)->Bool{
+    public func hasEnd(_ s:String)->Bool{
         if self.hasSuffix(s) {
             return true
         }else{
@@ -120,41 +120,34 @@ public extension String{
         }
     }
     
-    public func substringFromIndex(index:Int) -> String
+    public func substringFromIndex(_ index:Int) -> String
     {
-        return self.substringFromIndex(self.startIndex.advancedBy(index))
+        return self.substring(from: self.characters.index(self.startIndex, offsetBy: index))
     }
     
-    public func substringToIndex(index:Int) -> String
+    public func substringToIndex(_ index:Int) -> String
     {
-        return self.substringToIndex(self.startIndex.advancedBy(index))
+        return self.substring(to: self.characters.index(self.startIndex, offsetBy: index))
     }
     
-    public func substringWithRange(startIndex:Index,endIndex:Index) -> String
+    public func substringWithRange(_ startIndex:Index,endIndex:Index) -> String
     {
-        return self.substringWithRange(startIndex..<endIndex)
+        return self.substring(with: startIndex..<endIndex)
     }
     
-    public func substringWithRange(startIndex:Int,endIndex:Int) -> String
+    public func substringWithRange(_ startIndex:Int,endIndex:Int) -> String
     {
-        return self.substringWithRange(self.startIndex.advancedBy(startIndex)..<self.startIndex.advancedBy(endIndex))
+        return self.substring(with: self.characters.index(self.startIndex, offsetBy: startIndex)..<self.characters.index(self.startIndex, offsetBy: endIndex))
     }
     
-    public func substringWithRange(range:Range<Int>) -> String
+    public func substringWithRange(_ range:Range<Int>) -> String
     {
-        if let start = range.first
-        {
-            if let end = range.last
-            {
-                return substringWithRange(start, endIndex: end + 1)
-            }
-        }
-        return ""
+        return substringWithRange(range.lowerBound, endIndex: range.upperBound)
     }
 
     //反转
     public func reverse()-> String{
-        let s=self.split("").reverse()
+        let s=self.split("").reversed()
         var x=""
         for y in s{
             x+=y
@@ -163,7 +156,7 @@ public extension String{
     }
 }
 
-func LocalizedString(key:String,tableName:String? = nil, bundle:NSBundle! = NSBundle.mainBundle()) -> String
+func LocalizedString(_ key:String,tableName:String? = nil, bundle:Bundle! = Bundle.main) -> String
 {
     return NSLocalizedString(key, tableName: tableName, bundle: bundle, value: "", comment: "")
 }
