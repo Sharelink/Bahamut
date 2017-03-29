@@ -15,7 +15,7 @@ extension BahamutRFKit{
             return userInfos["appApiServer"] as? String
         }
         set{
-            userInfos["appApiServer"] = newValue as AnyObject??
+            userInfos["appApiServer"] = newValue
         }
     }
     

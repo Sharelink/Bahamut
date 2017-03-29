@@ -32,7 +32,7 @@ extension BahamutRFKit{
             return userInfos["fileApiServer"] as? String
         }
         set{
-            userInfos["fileApiServer"] = newValue as AnyObject??
+            userInfos["fileApiServer"] = newValue
             
         }
     }
@@ -62,14 +62,12 @@ extension BahamutFireClient{
     {
         let headers:HTTPHeaders = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
         return Alamofire.upload(filePathUrl, to: sendFileKey.server, method: .post, headers: headers)
-        //return Alamofire.upload(Method.post, sendFileKey.server, headers: headers, file: filePathUrl)
     }
     
     func sendFile(_ sendFileKey:FileAccessInfo,fileData:Data)->UploadRequest
     {
         let headers :HTTPHeaders = ["userId":self.userId,"token":self.token,"accessKey":sendFileKey.accessKey,"appkey":BahamutRFKit.appkey]
         return Alamofire.upload(fileData, to: sendFileKey.server, method: .post, headers: headers)
-        //return Alamofire.upload(.post, sendFileKey.server, headers: headers, data: fileData)
     }
     
     func downloadFile(_ fileId:String,filePath:String) -> DownloadRequest

@@ -80,7 +80,7 @@ extension BahamutRFKit
             return userInfos["accountId"] as? String
         }
         set{
-            userInfos["accountId"] = newValue as AnyObject??
+            userInfos["accountId"] = newValue
         }
     }
     
@@ -89,7 +89,7 @@ extension BahamutRFKit
             return userInfos["userId"] as? String
         }
         set{
-            userInfos["userId"] = newValue as AnyObject??
+            userInfos["userId"] = newValue
         }
     }
     
@@ -98,7 +98,7 @@ extension BahamutRFKit
             return userInfos["token"] as? String
         }
         set{
-            userInfos["token"] = newValue as AnyObject??
+            userInfos["token"] = newValue
         }
     }
     
@@ -108,7 +108,7 @@ extension BahamutRFKit
             return userInfos["chicagoServerHost"] as? String
         }
         set{
-            userInfos["chicagoServerHost"] = newValue as AnyObject??
+            userInfos["chicagoServerHost"] = newValue
         }
     }
     
@@ -123,10 +123,10 @@ extension BahamutRFKit
     
     var tokenApi:String!{
         get{
-            return userInfos["tokenApi"] as? String
+            return userInfos["tokenApi"]  as? String
         }
         set{
-            userInfos["tokenApi"] = newValue as AnyObject??
+            userInfos["tokenApi"] = newValue
         }
     }
     

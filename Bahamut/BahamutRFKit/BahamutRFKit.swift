@@ -20,7 +20,7 @@ class BahamutRFKit:NotificationCenter
     static var appVersionCode:Int = 1
     static var platform:String = "ios"
     
-    var userInfos = [String:AnyObject?]()
+    var userInfos = [String:Any?]()
     
     fileprivate(set) var clients:[String:ClientProtocal] = [String:ClientProtocal]()
     
