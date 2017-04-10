@@ -32,6 +32,12 @@ struct ColorSets
     static var navBarTitleColor = UIColor.white
 }
 
+extension UIColor{
+    var hexValue:Int{
+        return Int(toHex())
+    }
+    
+}
 
 extension UIColor
 {

@@ -8,6 +8,12 @@
 
 import Foundation
 
+extension String{
+    static func format(format:String, arguments: CVarArg...) -> String{
+        return String.init(format: format, arguments)
+    }
+}
+
 open class StringHelper
 {
     open static func IntToLetter(_ letterIndex:Int) -> Character
@@ -119,7 +125,7 @@ public extension String{
             return false
         }
     }
-    
+    /*
     public func substringFromIndex(_ index:Int) -> String
     {
         return self.substring(from: self.characters.index(self.startIndex, offsetBy: index))
@@ -128,11 +134,6 @@ public extension String{
     public func substringToIndex(_ index:Int) -> String
     {
         return self.substring(to: self.characters.index(self.startIndex, offsetBy: index))
-    }
-    
-    public func substringWithRange(_ startIndex:Index,endIndex:Index) -> String
-    {
-        return self.substring(with: startIndex..<endIndex)
     }
     
     public func substringWithRange(_ startIndex:Int,endIndex:Int) -> String
@@ -144,7 +145,14 @@ public extension String{
     {
         return substringWithRange(range.lowerBound, endIndex: range.upperBound)
     }
-
+    */
+    
+    public func substringWithRange(_ startIndex:Index,endIndex:Index) -> String
+    {
+        return self.substring(with: startIndex..<endIndex)
+    }
+    
+    
     //反转
     public func reverse()-> String{
         let s=self.split("").reversed()

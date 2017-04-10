@@ -13,3 +13,35 @@ X_DAYS_AGO = "%@ days ago";
 TAKE_NEW_PHOTO = "Camera";
 SELECT_PHOTO = "Photo Library";
 CANCEL = "Cancel";
+
+//Date Time
+Sunday = "Sunday";
+Monday = "Monday";
+Tuesday = "Tuesday";
+Wednesday = "Wednesday";
+Thursday = "Thursday";
+Friday = "Friday";
+Saturday = "Saturday";
+Today = "Today";
+Tomorrow = "Tomorrow";
+Yesterday = "Yesterday";
+
+//Common
+YES = "Yes";
+CONFIRM = "Confirm";
+UMMM = "Umm...";
+LOADING = "Loading";
+FINISH = "Finish";
+EDIT = "Edit";
+CANCEL = "Cancel";
+CANCELED = "Canceled";
+FAILED = "Failed";
+DONE = "Done";
+SHARE = "Share";
+SUCCESS = "Success";
+FAIL = "Fail";
+NO = "No";
+OK = "Ok";
+I_SEE = "I See";
+REMOVE = "Remove";
+BACK = "Back";

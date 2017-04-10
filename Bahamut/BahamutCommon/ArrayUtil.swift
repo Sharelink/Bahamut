@@ -27,7 +27,7 @@ public extension Array
         return result
     }
     
-    public func toMap<T:NSObject>(_ m:(_ elem:Element)-> T) -> [T:Element]
+    public func toMap<T:Hashable>(_ m:(_ elem:Element)-> T) -> [T:Element]
     {
         var result = [T:Element]()
         for e in self{

@@ -13,3 +13,42 @@ X_DAYS_AGO = "%@ 天前";
 TAKE_NEW_PHOTO = "拍照";
 SELECT_PHOTO = "从相册中选择";
 CANCEL = "取消";
+
+//Date Time
+Sunday = "星期日";
+Monday = "星期一";
+Tuesday = "星期二";
+Wednesday = "星期三";
+Thursday = "星期四";
+Friday = "星期五";
+Saturday = "星期六";
+Today = "今天";
+Tomorrow = "明天";
+Yesterday = "昨天";
+
+//BahamutRFKit
+VALIDATE_DATA_ERROR = "数据有误";
+NETWORK_ERROR = "网络错误";
+NOT_LOGIN = "没有登录";
+LOGOUTED = "已经注销";
+OTHER_DEVICE_HAD_LOGIN = "另一设备使用相同账号登陆，本设备将注销登陆";
+
+//Common
+YES = "是";
+CONFIRM = "确定";
+UMMM = "不要";
+LOADING = "加载中";
+FINISH = "完成";
+EDIT = "编辑";
+CANCEL = "取消";
+CANCELED = "取消";
+FAILED = "失败";
+DONE = "完成";
+SHARE = "分享";
+SUCCESS = "成功";
+FAIL = "失败";
+NO = "否";
+OK = "好";
+I_SEE = "知道了";
+REMOVE = "移除";
+BACK = "返回";

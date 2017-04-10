@@ -34,22 +34,22 @@ extension UIApplication
 }
 
 var ALERT_ACTION_OK:UIAlertAction{
-    return UIAlertAction(title: "OK".localizedString(), style:.cancel, handler: nil)
+    return UIAlertAction(title: "OK".bahamutCommonLocalizedString, style:.cancel, handler: nil)
 }
 
 var ALERT_ACTION_I_SEE:UIAlertAction{
-    return UIAlertAction(title: "I_SEE".localizedString(), style:.cancel, handler: nil)
+    return UIAlertAction(title: "I_SEE".bahamutCommonLocalizedString, style:.cancel, handler: nil)
 }
 
 var ALERT_ACTION_CANCEL:UIAlertAction{
-    return UIAlertAction(title: "CANCEL".localizedString(), style:.cancel, handler: nil)
+    return UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style:.cancel, handler: nil)
 }
 
 //MARK: extension show alert
 extension UIViewController
 {
     
-    func showAlert(_ title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: "OK".localizedString(), style:.cancel, handler: nil)])
+    func showAlert(_ title:String!,msg:String!,actions:[UIAlertAction] = [UIAlertAction(title: "OK".bahamutCommonLocalizedString, style:.cancel, handler: nil)])
     {
         let controller = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         for ac in actions

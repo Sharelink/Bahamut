@@ -55,17 +55,12 @@ public struct RegexMatcher {
     }
     
     func matchFirstString(_ input:String) -> String?{
-        if let matches = regex?.firstMatch(in: input,
-            options: [],
-            range: NSMakeRange(0, input.lengthOfBytes(using: String.Encoding.utf8))) {
-                if let range = matches.range.toRange()
-                {
-                    return input.substringWithRange(range)
-                }else
-                {
-                    return nil
-                }
-        } else {
+        let range = NSMakeRange(0, input.distance(from: input.startIndex, to: input.endIndex))
+        if let res = regex?.firstMatch(in: input, options: [], range: range),res.range.length > 0{
+            let locationIndex = input.index(input.startIndex, offsetBy: res.range.location)
+            let endIndex = input.index(locationIndex, offsetBy: res.range.length)
+            return input.substring(with: Range<String.Index>(uncheckedBounds: (lower: locationIndex, upper: endIndex)))
+        }else{
             return nil
         }
     }

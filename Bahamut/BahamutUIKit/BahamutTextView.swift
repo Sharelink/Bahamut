@@ -36,6 +36,10 @@ class BahamutTextView: UITextView {
         placeHolderLabel?.isHidden = !String.isNullOrEmpty(text)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     var placeHolderTextAlign:NSTextAlignment = .left{
         didSet{
             placeHolderLabel?.textAlignment = placeHolderTextAlign
