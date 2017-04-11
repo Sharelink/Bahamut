@@ -16,6 +16,13 @@ open class BahamutRFRequestBase : NSObject
     static var requestCount = [String:Int32]()
     static let lock:NSRecursiveLock = NSRecursiveLock()
     
+    private(set) var requestStartTs:Int64!
+    private(set) var requestEndTs:Int64!
+    
+    var requestTs:Int64{
+        return (requestEndTs ?? 0) - (requestStartTs ?? 0)
+    }
+    
     open var method:HTTPMethod = .get
     open var apiServerUrl:String!
     open var api:String!
@@ -29,6 +36,7 @@ open class BahamutRFRequestBase : NSObject
     
     open func incRequest()
     {
+        requestStartTs = DateHelper.UnixTimeSpanTotalMilliseconds
         let typeName = "\(type(of: self))"
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() + 1
@@ -41,6 +49,7 @@ open class BahamutRFRequestBase : NSObject
         BahamutRFRequestBase.lock.lock()
         BahamutRFRequestBase.requestCount[typeName] = getCurrentRequestCount() - 1
         BahamutRFRequestBase.lock.unlock()
+        requestEndTs = DateHelper.UnixTimeSpanTotalMilliseconds
     }
     
     open func isRequestLimited() -> Bool{

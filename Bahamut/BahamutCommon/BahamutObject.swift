@@ -22,6 +22,10 @@ extension EVObject{
         return EVReflection.setPropertiesfromDictionary(dict, anyObject: t)
     }
     
+    static func fromDictionary<T:EVObject>(dict:[String:Any],_ t:T) -> T{
+        return EVReflection.setPropertiesfromDictionary(dict as NSDictionary, anyObject: t)
+    }
+    
     func toJsonString() -> String {
         return toJsonString(ConversionOptions.DefaultSerialize, prettyPrinted: false)
     }

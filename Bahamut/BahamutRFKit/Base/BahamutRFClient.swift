@@ -50,6 +50,9 @@ open class SLResult<T>
     open var isSuccess:Bool{
         return originResult?.isSuccess ?? false
     }
+    
+    var request:BahamutRFRequestBase!
+    
 }
 
 open class BahamutRFClient : ClientProtocal
@@ -176,6 +179,7 @@ open class BahamutRFClient : ClientProtocal
                 return
             }
             let slResult = SLResult<T>()
+            slResult.request = request
             slResult.originResult = result.result
             if let responseCode = result.response?.statusCode
             {
@@ -226,6 +230,7 @@ open class BahamutRFClient : ClientProtocal
             }
             
             let slResult = SLResult<[T]>()
+            slResult.request = request
             slResult.originResult = result.result
             if let responseCode = result.response?.statusCode
             {

@@ -178,9 +178,12 @@ class CoreDataManager {
     
     fileprivate func initManagedObjectModel(_ momdBundle:Bundle){
         if managedObjectModel == nil{
-            // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-            let modelURL = momdBundle.url(forResource: self.coreDataModelId, withExtension: "momd")!
-            managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
+            if let modelURL = momdBundle.url(forResource: self.coreDataModelId, withExtension: "momd"){
+                managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
+            }else{
+                //If fatal here,remove the xcdatamodelid files, and readd the files to project
+                fatalError("Momd File Not Found:\(self.coreDataModelId)")
+            }
         }
     }
     
