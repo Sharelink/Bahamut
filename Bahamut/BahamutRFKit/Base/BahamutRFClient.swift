@@ -40,7 +40,10 @@ open class SLResult<T>
 {
     open var originResult:Result<T>!;
     open var returnObject:T!{
-        return originResult?.value ?? nil
+        if statusCode >= 200 && statusCode < 300 {
+            return originResult?.value ?? nil
+        }
+        return nil
     }
     open var statusCode:Int!;
     open var isFailure:Bool{
