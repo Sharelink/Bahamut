@@ -25,6 +25,22 @@ open class StringHelper
     {
         return "\(IntToLetter(letterIndex))"
     }
+    
+    open static func chineseToLatinLetters(words:String) -> String{
+        let pinyin = NSMutableString(string: words)
+        CFStringTransform(pinyin, nil, kCFStringTransformMandarinLatin, false)
+        CFStringTransform(pinyin, nil, kCFStringTransformStripCombiningMarks, false) //kCFStringTransformMandarinLatin带音标
+        return pinyin.lowercased
+    }
+    
+    open static func getResemblePY(originPY:String) -> String{
+        return originPY.replacingOccurrences(of: "zh", with: "z")
+            .replacingOccurrences(of: "ch", with: "c")
+            .replacingOccurrences(of: "sh", with: "s")
+            .replacingOccurrences(of: "ang", with: "an")
+            .replacingOccurrences(of: "ing", with: "in")
+            .replacingOccurrences(of: "eng", with: "en")
+    }
 }
 
 public extension String {

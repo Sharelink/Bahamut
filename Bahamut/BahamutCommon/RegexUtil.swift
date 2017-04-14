@@ -99,5 +99,9 @@ extension String{
     func isUsername() -> Bool{
         return self.isRegexMatch(pattern:"^[_a-zA-Z0-9\\u4e00-\\u9fa5]{2,23}$")
     }
+    
+    func isNickName() -> Bool{
+        return self.isRegexMatch(pattern:"^[_a-zA-Z0-9]{1,23}|[_a-zA-Z0-9\\u4e00-\\u9fa5]{1,12}$")
+    }
 }
 
