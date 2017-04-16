@@ -14,6 +14,32 @@ extension String{
     }
 }
 
+extension String{
+    func getRegexExpresstion(options:NSRegularExpression.Options = []) -> NSRegularExpression? {
+        do {
+            return try NSRegularExpression(pattern: self, options: options)
+        } catch let err{
+            debugPrint(err)
+        }
+        return nil
+    }
+}
+
+extension String{
+    
+    func makeNSRange() -> NSRange {
+        let length = self.distance(from: self.startIndex, to: self.endIndex)
+        let range = NSMakeRange(0, length)
+        return range
+    }
+    
+    func makeRange(range:NSRange) -> Range<String.Index> {
+        let locationIndex = self.index(self.startIndex, offsetBy: range.location)
+        let endIndex = self.index(locationIndex, offsetBy: range.length)
+        return Range.init(uncheckedBounds: (lower: locationIndex, upper: endIndex))
+    }
+}
+
 open class StringHelper
 {
     open static func IntToLetter(_ letterIndex:Int) -> Character
@@ -40,6 +66,35 @@ open class StringHelper
             .replacingOccurrences(of: "ang", with: "an")
             .replacingOccurrences(of: "ing", with: "in")
             .replacingOccurrences(of: "eng", with: "en")
+    }
+    
+    open static func getSimplifyURLAttributeString(origin:String,urlTips:String) -> (String?,[NSRange]?,[String]?){
+        let urlPattern = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
+        
+        var urls = [String]()
+        
+        if let regex = urlPattern.getRegexExpresstion(options: NSRegularExpression.Options.caseInsensitive){
+            let arrayOfAllMatches = regex.matches(in: origin, options: [], range: origin.makeNSRange())
+            for match in arrayOfAllMatches {
+                let url = origin.substring(with: origin.makeRange(range: match.range))
+                urls.append(url)
+            }
+        }
+        
+        if urls.count > 0 {
+            var ranges = [NSRange]()
+            let urlReplace = "@#\(urlTips)"
+            var result = origin.replacingOccurrences(of: urlPattern, with: urlReplace, options: [.regularExpression,.caseInsensitive], range: nil)
+            if let rgx = urlTips.getRegexExpresstion(options: NSRegularExpression.Options.caseInsensitive){
+                let matches = rgx.matches(in: result, options: [], range: result.makeNSRange())
+                for mt in matches {
+                    ranges.append(mt.range)
+                }
+            }
+            result = result.replacingOccurrences(of: urlReplace, with: "🔗\(urlTips)")
+            return (result,ranges,urls)
+        }
+        return (nil,nil,nil)
     }
 }
 
