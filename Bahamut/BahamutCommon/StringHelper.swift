@@ -68,7 +68,7 @@ open class StringHelper
             .replacingOccurrences(of: "eng", with: "en")
     }
     
-    open static func getSimplifyURLAttributeString(origin:String,urlTips:String) -> (String?,[NSRange]?,[String]?){
+    open static func getSimplifyURLAttributeString(origin:String,urlTips:String,attchLinkMark:Bool) -> (String?,[NSRange]?,[String]?){
         let urlPattern = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
         
         var urls = [String]()
@@ -83,7 +83,7 @@ open class StringHelper
         
         if urls.count > 0 {
             var ranges = [NSRange]()
-            let urlReplace = "@#\(urlTips)"
+            let urlReplace = attchLinkMark ? "@#\(urlTips)" : "#\(urlTips)#"
             var result = origin.replacingOccurrences(of: urlPattern, with: urlReplace, options: [.regularExpression,.caseInsensitive], range: nil)
             if let rgx = urlTips.getRegexExpresstion(options: NSRegularExpression.Options.caseInsensitive){
                 let matches = rgx.matches(in: result, options: [], range: result.makeNSRange())
@@ -91,7 +91,7 @@ open class StringHelper
                     ranges.append(mt.range)
                 }
             }
-            result = result.replacingOccurrences(of: urlReplace, with: "🔗\(urlTips)")
+            result = result.replacingOccurrences(of: urlReplace, with: attchLinkMark ? "🔗\(urlTips)" : " \(urlTips) ")
             return (result,ranges,urls)
         }
         return (nil,nil,nil)

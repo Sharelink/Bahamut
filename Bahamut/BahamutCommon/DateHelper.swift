@@ -392,3 +392,9 @@ public extension Date
     }
 }
 
+extension DateHelper{
+    static func unixTimeSpanMsToDate(timeSpanFromUnxiMS:Int64) -> Date{
+        return Date(timeIntervalSince1970: Double(timeSpanFromUnxiMS) / 1000)
+    }
+}
+
