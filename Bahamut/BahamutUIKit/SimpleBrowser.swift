@@ -35,7 +35,7 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
         super.viewDidLoad()
         webView = UIWebView(frame: self.view.bounds)
         self.view.addSubview(webView)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "BACK".localizedString(), style: .plain, target: self, action: #selector(SimpleBrowser.back(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE".bahamutCommonLocalizedString, style: .plain, target: self, action: #selector(SimpleBrowser.back(_:)))
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SimpleBrowser.swipeLeft(_:)))
         leftSwipe.direction = .left
         
@@ -53,7 +53,11 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     
     func swipeRight(_:UISwipeGestureRecognizer)
     {
-        self.webView.goBack()
+        if webView.canGoBack {
+            self.webView.goBack()
+        }else{
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     func back(_ sender: AnyObject)
@@ -76,7 +80,7 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     
     //"SimpleBrowser"
     @discardableResult
-    static func openUrl(_ currentViewController:UIViewController,url:String,title:String?) -> SimpleBrowser
+    static func openUrl(_ currentViewController:UIViewController,url:String,title:String?,callback:((_:SimpleBrowser)->Void)? = nil) -> SimpleBrowser
     {
         let controller = SimpleBrowser()
         let navController = UINavigationController(rootViewController: controller)
@@ -90,6 +94,9 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
             controller.title = title
             currentViewController.present(navController, animated: true, completion: {
                 controller.url = url;
+                if let cb = callback{
+                    cb(controller)
+                }
             })
         }
         return controller

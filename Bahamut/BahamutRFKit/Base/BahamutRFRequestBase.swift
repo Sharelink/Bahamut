@@ -34,6 +34,22 @@ open class BahamutRFRequestBase : NSObject
         return 1
     }
     
+    func addParameter(key:String,value:String) {
+        self.paramenters[key] = value
+    }
+    
+    func addHeader(key:String,value:String) {
+        self.headers[key] = value
+    }
+    
+    func removeParameter(key:String) -> String? {
+        return self.paramenters.removeValue(forKey: key)
+    }
+    
+    func removeHeader(key:String) -> String? {
+        return self.headers.removeValue(forKey: key)
+    }
+    
     open func incRequest()
     {
         requestStartTs = DateHelper.UnixTimeSpanTotalMilliseconds
