@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 extension ImageUtil{
     
     static func getVideoThumbImageBase64String(_ videoURL:String,compressionQuality: CGFloat) -> String?

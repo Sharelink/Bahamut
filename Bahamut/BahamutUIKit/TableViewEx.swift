@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 extension UITableViewCell{
     func setSeparatorFullWidth() {
         self.preservesSuperviewLayoutMargins = false
