@@ -9,12 +9,6 @@
 import Foundation
 
 extension String{
-    static func format(format:String, arguments: CVarArg...) -> String{
-        return String.init(format: format, arguments)
-    }
-}
-
-extension String{
     func getRegexExpresstion(options:NSRegularExpression.Options = []) -> NSRegularExpression? {
         do {
             return try NSRegularExpression(pattern: self, options: options)

@@ -59,14 +59,12 @@ class BahamutCmdManager
         }
     }
     
-    @discardableResult
     func handleBahamutEncodedCmd(_ cmdEncoded:String,object:AnyObject? = nil) {
         if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
             handleBahamutCmd(cmd,object: object)
         }
     }
     
-    @discardableResult
     func handleBahamutEncodedCmdWithMainQueue(_ cmdEncoded:String,object:AnyObject? = nil)
     {
         if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
@@ -74,7 +72,6 @@ class BahamutCmdManager
         }
     }
     
-    @discardableResult
     func handleBahamutEncodedCmdWithGlobalQueue(_ cmdEncoded:String,object:AnyObject? = nil)
     {
         if let cmd = BahamutCmd.decodeBahamutCmd(cmdEncoded){
@@ -82,7 +79,6 @@ class BahamutCmdManager
         }
     }
     
-    @discardableResult
     func handleBahamutCmd(_ cmd:String,object:AnyObject? = nil)
     {
         

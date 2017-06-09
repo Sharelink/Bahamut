@@ -191,7 +191,6 @@ extension PersistentManager
         clearArrCache(T.self)
     }
     
-    @discardableResult
     func removeModels<T:BahamutObject>(_ models:[T])
     {
         if models.count == 0

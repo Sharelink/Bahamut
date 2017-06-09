@@ -155,7 +155,7 @@ class UIAnimationHelper {
         animation.repeatCount = 0
         animation.autoreverses = true
         animation.isRemovedOnCompletion = true
-        animation.fillMode = kCAFillModeForwards;
+        animation.fillMode = kCAFillModeForwards
         playAnimation(view, animation: animation, key: "animationMaxToMin", completion: completion)
     }
     
