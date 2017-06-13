@@ -8,7 +8,7 @@
 
 import Foundation
 
-////Install framework with podfile: pod 'VungleSDK-iOS'
+//Install framework with podfile: pod 'VungleSDK-iOS'
 //Import h file in Bridge Header: #import <VungleSDK/VungleSDK.h>
 
 extension AdManager{
