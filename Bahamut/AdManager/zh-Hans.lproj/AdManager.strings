@@ -1,0 +1,8 @@
+/* 
+  AdManagerStrings.strings
+
+  Created by Alex Chow on 2017/5/24.
+  Copyright © 2017年 Bahamut. All rights reserved.
+*/
+CLOSE_BANNER_AD = "关闭横幅广告";
+CLOSE_BANNER_AD_TIPS = "点击横幅广告后可以关闭广告30分钟";

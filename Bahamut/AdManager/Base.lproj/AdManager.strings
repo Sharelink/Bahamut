@@ -1,0 +1,8 @@
+/* 
+  AdManagerStrings.strings
+
+  Created by Alex Chow on 2017/5/24.
+  Copyright © 2017年 Bahamut. All rights reserved.
+*/
+CLOSE_BANNER_AD = "Close Banner Ad";
+CLOSE_BANNER_AD_TIPS = "Click banner Ad once can close banner Ad for 30 minutes";
