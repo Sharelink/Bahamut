@@ -17,6 +17,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+#local libs
+Bahamut/AdManager/libs/libGDTMobSDK.a
+
 #Bahamut secret config
 *BahamutConfig.json
 *BahamutConfigJson.swift
