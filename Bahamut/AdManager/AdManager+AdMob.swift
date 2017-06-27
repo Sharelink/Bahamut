@@ -5,17 +5,17 @@
 //  Created by Alex Chow on 2017/5/22.
 //  Copyright © 2017年 Bahamut. All rights reserved.
 //
+//Install framework with podfile: pod 'GoogleMobileAds' or pod 'Firebase/AdMob' if using firebase
 
 import Foundation
 import GoogleMobileAds
 
 class AdMobConfig {
-    var appId:String! = "ca-app-pub-7838252230258105~2311924076"
-    
-    var banner:String! = "ca-app-pub-7838252230258105/4986188878"
-    var inter:String! = "ca-app-pub-7838252230258105/6462922072"
-    var native:String! = "ca-app-pub-7838252230258105/9401212079"
-    var reward:String! = "ca-app-pub-7838252230258105/9416388474"
+    var appId:String! = nil
+    var banner:String!
+    var inter:String!
+    var native:String!
+    var reward:String!
     
     static var testDevices = [kGADSimulatorID]
 }
@@ -31,6 +31,7 @@ extension AdConfig{
                 configInstance.inter = dict["inter"] as? String
                 configInstance.native = dict["native"] as? String
                 configInstance.reward = dict["reward"] as? String
+                configInstance.banner = dict["banner"] as? String
                 if let testDevices = dict["testDevices"] as? [AnyObject]{
                     AdMobConfig.testDevices.append(contentsOf: testDevices)
                 }

@@ -12,10 +12,10 @@ import Foundation
 import FBAudienceNetwork
 
 class FBAdConfig {
-    var appId:String! = "261188761023242_261188884356563"
-    var banner:String! = "261188761023242_261188884356563"
-    var inter:String! = "261188761023242_261188997689885"
-    var native:String! = "261188761023242_261275851014533"
+    var appId:String!
+    var banner:String!
+    var inter:String!
+    var native:String!
     
     static var testDevices = [String]()
 }
@@ -97,6 +97,10 @@ extension AdManager:FBInterstitialAdDelegate{
     func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         debugPrint(error)
         Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(AdManager.interstitialFbAdTimerTick(a:)), userInfo: nil, repeats: false)
+    }
+    
+    func interstitialAdDidClose(_ interstitialAd: FBInterstitialAd) {
+        self.createFBInterstitialAd()
     }
     
     func interstitialFbAdTimerTick(a:Timer) {

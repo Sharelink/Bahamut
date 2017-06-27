@@ -35,7 +35,10 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
         super.viewDidLoad()
         webView = UIWebView(frame: self.view.bounds)
         self.view.addSubview(webView)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE".bahamutCommonLocalizedString, style: .plain, target: self, action: #selector(SimpleBrowser.back(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop, target: self, action: #selector(SimpleBrowser.back(_:)))
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(SimpleBrowser.action(_:)))
+        
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SimpleBrowser.swipeLeft(_:)))
         leftSwipe.direction = .left
         
@@ -63,6 +66,20 @@ class SimpleBrowser: UIViewController,UIWebViewDelegate
     func back(_ sender: AnyObject)
     {
         self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func action(_ sender: AnyObject) {
+        var items = [Any]()
+        if let u = url,let ul = URL(string: u) {
+            items.append(ul)
+        }
+        let ac = UIActivityViewController(activityItems:items, applicationActivities: nil)
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        ac.excludedActivityTypes = [.airDrop,.addToReadingList,.print,.assignToContact]
+        if #available(iOS 9.0, *) {
+            ac.excludedActivityTypes?.append(.openInIBooks)
+        }
+        self.present(ac, animated: true)
     }
     
     fileprivate func loadUrl()

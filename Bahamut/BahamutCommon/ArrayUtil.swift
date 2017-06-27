@@ -27,6 +27,17 @@ public extension Array
         return result
     }
     
+    @discardableResult
+    public mutating func removeFirstElement(_ predict:(_ itemInArray:Element) -> Bool) ->Element?
+    {
+        for i in 0..<self.count {
+            if predict(self[i]) {
+                return self.remove(at: i)
+            }
+        }
+        return nil
+    }
+    
     public func toMap<T:Hashable>(_ m:(_ elem:Element)-> T) -> [T:Element]
     {
         var result = [T:Element]()

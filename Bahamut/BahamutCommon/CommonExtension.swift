@@ -23,3 +23,23 @@ func isHeadPhoneInserted(includeBluetooth:Bool = true) -> Bool {
     }
     return false
 }
+
+class VersionReader {
+    static var appVersion:String{
+        if let infoDic = Bundle.main.infoDictionary
+        {
+            let version = infoDic["CFBundleShortVersionString"] as! String
+            return version
+        }
+        return "1.0"
+    }
+    
+    static var buildVersion:Int{
+        if let infoDic = Bundle.main.infoDictionary
+        {
+            let version = infoDic["CFBundleVersion"] as! String
+            return Int(version) ?? 1
+        }
+        return 1
+    }
+}

@@ -12,10 +12,10 @@
 import Foundation
 
 class GDTConfig {
-    var appId:String! = "1106178376"
-    var banner:String! = "9050926247357407"
-    var inter:String! = "9070527247557426"
-    var splash:String! = "8070121267851498"
+    var appId:String!
+    var banner:String!
+    var inter:String!
+    var splash:String!
     var native:String!
 }
 
@@ -176,6 +176,7 @@ extension AdManager:GDTSplashAdDelegate{
     
     func configureGDTAndShowSplashAd(window:UIWindow,bottomLogo:UIImage,delay:TimeInterval) {
         let logo = UIImageView(image:bottomLogo)
+        logo.contentMode = .center
         let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 100))
         bottomView.addSubview(logo)
         logo.center = bottomView.center
@@ -201,7 +202,9 @@ extension AdManager:GDTSplashAdDelegate{
     
     private func trySetRootVC() {
         if let rvc = rootViewController{
-            keyWindow?.rootViewController = rvc
+            DispatchQueue.main.async {
+                keyWindow?.rootViewController = rvc
+            }
         }
     }
 }
