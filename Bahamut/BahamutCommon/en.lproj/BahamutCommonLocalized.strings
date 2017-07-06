@@ -42,6 +42,7 @@ SUCCESS = "Success";
 FAIL = "Fail";
 NO = "No";
 OK = "Ok";
+SURE = "Sure";
 I_SEE = "I See";
 REMOVE = "Remove";
 BACK = "Back";

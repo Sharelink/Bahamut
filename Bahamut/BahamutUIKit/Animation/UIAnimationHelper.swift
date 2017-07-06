@@ -200,3 +200,10 @@ extension DispatchQueue{
         self.asyncAfter(deadline: time,execute: handler)
     }
 }
+
+extension CAAnimation{
+    func setStorePropertyOnComplete() {
+        self.isRemovedOnCompletion = false
+        self.fillMode = kCAFillModeForwards
+    }
+}

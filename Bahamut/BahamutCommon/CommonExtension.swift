@@ -24,6 +24,20 @@ func isHeadPhoneInserted(includeBluetooth:Bool = true) -> Bool {
     return false
 }
 
+//4s Or Older
+func isSmallScreenDevice() -> Bool{
+    let size = UIScreen.main.bounds
+    return max(size.width, size.height) < 568
+}
+
+func isIPadDevice() -> Bool {
+    return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+}
+
+func isIPhoneDevice() -> Bool {
+    return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+}
+
 class VersionReader {
     static var appVersion:String{
         if let infoDic = Bundle.main.infoDictionary

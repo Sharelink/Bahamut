@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class Math {
-    static func distanceOf2Points(_ p1:CGPoint,p2:CGPoint) -> Double{
-        return sqrt(pow(Double(p1.x) - Double(p2.x), 2) - pow(Double(p1.y) - Double(p2.y), 2))
+    static func distanceOf2Points(_ p1:CGPoint,p2:CGPoint) -> CGFloat{
+        return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))
     }
 }
 

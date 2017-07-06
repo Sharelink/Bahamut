@@ -49,6 +49,7 @@ SUCCESS = "成功";
 FAIL = "失败";
 NO = "否";
 OK = "好";
+SURE = "可以";
 I_SEE = "知道了";
 REMOVE = "移除";
 BACK = "返回";

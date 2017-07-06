@@ -22,6 +22,8 @@ class AdBannerContainer: UIView {
     static let onBannerSetVisible = Notification.Name("AdBannerContainer.onBannerSetVisible")
     var rootController:UIViewController!
     
+    var closeHandler:((AdBannerContainer)->Void)?
+    
     private var hideUntil:Date!
     
     private var autoSwitchBannerInterval:TimeInterval = 0
@@ -54,7 +56,11 @@ class AdBannerContainer: UIView {
     }
     
     func onCloseClick(a:UITapGestureRecognizer) {
-        self.rootController?.showAlert("CLOSE_BANNER_AD".adMgrLocalized(), msg: "CLOSE_BANNER_AD_TIPS".adMgrLocalized())
+        if closeHandler == nil{
+            self.rootController?.showAlert("CLOSE_BANNER_AD".adMgrLocalized(), msg: "CLOSE_BANNER_AD_TIPS".adMgrLocalized())
+        }else{
+            closeHandler?(self)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -172,7 +178,6 @@ class AdBannerContainer: UIView {
                     }
                     let front = self.banners[curIndex].banner
                     self.bringSubview(toFront: front)
-                    debugPrint("switchBanner")
                     UIView.beginAnimations(nil, context: nil)
                     UIView.setAnimationDuration(1)
                     front.alpha = 1
