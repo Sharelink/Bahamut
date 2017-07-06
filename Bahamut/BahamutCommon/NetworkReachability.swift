@@ -9,15 +9,23 @@
 import Foundation
 import Alamofire
 
-class NetworkReachability {
+let NetworkReachabilityStatusChanged = Notification.Name(rawValue: "NetworkReachabilityStatusChanged")
+let kNetworkReachabilityStatusValue = "kNetworkReachabilityStatusValue"
+
+class NetworkReachability:NotificationCenter {
     static private(set) var manager:NetworkReachabilityManager!
+    static let shared:NetworkReachability = {
+        return NetworkReachability()
+    }()
     
     static func startListenNetworking() {
         if manager == nil{
             manager = NetworkReachabilityManager(host: "www.baidu.com") ?? NetworkReachabilityManager(host: "www.google.com")
         }
         if manager?.listener == nil{
-            manager?.listener = { status in }
+            manager?.listener = { status in
+                shared.post(name: NetworkReachabilityStatusChanged, object: shared, userInfo: [kNetworkReachabilityStatusValue:status])
+            }
             manager?.startListening()
         }
     }
