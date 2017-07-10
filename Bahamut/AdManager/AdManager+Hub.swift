@@ -7,24 +7,40 @@
 //
 
 import Foundation
+private var videoAdTimes = 0
+private var interstitialAdTimes = 0
+
 extension AdManager{
-    func playVideoAd(vc:UIViewController, times:Int) -> Bool {
-        if times % 2 == 0 {
-            return AdManager.shared.playVungleAdVideo(controller: vc) || AdManager.shared.playGADRewardAd(controller: vc)
-        }else{
-            return AdManager.shared.playGADRewardAd(controller: vc) || AdManager.shared.playVungleAdVideo(controller: vc)
+    func playVideoAd(vc:UIViewController, times:Int = -1) -> Bool {
+        let switchAd = times >= 0 ? times : videoAdTimes
+        
+        let played = (switchAd % 2 == 0) ? (AdManager.shared.playVungleAdVideo(controller: vc) || AdManager.shared.playGADRewardAd(controller: vc)) :
+            (AdManager.shared.playGADRewardAd(controller: vc) || AdManager.shared.playVungleAdVideo(controller: vc))
+        if played{
+            videoAdTimes += 1
         }
+        return played
     }
 }
 
 extension AdManager{
-    func showInterstitialAd(vc:UIViewController,times:Int) -> Bool {
-        if times % 3 == 0 {
-            return AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc)
-        }else if times % 2 == 0{
-            return AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc)
+    func showInterstitialAd(vc:UIViewController,times:Int = -1) -> Bool {
+        let switchAd = times >= 0 ? times : interstitialAdTimes
+        
+        var played = false
+        
+        if switchAd % 3 == 0 {
+            played = AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc)
+        }else if switchAd % 2 == 0{
+            played = AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc)
         }else{
-            return AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc)
+            played = AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc)
         }
+        
+        if played{
+            interstitialAdTimes += 1
+        }
+        
+        return played
     }
 }

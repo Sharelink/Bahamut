@@ -12,13 +12,35 @@ class ShareHelper {
     static let shareWithType = Notification.Name("ShareHelper_shareWithType")
     static let shareShown = Notification.Name("ShareHelper_shareShown")
     
+    static let snsTypes:[UIActivityType] = [
+        UIActivityType.postToVimeo,
+        UIActivityType.postToWeibo,
+        UIActivityType.postToFlickr,
+        UIActivityType.postToTwitter,
+        UIActivityType.postToFacebook,
+        UIActivityType.postToTencentWeibo,
+        UIActivityType.mail,
+        UIActivityType.message
+    ]
+    
+    static let snsBundlePrefix:[String] = [
+        "com.tencent",
+        "com.burbn.instagram",
+        "com.tumblr",
+        "com.google.GooglePlus",
+        "jp.naver.line",
+        "com.toyopagroup.picaboo"
+    ]
+    
     static func share(vc:UIViewController,shareItems:[Any],srcView:UIView? = nil, srcBarItem:UIBarButtonItem? = nil, srcRect:CGRect? = nil) {
         let ac = UIActivityViewController(activityItems:shareItems, applicationActivities: nil)
         ac.completionWithItemsHandler = { (type, flag, userInfo, error) in
             if error != nil{
                 NotificationCenter.default.post(name: shareError, object: self, userInfo: ["error":error!])
             }else if let t = type{
-                NotificationCenter.default.post(name: shareWithType, object: self, userInfo: ["type":t.rawValue,"suc":"\(flag)"])
+                if snsTypes.contains(t) || (snsBundlePrefix.contains(where: {t.rawValue.hasBegin($0)})){
+                    NotificationCenter.default.post(name: shareWithType, object: self, userInfo: ["type":t.rawValue,"suc":"\(flag)"])
+                }
             }
         }
         

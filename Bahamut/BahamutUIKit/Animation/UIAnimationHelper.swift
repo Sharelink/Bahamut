@@ -24,9 +24,9 @@ extension UIView:CAAnimationDelegate
         UIAnimationHelper.shakeAnimationForView(self,repeatTimes:repeatTimes,completion: completion)
     }
     
-    func animationMaxToMin(_ duration:Double = 0.2,maxScale:CGFloat = 1.1,completion:AnimationCompletedHandler! = nil)
+    func animationMaxToMin(_ duration:Double = 0.2,maxScale:CGFloat = 1.1,repeatCount:Float = 0,completion:AnimationCompletedHandler! = nil)
     {
-        UIAnimationHelper.animationMaxToMin(self,duration:duration,maxScale: maxScale,completion: completion)
+        UIAnimationHelper.animationMaxToMin(self,duration:duration,maxScale: maxScale,repeatCount:repeatCount,completion: completion)
     }
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
@@ -146,13 +146,13 @@ class UIAnimationHelper {
         playAnimation(view, animation: animation, key: "flyToTopForView", completion: completion)
     }
     
-    static func animationMaxToMin(_ view:UIView,duration:Double,maxScale:CGFloat,completion:AnimationCompletedHandler! = nil){
+    static func animationMaxToMin(_ view:UIView,duration:Double,maxScale:CGFloat,repeatCount:Float = 0,completion:AnimationCompletedHandler! = nil){
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.fromValue = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.toValue = maxScale
         animation.duration = duration
-        animation.repeatCount = 0
+        animation.repeatCount = repeatCount
         animation.autoreverses = true
         animation.isRemovedOnCompletion = true
         animation.fillMode = kCAFillModeForwards

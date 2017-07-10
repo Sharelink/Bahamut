@@ -3,7 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>Vungle</key>
-	<string>5923cee7c5ee0fcf13000f4e</string>
+	<dict>
+		<key>vungleId</key>
+		<string>5923cee7c5ee0fcf13000f4e</string>
+		<key>placements</key>
+		<array>
+			<string>GAMEOVE79205</string>
+		</array>
+	</dict>
 	<key>GDT</key>
 	<dict>
 		<key>appId</key>
