@@ -29,11 +29,9 @@ extension AdManager{
         
         var played = false
         
-        if switchAd % 3 == 0 {
-            played = AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc)
-        }else if switchAd % 2 == 0{
-            played = AdManager.shared.playGDTAdInterstitia(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc)
-        }else{
+        if switchAd % 2 == 0 {
+            played = AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc)
+        }else {
             played = AdManager.shared.playFBInterstitialAd(vc: vc) || AdManager.shared.playGADInterstitial(controller: vc) || AdManager.shared.playGDTAdInterstitia(controller: vc)
         }
         

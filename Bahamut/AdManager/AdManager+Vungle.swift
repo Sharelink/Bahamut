@@ -30,17 +30,31 @@ extension AdManager{
     func playVungleAdVideo(controller:UIViewController,placementIndex:Int = 0) -> Bool{
         if vunglePlacements != nil && vunglePlacements.count > placementIndex{
             return playVungleAdVideo(controller: controller, placement: vunglePlacements[placementIndex])
+        }else{
+            return playVungleAdVideo(controller: controller, placement: nil)
         }
-        return false
     }
     
-    func playVungleAdVideo(controller:UIViewController,placement:String) -> Bool {
-        do {
-            
-            try VungleSDK.shared().playAd(controller, placementID: placement)
-        } catch {
+    func playVungleAdVideo(controller:UIViewController,placement:String?) -> Bool {
+        if !VungleSDK.shared().isInitialized{
             return false
+        }else if let pid = placement {
+            if VungleSDK.shared().isAdCached(forPlacementID: pid){
+                do {
+                    try VungleSDK.shared().playAd(controller, placementID: placement)
+                    return true
+                } catch let err{
+                    debugPrint("Play Vungle Ad Error:\(err)")
+                }
+            }
         }
-        return true
+        
+        do{
+            try VungleSDK.shared().playAd(controller, options: nil, placementID: nil)
+            return true
+        }catch let err{
+            debugPrint("Play Vungle Ad Error:\(err)")
+        }
+        return false
     }
 }
