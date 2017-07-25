@@ -7,7 +7,9 @@
 //
 
 import Foundation
-class ShareHelper {
+
+class ShareHelper:NSObject {
+    
     static let shareError = Notification.Name("ShareHelper_shareError")
     static let shareWithType = Notification.Name("ShareHelper_shareWithType")
     static let shareShown = Notification.Name("ShareHelper_shareShown")
@@ -32,6 +34,15 @@ class ShareHelper {
         "com.toyopagroup.picaboo"
     ]
     
+    static var shareSNSTimes:Int{
+        get{
+            return UserSetting.getUserIntValue("shareSNSTimes")
+        }
+        set{
+            UserSetting.setUserIntValue("shareSNSTimes", value: newValue)
+        }
+    }
+    
     static func share(vc:UIViewController,shareItems:[Any],srcView:UIView? = nil, srcBarItem:UIBarButtonItem? = nil, srcRect:CGRect? = nil) {
         let ac = UIActivityViewController(activityItems:shareItems, applicationActivities: nil)
         ac.completionWithItemsHandler = { (type, flag, userInfo, error) in
@@ -39,6 +50,7 @@ class ShareHelper {
                 NotificationCenter.default.post(name: shareError, object: self, userInfo: ["error":error!])
             }else if let t = type{
                 if snsTypes.contains(t) || (snsBundlePrefix.contains(where: {t.rawValue.hasBegin($0)})){
+                    shareSNSTimes += 1
                     NotificationCenter.default.post(name: shareWithType, object: self, userInfo: ["type":t.rawValue,"suc":"\(flag)"])
                 }
             }

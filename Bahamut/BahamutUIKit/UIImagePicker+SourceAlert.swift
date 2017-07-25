@@ -24,7 +24,7 @@ extension UIImagePickerController{
             camera.setValue(cameraIcon, forKey: "image")
         }
         
-        if !isInSimulator() {
+        if !UIDevice.isSimulator() {
             alert.addAction(camera)
         }
         

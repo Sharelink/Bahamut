@@ -11,8 +11,9 @@ private var videoAdTimes = 0
 private var interstitialAdTimes = 0
 
 extension AdManager{
-    func playVideoAd(vc:UIViewController, times:Int = -1) -> Bool {
-        let switchAd = times >= 0 ? times : videoAdTimes
+    @discardableResult
+    func playVideoAd(vc:UIViewController, adIndex:Int = -1) -> Bool {
+        let switchAd = adIndex >= 0 ? adIndex : videoAdTimes
         
         let played = (switchAd % 2 == 0) ? (AdManager.shared.playVungleAdVideo(controller: vc) || AdManager.shared.playGADRewardAd(controller: vc)) :
             (AdManager.shared.playGADRewardAd(controller: vc) || AdManager.shared.playVungleAdVideo(controller: vc))
@@ -24,8 +25,9 @@ extension AdManager{
 }
 
 extension AdManager{
-    func showInterstitialAd(vc:UIViewController,times:Int = -1) -> Bool {
-        let switchAd = times >= 0 ? times : interstitialAdTimes
+    @discardableResult
+    func showInterstitialAd(vc:UIViewController,adIndex:Int = -1) -> Bool {
+        let switchAd = adIndex >= 0 ? adIndex : interstitialAdTimes
         
         var played = false
         
