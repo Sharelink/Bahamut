@@ -5,6 +5,7 @@
 //  Created by Alex Chow on 2017/7/6.
 //  Copyright © 2017年 Bahamut. All rights reserved.
 //
+//Podfile : pod 'Alamofire'
 
 import Foundation
 import Alamofire

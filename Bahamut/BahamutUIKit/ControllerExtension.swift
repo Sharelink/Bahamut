@@ -58,3 +58,11 @@ class UIOrientationsNavigationController: UINavigationController ,OrientationsNa
         return UIInterfaceOrientationMask.all
     }
 }
+
+extension UIViewController{
+    func setOverCurrentContext() {
+        self.modalPresentationStyle = .overCurrentContext
+        self.providesPresentationContextTransitionStyle = true
+        self.definesPresentationContext = true
+    }
+}

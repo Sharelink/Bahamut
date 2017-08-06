@@ -15,6 +15,24 @@ class Math {
     }
 }
 
+extension Math{
+    static func setFakeRandomSeed(seed:Int) {
+        srand48(seed)
+    }
+    
+    static func fakeRandom() -> Double {
+        return drand48()
+    }
+    
+    static func fakeIntRandom(max:Int = Int.max) -> Int{
+        return Int(drand48() * Double(max))
+    }
+    
+    static func fakeInt64Random(max:Int64 = Int64.max) -> Int64{
+        return Int64(drand48() * Double(max))
+    }
+}
+
 func random() -> Int {
     return NSNumber(value: arc4random() as UInt32).intValue
 }
