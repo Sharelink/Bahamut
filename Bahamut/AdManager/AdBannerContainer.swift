@@ -17,12 +17,19 @@ class BannerViewInfo{
     var isReady = false
 }
 
+protocol AdBannerContainerClickCloseButtonDelegate : class{
+    func onAdBannerCloseButtonClicked(sender:AdBannerContainer)
+}
+
 class AdBannerContainer: UIView {
+    
+    
+    
     static let onBannerSetHidden = Notification.Name("AdBannerContainer.onBannerSetHidden")
     static let onBannerSetVisible = Notification.Name("AdBannerContainer.onBannerSetVisible")
-    var rootController:UIViewController!
+    weak var rootController:UIViewController!
     
-    var closeHandler:((AdBannerContainer)->Void)?
+    weak var closeHandler:AdBannerContainerClickCloseButtonDelegate?
     
     private var hideUntil:Date!
     
@@ -59,13 +66,20 @@ class AdBannerContainer: UIView {
         if closeHandler == nil{
             self.rootController?.showAlert("CLOSE_BANNER_AD".adMgrLocalized(), msg: "CLOSE_BANNER_AD_TIPS".adMgrLocalized())
         }else{
-            closeHandler?(self)
+            closeHandler?.onAdBannerCloseButtonClicked(sender: self)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initCloseImage()
+    }
+    
+    deinit {
+        self.timer?.invalidate()
+        self.timer = nil
+        self.removeAllSubviews()
+        debugLog("Deinited:\(self.description)")
     }
     
     private func initCloseImage(){
@@ -113,7 +127,7 @@ class AdBannerContainer: UIView {
     }
     
     func schaduleAdSwitchTimer(switchBannerInterval:TimeInterval){
-        self.autoSwitchBannerInterval = switchBannerInterval
+        self.autoSwitchBannerInterval = max(switchBannerInterval, 2)
         self.timer?.invalidate()
         if autoSwitchBannerInterval <= 0 {
             self.timer = nil

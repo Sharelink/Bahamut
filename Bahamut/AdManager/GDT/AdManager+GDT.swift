@@ -135,9 +135,9 @@ extension AdManager:GDTMobInterstitialDelegate{
     }
 }
 
-var splashAdLoaded = false
-var rootViewController:UIViewController!
-var keyWindow:UIWindow!
+private var splashAdLoaded = false
+private var rootViewController:UIViewController!
+private var keyWindow:UIWindow!
 
 extension AdManager:GDTSplashAdDelegate{
     
@@ -148,9 +148,13 @@ extension AdManager:GDTSplashAdDelegate{
             rootViewController = rootVC
             keyWindow = window
             window.rootViewController = launchScr
+            window.makeKeyAndVisible()
             DispatchQueue.main.afterMS(dismissAfterMS, handler: {
                 if splashAdLoaded == false{
                     window.rootViewController = rootVC
+                    window.makeKeyAndVisible()
+                    rootViewController = nil
+                    keyWindow = nil
                 }
             })
         }
@@ -204,6 +208,9 @@ extension AdManager:GDTSplashAdDelegate{
         if let rvc = rootViewController{
             DispatchQueue.main.async {
                 keyWindow?.rootViewController = rvc
+                keyWindow?.makeKeyAndVisible()
+                rootViewController = nil
+                keyWindow = nil
             }
         }
     }
