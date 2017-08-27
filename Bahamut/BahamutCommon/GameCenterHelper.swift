@@ -12,9 +12,19 @@ import GameKit
 class GameCenterHelper:NSObject,GKGameCenterControllerDelegate {
     private(set) static var gameCenterAvailable = false
     
+    private(set) static var authViewController:UIViewController?
+    
     static let shared:GameCenterHelper = {
         return GameCenterHelper()
     }()
+    
+    func tryShowAuthViewController(vc:UIViewController,completion:(()->Void)? = nil) -> Bool {
+        if let gvc = GameCenterHelper.authViewController{
+            vc.present(gvc, animated: true, completion: completion)
+            return true
+        }
+        return false
+    }
     
     func authorizeGameCenter(callback:@escaping (UIViewController?,Error?)->Void) {
         let localPlayer = GKLocalPlayer.localPlayer()
@@ -22,6 +32,7 @@ class GameCenterHelper:NSObject,GKGameCenterControllerDelegate {
             if localPlayer.isAuthenticated{
                 GameCenterHelper.gameCenterAvailable = true
             }
+            GameCenterHelper.authViewController = vc
             callback(vc, err)
         }
     }
