@@ -199,6 +199,10 @@ extension DispatchQueue{
         let time = DispatchTime.now() + Double(NSNumber(value: NSEC_PER_MSEC * ms as UInt64).int64Value) / Double(NSEC_PER_SEC)
         self.asyncAfter(deadline: time,execute: handler)
     }
+    
+    static func background() -> DispatchQueue {
+        return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+    }
 }
 
 extension CAAnimation{

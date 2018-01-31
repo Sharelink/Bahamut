@@ -82,3 +82,29 @@ extension UIColor
     }
 }
 
+
+extension UIColor{
+    static var sky:UIColor{
+        return UIColor(hexString: "#66CCFF")
+    }
+    
+    static var ice:UIColor{
+        return UIColor(hexString: "#66FFFF")
+    }
+    
+    static var turquoise:UIColor{
+        return UIColor(hexString: "#00FFFF")
+    }
+    
+    static var seaFoam:UIColor{
+        return UIColor(hexString: "#00FF80")
+    }
+    
+    static var lime:UIColor{
+        return UIColor(hexString: "#80FF00")
+    }
+    
+    static var banana:UIColor{
+        return UIColor(hexString: "#FFFF66")
+    }
+}
